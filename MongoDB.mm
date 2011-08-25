@@ -10,7 +10,7 @@
 #import "NSString+Extras.h"
 #import <RegexKit/RegexKit.h>
 #import <mongo/client/dbclient.h>
-#import <mongo/util/sock.h>
+#import <mongo/util/net/sock.h>
 
 extern "C" {
     void MongoDB_enableIPv6(bool flag)

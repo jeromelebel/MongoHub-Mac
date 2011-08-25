@@ -504,7 +504,7 @@
     std::auto_ptr<std::ofstream> fileStream;
     std::ofstream * s = new std::ofstream( [[expPathTextField stringValue] UTF8String] , std::ios_base::out );
     fileStream.reset( s );
-    ostream *outPtr = &std::cout;
+    std::ostream *outPtr = &std::cout;
     outPtr = s;
     if ( ! s->good() ) {
         NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"Couldn't open [%@]", [expPathTextField stringValue]], @"OK", nil, nil);
@@ -590,7 +590,7 @@
         i ++;
     }
     if ( exportType == 1 && _jsonArray) 
-        out << ']' << endl;
+        out << ']' << std::endl;
     [expProgressIndicator stopAnimation: self];
     [expResultsTextField setStringValue:[NSString stringWithFormat:@"Exported %d records.", total]];
     [NSThread exit];
@@ -830,7 +830,11 @@
 {
     NSString *critical;
     if ([[criticalTextField stringValue] isPresent]) {
-        critical = [[NSString alloc] initWithString:[criticalTextField stringValue]];
+        if ([[criticalTextField stringValue] hasPrefix:@"{"]) {
+            critical = [[NSString alloc] initWithString:[criticalTextField stringValue]];
+        }else {
+            critical = [[NSString alloc] initWithFormat:@"{\"_id\":\"%@\"}",[criticalTextField stringValue]];
+        }
     }else {
         critical = [[NSString alloc] initWithString:@""];
     }
