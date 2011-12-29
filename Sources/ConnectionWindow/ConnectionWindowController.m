@@ -538,13 +538,17 @@
 - (IBAction)query:(id)sender
 {
     if (![self selectedCollectionItem]) {
-        NSRunAlertPanel(@"Error", @"Please choose a collection!", @"OK", nil, nil);
-        return;
+        if (![_databaseCollectionOutlineView isItemExpanded:[_databaseCollectionOutlineView itemAtRow:[_databaseCollectionOutlineView selectedRow]]]) {
+            [_databaseCollectionOutlineView expandItem:[_databaseCollectionOutlineView itemAtRow:[_databaseCollectionOutlineView selectedRow]] expandChildren:NO];
+        } else {
+            [_databaseCollectionOutlineView collapseItem:[_databaseCollectionOutlineView itemAtRow:[_databaseCollectionOutlineView selectedRow]]];
+        }
+    } else {
+        MHQueryWindowController *queryWindowController = [[MHQueryWindowController alloc] init];
+        queryWindowController.mongoCollection = [self selectedCollectionItem].mongoCollection;
+        queryWindowController.connectionStore = _connectionStore;
+        [queryWindowController showWindow:sender];
     }
-    MHQueryWindowController *queryWindowController = [[MHQueryWindowController alloc] init];
-    queryWindowController.mongoCollection = [self selectedCollectionItem].mongoCollection;
-    queryWindowController.connectionStore = _connectionStore;
-    [queryWindowController showWindow:sender];
 }
 
 - (IBAction)showAuth:(id)sender

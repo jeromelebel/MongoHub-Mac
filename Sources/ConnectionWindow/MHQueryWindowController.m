@@ -282,7 +282,7 @@
     NSString *criteria = [removeCriticalTextField stringValue];
     
     [_mongoCollection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
-        [updateResultsTextField setStringValue:[NSString stringWithFormat:@"Affected Rows: %lld", count]];
+        [removeResultsTextField setStringValue:[NSString stringWithFormat:@"Affected Rows: %lld", count]];
     }];
     [_mongoCollection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
         [removeQueryLoaderIndicator stop];
@@ -297,6 +297,7 @@
     [insertLoaderIndicator start];
     objects = [MODJsonToObjectParser objectsFromJson:[insertDataTextView string] error:&error];
     if (error) {
+        [insertLoaderIndicator stop];
         NSRunAlertPanel(@"Error", [error localizedDescription], @"OK", nil, nil);
     } else {
         if ([objects isKindOfClass:[MODSortedMutableDictionary class]]) {
