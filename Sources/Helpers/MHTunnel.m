@@ -347,7 +347,7 @@ static int GetFirstChildPID(int pid)
     
     for (NSString *pf in portForwardings) {
         NSArray* pfa = [pf componentsSeparatedByString:@":"];
-        if ([[pfa objectAtIndex:1] length] == 0) {
+        if ([[pfa objectAtIndex:1] isEqualToString:@"127.0.0.1"]) {
             [pfs appendFormat:@"%@ -%@ %@:%@:%@", pfs, [pfa objectAtIndex:0], [pfa objectAtIndex:2], [pfa objectAtIndex:3], [pfa objectAtIndex:4]];
         } else {
             [pfs appendFormat:@"%@ -%@ %@:%@:%@:%@", pfs, [pfa objectAtIndex:0], [pfa objectAtIndex:1], [pfa objectAtIndex:2], [pfa objectAtIndex:3], [pfa objectAtIndex:4]];

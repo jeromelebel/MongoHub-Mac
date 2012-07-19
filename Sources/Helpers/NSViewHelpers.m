@@ -31,7 +31,11 @@ static NSString *keyForTargetAndSelector(id target, NSString *selector)
             
             currentColor = [info objectForKey:@"currentcolor"];
             [self performSelector:@selector(updateColor:) withObject:info afterDelay:TIME_STEP];
-            newColor = [NSColor colorWithSRGBRed:[currentColor redComponent] + [[info objectForKey:@"deltared"] floatValue] green:[currentColor greenComponent] + [[info objectForKey:@"deltagreen"] floatValue] blue:[currentColor blueComponent] + [[info objectForKey:@"deltablue"] floatValue] alpha:[currentColor alphaComponent] + [[info objectForKey:@"deltaalpha"] floatValue]];
+            
+            CGFloat currentColorComponents[4];
+            [currentColor getComponents:currentColorComponents];
+            
+            newColor = [NSColor colorWithDeviceRed:currentColorComponents[0] + [[info objectForKey:@"deltared"] floatValue] green:currentColorComponents[1] + [[info objectForKey:@"deltagreen"] floatValue] blue:currentColorComponents[2] + [[info objectForKey:@"deltablue"] floatValue] alpha:currentColorComponents[3] + [[info objectForKey:@"deltaalpha"] floatValue]];
             [info setObject:newColor forKey:@"currentcolor"];
         } else {
             newColor = [info objectForKey:@"destinationcolor"];
@@ -67,10 +71,16 @@ static NSString *keyForTargetAndSelector(id target, NSString *selector)
     stringSelector = NSStringFromSelector(selector);
     destinationColor = [destinationColor colorUsingColorSpace:[NSColorSpace deviceRGBColorSpace]];
     originColor = [originColor colorUsingColorSpace:[NSColorSpace deviceRGBColorSpace]];
-    red = [[NSNumber alloc] initWithFloat:([destinationColor redComponent] - [originColor redComponent]) * TIME_STEP / delay];
-    green = [[NSNumber alloc] initWithFloat:([destinationColor greenComponent] - [originColor greenComponent]) * TIME_STEP / delay];
-    blue = [[NSNumber alloc] initWithFloat:([destinationColor blueComponent] - [originColor blueComponent]) * TIME_STEP / delay];
-    alpha = [[NSNumber alloc] initWithFloat:([destinationColor alphaComponent] - [originColor alphaComponent]) * TIME_STEP / delay];
+
+    CGFloat destComponents[4];
+    CGFloat originComponents[4];
+    [destinationColor getComponents:destComponents];
+    [originColor getComponents:originComponents];
+    
+    red = [[NSNumber alloc] initWithFloat:(destComponents[0] - originComponents[0]) * TIME_STEP / delay];
+    green = [[NSNumber alloc] initWithFloat:(destComponents[1] - originComponents[1]) * TIME_STEP / delay];
+    blue = [[NSNumber alloc] initWithFloat:(destComponents[2] - originComponents[2]) * TIME_STEP / delay];
+    alpha = [[NSNumber alloc] initWithFloat:(destComponents[3] - originComponents[3]) * TIME_STEP / delay];
     info = [[NSMutableDictionary alloc] initWithObjectsAndKeys:destinationColor, @"destinationcolor", originColor, @"currentcolor", red, @"deltared", blue, @"deltablue", green, @"deltagreen", alpha, @"deltaalpha", target, @"target", stringSelector, @"selector", [NSDate dateWithTimeIntervalSinceNow:delay], @"datedestination", nil];
     [self performSelector:@selector(updateColor:) withObject:info afterDelay:TIME_STEP];
     [colorInfo setObject:info forKey:keyForTargetAndSelector(target, stringSelector)];

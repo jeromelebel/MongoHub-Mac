@@ -246,6 +246,9 @@
         currentColor = totalResultsTextField.textColor;
         totalResultsTextField.textColor = [NSColor redColor];
         [NSViewHelpers setColor:currentColor fromColor:[NSColor redColor] toTarget:totalResultsTextField withSelector:@selector(setTextColor:) delay:1];
+        [findQueryLoaderIndicator stopAnimation:self];
+
+        
     }];
     [fields release];
     [queryTitle release];
