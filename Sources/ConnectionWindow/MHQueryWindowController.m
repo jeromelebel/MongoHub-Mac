@@ -37,6 +37,7 @@
 @synthesize updateCriticalTextField;
 @synthesize updateSetTextField;
 @synthesize upsetCheckBox;
+@synthesize multiCheckBox;
 @synthesize updateResultsTextField;
 @synthesize updateQueryTextField;
 @synthesize updateQueryLoaderIndicator;
@@ -106,6 +107,7 @@
     [updateCriticalTextField release];
     [updateSetTextField release];
     [upsetCheckBox release];
+    [multiCheckBox release];
     [updateResultsTextField release];
     [updateQueryTextField release];
     [updateQueryLoaderIndicator release];
@@ -274,6 +276,9 @@
     
     [updateQueryLoaderIndicator start];
     [_mongoCollection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
+        if ([multiCheckBox state] == 0 && count > 0) {
+            count = 1;
+        }
         NSColor *currentColor;
         
         [updateResultsTextField setStringValue:[NSString stringWithFormat:@"Affected Rows: %lld", count]];
@@ -282,7 +287,7 @@
         updateResultsTextField.textColor = [NSColor greenColor];
         [NSViewHelpers setColor:currentColor fromColor:[NSColor greenColor] toTarget:updateResultsTextField withSelector:@selector(setTextColor:) delay:1];
     }];
-    [_mongoCollection updateWithCriteria:criteria update:[updateSetTextField stringValue] upsert:[upsetCheckBox state] multiUpdate:YES callback:^(MODQuery *mongoQuery) {
+    [_mongoCollection updateWithCriteria:criteria update:[updateSetTextField stringValue] upsert:[upsetCheckBox state] multiUpdate:[multiCheckBox state] callback:^(MODQuery *mongoQuery) {
         [updateQueryLoaderIndicator stop];
     }];
 }
@@ -542,11 +547,19 @@
     }else {
         upset = [[NSString alloc] initWithString:@", false"];
     }
+    
+    NSString *multi;
+    if ([multiCheckBox state] == 1) {
+        multi = [[NSString alloc] initWithString:@", true"];
+    }else {
+        multi = [[NSString alloc] initWithString:@", false"];
+    }
 
-    NSString *query = [NSString stringWithFormat:@"db.%@.update(%@%@%@)", col, critical, sets, upset];
+    NSString *query = [NSString stringWithFormat:@"db.%@.update(%@%@%@%@)", col, critical, sets, upset, multi];
     [critical release];
     [sets release];
     [upset release];
+    [multi release];
     [updateQueryTextField setStringValue:query];
 }
 

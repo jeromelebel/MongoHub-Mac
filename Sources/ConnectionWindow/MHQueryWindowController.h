@@ -38,6 +38,7 @@
     IBOutlet NSTextField *updateCriticalTextField;
     IBOutlet NSTextField *updateSetTextField;
     IBOutlet NSButton *upsetCheckBox;
+    IBOutlet NSButton *multiCheckBox;
     IBOutlet NSTextField *updateResultsTextField;
     IBOutlet NSTextField *updateQueryTextField;
     IBOutlet NSProgressIndicator *updateQueryLoaderIndicator;
@@ -102,6 +103,7 @@
 @property (nonatomic, retain) NSTextField *updateCriticalTextField;
 @property (nonatomic, retain) NSTextField *updateSetTextField;
 @property (nonatomic, retain) NSButton *upsetCheckBox;
+@property (nonatomic, retain) NSButton *multiCheckBox;
 @property (nonatomic, retain) NSTextField *updateResultsTextField;
 @property (nonatomic, retain) NSTextField *updateQueryTextField;
 @property (nonatomic, retain) NSProgressIndicator *updateQueryLoaderIndicator;
