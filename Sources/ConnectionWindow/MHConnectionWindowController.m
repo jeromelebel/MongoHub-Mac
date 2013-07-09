@@ -278,11 +278,15 @@
                 hostaddress = [[NSString alloc] initWithFormat:@"127.0.0.1:%d", (int)_sshTunnelPort];
             } else {
                 NSString *host = [_connectionStore.host stringByTrimmingWhitespace];
+                NSNumber *hostport = _connectionStore.hostport;
                 
                 if (host.length == 0) {
                     host = DEFAULT_MONGO_IP;
                 }
-                hostaddress = [[NSString alloc] initWithFormat:@"%@:%@", host, _connectionStore.hostport];
+                if (hostport.intValue == 0) {
+                    hostport = [NSNumber numberWithInt:MONGO_DEFAULT_PORT];
+                }
+                hostaddress = [[NSString alloc] initWithFormat:@"%@:%@", host, hostport];
             }
             NSLog(@"connecting to %@", hostaddress);
             [_mongoServer connectWithHostName:hostaddress callback:^(BOOL connected, MODQuery *mongoQuery) {
