@@ -53,5 +53,7 @@
 	<string>NSApplication</string>
 	<key>SUFeedURL</key>
 	<string>https://mongohub.s3.amazonaws.com/su_feed.xml</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
 </dict>
 </plist>
