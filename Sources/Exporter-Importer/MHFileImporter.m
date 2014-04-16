@@ -8,6 +8,7 @@
 
 #import "MHFileImporter.h"
 #import "MOD_public.h"
+#import "MHExporterImporter.h"
 
 #define BUFFER_SIZE (100*1024*1024)
 
@@ -86,6 +87,7 @@
     *error = nil;
     BOOL result;
     
+    [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterStartNotification object:self userInfo:nil];
     self.fileDescriptor = open([_importPath fileSystemRepresentation], O_RDONLY, 0);
     if (self.fileDescriptor < 0) {
         printf("error %d\n", errno);
@@ -104,6 +106,7 @@
         [_latestQuery waitUntilFinished];
         NSLog(@"%@", self.firstDocumentError);
     }
+    [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterStopNotification object:self userInfo:nil];
     return result;
 }
 

@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MHExporterImporter.h"
 
 @class MODCollection, MODQuery, MODRagelJsonParser;
 
-@interface MHFileImporter : NSObject
+@interface MHFileImporter : NSObject <MHImporterExporter>
 {
     NSString *_importPath;
     MODCollection *_collection;

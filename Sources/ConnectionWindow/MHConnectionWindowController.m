@@ -800,9 +800,13 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 - (void)importIntoSelectedCollectionFromFilePath:(NSString *)filePath
 {
     MHFileImporter *importer;
+    MHImportExportFeedback *feedback;
     NSError *error;
     
     importer = [[MHFileImporter alloc] initWithCollection:[self selectedCollectionItem].mongoCollection importPath:filePath];
+    feedback = [[MHImportExportFeedback alloc] initWithImporterExporter:importer];
+    feedback.label = [NSString stringWithFormat:@"Importing %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
+    [feedback displayForWindow:self.window];
     [importer importWithError:&error];
     [importer release];
 }
