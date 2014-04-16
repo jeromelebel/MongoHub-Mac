@@ -609,7 +609,7 @@
     [authWindowController showWindow:self];
 }
 
-- (IBAction)importFromMySQL:(id)sender
+- (IBAction)importFromMySQLAction:(id)sender
 {
     if ([self selectedDatabaseItem] == nil) {
         NSRunAlertPanel(@"Error", @"Please specify a database!", @"OK", nil, nil);
@@ -627,7 +627,7 @@
     [_mysqlImportWindowController showWindow:self];
 }
 
-- (IBAction)exportToMySQL:(id)sender
+- (IBAction)exportToMySQLAction:(id)sender
 {
     if ([self selectedCollectionItem] == nil) {
         NSRunAlertPanel(@"Error", @"Please specify a collection!", @"OK", nil, nil);
@@ -645,7 +645,7 @@
     [_mysqlExportWindowController showWindow:self];
 }
 
-- (IBAction)importFromFile:(id)sender
+- (IBAction)importFromFileAction:(id)sender
 {
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     
@@ -659,22 +659,24 @@
     }
 }
 
-- (IBAction)exportToFile:(id)sender
+- (IBAction)exportToFileAction:(id)sender
 {
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     
-    if ([savePanel runModal] == NSOKButton) {
-        MHFileExporter *exporter;
-        MHImportExportFeedback *feedback;
-        NSError *error;
-        
-        exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.mongoCollection exportPath:[[savePanel URL] path]];
-        feedback = [[MHImportExportFeedback alloc] initWithImporterExporter:exporter];
-        feedback.label = [NSString stringWithFormat:@"Exporting %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
-        [feedback displayForWindow:self.window];
-        [exporter exportWithError:&error];
-        [exporter release];
-    }
+    [savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+        if (result == NSOKButton) {
+            MHFileExporter *exporter;
+            MHImportExportFeedback *feedback;
+            NSError *error;
+            
+            exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.mongoCollection exportPath:[[savePanel URL] path]];
+            feedback = [[MHImportExportFeedback alloc] initWithImporterExporter:exporter];
+            feedback.label = [NSString stringWithFormat:@"Exporting %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
+            [feedback displayForWindow:self.window];
+            [exporter exportWithError:&error];
+            [exporter release];
+        }
+    }];
 }
 
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo

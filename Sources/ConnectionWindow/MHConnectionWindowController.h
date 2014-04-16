@@ -87,10 +87,10 @@
 - (IBAction)showCollStats:(id)sender;
 - (IBAction)createDatabase:(id)sender;
 - (IBAction)createCollection:(id)sender;
-- (IBAction)importFromMySQL:(id)sender;
-- (IBAction)exportToMySQL:(id)sender;
-- (IBAction)importFromFile:(id)sender;
-- (IBAction)exportToFile:(id)sender;
+- (IBAction)importFromMySQLAction:(id)sender;
+- (IBAction)exportToMySQLAction:(id)sender;
+- (IBAction)importFromFileAction:(id)sender;
+- (IBAction)exportToFileAction:(id)sender;
 - (void)dropCollection:(NSString *)collectionname 
                  ForDB:(NSString *)dbname;
 - (void)createDB;
