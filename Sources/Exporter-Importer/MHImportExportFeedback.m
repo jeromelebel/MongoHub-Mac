@@ -72,10 +72,10 @@
 
 - (void)importerExporterNotification:(NSNotification *)notification
 {
-    if ([notification.name isEqualTo:MHImporterExporterStartNotification]) {
+    if ([notification.name isEqualToString:MHImporterExporterStartNotification]) {
         _progressIndicator.indeterminate = YES;
         [_progressIndicator startAnimation:self];
-    } else if ([notification.name isEqualTo:MHImporterExporterStopNotification]) {
+    } else if ([notification.name isEqualToString:MHImporterExporterStopNotification]) {
         [NSNotificationCenter.defaultCenter removeObserver:self name:nil object:nil];
         [self close];
     } else {
