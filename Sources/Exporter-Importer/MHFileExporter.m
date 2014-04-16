@@ -29,11 +29,6 @@
     [super dealloc];
 }
 
-- (void)_sendProgressNotification
-{
-    [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterProgressNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:(double)_ii / _count], MHImporterExporterNotificationProgressKey, nil]];
-}
-
 - (BOOL)exportWithError:(NSError **)error
 {
     BOOL result = YES;
@@ -70,7 +65,7 @@
                 write(fileDescriptor, "\n", 1);
                 _ii++;
                 if (_ii % _step) {
-                    [self performSelectorOnMainThread:@selector(_sendProgressNotification) withObject:nil waitUntilDone:NO];
+                    [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterProgressNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:(double)_ii / _count], MHImporterExporterNotificationProgressKey, nil]];
                 }
                 return YES;
             } endCallback:^(uint64_t documentCounts, BOOL cursorStopped, MODQuery *mongoQuery) {
