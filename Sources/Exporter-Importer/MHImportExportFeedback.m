@@ -15,19 +15,26 @@
     self = [self init];
     if (self) {
         [NSBundle loadNibNamed:@"MHImportExportFeedback" owner:self];
-        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterNotification:) name:nil object:importerExporter];
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterNotification:) name:MHImporterExporterProgressNotification object:importerExporter];
     }
     return self;
 }
 
 - (void)dealloc
 {
+    [NSNotificationCenter.defaultCenter removeObserver:self name:nil object:nil];
     [super dealloc];
 }
 
 - (void)displayForWindow:(NSWindow *)window
 {
     [NSApp beginSheet:_window modalForWindow:window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+}
+
+- (void)start
+{
+    _progressIndicator.indeterminate = YES;
+    [_progressIndicator startAnimation:self];
 }
 
 - (void)close
@@ -72,19 +79,11 @@
 
 - (void)importerExporterNotification:(NSNotification *)notification
 {
-    if ([notification.name isEqualToString:MHImporterExporterStartNotification]) {
-        _progressIndicator.indeterminate = YES;
-        [_progressIndicator startAnimation:self];
-    } else if ([notification.name isEqualToString:MHImporterExporterStopNotification]) {
-        [NSNotificationCenter.defaultCenter removeObserver:self name:nil object:nil];
-        [self close];
-    } else {
-        if (_progressIndicator.isIndeterminate) {
-            _progressIndicator.indeterminate = NO;
-            _progressIndicator.maxValue = 1.0;
-        }
-        self.progressValue = [[notification.userInfo objectForKey:MHImporterExporterNotificationProgressKey] floatValue];
+    if (_progressIndicator.isIndeterminate) {
+        _progressIndicator.indeterminate = NO;
+        _progressIndicator.maxValue = 1.0;
     }
+    self.progressValue = [[notification.userInfo objectForKey:MHImporterExporterNotificationProgressKey] floatValue];
 }
 
 @end

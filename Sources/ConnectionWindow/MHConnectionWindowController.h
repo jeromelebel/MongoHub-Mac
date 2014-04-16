@@ -27,6 +27,9 @@
 @class MODSortedMutableDictionary;
 @class MHTabTitleView;
 @class MHStatusViewController;
+@class MHImportExportFeedback;
+
+@protocol MHImporterExporter;
 
 @interface MHConnectionWindowController : NSWindowController
 {
@@ -65,6 +68,9 @@
     IBOutlet MHTabTitleView *_tabTitleView;
     
     MODSortedMutableDictionary *previousServerStatusForDelta;
+    
+    MHImportExportFeedback                  *_importExportFeedback;
+    id<MHImporterExporter>                  _importerExporter;
 }
 
 @property (nonatomic, retain) MHConnectionStore *connectionStore;

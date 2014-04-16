@@ -783,32 +783,43 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 
 @implementation MHConnectionWindowController (ImportExport)
 
+- (void)importerExporterStopNotification:(NSNotification *)notification
+{
+    [NSNotificationCenter.defaultCenter removeObserver:self name:nil object:_importerExporter];
+    [_importerExporter autorelease];
+    _importerExporter = nil;
+    [_importExportFeedback close];
+    [_importExportFeedback autorelease];
+    _importExportFeedback = nil;
+}
+
 - (void)exportSelectedCollectionToFilePath:(NSString *)filePath
 {
     MHFileExporter *exporter;
-    MHImportExportFeedback *feedback;
-    NSError *error;
     
     exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.mongoCollection exportPath:filePath];
-    feedback = [[MHImportExportFeedback alloc] initWithImporterExporter:exporter];
-    feedback.label = [NSString stringWithFormat:@"Exporting %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
-    [feedback displayForWindow:self.window];
-    [exporter exportWithError:&error];
-    [exporter release];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterStopNotification:) name:MHImporterExporterStopNotification object:exporter];
+    _importExportFeedback = [[MHImportExportFeedback alloc] initWithImporterExporter:exporter];
+    _importExportFeedback.label = [NSString stringWithFormat:@"Exporting %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
+    [_importExportFeedback start];
+    [_importExportFeedback displayForWindow:self.window];
+    [exporter export];
+    _importerExporter = exporter;
 }
 
 - (void)importIntoSelectedCollectionFromFilePath:(NSString *)filePath
 {
     MHFileImporter *importer;
-    MHImportExportFeedback *feedback;
-    NSError *error;
     
+    NSAssert(_importExportFeedback == nil, @"we should have no more feedback controller");
     importer = [[MHFileImporter alloc] initWithCollection:[self selectedCollectionItem].mongoCollection importPath:filePath];
-    feedback = [[MHImportExportFeedback alloc] initWithImporterExporter:importer];
-    feedback.label = [NSString stringWithFormat:@"Importing %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
-    [feedback displayForWindow:self.window];
-    [importer importWithError:&error];
-    [importer release];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterStopNotification:) name:MHImporterExporterStopNotification object:importer];
+    _importExportFeedback = [[MHImportExportFeedback alloc] initWithImporterExporter:importer];
+    _importExportFeedback.label = [NSString stringWithFormat:@"Importing %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
+    [_importExportFeedback start];
+    [_importExportFeedback displayForWindow:self.window];
+    [importer import];
+    _importerExporter = importer;
 }
 
 - (IBAction)importFromMySQLAction:(id)sender
@@ -862,6 +873,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 {
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     
+    savePanel.nameFieldStringValue = [NSString stringWithFormat:@"%@-%@", [self.selectedDatabaseItem.mongoDatabase databaseName], [self.selectedCollectionItem.mongoCollection collectionName]];
     [savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result == NSOKButton) {
             [self performSelectorOnMainThread:@selector(exportSelectedCollectionToFilePath:) withObject:savePanel.URL.path waitUntilDone:NO];

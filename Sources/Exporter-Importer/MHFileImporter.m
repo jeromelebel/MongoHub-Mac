@@ -13,6 +13,7 @@
 #define BUFFER_SIZE (100*1024*1024)
 
 @interface MHFileImporter()
+@property (nonatomic, readwrite, retain) NSError *error;
 @property (nonatomic, assign, readwrite) NSUInteger importedDocumentCount;
 @property (nonatomic, assign, readwrite) NSUInteger fileRead;
 
@@ -25,7 +26,7 @@
 
 @implementation MHFileImporter
 
-@synthesize collection = _collection, importPath = _importPath, importedDocumentCount = _importedDocumentCount, fileRead = _fileRead, buffer = _buffer, pendingDocuments = _pendingDocuments, parser = _parser, fileDescriptor = _fileDescriptor, firstDocumentError = _firstDocumentError;
+@synthesize collection = _collection, importPath = _importPath, importedDocumentCount = _importedDocumentCount, fileRead = _fileRead, buffer = _buffer, pendingDocuments = _pendingDocuments, parser = _parser, fileDescriptor = _fileDescriptor, firstDocumentError = _firstDocumentError, error = _error;
 
 - (id)initWithCollection:(MODCollection *)collection importPath:(NSString *)importPath
 {
@@ -42,6 +43,7 @@
     [_importPath release];
     [_latestQuery release];
     self.firstDocumentError = nil;
+    self.error = nil;
     [super dealloc];
 }
 
@@ -82,9 +84,8 @@
     }
 }
 
-- (BOOL)importWithError:(NSError **)error
+- (BOOL)import
 {
-    *error = nil;
     BOOL result;
     
     [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterStartNotification object:self userInfo:nil];
@@ -92,13 +93,13 @@
     if (self.fileDescriptor < 0) {
         printf("error %d\n", errno);
         perror("fichier");
-        *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
+        self.error = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
         result = NO;
     } else {
         self.parser = [[[MODRagelJsonParser alloc] init] autorelease];
         self.buffer = [[[NSMutableString alloc] init] autorelease];
         self.pendingDocuments = [NSMutableArray array];
-        result = [self _doImportWithError:error];
+        [self _doImport];
         self.parser = nil;
         self.buffer = nil;
         self.pendingDocuments = nil;
@@ -106,14 +107,16 @@
         [_latestQuery waitUntilFinished];
         NSLog(@"%@", self.firstDocumentError);
     }
-    [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterStopNotification object:self userInfo:nil];
+    if (self.error) {
+        [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterStopNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.error, @"error", nil]];
+    } else {
+        [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterStopNotification object:self userInfo:nil];
+    }
     return result;
 }
 
-- (BOOL)_doImportWithError:(NSError **)error
+- (BOOL)_doImport
 {
-    NSAssert(error != nil, @"need to set error variable");
-    
     char *buffer;
     
     buffer = malloc(BUFFER_SIZE);

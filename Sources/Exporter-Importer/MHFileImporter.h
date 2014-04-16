@@ -13,9 +13,9 @@
 
 @interface MHFileImporter : NSObject <MHImporterExporter>
 {
-    NSString *_importPath;
-    MODCollection *_collection;
-    MODQuery *_latestQuery;
+    NSString                        *_importPath;
+    MODCollection                   *_collection;
+    MODQuery                        *_latestQuery;
     NSUInteger                      _importedDocumentCount;
     NSUInteger                      _fileRead;
     
@@ -24,10 +24,11 @@
     MODRagelJsonParser              *_parser;
     int                             _fileDescriptor;
     NSError                         *_firstDocumentError;
+    NSError                         *_error;
 }
 
 - (id)initWithCollection:(MODCollection *)collection importPath:(NSString *)importPath;
-- (BOOL)importWithError:(NSError **)error;
+- (BOOL)import;
 
 @property (nonatomic, retain, readonly) NSString *importPath;
 @property (nonatomic, retain, readonly) MODCollection *collection;

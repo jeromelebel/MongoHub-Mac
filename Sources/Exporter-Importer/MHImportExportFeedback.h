@@ -20,5 +20,7 @@
 
 - (id)initWithImporterExporter:(id<MHImporterExporter>)importerExporter;
 - (void)displayForWindow:(NSWindow *)window;
+- (void)start;
+- (void)close;
 
 @end

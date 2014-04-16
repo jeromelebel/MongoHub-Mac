@@ -9,9 +9,14 @@
 #import "MHFileExporter.h"
 #import "MOD_public.h"
 
+@interface MHFileExporter ()
+@property (nonatomic, readwrite, retain) NSError *error;
+
+@end
+
 @implementation MHFileExporter
 
-@synthesize collection = _collection, exportPath = _exportPath;
+@synthesize collection = _collection, exportPath = _exportPath, error = _error;
 
 - (id)initWithCollection:(MODCollection *)collection exportPath:(NSString *)exportPath
 {
@@ -26,31 +31,30 @@
 {
     [_collection release];
     [_exportPath release];
+    self.error = nil;
     [super dealloc];
 }
 
-- (BOOL)exportWithError:(NSError **)error
+- (BOOL)export
 {
     BOOL result = YES;
     int fileDescriptor;
     
     [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterStartNotification object:self userInfo:nil];
-    NSAssert(error != nil, @"need to set error variable");
-    *error = nil;
     fileDescriptor = open([_exportPath fileSystemRepresentation], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
     if (fileDescriptor < 0) {
         printf("error %d\n", errno);
         perror("fichier");
-        *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
+        self.error = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
         result = NO;
     } else {
         [_collection countWithCriteria:nil callback:^(int64_t count, MODQuery *mongoQuery) {
             MODCursor *cursor;
+            int64_t step;
             
-            _count = count;
-            _step = count / 200;
-            if (_step == 0) {
-                _step = 1;
+            step = count / 200;
+            if (step == 0) {
+                step = 1;
             }
             _ii = 0;
             
@@ -64,8 +68,8 @@
                 write(fileDescriptor, cString, strlen(cString));
                 write(fileDescriptor, "\n", 1);
                 _ii++;
-                if (_ii % _step) {
-                    [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterProgressNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:(double)_ii / _count], MHImporterExporterNotificationProgressKey, nil]];
+                if (_ii % step) {
+                    [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterProgressNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:(double)_ii / count], MHImporterExporterNotificationProgressKey, nil]];
                 }
                 return YES;
             } endCallback:^(uint64_t documentCounts, BOOL cursorStopped, MODQuery *mongoQuery) {

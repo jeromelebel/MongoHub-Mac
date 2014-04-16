@@ -13,5 +13,6 @@ extern NSString *MHImporterExporterProgressNotification;
 extern NSString *MHImporterExporterNotificationProgressKey;
 
 @protocol MHImporterExporter <NSObject>
+@property (nonatomic, readonly, retain) NSError *error;
 
 @end

@@ -15,11 +15,12 @@
 {
     NSString                    *_exportPath;
     MODCollection               *_collection;
-    int64_t                     _ii, _count, _step;
+    int64_t                     _ii;
+    NSError                     *_error;
 }
 
 - (id)initWithCollection:(MODCollection *)collection exportPath:(NSString *)exportPath;
-- (BOOL)exportWithError:(NSError **)error;
+- (BOOL)export;
 
 @property (nonatomic, retain, readonly) NSString *exportPath;
 @property (nonatomic, retain, readonly) MODCollection *collection;
