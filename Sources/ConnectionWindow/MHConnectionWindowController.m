@@ -783,7 +783,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 
 @implementation MHConnectionWindowController (ImportExport)
 
-- (void)doExportToFilePath:(NSString *)filePath
+- (void)exportSelectedCollectionToFilePath:(NSString *)filePath
 {
     MHFileExporter *exporter;
     MHImportExportFeedback *feedback;
@@ -795,6 +795,16 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     [feedback displayForWindow:self.window];
     [exporter exportWithError:&error];
     [exporter release];
+}
+
+- (void)importIntoSelectedCollectionFromFilePath:(NSString *)filePath
+{
+    MHFileImporter *importer;
+    NSError *error;
+    
+    importer = [[MHFileImporter alloc] initWithCollection:[self selectedCollectionItem].mongoCollection importPath:filePath];
+    [importer importWithError:&error];
+    [importer release];
 }
 
 - (IBAction)importFromMySQLAction:(id)sender
@@ -837,14 +847,11 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 {
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     
-    if ([openPanel runModal] == NSOKButton) {
-        MHFileImporter *importer;
-        NSError *error;
-        
-        importer = [[MHFileImporter alloc] initWithCollection:[self selectedCollectionItem].mongoCollection importPath:[[openPanel URL] path]];
-        [importer importWithError:&error];
-        [importer release];
-    }
+    [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+        if (result == NSOKButton) {
+            [self performSelectorOnMainThread:@selector(importIntoSelectedCollectionFromFilePath:) withObject:[[openPanel URL] path] waitUntilDone:NO];
+        }
+    }];
 }
 
 - (IBAction)exportToFileAction:(id)sender
@@ -853,7 +860,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     
     [savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result == NSOKButton) {
-            [self performSelectorOnMainThread:@selector(doExportToFilePath:) withObject:savePanel.URL.path waitUntilDone:NO];
+            [self performSelectorOnMainThread:@selector(exportSelectedCollectionToFilePath:) withObject:savePanel.URL.path waitUntilDone:NO];
         }
     }];
 }
