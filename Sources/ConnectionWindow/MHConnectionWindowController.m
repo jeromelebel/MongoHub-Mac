@@ -659,22 +659,27 @@
     }
 }
 
+- (void)doExportToFilePath:(NSString *)filePath
+{
+    MHFileExporter *exporter;
+    MHImportExportFeedback *feedback;
+    NSError *error;
+    
+    exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.mongoCollection exportPath:filePath];
+    feedback = [[MHImportExportFeedback alloc] initWithImporterExporter:exporter];
+    feedback.label = [NSString stringWithFormat:@"Exporting %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
+    [feedback displayForWindow:self.window];
+    [exporter exportWithError:&error];
+    [exporter release];
+}
+
 - (IBAction)exportToFileAction:(id)sender
 {
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     
     [savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result == NSOKButton) {
-            MHFileExporter *exporter;
-            MHImportExportFeedback *feedback;
-            NSError *error;
-            
-            exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.mongoCollection exportPath:[[savePanel URL] path]];
-            feedback = [[MHImportExportFeedback alloc] initWithImporterExporter:exporter];
-            feedback.label = [NSString stringWithFormat:@"Exporting %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
-            [feedback displayForWindow:self.window];
-            [exporter exportWithError:&error];
-            [exporter release];
+            [self performSelectorOnMainThread:@selector(doExportToFilePath:) withObject:savePanel.URL.path waitUntilDone:NO];
         }
     }];
 }
