@@ -609,81 +609,6 @@
     [authWindowController showWindow:self];
 }
 
-- (IBAction)importFromMySQLAction:(id)sender
-{
-    if ([self selectedDatabaseItem] == nil) {
-        NSRunAlertPanel(@"Error", @"Please specify a database!", @"OK", nil, nil);
-        return;
-    }
-    if (!_mysqlImportWindowController)
-    {
-        _mysqlImportWindowController = [[MHMysqlImportWindowController alloc] init];
-    }
-    _mysqlImportWindowController.mongoServer = _mongoServer;
-    _mysqlImportWindowController.dbname = [[self selectedDatabaseItem].mongoDatabase databaseName];
-    if ([self selectedCollectionItem]) {
-        [_mysqlExportWindowController.collectionTextField setStringValue:[[self selectedCollectionItem].mongoCollection collectionName]];
-    }
-    [_mysqlImportWindowController showWindow:self];
-}
-
-- (IBAction)exportToMySQLAction:(id)sender
-{
-    if ([self selectedCollectionItem] == nil) {
-        NSRunAlertPanel(@"Error", @"Please specify a collection!", @"OK", nil, nil);
-        return;
-    }
-    if (!_mysqlExportWindowController)
-    {
-        _mysqlExportWindowController = [[MHMysqlExportWindowController alloc] init];
-    }
-    _mysqlExportWindowController.mongoDatabase = [[self selectedDatabaseItem] mongoDatabase];
-    _mysqlExportWindowController.dbname = [[self selectedDatabaseItem].mongoDatabase databaseName];
-    if ([self selectedCollectionItem]) {
-        [_mysqlExportWindowController.collectionTextField setStringValue:[[self selectedCollectionItem].mongoCollection collectionName]];
-    }
-    [_mysqlExportWindowController showWindow:self];
-}
-
-- (IBAction)importFromFileAction:(id)sender
-{
-    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-    
-    if ([openPanel runModal] == NSOKButton) {
-        MHFileImporter *importer;
-        NSError *error;
-        
-        importer = [[MHFileImporter alloc] initWithCollection:[self selectedCollectionItem].mongoCollection importPath:[[openPanel URL] path]];
-        [importer importWithError:&error];
-        [importer release];
-    }
-}
-
-- (void)doExportToFilePath:(NSString *)filePath
-{
-    MHFileExporter *exporter;
-    MHImportExportFeedback *feedback;
-    NSError *error;
-    
-    exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.mongoCollection exportPath:filePath];
-    feedback = [[MHImportExportFeedback alloc] initWithImporterExporter:exporter];
-    feedback.label = [NSString stringWithFormat:@"Exporting %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
-    [feedback displayForWindow:self.window];
-    [exporter exportWithError:&error];
-    [exporter release];
-}
-
-- (IBAction)exportToFileAction:(id)sender
-{
-    NSSavePanel *savePanel = [NSSavePanel savePanel];
-    
-    [savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
-        if (result == NSOKButton) {
-            [self performSelectorOnMainThread:@selector(doExportToFilePath:) withObject:savePanel.URL.path waitUntilDone:NO];
-        }
-    }];
-}
-
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
     if (returnCode == NSAlertSecondButtonReturn)
@@ -852,6 +777,85 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
                 break;
         }
     }
+}
+
+@end
+
+@implementation MHConnectionWindowController (ImportExport)
+
+- (void)doExportToFilePath:(NSString *)filePath
+{
+    MHFileExporter *exporter;
+    MHImportExportFeedback *feedback;
+    NSError *error;
+    
+    exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.mongoCollection exportPath:filePath];
+    feedback = [[MHImportExportFeedback alloc] initWithImporterExporter:exporter];
+    feedback.label = [NSString stringWithFormat:@"Exporting %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
+    [feedback displayForWindow:self.window];
+    [exporter exportWithError:&error];
+    [exporter release];
+}
+
+- (IBAction)importFromMySQLAction:(id)sender
+{
+    if ([self selectedDatabaseItem] == nil) {
+        NSRunAlertPanel(@"Error", @"Please specify a database!", @"OK", nil, nil);
+        return;
+    }
+    if (!_mysqlImportWindowController)
+    {
+        _mysqlImportWindowController = [[MHMysqlImportWindowController alloc] init];
+    }
+    _mysqlImportWindowController.mongoServer = _mongoServer;
+    _mysqlImportWindowController.dbname = [[self selectedDatabaseItem].mongoDatabase databaseName];
+    if ([self selectedCollectionItem]) {
+        [_mysqlExportWindowController.collectionTextField setStringValue:[[self selectedCollectionItem].mongoCollection collectionName]];
+    }
+    [_mysqlImportWindowController showWindow:self];
+}
+
+- (IBAction)exportToMySQLAction:(id)sender
+{
+    if ([self selectedCollectionItem] == nil) {
+        NSRunAlertPanel(@"Error", @"Please specify a collection!", @"OK", nil, nil);
+        return;
+    }
+    if (!_mysqlExportWindowController)
+    {
+        _mysqlExportWindowController = [[MHMysqlExportWindowController alloc] init];
+    }
+    _mysqlExportWindowController.mongoDatabase = [[self selectedDatabaseItem] mongoDatabase];
+    _mysqlExportWindowController.dbname = [[self selectedDatabaseItem].mongoDatabase databaseName];
+    if ([self selectedCollectionItem]) {
+        [_mysqlExportWindowController.collectionTextField setStringValue:[[self selectedCollectionItem].mongoCollection collectionName]];
+    }
+    [_mysqlExportWindowController showWindow:self];
+}
+
+- (IBAction)importFromFileAction:(id)sender
+{
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    
+    if ([openPanel runModal] == NSOKButton) {
+        MHFileImporter *importer;
+        NSError *error;
+        
+        importer = [[MHFileImporter alloc] initWithCollection:[self selectedCollectionItem].mongoCollection importPath:[[openPanel URL] path]];
+        [importer importWithError:&error];
+        [importer release];
+    }
+}
+
+- (IBAction)exportToFileAction:(id)sender
+{
+    NSSavePanel *savePanel = [NSSavePanel savePanel];
+    
+    [savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+        if (result == NSOKButton) {
+            [self performSelectorOnMainThread:@selector(doExportToFilePath:) withObject:savePanel.URL.path waitUntilDone:NO];
+        }
+    }];
 }
 
 @end

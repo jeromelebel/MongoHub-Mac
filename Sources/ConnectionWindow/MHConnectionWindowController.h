@@ -87,11 +87,7 @@
 - (IBAction)showCollStats:(id)sender;
 - (IBAction)createDatabase:(id)sender;
 - (IBAction)createCollection:(id)sender;
-- (IBAction)importFromMySQLAction:(id)sender;
-- (IBAction)exportToMySQLAction:(id)sender;
-- (IBAction)importFromFileAction:(id)sender;
-- (IBAction)exportToFileAction:(id)sender;
-- (void)dropCollection:(NSString *)collectionname 
+- (void)dropCollection:(NSString *)collectionname
                  ForDB:(NSString *)dbname;
 - (void)createDB;
 - (void)createCollectionForDB:(NSString *)dbname;
@@ -104,6 +100,14 @@
 
 - (IBAction)startMonitor:(id)sender;
 - (IBAction)stopMonitor:(id)sender;
+@end
+
+@interface MHConnectionWindowController(ImportExport)
+- (IBAction)importFromMySQLAction:(id)sender;
+- (IBAction)exportToMySQLAction:(id)sender;
+- (IBAction)importFromFileAction:(id)sender;
+- (IBAction)exportToFileAction:(id)sender;
+
 @end
 
 @interface MHConnectionWindowController(NSOutlineViewDataSource) <NSOutlineViewDataSource>
