@@ -1,14 +1,14 @@
 //
-//  MHImportExportFeeback.m
+//  MHImportExportFeedback.m
 //  MongoHub
 //
 //  Created by Jérôme Lebel on 31/01/2014.
 //  Copyright (c) 2014 ThePeppersStudio.COM. All rights reserved.
 //
 
-#import "MHImportExportFeeback.h"
+#import "MHImportExportFeedback.h"
 
-@implementation MHImportExportFeeback
+@implementation MHImportExportFeedback
 
 - (id)initWithImporterExporter:(id<MHImporterExporter>)importerExporter
 {

@@ -1,5 +1,5 @@
 //
-//  MHImportExportFeeback.h
+//  MHImportExportFeedback.h
 //  MongoHub
 //
 //  Created by Jérôme Lebel on 31/01/2014.
@@ -9,7 +9,7 @@
 #import <AppKit/AppKit.h>
 #import "MHExporterImporter.h"
 
-@interface MHImportExportFeeback : NSObject
+@interface MHImportExportFeedback : NSObject
 {
     IBOutlet NSWindow                   *_window;
     IBOutlet NSTextField                *_label;

@@ -54,7 +54,7 @@
 		026B2DE513BB6FB8009BEA7B /* RegexKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 026B2DE413BB6FB8009BEA7B /* RegexKit.framework */; };
 		026B949814BC214800BA0688 /* MODUndefined.m in Sources */ = {isa = PBXBuildFile; fileRef = 026B949714BC214800BA0688 /* MODUndefined.m */; };
 		0279C090189C02F600F8BACB /* MHImportExportFeedback.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0279C08F189C02F600F8BACB /* MHImportExportFeedback.xib */; };
-		0279C093189C03E000F8BACB /* MHImportExportFeeback.m in Sources */ = {isa = PBXBuildFile; fileRef = 0279C092189C03E000F8BACB /* MHImportExportFeeback.m */; };
+		0279C093189C03E000F8BACB /* MHImportExportFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 0279C092189C03E000F8BACB /* MHImportExportFeedback.m */; };
 		027A1D941767DC1F0048AD60 /* MODMaxKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 027A1D911767DC1F0048AD60 /* MODMaxKey.m */; };
 		027A1D951767DC1F0048AD60 /* MODMinKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 027A1D931767DC1F0048AD60 /* MODMinKey.m */; };
 		0280706917675D8D00653483 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0280706617675D8D00653483 /* NSData+Base64.m */; };
@@ -319,7 +319,7 @@
 		026B949714BC214800BA0688 /* MODUndefined.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODUndefined.m; sourceTree = "<group>"; };
 		0279C08F189C02F600F8BACB /* MHImportExportFeedback.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHImportExportFeedback.xib; sourceTree = "<group>"; };
 		0279C091189C03E000F8BACB /* MHImportExportFeeback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHImportExportFeeback.h; sourceTree = "<group>"; };
-		0279C092189C03E000F8BACB /* MHImportExportFeeback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHImportExportFeeback.m; sourceTree = "<group>"; };
+		0279C092189C03E000F8BACB /* MHImportExportFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHImportExportFeedback.m; sourceTree = "<group>"; };
 		027A1D901767DC1F0048AD60 /* MODMaxKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODMaxKey.h; sourceTree = "<group>"; };
 		027A1D911767DC1F0048AD60 /* MODMaxKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODMaxKey.m; sourceTree = "<group>"; };
 		027A1D921767DC1F0048AD60 /* MODMinKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODMinKey.h; sourceTree = "<group>"; };
@@ -807,7 +807,7 @@
 				02B143DA147C720D005AB320 /* MHFileImporter.h */,
 				02B143DB147C720D005AB320 /* MHFileImporter.m */,
 				0279C091189C03E000F8BACB /* MHImportExportFeeback.h */,
-				0279C092189C03E000F8BACB /* MHImportExportFeeback.m */,
+				0279C092189C03E000F8BACB /* MHImportExportFeedback.m */,
 				0252361018FEC2E100286EC9 /* MHExporterImporter.h */,
 				0252361118FECEE700286EC9 /* MHExporterImporter.m */,
 			);
@@ -1525,7 +1525,7 @@
 				1DBFFAF512C1FDF200B643CA /* NSProgressIndicator+Extras.m in Sources */,
 				1DCC562912C264600025F181 /* StatMonitorTableController.m in Sources */,
 				1D64100212C8E16C0030AA4C /* NSArray+Color.m in Sources */,
-				0279C093189C03E000F8BACB /* MHImportExportFeeback.m in Sources */,
+				0279C093189C03E000F8BACB /* MHImportExportFeedback.m in Sources */,
 				1D64100512C8E1C00030AA4C /* NSScanner+SkipUpToCharset.m in Sources */,
 				1D64100812C8E21C0030AA4C /* UKSyntaxColoredTextViewController.m in Sources */,
 				1D64100D12C8E3D90030AA4C /* MHJsonWindowController.m in Sources */,
