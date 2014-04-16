@@ -7,18 +7,18 @@
 //
 
 #import <AppKit/AppKit.h>
+#import "MHExporterImporter.h"
 
 @interface MHImportExportFeeback : NSObject
 {
     IBOutlet NSWindow                   *_window;
     IBOutlet NSTextField                *_label;
     IBOutlet NSProgressIndicator        *_progressIndicator;
+    id<MHImporterExporter>              _importerExporter;
 }
+@property (nonatomic, readwrite, retain) NSString *label;
 
-- (void)setLabel:(NSString *)label;
-- (void)setMaxValue:(double)maxValue;
-- (void)setProgressValue:(double)progressValue;
+- (id)initWithImporterExporter:(id<MHImporterExporter>)importerExporter;
 - (void)displayForWindow:(NSWindow *)window;
-- (void)close;
 
 @end

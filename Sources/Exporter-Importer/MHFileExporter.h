@@ -7,13 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MHExporterImporter.h"
 
 @class MODCollection;
 
-@interface MHFileExporter : NSObject
+@interface MHFileExporter : NSObject <MHImporterExporter>
 {
-    NSString *_exportPath;
-    MODCollection *_collection;
+    NSString                    *_exportPath;
+    MODCollection               *_collection;
+    int64_t                     _ii, _count, _step;
 }
 
 - (id)initWithCollection:(MODCollection *)collection exportPath:(NSString *)exportPath;

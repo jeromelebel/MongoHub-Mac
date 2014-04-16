@@ -32,6 +32,7 @@
 #import "MHStatusViewController.h"
 #import "MHTabViewController.h"
 #import "mongo.h"
+#import "MHImportExportFeeback.h"
 
 #define SERVER_STATUS_TOOLBAR_ITEM_TAG              0
 #define DATABASE_STATUS_TOOLBAR_ITEM_TAG            1
@@ -664,9 +665,13 @@
     
     if ([savePanel runModal] == NSOKButton) {
         MHFileExporter *exporter;
+        MHImportExportFeeback *feedback;
         NSError *error;
         
-        exporter = [[MHFileExporter alloc] initWithCollection:[self selectedCollectionItem].mongoCollection exportPath:[[savePanel URL] path]];
+        exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.mongoCollection exportPath:[[savePanel URL] path]];
+        feedback = [[MHImportExportFeeback alloc] initWithImporterExporter:exporter];
+        feedback.label = [NSString stringWithFormat:@"Exporting %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
+        [feedback displayForWindow:self.window];
         [exporter exportWithError:&error];
         [exporter release];
     }
