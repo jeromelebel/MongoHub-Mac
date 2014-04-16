@@ -318,7 +318,7 @@
 		026B949614BC214800BA0688 /* MODUndefined.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODUndefined.h; sourceTree = "<group>"; };
 		026B949714BC214800BA0688 /* MODUndefined.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODUndefined.m; sourceTree = "<group>"; };
 		0279C08F189C02F600F8BACB /* MHImportExportFeedback.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHImportExportFeedback.xib; sourceTree = "<group>"; };
-		0279C091189C03E000F8BACB /* MHImportExportFeeback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHImportExportFeeback.h; sourceTree = "<group>"; };
+		0279C091189C03E000F8BACB /* MHImportExportFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHImportExportFeedback.h; sourceTree = "<group>"; };
 		0279C092189C03E000F8BACB /* MHImportExportFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHImportExportFeedback.m; sourceTree = "<group>"; };
 		027A1D901767DC1F0048AD60 /* MODMaxKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODMaxKey.h; sourceTree = "<group>"; };
 		027A1D911767DC1F0048AD60 /* MODMaxKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODMaxKey.m; sourceTree = "<group>"; };
@@ -806,7 +806,7 @@
 				02AA29921477F8BD0041865F /* MHFileExporter.m */,
 				02B143DA147C720D005AB320 /* MHFileImporter.h */,
 				02B143DB147C720D005AB320 /* MHFileImporter.m */,
-				0279C091189C03E000F8BACB /* MHImportExportFeeback.h */,
+				0279C091189C03E000F8BACB /* MHImportExportFeedback.h */,
 				0279C092189C03E000F8BACB /* MHImportExportFeedback.m */,
 				0252361018FEC2E100286EC9 /* MHExporterImporter.h */,
 				0252361118FECEE700286EC9 /* MHExporterImporter.m */,
