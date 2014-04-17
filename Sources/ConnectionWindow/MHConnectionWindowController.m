@@ -825,11 +825,10 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 - (IBAction)importFromMySQLAction:(id)sender
 {
     if ([self selectedDatabaseItem] == nil) {
-        NSRunAlertPanel(@"Error", @"Please specify a database!", @"OK", nil, nil);
+        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, NULL, NULL, nil, @"Please specify a database!");
         return;
     }
-    if (!_mysqlImportWindowController)
-    {
+    if (!_mysqlImportWindowController) {
         _mysqlImportWindowController = [[MHMysqlImportWindowController alloc] init];
     }
     _mysqlImportWindowController.mongoServer = _mongoServer;
@@ -843,7 +842,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 - (IBAction)exportToMySQLAction:(id)sender
 {
     if ([self selectedCollectionItem] == nil) {
-        NSRunAlertPanel(@"Error", @"Please specify a collection!", @"OK", nil, nil);
+        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, NULL, NULL, nil, @"Please specify a collection!");
         return;
     }
     if (!_mysqlExportWindowController)
