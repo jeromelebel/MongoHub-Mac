@@ -3,7 +3,6 @@
 //  MongoHub
 //
 //  Created by Jérôme Lebel on 24/10/11.
-//  Copyright (c) 2011 ThePeppersStudio.COM. All rights reserved.
 //
 
 #import "MHDatabaseItem.h"
