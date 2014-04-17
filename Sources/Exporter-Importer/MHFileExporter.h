@@ -20,7 +20,7 @@
 }
 
 - (id)initWithCollection:(MODCollection *)collection exportPath:(NSString *)exportPath;
-- (BOOL)export;
+- (void)export;
 
 @property (nonatomic, retain, readonly) NSString *exportPath;
 @property (nonatomic, retain, readonly) MODCollection *collection;

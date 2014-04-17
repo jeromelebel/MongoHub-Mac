@@ -23,17 +23,15 @@
     NSMutableArray                  *_pendingDocuments;
     MODRagelJsonParser              *_parser;
     int                             _fileDescriptor;
-    NSError                         *_firstDocumentError;
     NSError                         *_error;
 }
 
 - (id)initWithCollection:(MODCollection *)collection importPath:(NSString *)importPath;
-- (BOOL)import;
+- (void)import;
 
 @property (nonatomic, retain, readonly) NSString *importPath;
 @property (nonatomic, retain, readonly) MODCollection *collection;
 @property (nonatomic, assign, readonly) NSUInteger importedDocumentCount;
 @property (nonatomic, assign, readonly) NSUInteger fileRead;
-@property (nonatomic, strong, readonly) NSError *firstDocumentError;
 
 @end
