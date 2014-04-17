@@ -23,11 +23,17 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** Current **
 
-    - { _id: "my_value" } can be parsed
-    - Problem to convert from bson to json, dates with milliseconds that can't be converted correctly in decimal (like 0.820 expressed in float as 0.819999999)
-    - Progress bar while importing/exporting to/from file
-
 ## History
+
+** 2.6 - april 17, 2014 **
+
+    - Support for tengen json
+    - Progress bar while importing/exporting to/from file
+    - A lot of fix to convert dates with milliseconds into json and parse dates with milliseconds
+    - Using more sheets instead of modal panels
+    - Few crashes fixed
+    - More checks to make sure a document is parsed correctly (and therefore there is no modification while converting a document into json and parsing again the json)
+    - Better support for long integer vs integer
 
 ** 2.6 beta 6 - january 16, 2014 **
 
