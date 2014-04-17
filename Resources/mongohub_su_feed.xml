@@ -7,7 +7,7 @@
         <language>en</language>
         <item>
             <title>Version 2.6</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.6.zip" sparkle:version="2.6" length="3199950" type="application/octet-stream" />
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.6.zip" sparkle:version="2.6" length="3204854" type="application/octet-stream" />
             <description><![CDATA[
                 <h3>2.6</h3>
                 <ul>
