@@ -20,12 +20,12 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     - Should manage a list of database/user/password for each connections
     - Should save the password into the keychain
     - Create a document editor to edit using an outline view (like the plist editor in Xcode)
-    - Need a progress bar for file export/import to know when it is done
-    
+
 ** Current **
 
     - { _id: "my_value" } can be parsed
-    - problem to convert from bson to json, dates with milliseconds that can't be converted correctly in decimal (like 0.820 expressed in float as 0.819999999)
+    - Problem to convert from bson to json, dates with milliseconds that can't be converted correctly in decimal (like 0.820 expressed in float as 0.819999999)
+    - Progress bar while importing/exporting to/from file
 
 ## History
 
