@@ -864,6 +864,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     
     [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result == NSOKButton) {
+            // wait until the panel is closed to open the import feedback window
             [self performSelectorOnMainThread:@selector(importIntoSelectedCollectionFromFilePath:) withObject:[[openPanel URL] path] waitUntilDone:NO];
         }
     }];
@@ -876,6 +877,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     savePanel.nameFieldStringValue = [NSString stringWithFormat:@"%@-%@", [self.selectedDatabaseItem.mongoDatabase databaseName], [self.selectedCollectionItem.mongoCollection collectionName]];
     [savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result == NSOKButton) {
+            // wait until the panel is closed to open the import feedback window
             [self performSelectorOnMainThread:@selector(exportSelectedCollectionToFilePath:) withObject:savePanel.URL.path waitUntilDone:NO];
         }
     }];
