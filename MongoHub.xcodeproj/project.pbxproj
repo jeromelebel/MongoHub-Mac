@@ -1314,7 +1314,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0430;
-				ORGANIZATIONNAME = ThePeppersStudio.COM;
+				ORGANIZATIONNAME = "";
 			};
 			buildConfigurationList = 26FC0A880875C7B200E6366F /* Build configuration list for PBXProject "MongoHub" */;
 			compatibilityVersion = "Xcode 3.2";
