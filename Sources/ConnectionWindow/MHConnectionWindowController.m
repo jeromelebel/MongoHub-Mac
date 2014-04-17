@@ -845,8 +845,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
         NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, NULL, NULL, nil, @"Please specify a collection!");
         return;
     }
-    if (!_mysqlExportWindowController)
-    {
+    if (!_mysqlExportWindowController) {
         _mysqlExportWindowController = [[MHMysqlExportWindowController alloc] init];
     }
     _mysqlExportWindowController.mongoDatabase = [[self selectedDatabaseItem] mongoDatabase];
