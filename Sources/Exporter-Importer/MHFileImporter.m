@@ -10,22 +10,18 @@
 #import "MOD_public.h"
 #import "MHExporterImporter.h"
 
-#define BUFFER_SIZE (100*1024*1024)
-
 @interface MHFileImporter()
 @property (nonatomic, readwrite, retain) NSError *error;
 @property (nonatomic, assign, readwrite) NSUInteger importedDocumentCount;
 @property (nonatomic, assign, readwrite) NSUInteger fileRead;
 
-@property (nonatomic, strong, readwrite) NSMutableString *buffer;
 @property (nonatomic, strong, readwrite) NSMutableArray *pendingDocuments;
-@property (nonatomic, strong, readwrite) MODRagelJsonParser *parser;
-@property (nonatomic, assign, readwrite) int fileDescriptor;
+@property (nonatomic, assign, readwrite) FILE *fileDescriptor;
 @end
 
 @implementation MHFileImporter
 
-@synthesize collection = _collection, importPath = _importPath, importedDocumentCount = _importedDocumentCount, fileRead = _fileRead, buffer = _buffer, pendingDocuments = _pendingDocuments, parser = _parser, fileDescriptor = _fileDescriptor, error = _error;
+@synthesize collection = _collection, importPath = _importPath, importedDocumentCount = _importedDocumentCount, fileRead = _fileRead, pendingDocuments = _pendingDocuments, fileDescriptor = _fileDescriptor, error = _error;
 
 - (id)initWithCollection:(MODCollection *)collection importPath:(NSString *)importPath
 {
@@ -45,18 +41,6 @@
     [super dealloc];
 }
 
-- (void)_removeBeginingWhiteSpaces
-{
-    NSRange whitespaceRange = { 0, 0 };
-    
-    while (self.buffer.length > 0 && [NSCharacterSet.whitespaceAndNewlineCharacterSet characterIsMember:[self.buffer characterAtIndex:whitespaceRange.length + 1]]) {
-        whitespaceRange.length++;
-    }
-    if (whitespaceRange.length > 0) {
-        [self.buffer deleteCharactersInRange:whitespaceRange];
-    }
-}
-
 - (void)_appendDocumentToParse:(NSString *)stringDocument flush:(BOOL)flush
 {
     if (stringDocument.length > 0) {
@@ -65,7 +49,9 @@
     if (self.pendingDocuments.count >= 100 || (flush && self.pendingDocuments.count > 0)) {
         NSUInteger importedDocumentCount = self.importedDocumentCount;
         
+        [_latestQuery waitUntilFinished];
         [_latestQuery release];
+        _dataProcessed = _dataRead;
         _latestQuery = [[_collection insertWithDocuments:self.pendingDocuments callback:^(MODQuery *query) {
             if (query.error && !self.error) {
                 NSMutableDictionary *userInfo;
@@ -74,6 +60,7 @@
                 [userInfo setObject:[NSNumber numberWithUnsignedInteger:[[userInfo objectForKey:@"documentIndex"] unsignedIntegerValue] + importedDocumentCount] forKey:@"documentIndex"];
                 self.error = [NSError errorWithDomain:query.error.domain code:query.error.code userInfo:userInfo];
             }
+            [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterProgressNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:(double)_dataProcessed / _fileSize], MHImporterExporterNotificationProgressKey, nil]];
         }] retain];
         self.importedDocumentCount += self.pendingDocuments.count;
         // to avoid changing the content of the array while trying to import all the documents
@@ -95,22 +82,18 @@
 - (void)_threadImport
 {
     [self performSelectorOnMainThread:@selector(sendNotification:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:MHImporterExporterStartNotification, @"name", nil] waitUntilDone:NO];
-    self.fileDescriptor = open([_importPath fileSystemRepresentation], O_RDONLY, 0);
-    if (self.fileDescriptor < 0) {
+    _dataRead = 0;
+    _fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:_importPath error:nil] fileSize];
+    self.fileDescriptor = fopen([_importPath fileSystemRepresentation], "r");
+    if (self.fileDescriptor == NULL) {
         printf("error %d\n", errno);
         perror("fichier");
         self.error = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
     } else {
-        self.parser = [[MODRagelJsonParser alloc] init];
-        self.buffer = [[NSMutableString alloc] init];
         self.pendingDocuments = [NSMutableArray array];
         [self _doImport];
-        [self.parser release];
-        self.parser = nil;
-        [self.buffer release];
-        self.buffer = nil;
         self.pendingDocuments = nil;
-        close(self.fileDescriptor);
+        fclose(self.fileDescriptor);
         [_latestQuery waitUntilFinished];
         NSLog(@"%@", self.error);
     }
@@ -124,37 +107,18 @@
 
 - (void)_doImport
 {
-    char *buffer;
+    size_t length;
+    char *line;
     
-    buffer = malloc(BUFFER_SIZE);
-    while (YES) {
-        size_t availableCount = read(self.fileDescriptor, buffer, BUFFER_SIZE);
-        self.fileRead += availableCount;
-        if (!availableCount) {
-            break;
-        } else {
-            NSUInteger previousDataSize = self.buffer.length;
-            NSRange eolRange;
-            NSString *tmp;
-            
-            tmp = [[NSString alloc] initWithBytes:buffer length:availableCount encoding:NSUTF8StringEncoding];
-            [self.buffer appendString:tmp];
-            [tmp release];
-            if (previousDataSize == 0) {
-                [self _removeBeginingWhiteSpaces];
-            }
-            do {
-                eolRange = [self.buffer rangeOfCharacterFromSet:NSCharacterSet.newlineCharacterSet options:0 range:NSMakeRange(previousDataSize, self.buffer.length - previousDataSize)];
-                if (eolRange.location != NSNotFound) {
-                    [self _appendDocumentToParse:[self.buffer substringToIndex:eolRange.location] flush:NO];
-                    [self.buffer deleteCharactersInRange:NSMakeRange(0, eolRange.length + eolRange.location)];
-                    [self _removeBeginingWhiteSpaces];
-                }
-            } while (eolRange.location != NSNotFound);
-        }
+    while ((line = fgetln(self.fileDescriptor, &length)) && self.error == nil) {
+        NSString *result;
+        
+        _dataRead += length;
+        result = [[NSString alloc] initWithBytes:line length:length encoding:NSUTF8StringEncoding];
+        [self _appendDocumentToParse:result flush:NO];
+        [result release];
     }
-    [self _appendDocumentToParse:self.buffer flush:YES];
-    free(buffer);
+    [self _appendDocumentToParse:nil flush:YES];
 }
 
 @end

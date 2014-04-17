@@ -19,11 +19,12 @@
     NSUInteger                      _importedDocumentCount;
     NSUInteger                      _fileRead;
     
-    NSMutableString                 *_buffer;
     NSMutableArray                  *_pendingDocuments;
-    MODRagelJsonParser              *_parser;
-    int                             _fileDescriptor;
+    void                            *_fileDescriptor;
     NSError                         *_error;
+    unsigned long long              _fileSize;
+    unsigned long long              _dataRead;
+    unsigned long long              _dataProcessed;
 }
 
 - (id)initWithCollection:(MODCollection *)collection importPath:(NSString *)importPath;
