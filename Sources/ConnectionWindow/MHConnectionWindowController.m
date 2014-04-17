@@ -800,7 +800,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.mongoCollection exportPath:filePath];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterStopNotification:) name:MHImporterExporterStopNotification object:exporter];
     _importExportFeedback = [[MHImportExportFeedback alloc] initWithImporterExporter:exporter];
-    _importExportFeedback.label = [NSString stringWithFormat:@"Exporting %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
+    _importExportFeedback.label = [NSString stringWithFormat:@"Exporting %@ to %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName], [filePath lastPathComponent]];
     [_importExportFeedback start];
     [_importExportFeedback displayForWindow:self.window];
     [exporter export];
@@ -815,7 +815,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     importer = [[MHFileImporter alloc] initWithCollection:[self selectedCollectionItem].mongoCollection importPath:filePath];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterStopNotification:) name:MHImporterExporterStopNotification object:importer];
     _importExportFeedback = [[MHImportExportFeedback alloc] initWithImporterExporter:importer];
-    _importExportFeedback.label = [NSString stringWithFormat:@"Importing %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
+    _importExportFeedback.label = [NSString stringWithFormat:@"Importing %@ into %@…", [filePath lastPathComponent], [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
     [_importExportFeedback start];
     [_importExportFeedback displayForWindow:self.window];
     [importer import];
