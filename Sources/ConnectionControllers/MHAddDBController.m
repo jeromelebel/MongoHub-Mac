@@ -82,7 +82,7 @@
     // the delegate will release this instance in this notification, so we need to make sure we keep ourself arround to close the window
     [[NSNotificationCenter defaultCenter] postNotificationName:kNewDBWindowWillClose object:dbInfo];
     [NSApp endSheet:self.window];
-    [self release];
+    [self autorelease];
 }
 
 - (void) saveAction
