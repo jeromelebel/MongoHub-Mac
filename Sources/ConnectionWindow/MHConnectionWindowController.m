@@ -193,6 +193,9 @@
 {
     [loaderIndicator stop];
     
+    if (!self.mongoServer.isMaster) {
+        NSBeginAlertSheet(@"Warning", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"read-only mode (connected to a slave)");
+    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDB:) name:kNewDBWindowWillClose object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addCollection:) name:kNewCollectionWindowWillClose object:nil];
     [reconnectButton setEnabled:YES];
