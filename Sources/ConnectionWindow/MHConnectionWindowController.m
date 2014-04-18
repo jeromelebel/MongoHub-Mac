@@ -205,7 +205,7 @@
 {
     [loaderIndicator stop];
     _statusViewController.title = [NSString stringWithFormat:@"Error: %@", error.localizedDescription];
-    NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, [error localizedDescription]);
+    NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", error.localizedDescription);
 }
 
 - (void)connectToServer
@@ -349,7 +349,7 @@
                 [_databaseCollectionOutlineView reloadData];
             }
         } else if (mongoQuery.error) {
-            NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, [mongoQuery.error localizedDescription]);
+            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
         }
         
         [_databaseStoreArrayController clean:_connectionStore databases:_databases];
@@ -384,7 +384,7 @@
                 [_databaseCollectionOutlineView reloadData];
             }
         } else if (mongoQuery.error) {
-            NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, [mongoQuery.error localizedDescription]);
+            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
         }
     }];
     return result;
@@ -498,7 +498,7 @@
     [mongoDatabase createCollectionWithName:collectionName callback:^(MODQuery *mongoQuery) {
         [loaderIndicator stop];
         if (mongoQuery.error) {
-            NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, [mongoQuery.error localizedDescription]);
+            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
         }
         [self getCollectionListForDatabaseName:mongoDatabase.databaseName];
     }];
@@ -524,7 +524,7 @@
         [databaseItem.mongoDatabase dropCollectionWithName:collectionName callback:^(MODQuery *mongoQuery) {
             [loaderIndicator stop];
             if (mongoQuery.error) {
-                NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, [mongoQuery.error localizedDescription]);
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
             } else {
                 [self getCollectionListForDatabaseName:dbname];
             }
@@ -557,7 +557,7 @@
         [loaderIndicator stop];
         [self getDatabaseList];
         if (mongoQuery.error) {
-            NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, [mongoQuery.error localizedDescription]);
+            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
         }
     }];
 }
@@ -589,7 +589,7 @@
 {
     if (![self selectedDatabaseItem]) 
     {
-        NSRunAlertPanel(@"Error", @"Please choose a database!", @"OK", nil, nil);
+        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"Please choose a database!");
         return;
     }
     if (!authWindowController)
