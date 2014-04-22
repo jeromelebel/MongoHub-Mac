@@ -340,7 +340,6 @@
     [_mongoCollection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             [removeResultsTextField setStringValue:[NSString stringWithFormat:@"Error: %@", mongoQuery.error.localizedDescription]];
-            removeResultsTextField.textColor = [NSColor redColor];
         }
         [removeQueryLoaderIndicator stop];
     }];
