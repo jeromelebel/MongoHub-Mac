@@ -307,41 +307,46 @@
         if ([multiCheckBox state] == 0 && count > 0) {
             count = 1;
         }
-        NSColor *currentColor;
         
-        [updateResultsTextField setStringValue:[NSString stringWithFormat:@"Affected Rows: %lld", count]];
-        [NSViewHelpers cancelColorForTarget:updateResultsTextField selector:@selector(setTextColor:)];
-        currentColor = updateResultsTextField.textColor;
-        updateResultsTextField.textColor = [NSColor greenColor];
-        [NSViewHelpers setColor:currentColor fromColor:[NSColor greenColor] toTarget:updateResultsTextField withSelector:@selector(setTextColor:) delay:1];
-    }];
-    [_mongoCollection updateWithCriteria:criteria update:[updateSetTextField stringValue] upsert:[upsetCheckBox state] multiUpdate:[multiCheckBox state] callback:^(MODQuery *mongoQuery) {
-        if (mongoQuery.error) {
-            [updateResultsTextField setStringValue:[NSString stringWithFormat:@"Error: %@", mongoQuery.error.localizedDescription]];
-        }
-        [updateQueryLoaderIndicator stop];
+        [_mongoCollection updateWithCriteria:criteria update:[updateSetTextField stringValue] upsert:[upsetCheckBox state] multiUpdate:[multiCheckBox state] callback:^(MODQuery *mongoQuery) {
+            NSColor *flashColor;
+            
+            if (mongoQuery.error) {
+                updateResultsTextField.stringValue = @"Error!";
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+                flashColor = NSColor.redColor;
+            } else {
+                updateResultsTextField.stringValue = [NSString stringWithFormat:@"Updated Documents: %lld", count];
+                flashColor = NSColor.greenColor;
+            }
+            [updateQueryLoaderIndicator stop];
+            [NSViewHelpers cancelColorForTarget:updateResultsTextField selector:@selector(setTextColor:)];
+            [NSViewHelpers setColor:updateResultsTextField.textColor fromColor:flashColor toTarget:updateResultsTextField withSelector:@selector(setTextColor:) delay:1];
+        }];
     }];
 }
 
 - (void)_removeQuery
 {
-    [removeQueryLoaderIndicator start];
     NSString *criteria = [removeCriticalTextField stringValue];
     
+    [removeQueryLoaderIndicator start];
     [_mongoCollection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
-        NSColor *currentColor;
-        
-        [removeResultsTextField setStringValue:[NSString stringWithFormat:@"Affected Rows: %lld", count]];
-        [NSViewHelpers cancelColorForTarget:removeResultsTextField selector:@selector(setTextColor:)];
-        currentColor = removeResultsTextField.textColor;
-        removeResultsTextField.textColor = [NSColor redColor];
-        [NSViewHelpers setColor:currentColor fromColor:[NSColor redColor] toTarget:removeResultsTextField withSelector:@selector(setTextColor:) delay:1];
-    }];
-    [_mongoCollection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
-        if (mongoQuery.error) {
-            [removeResultsTextField setStringValue:[NSString stringWithFormat:@"Error: %@", mongoQuery.error.localizedDescription]];
-        }
-        [removeQueryLoaderIndicator stop];
+        [_mongoCollection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
+            NSColor *flashColor;
+            
+            if (mongoQuery.error) {
+                removeResultsTextField.stringValue = @"Error!";
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+                flashColor = NSColor.redColor;
+            } else {
+                removeResultsTextField.stringValue = [NSString stringWithFormat:@"Removed Documents: %lld", count];
+                flashColor = NSColor.greenColor;
+            }
+            [removeQueryLoaderIndicator stop];
+            [NSViewHelpers cancelColorForTarget:removeResultsTextField selector:@selector(setTextColor:)];
+            [NSViewHelpers setColor:removeResultsTextField.textColor fromColor:flashColor toTarget:removeResultsTextField withSelector:@selector(setTextColor:) delay:1];
+        }];
     }];
 }
 
