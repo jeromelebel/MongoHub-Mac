@@ -97,8 +97,7 @@
                  ForDB:(NSString *)dbname;
 - (void)createDB;
 - (void)createCollectionForDB:(NSString *)dbname;
-- (IBAction)dropDBorCollection:(id)sender;
-- (void)dropDB;
+- (IBAction)dropDatabaseOrCollection:(id)sender;
 - (IBAction)query:(id)sender;
 - (IBAction)showAuth:(id)sender;
 - (void)connectToServer;

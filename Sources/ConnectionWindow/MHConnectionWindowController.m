@@ -196,7 +196,7 @@
     if (!self.mongoServer.isMaster) {
         NSBeginAlertSheet(@"Warning", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"read-only mode (connected to a slave)");
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDB:) name:kNewDBWindowWillClose object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDatabase:) name:kNewDBWindowWillClose object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addCollection:) name:kNewCollectionWindowWillClose object:nil];
     [reconnectButton setEnabled:YES];
     [monitorButton setEnabled:YES];
@@ -478,7 +478,7 @@
     [self.addDBController modalForWindow:self.window];
 }
 
-- (void)addDB:(NSNotification *)notification
+- (void)addDatabase:(NSNotification *)notification
 {
     if (![notification object]) {
         return;
@@ -508,7 +508,7 @@
     self.addCollectionController = nil;
 }
 
-- (IBAction)dropDBorCollection:(id)sender
+- (IBAction)dropDatabaseOrCollection:(id)sender
 {
     if ([self selectedCollectionItem]) {
         [self dropWarning:[NSString stringWithFormat:@"COLLECTION:%@", [[[self selectedCollectionItem] mongoCollection] absoluteCollectionName]]];
@@ -557,7 +557,7 @@
     }
 }
 
-- (void)dropDB
+- (void)dropDatabase
 {
     if (!_mongoServer.isMaster) {
         NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"This node is not a master, you can't drop a database.");
@@ -620,14 +620,14 @@
     [authWindowController showWindow:self];
 }
 
-- (void)alertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
+- (void)dropWarningDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
     if (returnCode == NSAlertSecondButtonReturn)
     {
         if ([self selectedCollectionItem]) {
             [self dropCollection:[[self selectedCollectionItem].mongoCollection collectionName] ForDB:[[self selectedDatabaseItem].mongoDatabase databaseName]];
         }else {
-            [self dropDB];
+            [self dropDatabase];
         }
     }
 }
@@ -644,7 +644,7 @@
         [alert setInformativeText:[NSString stringWithFormat:@"Dropped %@ cannot be restored.", msg]];
         [alert setAlertStyle:NSWarningAlertStyle];
         [alert beginSheetModalForWindow:[self window] modalDelegate:self
-                         didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:)
+                         didEndSelector:@selector(dropWarningDidEnd:returnCode:contextInfo:)
                             contextInfo:nil];
     }
 }

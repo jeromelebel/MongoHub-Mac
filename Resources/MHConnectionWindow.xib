@@ -1996,7 +1996,7 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">dropDBorCollection:</string>
+						<string key="label">dropDatabaseOrCollection:</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="609356514"/>
 					</object>
@@ -3272,7 +3272,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>createCollection:</string>
 							<string>createDatabase:</string>
-							<string>dropDBorCollection:</string>
+							<string>dropDatabaseOrCollection:</string>
 							<string>exportToFileAction:</string>
 							<string>exportToMySQLAction:</string>
 							<string>importFromFileAction:</string>
@@ -3309,7 +3309,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>createCollection:</string>
 							<string>createDatabase:</string>
-							<string>dropDBorCollection:</string>
+							<string>dropDatabaseOrCollection:</string>
 							<string>exportToFileAction:</string>
 							<string>exportToMySQLAction:</string>
 							<string>importFromFileAction:</string>
@@ -3333,7 +3333,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">dropDBorCollection:</string>
+								<string key="name">dropDatabaseOrCollection:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
