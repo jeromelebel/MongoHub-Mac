@@ -519,19 +519,23 @@
 
 - (void)dropCollection:(NSString *)collectionName ForDB:(NSString *)dbname
 {
-    MHDatabaseItem *databaseItem;
-    
-    databaseItem = [self selectedDatabaseItem];
-    if (databaseItem) {
-        [loaderIndicator start];
-        [databaseItem.mongoDatabase dropCollectionWithName:collectionName callback:^(MODQuery *mongoQuery) {
-            [loaderIndicator stop];
-            if (mongoQuery.error) {
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
-            } else {
-                [self getCollectionListForDatabaseName:dbname];
-            }
-        }];
+    if (!_mongoServer.isMaster) {
+        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"This node is not a master, you can't drop a collection.");
+    } else {
+        MHDatabaseItem *databaseItem;
+        
+        databaseItem = [self selectedDatabaseItem];
+        if (databaseItem) {
+            [loaderIndicator start];
+            [databaseItem.mongoDatabase dropCollectionWithName:collectionName callback:^(MODQuery *mongoQuery) {
+                [loaderIndicator stop];
+                if (mongoQuery.error) {
+                    NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
+                } else {
+                    [self getCollectionListForDatabaseName:dbname];
+                }
+            }];
+        }
     }
 }
 
@@ -555,14 +559,18 @@
 
 - (void)dropDB
 {
-    [loaderIndicator start];
-    [_mongoServer dropDatabaseWithName:[[self selectedDatabaseItem].mongoDatabase databaseName] callback:^(MODQuery *mongoQuery) {
-        [loaderIndicator stop];
-        [self getDatabaseList];
-        if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
-        }
-    }];
+    if (!_mongoServer.isMaster) {
+        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"This node is not a master, you can't drop a database.");
+    } else {
+        [loaderIndicator start];
+        [_mongoServer dropDatabaseWithName:[[self selectedDatabaseItem].mongoDatabase databaseName] callback:^(MODQuery *mongoQuery) {
+            [loaderIndicator stop];
+            [self getDatabaseList];
+            if (mongoQuery.error) {
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
+            }
+        }];
+    }
 }
 
 - (IBAction)query:(id)sender
@@ -626,15 +634,19 @@
 
 - (void)dropWarning:(NSString *)msg
 {
-    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-    [alert addButtonWithTitle:@"Cancel"];
-    [alert addButtonWithTitle:@"OK"];
-    [alert setMessageText:[NSString stringWithFormat:@"Drop this %@?", msg]];
-    [alert setInformativeText:[NSString stringWithFormat:@"Dropped %@ cannot be restored.", msg]];
-    [alert setAlertStyle:NSWarningAlertStyle];
-    [alert beginSheetModalForWindow:[self window] modalDelegate:self
-                     didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:)
-                        contextInfo:nil];
+    if (!_mongoServer.isMaster) {
+        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"This node is not a master, you can't modify it.");
+    } else {
+        NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+        [alert addButtonWithTitle:@"Cancel"];
+        [alert addButtonWithTitle:@"OK"];
+        [alert setMessageText:[NSString stringWithFormat:@"Drop this %@?", msg]];
+        [alert setInformativeText:[NSString stringWithFormat:@"Dropped %@ cannot be restored.", msg]];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert beginSheetModalForWindow:[self window] modalDelegate:self
+                         didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:)
+                            contextInfo:nil];
+    }
 }
 
 - (IBAction)startMonitor:(id)sender {
