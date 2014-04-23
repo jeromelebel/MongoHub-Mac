@@ -94,7 +94,7 @@
 
 + (id)loadQueryController
 {
-    return [[[MHQueryWindowController alloc] initWithNibName:@"QueryWindow" bundle:nil] autorelease];
+    return [[[MHQueryWindowController alloc] initWithNibName:@"MHQueryWindow" bundle:nil] autorelease];
 }
 
 - (void)dealloc

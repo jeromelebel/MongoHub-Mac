@@ -164,7 +164,7 @@
 		1DF96E3B11881AED00C35AB8 /* MHAddCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF96E3A11881AED00C35AB8 /* MHAddCollectionController.m */; };
 		1DF96E3D11881EB400C35AB8 /* MHAddCollectionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF96E3C11881EB400C35AB8 /* MHAddCollectionController.xib */; };
 		1DF96F9211883B3800C35AB8 /* MHQueryWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF96F9111883B3800C35AB8 /* MHQueryWindowController.m */; };
-		1DF96F9411883D5E00C35AB8 /* QueryWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF96F9311883D5E00C35AB8 /* QueryWindow.xib */; };
+		1DF96F9411883D5E00C35AB8 /* MHQueryWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF96F9311883D5E00C35AB8 /* MHQueryWindow.xib */; };
 		2F7446990DB6B7EA00F9684A /* MHMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F7446970DB6B7EA00F9684A /* MHMainMenu.xib */; };
 		77C8280E06725ACE000B614F /* MHApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C8280C06725ACE000B614F /* MHApplicationDelegate.m */; };
 		797A78450DDCFB3E0050D0C2 /* GetMetadataForFile.c in Sources */ = {isa = PBXBuildFile; fileRef = 797A783F0DDCFB3E0050D0C2 /* GetMetadataForFile.c */; };
@@ -560,7 +560,7 @@
 		1DF96E3A11881AED00C35AB8 /* MHAddCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAddCollectionController.m; sourceTree = "<group>"; };
 		1DF96E3C11881EB400C35AB8 /* MHAddCollectionController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MHAddCollectionController.xib; sourceTree = "<group>"; };
 		1DF96F9111883B3800C35AB8 /* MHQueryWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHQueryWindowController.m; sourceTree = "<group>"; };
-		1DF96F9311883D5E00C35AB8 /* QueryWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QueryWindow.xib; sourceTree = "<group>"; };
+		1DF96F9311883D5E00C35AB8 /* MHQueryWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MHQueryWindow.xib; sourceTree = "<group>"; };
 		1DFC2A8C11970BD0006AA167 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = SOURCE_ROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -1239,7 +1239,7 @@
 				1D93C3D01183690E003216F7 /* MHConnectionWindow.xib */,
 				1D79945611875E7A009C187F /* MHAddDBController.xib */,
 				1DF96E3C11881EB400C35AB8 /* MHAddCollectionController.xib */,
-				1DF96F9311883D5E00C35AB8 /* QueryWindow.xib */,
+				1DF96F9311883D5E00C35AB8 /* MHQueryWindow.xib */,
 				1D210BFF11930E18000EF41C /* Auth.xib */,
 				1D601B5511C8F24300C86274 /* MysqlImport.xib */,
 				1D26615111CFC5BE0092C6B5 /* MysqlExport.xib */,
@@ -1362,7 +1362,7 @@
 				1D79945711875E7A009C187F /* MHAddDBController.xib in Resources */,
 				0279C090189C02F600F8BACB /* MHImportExportFeedback.xib in Resources */,
 				1DF96E3D11881EB400C35AB8 /* MHAddCollectionController.xib in Resources */,
-				1DF96F9411883D5E00C35AB8 /* QueryWindow.xib in Resources */,
+				1DF96F9411883D5E00C35AB8 /* MHQueryWindow.xib in Resources */,
 				1DA68047118875B300DFDD29 /* findmenu.png in Resources */,
 				02F2A1F71817E48B0053CB20 /* MHPreferenceController.xib in Resources */,
 				1DA68048118875B300DFDD29 /* insertmenu.png in Resources */,
