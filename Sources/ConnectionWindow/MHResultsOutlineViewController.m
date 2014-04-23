@@ -9,7 +9,7 @@
 #import "MHResultsOutlineViewController.h"
 
 @interface MHResultsOutlineViewController () <NSOutlineViewDataSource, NSOutlineViewDelegate>
-@property (nonatomic, retain, readwrite) NSOutlineView *outlineView;
+@property (nonatomic, assign, readwrite) NSOutlineView *outlineView;
 
 @end
 
@@ -34,7 +34,6 @@
 - (void)dealloc
 {
     [_results release];
-    self.outlineView = nil;
     [super dealloc];
 }
 

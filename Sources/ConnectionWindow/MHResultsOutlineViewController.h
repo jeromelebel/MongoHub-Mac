@@ -15,7 +15,6 @@
     NSMutableArray              *_results;
     BOOL                        _checkingSelection;
 }
-@property (nonatomic, retain, readonly) NSOutlineView *outlineView;
 @property (nonatomic, retain, readwrite) NSArray *results;
 @property (nonatomic, assign, readonly) NSArray *selectedDocuments;
 
