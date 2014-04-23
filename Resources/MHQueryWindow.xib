@@ -9,6 +9,9 @@
             <connections>
                 <outlet property="_criteriaComboBox" destination="1379" id="1382"/>
                 <outlet property="_fieldsTextField" destination="80" id="1388"/>
+                <outlet property="_indexLoaderIndicator" destination="498" id="15J-ti-q9w"/>
+                <outlet property="_indexOutlineView" destination="250" id="Ena-Tv-GhP"/>
+                <outlet property="_indexTextField" destination="271" id="rw0-0e-a9b"/>
                 <outlet property="_insertButton" destination="193" id="ezi-YK-FuE"/>
                 <outlet property="_insertDataTextView" destination="204" id="GT2-ad-33c"/>
                 <outlet property="_insertLoaderIndicator" destination="495" id="WhH-o6-NCg"/>
@@ -58,14 +61,12 @@
                 <outlet property="impTypePopUpButton" destination="602" id="652"/>
                 <outlet property="indexLoaderIndicator" destination="498" id="499"/>
                 <outlet property="indexTextField" destination="271" id="273"/>
-                <outlet property="indexesOutlineViewController" destination="258" id="259"/>
                 <outlet property="insertButton" destination="193" id="qBL-17-YSh"/>
                 <outlet property="insertDataTextView" destination="204" id="205"/>
                 <outlet property="insertLoaderIndicator" destination="495" id="496"/>
                 <outlet property="insertResultsTextField" destination="191" id="265"/>
                 <outlet property="mapFunctionTextView" destination="303" id="344"/>
                 <outlet property="mrLoaderIndicator" destination="501" id="502"/>
-                <outlet property="mrOutlineViewController" destination="348" id="349"/>
                 <outlet property="mrcriticalTextField" destination="321" id="346"/>
                 <outlet property="mroutputTextField" destination="333" id="347"/>
                 <outlet property="multiCheckBox" destination="1397" id="1400"/>
@@ -464,16 +465,6 @@
         <customObject id="112" userLabel="findResultsViewController" customClass="MHResultsOutlineViewController">
             <connections>
                 <outlet property="_outlineView" destination="69" id="1389"/>
-            </connections>
-        </customObject>
-        <customObject id="258" userLabel="indexesOutlineViewController" customClass="MHResultsOutlineViewController">
-            <connections>
-                <outlet property="_outlineView" destination="250" id="1390"/>
-            </connections>
-        </customObject>
-        <customObject id="348" userLabel="mrOutlineViewController" customClass="MHResultsOutlineViewController">
-            <connections>
-                <outlet property="_outlineView" destination="338" id="1391"/>
             </connections>
         </customObject>
         <customView id="1392">
@@ -1053,14 +1044,14 @@ DQ
                         <tabViewItem label="Index" identifier="4" id="710">
                             <view key="view" id="711">
                                 <rect key="frame" x="0.0" y="0.0" width="584" height="455"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="247">
                                         <rect key="frame" x="0.0" y="20" width="584" height="355"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="96b-cX-8Vf">
                                             <rect key="frame" x="1" y="1" width="582" height="353"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" multipleSelection="NO" autosaveColumns="NO" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="252" id="250">
                                                     <rect key="frame" x="0.0" y="0.0" width="582" height="353"/>
@@ -1110,10 +1101,6 @@ DQ
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
                                                     </tableColumns>
-                                                    <connections>
-                                                        <outlet property="dataSource" destination="258" id="262"/>
-                                                        <outlet property="delegate" destination="258" id="263"/>
-                                                    </connections>
                                                 </outlineView>
                                             </subviews>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1418,10 +1405,6 @@ CA
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                 </tableColumn>
                                                             </tableColumns>
-                                                            <connections>
-                                                                <outlet property="dataSource" destination="348" id="351"/>
-                                                                <outlet property="delegate" destination="348" id="352"/>
-                                                            </connections>
                                                         </outlineView>
                                                     </subviews>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>

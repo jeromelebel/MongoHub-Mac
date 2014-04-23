@@ -42,6 +42,11 @@
 @property (nonatomic, readwrite, assign) NSTextField *removeQueryTextField;
 @property (nonatomic, readwrite, assign) NSProgressIndicator *removeQueryLoaderIndicator;
 
+@property (nonatomic, readwrite, assign) NSTextField *indexTextField;
+@property (nonatomic, readwrite, retain) MHResultsOutlineViewController *indexesOutlineViewController;
+@property (nonatomic, readwrite, assign) NSProgressIndicator *indexLoaderIndicator;
+@property (nonatomic, readwrite, assign) NSOutlineView *indexOutlineView;
+
 - (void)selectBestTextField;
 
 @end
@@ -67,9 +72,7 @@
 
 @synthesize removeButton = _removeButton, removeCriteriaTextField = _removeCriteriaTextField, removeResultsTextField = _removeResultsTextField, removeQueryTextField = _removeQueryTextField, removeQueryLoaderIndicator = _removeQueryLoaderIndicator;
 
-@synthesize indexTextField;
-@synthesize indexesOutlineViewController;
-@synthesize indexLoaderIndicator;
+@synthesize indexTextField = _indexTextField, indexesOutlineViewController = _indexesOutlineViewController, indexLoaderIndicator = _indexLoaderIndicator, indexOutlineView = _indexOutlineView;
 
 @synthesize mapFunctionTextView;
 @synthesize reduceFunctionTextView;
@@ -109,6 +112,8 @@
 
 - (void)dealloc
 {
+    self.indexesOutlineViewController = nil;
+    
     [_jsonWindowControllers release];
     [databasesArrayController release];
     [findResultsViewController release];
@@ -119,10 +124,6 @@
     [findQueryTextField release];
     [findResultsOutlineView release];
     [findQueryLoaderIndicator release];
-    
-    [indexTextField release];
-    [indexesOutlineViewController release];
-    [indexLoaderIndicator release];
     
     [mapFunctionTextView release];
     [reduceFunctionTextView release];
@@ -214,6 +215,7 @@
 
 - (void)awakeFromNib
 {
+    self.indexesOutlineViewController = [[MHResultsOutlineViewController alloc] initWithOutlineView:self.indexOutlineView];
     self.title = self.mongoCollection.absoluteCollectionName;
     _jsonWindowControllers = [[NSMutableDictionary alloc] init];
     [self findQueryComposer:nil];
@@ -445,20 +447,20 @@
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         }
-        indexesOutlineViewController.results = [MODHelper convertForOutlineWithObjects:indexes bsonData:nil];
+        self.indexesOutlineViewController.results = [MODHelper convertForOutlineWithObjects:indexes bsonData:nil];
     }];
 }
 
 - (IBAction)ensureIndex:(id)sender
 {
-    [indexLoaderIndicator start];
-    [_mongoCollection createIndex:[indexTextField stringValue] name:nil options:0 callback:^(MODQuery *mongoQuery) {
+    [self.indexLoaderIndicator start];
+    [_mongoCollection createIndex:self.indexTextField.stringValue name:nil options:0 callback:^(MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         } else {
-            [indexTextField setStringValue:@""];
+            self.indexTextField.stringValue = @"";
         }
-        [indexLoaderIndicator stop];
+        [self.indexLoaderIndicator stop];
         [self indexQuery:nil];
     }];
 }
@@ -466,14 +468,14 @@
 
 - (IBAction)reIndex:(id)sender
 {
-    [indexLoaderIndicator start];
+    [self.indexLoaderIndicator start];
     [_mongoCollection reIndexWithCallback:^(MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         } else {
-            [indexTextField setStringValue:@""];
+            self.indexTextField.stringValue = @"";
         }
-        [indexLoaderIndicator stop];
+        [self.indexLoaderIndicator stop];
     }];
 }
 
@@ -481,14 +483,14 @@
 {
     NSArray *indexes;
     
-    indexes = indexesOutlineViewController.selectedDocuments;
+    indexes = self.indexesOutlineViewController.selectedDocuments;
     if (indexes.count == 1) {
-        [indexLoaderIndicator start];
+        [self.indexLoaderIndicator start];
         [_mongoCollection dropIndex:[[[indexes objectAtIndex:0] objectForKey:@"objectvalue"] objectForKey:@"key"] callback:^(MODQuery *mongoQuery) {
             if (mongoQuery.error) {
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
             }
-            [indexLoaderIndicator stop];
+            [self.indexLoaderIndicator stop];
             [self indexQuery:nil];
         }];
     }

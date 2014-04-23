@@ -8,14 +8,24 @@
 
 #import "MHResultsOutlineViewController.h"
 
+@interface MHResultsOutlineViewController () <NSOutlineViewDataSource, NSOutlineViewDelegate>
+@property (nonatomic, retain, readwrite) NSOutlineView *outlineView;
+
+@end
+
 @implementation MHResultsOutlineViewController
 
-@synthesize outlineView = _outlineView;
+@synthesize outlineView = _outlineView, results = _results;
 
-- (id)init
+- (id)initWithOutlineView:(NSOutlineView *)outlineView;
 {
     if (self = [super init]) {
         _results = [[NSMutableArray alloc] init];
+        self.outlineView = outlineView;
+        self.outlineView.delegate = self;
+        self.outlineView.dataSource = self;
+        [self.outlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+        [self.outlineView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
     }
     
     return self;
@@ -24,13 +34,8 @@
 - (void)dealloc
 {
     [_results release];
+    self.outlineView = nil;
     [super dealloc];
-}
-
-- (void)awakeFromNib
-{
-    [_outlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
-    [_outlineView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
 }
 
 - (NSArray *)selectedDocuments
@@ -38,8 +43,8 @@
     NSMutableArray *documents;
     
     documents = [NSMutableArray array];
-    [[_outlineView selectedRowIndexes] enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        id currentItem = [_outlineView itemAtRow:idx];
+    [self.outlineView.selectedRowIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        id currentItem = [self.outlineView itemAtRow:idx];
         
         [documents addObject:[self rootForItem:currentItem]];
     }];
@@ -51,7 +56,7 @@
 
 // Returns the child item at the specified index of a given item.
 - (id)outlineView:(NSOutlineView *)outlineView
-            child:(int)index
+            child:(NSInteger)index
                ofItem:(id)item
 {
     // If the item is the root item, return the corresponding mailbox object
@@ -76,11 +81,11 @@
 }
 
 // Returns the number of child items encompassed by a given item.
-- (int)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
+- (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
 {
     // If the item is the root item, return the number of mailboxes
     if ([outlineView levelForItem:item] == -1) {
-        return [_results count];
+        return _results.count;
     }
     // If the item is a root-level item (ie mailbox)
     return [[item objectForKey:@"child"] count];
@@ -129,15 +134,15 @@
 {
     if (!_checkingSelection) {
         _checkingSelection = YES;
-        [[_outlineView selectedRowIndexes] enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-            id currentItem = [_outlineView itemAtRow:idx];
+        [self.outlineView.selectedRowIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+            id currentItem = [self.outlineView itemAtRow:idx];
             
             if ([currentItem objectForKey:@"objectvalue"] == nil) {
                 NSIndexSet *indexSet;
                 
-                [_outlineView deselectRow:idx];
-                indexSet = [[NSIndexSet alloc] initWithIndex:[_outlineView rowForItem:[self rootForItem:currentItem]]];
-                [_outlineView selectRowIndexes:indexSet byExtendingSelection:YES];
+                [self.outlineView deselectRow:idx];
+                indexSet = [[NSIndexSet alloc] initWithIndex:[self.outlineView rowForItem:[self rootForItem:currentItem]]];
+                [self.outlineView selectRowIndexes:indexSet byExtendingSelection:YES];
             }
         }];
         _checkingSelection = NO;
@@ -148,7 +153,7 @@
 #pragma mark helper methods
 - (id)rootForItem:(id)item
 {
-    id parentItem = [_outlineView parentForItem:item];
+    id parentItem = [self.outlineView parentForItem:item];
     if (parentItem) {
         return [self rootForItem:parentItem];
     }else {
@@ -168,7 +173,7 @@
         [_results release];
         _results = [results copy];
     }
-    [_outlineView reloadData];
+    [self.outlineView reloadData];
 }
 
 @end
