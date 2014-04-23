@@ -22,6 +22,9 @@
 #define IS_OBJECT_ID(value) ([value length] == 24 && [[value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"1234567890abcdefABCDEF"]] length] == 0)
 
 @interface MHQueryWindowController ()
+@property (nonatomic, readwrite, retain) MHResultsOutlineViewController *findResultsViewController;
+@property (nonatomic, readwrite, assign) NSOutlineView *findResultsOutlineView;
+
 @property (nonatomic, readwrite, assign) NSButton *insertButton;
 @property (nonatomic, readwrite, assign) NSTextView *insertDataTextView;
 @property (nonatomic, readwrite, assign) NSTextField *insertResultsTextField;
@@ -47,6 +50,9 @@
 @property (nonatomic, readwrite, assign) NSProgressIndicator *indexLoaderIndicator;
 @property (nonatomic, readwrite, assign) NSOutlineView *indexOutlineView;
 
+@property (nonatomic, readwrite, retain) MHResultsOutlineViewController *mrOutlineViewController;
+@property (nonatomic, readwrite, assign) NSOutlineView *mrOutlineView;
+
 - (void)selectBestTextField;
 
 @end
@@ -54,7 +60,7 @@
 @implementation MHQueryWindowController
 
 @synthesize databasesArrayController;
-@synthesize findResultsViewController;
+@synthesize findResultsViewController = _findResultsViewController, findResultsOutlineView = _findResultsOutlineView;
 @synthesize mongoCollection = _mongoCollection;
 @synthesize connectionStore = _connectionStore;
 
@@ -63,7 +69,6 @@
 @synthesize limitTextField = _limitTextField;
 @synthesize totalResultsTextField;
 @synthesize findQueryTextField;
-@synthesize findResultsOutlineView;
 @synthesize findQueryLoaderIndicator;
 
 @synthesize insertDataTextView = _insertDataTextView, insertResultsTextField = _insertResultsTextField, insertLoaderIndicator = _insertLoaderIndicator, insertButton = _insertButton;
@@ -78,8 +83,8 @@
 @synthesize reduceFunctionTextView;
 @synthesize mrcriticalTextField;
 @synthesize mroutputTextField;
-@synthesize mrOutlineViewController;
 @synthesize mrLoaderIndicator;
+@synthesize mrOutlineViewController = _mrOutlineViewController, mrOutlineView = _mrOutlineView;
 
 @synthesize expCriticalTextField;
 @synthesize expFieldsTextField;
@@ -113,23 +118,22 @@
 - (void)dealloc
 {
     self.indexesOutlineViewController = nil;
+    self.mrOutlineViewController = nil;
+    self.findResultsViewController = nil;
     
     [_jsonWindowControllers release];
     [databasesArrayController release];
-    [findResultsViewController release];
     [_mongoCollection release];
     [_connectionStore release];
     
     [totalResultsTextField release];
     [findQueryTextField release];
-    [findResultsOutlineView release];
     [findQueryLoaderIndicator release];
     
     [mapFunctionTextView release];
     [reduceFunctionTextView release];
     [mrcriticalTextField release];
     [mroutputTextField release];
-    [mrOutlineViewController release];
     [mrLoaderIndicator release];
     
     [expCriticalTextField release];
@@ -215,7 +219,10 @@
 
 - (void)awakeFromNib
 {
-    self.indexesOutlineViewController = [[MHResultsOutlineViewController alloc] initWithOutlineView:self.indexOutlineView];
+    self.findResultsViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.findResultsOutlineView] autorelease];
+    self.indexesOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.indexOutlineView] autorelease];
+    self.mrOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.mrOutlineView] autorelease];
+    
     self.title = self.mongoCollection.absoluteCollectionName;
     _jsonWindowControllers = [[NSMutableDictionary alloc] init];
     [self findQueryComposer:nil];
@@ -283,7 +290,7 @@
             if ([queryTitle length] > 0) {
                 [_connectionStore addNewQuery:[NSDictionary dictionaryWithObjectsAndKeys:queryTitle, @"title", [_sortTextField stringValue], @"sort", [_fieldsTextField stringValue], @"fields", [_limitTextField stringValue], @"limit", [_skipTextField stringValue], @"skip", nil] withDatabaseName:_mongoCollection.databaseName collectionName:_mongoCollection.collectionName];
             }
-            findResultsViewController.results = [MODHelper convertForOutlineWithObjects:documents bsonData:bsonData];
+            self.findResultsViewController.results = [MODHelper convertForOutlineWithObjects:documents bsonData:bsonData];
             [_mongoCollection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
                 [findQueryLoaderIndicator stop];
                 [totalResultsTextField setStringValue:[NSString stringWithFormat:@"Total Results: %lld (%0.2fs)", count, [[mongoQuery.userInfo objectForKey:@"timequery"] duration]]];
@@ -304,12 +311,12 @@
 
 - (IBAction)expandFindResults:(id)sender
 {
-    [findResultsOutlineView expandItem:nil expandChildren:YES];
+    [self.findResultsOutlineView expandItem:nil expandChildren:YES];
 }
 
 - (IBAction)collapseFindResults:(id)sender
 {
-    [findResultsOutlineView collapseItem:nil collapseChildren:YES];
+    [self.findResultsOutlineView collapseItem:nil collapseChildren:YES];
 }
 
 - (void)select
@@ -513,7 +520,7 @@
     
     [self.removeQueryLoaderIndicator start];
     documentIds = [[NSMutableArray alloc] init];
-    for (NSDictionary *document in findResultsViewController.selectedDocuments) {
+    for (NSDictionary *document in self.findResultsViewController.selectedDocuments) {
         [documentIds addObject:[document objectForKey:@"objectvalueid"]];
     }
     
@@ -683,7 +690,7 @@
 
 - (void)showEditWindow:(id)sender
 {
-    for (NSDictionary *document in findResultsViewController.selectedDocuments) {
+    for (NSDictionary *document in self.findResultsViewController.selectedDocuments) {
         id idValue;
         id jsonWindowControllerKey;
         
@@ -792,7 +799,7 @@
         if (errorMessage) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", errorMessage);
         } else {
-            findResultsViewController.results = result;
+            self.findResultsViewController.results = result;
         }
     }
 }

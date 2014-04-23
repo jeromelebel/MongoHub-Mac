@@ -17,8 +17,8 @@
 @interface MHQueryWindowController : MHTabItemViewController
 {
     DatabasesArrayController *databasesArrayController;
-    IBOutlet MHResultsOutlineViewController *findResultsViewController;
-    IBOutlet NSOutlineView *findResultsOutlineView;
+    MHResultsOutlineViewController              *_findResultsViewController;
+    IBOutlet NSOutlineView                      *_findResultsOutlineView;
     MODCollection *_mongoCollection;
     MHConnectionStore *_connectionStore;
     NSMutableDictionary *_jsonWindowControllers;
@@ -65,7 +65,8 @@
     IBOutlet NSTextField *mrcriticalTextField;
     IBOutlet NSTextField *mroutputTextField;
     IBOutlet NSProgressIndicator *mrLoaderIndicator;
-    IBOutlet MHResultsOutlineViewController *mrOutlineViewController;
+    MHResultsOutlineViewController              *_mrOutlineViewController;
+    IBOutlet NSOutlineView                      *_mrOutlineView;
     
     IBOutlet NSTextField *expCriticalTextField;
     IBOutlet NSTokenField *expFieldsTextField;
@@ -92,7 +93,6 @@
 }
 
 @property (nonatomic, retain) DatabasesArrayController *databasesArrayController;
-@property (nonatomic, retain) MHResultsOutlineViewController *findResultsViewController;
 @property (nonatomic, retain, readwrite) MODCollection *mongoCollection;
 @property (nonatomic, retain, readwrite) MHConnectionStore *connectionStore;
 
@@ -101,14 +101,12 @@
 @property (nonatomic, retain) NSTextField *limitTextField;
 @property (nonatomic, retain) NSTextField *totalResultsTextField;
 @property (nonatomic, retain) NSTextField *findQueryTextField;
-@property (nonatomic, retain) NSOutlineView *findResultsOutlineView;
 @property (nonatomic, retain) NSProgressIndicator *findQueryLoaderIndicator;
 
 @property (nonatomic, retain) NSTextView *mapFunctionTextView;
 @property (nonatomic, retain) NSTextView *reduceFunctionTextView;
 @property (nonatomic, retain) NSTextField *mrcriticalTextField;
 @property (nonatomic, retain) NSTextField *mroutputTextField;
-@property (nonatomic, retain) MHResultsOutlineViewController *mrOutlineViewController;
 @property (nonatomic, retain) NSProgressIndicator *mrLoaderIndicator;
 
 @property (nonatomic, retain) NSTextField *expCriticalTextField;

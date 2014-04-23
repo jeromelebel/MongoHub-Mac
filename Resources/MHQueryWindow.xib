@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1070" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="_criteriaComboBox" destination="1379" id="1382"/>
                 <outlet property="_fieldsTextField" destination="80" id="1388"/>
+                <outlet property="_findResultsOutlineView" destination="69" id="DH0-ky-vk2"/>
                 <outlet property="_indexLoaderIndicator" destination="498" id="15J-ti-q9w"/>
                 <outlet property="_indexOutlineView" destination="250" id="Ena-Tv-GhP"/>
                 <outlet property="_indexTextField" destination="271" id="rw0-0e-a9b"/>
@@ -17,6 +18,7 @@
                 <outlet property="_insertLoaderIndicator" destination="495" id="WhH-o6-NCg"/>
                 <outlet property="_insertResultsTextField" destination="191" id="5jQ-kh-645"/>
                 <outlet property="_limitTextField" destination="79" id="1387"/>
+                <outlet property="_mrOutlineView" destination="338" id="lDC-VE-U3w"/>
                 <outlet property="_removeButton" destination="160" id="3rM-lI-94n"/>
                 <outlet property="_removeCriteriaTextField" destination="164" id="fEv-Ws-g6o"/>
                 <outlet property="_removeQueryLoaderIndicator" destination="492" id="5i7-Rj-ZMY"/>
@@ -48,7 +50,6 @@
                 <outlet property="findQueryLoaderIndicator" destination="484" id="485"/>
                 <outlet property="findQueryTextField" destination="94" id="369"/>
                 <outlet property="findResultsOutlineView" destination="69" id="469"/>
-                <outlet property="findResultsViewController" destination="112" id="113"/>
                 <outlet property="impDropCheckBox" destination="646" id="654"/>
                 <outlet property="impFieldsTextField" destination="609" id="650"/>
                 <outlet property="impHeaderlineCheckBox" destination="648" id="655"/>
@@ -462,11 +463,6 @@
                 </textField>
             </subviews>
         </view>
-        <customObject id="112" userLabel="findResultsViewController" customClass="MHResultsOutlineViewController">
-            <connections>
-                <outlet property="_outlineView" destination="69" id="1389"/>
-            </connections>
-        </customObject>
         <customView id="1392">
             <rect key="frame" x="0.0" y="0.0" width="624" height="505"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -542,8 +538,6 @@
                                                                 <string key="NSSelectorName">showEditWindow:</string>
                                                             </dictionary>
                                                         </binding>
-                                                        <outlet property="dataSource" destination="112" id="118"/>
-                                                        <outlet property="delegate" destination="112" id="119"/>
                                                     </connections>
                                                 </outlineView>
                                             </subviews>
@@ -585,7 +579,6 @@ CA
                                         </buttonCell>
                                         <connections>
                                             <action selector="removeRecord:" target="-2" id="693"/>
-                                            <binding destination="112" name="enabled" keyPath="self.outlineView.selectedRow" id="692"/>
                                         </connections>
                                     </button>
                                     <view id="65">
