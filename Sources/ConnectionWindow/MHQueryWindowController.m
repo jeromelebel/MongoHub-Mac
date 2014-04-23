@@ -421,7 +421,7 @@
     }
 }
 
-- (IBAction) indexQuery:(id)sender
+- (IBAction)indexQuery:(id)sender
 {
     [_mongoCollection indexListWithCallback:^(NSArray *indexes, MODQuery *mongoQuery) {
         if (mongoQuery.error) {
@@ -446,7 +446,7 @@
 }
 
 
-- (IBAction) reIndex:(id)sender
+- (IBAction)reIndex:(id)sender
 {
     [indexLoaderIndicator start];
     [_mongoCollection reIndexWithCallback:^(MODQuery *mongoQuery) {
@@ -459,7 +459,7 @@
     }];
 }
 
-- (IBAction) dropIndex:(id)sender
+- (IBAction)dropIndex:(id)sender
 {
     NSArray *indexes;
     
