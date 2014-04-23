@@ -48,9 +48,10 @@
     IBOutlet NSTextField *removeQueryTextField;
     IBOutlet NSProgressIndicator *removeQueryLoaderIndicator;
     
-    IBOutlet NSTextView *insertDataTextView;
-    IBOutlet NSTextField *insertResultsTextField;
-    IBOutlet NSProgressIndicator *insertLoaderIndicator;
+    IBOutlet NSButton                           *_insertButton;
+    IBOutlet NSTextView                         *_insertDataTextView;
+    IBOutlet NSTextField                        *_insertResultsTextField;
+    IBOutlet NSProgressIndicator                *_insertLoaderIndicator;
     
     IBOutlet NSTextField *indexTextField;
     IBOutlet MHResultsOutlineViewController *indexesOutlineViewController;
@@ -112,10 +113,6 @@
 @property (nonatomic, retain) NSTextField *removeResultsTextField;
 @property (nonatomic, retain) NSTextField *removeQueryTextField;
 @property (nonatomic, retain) NSProgressIndicator *removeQueryLoaderIndicator;
-
-@property (nonatomic, retain) NSTextView *insertDataTextView;
-@property (nonatomic, retain) NSTextField *insertResultsTextField;
-@property (nonatomic, retain) NSProgressIndicator *insertLoaderIndicator;
 
 @property (nonatomic, retain) NSTextField *indexTextField;
 @property (nonatomic, retain) MHResultsOutlineViewController *indexesOutlineViewController;

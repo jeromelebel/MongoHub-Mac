@@ -9,6 +9,10 @@
             <connections>
                 <outlet property="_criteriaComboBox" destination="1379" id="1382"/>
                 <outlet property="_fieldsTextField" destination="80" id="1388"/>
+                <outlet property="_insertButton" destination="193" id="ezi-YK-FuE"/>
+                <outlet property="_insertDataTextView" destination="204" id="GT2-ad-33c"/>
+                <outlet property="_insertLoaderIndicator" destination="495" id="WhH-o6-NCg"/>
+                <outlet property="_insertResultsTextField" destination="191" id="5jQ-kh-645"/>
                 <outlet property="_limitTextField" destination="79" id="1387"/>
                 <outlet property="_skipTextField" destination="76" id="1386"/>
                 <outlet property="_sortTextField" destination="123" id="1384"/>
@@ -41,6 +45,7 @@
                 <outlet property="indexLoaderIndicator" destination="498" id="499"/>
                 <outlet property="indexTextField" destination="271" id="273"/>
                 <outlet property="indexesOutlineViewController" destination="258" id="259"/>
+                <outlet property="insertButton" destination="193" id="qBL-17-YSh"/>
                 <outlet property="insertDataTextView" destination="204" id="205"/>
                 <outlet property="insertLoaderIndicator" destination="495" id="496"/>
                 <outlet property="insertResultsTextField" destination="191" id="265"/>

@@ -21,7 +21,13 @@
 
 #define IS_OBJECT_ID(value) ([value length] == 24 && [[value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"1234567890abcdefABCDEF"]] length] == 0)
 
-@interface MHQueryWindowController()
+@interface MHQueryWindowController ()
+
+@property (nonatomic, readwrite, assign) NSButton *insertButton;
+@property (nonatomic, readwrite, assign) NSTextView *insertDataTextView;
+@property (nonatomic, readwrite, assign) NSTextField *insertResultsTextField;
+@property (nonatomic, readwrite, assign) NSProgressIndicator *insertLoaderIndicator;
+
 - (void)selectBestTextField;
 @end
 
@@ -53,9 +59,7 @@
 @synthesize removeQueryTextField;
 @synthesize removeQueryLoaderIndicator;
 
-@synthesize insertDataTextView;
-@synthesize insertResultsTextField;
-@synthesize insertLoaderIndicator;
+@synthesize insertDataTextView = _insertDataTextView, insertResultsTextField = _insertResultsTextField, insertLoaderIndicator = _insertLoaderIndicator, insertButton = _insertButton;
 
 @synthesize indexTextField;
 @synthesize indexesOutlineViewController;
@@ -122,10 +126,6 @@
     [removeResultsTextField release];
     [removeQueryTextField release];
     [removeQueryLoaderIndicator release];
-    
-    [insertDataTextView release];
-    [insertResultsTextField release];
-    [insertLoaderIndicator release];
     
     [indexTextField release];
     [indexesOutlineViewController release];
@@ -221,12 +221,21 @@
 
 - (void)awakeFromNib
 {
-    self.title = _mongoCollection.absoluteCollectionName;
+    self.title = self.mongoCollection.absoluteCollectionName;
     _jsonWindowControllers = [[NSMutableDictionary alloc] init];
     [self findQueryComposer:nil];
     [self updateQueryComposer:nil];
     [self removeQueryComposer:nil];
     [self exportQueryComposer:nil];
+    
+    if (!self.mongoCollection.mongoServer.isMaster) {
+        self.insertButton.toolTip = @"Can't insert document on a non-master node";
+        self.insertButton.enabled = NO;
+        self.insertDataTextView.toolTip = @"Can't insert document on a non-master node";
+        self.insertDataTextView.editable = NO;
+        self.insertResultsTextField.stringValue = @"Can't insert document on a non-master node";
+        self.insertResultsTextField.textColor = NSColor.redColor;
+    }
 }
 
 - (IBAction)findQuery:(id)sender
@@ -384,18 +393,18 @@
     id objects;
     NSError *error;
     
-    [insertLoaderIndicator start];
-    objects = [MODRagelJsonParser objectsFromJson:[insertDataTextView string] withError:&error];
+    [self.insertLoaderIndicator start];
+    objects = [MODRagelJsonParser objectsFromJson:self.insertDataTextView.string withError:&error];
     if (error) {
         NSColor *currentColor;
         
-        [insertLoaderIndicator stop];
+        [self.insertLoaderIndicator stop];
         NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
-        insertResultsTextField.stringValue = @"Parsing error";
-        [NSViewHelpers cancelColorForTarget:insertResultsTextField selector:@selector(setTextColor:)];
-        currentColor = insertResultsTextField.textColor;
-        insertResultsTextField.textColor = [NSColor redColor];
-        [NSViewHelpers setColor:currentColor fromColor:[NSColor redColor] toTarget:insertResultsTextField withSelector:@selector(setTextColor:) delay:1];
+        self.insertResultsTextField.stringValue = @"Parsing error";
+        [NSViewHelpers cancelColorForTarget:self.insertResultsTextField selector:@selector(setTextColor:)];
+        currentColor = self.insertResultsTextField.textColor;
+        self.insertResultsTextField.textColor = [NSColor redColor];
+        [NSViewHelpers setColor:currentColor fromColor:[NSColor redColor] toTarget:self.insertResultsTextField withSelector:@selector(setTextColor:) delay:1];
     } else {
         if ([objects isKindOfClass:[MODSortedMutableDictionary class]]) {
             objects = [NSArray arrayWithObject:objects];
@@ -404,19 +413,19 @@
             NSColor *currentColor;
             NSColor *flashColor;
           
-            [insertLoaderIndicator stop];
+            [self.insertLoaderIndicator stop];
             if (mongoQuery.error) {
                 flashColor = [NSColor redColor];
-                [insertResultsTextField setStringValue:@"Error!"];
+                [self.insertResultsTextField setStringValue:@"Error!"];
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
             } else {
                 flashColor = [NSColor greenColor];
-                [insertResultsTextField setStringValue:@"Completed!"];
+                [self.insertResultsTextField setStringValue:@"Completed!"];
             }
-            [NSViewHelpers cancelColorForTarget:insertResultsTextField selector:@selector(setTextColor:)];
-            currentColor = insertResultsTextField.textColor;
-            insertResultsTextField.textColor = flashColor;
-            [NSViewHelpers setColor:currentColor fromColor:flashColor toTarget:insertResultsTextField withSelector:@selector(setTextColor:) delay:1];
+            [NSViewHelpers cancelColorForTarget:self.insertResultsTextField selector:@selector(setTextColor:)];
+            currentColor = self.insertResultsTextField.textColor;
+            self.insertResultsTextField.textColor = flashColor;
+            [NSViewHelpers setColor:currentColor fromColor:flashColor toTarget:self.insertResultsTextField withSelector:@selector(setTextColor:) delay:1];
         }];
     }
 }
