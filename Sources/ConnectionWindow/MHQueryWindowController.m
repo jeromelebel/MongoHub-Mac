@@ -27,6 +27,15 @@
 @property (nonatomic, readwrite, assign) NSTextField *insertResultsTextField;
 @property (nonatomic, readwrite, assign) NSProgressIndicator *insertLoaderIndicator;
 
+@property (nonatomic, readwrite, assign) NSButton *updateButton;
+@property (nonatomic, readwrite, assign) NSTextField *updateCriteriaTextField;
+@property (nonatomic, readwrite, assign) NSTextField *updateUpdateTextField;
+@property (nonatomic, readwrite, assign) NSButton *updateUpsetCheckBox;
+@property (nonatomic, readwrite, assign) NSButton *updateMultiCheckBox;
+@property (nonatomic, readwrite, assign) NSTextField *updateResultsTextField;
+@property (nonatomic, readwrite, assign) NSTextField *updateQueryTextField;
+@property (nonatomic, readwrite, assign) NSProgressIndicator *updateQueryLoaderIndicator;
+
 @property (nonatomic, readwrite, assign) NSButton *removeButton;
 @property (nonatomic, readwrite, assign) NSTextField *removeCriteriaTextField;
 @property (nonatomic, readwrite, assign) NSTextField *removeResultsTextField;
@@ -52,15 +61,9 @@
 @synthesize findResultsOutlineView;
 @synthesize findQueryLoaderIndicator;
 
-@synthesize updateCriticalTextField;
-@synthesize updateSetTextField;
-@synthesize upsetCheckBox;
-@synthesize multiCheckBox;
-@synthesize updateResultsTextField;
-@synthesize updateQueryTextField;
-@synthesize updateQueryLoaderIndicator;
-
 @synthesize insertDataTextView = _insertDataTextView, insertResultsTextField = _insertResultsTextField, insertLoaderIndicator = _insertLoaderIndicator, insertButton = _insertButton;
+
+@synthesize updateButton = _updateButton, updateCriteriaTextField = _updateCriteriaTextField, updateUpdateTextField = _updateUpdateTextField, updateUpsetCheckBox = _updateUpsetCheckBox, updateMultiCheckBox = _updateMultiCheckBox, updateResultsTextField = _updateResultsTextField, updateQueryTextField = _updateQueryTextField, updateQueryLoaderIndicator = _updateQueryLoaderIndicator;
 
 @synthesize removeButton = _removeButton, removeCriteriaTextField = _removeCriteriaTextField, removeResultsTextField = _removeResultsTextField, removeQueryTextField = _removeQueryTextField, removeQueryLoaderIndicator = _removeQueryLoaderIndicator;
 
@@ -116,14 +119,6 @@
     [findQueryTextField release];
     [findResultsOutlineView release];
     [findQueryLoaderIndicator release];
-    
-    [updateCriticalTextField release];
-    [updateSetTextField release];
-    [upsetCheckBox release];
-    [multiCheckBox release];
-    [updateResultsTextField release];
-    [updateQueryTextField release];
-    [updateQueryLoaderIndicator release];
     
     [indexTextField release];
     [indexesOutlineViewController release];
@@ -240,6 +235,15 @@
         self.removeQueryTextField.stringValue = @"-";
         self.removeResultsTextField.stringValue = @"Can't remove documents on a non-master node";
         self.removeResultsTextField.textColor = NSColor.redColor;
+        
+        self.updateButton.enabled = NO;
+        self.updateButton.toolTip = @"Can't remove documents on a non-master node";
+        self.updateUpsetCheckBox.enabled = NO;
+        self.updateMultiCheckBox.enabled = NO;
+        self.updateCriteriaTextField.enabled = NO;
+        self.updateUpdateTextField.enabled = NO;
+        self.updateResultsTextField.stringValue = @"Can't update documents on a non-master node";
+        self.updateResultsTextField.textColor = NSColor.redColor;
     }
 }
 
@@ -314,28 +318,28 @@
 
 - (IBAction)updateQuery:(id)sender
 {
-    NSString *criteria = [updateCriticalTextField stringValue];
+    NSString *criteria = self.updateCriteriaTextField.stringValue;
     
-    [updateQueryLoaderIndicator start];
+    [self.updateQueryLoaderIndicator start];
     [_mongoCollection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
-        if ([multiCheckBox state] == 0 && count > 0) {
+        if (self.updateMultiCheckBox.state == 0 && count > 0) {
             count = 1;
         }
         
-        [_mongoCollection updateWithCriteria:criteria update:[updateSetTextField stringValue] upsert:[upsetCheckBox state] multiUpdate:[multiCheckBox state] callback:^(MODQuery *mongoQuery) {
+        [_mongoCollection updateWithCriteria:criteria update:self.updateUpdateTextField.stringValue upsert:self.updateUpsetCheckBox.state multiUpdate:self.updateMultiCheckBox.state callback:^(MODQuery *mongoQuery) {
             NSColor *flashColor;
             
             if (mongoQuery.error) {
-                updateResultsTextField.stringValue = @"Error!";
+                self.updateResultsTextField.stringValue = @"Error!";
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
                 flashColor = NSColor.redColor;
             } else {
-                updateResultsTextField.stringValue = [NSString stringWithFormat:@"Updated Documents: %lld", count];
+                self.updateResultsTextField.stringValue = [NSString stringWithFormat:@"Updated Documents: %lld", count];
                 flashColor = NSColor.greenColor;
             }
-            [updateQueryLoaderIndicator stop];
-            [NSViewHelpers cancelColorForTarget:updateResultsTextField selector:@selector(setTextColor:)];
-            [NSViewHelpers setColor:updateResultsTextField.textColor fromColor:flashColor toTarget:updateResultsTextField withSelector:@selector(setTextColor:) delay:1];
+            [self.updateQueryLoaderIndicator stop];
+            [NSViewHelpers cancelColorForTarget:self.updateResultsTextField selector:@selector(setTextColor:)];
+            [NSViewHelpers setColor:self.updateResultsTextField.textColor fromColor:flashColor toTarget:self.updateResultsTextField withSelector:@selector(setTextColor:) delay:1];
         }];
     }];
 }
@@ -533,7 +537,7 @@
     
     if (ed == _criteriaComboBox || ed == _fieldsTextField || ed == _sortTextField || ed == _skipTextField || ed == _limitTextField) {
         [self findQueryComposer:nil];
-    } else if (ed == updateCriticalTextField || ed == updateSetTextField) {
+    } else if (ed == self.updateCriteriaTextField || ed == self.updateUpdateTextField) {
         [self updateQueryComposer:nil];
     } else if (ed == self.removeCriteriaTextField) {
         [self removeQueryComposer:nil];
@@ -585,27 +589,26 @@
 {
     NSString *col = [NSString stringWithFormat:@"%@.%@", _mongoCollection.databaseName, _mongoCollection.collectionName];
     NSString *critical;
-    if ([[updateCriticalTextField stringValue] length] > 0) {
-        critical = [[NSString alloc] initWithString:[updateCriticalTextField stringValue]];
+    if (self.updateCriteriaTextField.stringValue.length > 0) {
+        critical = self.updateCriteriaTextField.stringValue.copy;
     }else {
-        critical = [[NSString alloc] initWithString:@""];
+        critical = @"".copy;
     }
     NSString *sets;
-    if ([[updateSetTextField stringValue] length] > 0) {
-        //sets = [[NSString alloc] initWithFormat:@", {$set:%@}", [updateSetTextField stringValue]];
-        sets = [[NSString alloc] initWithFormat:@", %@", [updateSetTextField stringValue]];
+    if (self.updateUpdateTextField.stringValue.length > 0) {
+        sets = [[NSString alloc] initWithFormat:@", %@", self.updateUpdateTextField.stringValue];
     }else {
         sets = [[NSString alloc] initWithString:@""];
     }
     NSString *upset;
-    if ([upsetCheckBox state] == 1) {
+    if (self.updateUpsetCheckBox.state == 1) {
         upset = [[NSString alloc] initWithString:@", true"];
     }else {
         upset = [[NSString alloc] initWithString:@", false"];
     }
     
     NSString *multi;
-    if ([multiCheckBox state] == 1) {
+    if (self.updateMultiCheckBox.state == 1) {
         multi = [[NSString alloc] initWithString:@", true"];
     }else {
         multi = [[NSString alloc] initWithString:@", false"];
@@ -616,7 +619,7 @@
     [sets release];
     [upset release];
     [multi release];
-    [updateQueryTextField setStringValue:query];
+    self.updateQueryTextField.stringValue = query;
 }
 
 - (IBAction)removeQueryComposer:(id)sender

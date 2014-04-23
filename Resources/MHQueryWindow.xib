@@ -21,6 +21,15 @@
                 <outlet property="_removeResultsTextField" destination="179" id="dyG-8e-2Bg"/>
                 <outlet property="_skipTextField" destination="76" id="1386"/>
                 <outlet property="_sortTextField" destination="123" id="1384"/>
+                <outlet property="_updateButton" destination="148" id="JxF-IK-OYe"/>
+                <outlet property="_updateCriteriaTextField" destination="144" id="9Oa-7Y-1iY"/>
+                <outlet property="_updateCriticalTextField" destination="144" id="nkb-WU-QyV"/>
+                <outlet property="_updateMultiCheckBox" destination="1397" id="mSk-DQ-VV8"/>
+                <outlet property="_updateQueryLoaderIndicator" destination="487" id="Gqp-Ph-2Ex"/>
+                <outlet property="_updateQueryTextField" destination="135" id="n2B-Wm-ZVJ"/>
+                <outlet property="_updateResultsTextField" destination="155" id="d9f-OV-Oly"/>
+                <outlet property="_updateUpdateTextField" destination="140" id="wLb-8S-MoD"/>
+                <outlet property="_updateUpsetCheckBox" destination="146" id="0hR-Jh-f9U"/>
                 <outlet property="expCriticalTextField" destination="524" id="575"/>
                 <outlet property="expFieldsTextField" destination="527" id="578"/>
                 <outlet property="expJsonArrayCheckBox" destination="665" id="667"/>
@@ -841,7 +850,7 @@ CA
                         <tabViewItem label="Update" identifier="2" id="706">
                             <view key="view" id="707">
                                 <rect key="frame" x="0.0" y="0.0" width="584" height="455"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view id="134">
                                         <rect key="frame" x="9" y="411" width="564" height="24"/>
@@ -867,9 +876,9 @@ CA
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" id="138">
-                                                <rect key="frame" x="17" y="10" width="41" height="14"/>
+                                                <rect key="frame" x="17" y="10" width="42" height="14"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Query" id="139">
+                                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Update" id="139">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -890,7 +899,7 @@ CA
                                             <textField verticalHuggingPriority="750" id="142">
                                                 <rect key="frame" x="17" y="35" width="38" height="14"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Action" id="143">
+                                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Query" id="143">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

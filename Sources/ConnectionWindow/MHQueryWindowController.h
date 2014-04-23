@@ -35,18 +35,19 @@
     IBOutlet NSTextField *findQueryTextField;
     IBOutlet NSProgressIndicator *findQueryLoaderIndicator;
     
-    IBOutlet NSTextField *updateCriticalTextField;
-    IBOutlet NSTextField *updateSetTextField;
-    IBOutlet NSButton *upsetCheckBox;
-    IBOutlet NSButton *multiCheckBox;
-    IBOutlet NSTextField *updateResultsTextField;
-    IBOutlet NSTextField *updateQueryTextField;
-    IBOutlet NSProgressIndicator *updateQueryLoaderIndicator;
-    
     IBOutlet NSButton                           *_insertButton;
     IBOutlet NSTextView                         *_insertDataTextView;
     IBOutlet NSTextField                        *_insertResultsTextField;
     IBOutlet NSProgressIndicator                *_insertLoaderIndicator;
+    
+    IBOutlet NSButton                           *_updateButton;
+    IBOutlet NSTextField                        *_updateCriteriaTextField;
+    IBOutlet NSTextField                        *_updateUpdateTextField;
+    IBOutlet NSButton                           *_updateUpsetCheckBox;
+    IBOutlet NSButton                           *_updateMultiCheckBox;
+    IBOutlet NSTextField                        *_updateResultsTextField;
+    IBOutlet NSTextField                        *_updateQueryTextField;
+    IBOutlet NSProgressIndicator                *_updateQueryLoaderIndicator;
     
     IBOutlet NSButton                           *_removeButton;
     IBOutlet NSTextField                        *_removeCriteriaTextField;
@@ -101,14 +102,6 @@
 @property (nonatomic, retain) NSTextField *findQueryTextField;
 @property (nonatomic, retain) NSOutlineView *findResultsOutlineView;
 @property (nonatomic, retain) NSProgressIndicator *findQueryLoaderIndicator;
-
-@property (nonatomic, retain) NSTextField *updateCriticalTextField;
-@property (nonatomic, retain) NSTextField *updateSetTextField;
-@property (nonatomic, retain) NSButton *upsetCheckBox;
-@property (nonatomic, retain) NSButton *multiCheckBox;
-@property (nonatomic, retain) NSTextField *updateResultsTextField;
-@property (nonatomic, retain) NSTextField *updateQueryTextField;
-@property (nonatomic, retain) NSProgressIndicator *updateQueryLoaderIndicator;
 
 @property (nonatomic, retain) NSTextField *indexTextField;
 @property (nonatomic, retain) MHResultsOutlineViewController *indexesOutlineViewController;
