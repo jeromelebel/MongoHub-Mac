@@ -22,13 +22,19 @@
 #define IS_OBJECT_ID(value) ([value length] == 24 && [[value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"1234567890abcdefABCDEF"]] length] == 0)
 
 @interface MHQueryWindowController ()
-
 @property (nonatomic, readwrite, assign) NSButton *insertButton;
 @property (nonatomic, readwrite, assign) NSTextView *insertDataTextView;
 @property (nonatomic, readwrite, assign) NSTextField *insertResultsTextField;
 @property (nonatomic, readwrite, assign) NSProgressIndicator *insertLoaderIndicator;
 
+@property (nonatomic, readwrite, assign) NSButton *removeButton;
+@property (nonatomic, readwrite, assign) NSTextField *removeCriteriaTextField;
+@property (nonatomic, readwrite, assign) NSTextField *removeResultsTextField;
+@property (nonatomic, readwrite, assign) NSTextField *removeQueryTextField;
+@property (nonatomic, readwrite, assign) NSProgressIndicator *removeQueryLoaderIndicator;
+
 - (void)selectBestTextField;
+
 @end
 
 @implementation MHQueryWindowController
@@ -54,12 +60,9 @@
 @synthesize updateQueryTextField;
 @synthesize updateQueryLoaderIndicator;
 
-@synthesize removeCriticalTextField;
-@synthesize removeResultsTextField;
-@synthesize removeQueryTextField;
-@synthesize removeQueryLoaderIndicator;
-
 @synthesize insertDataTextView = _insertDataTextView, insertResultsTextField = _insertResultsTextField, insertLoaderIndicator = _insertLoaderIndicator, insertButton = _insertButton;
+
+@synthesize removeButton = _removeButton, removeCriteriaTextField = _removeCriteriaTextField, removeResultsTextField = _removeResultsTextField, removeQueryTextField = _removeQueryTextField, removeQueryLoaderIndicator = _removeQueryLoaderIndicator;
 
 @synthesize indexTextField;
 @synthesize indexesOutlineViewController;
@@ -121,11 +124,6 @@
     [updateResultsTextField release];
     [updateQueryTextField release];
     [updateQueryLoaderIndicator release];
-    
-    [removeCriticalTextField release];
-    [removeResultsTextField release];
-    [removeQueryTextField release];
-    [removeQueryLoaderIndicator release];
     
     [indexTextField release];
     [indexesOutlineViewController release];
@@ -229,12 +227,19 @@
     [self exportQueryComposer:nil];
     
     if (!self.mongoCollection.mongoServer.isMaster) {
-        self.insertButton.toolTip = @"Can't insert document on a non-master node";
+        self.insertButton.toolTip = @"Can't insert documents on a non-master node";
         self.insertButton.enabled = NO;
-        self.insertDataTextView.toolTip = @"Can't insert document on a non-master node";
+        self.insertDataTextView.toolTip = @"Can't insert documents on a non-master node";
         self.insertDataTextView.editable = NO;
-        self.insertResultsTextField.stringValue = @"Can't insert document on a non-master node";
+        self.insertResultsTextField.stringValue = @"Can't insert documents on a non-master node";
         self.insertResultsTextField.textColor = NSColor.redColor;
+        
+        self.removeButton.toolTip = @"Can't remove documents on a non-master node";
+        self.removeButton.enabled = NO;
+        self.removeCriteriaTextField.enabled = NO;
+        self.removeQueryTextField.stringValue = @"-";
+        self.removeResultsTextField.stringValue = @"Can't remove documents on a non-master node";
+        self.removeResultsTextField.textColor = NSColor.redColor;
     }
 }
 
@@ -337,24 +342,24 @@
 
 - (void)_removeQuery
 {
-    NSString *criteria = [removeCriticalTextField stringValue];
+    NSString *criteria = self.removeCriteriaTextField.stringValue;
     
-    [removeQueryLoaderIndicator start];
+    [self.removeQueryLoaderIndicator start];
     [_mongoCollection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
         [_mongoCollection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
             NSColor *flashColor;
             
             if (mongoQuery.error) {
-                removeResultsTextField.stringValue = @"Error!";
+                self.removeResultsTextField.stringValue = @"Error!";
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
                 flashColor = NSColor.redColor;
             } else {
-                removeResultsTextField.stringValue = [NSString stringWithFormat:@"Removed Documents: %lld", count];
+                self.removeResultsTextField.stringValue = [NSString stringWithFormat:@"Removed Documents: %lld", count];
                 flashColor = NSColor.greenColor;
             }
-            [removeQueryLoaderIndicator stop];
-            [NSViewHelpers cancelColorForTarget:removeResultsTextField selector:@selector(setTextColor:)];
-            [NSViewHelpers setColor:removeResultsTextField.textColor fromColor:flashColor toTarget:removeResultsTextField withSelector:@selector(setTextColor:) delay:1];
+            [self.removeQueryLoaderIndicator stop];
+            [NSViewHelpers cancelColorForTarget:self.removeResultsTextField selector:@selector(setTextColor:)];
+            [NSViewHelpers setColor:self.removeResultsTextField.textColor fromColor:flashColor toTarget:self.removeResultsTextField withSelector:@selector(setTextColor:) delay:1];
         }];
     }];
 }
@@ -363,8 +368,8 @@
 {
     id objects;
     
-    objects = [MODRagelJsonParser objectsFromJson:[removeCriticalTextField stringValue] withError:NULL];
-    if ((([[removeCriticalTextField stringValue] stringByTrimmingWhitespace].length == 0) || (objects && [objects count] == 0))
+    objects = [MODRagelJsonParser objectsFromJson:self.removeCriteriaTextField.stringValue withError:NULL];
+    if (((self.removeCriteriaTextField.stringValue.stringByTrimmingWhitespace.length == 0) || (objects && [objects count] == 0))
         && ((self.view.window.currentEvent.modifierFlags & NSCommandKeyMask) != NSCommandKeyMask)) {
         NSAlert *alert;
         
@@ -440,7 +445,7 @@
     }];
 }
 
-- (IBAction) ensureIndex:(id)sender
+- (IBAction)ensureIndex:(id)sender
 {
     [indexLoaderIndicator start];
     [_mongoCollection createIndex:[indexTextField stringValue] name:nil options:0 callback:^(MODQuery *mongoQuery) {
@@ -485,7 +490,7 @@
     }
 }
 
-- (IBAction) mapReduce:(id)sender
+- (IBAction)mapReduce:(id)sender
 {
     [_mongoCollection mapReduceWithMapFunction:[mapFunctionTextView string] reduceFunction:[reduceFunctionTextView string] query:[mrcriticalTextField stringValue] sort:nil limit:-1 output:[mroutputTextField stringValue] keepTemp:NO finalizeFunction:nil scope:nil jsmode:NO verbose:NO callback:^(MODQuery *mongoQuery) {
         if (mongoQuery.error) {
@@ -500,7 +505,7 @@
     MODSortedMutableDictionary *criteria;
     MODSortedMutableDictionary *inCriteria;
     
-    [removeQueryLoaderIndicator start];
+    [self.removeQueryLoaderIndicator start];
     documentIds = [[NSMutableArray alloc] init];
     for (NSDictionary *document in findResultsViewController.selectedDocuments) {
         [documentIds addObject:[document objectForKey:@"objectvalueid"]];
@@ -514,7 +519,7 @@
         } else {
             
         }
-        [removeQueryLoaderIndicator stop];
+        [self.removeQueryLoaderIndicator stop];
         [self findQuery:nil];
     }];
     [criteria release];
@@ -530,7 +535,7 @@
         [self findQueryComposer:nil];
     } else if (ed == updateCriticalTextField || ed == updateSetTextField) {
         [self updateQueryComposer:nil];
-    } else if (ed == removeCriticalTextField) {
+    } else if (ed == self.removeCriteriaTextField) {
         [self removeQueryComposer:nil];
     } else if (ed == expCriticalTextField || ed == expFieldsTextField || ed == expSortTextField || ed == expSkipTextField || ed == expLimitTextField) {
         [self exportQueryComposer:nil];
@@ -538,7 +543,7 @@
 
 }
 
-- (IBAction) findQueryComposer:(id)sender
+- (IBAction)findQueryComposer:(id)sender
 {
     NSString *criteria = [self formatedQueryWithReplace:NO];
     NSString *jsFields;
@@ -618,14 +623,14 @@
 {
     NSString *col = [NSString stringWithFormat:@"%@.%@", _mongoCollection.databaseName, _mongoCollection.collectionName];
     NSString *critical;
-    if ([[removeCriticalTextField stringValue] length] > 0) {
-        critical = [[NSString alloc] initWithString:[removeCriticalTextField stringValue]];
+    if (self.removeCriteriaTextField.stringValue.length > 0) {
+        critical = [[NSString alloc] initWithString:self.removeCriteriaTextField.stringValue];
     }else {
         critical = [[NSString alloc] initWithString:@""];
     }
     NSString *query = [NSString stringWithFormat:@"db.%@.remove(%@)", col, critical];
     [critical release];
-    [removeQueryTextField setStringValue:query];
+    self.removeQueryTextField.stringValue = query;
 }
 
 - (IBAction) exportQueryComposer:(id)sender

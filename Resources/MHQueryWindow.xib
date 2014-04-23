@@ -14,6 +14,11 @@
                 <outlet property="_insertLoaderIndicator" destination="495" id="WhH-o6-NCg"/>
                 <outlet property="_insertResultsTextField" destination="191" id="5jQ-kh-645"/>
                 <outlet property="_limitTextField" destination="79" id="1387"/>
+                <outlet property="_removeButton" destination="160" id="3rM-lI-94n"/>
+                <outlet property="_removeCriteriaTextField" destination="164" id="fEv-Ws-g6o"/>
+                <outlet property="_removeQueryLoaderIndicator" destination="492" id="5i7-Rj-ZMY"/>
+                <outlet property="_removeQueryTextField" destination="172" id="fUX-9E-Klk"/>
+                <outlet property="_removeResultsTextField" destination="179" id="dyG-8e-2Bg"/>
                 <outlet property="_skipTextField" destination="76" id="1386"/>
                 <outlet property="_sortTextField" destination="123" id="1384"/>
                 <outlet property="expCriticalTextField" destination="524" id="575"/>
@@ -956,7 +961,7 @@ CA
                         <tabViewItem label="Remove" identifier="3" id="708">
                             <view key="view" id="709">
                                 <rect key="frame" x="0.0" y="0.0" width="584" height="455"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" id="179">
                                         <rect key="frame" x="27" y="20" width="530" height="22"/>
