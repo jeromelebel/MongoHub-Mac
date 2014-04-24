@@ -7,10 +7,16 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHQueryWindowController">
             <connections>
-                <outlet property="_criteriaComboBox" destination="1379" id="1382"/>
-                <outlet property="_fieldsTextField" destination="80" id="1388"/>
+                <outlet property="_findCriteriaComboBox" destination="1379" id="9D4-Er-tsG"/>
+                <outlet property="_findFieldsTextField" destination="80" id="mgE-aG-LUd"/>
+                <outlet property="_findLimitTextField" destination="79" id="c8X-1r-uY0"/>
+                <outlet property="_findQueryLoaderIndicator" destination="484" id="Gxs-MC-bDA"/>
+                <outlet property="_findQueryTextField" destination="94" id="P5v-y3-2LS"/>
                 <outlet property="_findRemoveButton" destination="689" id="1SC-1N-BvD"/>
                 <outlet property="_findResultsOutlineView" destination="69" id="DH0-ky-vk2"/>
+                <outlet property="_findSkipTextField" destination="76" id="1S8-RT-f4w"/>
+                <outlet property="_findSortTextField" destination="123" id="YAZ-HT-iX1"/>
+                <outlet property="_findTotalResultsTextField" destination="98" id="jeL-HZ-LGJ"/>
                 <outlet property="_indexCreateButton" destination="233" id="1rM-gC-NEQ"/>
                 <outlet property="_indexDropButton" destination="277" id="27s-6M-0Ja"/>
                 <outlet property="_indexLoaderIndicator" destination="498" id="15J-ti-q9w"/>
@@ -20,18 +26,16 @@
                 <outlet property="_insertDataTextView" destination="204" id="GT2-ad-33c"/>
                 <outlet property="_insertLoaderIndicator" destination="495" id="WhH-o6-NCg"/>
                 <outlet property="_insertResultsTextField" destination="191" id="5jQ-kh-645"/>
-                <outlet property="_limitTextField" destination="79" id="1387"/>
                 <outlet property="_mrOutlineView" destination="338" id="lDC-VE-U3w"/>
                 <outlet property="_removeButton" destination="160" id="3rM-lI-94n"/>
                 <outlet property="_removeCriteriaTextField" destination="164" id="fEv-Ws-g6o"/>
                 <outlet property="_removeQueryLoaderIndicator" destination="492" id="5i7-Rj-ZMY"/>
                 <outlet property="_removeQueryTextField" destination="172" id="fUX-9E-Klk"/>
                 <outlet property="_removeResultsTextField" destination="179" id="dyG-8e-2Bg"/>
-                <outlet property="_skipTextField" destination="76" id="1386"/>
-                <outlet property="_sortTextField" destination="123" id="1384"/>
+                <outlet property="_segmentedControl" destination="730" id="N9a-fx-BVm"/>
+                <outlet property="_tabView" destination="701" id="4jE-jr-xmP"/>
                 <outlet property="_updateButton" destination="148" id="JxF-IK-OYe"/>
                 <outlet property="_updateCriteriaTextField" destination="144" id="9Oa-7Y-1iY"/>
-                <outlet property="_updateCriticalTextField" destination="144" id="nkb-WU-QyV"/>
                 <outlet property="_updateMultiCheckBox" destination="1397" id="mSk-DQ-VV8"/>
                 <outlet property="_updateQueryLoaderIndicator" destination="487" id="Gqp-Ph-2Ex"/>
                 <outlet property="_updateQueryTextField" destination="135" id="n2B-Wm-ZVJ"/>
@@ -49,10 +53,6 @@
                 <outlet property="expSkipTextField" destination="519" id="579"/>
                 <outlet property="expSortTextField" destination="518" id="577"/>
                 <outlet property="expTypePopUpButton" destination="557" id="582"/>
-                <outlet property="fieldsTextField" destination="80" id="106"/>
-                <outlet property="findQueryLoaderIndicator" destination="484" id="485"/>
-                <outlet property="findQueryTextField" destination="94" id="369"/>
-                <outlet property="findResultsOutlineView" destination="69" id="469"/>
                 <outlet property="impDropCheckBox" destination="646" id="654"/>
                 <outlet property="impFieldsTextField" destination="609" id="650"/>
                 <outlet property="impHeaderlineCheckBox" destination="648" id="655"/>
@@ -63,32 +63,11 @@
                 <outlet property="impResultsTextField" destination="598" id="657"/>
                 <outlet property="impStopOnErrorCheckBox" destination="671" id="673"/>
                 <outlet property="impTypePopUpButton" destination="602" id="652"/>
-                <outlet property="indexLoaderIndicator" destination="498" id="499"/>
-                <outlet property="indexTextField" destination="271" id="273"/>
-                <outlet property="insertButton" destination="193" id="qBL-17-YSh"/>
-                <outlet property="insertDataTextView" destination="204" id="205"/>
-                <outlet property="insertLoaderIndicator" destination="495" id="496"/>
-                <outlet property="insertResultsTextField" destination="191" id="265"/>
                 <outlet property="mapFunctionTextView" destination="303" id="344"/>
                 <outlet property="mrLoaderIndicator" destination="501" id="502"/>
                 <outlet property="mrcriticalTextField" destination="321" id="346"/>
                 <outlet property="mroutputTextField" destination="333" id="347"/>
-                <outlet property="multiCheckBox" destination="1397" id="1400"/>
                 <outlet property="reduceFunctionTextView" destination="318" id="345"/>
-                <outlet property="removeCriticalTextField" destination="164" id="211"/>
-                <outlet property="removeQueryLoaderIndicator" destination="492" id="493"/>
-                <outlet property="removeQueryTextField" destination="172" id="376"/>
-                <outlet property="removeResultsTextField" destination="179" id="267"/>
-                <outlet property="segmentedControl" destination="730" id="798"/>
-                <outlet property="skipTextField" destination="76" id="107"/>
-                <outlet property="tabView" destination="701" id="797"/>
-                <outlet property="totalResultsTextField" destination="98" id="120"/>
-                <outlet property="updateCriticalTextField" destination="140" id="150"/>
-                <outlet property="updateQueryLoaderIndicator" destination="487" id="488"/>
-                <outlet property="updateQueryTextField" destination="135" id="371"/>
-                <outlet property="updateResultsTextField" destination="155" id="269"/>
-                <outlet property="updateSetTextField" destination="144" id="151"/>
-                <outlet property="upsetCheckBox" destination="146" id="152"/>
                 <outlet property="view" destination="1392" id="1393"/>
             </connections>
         </customObject>

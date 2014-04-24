@@ -8,7 +8,6 @@
 
 #import "MHTabItemViewController.h"
 
-@class DatabasesArrayController;
 @class MHResultsOutlineViewController;
 @class MODServer;
 @class MODCollection;
@@ -16,24 +15,23 @@
 
 @interface MHQueryWindowController : MHTabItemViewController
 {
-    DatabasesArrayController *databasesArrayController;
+    MODCollection                               *_mongoCollection;
+    MHConnectionStore                           *_connectionStore;
+    NSMutableDictionary                         *_jsonWindowControllers;
+    
+    IBOutlet NSTabView                          *_tabView;
+    IBOutlet NSSegmentedControl                 *_segmentedControl;
+    
     MHResultsOutlineViewController              *_findResultsViewController;
     IBOutlet NSOutlineView                      *_findResultsOutlineView;
-    MODCollection *_mongoCollection;
-    MHConnectionStore *_connectionStore;
-    NSMutableDictionary *_jsonWindowControllers;
-    
-    IBOutlet NSTabView *tabView;
-    IBOutlet NSSegmentedControl *segmentedControl;
-    
-    IBOutlet NSComboBox *_criteriaComboBox;
-    IBOutlet NSTokenField *_fieldsTextField;
-    IBOutlet NSTextField *_skipTextField;
-    IBOutlet NSTextField *_limitTextField;
-    IBOutlet NSTextField *_sortTextField;
-    IBOutlet NSTextField *totalResultsTextField;
-    IBOutlet NSTextField *findQueryTextField;
-    IBOutlet NSProgressIndicator *findQueryLoaderIndicator;
+    IBOutlet NSComboBox                         *_findCriteriaComboBox;
+    IBOutlet NSTokenField                       *_findFieldsTextField;
+    IBOutlet NSTextField                        *_findSkipTextField;
+    IBOutlet NSTextField                        *_findLimitTextField;
+    IBOutlet NSTextField                        *_findSortTextField;
+    IBOutlet NSTextField                        *_findTotalResultsTextField;
+    IBOutlet NSTextField                        *_findQueryTextField;
+    IBOutlet NSProgressIndicator                *_findQueryLoaderIndicator;
     IBOutlet NSButton                           *_findRemoveButton;
     
     IBOutlet NSButton                           *_insertButton;
@@ -95,16 +93,8 @@
     IBOutlet NSProgressIndicator *impProgressIndicator;
 }
 
-@property (nonatomic, retain) DatabasesArrayController *databasesArrayController;
 @property (nonatomic, retain, readwrite) MODCollection *mongoCollection;
 @property (nonatomic, retain, readwrite) MHConnectionStore *connectionStore;
-
-@property (nonatomic, retain) NSTokenField *fieldsTextField;
-@property (nonatomic, retain) NSTextField *skipTextField;
-@property (nonatomic, retain) NSTextField *limitTextField;
-@property (nonatomic, retain) NSTextField *totalResultsTextField;
-@property (nonatomic, retain) NSTextField *findQueryTextField;
-@property (nonatomic, retain) NSProgressIndicator *findQueryLoaderIndicator;
 
 @property (nonatomic, retain) NSTextView *mapFunctionTextView;
 @property (nonatomic, retain) NSTextView *reduceFunctionTextView;
