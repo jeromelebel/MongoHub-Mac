@@ -360,48 +360,6 @@
     }
 }
 
-- (IBAction)insertQuery:(id)sender
-{
-    id objects;
-    NSError *error;
-    
-    [self.insertLoaderIndicator start];
-    objects = [MODRagelJsonParser objectsFromJson:self.insertDataTextView.string withError:&error];
-    if (error) {
-        NSColor *currentColor;
-        
-        [self.insertLoaderIndicator stop];
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
-        self.insertResultsTextField.stringValue = @"Parsing error";
-        [NSViewHelpers cancelColorForTarget:self.insertResultsTextField selector:@selector(setTextColor:)];
-        currentColor = self.insertResultsTextField.textColor;
-        self.insertResultsTextField.textColor = [NSColor redColor];
-        [NSViewHelpers setColor:currentColor fromColor:[NSColor redColor] toTarget:self.insertResultsTextField withSelector:@selector(setTextColor:) delay:1];
-    } else {
-        if ([objects isKindOfClass:[MODSortedMutableDictionary class]]) {
-            objects = [NSArray arrayWithObject:objects];
-        }
-        [_mongoCollection insertWithDocuments:objects callback:^(MODQuery *mongoQuery) {
-            NSColor *currentColor;
-            NSColor *flashColor;
-          
-            [self.insertLoaderIndicator stop];
-            if (mongoQuery.error) {
-                flashColor = [NSColor redColor];
-                [self.insertResultsTextField setStringValue:@"Error!"];
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-            } else {
-                flashColor = [NSColor greenColor];
-                [self.insertResultsTextField setStringValue:@"Completed!"];
-            }
-            [NSViewHelpers cancelColorForTarget:self.insertResultsTextField selector:@selector(setTextColor:)];
-            currentColor = self.insertResultsTextField.textColor;
-            self.insertResultsTextField.textColor = flashColor;
-            [NSViewHelpers setColor:currentColor fromColor:flashColor toTarget:self.insertResultsTextField withSelector:@selector(setTextColor:) delay:1];
-        }];
-    }
-}
-
 - (void)indexOutlineViewNotification:(NSNotification *)notification
 {
     if (self.mongoCollection.mongoServer.isMaster) {
@@ -821,6 +779,52 @@
 - (IBAction)collapseFindResults:(id)sender
 {
     [self.findResultsOutlineView collapseItem:nil collapseChildren:YES];
+}
+
+@end
+
+@implementation MHQueryWindowController (InsertTab)
+
+- (IBAction)insertQuery:(id)sender
+{
+    id objects;
+    NSError *error;
+    
+    [self.insertLoaderIndicator start];
+    objects = [MODRagelJsonParser objectsFromJson:self.insertDataTextView.string withError:&error];
+    if (error) {
+        NSColor *currentColor;
+        
+        [self.insertLoaderIndicator stop];
+        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
+        self.insertResultsTextField.stringValue = @"Parsing error";
+        [NSViewHelpers cancelColorForTarget:self.insertResultsTextField selector:@selector(setTextColor:)];
+        currentColor = self.insertResultsTextField.textColor;
+        self.insertResultsTextField.textColor = [NSColor redColor];
+        [NSViewHelpers setColor:currentColor fromColor:[NSColor redColor] toTarget:self.insertResultsTextField withSelector:@selector(setTextColor:) delay:1];
+    } else {
+        if ([objects isKindOfClass:[MODSortedMutableDictionary class]]) {
+            objects = [NSArray arrayWithObject:objects];
+        }
+        [_mongoCollection insertWithDocuments:objects callback:^(MODQuery *mongoQuery) {
+            NSColor *currentColor;
+            NSColor *flashColor;
+            
+            [self.insertLoaderIndicator stop];
+            if (mongoQuery.error) {
+                flashColor = [NSColor redColor];
+                [self.insertResultsTextField setStringValue:@"Error!"];
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+            } else {
+                flashColor = [NSColor greenColor];
+                [self.insertResultsTextField setStringValue:@"Completed!"];
+            }
+            [NSViewHelpers cancelColorForTarget:self.insertResultsTextField selector:@selector(setTextColor:)];
+            currentColor = self.insertResultsTextField.textColor;
+            self.insertResultsTextField.textColor = flashColor;
+            [NSViewHelpers setColor:currentColor fromColor:flashColor toTarget:self.insertResultsTextField withSelector:@selector(setTextColor:) delay:1];
+        }];
+    }
 }
 
 @end

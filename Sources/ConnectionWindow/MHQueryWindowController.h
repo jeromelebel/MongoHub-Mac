@@ -142,7 +142,6 @@
 - (IBAction)collapseFindResults:(id)sender;
 - (IBAction)updateQuery:(id)sender;
 - (IBAction)removeQuery:(id)sender;
-- (IBAction)insertQuery:(id)sender;
 - (IBAction)indexQuery:(id)sender;
 - (IBAction)ensureIndex:(id)sender;
 - (IBAction)reIndex:(id)sender;
@@ -164,5 +163,10 @@
 
 @interface MHQueryWindowController (FindTab)
 - (IBAction)findQuery:(id)sender;
+
+@end
+
+@interface MHQueryWindowController (InsertTab)
+- (IBAction)insertQuery:(id)sender;
 
 @end
