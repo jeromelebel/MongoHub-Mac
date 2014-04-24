@@ -138,7 +138,6 @@
 + (id)loadQueryController;
 
 - (IBAction)segmentedControlAction:(id)sender;
-- (IBAction)updateQuery:(id)sender;
 - (IBAction)removeQuery:(id)sender;
 - (IBAction)indexQuery:(id)sender;
 - (IBAction)ensureIndex:(id)sender;
@@ -168,5 +167,10 @@
 
 @interface MHQueryWindowController (InsertTab)
 - (IBAction)insertQuery:(id)sender;
+
+@end
+
+@interface MHQueryWindowController (UpdateTab)
+- (IBAction)updateQuery:(id)sender;
 
 @end

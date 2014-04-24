@@ -279,34 +279,6 @@
     [self selectBestTextField];
 }
 
-- (IBAction)updateQuery:(id)sender
-{
-    NSString *criteria = self.updateCriteriaTextField.stringValue;
-    
-    [self.updateQueryLoaderIndicator start];
-    [_mongoCollection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
-        if (self.updateMultiCheckBox.state == 0 && count > 0) {
-            count = 1;
-        }
-        
-        [_mongoCollection updateWithCriteria:criteria update:self.updateUpdateTextField.stringValue upsert:self.updateUpsetCheckBox.state multiUpdate:self.updateMultiCheckBox.state callback:^(MODQuery *mongoQuery) {
-            NSColor *flashColor;
-            
-            if (mongoQuery.error) {
-                self.updateResultsTextField.stringValue = @"Error!";
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-                flashColor = NSColor.redColor;
-            } else {
-                self.updateResultsTextField.stringValue = [NSString stringWithFormat:@"Updated Documents: %lld", count];
-                flashColor = NSColor.greenColor;
-            }
-            [self.updateQueryLoaderIndicator stop];
-            [NSViewHelpers cancelColorForTarget:self.updateResultsTextField selector:@selector(setTextColor:)];
-            [NSViewHelpers setColor:self.updateResultsTextField.textColor fromColor:flashColor toTarget:self.updateResultsTextField withSelector:@selector(setTextColor:) delay:1];
-        }];
-    }];
-}
-
 - (void)_removeQuery
 {
     NSString *criteria = self.removeCriteriaTextField.stringValue;
@@ -825,6 +797,38 @@
             [NSViewHelpers setColor:currentColor fromColor:flashColor toTarget:self.insertResultsTextField withSelector:@selector(setTextColor:) delay:1];
         }];
     }
+}
+
+@end
+
+@implementation MHQueryWindowController (UpdateTab)
+
+- (IBAction)updateQuery:(id)sender
+{
+    NSString *criteria = self.updateCriteriaTextField.stringValue;
+    
+    [self.updateQueryLoaderIndicator start];
+    [_mongoCollection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
+        if (self.updateMultiCheckBox.state == 0 && count > 0) {
+            count = 1;
+        }
+        
+        [_mongoCollection updateWithCriteria:criteria update:self.updateUpdateTextField.stringValue upsert:self.updateUpsetCheckBox.state multiUpdate:self.updateMultiCheckBox.state callback:^(MODQuery *mongoQuery) {
+            NSColor *flashColor;
+            
+            if (mongoQuery.error) {
+                self.updateResultsTextField.stringValue = @"Error!";
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+                flashColor = NSColor.redColor;
+            } else {
+                self.updateResultsTextField.stringValue = [NSString stringWithFormat:@"Updated Documents: %lld", count];
+                flashColor = NSColor.greenColor;
+            }
+            [self.updateQueryLoaderIndicator stop];
+            [NSViewHelpers cancelColorForTarget:self.updateResultsTextField selector:@selector(setTextColor:)];
+            [NSViewHelpers setColor:self.updateResultsTextField.textColor fromColor:flashColor toTarget:self.updateResultsTextField withSelector:@selector(setTextColor:) delay:1];
+        }];
+    }];
 }
 
 @end
