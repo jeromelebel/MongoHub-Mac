@@ -61,11 +61,11 @@
     IBOutlet NSButton                           *_indexDropButton;
     IBOutlet NSButton                           *_indexCreateButton;
     
-    IBOutlet NSTextView *mapFunctionTextView;
-    IBOutlet NSTextView *reduceFunctionTextView;
-    IBOutlet NSTextField *mrcriticalTextField;
-    IBOutlet NSTextField *mroutputTextField;
-    IBOutlet NSProgressIndicator *mrLoaderIndicator;
+    IBOutlet NSTextView                         *_mrMapFunctionTextView;
+    IBOutlet NSTextView                         *_mrReduceFunctionTextView;
+    IBOutlet NSTextField                        *_mrCriteriaTextField;
+    IBOutlet NSTextField                        *_mrOutputTextField;
+    IBOutlet NSProgressIndicator                *_mrLoaderIndicator;
     MHResultsOutlineViewController              *_mrOutlineViewController;
     IBOutlet NSOutlineView                      *_mrOutlineView;
     
@@ -95,12 +95,6 @@
 
 @property (nonatomic, retain, readwrite) MODCollection *mongoCollection;
 @property (nonatomic, retain, readwrite) MHConnectionStore *connectionStore;
-
-@property (nonatomic, retain) NSTextView *mapFunctionTextView;
-@property (nonatomic, retain) NSTextView *reduceFunctionTextView;
-@property (nonatomic, retain) NSTextField *mrcriticalTextField;
-@property (nonatomic, retain) NSTextField *mroutputTextField;
-@property (nonatomic, retain) NSProgressIndicator *mrLoaderIndicator;
 
 @property (nonatomic, retain) NSTextField *expCriticalTextField;
 @property (nonatomic, retain) NSTokenField *expFieldsTextField;

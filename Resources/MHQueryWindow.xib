@@ -26,7 +26,12 @@
                 <outlet property="_insertDataTextView" destination="204" id="GT2-ad-33c"/>
                 <outlet property="_insertLoaderIndicator" destination="495" id="WhH-o6-NCg"/>
                 <outlet property="_insertResultsTextField" destination="191" id="5jQ-kh-645"/>
+                <outlet property="_mrCriteriaTextField" destination="321" id="G5W-nf-c6m"/>
+                <outlet property="_mrLoaderIndicator" destination="501" id="w2k-be-olb"/>
+                <outlet property="_mrMapFunctionTextView" destination="303" id="pUH-WT-yzA"/>
                 <outlet property="_mrOutlineView" destination="338" id="lDC-VE-U3w"/>
+                <outlet property="_mrOutputTextField" destination="333" id="7Xt-d8-dDE"/>
+                <outlet property="_mrReduceFunctionTextView" destination="318" id="Jij-Xf-8cz"/>
                 <outlet property="_removeButton" destination="160" id="3rM-lI-94n"/>
                 <outlet property="_removeCriteriaTextField" destination="164" id="fEv-Ws-g6o"/>
                 <outlet property="_removeQueryLoaderIndicator" destination="492" id="5i7-Rj-ZMY"/>
@@ -63,11 +68,6 @@
                 <outlet property="impResultsTextField" destination="598" id="657"/>
                 <outlet property="impStopOnErrorCheckBox" destination="671" id="673"/>
                 <outlet property="impTypePopUpButton" destination="602" id="652"/>
-                <outlet property="mapFunctionTextView" destination="303" id="344"/>
-                <outlet property="mrLoaderIndicator" destination="501" id="502"/>
-                <outlet property="mrcriticalTextField" destination="321" id="346"/>
-                <outlet property="mroutputTextField" destination="333" id="347"/>
-                <outlet property="reduceFunctionTextView" destination="318" id="345"/>
                 <outlet property="view" destination="1392" id="1393"/>
             </connections>
         </customObject>

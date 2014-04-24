@@ -65,6 +65,11 @@
 
 @property (nonatomic, readwrite, retain) MHResultsOutlineViewController *mrOutlineViewController;
 @property (nonatomic, readwrite, assign) NSOutlineView *mrOutlineView;
+@property (nonatomic, readwrite, assign) NSProgressIndicator *mrLoaderIndicator;
+@property (nonatomic, readwrite, assign) NSTextField *mrOutputTextField;
+@property (nonatomic, readwrite, assign) NSTextField *mrCriteriaTextField;
+@property (nonatomic, readwrite, assign) NSTextView *mrMapFunctionTextView;
+@property (nonatomic, readwrite, assign) NSTextView *mrReduceFunctionTextView;
 
 - (void)selectBestTextField;
 
@@ -84,12 +89,7 @@
 
 @synthesize indexTextField = _indexTextField, indexesOutlineViewController = _indexesOutlineViewController, indexLoaderIndicator = _indexLoaderIndicator, indexOutlineView = _indexOutlineView, indexDropButton = _indexDropButton, indexCreateButton = _indexCreateButton;
 
-@synthesize mapFunctionTextView;
-@synthesize reduceFunctionTextView;
-@synthesize mrcriticalTextField;
-@synthesize mroutputTextField;
-@synthesize mrLoaderIndicator;
-@synthesize mrOutlineViewController = _mrOutlineViewController, mrOutlineView = _mrOutlineView;
+@synthesize mrOutlineViewController = _mrOutlineViewController, mrOutlineView = _mrOutlineView, mrLoaderIndicator = _mrLoaderIndicator, mrOutputTextField = _mrOutputTextField, mrCriteriaTextField = _mrCriteriaTextField, mrMapFunctionTextView = _mrMapFunctionTextView, mrReduceFunctionTextView = _mrReduceFunctionTextView;
 
 @synthesize expCriticalTextField;
 @synthesize expFieldsTextField;
@@ -131,12 +131,6 @@
     self.connectionStore = nil;
     
     [_jsonWindowControllers release];
-    
-    [mapFunctionTextView release];
-    [reduceFunctionTextView release];
-    [mrcriticalTextField release];
-    [mroutputTextField release];
-    [mrLoaderIndicator release];
     
     [expCriticalTextField release];
     [expFieldsTextField release];
@@ -832,7 +826,7 @@
 
 - (IBAction)mapReduce:(id)sender
 {
-    [_mongoCollection mapReduceWithMapFunction:[mapFunctionTextView string] reduceFunction:[reduceFunctionTextView string] query:[mrcriticalTextField stringValue] sort:nil limit:-1 output:[mroutputTextField stringValue] keepTemp:NO finalizeFunction:nil scope:nil jsmode:NO verbose:NO callback:^(MODQuery *mongoQuery) {
+    [_mongoCollection mapReduceWithMapFunction:self.mrMapFunctionTextView.string reduceFunction:self.mrReduceFunctionTextView.string query:self.mrCriteriaTextField.stringValue sort:nil limit:-1 output:self.mrOutputTextField.stringValue keepTemp:NO finalizeFunction:nil scope:nil jsmode:NO verbose:NO callback:^(MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         }
