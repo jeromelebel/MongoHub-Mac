@@ -236,7 +236,7 @@
     [self exportQueryComposer:nil];
     
     if (!self.mongoCollection.mongoServer.isMaster) {
-        self.findRemoveButton.enabled = NO;
+        self.findRemoveButton.enabled = YES;
         self.findRemoveButton.toolTip = @"Can't remove documents on a non-master node";
         
         self.insertButton.toolTip = @"Can't insert documents on a non-master node";
@@ -303,23 +303,6 @@
     }];
 }
 
-- (IBAction)removeQuery:(id)sender
-{
-    id objects;
-    
-    objects = [MODRagelJsonParser objectsFromJson:self.removeCriteriaTextField.stringValue withError:NULL];
-    if (((self.removeCriteriaTextField.stringValue.stringByTrimmingWhitespace.length == 0) || (objects && [objects count] == 0))
-        && ((self.view.window.currentEvent.modifierFlags & NSCommandKeyMask) != NSCommandKeyMask)) {
-        NSAlert *alert;
-        
-        alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Are you sure you want to remove all documents in %@", _mongoCollection.absoluteCollectionName] defaultButton:@"Cancel" alternateButton:@"Remove All" otherButton:nil informativeTextWithFormat:@"This action cannot be undone"];
-        [alert setAlertStyle:NSCriticalAlertStyle];
-        [alert beginSheetModalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(removeAllDocumentsPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
-    } else {
-        [self _removeQuery];
-    }
-}
-
 - (void)removeAllDocumentsPanelDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
 {
     switch (returnCode) {
@@ -339,98 +322,6 @@
     }
 }
 
-- (IBAction)indexQuery:(id)sender
-{
-    [_mongoCollection indexListWithCallback:^(NSArray *indexes, MODQuery *mongoQuery) {
-        if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-        }
-        self.indexesOutlineViewController.results = [MODHelper convertForOutlineWithObjects:indexes bsonData:nil];
-    }];
-}
-
-- (IBAction)ensureIndex:(id)sender
-{
-    [self.indexLoaderIndicator start];
-    [_mongoCollection createIndex:self.indexTextField.stringValue name:nil options:0 callback:^(MODQuery *mongoQuery) {
-        if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-        } else {
-            self.indexTextField.stringValue = @"";
-        }
-        [self.indexLoaderIndicator stop];
-        [self indexQuery:nil];
-    }];
-}
-
-
-- (IBAction)reIndex:(id)sender
-{
-    [self.indexLoaderIndicator start];
-    [_mongoCollection reIndexWithCallback:^(MODQuery *mongoQuery) {
-        if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-        } else {
-            self.indexTextField.stringValue = @"";
-        }
-        [self.indexLoaderIndicator stop];
-    }];
-}
-
-- (IBAction)dropIndex:(id)sender
-{
-    NSArray *indexes;
-    
-    indexes = self.indexesOutlineViewController.selectedDocuments;
-    if (indexes.count == 1) {
-        [self.indexLoaderIndicator start];
-        [_mongoCollection dropIndex:[[[indexes objectAtIndex:0] objectForKey:@"objectvalue"] objectForKey:@"key"] callback:^(MODQuery *mongoQuery) {
-            if (mongoQuery.error) {
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-            }
-            [self.indexLoaderIndicator stop];
-            [self indexQuery:nil];
-        }];
-    }
-}
-
-- (IBAction)mapReduce:(id)sender
-{
-    [_mongoCollection mapReduceWithMapFunction:[mapFunctionTextView string] reduceFunction:[reduceFunctionTextView string] query:[mrcriticalTextField stringValue] sort:nil limit:-1 output:[mroutputTextField stringValue] keepTemp:NO finalizeFunction:nil scope:nil jsmode:NO verbose:NO callback:^(MODQuery *mongoQuery) {
-        if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-        }
-    }];
-}
-
-- (IBAction)removeRecord:(id)sender
-{
-    NSMutableArray *documentIds;
-    MODSortedMutableDictionary *criteria;
-    MODSortedMutableDictionary *inCriteria;
-    
-    [self.removeQueryLoaderIndicator start];
-    documentIds = [[NSMutableArray alloc] init];
-    for (NSDictionary *document in self.findResultsViewController.selectedDocuments) {
-        [documentIds addObject:[document objectForKey:@"objectvalueid"]];
-    }
-    
-    inCriteria = [[MODSortedMutableDictionary alloc] initWithObjectsAndKeys:documentIds, @"$in", nil];
-    criteria = [[MODSortedMutableDictionary alloc] initWithObjectsAndKeys:inCriteria, @"_id", nil];
-    [_mongoCollection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
-        if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-        } else {
-            
-        }
-        [self.removeQueryLoaderIndicator stop];
-        [self findQuery:nil];
-    }];
-    [criteria release];
-    [documentIds release];
-    [inCriteria release];
-}
-
 - (void)controlTextDidChange:(NSNotification *)nd
 {
     NSTextField *ed = [nd object];
@@ -445,95 +336,6 @@
         [self exportQueryComposer:nil];
     }
 
-}
-
-- (IBAction)findQueryComposer:(id)sender
-{
-    NSString *criteria = [self formatedQueryWithReplace:NO];
-    NSString *jsFields;
-    NSString *sortValue = [self formatedQuerySort];
-    NSString *sort;
-    
-    if ([[_fieldsTextField stringValue] length] > 0) {
-        NSArray *keys = [[NSArray alloc] initWithArray:[[_fieldsTextField stringValue] componentsSeparatedByString:@","]];
-        NSMutableArray *tmpstr = [[NSMutableArray alloc] initWithCapacity:[keys count]];
-        for (NSString *str in keys) {
-            [tmpstr addObject:[NSString stringWithFormat:@"%@:1", str]];
-        }
-        jsFields = [[NSString alloc] initWithFormat:@", {%@}", [tmpstr componentsJoinedByString:@","] ];
-        [keys release];
-        [tmpstr release];
-    }else {
-        jsFields = [[NSString alloc] initWithString:@""];
-    }
-    
-    if ([sortValue length] > 0) {
-        sort = [[NSString alloc] initWithFormat:@".sort(%@)", sortValue];
-    }else {
-        sort = [[NSString alloc] initWithString:@""];
-    }
-    
-    NSString *skip = [[NSString alloc] initWithFormat:@".skip(%d)", [_skipTextField intValue]];
-    NSString *limit = [[NSString alloc] initWithFormat:@".limit(%d)", [_limitTextField intValue]];
-    NSString *col = [NSString stringWithFormat:@"%@.%@", _mongoCollection.databaseName, _mongoCollection.collectionName];
-    
-    NSString *query = [NSString stringWithFormat:@"db.%@.find(%@%@)%@%@%@", col, criteria, jsFields, sort, skip, limit];
-    [jsFields release];
-    [sort release];
-    [skip release];
-    [limit release];
-    [findQueryTextField setStringValue:query];
-}
-
-- (IBAction)updateQueryComposer:(id)sender
-{
-    NSString *col = [NSString stringWithFormat:@"%@.%@", _mongoCollection.databaseName, _mongoCollection.collectionName];
-    NSString *critical;
-    if (self.updateCriteriaTextField.stringValue.length > 0) {
-        critical = self.updateCriteriaTextField.stringValue.copy;
-    }else {
-        critical = @"".copy;
-    }
-    NSString *sets;
-    if (self.updateUpdateTextField.stringValue.length > 0) {
-        sets = [[NSString alloc] initWithFormat:@", %@", self.updateUpdateTextField.stringValue];
-    }else {
-        sets = [[NSString alloc] initWithString:@""];
-    }
-    NSString *upset;
-    if (self.updateUpsetCheckBox.state == 1) {
-        upset = [[NSString alloc] initWithString:@", true"];
-    }else {
-        upset = [[NSString alloc] initWithString:@", false"];
-    }
-    
-    NSString *multi;
-    if (self.updateMultiCheckBox.state == 1) {
-        multi = [[NSString alloc] initWithString:@", true"];
-    }else {
-        multi = [[NSString alloc] initWithString:@", false"];
-    }
-
-    NSString *query = [NSString stringWithFormat:@"db.%@.update(%@%@%@%@)", col, critical, sets, upset, multi];
-    [critical release];
-    [sets release];
-    [upset release];
-    [multi release];
-    self.updateQueryTextField.stringValue = query;
-}
-
-- (IBAction)removeQueryComposer:(id)sender
-{
-    NSString *col = [NSString stringWithFormat:@"%@.%@", _mongoCollection.databaseName, _mongoCollection.collectionName];
-    NSString *critical;
-    if (self.removeCriteriaTextField.stringValue.length > 0) {
-        critical = [[NSString alloc] initWithString:self.removeCriteriaTextField.stringValue];
-    }else {
-        critical = [[NSString alloc] initWithString:@""];
-    }
-    NSString *query = [NSString stringWithFormat:@"db.%@.remove(%@)", col, critical];
-    [critical release];
-    self.removeQueryTextField.stringValue = query;
 }
 
 - (IBAction) exportQueryComposer:(id)sender
@@ -753,6 +555,72 @@
     [self.findResultsOutlineView collapseItem:nil collapseChildren:YES];
 }
 
+- (IBAction)removeRecord:(id)sender
+{
+    NSMutableArray *documentIds;
+    MODSortedMutableDictionary *criteria;
+    MODSortedMutableDictionary *inCriteria;
+    
+    [self.removeQueryLoaderIndicator start];
+    documentIds = [[NSMutableArray alloc] init];
+    for (NSDictionary *document in self.findResultsViewController.selectedDocuments) {
+        [documentIds addObject:[document objectForKey:@"objectvalueid"]];
+    }
+    
+    inCriteria = [[MODSortedMutableDictionary alloc] initWithObjectsAndKeys:documentIds, @"$in", nil];
+    criteria = [[MODSortedMutableDictionary alloc] initWithObjectsAndKeys:inCriteria, @"_id", nil];
+    [_mongoCollection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
+        if (mongoQuery.error) {
+            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+        } else {
+            
+        }
+        [self.removeQueryLoaderIndicator stop];
+        [self findQuery:nil];
+    }];
+    [criteria release];
+    [documentIds release];
+    [inCriteria release];
+}
+
+- (IBAction)findQueryComposer:(id)sender
+{
+    NSString *criteria = [self formatedQueryWithReplace:NO];
+    NSString *jsFields;
+    NSString *sortValue = [self formatedQuerySort];
+    NSString *sort;
+    
+    if ([[_fieldsTextField stringValue] length] > 0) {
+        NSArray *keys = [[NSArray alloc] initWithArray:[[_fieldsTextField stringValue] componentsSeparatedByString:@","]];
+        NSMutableArray *tmpstr = [[NSMutableArray alloc] initWithCapacity:[keys count]];
+        for (NSString *str in keys) {
+            [tmpstr addObject:[NSString stringWithFormat:@"%@:1", str]];
+        }
+        jsFields = [[NSString alloc] initWithFormat:@", {%@}", [tmpstr componentsJoinedByString:@","] ];
+        [keys release];
+        [tmpstr release];
+    }else {
+        jsFields = [[NSString alloc] initWithString:@""];
+    }
+    
+    if ([sortValue length] > 0) {
+        sort = [[NSString alloc] initWithFormat:@".sort(%@)", sortValue];
+    }else {
+        sort = [[NSString alloc] initWithString:@""];
+    }
+    
+    NSString *skip = [[NSString alloc] initWithFormat:@".skip(%d)", [_skipTextField intValue]];
+    NSString *limit = [[NSString alloc] initWithFormat:@".limit(%d)", [_limitTextField intValue]];
+    NSString *col = [NSString stringWithFormat:@"%@.%@", _mongoCollection.databaseName, _mongoCollection.collectionName];
+    
+    NSString *query = [NSString stringWithFormat:@"db.%@.find(%@%@)%@%@%@", col, criteria, jsFields, sort, skip, limit];
+    [jsFields release];
+    [sort release];
+    [skip release];
+    [limit release];
+    [findQueryTextField setStringValue:query];
+}
+
 @end
 
 @implementation MHQueryWindowController (InsertTab)
@@ -828,6 +696,149 @@
             [NSViewHelpers cancelColorForTarget:self.updateResultsTextField selector:@selector(setTextColor:)];
             [NSViewHelpers setColor:self.updateResultsTextField.textColor fromColor:flashColor toTarget:self.updateResultsTextField withSelector:@selector(setTextColor:) delay:1];
         }];
+    }];
+}
+
+- (IBAction)updateQueryComposer:(id)sender
+{
+    NSString *col = [NSString stringWithFormat:@"%@.%@", _mongoCollection.databaseName, _mongoCollection.collectionName];
+    NSString *critical;
+    if (self.updateCriteriaTextField.stringValue.length > 0) {
+        critical = self.updateCriteriaTextField.stringValue.copy;
+    } else {
+        critical = @"".copy;
+    }
+    NSString *sets;
+    if (self.updateUpdateTextField.stringValue.length > 0) {
+        sets = [[NSString alloc] initWithFormat:@", %@", self.updateUpdateTextField.stringValue];
+    } else {
+        sets = [[NSString alloc] initWithString:@""];
+    }
+    NSString *upset;
+    if (self.updateUpsetCheckBox.state == 1) {
+        upset = [[NSString alloc] initWithString:@", true"];
+    } else {
+        upset = [[NSString alloc] initWithString:@", false"];
+    }
+    
+    NSString *multi;
+    if (self.updateMultiCheckBox.state == 1) {
+        multi = [[NSString alloc] initWithString:@", true"];
+    } else {
+        multi = [[NSString alloc] initWithString:@", false"];
+    }
+    
+    NSString *query = [NSString stringWithFormat:@"db.%@.update(%@%@%@%@)", col, critical, sets, upset, multi];
+    [critical release];
+    [sets release];
+    [upset release];
+    [multi release];
+    self.updateQueryTextField.stringValue = query;
+}
+
+@end
+
+@implementation MHQueryWindowController (RemoveTab)
+
+- (IBAction)removeQuery:(id)sender
+{
+    id objects;
+    
+    objects = [MODRagelJsonParser objectsFromJson:self.removeCriteriaTextField.stringValue withError:NULL];
+    if (((self.removeCriteriaTextField.stringValue.stringByTrimmingWhitespace.length == 0) || (objects && [objects count] == 0))
+        && ((self.view.window.currentEvent.modifierFlags & NSCommandKeyMask) != NSCommandKeyMask)) {
+        NSAlert *alert;
+        
+        alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Are you sure you want to remove all documents in %@", _mongoCollection.absoluteCollectionName] defaultButton:@"Cancel" alternateButton:@"Remove All" otherButton:nil informativeTextWithFormat:@"This action cannot be undone"];
+        [alert setAlertStyle:NSCriticalAlertStyle];
+        [alert beginSheetModalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(removeAllDocumentsPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    } else {
+        [self _removeQuery];
+    }
+}
+
+- (IBAction)removeQueryComposer:(id)sender
+{
+    NSString *col = [NSString stringWithFormat:@"%@.%@", _mongoCollection.databaseName, _mongoCollection.collectionName];
+    NSString *critical;
+    if (self.removeCriteriaTextField.stringValue.length > 0) {
+        critical = [[NSString alloc] initWithString:self.removeCriteriaTextField.stringValue];
+    }else {
+        critical = [[NSString alloc] initWithString:@""];
+    }
+    NSString *query = [NSString stringWithFormat:@"db.%@.remove(%@)", col, critical];
+    [critical release];
+    self.removeQueryTextField.stringValue = query;
+}
+
+@end
+
+@implementation MHQueryWindowController (IndexTab)
+
+- (IBAction)indexQuery:(id)sender
+{
+    [_mongoCollection indexListWithCallback:^(NSArray *indexes, MODQuery *mongoQuery) {
+        if (mongoQuery.error) {
+            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+        }
+        self.indexesOutlineViewController.results = [MODHelper convertForOutlineWithObjects:indexes bsonData:nil];
+    }];
+}
+
+- (IBAction)ensureIndex:(id)sender
+{
+    [self.indexLoaderIndicator start];
+    [_mongoCollection createIndex:self.indexTextField.stringValue name:nil options:0 callback:^(MODQuery *mongoQuery) {
+        if (mongoQuery.error) {
+            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+        } else {
+            self.indexTextField.stringValue = @"";
+        }
+        [self.indexLoaderIndicator stop];
+        [self indexQuery:nil];
+    }];
+}
+
+- (IBAction)reIndex:(id)sender
+{
+    [self.indexLoaderIndicator start];
+    [_mongoCollection reIndexWithCallback:^(MODQuery *mongoQuery) {
+        if (mongoQuery.error) {
+            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+        } else {
+            self.indexTextField.stringValue = @"";
+        }
+        [self.indexLoaderIndicator stop];
+    }];
+}
+
+- (IBAction)dropIndex:(id)sender
+{
+    NSArray *indexes;
+    
+    indexes = self.indexesOutlineViewController.selectedDocuments;
+    if (indexes.count == 1) {
+        [self.indexLoaderIndicator start];
+        [_mongoCollection dropIndex:[[[indexes objectAtIndex:0] objectForKey:@"objectvalue"] objectForKey:@"key"] callback:^(MODQuery *mongoQuery) {
+            if (mongoQuery.error) {
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+            }
+            [self.indexLoaderIndicator stop];
+            [self indexQuery:nil];
+        }];
+    }
+}
+
+@end
+
+@implementation MHQueryWindowController (mrTab)
+
+- (IBAction)mapReduce:(id)sender
+{
+    [_mongoCollection mapReduceWithMapFunction:[mapFunctionTextView string] reduceFunction:[reduceFunctionTextView string] query:[mrcriticalTextField stringValue] sort:nil limit:-1 output:[mroutputTextField stringValue] keepTemp:NO finalizeFunction:nil scope:nil jsmode:NO verbose:NO callback:^(MODQuery *mongoQuery) {
+        if (mongoQuery.error) {
+            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+        }
     }];
 }
 

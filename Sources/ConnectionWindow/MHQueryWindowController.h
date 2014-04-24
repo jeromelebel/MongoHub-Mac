@@ -138,18 +138,6 @@
 + (id)loadQueryController;
 
 - (IBAction)segmentedControlAction:(id)sender;
-- (IBAction)removeQuery:(id)sender;
-- (IBAction)indexQuery:(id)sender;
-- (IBAction)ensureIndex:(id)sender;
-- (IBAction)reIndex:(id)sender;
-- (IBAction)dropIndex:(id)sender;
-- (IBAction) mapReduce:(id)sender;
-- (IBAction)removeRecord:(id)sender;
-
-- (IBAction)findQueryComposer:(id)sender;
-- (IBAction)updateQueryComposer:(id)sender;
-- (IBAction)removeQueryComposer:(id)sender;
-- (IBAction) exportQueryComposer:(id)sender;
 
 - (void)showEditWindow:(id)sender;
 - (void)jsonWindowWillClose:(id)sender;
@@ -162,6 +150,8 @@
 - (IBAction)findQuery:(id)sender;
 - (IBAction)expandFindResults:(id)sender;
 - (IBAction)collapseFindResults:(id)sender;
+- (IBAction)removeRecord:(id)sender;
+- (IBAction)findQueryComposer:(id)sender;
 
 @end
 
@@ -172,5 +162,25 @@
 
 @interface MHQueryWindowController (UpdateTab)
 - (IBAction)updateQuery:(id)sender;
+- (IBAction)updateQueryComposer:(id)sender;
+
+@end
+
+@interface MHQueryWindowController (RemoveTab)
+- (IBAction)removeQuery:(id)sender;
+- (void)removeQueryComposer:(id)sender;
+
+@end
+
+@interface MHQueryWindowController (IndexTab)
+- (IBAction)indexQuery:(id)sender;
+- (IBAction)ensureIndex:(id)sender;
+- (IBAction)reIndex:(id)sender;
+- (IBAction)dropIndex:(id)sender;
+
+@end
+
+@interface MHQueryWindowController (mrTab)
+- (IBAction)mapReduce:(id)sender;
 
 @end
