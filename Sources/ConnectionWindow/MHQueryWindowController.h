@@ -138,7 +138,6 @@
 + (id)loadQueryController;
 
 - (IBAction)segmentedControlAction:(id)sender;
-- (IBAction)findQuery:(id)sender;
 - (IBAction)expandFindResults:(id)sender;
 - (IBAction)collapseFindResults:(id)sender;
 - (IBAction)updateQuery:(id)sender;
@@ -161,5 +160,9 @@
 
 - (IBAction)chooseExportPath:(id)sender;
 - (IBAction)chooseImportPath:(id)sender;
-//- (mongo::BSONObj)parseCSVLine:(char *)line type:(int)_type sep:(const char *)_sep headerLine:(bool)_headerLine ignoreBlanks:(bool)_ignoreBlanks fields:(std::vector<std::string> &)_fields;
+@end
+
+@interface MHQueryWindowController (FindTab)
+- (IBAction)findQuery:(id)sender;
+
 @end

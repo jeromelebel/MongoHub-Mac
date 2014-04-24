@@ -273,76 +273,6 @@
     }
 }
 
-- (void)findResultOutlineViewNotification:(NSNotification *)notification
-{
-    if (self.mongoCollection.mongoServer.isMaster) {
-        self.findRemoveButton.enabled = self.findResultsOutlineView.selectedRowIndexes.count != 0;
-    }
-}
-
-- (IBAction)findQuery:(id)sender
-{
-    int limit = [_limitTextField intValue];
-    NSMutableArray *fields;
-    NSString *criteria;
-    NSString *sort = [self formatedQuerySort];
-    NSString *queryTitle = [[_criteriaComboBox stringValue] retain];
-    
-    [self findQueryComposer:nil];
-    if (limit <= 0) {
-        limit = 30;
-    }
-    criteria = [self formatedQueryWithReplace:YES];
-    fields = [[NSMutableArray alloc] init];
-    for (NSString *field in [[_fieldsTextField stringValue] componentsSeparatedByString:@","]) {
-        field = [field stringByTrimmingWhitespace];
-        if ([field length] > 0) {
-            [fields addObject:field];
-        }
-    }
-    [findQueryLoaderIndicator start];
-    [_mongoCollection findWithCriteria:criteria fields:fields skip:[_skipTextField intValue] limit:limit sort:sort callback:^(NSArray *documents, NSArray *bsonData, MODQuery *mongoQuery) {
-        NSColor *currentColor;
-        NSColor *flashColor;
-
-        if (mongoQuery.error) {
-            [findQueryLoaderIndicator stop];
-            flashColor = [NSColor redColor];
-            [totalResultsTextField setStringValue:[NSString stringWithFormat:@"Error: %@", [mongoQuery.error localizedDescription]]];
-            [findQueryTextField setStringValue:[NSString stringWithFormat:@"Error: %@", [mongoQuery.error localizedDescription]]];
-        } else {
-            if ([queryTitle length] > 0) {
-                [_connectionStore addNewQuery:[NSDictionary dictionaryWithObjectsAndKeys:queryTitle, @"title", [_sortTextField stringValue], @"sort", [_fieldsTextField stringValue], @"fields", [_limitTextField stringValue], @"limit", [_skipTextField stringValue], @"skip", nil] withDatabaseName:_mongoCollection.databaseName collectionName:_mongoCollection.collectionName];
-            }
-            self.findResultsViewController.results = [MODHelper convertForOutlineWithObjects:documents bsonData:bsonData];
-            [_mongoCollection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
-                [findQueryLoaderIndicator stop];
-                [totalResultsTextField setStringValue:[NSString stringWithFormat:@"Total Results: %lld (%0.2fs)", count, [[mongoQuery.userInfo objectForKey:@"timequery"] duration]]];
-            }];
-            flashColor = [NSColor greenColor];
-        }
-        [NSViewHelpers cancelColorForTarget:totalResultsTextField selector:@selector(setTextColor:)];
-        currentColor = totalResultsTextField.textColor;
-        totalResultsTextField.textColor = flashColor;
-        [NSViewHelpers setColor:currentColor fromColor:flashColor toTarget:totalResultsTextField withSelector:@selector(setTextColor:) delay:1];
-        [findQueryLoaderIndicator stopAnimation:self];
-
-        
-    }];
-    [fields release];
-    [queryTitle release];
-}
-
-- (IBAction)expandFindResults:(id)sender
-{
-    [self.findResultsOutlineView expandItem:nil expandChildren:YES];
-}
-
-- (IBAction)collapseFindResults:(id)sender
-{
-    [self.findResultsOutlineView collapseItem:nil collapseChildren:YES];
-}
-
 - (void)select
 {
     [super select];
@@ -817,6 +747,80 @@
 - (void)selectBestTextField
 {
     [self.findQueryTextField.window makeFirstResponder:tabView.selectedTabViewItem.initialFirstResponder ];
+}
+
+@end
+
+@implementation MHQueryWindowController (FindTab)
+
+- (void)findResultOutlineViewNotification:(NSNotification *)notification
+{
+    if (self.mongoCollection.mongoServer.isMaster) {
+        self.findRemoveButton.enabled = self.findResultsOutlineView.selectedRowIndexes.count != 0;
+    }
+}
+
+- (IBAction)findQuery:(id)sender
+{
+    int limit = [_limitTextField intValue];
+    NSMutableArray *fields;
+    NSString *criteria;
+    NSString *sort = [self formatedQuerySort];
+    NSString *queryTitle = [[_criteriaComboBox stringValue] retain];
+    
+    [self findQueryComposer:nil];
+    if (limit <= 0) {
+        limit = 30;
+    }
+    criteria = [self formatedQueryWithReplace:YES];
+    fields = [[NSMutableArray alloc] init];
+    for (NSString *field in [[_fieldsTextField stringValue] componentsSeparatedByString:@","]) {
+        field = [field stringByTrimmingWhitespace];
+        if ([field length] > 0) {
+            [fields addObject:field];
+        }
+    }
+    [findQueryLoaderIndicator start];
+    [_mongoCollection findWithCriteria:criteria fields:fields skip:[_skipTextField intValue] limit:limit sort:sort callback:^(NSArray *documents, NSArray *bsonData, MODQuery *mongoQuery) {
+        NSColor *currentColor;
+        NSColor *flashColor;
+        
+        if (mongoQuery.error) {
+            [findQueryLoaderIndicator stop];
+            flashColor = [NSColor redColor];
+            [totalResultsTextField setStringValue:[NSString stringWithFormat:@"Error: %@", [mongoQuery.error localizedDescription]]];
+            [findQueryTextField setStringValue:[NSString stringWithFormat:@"Error: %@", [mongoQuery.error localizedDescription]]];
+        } else {
+            if ([queryTitle length] > 0) {
+                [_connectionStore addNewQuery:[NSDictionary dictionaryWithObjectsAndKeys:queryTitle, @"title", [_sortTextField stringValue], @"sort", [_fieldsTextField stringValue], @"fields", [_limitTextField stringValue], @"limit", [_skipTextField stringValue], @"skip", nil] withDatabaseName:_mongoCollection.databaseName collectionName:_mongoCollection.collectionName];
+            }
+            self.findResultsViewController.results = [MODHelper convertForOutlineWithObjects:documents bsonData:bsonData];
+            [_mongoCollection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
+                [findQueryLoaderIndicator stop];
+                [totalResultsTextField setStringValue:[NSString stringWithFormat:@"Total Results: %lld (%0.2fs)", count, [[mongoQuery.userInfo objectForKey:@"timequery"] duration]]];
+            }];
+            flashColor = [NSColor greenColor];
+        }
+        [NSViewHelpers cancelColorForTarget:totalResultsTextField selector:@selector(setTextColor:)];
+        currentColor = totalResultsTextField.textColor;
+        totalResultsTextField.textColor = flashColor;
+        [NSViewHelpers setColor:currentColor fromColor:flashColor toTarget:totalResultsTextField withSelector:@selector(setTextColor:) delay:1];
+        [findQueryLoaderIndicator stopAnimation:self];
+        
+        
+    }];
+    [fields release];
+    [queryTitle release];
+}
+
+- (IBAction)expandFindResults:(id)sender
+{
+    [self.findResultsOutlineView expandItem:nil expandChildren:YES];
+}
+
+- (IBAction)collapseFindResults:(id)sender
+{
+    [self.findResultsOutlineView collapseItem:nil collapseChildren:YES];
 }
 
 @end
