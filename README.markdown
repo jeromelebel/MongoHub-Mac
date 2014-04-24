@@ -22,6 +22,8 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     - Create a document editor to edit using an outline view (like the plist editor in Xcode)
 
 ** Current **
+    
+    - Avoid modification while connecting to a secondary node
 
 ## History
 
