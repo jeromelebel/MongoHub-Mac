@@ -236,7 +236,7 @@
     [self exportQueryComposer:nil];
     
     if (!self.mongoCollection.mongoServer.isMaster) {
-        self.findRemoveButton.enabled = YES;
+        self.findRemoveButton.enabled = NO;
         self.findRemoveButton.toolTip = @"Can't remove documents on a non-master node";
         
         self.insertButton.toolTip = @"Can't insert documents on a non-master node";
