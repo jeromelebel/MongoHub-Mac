@@ -138,8 +138,6 @@
 + (id)loadQueryController;
 
 - (IBAction)segmentedControlAction:(id)sender;
-- (IBAction)expandFindResults:(id)sender;
-- (IBAction)collapseFindResults:(id)sender;
 - (IBAction)updateQuery:(id)sender;
 - (IBAction)removeQuery:(id)sender;
 - (IBAction)indexQuery:(id)sender;
@@ -163,6 +161,8 @@
 
 @interface MHQueryWindowController (FindTab)
 - (IBAction)findQuery:(id)sender;
+- (IBAction)expandFindResults:(id)sender;
+- (IBAction)collapseFindResults:(id)sender;
 
 @end
 
