@@ -9,7 +9,10 @@
             <connections>
                 <outlet property="_criteriaComboBox" destination="1379" id="1382"/>
                 <outlet property="_fieldsTextField" destination="80" id="1388"/>
+                <outlet property="_findRemoveButton" destination="689" id="1SC-1N-BvD"/>
                 <outlet property="_findResultsOutlineView" destination="69" id="DH0-ky-vk2"/>
+                <outlet property="_indexCreateButton" destination="233" id="1rM-gC-NEQ"/>
+                <outlet property="_indexDropButton" destination="277" id="27s-6M-0Ja"/>
                 <outlet property="_indexLoaderIndicator" destination="498" id="15J-ti-q9w"/>
                 <outlet property="_indexOutlineView" destination="250" id="Ena-Tv-GhP"/>
                 <outlet property="_indexTextField" destination="271" id="rw0-0e-a9b"/>
@@ -569,7 +572,7 @@
                                     <button toolTip="command+delete" verticalHuggingPriority="750" id="689">
                                         <rect key="frame" x="351" y="5" width="68" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" title="Remove" bezelStyle="texturedRounded" image="NSRemoveTemplate" imagePosition="left" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="690">
+                                        <buttonCell key="cell" type="roundTextured" title="Remove" bezelStyle="texturedRounded" image="NSRemoveTemplate" imagePosition="left" alignment="center" controlSize="small" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="690">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                             <string key="keyEquivalent" base64-UTF8="YES">
@@ -1152,7 +1155,7 @@ DQ
                                     <button toolTip="Command+delete" verticalHuggingPriority="750" id="277">
                                         <rect key="frame" x="163" y="411" width="118" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" title="Drop Index" bezelStyle="texturedRounded" image="NSStopProgressTemplate" imagePosition="left" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="278">
+                                        <buttonCell key="cell" type="roundTextured" title="Drop Index" bezelStyle="texturedRounded" image="NSStopProgressTemplate" imagePosition="left" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="278">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                             <string key="keyEquivalent" base64-UTF8="YES">

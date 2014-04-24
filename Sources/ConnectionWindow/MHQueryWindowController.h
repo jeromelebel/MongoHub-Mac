@@ -34,6 +34,7 @@
     IBOutlet NSTextField *totalResultsTextField;
     IBOutlet NSTextField *findQueryTextField;
     IBOutlet NSProgressIndicator *findQueryLoaderIndicator;
+    IBOutlet NSButton                           *_findRemoveButton;
     
     IBOutlet NSButton                           *_insertButton;
     IBOutlet NSTextView                         *_insertDataTextView;
@@ -59,6 +60,8 @@
     MHResultsOutlineViewController              *_indexesOutlineViewController;
     IBOutlet NSOutlineView                      *_indexOutlineView;
     IBOutlet NSProgressIndicator                *_indexLoaderIndicator;
+    IBOutlet NSButton                           *_indexDropButton;
+    IBOutlet NSButton                           *_indexCreateButton;
     
     IBOutlet NSTextView *mapFunctionTextView;
     IBOutlet NSTextView *reduceFunctionTextView;

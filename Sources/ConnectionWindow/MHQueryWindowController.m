@@ -24,6 +24,7 @@
 @interface MHQueryWindowController ()
 @property (nonatomic, readwrite, retain) MHResultsOutlineViewController *findResultsViewController;
 @property (nonatomic, readwrite, assign) NSOutlineView *findResultsOutlineView;
+@property (nonatomic, readwrite, assign) NSButton *findRemoveButton;
 
 @property (nonatomic, readwrite, assign) NSButton *insertButton;
 @property (nonatomic, readwrite, assign) NSTextView *insertDataTextView;
@@ -49,6 +50,8 @@
 @property (nonatomic, readwrite, retain) MHResultsOutlineViewController *indexesOutlineViewController;
 @property (nonatomic, readwrite, assign) NSProgressIndicator *indexLoaderIndicator;
 @property (nonatomic, readwrite, assign) NSOutlineView *indexOutlineView;
+@property (nonatomic, readwrite, assign) NSButton *indexDropButton;
+@property (nonatomic, readwrite, assign) NSButton *indexCreateButton;
 
 @property (nonatomic, readwrite, retain) MHResultsOutlineViewController *mrOutlineViewController;
 @property (nonatomic, readwrite, assign) NSOutlineView *mrOutlineView;
@@ -60,7 +63,7 @@
 @implementation MHQueryWindowController
 
 @synthesize databasesArrayController;
-@synthesize findResultsViewController = _findResultsViewController, findResultsOutlineView = _findResultsOutlineView;
+@synthesize findResultsViewController = _findResultsViewController, findResultsOutlineView = _findResultsOutlineView, findRemoveButton = _findRemoveButton;
 @synthesize mongoCollection = _mongoCollection;
 @synthesize connectionStore = _connectionStore;
 
@@ -77,7 +80,7 @@
 
 @synthesize removeButton = _removeButton, removeCriteriaTextField = _removeCriteriaTextField, removeResultsTextField = _removeResultsTextField, removeQueryTextField = _removeQueryTextField, removeQueryLoaderIndicator = _removeQueryLoaderIndicator;
 
-@synthesize indexTextField = _indexTextField, indexesOutlineViewController = _indexesOutlineViewController, indexLoaderIndicator = _indexLoaderIndicator, indexOutlineView = _indexOutlineView;
+@synthesize indexTextField = _indexTextField, indexesOutlineViewController = _indexesOutlineViewController, indexLoaderIndicator = _indexLoaderIndicator, indexOutlineView = _indexOutlineView, indexDropButton = _indexDropButton, indexCreateButton = _indexCreateButton;
 
 @synthesize mapFunctionTextView;
 @synthesize reduceFunctionTextView;
@@ -117,6 +120,8 @@
 
 - (void)dealloc
 {
+    [NSNotificationCenter.defaultCenter removeObserver:self name:nil object:nil];
+    
     self.indexesOutlineViewController = nil;
     self.mrOutlineViewController = nil;
     self.findResultsViewController = nil;
@@ -231,6 +236,9 @@
     [self exportQueryComposer:nil];
     
     if (!self.mongoCollection.mongoServer.isMaster) {
+        self.findRemoveButton.enabled = NO;
+        self.findRemoveButton.toolTip = @"Can't remove documents on a non-master node";
+        
         self.insertButton.toolTip = @"Can't insert documents on a non-master node";
         self.insertButton.enabled = NO;
         self.insertDataTextView.toolTip = @"Can't insert documents on a non-master node";
@@ -253,6 +261,22 @@
         self.updateUpdateTextField.enabled = NO;
         self.updateResultsTextField.stringValue = @"Can't update documents on a non-master node";
         self.updateResultsTextField.textColor = NSColor.redColor;
+        
+        self.indexCreateButton.enabled = NO;
+        self.indexCreateButton.toolTip = @"Can't create indexes on a non-master node";
+        self.indexDropButton.enabled = NO;
+        self.indexDropButton.toolTip = @"Can't drop indexes on a non-master node";
+        self.indexTextField.enabled = NO;
+    } else {
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(findResultOutlineViewNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.findResultsOutlineView];
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(indexOutlineViewNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.indexOutlineView];
+    }
+}
+
+- (void)findResultOutlineViewNotification:(NSNotification *)notification
+{
+    if (self.mongoCollection.mongoServer.isMaster) {
+        self.findRemoveButton.enabled = self.findResultsOutlineView.selectedRowIndexes.count != 0;
     }
 }
 
@@ -445,6 +469,13 @@
             self.insertResultsTextField.textColor = flashColor;
             [NSViewHelpers setColor:currentColor fromColor:flashColor toTarget:self.insertResultsTextField withSelector:@selector(setTextColor:) delay:1];
         }];
+    }
+}
+
+- (void)indexOutlineViewNotification:(NSNotification *)notification
+{
+    if (self.mongoCollection.mongoServer.isMaster) {
+        self.indexDropButton.enabled = self.indexOutlineView.selectedRowIndexes.count != 0;
     }
 }
 
