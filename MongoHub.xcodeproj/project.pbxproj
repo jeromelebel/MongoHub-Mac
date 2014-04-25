@@ -766,8 +766,7 @@
 				02D5A87D144207CF00C7768C /* SConstruct */,
 				02D5A891144207CF00C7768C /* test */,
 			);
-			name = "mongo-c-driver-legacy";
-			path = "mongo-c-driver";
+			path = "mongo-c-driver-legacy";
 			sourceTree = "<group>";
 		};
 		02D5A86B144207CF00C7768C /* docs */ = {

@@ -14,7 +14,6 @@
 #import "MHJsonWindowController.h"
 #import "MOD_public.h"
 #import "MODHelper.h"
-#import "MODJsonParser.h"
 #import "MHConnectionStore.h"
 #import "NSViewHelpers.h"
 
