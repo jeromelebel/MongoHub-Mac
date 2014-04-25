@@ -59,8 +59,8 @@
     MHAddDBController                       *_addDBController;
     MHAddCollectionController               *_addCollectionController;
     AuthWindowController *authWindowController;
-    MHMysqlImportWindowController *_mysqlImportWindowController;
-    MHMysqlExportWindowController *_mysqlExportWindowController;
+    MHMysqlImportWindowController           *_mysqlImportWindowController;
+    MHMysqlExportWindowController           *_mysqlExportWindowController;
     IBOutlet NSTextField *bundleVersion;
     BOOL monitorStopped;
     
@@ -93,10 +93,8 @@
 - (IBAction)showCollStats:(id)sender;
 - (IBAction)createDatabase:(id)sender;
 - (IBAction)createCollection:(id)sender;
-- (void)dropCollection:(NSString *)collectionname
-                 ForDB:(NSString *)dbname;
-- (void)createDB;
-- (void)createCollectionForDB:(NSString *)dbname;
+- (void)dropCollection:(NSString *)collectionname forDatabaseName:(NSString *)databaseName;
+- (void)createCollectionForDatabaseName:(NSString *)databaseName;
 - (IBAction)dropDatabaseOrCollection:(id)sender;
 - (IBAction)query:(id)sender;
 - (IBAction)showAuth:(id)sender;
