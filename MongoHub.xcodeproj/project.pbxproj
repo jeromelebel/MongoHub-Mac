@@ -12,7 +12,6 @@
 			buildConfigurationList = 02216F221412D54600789BD1 /* Build configuration list for PBXAggregateTarget "Submodules" */;
 			buildPhases = (
 				02D5A7F41442019100C7768C /* Update submodules */,
-				02216F261412D57B00789BD1 /* mongo-objc-driver */,
 				02216F251412D56100789BD1 /* mongo-c-driver-legacy */,
 				02216F271412D5B800789BD1 /* libjson */,
 			);
@@ -1430,21 +1429,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "module_name=\"mongo-c-driver-legacy\"\nmodule_owner=\"fotonauts\"\nmodule_branch=\"master\"\nmodule_path=\"Libraries/mongo-objc-driver/Libraries/${module_name}\"\n\nfiles=`ls \"${module_path}\" 2> /dev/null`\nif [ \"${files}\" = \"\" ] ; then\n  if [ -d .git ] ; then\n    echo \"\"\n  else\n    cd \"${module_path}\"\n    curl -o \"${module_name}.zip\" -L \"https://nodeload.github.com/${module_owner}/${module_name}/zipball/${module_branch}\"\n    unzip \"${module_name}.zip\"\n    rm \"${module_name}.zip\"\n    module_unzip_dir=`ls`\n    cd \"${module_unzip_dir}\"\n    mv * ..\n    cd ..\n    rm -fr \"${module_unzip_dir}\"\n  fi\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		02216F261412D57B00789BD1 /* mongo-objc-driver */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "mongo-objc-driver";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "module_name=\"mongo-objc-driver\"\nmodule_owner=\"fotonauts\"\nmodule_branch=\"master\"\nmodule_path=\"Libraries/${module_name}\"\n\nfiles=`ls \"${module_path}\" 2> /dev/null`\nif [ \"${files}\" = \"\" ] ; then\n  if [ -d .git ] ; then\n    echo \"\"\n  else\n    cd \"${module_path}\"\n    curl -o \"${module_name}.zip\" -L \"https://nodeload.github.com/${module_owner}/${module_name}/zipball/${module_branch}\"\n    unzip \"${module_name}.zip\"\n    rm \"${module_name}.zip\"\n    module_unzip_dir=`ls`\n    cd \"${module_unzip_dir}\"\n    mv * ..\n    cd ..\n    rm -fr \"${module_unzip_dir}\"\n  fi\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		02216F271412D5B800789BD1 /* libjson */ = {
