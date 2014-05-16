@@ -9,7 +9,6 @@
 #import "MHConnectionEditorWindowController.h"
 #import "MHConnectionStore.h"
 #import "DatabasesArrayController.h"
-#import "mongo.h"
 
 #define COPY_ALIAS_SUFFIX @" - Copy"
 

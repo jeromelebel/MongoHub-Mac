@@ -6,7 +6,7 @@
 //
 
 #import "MODHelper.h"
-#import "MOD_public.h"
+#import <mongo-objc-driver/MOD_public.h>
 #import "NSString+Extras.h"
 
 @interface MODHelper()

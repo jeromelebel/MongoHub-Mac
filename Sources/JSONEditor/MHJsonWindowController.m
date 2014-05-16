@@ -11,8 +11,7 @@
 #import "NSProgressIndicator+Extras.h"
 #import "DatabasesArrayController.h"
 #import "NSString+Extras.h"
-#import "MODCollection.h"
-#import "MODServer.h"
+#import <mongo-objc-driver/MOD_public.h>
 
 @implementation MHJsonWindowController
 @synthesize databasesArrayController;

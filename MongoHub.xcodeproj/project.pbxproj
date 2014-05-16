@@ -48,6 +48,7 @@
 		02AA29931477F8BD0041865F /* MHFileExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AA29921477F8BD0041865F /* MHFileExporter.m */; };
 		02B143DC147C720D005AB320 /* MHFileImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B143DB147C720D005AB320 /* MHFileImporter.m */; };
 		02CEE9BE1486DD7A00E488DA /* MHTabTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CEE9BD1486DD7A00E488DA /* MHTabTitleView.m */; };
+		02D3D3011926646700925BE7 /* mongo-objc-driver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 021E5CD619265FC400F3ED81 /* mongo-objc-driver.framework */; };
 		02E0FE36151DE2420094C1CD /* background-grey_center.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE29151DE2420094C1CD /* background-grey_center.png */; };
 		02E0FE37151DE2420094C1CD /* background-grey_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE2A151DE2420094C1CD /* background-grey_left.png */; };
 		02E0FE38151DE2420094C1CD /* background-grey_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE2B151DE2420094C1CD /* background-grey_right.png */; };
@@ -445,6 +446,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02D3D3011926646700925BE7 /* mongo-objc-driver.framework in Frameworks */,
 				026B2DE513BB6FB8009BEA7B /* RegexKit.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				1D93C37C11835BB4003216F7 /* QuartzCore.framework in Frameworks */,

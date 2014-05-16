@@ -12,7 +12,7 @@
 #import "MHResultsOutlineViewController.h"
 #import "NSString+Extras.h"
 #import "MHJsonWindowController.h"
-#import "MOD_public.h"
+#import <mongo-objc-driver/MOD_public.h>
 #import "MODHelper.h"
 #import "MHConnectionStore.h"
 #import "NSViewHelpers.h"

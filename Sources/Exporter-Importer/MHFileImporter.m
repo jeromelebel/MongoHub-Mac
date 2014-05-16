@@ -6,7 +6,7 @@
 //
 
 #import "MHFileImporter.h"
-#import "MOD_public.h"
+#import <mongo-objc-driver/MOD_public.h>
 #import "MHExporterImporter.h"
 
 @interface MHFileImporter()

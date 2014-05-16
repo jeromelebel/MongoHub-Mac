@@ -11,7 +11,7 @@
 #import "DatabasesArrayController.h"
 #import "MHDatabaseStore.h"
 #import "NSString+Extras.h"
-#import "MOD_public.h"
+#import <mongo-objc-driver/MOD_public.h>
 #import <MCPKit/MCPKit.h>
 #import "FieldMapTableController.h"
 #import "FieldMapDataObject.h"

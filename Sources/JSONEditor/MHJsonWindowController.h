@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "UKSyntaxColoredTextViewController.h"
-#import "MODQuery.h"
+#import <mongo-objc-driver/MOD_public.h>
 
 @class DatabasesArrayController;
 @class MODServer;
