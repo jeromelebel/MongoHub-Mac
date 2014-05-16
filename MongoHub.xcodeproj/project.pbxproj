@@ -12,7 +12,7 @@
 			buildConfigurationList = 02216F221412D54600789BD1 /* Build configuration list for PBXAggregateTarget "Submodules" */;
 			buildPhases = (
 				02D5A7F41442019100C7768C /* Update submodules */,
-				02216F251412D56100789BD1 /* mongo-c-driver-legacy */,
+				02216F251412D56100789BD1 /* mongo-c-driver */,
 			);
 			dependencies = (
 			);
@@ -28,53 +28,26 @@
 		020F5129148973BA00D4B54B /* MHStatusViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 020F5127148973BA00D4B54B /* MHStatusViewController.xib */; };
 		0213CAEE1431F3400027795D /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 1DFC2A8C11970BD0006AA167 /* dsa_pub.pem */; };
 		021BEA681463709A0091C2EA /* MongoHub_DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 021BEA641463709A0091C2EA /* MongoHub_DataModel.xcdatamodeld */; };
-		021DB3881425819D0033E77C /* MODCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 021DB3861425819D0033E77C /* MODCursor.m */; };
-		021DB3891425819D0033E77C /* MODServer_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 021DB3871425819D0033E77C /* MODServer_utils.m */; };
-		02216ECC14128D1200789BD1 /* MODCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 02216EB614128CBF00789BD1 /* MODCollection.m */; };
-		02216ECD14128D1200789BD1 /* MODDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 02216EB814128CBF00789BD1 /* MODDatabase.m */; };
-		02216ECE14128D1200789BD1 /* MODQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 02216EBA14128CBF00789BD1 /* MODQuery.m */; };
-		02216ECF14128D1200789BD1 /* MODServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 02216EBC14128CBF00789BD1 /* MODServer.m */; };
-		022F8C48169B5E580024D20C /* bcon.c in Sources */ = {isa = PBXBuildFile; fileRef = 022F8C45169B5E580024D20C /* bcon.c */; };
-		022F8C49169B5E580024D20C /* env.c in Sources */ = {isa = PBXBuildFile; fileRef = 022F8C47169B5E580024D20C /* env.c */; };
 		023230AE15E051300075498C /* MHConnectionEditorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 023230AD15E051300075498C /* MHConnectionEditorWindowController.m */; };
-		023ED002148526E700185781 /* MODSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = 023ED001148526E700185781 /* MODSymbol.m */; };
 		024F67901427F3DE00956BF6 /* MODHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 024F678F1427F3DE00956BF6 /* MODHelper.m */; };
 		0252361218FECEE700286EC9 /* MHExporterImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0252361118FECEE700286EC9 /* MHExporterImporter.m */; };
 		0255B568181A9A210019739D /* MHKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255B567181A9A210019739D /* MHKeychain.m */; };
 		025B8F0C1531C76E00849A71 /* MHTabTitleContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 025B8F0B1531C76E00849A71 /* MHTabTitleContainerView.m */; };
 		025B8F911531FC7500849A71 /* unselected-tab-border.png in Resources */ = {isa = PBXBuildFile; fileRef = 025B8F901531FC7500849A71 /* unselected-tab-border.png */; };
-		025C563214350DEF0064B010 /* MODRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 025C562A14350DEF0064B010 /* MODRegex.m */; };
-		025C563414350DEF0064B010 /* MODDBRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 025C562E14350DEF0064B010 /* MODDBRef.m */; };
-		025C563514350DEF0064B010 /* MODBinary.m in Sources */ = {isa = PBXBuildFile; fileRef = 025C563014350DEF0064B010 /* MODBinary.m */; };
 		025F635215AE21F300CD0EB4 /* NSViewHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 025F635115AE21F300CD0EB4 /* NSViewHelpers.m */; };
 		0262CA3C148C14A8009033F9 /* MHTabItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0262CA3A148C14A8009033F9 /* MHTabItemViewController.m */; };
 		0262CA3F148C1838009033F9 /* MHConnectionWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0262CA3E148C1838009033F9 /* MHConnectionWindowController.m */; };
 		026B2DE513BB6FB8009BEA7B /* RegexKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 026B2DE413BB6FB8009BEA7B /* RegexKit.framework */; };
-		026B949814BC214800BA0688 /* MODUndefined.m in Sources */ = {isa = PBXBuildFile; fileRef = 026B949714BC214800BA0688 /* MODUndefined.m */; };
 		0279C090189C02F600F8BACB /* MHImportExportFeedback.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0279C08F189C02F600F8BACB /* MHImportExportFeedback.xib */; };
 		0279C093189C03E000F8BACB /* MHImportExportFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 0279C092189C03E000F8BACB /* MHImportExportFeedback.m */; };
-		027A1D941767DC1F0048AD60 /* MODMaxKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 027A1D911767DC1F0048AD60 /* MODMaxKey.m */; };
-		027A1D951767DC1F0048AD60 /* MODMinKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 027A1D931767DC1F0048AD60 /* MODMinKey.m */; };
-		0280706917675D8D00653483 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0280706617675D8D00653483 /* NSData+Base64.m */; };
-		0280706A17675D8D00653483 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0280706817675D8D00653483 /* NSString+Base64.m */; };
 		029D30A5145613420021B9C9 /* MHDatabaseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D30A4145613420021B9C9 /* MHDatabaseItem.m */; };
 		029D30A9145613580021B9C9 /* MHCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D30A8145613580021B9C9 /* MHCollectionItem.m */; };
 		029D30AC145613C30021B9C9 /* MHServerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D30AB145613C30021B9C9 /* MHServerItem.m */; };
-		02A3F5181804D59100C04D36 /* MODRagelJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A3F5161804D58C00C04D36 /* MODRagelJsonParser.m */; };
 		02A7C40A1482DEDD0099CDD1 /* MHMysqlImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A7C4091482DEDD0099CDD1 /* MHMysqlImporter.m */; };
 		02A7C40E1482DF080099CDD1 /* MHMysqlExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A7C40D1482DF080099CDD1 /* MHMysqlExporter.m */; };
 		02AA29931477F8BD0041865F /* MHFileExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AA29921477F8BD0041865F /* MHFileExporter.m */; };
-		02AB057C142971CE00B7CD19 /* MODObjectId.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AB057A142971CE00B7CD19 /* MODObjectId.m */; };
 		02B143DC147C720D005AB320 /* MHFileImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B143DB147C720D005AB320 /* MHFileImporter.m */; };
-		02B2427D147D2BBC008A15A3 /* MODSortedMutableDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B2427C147D2BBC008A15A3 /* MODSortedMutableDictionary.m */; };
 		02CEE9BE1486DD7A00E488DA /* MHTabTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CEE9BD1486DD7A00E488DA /* MHTabTitleView.m */; };
-		02CF87E5142F7316000C4C7F /* MODTimestamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CF87E3142F7316000C4C7F /* MODTimestamp.m */; };
-		02D5A8E41442087F00C7768C /* bson.c in Sources */ = {isa = PBXBuildFile; fileRef = 02D5A87F144207CF00C7768C /* bson.c */; };
-		02D5A8E51442087F00C7768C /* encoding.c in Sources */ = {isa = PBXBuildFile; fileRef = 02D5A881144207CF00C7768C /* encoding.c */; };
-		02D5A8E61442087F00C7768C /* gridfs.c in Sources */ = {isa = PBXBuildFile; fileRef = 02D5A883144207CF00C7768C /* gridfs.c */; };
-		02D5A8E71442087F00C7768C /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 02D5A885144207CF00C7768C /* md5.c */; };
-		02D5A8E81442087F00C7768C /* mongo.c in Sources */ = {isa = PBXBuildFile; fileRef = 02D5A887144207CF00C7768C /* mongo.c */; };
-		02D5A8EA1442087F00C7768C /* numbers.c in Sources */ = {isa = PBXBuildFile; fileRef = 02D5A88B144207CF00C7768C /* numbers.c */; };
 		02E0FE36151DE2420094C1CD /* background-grey_center.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE29151DE2420094C1CD /* background-grey_center.png */; };
 		02E0FE37151DE2420094C1CD /* background-grey_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE2A151DE2420094C1CD /* background-grey_left.png */; };
 		02E0FE38151DE2420094C1CD /* background-grey_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE2B151DE2420094C1CD /* background-grey_right.png */; };
@@ -88,7 +61,6 @@
 		02E0FE40151DE2420094C1CD /* button_ArrowRight_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE33151DE2420094C1CD /* button_ArrowRight_overlay.png */; };
 		02E0FE41151DE2420094C1CD /* close_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE34151DE2420094C1CD /* close_button.png */; };
 		02E0FE42151DE2420094C1CD /* overlay_close_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE35151DE2420094C1CD /* overlay_close_button.png */; };
-		02ECA397185149DE00BDA28E /* MODBsonComparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 02ECA396185149DE00BDA28E /* MODBsonComparator.m */; };
 		02F2A1F71817E48B0053CB20 /* MHPreferenceController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F2A1F61817E48B0053CB20 /* MHPreferenceController.xib */; };
 		02F2A1FA1817E4BC0053CB20 /* MHPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2A1F91817E4BC0053CB20 /* MHPreferenceController.m */; };
 		02FCD3CF13BB9EA400316A9F /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FCD3CE13BB9EA400316A9F /* Sparkle.framework */; };
@@ -178,6 +150,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		021E5CD519265FC400F3ED81 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 021E5CCE19265FC300F3ED81 /* mongo-objc-driver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 02ABA1C014103B37000417F4;
+			remoteInfo = "mongo-objc-driver";
+		};
+		021E5CD719265FC400F3ED81 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 021E5CCE19265FC300F3ED81 /* mongo-objc-driver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 02F121BD1410EF5200197811;
+			remoteInfo = "mongo-test";
+		};
+		021E5CD91926601D00F3ED81 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 021E5CCE19265FC300F3ED81 /* mongo-objc-driver.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 02ABA1BF14103B37000417F4;
+			remoteInfo = "mongo-objc-driver";
+		};
 		02216F611412D6E900789BD1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -264,31 +257,9 @@
 		021BEA651463709A0091C2EA /* MongoHub_DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel.xcdatamodel; sourceTree = "<group>"; };
 		021BEA661463709A0091C2EA /* MongoHub_DataModel1.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel1.0.xcdatamodel; sourceTree = "<group>"; };
 		021BEA671463709A0091C2EA /* MongoHub_DataModel2.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel2.0.xcdatamodel; sourceTree = "<group>"; };
-		021DB3851425819D0033E77C /* MODCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODCursor.h; sourceTree = "<group>"; };
-		021DB3861425819D0033E77C /* MODCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODCursor.m; sourceTree = "<group>"; };
-		021DB3871425819D0033E77C /* MODServer_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODServer_utils.m; sourceTree = "<group>"; };
-		02216EAD14128CBF00789BD1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		02216EAF14128CBF00789BD1 /* mongo_test.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = mongo_test.1; sourceTree = "<group>"; };
-		02216EB014128CBF00789BD1 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		02216EB314128CBF00789BD1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		02216EB414128CBF00789BD1 /* MOD_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOD_internal.h; sourceTree = "<group>"; };
-		02216EB514128CBF00789BD1 /* MODCollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MODCollection.h; sourceTree = "<group>"; };
-		02216EB614128CBF00789BD1 /* MODCollection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MODCollection.m; sourceTree = "<group>"; };
-		02216EB714128CBF00789BD1 /* MODDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MODDatabase.h; sourceTree = "<group>"; };
-		02216EB814128CBF00789BD1 /* MODDatabase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MODDatabase.m; sourceTree = "<group>"; };
-		02216EB914128CBF00789BD1 /* MODQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MODQuery.h; sourceTree = "<group>"; };
-		02216EBA14128CBF00789BD1 /* MODQuery.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MODQuery.m; sourceTree = "<group>"; };
-		02216EBB14128CBF00789BD1 /* MODServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MODServer.h; sourceTree = "<group>"; };
-		02216EBC14128CBF00789BD1 /* MODServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MODServer.m; sourceTree = "<group>"; };
-		02216EBD14128CBF00789BD1 /* mongo-objc-driver-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mongo-objc-driver-Info.plist"; sourceTree = "<group>"; };
-		022F8C45169B5E580024D20C /* bcon.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bcon.c; sourceTree = "<group>"; };
-		022F8C46169B5E580024D20C /* bcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bcon.h; sourceTree = "<group>"; };
-		022F8C47169B5E580024D20C /* env.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = env.c; sourceTree = "<group>"; };
+		021E5CCE19265FC300F3ED81 /* mongo-objc-driver.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "mongo-objc-driver.xcodeproj"; sourceTree = "<group>"; };
 		023230AC15E051300075498C /* MHConnectionEditorWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHConnectionEditorWindowController.h; sourceTree = "<group>"; };
 		023230AD15E051300075498C /* MHConnectionEditorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHConnectionEditorWindowController.m; sourceTree = "<group>"; };
-		023ED000148526E700185781 /* MODSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODSymbol.h; sourceTree = "<group>"; };
-		023ED001148526E700185781 /* MODSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODSymbol.m; sourceTree = "<group>"; };
-		02411ABC1432D55900A5FFCA /* MOD_public.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOD_public.h; sourceTree = "<group>"; };
 		024F678E1427F3DE00956BF6 /* MODHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODHelper.h; sourceTree = "<group>"; };
 		024F678F1427F3DE00956BF6 /* MODHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODHelper.m; sourceTree = "<group>"; };
 		0252361018FEC2E100286EC9 /* MHExporterImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHExporterImporter.h; sourceTree = "<group>"; };
@@ -298,12 +269,6 @@
 		025B8F0A1531C76E00849A71 /* MHTabTitleContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabTitleContainerView.h; sourceTree = "<group>"; };
 		025B8F0B1531C76E00849A71 /* MHTabTitleContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTabTitleContainerView.m; sourceTree = "<group>"; };
 		025B8F901531FC7500849A71 /* unselected-tab-border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unselected-tab-border.png"; sourceTree = "<group>"; };
-		025C562A14350DEF0064B010 /* MODRegex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODRegex.m; sourceTree = "<group>"; };
-		025C562B14350DEF0064B010 /* MODRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODRegex.h; sourceTree = "<group>"; };
-		025C562E14350DEF0064B010 /* MODDBRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODDBRef.m; sourceTree = "<group>"; };
-		025C562F14350DEF0064B010 /* MODDBRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODDBRef.h; sourceTree = "<group>"; };
-		025C563014350DEF0064B010 /* MODBinary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODBinary.m; sourceTree = "<group>"; };
-		025C563114350DEF0064B010 /* MODBinary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODBinary.h; sourceTree = "<group>"; };
 		025F635015AE21F300CD0EB4 /* NSViewHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSViewHelpers.h; sourceTree = "<group>"; };
 		025F635115AE21F300CD0EB4 /* NSViewHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSViewHelpers.m; sourceTree = "<group>"; };
 		0262CA39148C14A8009033F9 /* MHTabItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabItemViewController.h; sourceTree = "<group>"; };
@@ -312,85 +277,25 @@
 		0262CA40148C1852009033F9 /* MHQueryWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHQueryWindowController.h; sourceTree = "<group>"; };
 		02683D5D1442759100467EBE /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.markdown; path = ../README.markdown; sourceTree = "<group>"; };
 		026B2DE413BB6FB8009BEA7B /* RegexKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RegexKit.framework; sourceTree = "<group>"; };
-		026B949614BC214800BA0688 /* MODUndefined.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODUndefined.h; sourceTree = "<group>"; };
-		026B949714BC214800BA0688 /* MODUndefined.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODUndefined.m; sourceTree = "<group>"; };
 		0279C08F189C02F600F8BACB /* MHImportExportFeedback.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHImportExportFeedback.xib; sourceTree = "<group>"; };
 		0279C091189C03E000F8BACB /* MHImportExportFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHImportExportFeedback.h; sourceTree = "<group>"; };
 		0279C092189C03E000F8BACB /* MHImportExportFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHImportExportFeedback.m; sourceTree = "<group>"; };
-		027A1D901767DC1F0048AD60 /* MODMaxKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODMaxKey.h; sourceTree = "<group>"; };
-		027A1D911767DC1F0048AD60 /* MODMaxKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODMaxKey.m; sourceTree = "<group>"; };
-		027A1D921767DC1F0048AD60 /* MODMinKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODMinKey.h; sourceTree = "<group>"; };
-		027A1D931767DC1F0048AD60 /* MODMinKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODMinKey.m; sourceTree = "<group>"; };
-		0280706517675D8D00653483 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
-		0280706617675D8D00653483 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
-		0280706717675D8D00653483 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
-		0280706817675D8D00653483 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 		029D30A3145613420021B9C9 /* MHDatabaseItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDatabaseItem.h; sourceTree = "<group>"; };
 		029D30A4145613420021B9C9 /* MHDatabaseItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHDatabaseItem.m; sourceTree = "<group>"; };
 		029D30A7145613580021B9C9 /* MHCollectionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollectionItem.h; sourceTree = "<group>"; };
 		029D30A8145613580021B9C9 /* MHCollectionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionItem.m; sourceTree = "<group>"; };
 		029D30AA145613C30021B9C9 /* MHServerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHServerItem.h; sourceTree = "<group>"; };
 		029D30AB145613C30021B9C9 /* MHServerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHServerItem.m; sourceTree = "<group>"; };
-		02A3F5151804D58C00C04D36 /* MODRagelJsonParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MODRagelJsonParser.h; sourceTree = "<group>"; };
-		02A3F5161804D58C00C04D36 /* MODRagelJsonParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MODRagelJsonParser.m; sourceTree = "<group>"; };
-		02A3F5171804D58C00C04D36 /* MODRagelJsonParser.rl */ = {isa = PBXFileReference; lastKnownFileType = text; path = MODRagelJsonParser.rl; sourceTree = "<group>"; };
 		02A7C4081482DEDD0099CDD1 /* MHMysqlImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMysqlImporter.h; sourceTree = "<group>"; };
 		02A7C4091482DEDD0099CDD1 /* MHMysqlImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMysqlImporter.m; sourceTree = "<group>"; };
 		02A7C40C1482DF080099CDD1 /* MHMysqlExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMysqlExporter.h; sourceTree = "<group>"; };
 		02A7C40D1482DF080099CDD1 /* MHMysqlExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMysqlExporter.m; sourceTree = "<group>"; };
 		02AA29911477F8BD0041865F /* MHFileExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHFileExporter.h; sourceTree = "<group>"; };
 		02AA29921477F8BD0041865F /* MHFileExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHFileExporter.m; sourceTree = "<group>"; };
-		02AB057A142971CE00B7CD19 /* MODObjectId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODObjectId.m; sourceTree = "<group>"; };
-		02AB057B142971CE00B7CD19 /* MODObjectId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODObjectId.h; sourceTree = "<group>"; };
-		02AC8E21151C6E5700F7531B /* env.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = env.h; sourceTree = "<group>"; };
 		02B143DA147C720D005AB320 /* MHFileImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHFileImporter.h; sourceTree = "<group>"; };
 		02B143DB147C720D005AB320 /* MHFileImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHFileImporter.m; sourceTree = "<group>"; };
-		02B2427B147D2BBC008A15A3 /* MODSortedMutableDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODSortedMutableDictionary.h; sourceTree = "<group>"; };
-		02B2427C147D2BBC008A15A3 /* MODSortedMutableDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODSortedMutableDictionary.m; sourceTree = "<group>"; };
 		02CEE9BC1486DD7A00E488DA /* MHTabTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabTitleView.h; sourceTree = "<group>"; };
 		02CEE9BD1486DD7A00E488DA /* MHTabTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTabTitleView.m; sourceTree = "<group>"; };
-		02CF87E2142F7316000C4C7F /* MODTimestamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODTimestamp.h; sourceTree = "<group>"; };
-		02CF87E3142F7316000C4C7F /* MODTimestamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODTimestamp.m; sourceTree = "<group>"; };
-		02D5A86D144207CF00C7768C /* __init__.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = __init__.py; sourceTree = "<group>"; };
-		02D5A86E144207CF00C7768C /* docs.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = docs.py; sourceTree = "<group>"; };
-		02D5A871144207CF00C7768C /* make.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = make.bat; sourceTree = "<group>"; };
-		02D5A872144207CF00C7768C /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		02D5A874144207CF00C7768C /* bson.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = bson.rst; sourceTree = "<group>"; };
-		02D5A875144207CF00C7768C /* building.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = building.rst; sourceTree = "<group>"; };
-		02D5A876144207CF00C7768C /* conf.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = conf.py; sourceTree = "<group>"; };
-		02D5A877144207CF00C7768C /* connections.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = connections.rst; sourceTree = "<group>"; };
-		02D5A878144207CF00C7768C /* index.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = index.rst; sourceTree = "<group>"; };
-		02D5A879144207CF00C7768C /* tutorial.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = tutorial.rst; sourceTree = "<group>"; };
-		02D5A87A144207CF00C7768C /* doxygenConfig */ = {isa = PBXFileReference; lastKnownFileType = text; path = doxygenConfig; sourceTree = "<group>"; };
-		02D5A87B144207CF00C7768C /* HISTORY.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = HISTORY.md; sourceTree = "<group>"; };
-		02D5A87C144207CF00C7768C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		02D5A87D144207CF00C7768C /* SConstruct */ = {isa = PBXFileReference; lastKnownFileType = text; path = SConstruct; sourceTree = "<group>"; };
-		02D5A87F144207CF00C7768C /* bson.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bson.c; sourceTree = "<group>"; };
-		02D5A880144207CF00C7768C /* bson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bson.h; sourceTree = "<group>"; };
-		02D5A881144207CF00C7768C /* encoding.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = encoding.c; sourceTree = "<group>"; };
-		02D5A882144207CF00C7768C /* encoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = encoding.h; sourceTree = "<group>"; };
-		02D5A883144207CF00C7768C /* gridfs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gridfs.c; sourceTree = "<group>"; };
-		02D5A884144207CF00C7768C /* gridfs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gridfs.h; sourceTree = "<group>"; };
-		02D5A885144207CF00C7768C /* md5.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
-		02D5A886144207CF00C7768C /* md5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
-		02D5A887144207CF00C7768C /* mongo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mongo.c; sourceTree = "<group>"; };
-		02D5A888144207CF00C7768C /* mongo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mongo.h; sourceTree = "<group>"; };
-		02D5A88B144207CF00C7768C /* numbers.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = numbers.c; sourceTree = "<group>"; };
-		02D5A892144207CF00C7768C /* auth.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = auth.c; sourceTree = "<group>"; };
-		02D5A893144207CF00C7768C /* benchmark.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = benchmark.c; sourceTree = "<group>"; };
-		02D5A894144207CF00C7768C /* bson.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bson.c; sourceTree = "<group>"; };
-		02D5A895144207CF00C7768C /* bson_subobject.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bson_subobject.c; sourceTree = "<group>"; };
-		02D5A896144207CF00C7768C /* count_delete.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = count_delete.c; sourceTree = "<group>"; };
-		02D5A897144207CF00C7768C /* cpptest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cpptest.cpp; sourceTree = "<group>"; };
-		02D5A898144207CF00C7768C /* cursors.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cursors.c; sourceTree = "<group>"; };
-		02D5A89A144207CF00C7768C /* errors.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = errors.c; sourceTree = "<group>"; };
-		02D5A89C144207CF00C7768C /* functions.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = functions.c; sourceTree = "<group>"; };
-		02D5A8A0144207CF00C7768C /* oid.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = oid.c; sourceTree = "<group>"; };
-		02D5A8A3144207CF00C7768C /* timeouts.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = timeouts.c; sourceTree = "<group>"; };
-		02D5A8A5144207CF00C7768C /* resize.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = resize.c; sourceTree = "<group>"; };
-		02D5A8A7144207CF00C7768C /* sizes.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sizes.c; sourceTree = "<group>"; };
-		02D5A8A8144207CF00C7768C /* test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
-		02D5A8AA144207CF00C7768C /* validate.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = validate.c; sourceTree = "<group>"; };
 		02E0FE29151DE2420094C1CD /* background-grey_center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-grey_center.png"; sourceTree = "<group>"; };
 		02E0FE2A151DE2420094C1CD /* background-grey_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-grey_left.png"; sourceTree = "<group>"; };
 		02E0FE2B151DE2420094C1CD /* background-grey_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-grey_right.png"; sourceTree = "<group>"; };
@@ -404,8 +309,6 @@
 		02E0FE33151DE2420094C1CD /* button_ArrowRight_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_ArrowRight_overlay.png; sourceTree = "<group>"; };
 		02E0FE34151DE2420094C1CD /* close_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_button.png; sourceTree = "<group>"; };
 		02E0FE35151DE2420094C1CD /* overlay_close_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay_close_button.png; sourceTree = "<group>"; };
-		02ECA395185149DE00BDA28E /* MODBsonComparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODBsonComparator.h; sourceTree = "<group>"; };
-		02ECA396185149DE00BDA28E /* MODBsonComparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODBsonComparator.m; sourceTree = "<group>"; };
 		02F2A1F61817E48B0053CB20 /* MHPreferenceController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHPreferenceController.xib; sourceTree = "<group>"; };
 		02F2A1F81817E4BC0053CB20 /* MHPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHPreferenceController.h; sourceTree = "<group>"; };
 		02F2A1F91817E4BC0053CB20 /* MHPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPreferenceController.m; sourceTree = "<group>"; };
@@ -554,6 +457,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		021E5CCF19265FC300F3ED81 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				021E5CD619265FC400F3ED81 /* mongo-objc-driver.framework */,
+				021E5CD819265FC400F3ED81 /* mongo-test */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		02216E5F14128CBF00789BD1 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -565,80 +477,9 @@
 		02216EA414128CBF00789BD1 /* mongo-objc-driver */ = {
 			isa = PBXGroup;
 			children = (
-				02216EB114128CBF00789BD1 /* Sources */,
-				02216EA714128CBF00789BD1 /* Libraries */,
-				02216EAC14128CBF00789BD1 /* mongo-test */,
-				02216EB014128CBF00789BD1 /* README */,
+				021E5CCE19265FC300F3ED81 /* mongo-objc-driver.xcodeproj */,
 			);
 			path = "mongo-objc-driver";
-			sourceTree = "<group>";
-		};
-		02216EA714128CBF00789BD1 /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				02D5A867144207CF00C7768C /* mongo-c-driver-legacy */,
-			);
-			path = Libraries;
-			sourceTree = "<group>";
-		};
-		02216EAC14128CBF00789BD1 /* mongo-test */ = {
-			isa = PBXGroup;
-			children = (
-				02216EAD14128CBF00789BD1 /* main.m */,
-				02216EAF14128CBF00789BD1 /* mongo_test.1 */,
-			);
-			path = "mongo-test";
-			sourceTree = "<group>";
-		};
-		02216EB114128CBF00789BD1 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				02A3F5151804D58C00C04D36 /* MODRagelJsonParser.h */,
-				02A3F5161804D58C00C04D36 /* MODRagelJsonParser.m */,
-				02A3F5171804D58C00C04D36 /* MODRagelJsonParser.rl */,
-				02411ABC1432D55900A5FFCA /* MOD_public.h */,
-				02216EB414128CBF00789BD1 /* MOD_internal.h */,
-				02216EBB14128CBF00789BD1 /* MODServer.h */,
-				02216EBC14128CBF00789BD1 /* MODServer.m */,
-				021DB3871425819D0033E77C /* MODServer_utils.m */,
-				02ECA395185149DE00BDA28E /* MODBsonComparator.h */,
-				02ECA396185149DE00BDA28E /* MODBsonComparator.m */,
-				02216EB714128CBF00789BD1 /* MODDatabase.h */,
-				02216EB814128CBF00789BD1 /* MODDatabase.m */,
-				02216EB514128CBF00789BD1 /* MODCollection.h */,
-				02216EB614128CBF00789BD1 /* MODCollection.m */,
-				021DB3851425819D0033E77C /* MODCursor.h */,
-				021DB3861425819D0033E77C /* MODCursor.m */,
-				02216EB914128CBF00789BD1 /* MODQuery.h */,
-				02216EBA14128CBF00789BD1 /* MODQuery.m */,
-				02CF87E2142F7316000C4C7F /* MODTimestamp.h */,
-				02CF87E3142F7316000C4C7F /* MODTimestamp.m */,
-				023ED000148526E700185781 /* MODSymbol.h */,
-				023ED001148526E700185781 /* MODSymbol.m */,
-				02AB057B142971CE00B7CD19 /* MODObjectId.h */,
-				02AB057A142971CE00B7CD19 /* MODObjectId.m */,
-				025C562B14350DEF0064B010 /* MODRegex.h */,
-				025C562A14350DEF0064B010 /* MODRegex.m */,
-				025C562F14350DEF0064B010 /* MODDBRef.h */,
-				025C562E14350DEF0064B010 /* MODDBRef.m */,
-				025C563114350DEF0064B010 /* MODBinary.h */,
-				025C563014350DEF0064B010 /* MODBinary.m */,
-				026B949614BC214800BA0688 /* MODUndefined.h */,
-				026B949714BC214800BA0688 /* MODUndefined.m */,
-				027A1D901767DC1F0048AD60 /* MODMaxKey.h */,
-				027A1D911767DC1F0048AD60 /* MODMaxKey.m */,
-				027A1D921767DC1F0048AD60 /* MODMinKey.h */,
-				027A1D931767DC1F0048AD60 /* MODMinKey.m */,
-				02B2427B147D2BBC008A15A3 /* MODSortedMutableDictionary.h */,
-				02B2427C147D2BBC008A15A3 /* MODSortedMutableDictionary.m */,
-				0280706517675D8D00653483 /* NSData+Base64.h */,
-				0280706617675D8D00653483 /* NSData+Base64.m */,
-				0280706717675D8D00653483 /* NSString+Base64.h */,
-				0280706817675D8D00653483 /* NSString+Base64.m */,
-				02216EB214128CBF00789BD1 /* InfoPlist.strings */,
-				02216EBD14128CBF00789BD1 /* mongo-objc-driver-Info.plist */,
-			);
-			path = Sources;
 			sourceTree = "<group>";
 		};
 		0233716E145B640D0084D0F7 /* Spotlight Importer */ = {
@@ -753,129 +594,6 @@
 				0252361118FECEE700286EC9 /* MHExporterImporter.m */,
 			);
 			path = "Exporter-Importer";
-			sourceTree = "<group>";
-		};
-		02D5A867144207CF00C7768C /* mongo-c-driver-legacy */ = {
-			isa = PBXGroup;
-			children = (
-				02D5A87E144207CF00C7768C /* src */,
-				02D5A86B144207CF00C7768C /* docs */,
-				02D5A87A144207CF00C7768C /* doxygenConfig */,
-				02D5A87B144207CF00C7768C /* HISTORY.md */,
-				02D5A87C144207CF00C7768C /* README.md */,
-				02D5A87D144207CF00C7768C /* SConstruct */,
-				02D5A891144207CF00C7768C /* test */,
-			);
-			path = "mongo-c-driver-legacy";
-			sourceTree = "<group>";
-		};
-		02D5A86B144207CF00C7768C /* docs */ = {
-			isa = PBXGroup;
-			children = (
-				02D5A86C144207CF00C7768C /* buildscripts */,
-				02D5A86F144207CF00C7768C /* source */,
-			);
-			path = docs;
-			sourceTree = "<group>";
-		};
-		02D5A86C144207CF00C7768C /* buildscripts */ = {
-			isa = PBXGroup;
-			children = (
-				02D5A86D144207CF00C7768C /* __init__.py */,
-				02D5A86E144207CF00C7768C /* docs.py */,
-			);
-			path = buildscripts;
-			sourceTree = "<group>";
-		};
-		02D5A86F144207CF00C7768C /* source */ = {
-			isa = PBXGroup;
-			children = (
-				02D5A870144207CF00C7768C /* sphinx */,
-			);
-			path = source;
-			sourceTree = "<group>";
-		};
-		02D5A870144207CF00C7768C /* sphinx */ = {
-			isa = PBXGroup;
-			children = (
-				02D5A871144207CF00C7768C /* make.bat */,
-				02D5A872144207CF00C7768C /* Makefile */,
-				02D5A873144207CF00C7768C /* source */,
-			);
-			path = sphinx;
-			sourceTree = "<group>";
-		};
-		02D5A873144207CF00C7768C /* source */ = {
-			isa = PBXGroup;
-			children = (
-				02D5A874144207CF00C7768C /* bson.rst */,
-				02D5A875144207CF00C7768C /* building.rst */,
-				02D5A876144207CF00C7768C /* conf.py */,
-				02D5A877144207CF00C7768C /* connections.rst */,
-				02D5A878144207CF00C7768C /* index.rst */,
-				02D5A879144207CF00C7768C /* tutorial.rst */,
-			);
-			path = source;
-			sourceTree = "<group>";
-		};
-		02D5A87E144207CF00C7768C /* src */ = {
-			isa = PBXGroup;
-			children = (
-				022F8C45169B5E580024D20C /* bcon.c */,
-				022F8C46169B5E580024D20C /* bcon.h */,
-				022F8C47169B5E580024D20C /* env.c */,
-				02D5A87F144207CF00C7768C /* bson.c */,
-				02D5A880144207CF00C7768C /* bson.h */,
-				02D5A881144207CF00C7768C /* encoding.c */,
-				02D5A882144207CF00C7768C /* encoding.h */,
-				02AC8E21151C6E5700F7531B /* env.h */,
-				02D5A883144207CF00C7768C /* gridfs.c */,
-				02D5A884144207CF00C7768C /* gridfs.h */,
-				02D5A885144207CF00C7768C /* md5.c */,
-				02D5A886144207CF00C7768C /* md5.h */,
-				02D5A887144207CF00C7768C /* mongo.c */,
-				02D5A888144207CF00C7768C /* mongo.h */,
-				02D5A88B144207CF00C7768C /* numbers.c */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
-		02D5A891144207CF00C7768C /* test */ = {
-			isa = PBXGroup;
-			children = (
-				02D5A892144207CF00C7768C /* auth.c */,
-				02D5A893144207CF00C7768C /* benchmark.c */,
-				02D5A894144207CF00C7768C /* bson.c */,
-				02D5A895144207CF00C7768C /* bson_subobject.c */,
-				02D5A896144207CF00C7768C /* count_delete.c */,
-				02D5A897144207CF00C7768C /* cpptest.cpp */,
-				02D5A898144207CF00C7768C /* cursors.c */,
-				02D5A89A144207CF00C7768C /* errors.c */,
-				02D5A89C144207CF00C7768C /* functions.c */,
-				02D5A8A0144207CF00C7768C /* oid.c */,
-				02D5A8A1144207CF00C7768C /* platform */,
-				02D5A8A5144207CF00C7768C /* resize.c */,
-				02D5A8A7144207CF00C7768C /* sizes.c */,
-				02D5A8A8144207CF00C7768C /* test.h */,
-				02D5A8AA144207CF00C7768C /* validate.c */,
-			);
-			path = test;
-			sourceTree = "<group>";
-		};
-		02D5A8A1144207CF00C7768C /* platform */ = {
-			isa = PBXGroup;
-			children = (
-				02D5A8A2144207CF00C7768C /* linux */,
-			);
-			path = platform;
-			sourceTree = "<group>";
-		};
-		02D5A8A2144207CF00C7768C /* linux */ = {
-			isa = PBXGroup;
-			children = (
-				02D5A8A3144207CF00C7768C /* timeouts.c */,
-			);
-			path = linux;
 			sourceTree = "<group>";
 		};
 		02E0FE28151DE2420094C1CD /* tabs */ = {
@@ -1151,6 +869,7 @@
 			dependencies = (
 				02216F641412D6F000789BD1 /* PBXTargetDependency */,
 				790512FC0DDD0A100070760D /* PBXTargetDependency */,
+				021E5CDA1926601D00F3ED81 /* PBXTargetDependency */,
 			);
 			name = MongoHub;
 			productInstallPath = "$(HOME)/Applications";
@@ -1180,6 +899,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* MongoHub */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 021E5CCF19265FC300F3ED81 /* Products */;
+					ProjectRef = 021E5CCE19265FC300F3ED81 /* mongo-objc-driver.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* MongoHub */,
@@ -1188,6 +913,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		021E5CD619265FC400F3ED81 /* mongo-objc-driver.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = "mongo-objc-driver.framework";
+			remoteRef = 021E5CD519265FC400F3ED81 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		021E5CD819265FC400F3ED81 /* mongo-test */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "mongo-test";
+			remoteRef = 021E5CD719265FC400F3ED81 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		797A78350DDCFADE0050D0C2 /* Resources */ = {
@@ -1267,19 +1009,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		02216F251412D56100789BD1 /* mongo-c-driver-legacy */ = {
+		02216F251412D56100789BD1 /* mongo-c-driver */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "mongo-c-driver-legacy";
+			name = "mongo-c-driver";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "module_name=\"mongo-c-driver-legacy\"\nmodule_owner=\"fotonauts\"\nmodule_branch=\"master\"\nmodule_path=\"Libraries/mongo-objc-driver/Libraries/${module_name}\"\n\nfiles=`ls \"${module_path}\" 2> /dev/null`\nif [ \"${files}\" = \"\" ] ; then\n  if [ -d .git ] ; then\n    echo \"\"\n  else\n    cd \"${module_path}\"\n    curl -o \"${module_name}.zip\" -L \"https://nodeload.github.com/${module_owner}/${module_name}/zipball/${module_branch}\"\n    unzip \"${module_name}.zip\"\n    rm \"${module_name}.zip\"\n    module_unzip_dir=`ls`\n    cd \"${module_unzip_dir}\"\n    mv * ..\n    cd ..\n    rm -fr \"${module_unzip_dir}\"\n  fi\nfi\n";
+			shellScript = "module_name=\"mongo-objc-driver\"\nmodule_owner=\"fotonauts\"\nmodule_branch=\"master\"\nmodule_path=\"Libraries/${module_name}\"\n\nfiles=`ls \"${module_path}\" 2> /dev/null`\nif [ \"${files}\" = \"\" ] ; then\n  if [ -d .git ] ; then\n    echo \"\"\n  else\n    cd \"${module_path}\"\n    curl -o \"${module_name}.zip\" -L \"https://nodeload.github.com/${module_owner}/${module_name}/zipball/${module_branch}\"\n    unzip \"${module_name}.zip\"\n    rm \"${module_name}.zip\"\n    module_unzip_dir=`ls`\n    cd \"${module_unzip_dir}\"\n    mv * ..\n    cd ..\n    rm -fr \"${module_unzip_dir}\"\n  fi\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		02D5A7F41442019100C7768C /* Update submodules */ = {
@@ -1294,7 +1036,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -d \".git\" ] ; then\n  /usr/bin/git submodule update --init\n  cd Libraries/mongo-objc-driver\n  /usr/bin/git submodule update --init\nfi\n";
+			shellScript = "if [ -d \".git\" ] ; then\n  /usr/bin/git submodule update --init\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1315,12 +1057,6 @@
 			files = (
 				02F2A1FA1817E4BC0053CB20 /* MHPreferenceController.m in Sources */,
 				0255B568181A9A210019739D /* MHKeychain.m in Sources */,
-				02D5A8E41442087F00C7768C /* bson.c in Sources */,
-				02D5A8E51442087F00C7768C /* encoding.c in Sources */,
-				02D5A8E61442087F00C7768C /* gridfs.c in Sources */,
-				02D5A8E71442087F00C7768C /* md5.c in Sources */,
-				02D5A8E81442087F00C7768C /* mongo.c in Sources */,
-				02D5A8EA1442087F00C7768C /* numbers.c in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				77C8280E06725ACE000B614F /* MHApplicationDelegate.m in Sources */,
 				1D93C1DA11832C1D003216F7 /* MHConnectionStore.m in Sources */,
@@ -1349,52 +1085,35 @@
 				1D64100512C8E1C00030AA4C /* NSScanner+SkipUpToCharset.m in Sources */,
 				1D64100812C8E21C0030AA4C /* UKSyntaxColoredTextViewController.m in Sources */,
 				1D64100D12C8E3D90030AA4C /* MHJsonWindowController.m in Sources */,
-				02216ECC14128D1200789BD1 /* MODCollection.m in Sources */,
-				02216ECD14128D1200789BD1 /* MODDatabase.m in Sources */,
-				02216ECE14128D1200789BD1 /* MODQuery.m in Sources */,
-				02216ECF14128D1200789BD1 /* MODServer.m in Sources */,
-				021DB3881425819D0033E77C /* MODCursor.m in Sources */,
-				021DB3891425819D0033E77C /* MODServer_utils.m in Sources */,
 				024F67901427F3DE00956BF6 /* MODHelper.m in Sources */,
-				02AB057C142971CE00B7CD19 /* MODObjectId.m in Sources */,
-				02CF87E5142F7316000C4C7F /* MODTimestamp.m in Sources */,
-				025C563214350DEF0064B010 /* MODRegex.m in Sources */,
-				025C563414350DEF0064B010 /* MODDBRef.m in Sources */,
-				025C563514350DEF0064B010 /* MODBinary.m in Sources */,
 				029D30A5145613420021B9C9 /* MHDatabaseItem.m in Sources */,
 				029D30A9145613580021B9C9 /* MHCollectionItem.m in Sources */,
 				029D30AC145613C30021B9C9 /* MHServerItem.m in Sources */,
 				021BEA681463709A0091C2EA /* MongoHub_DataModel.xcdatamodeld in Sources */,
 				02AA29931477F8BD0041865F /* MHFileExporter.m in Sources */,
 				02B143DC147C720D005AB320 /* MHFileImporter.m in Sources */,
-				02B2427D147D2BBC008A15A3 /* MODSortedMutableDictionary.m in Sources */,
 				0252361218FECEE700286EC9 /* MHExporterImporter.m in Sources */,
 				02A7C40A1482DEDD0099CDD1 /* MHMysqlImporter.m in Sources */,
 				02A7C40E1482DF080099CDD1 /* MHMysqlExporter.m in Sources */,
-				023ED002148526E700185781 /* MODSymbol.m in Sources */,
 				02CEE9BE1486DD7A00E488DA /* MHTabTitleView.m in Sources */,
 				020F511A14896DE700D4B54B /* MHTabViewController.m in Sources */,
 				020F5128148973BA00D4B54B /* MHStatusViewController.m in Sources */,
 				0262CA3C148C14A8009033F9 /* MHTabItemViewController.m in Sources */,
 				0262CA3F148C1838009033F9 /* MHConnectionWindowController.m in Sources */,
-				026B949814BC214800BA0688 /* MODUndefined.m in Sources */,
 				025B8F0C1531C76E00849A71 /* MHTabTitleContainerView.m in Sources */,
 				025F635215AE21F300CD0EB4 /* NSViewHelpers.m in Sources */,
 				023230AE15E051300075498C /* MHConnectionEditorWindowController.m in Sources */,
-				02A3F5181804D59100C04D36 /* MODRagelJsonParser.m in Sources */,
-				022F8C48169B5E580024D20C /* bcon.c in Sources */,
-				022F8C49169B5E580024D20C /* env.c in Sources */,
-				0280706917675D8D00653483 /* NSData+Base64.m in Sources */,
-				0280706A17675D8D00653483 /* NSString+Base64.m in Sources */,
-				027A1D941767DC1F0048AD60 /* MODMaxKey.m in Sources */,
-				02ECA397185149DE00BDA28E /* MODBsonComparator.m in Sources */,
-				027A1D951767DC1F0048AD60 /* MODMinKey.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		021E5CDA1926601D00F3ED81 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "mongo-objc-driver";
+			targetProxy = 021E5CD91926601D00F3ED81 /* PBXContainerItemProxy */;
+		};
 		02216F621412D6E900789BD1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 02216F201412D54600789BD1 /* Submodules */;
@@ -1413,14 +1132,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		02216EB214128CBF00789BD1 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				02216EB314128CBF00789BD1 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
