@@ -66,42 +66,42 @@
 }
 
 - (IBAction)export:(id)sender {
-    [mongoDatabase.mongoServer copyWithCallback:^(MODServer *copyServer, MODQuery *mongoQuery) {
-        MODCollection *mongoCollection;
-        
-        [progressIndicator setUsesThreadedAnimation:YES];
-        [progressIndicator startAnimation: self];
-        [progressIndicator setDoubleValue:0];
-        NSString *collection = [collectionTextField stringValue];
-        if ([collection length] == 0) {
-            NSRunAlertPanel(@"Error", @"Collection name can not be empty!", @"OK", nil, nil);
-            return;
-        }
-        mongoCollection = [[copyServer databaseForName:mongoDatabase.databaseName] collectionForName:collection];
-        NSString *tablename = [tablesPopUpButton titleOfSelectedItem];
-        
-        int64_t total = [self exportCount:mongoCollection];
-        if (total == 0) {
-            return;
-        }
-        NSString *query = [[NSString alloc] initWithFormat:@"select * from %@ limit 1", tablename];
-        MCPResult *theResult = [db queryString:query];
-        NSDictionary *fieldTypes = [theResult fetchTypesAsDictionary];
-        NSArray *fieldMapping = [fieldMapTableController.nsMutaryDataObj copy];
-        
-        MODCursor *cursor;
-        cursor = [mongoCollection cursorWithCriteria:nil fields:nil skip:0 limit:0 sort:nil];
-        [cursor forEachDocumentWithCallbackDocumentCallback:^(uint64_t index, MODSortedMutableDictionary *document) {
-            [self doExportToTable:tablename data:document fieldTypes:fieldTypes fieldMapping:fieldMapping];
-            [progressIndicator setDoubleValue:(double)index/total];
-            NSLog(@"%lld %lld", index, total);
-            return YES;
-        } endCallback:^(uint64_t documentCounts, BOOL cursorStopped, MODQuery *mongoQuery) {
-            [progressIndicator stopAnimation: self];
-        }];
-        [query release];
-        [fieldMapping release];
+    MODServer *copyServer;
+    MODCollection *mongoCollection;
+    
+    copyServer = [mongoDatabase.mongoServer copy];
+    [progressIndicator setUsesThreadedAnimation:YES];
+    [progressIndicator startAnimation: self];
+    [progressIndicator setDoubleValue:0];
+    NSString *collection = [collectionTextField stringValue];
+    if ([collection length] == 0) {
+        NSRunAlertPanel(@"Error", @"Collection name can not be empty!", @"OK", nil, nil);
+        return;
+    }
+    mongoCollection = [[copyServer databaseForName:mongoDatabase.name] collectionForName:collection];
+    NSString *tablename = [tablesPopUpButton titleOfSelectedItem];
+    
+    int64_t total = [self exportCount:mongoCollection];
+    if (total == 0) {
+        return;
+    }
+    NSString *query = [[NSString alloc] initWithFormat:@"select * from %@ limit 1", tablename];
+    MCPResult *theResult = [db queryString:query];
+    NSDictionary *fieldTypes = [theResult fetchTypesAsDictionary];
+    NSArray *fieldMapping = [fieldMapTableController.nsMutaryDataObj copy];
+    
+    MODCursor *cursor;
+    cursor = [mongoCollection cursorWithCriteria:nil fields:nil skip:0 limit:0 sort:nil];
+    [cursor forEachDocumentWithCallbackDocumentCallback:^(uint64_t index, MODSortedMutableDictionary *document) {
+        [self doExportToTable:tablename data:document fieldTypes:fieldTypes fieldMapping:fieldMapping];
+        [progressIndicator setDoubleValue:(double)index/total];
+        NSLog(@"%lld %lld", index, total);
+        return YES;
+    } endCallback:^(uint64_t documentCounts, BOOL cursorStopped, MODQuery *mongoQuery) {
+        [progressIndicator stopAnimation: self];
     }];
+    [query release];
+    [fieldMapping release];
 }
 
 - (int64_t)exportCount:(MODCollection *)collection

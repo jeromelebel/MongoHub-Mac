@@ -9,6 +9,7 @@
 #import "MHConnectionEditorWindowController.h"
 #import "MHConnectionStore.h"
 #import "DatabasesArrayController.h"
+#import <mongo-objc-driver/MOD_public.h>
 
 #define COPY_ALIAS_SUFFIX @" - Copy"
 

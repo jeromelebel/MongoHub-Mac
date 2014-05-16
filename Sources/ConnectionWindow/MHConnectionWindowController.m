@@ -31,7 +31,6 @@
 #import <mongo-objc-driver/MOD_public.h>
 #import "MHStatusViewController.h"
 #import "MHTabViewController.h"
-#import "mongo.h"
 #import "MHImportExportFeedback.h"
 
 #define SERVER_STATUS_TOOLBAR_ITEM_TAG              0
@@ -171,8 +170,8 @@
             MHDatabaseItem *databaseOutlineViewItem;
             MHCollectionItem *collectionOutlineViewItem;
             
-            databaseOutlineViewItem = [_serverItem databaseItemWithName:[selectedTab mongoCollection].databaseName];
-            collectionOutlineViewItem = [databaseOutlineViewItem collectionItemWithName:[selectedTab mongoCollection].collectionName];
+            databaseOutlineViewItem = [_serverItem databaseItemWithName:[selectedTab mongoCollection].name];
+            collectionOutlineViewItem = [databaseOutlineViewItem collectionItemWithName:[selectedTab mongoCollection].name];
             if (collectionOutlineViewItem) {
                 [_databaseCollectionOutlineView expandItem:databaseOutlineViewItem];
                 indexes = [[NSIndexSet alloc] initWithIndex:[_databaseCollectionOutlineView rowForItem:collectionOutlineViewItem]];
@@ -193,9 +192,6 @@
 {
     [loaderIndicator stop];
     
-    if (!self.mongoServer.isMaster) {
-        NSBeginAlertSheet(@"Warning", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"read-only mode (connected to a slave)");
-    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDatabase:) name:kNewDBWindowWillClose object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addCollection:) name:kNewCollectionWindowWillClose object:nil];
     reconnectButton.enabled = YES;
@@ -252,13 +248,13 @@
         _statusViewController.mongoServer = self.mongoServer;
         _statusViewController.connectionStore = self.connectionStore;
         if (self.connectionStore.adminuser.length > 0 && self.connectionStore.adminpass.length > 0) {
-            self.mongoServer.userName = self.connectionStore.adminuser;
-            self.mongoServer.password = self.connectionStore.adminpass;
-            if (self.connectionStore.defaultdb.length > 0) {
-                self.mongoServer.authDatabase = self.connectionStore.defaultdb;
-            } else {
-                self.mongoServer.authDatabase = @"admin";
-            }
+//            self.mongoServer.userName = self.connectionStore.adminuser;
+//            self.mongoServer.password = self.connectionStore.adminpass;
+//            if (self.connectionStore.defaultdb.length > 0) {
+//                self.mongoServer.authDatabase = self.connectionStore.defaultdb;
+//            } else {
+//                self.mongoServer.authDatabase = @"admin";
+//            }
         }
         if (self.connectionStore.userepl.intValue == 1) {
             NSArray *tmp = [self.connectionStore.servers componentsSeparatedByString:@","];
@@ -381,7 +377,7 @@
         MHDatabaseItem *databaseItem;
         
         [loaderIndicator stop];
-        databaseItem = [_serverItem databaseItemWithName:mongoDatabase.databaseName];
+        databaseItem = [_serverItem databaseItemWithName:mongoDatabase.name];
         if (collectionList && databaseItem) {
             if ([databaseItem updateChildrenWithList:collectionList]) {
                 [_databaseCollectionOutlineView reloadData];
@@ -450,23 +446,17 @@
 
 - (IBAction)createDatabase:(id)sender
 {
-    if (!self.mongoServer.isMaster) {
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"Can't create a database on a non-master node");
-    } else {
-        if (!self.addDBController) {
-            self.addDBController = [[[MHAddDBController alloc] init] autorelease];
-        }
-        self.addDBController.conn = self.connectionStore;
-        [self.addDBController modalForWindow:self.window];
+    if (!self.addDBController) {
+        self.addDBController = [[[MHAddDBController alloc] init] autorelease];
     }
+    self.addDBController.conn = self.connectionStore;
+    [self.addDBController modalForWindow:self.window];
 }
 
 - (IBAction)createCollection:(id)sender
 {
-    if (!self.mongoServer.isMaster) {
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"Can't create a collection on a non-master node");
-    } else if (self.selectedDatabaseItem) {
-        [self createCollectionForDatabaseName:[self.selectedDatabaseItem.mongoDatabase databaseName]];
+    if (self.selectedDatabaseItem) {
+        [self createCollectionForDatabaseName:[self.selectedDatabaseItem.mongoDatabase name]];
     }
 }
 
@@ -504,45 +494,34 @@
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
         }
-        [self getCollectionListForDatabaseName:mongoDatabase.databaseName];
+        [self getCollectionListForDatabaseName:mongoDatabase.name];
     }];
     self.addCollectionController = nil;
 }
 
 - (IBAction)dropDatabaseOrCollection:(id)sender
 {
-    if (!self.mongoServer.isMaster) {
-        if (self.selectedCollectionItem) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"Can't drop a collection on a non-master node");
-        } else {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"Can't drop a database on a non-master node");
-        }
-    } else if (self.selectedCollectionItem) {
+    if (self.selectedCollectionItem) {
         [self dropWarning:[NSString stringWithFormat:@"COLLECTION:%@", [[self.selectedCollectionItem mongoCollection] absoluteCollectionName]]];
     } else {
-        [self dropWarning:[NSString stringWithFormat:@"DB:%@", [self.selectedDatabaseItem.mongoDatabase databaseName]]];
+        [self dropWarning:[NSString stringWithFormat:@"DB:%@", [self.selectedDatabaseItem.mongoDatabase name]]];
     }
 }
 
-- (void)dropCollection:(NSString *)collectionName forDatabaseName:(NSString *)databaseName
+- (void)dropCollection:(MODCollection *)collection
 {
-    if (!self.mongoServer.isMaster) {
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"Can't drop a collection on a non-master node");
-    } else {
-        MHDatabaseItem *databaseItem;
+    if (collection) {
+        NSString *databaseName = collection.mongoDatabase.name;
         
-        databaseItem = self.selectedDatabaseItem;
-        if (databaseItem) {
-            [loaderIndicator start];
-            [databaseItem.mongoDatabase dropCollectionWithName:collectionName callback:^(MODQuery *mongoQuery) {
-                [loaderIndicator stop];
-                if (mongoQuery.error) {
-                    NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
-                } else {
-                    [self getCollectionListForDatabaseName:databaseName];
-                }
-            }];
-        }
+        [loaderIndicator start];
+        [collection dropWithCallback:^(MODQuery *mongoQuery) {
+            [loaderIndicator stop];
+            if (mongoQuery.error) {
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
+            } else {
+                [self getCollectionListForDatabaseName:databaseName];
+            }
+        }];
     }
 }
 
@@ -566,18 +545,14 @@
 
 - (void)dropDatabase
 {
-    if (!self.mongoServer.isMaster) {
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"This node is not a master, you can't drop a database.");
-    } else {
-        [loaderIndicator start];
-        [self.mongoServer dropDatabaseWithName:[self.selectedDatabaseItem.mongoDatabase databaseName] callback:^(MODQuery *mongoQuery) {
-            [loaderIndicator stop];
-            [self getDatabaseList];
-            if (mongoQuery.error) {
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
-            }
-        }];
-    }
+    [loaderIndicator start];
+    [self.selectedDatabaseItem.mongoDatabase dropWithCallback:^(MODQuery *mongoQuery) {
+        [loaderIndicator stop];
+        [self getDatabaseList];
+        if (mongoQuery.error) {
+            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
+        }
+    }];
 }
 
 - (IBAction)query:(id)sender
@@ -614,7 +589,7 @@
     {
         authWindowController = [[AuthWindowController alloc] init];
     }
-    MHDatabaseStore *db = [_databaseStoreArrayController dbInfo:self.connectionStore name:[self.selectedDatabaseItem.mongoDatabase databaseName]];
+    MHDatabaseStore *db = [_databaseStoreArrayController dbInfo:self.connectionStore name:[self.selectedDatabaseItem.mongoDatabase name]];
     if (db) {
         [authWindowController.userTextField setStringValue:db.user];
         [authWindowController.passwordTextField setStringValue:db.password];
@@ -623,7 +598,7 @@
         [authWindowController.passwordTextField setStringValue:@""];
     }
     authWindowController.conn = self.connectionStore;
-    authWindowController.dbname = [self.selectedDatabaseItem.mongoDatabase databaseName];
+    authWindowController.dbname = [self.selectedDatabaseItem.mongoDatabase name];
     [authWindowController showWindow:self];
 }
 
@@ -632,7 +607,7 @@
     if (returnCode == NSAlertSecondButtonReturn)
     {
         if (self.selectedCollectionItem) {
-            [self dropCollection:[self.selectedCollectionItem.mongoCollection collectionName] forDatabaseName:[self.selectedDatabaseItem.mongoDatabase databaseName]];
+            [self dropCollection:self.selectedCollectionItem.mongoCollection];
         }else {
             [self dropDatabase];
         }
@@ -641,19 +616,15 @@
 
 - (void)dropWarning:(NSString *)msg
 {
-    if (!self.mongoServer.isMaster) {
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"This node is not a master, you can't modify it.");
-    } else {
-        NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-        [alert addButtonWithTitle:@"Cancel"];
-        [alert addButtonWithTitle:@"OK"];
-        [alert setMessageText:[NSString stringWithFormat:@"Drop this %@?", msg]];
-        [alert setInformativeText:[NSString stringWithFormat:@"Dropped %@ cannot be restored.", msg]];
-        [alert setAlertStyle:NSWarningAlertStyle];
-        [alert beginSheetModalForWindow:[self window] modalDelegate:self
-                         didEndSelector:@selector(dropWarningDidEnd:returnCode:contextInfo:)
-                            contextInfo:nil];
-    }
+    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+    [alert addButtonWithTitle:@"Cancel"];
+    [alert addButtonWithTitle:@"OK"];
+    [alert setMessageText:[NSString stringWithFormat:@"Drop this %@?", msg]];
+    [alert setInformativeText:[NSString stringWithFormat:@"Dropped %@ cannot be restored.", msg]];
+    [alert setAlertStyle:NSWarningAlertStyle];
+    [alert beginSheetModalForWindow:[self window] modalDelegate:self
+                     didEndSelector:@selector(dropWarningDidEnd:returnCode:contextInfo:)
+                        contextInfo:nil];
 }
 
 - (IBAction)startMonitor:(id)sender {
@@ -854,9 +825,9 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
         _mysqlImportWindowController = [[MHMysqlImportWindowController alloc] init];
     }
     _mysqlImportWindowController.mongoServer = self.mongoServer;
-    _mysqlImportWindowController.dbname = [self.selectedDatabaseItem.mongoDatabase databaseName];
+    _mysqlImportWindowController.dbname = [self.selectedDatabaseItem.mongoDatabase name];
     if (self.selectedCollectionItem) {
-        [_mysqlExportWindowController.collectionTextField setStringValue:[self.selectedCollectionItem.mongoCollection collectionName]];
+        [_mysqlExportWindowController.collectionTextField setStringValue:[self.selectedCollectionItem.mongoCollection name]];
     }
     [_mysqlImportWindowController showWindow:self];
 }
@@ -871,9 +842,9 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
         _mysqlExportWindowController = [[MHMysqlExportWindowController alloc] init];
     }
     _mysqlExportWindowController.mongoDatabase = [self.selectedDatabaseItem mongoDatabase];
-    _mysqlExportWindowController.dbname = [self.selectedDatabaseItem.mongoDatabase databaseName];
+    _mysqlExportWindowController.dbname = [self.selectedDatabaseItem.mongoDatabase name];
     if (self.selectedCollectionItem) {
-        [_mysqlExportWindowController.collectionTextField setStringValue:[self.selectedCollectionItem.mongoCollection collectionName]];
+        [_mysqlExportWindowController.collectionTextField setStringValue:[self.selectedCollectionItem.mongoCollection name]];
     }
     [_mysqlExportWindowController showWindow:self];
 }
@@ -894,7 +865,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 {
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     
-    savePanel.nameFieldStringValue = [NSString stringWithFormat:@"%@-%@", [self.selectedDatabaseItem.mongoDatabase databaseName], [self.selectedCollectionItem.mongoCollection collectionName]];
+    savePanel.nameFieldStringValue = [NSString stringWithFormat:@"%@-%@", [self.selectedDatabaseItem.mongoDatabase name], [self.selectedCollectionItem.mongoCollection name]];
     [savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result == NSOKButton) {
             // wait until the panel is closed to open the import feedback window

@@ -225,42 +225,8 @@
     [self removeQueryComposer:nil];
     [self exportQueryComposer:nil];
     
-    if (!self.mongoCollection.mongoServer.isMaster) {
-        self.findRemoveButton.enabled = NO;
-        self.findRemoveButton.toolTip = @"Can't remove documents on a non-master node";
-        
-        self.insertButton.toolTip = @"Can't insert documents on a non-master node";
-        self.insertButton.enabled = NO;
-        self.insertDataTextView.toolTip = @"Can't insert documents on a non-master node";
-        self.insertDataTextView.editable = NO;
-        self.insertResultsTextField.stringValue = @"Can't insert documents on a non-master node";
-        self.insertResultsTextField.textColor = NSColor.redColor;
-        
-        self.removeButton.toolTip = @"Can't remove documents on a non-master node";
-        self.removeButton.enabled = NO;
-        self.removeCriteriaTextField.enabled = NO;
-        self.removeQueryTextField.stringValue = @"-";
-        self.removeResultsTextField.stringValue = @"Can't remove documents on a non-master node";
-        self.removeResultsTextField.textColor = NSColor.redColor;
-        
-        self.updateButton.enabled = NO;
-        self.updateButton.toolTip = @"Can't remove documents on a non-master node";
-        self.updateUpsetCheckBox.enabled = NO;
-        self.updateMultiCheckBox.enabled = NO;
-        self.updateCriteriaTextField.enabled = NO;
-        self.updateUpdateTextField.enabled = NO;
-        self.updateResultsTextField.stringValue = @"Can't update documents on a non-master node";
-        self.updateResultsTextField.textColor = NSColor.redColor;
-        
-        self.indexCreateButton.enabled = NO;
-        self.indexCreateButton.toolTip = @"Can't create indexes on a non-master node";
-        self.indexDropButton.enabled = NO;
-        self.indexDropButton.toolTip = @"Can't drop indexes on a non-master node";
-        self.indexTextField.enabled = NO;
-    } else {
-        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(findResultOutlineViewNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.findResultsOutlineView];
-        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(indexOutlineViewNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.indexOutlineView];
-    }
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(findResultOutlineViewNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.findResultsOutlineView];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(indexOutlineViewNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.indexOutlineView];
 }
 
 - (void)select

@@ -104,55 +104,56 @@
 
 - (void)doImportFromTable:(NSString *)tableName toCollection:(NSString *)collectionName withChundSize:(int)chunkSize
 {
-    [mongoServer copyWithCallback:^(MODServer *copyServer, MODQuery *mongoQuery) {
-        MODCollection *copyCollection;
+    MODServer *copyServer;
+    MODCollection *copyCollection;
+    
+    copyServer = [mongoServer copy];
+    
+    copyCollection = [[copyServer databaseForName:dbname] collectionForName:collectionName];
+    if (!copyServer) {
+        NSRunAlertPanel(@"Error", @"Can not create a second connection to the mongo server.", @"OK", nil, nil);
+        return;
+    }
+    dispatch_queue_t myQueue = dispatch_queue_create("com.mongohub.mysql", 0);
+    
+    dispatch_async(myQueue, ^ {
+        long long total = [self importCount:tableName];
+        long long ii = 0;
         
-        copyCollection = [[copyServer databaseForName:dbname] collectionForName:collectionName];
-        if (!copyServer) {
-            NSRunAlertPanel(@"Error", @"Can not create a second connection to the mongo server.", @"OK", nil, nil);
-            return;
-        }
-        dispatch_queue_t myQueue = dispatch_queue_create("com.mongohub.mysql", 0);
-        
-        dispatch_async(myQueue, ^ {
-            long long total = [self importCount:tableName];
-            long long ii = 0;
-            
-            while (ii < total) {
-                NSString *query = [[NSString alloc] initWithFormat:@"select * from %@ limit %lld, %d", tableName, ii, chunkSize];
-                MCPResult *theResult = [db queryString:query];
-                NSDictionary *row;
-                NSMutableArray *documents;
-                 
-                [query release];
-                if ([theResult numOfRows] == 0) {
-                     return;
-                }
-                while ((row = [theResult fetchRowAsDictionary])) {
-                    void (^callback)(MODQuery *mongoQuery);
-                    MODSortedMutableDictionary *document;
-                    
-                    ii++;
-                    document = [[MODSortedMutableDictionary alloc] initWithDictionary:row];
-                    documents = [[NSMutableArray alloc] initWithObjects:document, nil];
-                    [document release];
-                    if (ii == total) {
-                        callback = ^(MODQuery *mongoQuery) {
-                            [self importDone:nil];
-                        };
-                    } else if (ii % 10 == 0) {
-                        callback = ^(MODQuery *mongoQuery) {
-                            [progressIndicator setDoubleValue:(double)ii/(double)total];
-                        };
-                    } else {
-                        callback = nil;
-                    }
-                    [copyCollection insertWithDocuments:documents callback:callback];
-                    [documents release];
-                }
+        while (ii < total) {
+            NSString *query = [[NSString alloc] initWithFormat:@"select * from %@ limit %lld, %d", tableName, ii, chunkSize];
+            MCPResult *theResult = [db queryString:query];
+            NSDictionary *row;
+            NSMutableArray *documents;
+             
+            [query release];
+            if ([theResult numOfRows] == 0) {
+                 return;
             }
-        });
-    }];
+            while ((row = [theResult fetchRowAsDictionary])) {
+                void (^callback)(MODQuery *mongoQuery);
+                MODSortedMutableDictionary *document;
+                
+                ii++;
+                document = [[MODSortedMutableDictionary alloc] initWithDictionary:row];
+                documents = [[NSMutableArray alloc] initWithObjects:document, nil];
+                [document release];
+                if (ii == total) {
+                    callback = ^(MODQuery *mongoQuery) {
+                        [self importDone:nil];
+                    };
+                } else if (ii % 10 == 0) {
+                    callback = ^(MODQuery *mongoQuery) {
+                        [progressIndicator setDoubleValue:(double)ii/(double)total];
+                    };
+                } else {
+                    callback = nil;
+                }
+                [copyCollection insertWithDocuments:documents callback:callback];
+                [documents release];
+            }
+        }
+    });
 }
 
 - (IBAction)connect:(id)sender {
