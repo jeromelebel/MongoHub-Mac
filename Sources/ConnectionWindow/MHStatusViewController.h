@@ -7,16 +7,16 @@
 
 #import "MHTabItemViewController.h"
 
-@class MHResultsOutlineViewController, MODServer, MHConnectionStore, MHDatabaseItem, MHCollectionItem, MODQuery;
+@class MHResultsOutlineViewController, MODClient, MHConnectionStore, MHDatabaseItem, MHCollectionItem, MODQuery;
 
 @interface MHStatusViewController : MHTabItemViewController
 {
     IBOutlet MHResultsOutlineViewController *_resultsOutlineViewController;
-    MODServer *_mongoServer;
+    MODClient *_mongoServer;
     MHConnectionStore *_connectionStore;
 }
 
-@property (nonatomic, retain, readwrite) MODServer *mongoServer;
+@property (nonatomic, retain, readwrite) MODClient *mongoServer;
 @property (nonatomic, retain, readwrite) MHConnectionStore *connectionStore;
 
 + (MHStatusViewController *)loadNewViewController;

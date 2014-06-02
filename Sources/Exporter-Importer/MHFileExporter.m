@@ -61,7 +61,7 @@
                 NSString *jsonDocument;
                 const char *cString;
                 
-                jsonDocument = [MODServer convertObjectToJson:document pretty:NO strictJson:YES];
+                jsonDocument = [MODClient convertObjectToJson:document pretty:NO strictJson:YES];
                 cString = [jsonDocument UTF8String];
                 write(fileDescriptor, cString, strlen(cString));
                 write(fileDescriptor, "\n", 1);

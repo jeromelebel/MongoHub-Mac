@@ -43,7 +43,7 @@
             dict = [NSMutableDictionary dictionary];
         }
         [dict setObject:[self convertForOutlineWithObject:object] forKey:@"child"];
-        [dict setObject:[MODServer convertObjectToJson:object pretty:YES strictJson:NO] forKey:@"beautified"];
+        [dict setObject:[MODClient convertObjectToJson:object pretty:YES strictJson:NO] forKey:@"beautified"];
         [dict setObject:object forKey:@"objectvalue"];
         if (allData) {
             [dict setObject:[allData objectAtIndex:index] forKey:@"bsondata"];

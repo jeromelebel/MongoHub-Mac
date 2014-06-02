@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class MODServer;
+@class MODClient;
 @class MHDatabaseItem;
 @class MHCollectionItem;
 
@@ -18,16 +18,16 @@
 
 @interface MHServerItem : NSObject
 {
-    MODServer *_mongoServer;
+    MODClient *_mongoServer;
     NSMutableArray *_databaseItems;
     id<MHServerItemDelegate> _delegate;
 }
 
-@property (nonatomic, readonly, retain) MODServer *mongoServer;
+@property (nonatomic, readonly, retain) MODClient *mongoServer;
 @property (nonatomic, readonly, retain) NSArray *databaseItems;
 @property (nonatomic, readonly, assign) id<MHServerItemDelegate> delegate;
 
-- (id)initWithMongoServer:(MODServer *)mongoServer delegate:(id)delegate;
+- (id)initWithMongoServer:(MODClient *)mongoServer delegate:(id)delegate;
 - (MHDatabaseItem *)databaseItemWithName:(NSString *)databaseName;
 - (BOOL)updateChildrenWithList:(NSArray *)list;
 - (void)removeDatabaseItemWithName:(NSString *)databaseName;

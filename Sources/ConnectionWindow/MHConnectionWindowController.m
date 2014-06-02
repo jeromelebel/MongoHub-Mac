@@ -146,7 +146,7 @@
         if (host.length == 0) {
             host = DEFAULT_MONGO_IP;
         }
-        if (hostPort == 0 || hostPort == MODServer.defaultPort) {
+        if (hostPort == 0 || hostPort == MODClient.defaultPort) {
             self.window.title = [NSString stringWithFormat:@"%@ [%@]", self.connectionStore.alias, host];
         } else {
             self.window.title = [NSString stringWithFormat:@"%@ [%@:%d]", self.connectionStore.alias, host, hostPort];
@@ -232,7 +232,7 @@
         [self.sshTunnel setCompression:YES];
         hostPort = (unsigned short)self.connectionStore.hostport.intValue;
         if (hostPort == 0) {
-            hostPort = MODServer.defaultPort;
+            hostPort = MODClient.defaultPort;
         }
         hostAddress = self.connectionStore.host.stringByTrimmingWhitespace;
         if (hostAddress.length == 0) {
@@ -270,13 +270,13 @@
                     host = DEFAULT_MONGO_IP;
                 }
                 if (hostport.intValue == 0) {
-                    hostport = [NSNumber numberWithInt:MODServer.defaultPort];
+                    hostport = [NSNumber numberWithInt:MODClient.defaultPort];
                 }
                 uri = [[NSString alloc] initWithFormat:@"mongodb://%@:%@", host, hostport];
             }
             [self didConnect];
         }
-        self.mongoServer = [MODServer clientWihtURLString:uri];
+        self.mongoServer = [MODClient clientWihtURLString:uri];
         [self.mongoServer fetchServerStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
             if (mongoQuery.error) {
                 [self didFailToConnectWithError:mongoQuery.error];

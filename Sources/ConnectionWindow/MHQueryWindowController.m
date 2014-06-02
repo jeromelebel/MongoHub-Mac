@@ -345,7 +345,7 @@
         
         idValue = [document objectForKey:@"objectvalueid"];
         if (idValue) {
-            jsonWindowControllerKey = [MODServer convertObjectToJson:[MODSortedMutableDictionary sortedDictionaryWithObject:idValue forKey:@"_id"] pretty:NO strictJson:NO];
+            jsonWindowControllerKey = [MODClient convertObjectToJson:[MODSortedMutableDictionary sortedDictionaryWithObject:idValue forKey:@"_id"] pretty:NO strictJson:NO];
         } else {
             jsonWindowControllerKey = document;
         }
@@ -374,7 +374,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kJsonWindowWillClose object:notification.object];
     idValue = [jsonWindowController.jsonDict objectForKey:@"objectvalueid"];
     if (idValue) {
-        [_jsonWindowControllers removeObjectForKey:[MODServer convertObjectToJson:[MODSortedMutableDictionary sortedDictionaryWithObject:idValue forKey:@"_id"] pretty:NO strictJson:NO]];
+        [_jsonWindowControllers removeObjectForKey:[MODClient convertObjectToJson:[MODSortedMutableDictionary sortedDictionaryWithObject:idValue forKey:@"_id"] pretty:NO strictJson:NO]];
     } else {
         [_jsonWindowControllers removeObjectForKey:jsonWindowController.jsonDict];
     }

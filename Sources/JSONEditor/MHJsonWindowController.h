@@ -11,7 +11,7 @@
 #import <mongo-objc-driver/MOD_public.h>
 
 @class DatabasesArrayController;
-@class MODServer;
+@class MODClient;
 @class MODCollection;
 
 #ifndef UKSCTD_DEFAULT_TEXTENCODING
@@ -21,7 +21,7 @@
 @interface MHJsonWindowController : NSWindowController <UKSyntaxColoredTextViewDelegate, MODQueryCallbackTarget>
 {
     DatabasesArrayController *databasesArrayController;
-    MODServer *mongoServer;
+    MODClient *mongoServer;
     MODCollection *mongoCollection;
     NSString *dbname;
     NSString *collectionname;
@@ -33,7 +33,7 @@
 }
 
 @property (nonatomic, retain) DatabasesArrayController *databasesArrayController;
-@property (nonatomic, retain) MODServer *mongoServer;
+@property (nonatomic, retain) MODClient *mongoServer;
 @property (nonatomic, retain) NSString *dbname;
 @property (nonatomic, retain) NSString *collectionname;
 @property (nonatomic, retain) NSDictionary *jsonDict;

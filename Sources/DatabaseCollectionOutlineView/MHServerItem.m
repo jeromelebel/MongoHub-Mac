@@ -12,7 +12,7 @@
 
 @synthesize mongoServer = _mongoServer, databaseItems = _databaseItems, delegate = _delegate;
 
-- (id)initWithMongoServer:(MODServer *)mongoServer delegate:(id)delegate
+- (id)initWithMongoServer:(MODClient *)mongoServer delegate:(id)delegate
 {
     if (self = [self init]) {
         _delegate = delegate;

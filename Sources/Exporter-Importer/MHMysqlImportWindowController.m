@@ -104,7 +104,7 @@
 
 - (void)doImportFromTable:(NSString *)tableName toCollection:(NSString *)collectionName withChundSize:(int)chunkSize
 {
-    MODServer *copyServer;
+    MODClient *copyServer;
     MODCollection *copyCollection;
     
     copyServer = [mongoServer copy];

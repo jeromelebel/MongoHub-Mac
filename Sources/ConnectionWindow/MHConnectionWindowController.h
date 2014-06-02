@@ -21,7 +21,7 @@
 @class MHMysqlExportWindowController;
 @class MHResultsOutlineViewController;
 @class MHConnectionStore;
-@class MODServer;
+@class MODClient;
 @class MODDatabase;
 @class MODCollection;
 @class MODSortedMutableDictionary;
@@ -43,7 +43,7 @@
     
     MHServerItem *_serverItem;
     MHConnectionStore *_connectionStore;
-    MODServer *_mongoServer;
+    MODClient *_mongoServer;
     NSTimer *_serverMonitorTimer;
     IBOutlet NSOutlineView *_databaseCollectionOutlineView;
     IBOutlet NSTextField *resultsTitle;
@@ -74,7 +74,7 @@
 }
 
 @property (nonatomic, retain) MHConnectionStore *connectionStore;
-@property (nonatomic, retain) MODServer *mongoServer;
+@property (nonatomic, retain) MODClient *mongoServer;
 @property (nonatomic, retain) NSMutableArray *databases;
 @property (nonatomic, retain) MHTunnel *sshTunnel;
 @property (nonatomic, retain) NSTextField *resultsTitle;

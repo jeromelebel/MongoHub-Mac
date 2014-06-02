@@ -66,7 +66,7 @@
 }
 
 - (IBAction)export:(id)sender {
-    MODServer *copyServer;
+    MODClient *copyServer;
     MODCollection *mongoCollection;
     
     copyServer = [mongoDatabase.mongoServer copy];
