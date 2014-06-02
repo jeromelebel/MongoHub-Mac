@@ -69,6 +69,7 @@
 		02FCD3D913BCC7D200316A9F /* RegexKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 026B2DE413BB6FB8009BEA7B /* RegexKit.framework */; };
 		02FCD3DA13BCC81700316A9F /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02FCD3CE13BB9EA400316A9F /* Sparkle.framework */; };
 		02FCD3DB13BCC83200316A9F /* MCPKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02FCD3D713BBA4A300316A9F /* MCPKit.framework */; };
+		02FF281B193D0D300059B01C /* mongo-objc-driver.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 021E5CD619265FC400F3ED81 /* mongo-objc-driver.framework */; };
 		1D1D65541189C5E000582917 /* collectionmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D1D65501189C5E000582917 /* collectionmenu.png */; };
 		1D1D65551189C5E000582917 /* dbmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D1D65511189C5E000582917 /* dbmenu.png */; };
 		1D1D65561189C5E000582917 /* querymenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D1D65521189C5E000582917 /* querymenu.png */; };
@@ -211,6 +212,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				02FF281B193D0D300059B01C /* mongo-objc-driver.framework in CopyFiles */,
 				02FCD3D913BCC7D200316A9F /* RegexKit.framework in CopyFiles */,
 				02FCD3DA13BCC81700316A9F /* Sparkle.framework in CopyFiles */,
 				02FCD3DB13BCC83200316A9F /* MCPKit.framework in CopyFiles */,
