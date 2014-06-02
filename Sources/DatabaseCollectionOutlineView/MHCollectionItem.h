@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 
 @class MHDatabaseItem;
+@class MODCollection;
 
 @interface MHCollectionItem : NSObject
 {
@@ -18,7 +19,7 @@
 
 @property (nonatomic, readonly, retain) NSString *name;
 @property (nonatomic, readonly, assign) MHDatabaseItem *databaseItem;
-@property (nonatomic, readonly, retain) id mongoCollection;
+@property (nonatomic, readonly, retain) MODCollection *mongoCollection;
 
 - (id)initWithDatabaseItem:(MHDatabaseItem *)databaseItem name:(NSString *)name;
 

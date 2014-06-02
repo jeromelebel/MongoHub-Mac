@@ -29,7 +29,7 @@
     [super dealloc];
 }
 
-- (id)mongoCollection
+- (MODCollection *)mongoCollection
 {
     if (!_mongoCollection) {
         _mongoCollection = [[_databaseItem.serverItem.delegate mongoCollectionWithCollectionItem:self] retain];

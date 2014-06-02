@@ -146,7 +146,7 @@
         if (host.length == 0) {
             host = DEFAULT_MONGO_IP;
         }
-        if (hostPort == 0 || hostPort == MONGO_DEFAULT_PORT) {
+        if (hostPort == 0 || hostPort == MODServer.defaultPort) {
             self.window.title = [NSString stringWithFormat:@"%@ [%@]", self.connectionStore.alias, host];
         } else {
             self.window.title = [NSString stringWithFormat:@"%@ [%@:%d]", self.connectionStore.alias, host, hostPort];
@@ -232,7 +232,7 @@
         [self.sshTunnel setCompression:YES];
         hostPort = (unsigned short)self.connectionStore.hostport.intValue;
         if (hostPort == 0) {
-            hostPort = MONGO_DEFAULT_PORT;
+            hostPort = MODServer.defaultPort;
         }
         hostAddress = self.connectionStore.host.stringByTrimmingWhitespace;
         if (hostAddress.length == 0) {
@@ -242,8 +242,9 @@
         [self.sshTunnel start];
         return;
     } else {
+        NSString *uri;
+        
         [self closeMongoDB];
-        self.mongoServer = [[[MODServer alloc] init] autorelease];
         _serverItem = [[MHServerItem alloc] initWithMongoServer:self.mongoServer delegate:self];
         _statusViewController.mongoServer = self.mongoServer;
         _statusViewController.connectionStore = self.connectionStore;
@@ -257,28 +258,10 @@
 //            }
         }
         if (self.connectionStore.userepl.intValue == 1) {
-            NSArray *tmp = [self.connectionStore.servers componentsSeparatedByString:@","];
-            NSMutableArray *hosts = [[NSMutableArray alloc] initWithCapacity:tmp.count];
-            for (NSString *h in tmp) {
-                NSString *host = [h stringByTrimmingWhitespace];
-                if ([host length] == 0) {
-                    continue;
-                }
-                [hosts addObject:host];
-            }
-            [self.mongoServer connectWithReplicaName:self.connectionStore.repl_name hosts:hosts callback:^(BOOL connected, MODQuery *mongoQuery) {
-                if (connected) {
-                    [self didConnect];
-                } else {
-                    [self didFailToConnectWithError:mongoQuery.error];
-                }
-            }];
-            [hosts release];
+            uri = [[NSString alloc] initWithFormat:@"mongodb://%@", self.connectionStore.servers];
         } else {
-            NSString *hostaddress;
-            
             if (self.connectionStore.usessh.intValue == 1) {
-                hostaddress = [[NSString alloc] initWithFormat:@"127.0.0.1:%u", _sshTunnelPort];
+                uri = [[NSString alloc] initWithFormat:@"127.0.0.1:%u", _sshTunnelPort];
             } else {
                 NSString *host = self.connectionStore.host.stringByTrimmingWhitespace;
                 NSNumber *hostport = self.connectionStore.hostport;
@@ -287,20 +270,21 @@
                     host = DEFAULT_MONGO_IP;
                 }
                 if (hostport.intValue == 0) {
-                    hostport = [NSNumber numberWithInt:MONGO_DEFAULT_PORT];
+                    hostport = [NSNumber numberWithInt:MODServer.defaultPort];
                 }
-                hostaddress = [[NSString alloc] initWithFormat:@"%@:%@", host, hostport];
+                uri = [[NSString alloc] initWithFormat:@"mongodb://%@:%@", host, hostport];
             }
-            NSLog(@"connecting to %@", hostaddress);
-            [self.mongoServer connectWithHostName:hostaddress callback:^(BOOL connected, MODQuery *mongoQuery) {
-                if (connected) {
-                    [self didConnect];
-                } else {
-                    [self didFailToConnectWithError:mongoQuery.error];
-                }
-            }];
-            [hostaddress release];
+            [self didConnect];
         }
+        self.mongoServer = [MODServer clientWihtURLString:uri];
+        [self.mongoServer fetchServerStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
+            if (mongoQuery.error) {
+                [self didFailToConnectWithError:mongoQuery.error];
+            } else {
+                [self didConnect];
+            }
+        }];
+        [uri release];
     }
 }
 
@@ -502,7 +486,7 @@
 - (IBAction)dropDatabaseOrCollection:(id)sender
 {
     if (self.selectedCollectionItem) {
-        [self dropWarning:[NSString stringWithFormat:@"COLLECTION:%@", [[self.selectedCollectionItem mongoCollection] absoluteCollectionName]]];
+        [self dropWarning:[NSString stringWithFormat:@"COLLECTION:%@", [[self.selectedCollectionItem mongoCollection] absoluteName]]];
     } else {
         [self dropWarning:[NSString stringWithFormat:@"DB:%@", [self.selectedDatabaseItem.mongoDatabase name]]];
     }
@@ -532,7 +516,7 @@
         
         tabItemViewController = _tabViewController.selectedTabItemViewController;
         if ([tabItemViewController isKindOfClass:[MHQueryWindowController class]]) {
-            [_tabItemControllers removeObjectForKey:[[(MHQueryWindowController *)tabItemViewController mongoCollection] absoluteCollectionName]];
+            [_tabItemControllers removeObjectForKey:[[(MHQueryWindowController *)tabItemViewController mongoCollection] absoluteName]];
         } else if (tabItemViewController == _statusViewController) {
             [_statusViewController release];
             _statusViewController = nil;
@@ -566,10 +550,10 @@
     } else {
         MHQueryWindowController *queryWindowController;
         
-        queryWindowController = [_tabItemControllers objectForKey:[[self.selectedCollectionItem mongoCollection] absoluteCollectionName]];
+        queryWindowController = [_tabItemControllers objectForKey:[[self.selectedCollectionItem mongoCollection] absoluteName]];
         if (queryWindowController == nil) {
             queryWindowController = [MHQueryWindowController loadQueryController];
-            [_tabItemControllers setObject:queryWindowController forKey:[[self.selectedCollectionItem mongoCollection] absoluteCollectionName]];
+            [_tabItemControllers setObject:queryWindowController forKey:[[self.selectedCollectionItem mongoCollection] absoluteName]];
             queryWindowController.mongoCollection = self.selectedCollectionItem.mongoCollection;
             queryWindowController.connectionStore = self.connectionStore;
             [_tabViewController addTabItemViewController:queryWindowController];
@@ -793,7 +777,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.mongoCollection exportPath:filePath];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterStopNotification:) name:MHImporterExporterStopNotification object:exporter];
     _importExportFeedback = [[MHImportExportFeedback alloc] initWithImporterExporter:exporter];
-    _importExportFeedback.label = [NSString stringWithFormat:@"Exporting %@ to %@…", [self.selectedCollectionItem.mongoCollection absoluteCollectionName], [filePath lastPathComponent]];
+    _importExportFeedback.label = [NSString stringWithFormat:@"Exporting %@ to %@…", [self.selectedCollectionItem.mongoCollection absoluteName], [filePath lastPathComponent]];
     [_importExportFeedback start];
     [_importExportFeedback displayForWindow:self.window];
     [exporter export];
@@ -808,7 +792,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     importer = [[MHFileImporter alloc] initWithCollection:self.selectedCollectionItem.mongoCollection importPath:filePath];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterStopNotification:) name:MHImporterExporterStopNotification object:importer];
     _importExportFeedback = [[MHImportExportFeedback alloc] initWithImporterExporter:importer];
-    _importExportFeedback.label = [NSString stringWithFormat:@"Importing %@ into %@…", [filePath lastPathComponent], [self.selectedCollectionItem.mongoCollection absoluteCollectionName]];
+    _importExportFeedback.label = [NSString stringWithFormat:@"Importing %@ into %@…", [filePath lastPathComponent], [self.selectedCollectionItem.mongoCollection absoluteName]];
     [_importExportFeedback start];
     [_importExportFeedback displayForWindow:self.window];
     [importer import];
@@ -917,8 +901,8 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
         
         [self getCollectionListForDatabaseItem:collectionItem.databaseItem];
         [self showCollectionStatusWithCollectionItem:collectionItem];
-        if ([_tabItemControllers objectForKey:[collectionItem.mongoCollection absoluteCollectionName]]) {
-            [[_tabItemControllers objectForKey:[collectionItem.mongoCollection absoluteCollectionName]] select];
+        if ([_tabItemControllers objectForKey:[collectionItem.mongoCollection absoluteName]]) {
+            [[_tabItemControllers objectForKey:[collectionItem.mongoCollection absoluteName]] select];
         } else {
             [_statusViewController select];
         }
@@ -975,7 +959,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
         [_statusViewController release];
         _statusViewController = nil;
     } else {
-        [_tabItemControllers removeObjectForKey:[(MHQueryWindowController *)tabItemViewController mongoCollection].absoluteCollectionName];
+        [_tabItemControllers removeObjectForKey:[(MHQueryWindowController *)tabItemViewController mongoCollection].absoluteName];
     }
 }
 

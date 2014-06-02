@@ -42,7 +42,7 @@
 {
     MHConnectionStore *defaultValue = (self.editedConnectionStore == nil)?self.connectionStoreDefaultValue:self.editedConnectionStore;
     
-    [_hostportTextField.cell setPlaceholderString:[NSString stringWithFormat:@"%d", MONGO_DEFAULT_PORT]];
+    [_hostportTextField.cell setPlaceholderString:[NSString stringWithFormat:@"%d", MODServer.defaultPort]];
     [_sshuserTextField.cell setPlaceholderString:[NSProcessInfo.processInfo.environment objectForKey:@"USER" ]];
     if (self.editedConnectionStore) {
         _addSaveButton.title = NSLocalizedString(@"Save", @"Save connection (after updating)");

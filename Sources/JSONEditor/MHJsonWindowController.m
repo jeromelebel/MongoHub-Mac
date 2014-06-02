@@ -53,7 +53,7 @@
     NSString *title;
     
     [super windowDidLoad];
-    title = [[NSString alloc] initWithFormat:@"%@ _id:%@", mongoCollection.absoluteCollectionName, [jsonDict objectForKey:@"value"]];
+    title = [[NSString alloc] initWithFormat:@"%@ _id:%@", self.mongoCollection.absoluteName, [jsonDict objectForKey:@"value"]];
     [self.window setTitle:title];
     [title release];
     [myTextView setString:[jsonDict objectForKey:@"beautified"]];
@@ -131,7 +131,7 @@
     [status display];
     [progress startAnimation: self];
     [progress display];
-    [mongoCollection saveWithDocument:[myTextView string] callback:^(MODQuery *mongoQuery) {
+    [self.mongoCollection saveWithDocument:[myTextView string] callback:^(MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, [mongoQuery.error localizedDescription]);
         }

@@ -9,7 +9,6 @@
 #import "MHTabItemViewController.h"
 
 @class MHResultsOutlineViewController;
-@class MODServer;
 @class MODCollection;
 @class MHConnectionStore;
 

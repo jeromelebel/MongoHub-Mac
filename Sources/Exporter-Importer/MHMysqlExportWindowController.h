@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 @class DatabasesArrayController;
 @class MCPConnection;
-@class MODServer;
 @class MODCollection;
 @class MODDatabase;
 @class FieldMapTableController;
