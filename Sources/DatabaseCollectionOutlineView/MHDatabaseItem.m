@@ -31,10 +31,10 @@
     [super dealloc];
 }
 
-- (id)mongoDatabase
+- (MODDatabase *)database
 {
     if (!_mongoDatabase) {
-        _mongoDatabase = [[_serverItem.delegate mongoDatabaseWithDatabaseItem:self] retain];
+        _mongoDatabase = [[_serverItem.delegate databaseWithDatabaseItem:self] retain];
     }
     return _mongoDatabase;
 }

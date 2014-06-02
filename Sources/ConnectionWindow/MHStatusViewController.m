@@ -15,7 +15,7 @@
 
 @implementation MHStatusViewController
 
-@synthesize mongoServer = _mongoServer, connectionStore = _connectionStore;
+@synthesize client = _client, connectionStore = _connectionStore;
 
 + (MHStatusViewController *)loadNewViewController
 {
@@ -24,8 +24,8 @@
 
 - (void)dealloc
 {
-    [_mongoServer release];
-    [_connectionStore release];
+    self.client = nil;
+    self.connectionStore = nil;
     [super dealloc];
 }
 
@@ -34,8 +34,8 @@
     MODQuery *result;
     
     self.title = @"Server stats";
-    result = [_mongoServer fetchServerStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
-        if (_mongoServer == [mongoQuery.parameters objectForKey:@"mongoserver"]) {
+    result = [self.client fetchServerStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
+        if (self.client == [mongoQuery.parameters objectForKey:@"mongoserver"]) {
             if (serverStatus) {
                 _resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:serverStatus];
             } else if (mongoQuery.error) {
@@ -55,7 +55,7 @@
     if (databaseItem) {
         self.title = [NSString stringWithFormat:@"Database %@ stats", databaseItem.name];
         
-        result = [databaseItem.mongoDatabase fetchDatabaseStatsWithCallback:^(MODSortedMutableDictionary *databaseStats, MODQuery *mongoQuery) {
+        result = [databaseItem.database fetchDatabaseStatsWithCallback:^(MODSortedMutableDictionary *databaseStats, MODQuery *mongoQuery) {
             if (databaseStats) {
                 _resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:databaseStats];
             } else if (mongoQuery.error) {
@@ -74,7 +74,7 @@
     
     if (collectionItem) {
         self.title = [NSString stringWithFormat:@"Collection %@.%@ stats", collectionItem.databaseItem.name, collectionItem.name];
-        result = [collectionItem.mongoCollection fetchCollectionStatsWithCallback:^(MODSortedMutableDictionary *stats, MODQuery *mongoQuery) {
+        result = [collectionItem.collection fetchCollectionStatsWithCallback:^(MODSortedMutableDictionary *stats, MODQuery *mongoQuery) {
             if (stats) {
                 _resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:stats];
             } else if (mongoQuery.error) {

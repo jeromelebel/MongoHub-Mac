@@ -11,12 +11,12 @@
 
 @interface MHStatusViewController : MHTabItemViewController
 {
-    IBOutlet MHResultsOutlineViewController *_resultsOutlineViewController;
-    MODClient *_mongoServer;
-    MHConnectionStore *_connectionStore;
+    IBOutlet MHResultsOutlineViewController     *_resultsOutlineViewController;
+    MODClient                                   *_client;
+    MHConnectionStore                           *_connectionStore;
 }
 
-@property (nonatomic, retain, readwrite) MODClient *mongoServer;
+@property (nonatomic, retain, readwrite) MODClient *client;
 @property (nonatomic, retain, readwrite) MHConnectionStore *connectionStore;
 
 + (MHStatusViewController *)loadNewViewController;

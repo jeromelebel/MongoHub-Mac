@@ -69,7 +69,7 @@
     MODClient *copyServer;
     MODCollection *mongoCollection;
     
-    copyServer = [mongoDatabase.mongoServer copy];
+    copyServer = [mongoDatabase.client copy];
     [progressIndicator setUsesThreadedAnimation:YES];
     [progressIndicator startAnimation: self];
     [progressIndicator setDoubleValue:0];

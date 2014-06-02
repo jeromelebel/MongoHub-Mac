@@ -9,6 +9,12 @@
 #import "MHDatabaseItem.h"
 #import "MHServerItem.h"
 
+@interface MHCollectionItem ()
+
+@property (nonatomic, readwrite, retain) NSString *name;
+
+@end
+
 @implementation MHCollectionItem
 
 @synthesize name = _name, databaseItem = _databaseItem;
@@ -16,7 +22,7 @@
 - (id)initWithDatabaseItem:(MHDatabaseItem *)databaseItem name:(NSString *)name
 {
     if (self = [self init]) {
-        _name = [name retain];
+        self.name = name;
         _databaseItem = databaseItem;
     }
     return self;
@@ -24,17 +30,13 @@
 
 - (void)dealloc
 {
-    [_name release];
-    [_mongoCollection release];
+    self.name = nil;
     [super dealloc];
 }
 
-- (MODCollection *)mongoCollection
+- (MODCollection *)collection
 {
-    if (!_mongoCollection) {
-        _mongoCollection = [[_databaseItem.serverItem.delegate mongoCollectionWithCollectionItem:self] retain];
-    }
-    return _mongoCollection;
+    return [_databaseItem.serverItem.delegate collectionWithCollectionItem:self];
 }
 
 @end

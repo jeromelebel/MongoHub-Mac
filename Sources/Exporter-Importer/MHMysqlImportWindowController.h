@@ -9,13 +9,12 @@
 #import <Cocoa/Cocoa.h>
 @class DatabasesArrayController;
 @class MCPConnection;
-@class MODClient;
+@class MODDatabase;
 
 @interface MHMysqlImportWindowController : NSWindowController {
-    DatabasesArrayController *databasesArrayController;
-    NSString *dbname;
-    MODClient *mongoServer;
-    MCPConnection *db;
+    DatabasesArrayController            *databasesArrayController;
+    MODDatabase                         *_database;
+    MCPConnection                       *_mysqlConnection;
     IBOutlet NSArrayController *dbsArrayController;
     IBOutlet NSArrayController *tablesArrayController;
     IBOutlet NSTextField *hostTextField;
@@ -28,8 +27,7 @@
     IBOutlet NSPopUpButton *tablesPopUpButton;
 }
 
-@property (nonatomic, retain) MODClient *mongoServer;
-@property (nonatomic, retain) NSString *dbname;
+@property (nonatomic, retain) MODDatabase *database;
 @property (nonatomic, retain) NSArrayController *dbsArrayController;
 @property (nonatomic, retain) NSArrayController *tablesArrayController;
 @property (nonatomic, retain) NSTextField *hostTextField;

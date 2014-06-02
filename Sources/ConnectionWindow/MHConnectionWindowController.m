@@ -66,7 +66,7 @@
 @implementation MHConnectionWindowController
 
 @synthesize connectionStore = _connectionStore;
-@synthesize mongoServer = _mongoServer;
+@synthesize client = _client;
 @synthesize loaderIndicator;
 @synthesize monitorButton;
 @synthesize reconnectButton;
@@ -112,7 +112,7 @@
     self.mysqlImportWindowController = nil;
     self.mysqlExportWindowController = nil;
     [_statusViewController release];
-    self.mongoServer = nil;
+    self.client = nil;
     [super dealloc];
 }
 
@@ -121,7 +121,7 @@
     [_serverMonitorTimer invalidate];
     [_serverMonitorTimer release];
     _serverMonitorTimer = nil;
-    self.mongoServer = nil;
+    self.client = nil;
     [_serverItem release];
     _serverItem = nil;
 }
@@ -170,8 +170,8 @@
             MHDatabaseItem *databaseOutlineViewItem;
             MHCollectionItem *collectionOutlineViewItem;
             
-            databaseOutlineViewItem = [_serverItem databaseItemWithName:[selectedTab mongoCollection].name];
-            collectionOutlineViewItem = [databaseOutlineViewItem collectionItemWithName:[selectedTab mongoCollection].name];
+            databaseOutlineViewItem = [_serverItem databaseItemWithName:[(MHQueryWindowController *)selectedTab collection].name];
+            collectionOutlineViewItem = [databaseOutlineViewItem collectionItemWithName:[(MHQueryWindowController *)selectedTab collection].name];
             if (collectionOutlineViewItem) {
                 [_databaseCollectionOutlineView expandItem:databaseOutlineViewItem];
                 indexes = [[NSIndexSet alloc] initWithIndex:[_databaseCollectionOutlineView rowForItem:collectionOutlineViewItem]];
@@ -245,16 +245,16 @@
         NSString *uri;
         
         [self closeMongoDB];
-        _serverItem = [[MHServerItem alloc] initWithMongoServer:self.mongoServer delegate:self];
-        _statusViewController.mongoServer = self.mongoServer;
+        _serverItem = [[MHServerItem alloc] initWithClient:self.client delegate:self];
+        _statusViewController.client = self.client;
         _statusViewController.connectionStore = self.connectionStore;
         if (self.connectionStore.adminuser.length > 0 && self.connectionStore.adminpass.length > 0) {
-//            self.mongoServer.userName = self.connectionStore.adminuser;
-//            self.mongoServer.password = self.connectionStore.adminpass;
+//            self.client.userName = self.connectionStore.adminuser;
+//            self.client.password = self.connectionStore.adminpass;
 //            if (self.connectionStore.defaultdb.length > 0) {
-//                self.mongoServer.authDatabase = self.connectionStore.defaultdb;
+//                self.client.authDatabase = self.connectionStore.defaultdb;
 //            } else {
-//                self.mongoServer.authDatabase = @"admin";
+//                self.client.authDatabase = @"admin";
 //            }
         }
         if (self.connectionStore.userepl.intValue == 1) {
@@ -276,8 +276,8 @@
             }
             [self didConnect];
         }
-        self.mongoServer = [MODClient clientWihtURLString:uri];
-        [self.mongoServer fetchServerStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
+        self.client = [MODClient clientWihtURLString:uri];
+        [self.client fetchServerStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
             if (mongoQuery.error) {
                 [self didFailToConnectWithError:mongoQuery.error];
             } else {
@@ -321,7 +321,7 @@
     MODQuery *result;
     
     [loaderIndicator start];
-    result = [self.mongoServer fetchDatabaseListWithCallback:^(NSArray *list, MODQuery *mongoQuery) {
+    result = [self.client fetchDatabaseListWithCallback:^(NSArray *list, MODQuery *mongoQuery) {
         [loaderIndicator stop];
         if (list != nil) {
             if ([_serverItem updateChildrenWithList:list]) {
@@ -355,7 +355,7 @@
     MODDatabase *mongoDatabase;
     MODQuery *result;
     
-    mongoDatabase = databaseItem.mongoDatabase;
+    mongoDatabase = databaseItem.database;
     [loaderIndicator start];
     result = [mongoDatabase fetchCollectionListWithCallback:^(NSArray *collectionList, MODQuery *mongoQuery) {
         MHDatabaseItem *databaseItem;
@@ -377,7 +377,7 @@
 {
     if (_statusViewController == nil) {
         _statusViewController = [[MHStatusViewController loadNewViewController] retain];
-        _statusViewController.mongoServer = self.mongoServer;
+        _statusViewController.client = self.client;
         _statusViewController.connectionStore = self.connectionStore;
         [_tabViewController addTabItemViewController:_statusViewController];
     }
@@ -388,7 +388,7 @@
 {
     if (_statusViewController == nil) {
         _statusViewController = [[MHStatusViewController loadNewViewController] retain];
-        _statusViewController.mongoServer = self.mongoServer;
+        _statusViewController.client = self.client;
         _statusViewController.connectionStore = self.connectionStore;
         [_tabViewController addTabItemViewController:_statusViewController];
     }
@@ -399,7 +399,7 @@
 {
     if (_statusViewController == nil) {
         _statusViewController = [[MHStatusViewController loadNewViewController] retain];
-        _statusViewController.mongoServer = self.mongoServer;
+        _statusViewController.client = self.client;
         _statusViewController.connectionStore = self.connectionStore;
         [_tabViewController addTabItemViewController:_statusViewController];
     }
@@ -440,7 +440,7 @@
 - (IBAction)createCollection:(id)sender
 {
     if (self.selectedDatabaseItem) {
-        [self createCollectionForDatabaseName:[self.selectedDatabaseItem.mongoDatabase name]];
+        [self createCollectionForDatabaseName:self.selectedDatabaseItem.database.name];
     }
 }
 
@@ -458,7 +458,7 @@
     if (!notification.object) {
         return;
     }
-    [[self.mongoServer databaseForName:[notification.object objectForKey:@"dbname"]] fetchDatabaseStatsWithCallback:nil];
+    [[self.client databaseForName:[notification.object objectForKey:@"dbname"]] fetchDatabaseStatsWithCallback:nil];
     [self getDatabaseList];
     self.addDBController = nil;
 }
@@ -471,7 +471,7 @@
     NSString *collectionName = [notification.object objectForKey:@"collectionname"];
     MODDatabase *mongoDatabase;
     
-    mongoDatabase = [self.selectedDatabaseItem mongoDatabase];
+    mongoDatabase = self.selectedDatabaseItem.database;
     [loaderIndicator start];
     [mongoDatabase createCollectionWithName:collectionName callback:^(MODQuery *mongoQuery) {
         [loaderIndicator stop];
@@ -486,16 +486,16 @@
 - (IBAction)dropDatabaseOrCollection:(id)sender
 {
     if (self.selectedCollectionItem) {
-        [self dropWarning:[NSString stringWithFormat:@"COLLECTION:%@", [[self.selectedCollectionItem mongoCollection] absoluteName]]];
+        [self dropWarning:[NSString stringWithFormat:@"COLLECTION:%@", [[self.selectedCollectionItem collection] absoluteName]]];
     } else {
-        [self dropWarning:[NSString stringWithFormat:@"DB:%@", [self.selectedDatabaseItem.mongoDatabase name]]];
+        [self dropWarning:[NSString stringWithFormat:@"DB:%@", self.selectedDatabaseItem.database]];
     }
 }
 
 - (void)dropCollection:(MODCollection *)collection
 {
     if (collection) {
-        NSString *databaseName = collection.mongoDatabase.name;
+        NSString *databaseName = collection.database.name;
         
         [loaderIndicator start];
         [collection dropWithCallback:^(MODQuery *mongoQuery) {
@@ -516,7 +516,7 @@
         
         tabItemViewController = _tabViewController.selectedTabItemViewController;
         if ([tabItemViewController isKindOfClass:[MHQueryWindowController class]]) {
-            [_tabItemControllers removeObjectForKey:[[(MHQueryWindowController *)tabItemViewController mongoCollection] absoluteName]];
+            [_tabItemControllers removeObjectForKey:[[(MHQueryWindowController *)tabItemViewController collection] absoluteName]];
         } else if (tabItemViewController == _statusViewController) {
             [_statusViewController release];
             _statusViewController = nil;
@@ -530,7 +530,7 @@
 - (void)dropDatabase
 {
     [loaderIndicator start];
-    [self.selectedDatabaseItem.mongoDatabase dropWithCallback:^(MODQuery *mongoQuery) {
+    [self.selectedDatabaseItem.database dropWithCallback:^(MODQuery *mongoQuery) {
         [loaderIndicator stop];
         [self getDatabaseList];
         if (mongoQuery.error) {
@@ -550,11 +550,11 @@
     } else {
         MHQueryWindowController *queryWindowController;
         
-        queryWindowController = [_tabItemControllers objectForKey:[[self.selectedCollectionItem mongoCollection] absoluteName]];
+        queryWindowController = [_tabItemControllers objectForKey:[[self.selectedCollectionItem collection] absoluteName]];
         if (queryWindowController == nil) {
             queryWindowController = [MHQueryWindowController loadQueryController];
-            [_tabItemControllers setObject:queryWindowController forKey:[[self.selectedCollectionItem mongoCollection] absoluteName]];
-            queryWindowController.mongoCollection = self.selectedCollectionItem.mongoCollection;
+            [_tabItemControllers setObject:queryWindowController forKey:[[self.selectedCollectionItem collection] absoluteName]];
+            queryWindowController.collection = self.selectedCollectionItem.collection;
             queryWindowController.connectionStore = self.connectionStore;
             [_tabViewController addTabItemViewController:queryWindowController];
         }
@@ -573,7 +573,7 @@
     {
         authWindowController = [[AuthWindowController alloc] init];
     }
-    MHDatabaseStore *db = [_databaseStoreArrayController dbInfo:self.connectionStore name:[self.selectedDatabaseItem.mongoDatabase name]];
+    MHDatabaseStore *db = [_databaseStoreArrayController dbInfo:self.connectionStore name:self.selectedDatabaseItem.database.name];
     if (db) {
         [authWindowController.userTextField setStringValue:db.user];
         [authWindowController.passwordTextField setStringValue:db.password];
@@ -582,7 +582,7 @@
         [authWindowController.passwordTextField setStringValue:@""];
     }
     authWindowController.conn = self.connectionStore;
-    authWindowController.dbname = [self.selectedDatabaseItem.mongoDatabase name];
+    authWindowController.dbname = self.selectedDatabaseItem.database.name;
     [authWindowController showWindow:self];
 }
 
@@ -591,7 +591,7 @@
     if (returnCode == NSAlertSecondButtonReturn)
     {
         if (self.selectedCollectionItem) {
-            [self dropCollection:self.selectedCollectionItem.mongoCollection];
+            [self dropCollection:self.selectedCollectionItem.collection];
         }else {
             [self dropDatabase];
         }
@@ -643,9 +643,9 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 - (void)fetchServerStatusDelta
 {
     [resultsTitle setStringValue:[NSString stringWithFormat:@"Server %@:%@ stats", self.connectionStore.host, self.connectionStore.hostport]];
-    [self.mongoServer fetchServerStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
+    [self.client fetchServerStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
         [loaderIndicator stop];
-        if (self.mongoServer == [mongoQuery.parameters objectForKey:@"mongoserver"]) {
+        if (self.client == [mongoQuery.parameters objectForKey:@"client"]) {
             NSMutableDictionary *diff = [[NSMutableDictionary alloc] init];
             
             if (previousServerStatusForDelta) {
@@ -774,10 +774,10 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 {
     MHFileExporter *exporter;
     
-    exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.mongoCollection exportPath:filePath];
+    exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.collection exportPath:filePath];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterStopNotification:) name:MHImporterExporterStopNotification object:exporter];
     _importExportFeedback = [[MHImportExportFeedback alloc] initWithImporterExporter:exporter];
-    _importExportFeedback.label = [NSString stringWithFormat:@"Exporting %@ to %@…", [self.selectedCollectionItem.mongoCollection absoluteName], [filePath lastPathComponent]];
+    _importExportFeedback.label = [NSString stringWithFormat:@"Exporting %@ to %@…", [self.selectedCollectionItem.collection absoluteName], [filePath lastPathComponent]];
     [_importExportFeedback start];
     [_importExportFeedback displayForWindow:self.window];
     [exporter export];
@@ -789,10 +789,10 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     MHFileImporter *importer;
     
     NSAssert(_importExportFeedback == nil, @"we should have no more feedback controller");
-    importer = [[MHFileImporter alloc] initWithCollection:self.selectedCollectionItem.mongoCollection importPath:filePath];
+    importer = [[MHFileImporter alloc] initWithCollection:self.selectedCollectionItem.collection importPath:filePath];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterStopNotification:) name:MHImporterExporterStopNotification object:importer];
     _importExportFeedback = [[MHImportExportFeedback alloc] initWithImporterExporter:importer];
-    _importExportFeedback.label = [NSString stringWithFormat:@"Importing %@ into %@…", [filePath lastPathComponent], [self.selectedCollectionItem.mongoCollection absoluteName]];
+    _importExportFeedback.label = [NSString stringWithFormat:@"Importing %@ into %@…", [filePath lastPathComponent], [self.selectedCollectionItem.collection absoluteName]];
     [_importExportFeedback start];
     [_importExportFeedback displayForWindow:self.window];
     [importer import];
@@ -808,10 +808,9 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     if (!_mysqlImportWindowController) {
         _mysqlImportWindowController = [[MHMysqlImportWindowController alloc] init];
     }
-    _mysqlImportWindowController.mongoServer = self.mongoServer;
-    _mysqlImportWindowController.dbname = [self.selectedDatabaseItem.mongoDatabase name];
+    _mysqlImportWindowController.database = self.selectedDatabaseItem.database;
     if (self.selectedCollectionItem) {
-        [_mysqlExportWindowController.collectionTextField setStringValue:[self.selectedCollectionItem.mongoCollection name]];
+        [_mysqlExportWindowController.collectionTextField setStringValue:[self.selectedCollectionItem.collection name]];
     }
     [_mysqlImportWindowController showWindow:self];
 }
@@ -825,10 +824,10 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     if (!_mysqlExportWindowController) {
         _mysqlExportWindowController = [[MHMysqlExportWindowController alloc] init];
     }
-    _mysqlExportWindowController.mongoDatabase = [self.selectedDatabaseItem mongoDatabase];
-    _mysqlExportWindowController.dbname = [self.selectedDatabaseItem.mongoDatabase name];
+    _mysqlExportWindowController.mongoDatabase = self.selectedDatabaseItem.database;
+    _mysqlExportWindowController.dbname = self.selectedDatabaseItem.database.name;
     if (self.selectedCollectionItem) {
-        [_mysqlExportWindowController.collectionTextField setStringValue:[self.selectedCollectionItem.mongoCollection name]];
+        [_mysqlExportWindowController.collectionTextField setStringValue:[self.selectedCollectionItem.collection name]];
     }
     [_mysqlExportWindowController showWindow:self];
 }
@@ -849,7 +848,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 {
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     
-    savePanel.nameFieldStringValue = [NSString stringWithFormat:@"%@-%@", [self.selectedDatabaseItem.mongoDatabase name], [self.selectedCollectionItem.mongoCollection name]];
+    savePanel.nameFieldStringValue = [NSString stringWithFormat:@"%@-%@", self.selectedDatabaseItem.database, self.selectedCollectionItem.collection.name];
     [savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result == NSOKButton) {
             // wait until the panel is closed to open the import feedback window
@@ -901,8 +900,8 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
         
         [self getCollectionListForDatabaseItem:collectionItem.databaseItem];
         [self showCollectionStatusWithCollectionItem:collectionItem];
-        if ([_tabItemControllers objectForKey:[collectionItem.mongoCollection absoluteName]]) {
-            [[_tabItemControllers objectForKey:[collectionItem.mongoCollection absoluteName]] select];
+        if ([_tabItemControllers objectForKey:[collectionItem.collection absoluteName]]) {
+            [[_tabItemControllers objectForKey:[collectionItem.collection absoluteName]] select];
         } else {
             [_statusViewController select];
         }
@@ -939,14 +938,14 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 
 @implementation MHConnectionWindowController (MHServerItemDelegateCategory)
 
-- (id)mongoDatabaseWithDatabaseItem:(MHDatabaseItem *)item
+- (MODDatabase *)databaseWithDatabaseItem:(MHDatabaseItem *)item
 {
-    return [self.mongoServer databaseForName:item.name];
+    return [self.client databaseForName:item.name];
 }
 
-- (id)mongoCollectionWithCollectionItem:(MHCollectionItem *)item
+- (MODCollection *)collectionWithCollectionItem:(MHCollectionItem *)item
 {
-    return [[self mongoDatabaseWithDatabaseItem:item.databaseItem] collectionForName:item.name];
+    return [[self databaseWithDatabaseItem:item.databaseItem] collectionForName:item.name];
 }
 
 @end
@@ -959,7 +958,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
         [_statusViewController release];
         _statusViewController = nil;
     } else {
-        [_tabItemControllers removeObjectForKey:[(MHQueryWindowController *)tabItemViewController mongoCollection].absoluteName];
+        [_tabItemControllers removeObjectForKey:[(MHQueryWindowController *)tabItemViewController collection].absoluteName];
     }
 }
 

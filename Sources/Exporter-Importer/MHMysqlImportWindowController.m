@@ -14,9 +14,15 @@
 #import <mongo-objc-driver/MOD_public.h>
 #import <MCPKit/MCPKit.h>
 
+@interface MHMysqlImportWindowController ()
+
+@property (nonatomic, readwrite, retain) MCPConnection *mysqlConnection;
+
+@end
+
 @implementation MHMysqlImportWindowController
-@synthesize dbname;
-@synthesize mongoServer;
+
+@synthesize database = _database, mysqlConnection = _mysqlConnection;
 @synthesize dbsArrayController;
 @synthesize tablesArrayController;
 @synthesize hostTextField;
@@ -28,43 +34,45 @@
 @synthesize progressIndicator;
 @synthesize tablesPopUpButton;
 
-- (id)init {
+- (id)init
+{
     self = [super initWithWindowNibName:@"MysqlImport"];
     return self;
 }
 
-- (void)dealloc {
-    [dbname release];
+- (void)dealloc
+{
     [databasesArrayController release];
-    [db release];
-    [mongoServer release];
-    [dbsArrayController release];
-    [tablesArrayController release];
-    [hostTextField release];
-    [portTextField release];
-    [userTextField release];
-    [passwdTextField release];
-    [chunkSizeTextField release];
-    [collectionTextField release];
-    [progressIndicator release];
-    [tablesPopUpButton release];
+    self.mysqlConnection = nil;
+    self.database = nil;
+    self.dbsArrayController = nil;
+    self.tablesArrayController = nil;
+    self.hostTextField = nil;
+    self.portTextField = nil;
+    self.userTextField = nil;
+    self.passwdTextField = nil;
+    self.chunkSizeTextField = nil;
+    self.collectionTextField = nil;
+    self.progressIndicator = nil;
+    self.tablesPopUpButton = nil;
     [super dealloc];
 }
 
-- (void)windowDidLoad {
+- (void)windowDidLoad
+{
     //NSLog(@"New Connection Window Loaded");
     [super windowDidLoad];
 }
 
-- (void)windowWillClose:(NSNotification *)notification {
-    dbname = nil;
-    db = nil;
+- (void)windowWillClose:(NSNotification *)notification
+{
     [dbsArrayController setContent:nil];
     [tablesArrayController setContent:nil];
     [progressIndicator setDoubleValue:0.0];
 }
 
-- (IBAction)import:(id)sender {
+- (IBAction)import:(id)sender
+{
     [progressIndicator setUsesThreadedAnimation:YES];
     [progressIndicator startAnimation: self];
     [progressIndicator setDoubleValue:0];
@@ -84,7 +92,7 @@
 - (long long int)importCount:(NSString *)tableName
 {
     NSString *query = [[NSString alloc] initWithFormat:@"select count(*) counter from %@", tableName];
-    MCPResult *theResult = [db queryString:query];
+    MCPResult *theResult = [self.mysqlConnection queryString:query];
     [query release];
     NSArray *row = [theResult fetchRowAsArray];
     NSLog(@"count: %@", [row objectAtIndex:0]);
@@ -107,9 +115,9 @@
     MODClient *copyServer;
     MODCollection *copyCollection;
     
-    copyServer = [mongoServer copy];
+    copyServer = [self.database.client copy];
     
-    copyCollection = [[copyServer databaseForName:dbname] collectionForName:collectionName];
+    copyCollection = [[copyServer databaseForName:self.database.name] collectionForName:collectionName];
     if (!copyServer) {
         NSRunAlertPanel(@"Error", @"Can not create a second connection to the mongo server.", @"OK", nil, nil);
         return;
@@ -122,7 +130,7 @@
         
         while (ii < total) {
             NSString *query = [[NSString alloc] initWithFormat:@"select * from %@ limit %lld, %d", tableName, ii, chunkSize];
-            MCPResult *theResult = [db queryString:query];
+            MCPResult *theResult = [self.mysqlConnection queryString:query];
             NSDictionary *row;
             NSMutableArray *documents;
              
@@ -156,16 +164,17 @@
     });
 }
 
-- (IBAction)connect:(id)sender {
+- (IBAction)connect:(id)sender
+{
     NSString *mysqlHostname;
     NSString *userName;
     NSUInteger port;
     
-    if (db) {
+    if (self.mysqlConnection) {
         [dbsArrayController setContent:nil];
         [tablesArrayController setContent:nil];
         [progressIndicator setDoubleValue:0.0];
-        [db release];
+        self.mysqlConnection = nil;
     }
     mysqlHostname = [[hostTextField stringValue] stringByTrimmingWhitespace];
     if ([mysqlHostname length] == 0) {
@@ -179,19 +188,19 @@
     if (port == 0) {
         port = [[[portTextField cell] placeholderString] intValue];
     }
-    db = [[MCPConnection alloc] initToHost:mysqlHostname withLogin:userName usingPort:port];
-    [db setPassword:[passwdTextField stringValue]];
-    [db connect];
-    NSLog(@"Connect: %d", [db isConnected]);
-    if (![db isConnected])
+    self.mysqlConnection = [[[MCPConnection alloc] initToHost:mysqlHostname withLogin:userName usingPort:port] autorelease];
+    [self.mysqlConnection setPassword:[passwdTextField stringValue]];
+    [self.mysqlConnection connect];
+    NSLog(@"Connect: %d", self.mysqlConnection.isConnected);
+    if (!self.mysqlConnection.isConnected)
     {
         NSRunAlertPanel(@"Error", @"Could not connect to the mysql server!", @"OK", nil, nil);
     }
-    [db queryString:@"SET NAMES utf8"];
-    [db queryString:@"SET CHARACTER SET utf8"];
-    [db queryString:@"SET COLLATION_CONNECTION='utf8_general_ci'"];
-    [db setEncoding:@"utf8"];
-    MCPResult *dbs = [db listDBs];
+    [self.mysqlConnection queryString:@"SET NAMES utf8"];
+    [self.mysqlConnection queryString:@"SET CHARACTER SET utf8"];
+    [self.mysqlConnection queryString:@"SET COLLATION_CONNECTION='utf8_general_ci'"];
+    [self.mysqlConnection setEncoding:@"utf8"];
+    MCPResult *dbs = self.mysqlConnection.listDBs;
     NSArray *row;
     NSMutableArray *databases = [[NSMutableArray alloc] initWithCapacity:[dbs numOfRows]];
     while ((row = [dbs fetchRowAsArray])) {
@@ -215,8 +224,8 @@
     if ([dbn length] == 0) {
         return;
     }
-    [db selectDB:dbn];
-    MCPResult *tbs = [db listTables];
+    [self.mysqlConnection selectDB:dbn];
+    MCPResult *tbs = self.mysqlConnection.listTables;
     NSArray *row;
     NSMutableArray *tables = [[NSMutableArray alloc] initWithCapacity:[tbs numOfRows]];
     while ((row = [tbs fetchRowAsArray])) {

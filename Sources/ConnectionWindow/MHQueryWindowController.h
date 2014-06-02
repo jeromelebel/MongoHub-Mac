@@ -14,7 +14,7 @@
 
 @interface MHQueryWindowController : MHTabItemViewController
 {
-    MODCollection                               *_mongoCollection;
+    MODCollection                               *_collection;
     MHConnectionStore                           *_connectionStore;
     NSMutableDictionary                         *_jsonWindowControllers;
     
@@ -92,7 +92,7 @@
     IBOutlet NSProgressIndicator *impProgressIndicator;
 }
 
-@property (nonatomic, retain, readwrite) MODCollection *mongoCollection;
+@property (nonatomic, retain, readwrite) MODCollection *collection;
 @property (nonatomic, retain, readwrite) MHConnectionStore *connectionStore;
 
 @property (nonatomic, retain) NSTextField *expCriticalTextField;

@@ -33,48 +33,48 @@
 
 @interface MHConnectionWindowController : NSWindowController
 {
-    NSMutableDictionary *_tabItemControllers;
-    IBOutlet NSMenu *createCollectionOrDatabaseMenu;
-    IBOutlet DatabasesArrayController *_databaseStoreArrayController;
+    NSMutableDictionary                     *_tabItemControllers;
+    IBOutlet NSMenu                         *createCollectionOrDatabaseMenu;
+    IBOutlet DatabasesArrayController       *_databaseStoreArrayController;
     
-    MHStatusViewController *_statusViewController;
-    IBOutlet MHTabViewController *_tabViewController;
-    IBOutlet NSSplitView *_splitView;
+    MHStatusViewController                  *_statusViewController;
+    IBOutlet MHTabViewController            *_tabViewController;
+    IBOutlet NSSplitView                    *_splitView;
     
-    MHServerItem *_serverItem;
-    MHConnectionStore *_connectionStore;
-    MODClient *_mongoServer;
-    NSTimer *_serverMonitorTimer;
-    IBOutlet NSOutlineView *_databaseCollectionOutlineView;
-    IBOutlet NSTextField *resultsTitle;
-    IBOutlet NSProgressIndicator *loaderIndicator;
-    IBOutlet NSButton *reconnectButton;
-    IBOutlet NSButton *monitorButton;
-    IBOutlet NSPanel *monitorPanel;
-    IBOutlet StatMonitorTableController *statMonitorTableController;
-    IBOutlet NSToolbar *_toolbar;
-    NSMutableArray *_databases;
+    MHServerItem                            *_serverItem;
+    MHConnectionStore                       *_connectionStore;
+    MODClient                               *_client;
+    NSTimer                                 *_serverMonitorTimer;
+    IBOutlet NSOutlineView                  *_databaseCollectionOutlineView;
+    IBOutlet NSTextField                    *resultsTitle;
+    IBOutlet NSProgressIndicator            *loaderIndicator;
+    IBOutlet NSButton                       *reconnectButton;
+    IBOutlet NSButton                       *monitorButton;
+    IBOutlet NSPanel                        *monitorPanel;
+    IBOutlet StatMonitorTableController     *statMonitorTableController;
+    IBOutlet NSToolbar                      *_toolbar;
+    NSMutableArray                          *_databases;
     MHTunnel                                *_sshTunnel;
     unsigned short                          _sshTunnelPort;
     MHAddDBController                       *_addDBController;
     MHAddCollectionController               *_addCollectionController;
-    AuthWindowController *authWindowController;
+    AuthWindowController                    *authWindowController;
     MHMysqlImportWindowController           *_mysqlImportWindowController;
     MHMysqlExportWindowController           *_mysqlExportWindowController;
-    IBOutlet NSTextField *bundleVersion;
-    BOOL monitorStopped;
+    IBOutlet NSTextField                    *bundleVersion;
+    BOOL                                    monitorStopped;
     
-    IBOutlet NSView *_mainTabView;
-    IBOutlet MHTabTitleView *_tabTitleView;
+    IBOutlet NSView                         *_mainTabView;
+    IBOutlet MHTabTitleView                 *_tabTitleView;
     
-    MODSortedMutableDictionary *previousServerStatusForDelta;
+    MODSortedMutableDictionary              *previousServerStatusForDelta;
     
     MHImportExportFeedback                  *_importExportFeedback;
     id<MHImporterExporter>                  _importerExporter;
 }
 
 @property (nonatomic, retain) MHConnectionStore *connectionStore;
-@property (nonatomic, retain) MODClient *mongoServer;
+@property (nonatomic, retain) MODClient *client;
 @property (nonatomic, retain) NSMutableArray *databases;
 @property (nonatomic, retain) MHTunnel *sshTunnel;
 @property (nonatomic, retain) NSTextField *resultsTitle;

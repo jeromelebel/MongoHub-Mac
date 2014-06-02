@@ -8,24 +8,33 @@
 #import "MHServerItem.h"
 #import "MHDatabaseItem.h"
 
+@interface MHServerItem ()
+
+@property (nonatomic, readwrite, retain) MODClient *client;
+@property (nonatomic, readwrite, retain) NSMutableArray *databaseItems;
+@property (nonatomic, readwrite, assign) id<MHServerItemDelegate> delegate;
+
+@end
+
 @implementation MHServerItem
 
-@synthesize mongoServer = _mongoServer, databaseItems = _databaseItems, delegate = _delegate;
+@synthesize client = _client, databaseItems = _databaseItems, delegate = _delegate;
 
-- (id)initWithMongoServer:(MODClient *)mongoServer delegate:(id)delegate
+- (id)initWithClient:(MODClient *)client delegate:(id)delegate
 {
     if (self = [self init]) {
-        _delegate = delegate;
-        _mongoServer = [mongoServer retain];
-        _databaseItems = [[NSMutableArray alloc] init];
+        self.delegate = delegate;
+        self.client = client;
+        self.databaseItems = [NSMutableArray array];
     }
     return self;
 }
 
 - (void)dealloc
 {
-    [_mongoServer release];
-    [_databaseItems release];
+    self.delegate = nil;
+    self.client = nil;
+    self.databaseItems = nil;
     [super dealloc];
 }
 
@@ -33,7 +42,7 @@
 {
     MHDatabaseItem *result = nil;
     
-    for (MHDatabaseItem *databaseItem in _databaseItems) {
+    for (MHDatabaseItem *databaseItem in self.databaseItems) {
         if ([[databaseItem name] isEqualToString:databaseName]) {
             result = databaseItem;
             break;
@@ -46,9 +55,9 @@
 {
     NSInteger ii = 0;
     
-    for (MHDatabaseItem *databaseItem in _databaseItems) {
+    for (MHDatabaseItem *databaseItem in self.databaseItems) {
         if ([[databaseItem name] isEqualToString:databaseName]) {
-            [_databaseItems removeObjectAtIndex:ii];
+            [(NSMutableArray *)self.databaseItems removeObjectAtIndex:ii];
             break;
         }
         ii++;
@@ -65,14 +74,14 @@ static NSInteger databaseItemSortFunction(id element1, id element2, void *contex
     NSArray *oldDatabases;
     BOOL result = NO;
     
-    oldDatabases = [_databaseItems copy];
+    oldDatabases = [self.databaseItems copy];
     for (NSString *databaseName in list) {
         MHDatabaseItem *databaseItem;
         
         databaseItem = [self databaseItemWithName:databaseName];
         if (!databaseItem) {
             databaseItem = [[MHDatabaseItem alloc] initWithServerItem:self name:databaseName];
-            [_databaseItems addObject:databaseItem];
+            [(NSMutableArray *)self.databaseItems addObject:databaseItem];
             [databaseItem release];
             result = YES;
         }
@@ -83,7 +92,7 @@ static NSInteger databaseItemSortFunction(id element1, id element2, void *contex
             result = YES;
         }
     }
-    [_databaseItems sortUsingFunction:databaseItemSortFunction context:NULL];
+    [(NSMutableArray *)self.databaseItems sortUsingFunction:databaseItemSortFunction context:NULL];
     [oldDatabases release];
     return result;
 }

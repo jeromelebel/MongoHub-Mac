@@ -75,7 +75,7 @@
 @end
 
 @implementation MHQueryWindowController
-@synthesize mongoCollection = _mongoCollection, connectionStore = _connectionStore;
+@synthesize collection = _collection, connectionStore = _connectionStore;
 @synthesize tabView = _tabView, segmentedControl = _segmentedControl;
 
 @synthesize findResultsViewController = _findResultsViewController, findResultsOutlineView = _findResultsOutlineView, findRemoveButton = _findRemoveButton, findCriteriaComboBox = _findCriteriaComboBox, findFieldsTextField = _findFieldsTextField, findSkipTextField = _findSkipTextField, findLimitTextField = _findLimitTextField, findSortTextField = _findSortTextField, findTotalResultsTextField = _findTotalResultsTextField, findQueryTextField = _findQueryTextField, findQueryLoaderIndicator = _findQueryLoaderIndicator;
@@ -126,7 +126,7 @@
     self.indexesOutlineViewController = nil;
     self.mrOutlineViewController = nil;
     self.findResultsViewController = nil;
-    self.mongoCollection = nil;
+    self.collection = nil;
     self.connectionStore = nil;
     
     [_jsonWindowControllers release];
@@ -218,7 +218,7 @@
     self.indexesOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.indexOutlineView] autorelease];
     self.mrOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.mrOutlineView] autorelease];
     
-    self.title = self.mongoCollection.absoluteName;
+    self.title = self.collection.absoluteName;
     _jsonWindowControllers = [[NSMutableDictionary alloc] init];
     [self findQueryComposer:nil];
     [self updateQueryComposer:nil];
@@ -240,8 +240,8 @@
     NSString *criteria = self.removeCriteriaTextField.stringValue;
     
     [self.removeQueryLoaderIndicator start];
-    [self.mongoCollection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
-        [self.mongoCollection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
+    [self.collection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
+        [self.collection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
             NSColor *flashColor;
             
             if (mongoQuery.error) {
@@ -324,7 +324,7 @@
     
     NSString *skip = [[NSString alloc] initWithFormat:@".skip(%d)", [expSkipTextField intValue]];
     NSString *limit = [[NSString alloc] initWithFormat:@".limit(%d)", [expLimitTextField intValue]];
-    NSString *col = [NSString stringWithFormat:@"%@.%@", self.mongoCollection.name, self.mongoCollection.name];
+    NSString *col = [NSString stringWithFormat:@"%@.%@", self.collection.name, self.collection.name];
     
     NSString *query = [NSString stringWithFormat:@"db.%@.find(%@%@)%@%@%@", col, critical, jsFields, sort, skip, limit];
     [critical release];
@@ -352,7 +352,7 @@
         jsonWindowController = [_jsonWindowControllers objectForKey:jsonWindowControllerKey];
         if (!jsonWindowController) {
             jsonWindowController = [[MHJsonWindowController alloc] init];
-            jsonWindowController.mongoCollection = self.mongoCollection;
+            jsonWindowController.collection = self.collection;
             jsonWindowController.jsonDict = document;
             [jsonWindowController showWindow:sender];
             [_jsonWindowControllers setObject:jsonWindowController forKey:jsonWindowControllerKey];
@@ -465,7 +465,7 @@
         }
     }
     [self.findQueryLoaderIndicator start];
-    [self.mongoCollection findWithCriteria:criteria fields:fields skip:self.findSkipTextField.intValue limit:limit sort:sort callback:^(NSArray *documents, NSArray *bsonData, MODQuery *mongoQuery) {
+    [self.collection findWithCriteria:criteria fields:fields skip:self.findSkipTextField.intValue limit:limit sort:sort callback:^(NSArray *documents, NSArray *bsonData, MODQuery *mongoQuery) {
         NSColor *currentColor;
         NSColor *flashColor;
         
@@ -476,10 +476,10 @@
             self.findQueryTextField.stringValue = [NSString stringWithFormat:@"Error: %@", [mongoQuery.error localizedDescription]];
         } else {
             if ([queryTitle length] > 0) {
-                [_connectionStore addNewQuery:[NSDictionary dictionaryWithObjectsAndKeys:queryTitle, @"title", self.findSortTextField.stringValue, @"sort", self.findFieldsTextField.stringValue, @"fields", self.findLimitTextField.stringValue, @"limit", self.findSkipTextField.stringValue, @"skip", nil] withDatabaseName:self.mongoCollection.name collectionName:self.mongoCollection.name];
+                [_connectionStore addNewQuery:[NSDictionary dictionaryWithObjectsAndKeys:queryTitle, @"title", self.findSortTextField.stringValue, @"sort", self.findFieldsTextField.stringValue, @"fields", self.findLimitTextField.stringValue, @"limit", self.findSkipTextField.stringValue, @"skip", nil] withDatabaseName:self.collection.name collectionName:self.collection.name];
             }
             self.findResultsViewController.results = [MODHelper convertForOutlineWithObjects:documents bsonData:bsonData];
-            [self.mongoCollection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
+            [self.collection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
                 [self.findQueryLoaderIndicator stop];
                 self.findTotalResultsTextField.stringValue = [NSString stringWithFormat:@"Total Results: %lld (%0.2fs)", count, [[mongoQuery.userInfo objectForKey:@"timequery"] duration]];
             }];
@@ -521,7 +521,7 @@
     
     inCriteria = [[MODSortedMutableDictionary alloc] initWithObjectsAndKeys:documentIds, @"$in", nil];
     criteria = [[MODSortedMutableDictionary alloc] initWithObjectsAndKeys:inCriteria, @"_id", nil];
-    [self.mongoCollection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
+    [self.collection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         } else {
@@ -563,7 +563,7 @@
     
     NSString *skip = [[NSString alloc] initWithFormat:@".skip(%d)", self.findSkipTextField.intValue];
     NSString *limit = [[NSString alloc] initWithFormat:@".limit(%d)", self.findLimitTextField.intValue];
-    NSString *col = [NSString stringWithFormat:@"%@.%@", self.mongoCollection.name, self.mongoCollection.name];
+    NSString *col = [NSString stringWithFormat:@"%@.%@", self.collection.name, self.collection.name];
     
     NSString *query = [NSString stringWithFormat:@"db.%@.find(%@%@)%@%@%@", col, criteria, jsFields, sort, skip, limit];
     [jsFields release];
@@ -598,7 +598,7 @@
         if ([objects isKindOfClass:[MODSortedMutableDictionary class]]) {
             objects = [NSArray arrayWithObject:objects];
         }
-        [self.mongoCollection insertWithDocuments:objects callback:^(MODQuery *mongoQuery) {
+        [self.collection insertWithDocuments:objects callback:^(MODQuery *mongoQuery) {
             NSColor *currentColor;
             NSColor *flashColor;
             
@@ -628,12 +628,12 @@
     NSString *criteria = self.updateCriteriaTextField.stringValue;
     
     [self.updateQueryLoaderIndicator start];
-    [self.mongoCollection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
+    [self.collection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
         if (self.updateMultiCheckBox.state == 0 && count > 0) {
             count = 1;
         }
         
-        [self.mongoCollection updateWithCriteria:criteria update:self.updateUpdateTextField.stringValue upsert:self.updateUpsetCheckBox.state multiUpdate:self.updateMultiCheckBox.state callback:^(MODQuery *mongoQuery) {
+        [self.collection updateWithCriteria:criteria update:self.updateUpdateTextField.stringValue upsert:self.updateUpsetCheckBox.state multiUpdate:self.updateMultiCheckBox.state callback:^(MODQuery *mongoQuery) {
             NSColor *flashColor;
             
             if (mongoQuery.error) {
@@ -653,7 +653,7 @@
 
 - (IBAction)updateQueryComposer:(id)sender
 {
-    NSString *col = [NSString stringWithFormat:@"%@.%@", self.mongoCollection.name, self.mongoCollection.name];
+    NSString *col = [NSString stringWithFormat:@"%@.%@", self.collection.name, self.collection.name];
     NSString *critical;
     if (self.updateCriteriaTextField.stringValue.length > 0) {
         critical = self.updateCriteriaTextField.stringValue.copy;
@@ -701,7 +701,7 @@
         && ((self.view.window.currentEvent.modifierFlags & NSCommandKeyMask) != NSCommandKeyMask)) {
         NSAlert *alert;
         
-        alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Are you sure you want to remove all documents in %@", self.mongoCollection.absoluteName] defaultButton:@"Cancel" alternateButton:@"Remove All" otherButton:nil informativeTextWithFormat:@"This action cannot be undone"];
+        alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Are you sure you want to remove all documents in %@", self.collection.absoluteName] defaultButton:@"Cancel" alternateButton:@"Remove All" otherButton:nil informativeTextWithFormat:@"This action cannot be undone"];
         [alert setAlertStyle:NSCriticalAlertStyle];
         [alert beginSheetModalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(removeAllDocumentsPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
     } else {
@@ -711,7 +711,7 @@
 
 - (IBAction)removeQueryComposer:(id)sender
 {
-    NSString *col = [NSString stringWithFormat:@"%@.%@", self.mongoCollection.name, self.mongoCollection.name];
+    NSString *col = [NSString stringWithFormat:@"%@.%@", self.collection.name, self.collection.name];
     NSString *critical;
     if (self.removeCriteriaTextField.stringValue.length > 0) {
         critical = [[NSString alloc] initWithString:self.removeCriteriaTextField.stringValue];
@@ -729,7 +729,7 @@
 
 - (IBAction)indexQuery:(id)sender
 {
-    [self.mongoCollection indexListWithCallback:^(NSArray *indexes, MODQuery *mongoQuery) {
+    [self.collection indexListWithCallback:^(NSArray *indexes, MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         }
@@ -740,7 +740,7 @@
 - (IBAction)ensureIndex:(id)sender
 {
     [self.indexLoaderIndicator start];
-    [self.mongoCollection createIndex:self.indexTextField.stringValue name:nil options:0 callback:^(MODQuery *mongoQuery) {
+    [self.collection createIndex:self.indexTextField.stringValue name:nil options:0 callback:^(MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         } else {
@@ -754,7 +754,7 @@
 - (IBAction)reIndex:(id)sender
 {
     [self.indexLoaderIndicator start];
-    [self.mongoCollection reIndexWithCallback:^(MODQuery *mongoQuery) {
+    [self.collection reIndexWithCallback:^(MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         } else {
@@ -771,7 +771,7 @@
     indexes = self.indexesOutlineViewController.selectedDocuments;
     if (indexes.count == 1) {
         [self.indexLoaderIndicator start];
-        [self.mongoCollection dropIndex:[[[indexes objectAtIndex:0] objectForKey:@"objectvalue"] objectForKey:@"key"] callback:^(MODQuery *mongoQuery) {
+        [self.collection dropIndex:[[[indexes objectAtIndex:0] objectForKey:@"objectvalue"] objectForKey:@"key"] callback:^(MODQuery *mongoQuery) {
             if (mongoQuery.error) {
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
             }
@@ -787,7 +787,7 @@
 
 - (IBAction)mapReduce:(id)sender
 {
-    [self.mongoCollection mapReduceWithMapFunction:self.mrMapFunctionTextView.string reduceFunction:self.mrReduceFunctionTextView.string query:self.mrCriteriaTextField.stringValue sort:nil limit:-1 output:self.mrOutputTextField.stringValue keepTemp:NO finalizeFunction:nil scope:nil jsmode:NO verbose:NO callback:^(MODQuery *mongoQuery) {
+    [self.collection mapReduceWithMapFunction:self.mrMapFunctionTextView.string reduceFunction:self.mrReduceFunctionTextView.string query:self.mrCriteriaTextField.stringValue sort:nil limit:-1 output:self.mrOutputTextField.stringValue keepTemp:NO finalizeFunction:nil scope:nil jsmode:NO verbose:NO callback:^(MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         }
@@ -801,7 +801,7 @@
 - (void)mongoCollection:(MODCollection *)collection queryResultFetched:(NSArray *)result withMongoQuery:(MODQuery *)mongoQuery errorMessage:(NSString *)errorMessage
 {
     [self.findQueryLoaderIndicator stop];
-    if (collection == self.mongoCollection) {
+    if (collection == self.collection) {
         if (errorMessage) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", errorMessage);
         } else {
@@ -812,7 +812,7 @@
 
 - (void)mongoCollection:(MODCollection *)collection queryCountWithValue:(long long)value withMongoQuery:(MODQuery *)mongoQuery errorMessage:(NSString *)errorMessage
 {
-    if (collection == self.mongoCollection) {
+    if (collection == self.collection) {
         if ([mongoQuery.userInfo objectForKey:@"title"]) {
             if ([mongoQuery.userInfo objectForKey:@"timequery"]) {
                 [[mongoQuery.userInfo objectForKey:@"textfield"] setStringValue:[NSString stringWithFormat:[mongoQuery.userInfo objectForKey:@"title"], value, [[mongoQuery.userInfo objectForKey:@"timequery"] duration]]];
@@ -825,7 +825,7 @@
 
 - (void)mongoCollection:(MODCollection *)collection updateDonwWithMongoQuery:(MODQuery *)mongoQuery errorMessage:(NSString *)errorMessage
 {
-    if (collection == self.mongoCollection) {
+    if (collection == self.collection) {
         [self.findQueryLoaderIndicator stop];
         if (errorMessage) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", errorMessage);
@@ -839,12 +839,12 @@
 
 - (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {
-    return [[_connectionStore queryHistoryWithDatabaseName:self.mongoCollection.name collectionName:self.mongoCollection.name] count];
+    return [[_connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name] count];
 }
 
 - (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index
 {
-    return [[[_connectionStore queryHistoryWithDatabaseName:self.mongoCollection.name collectionName:self.mongoCollection.name] objectAtIndex:index] objectForKey:@"title"];
+    return [[[_connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name] objectAtIndex:index] objectForKey:@"title"];
 }
 
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification
@@ -853,7 +853,7 @@
     NSUInteger index;
     
     index = self.findCriteriaComboBox.indexOfSelectedItem;
-    queries = [_connectionStore queryHistoryWithDatabaseName:self.mongoCollection.name collectionName:self.mongoCollection.name];
+    queries = [_connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name];
     if (index < [queries count]) {
         NSDictionary *query;
         
@@ -886,7 +886,7 @@
     NSUInteger result = NSNotFound;
     NSUInteger index = 0;
     
-    for (NSDictionary *history in [_connectionStore queryHistoryWithDatabaseName:self.mongoCollection.name collectionName:self.mongoCollection.name]) {
+    for (NSDictionary *history in [_connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name]) {
         if ([[history objectForKey:@"title"] isEqualToString:string]) {
             result = index;
             [self comboBoxSelectionDidChange:nil];
@@ -901,7 +901,7 @@
 {
     NSString *result = nil;
     
-    for (NSDictionary *history in [_connectionStore queryHistoryWithDatabaseName:self.mongoCollection.name collectionName:self.mongoCollection.name]) {
+    for (NSDictionary *history in [_connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name]) {
         if ([[history objectForKey:@"title"] hasPrefix:string]) {
             result = [history objectForKey:@"title"];
             break;

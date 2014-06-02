@@ -20,25 +20,19 @@
 
 @interface MHJsonWindowController : NSWindowController <UKSyntaxColoredTextViewDelegate, MODQueryCallbackTarget>
 {
-    DatabasesArrayController *databasesArrayController;
-    MODClient *mongoServer;
-    MODCollection *mongoCollection;
-    NSString *dbname;
-    NSString *collectionname;
-    NSDictionary *jsonDict;
-    IBOutlet NSTextView *myTextView;
-    IBOutlet NSProgressIndicator *progress;
-    IBOutlet NSTextField *status;
-    UKSyntaxColoredTextViewController *syntaxColoringController;
+    DatabasesArrayController            *databasesArrayController;
+    MODCollection                       *_collection;
+    NSDictionary                        *jsonDict;
+    IBOutlet NSTextView                 *myTextView;
+    IBOutlet NSProgressIndicator        *progress;
+    IBOutlet NSTextField                *status;
+    UKSyntaxColoredTextViewController   *syntaxColoringController;
 }
 
 @property (nonatomic, retain) DatabasesArrayController *databasesArrayController;
-@property (nonatomic, retain) MODClient *mongoServer;
-@property (nonatomic, retain) NSString *dbname;
-@property (nonatomic, retain) NSString *collectionname;
 @property (nonatomic, retain) NSDictionary *jsonDict;
 @property (nonatomic, retain) NSTextView *myTextView;
-@property (nonatomic, readwrite, retain) MODCollection *mongoCollection;
+@property (nonatomic, readwrite, retain) MODCollection *collection;
 
 - (IBAction)save:(id)sender;
 - (IBAction)recolorCompleteFile: (id)sender;

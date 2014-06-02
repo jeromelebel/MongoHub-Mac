@@ -15,10 +15,7 @@
 
 @implementation MHJsonWindowController
 @synthesize databasesArrayController;
-@synthesize mongoServer;
-@synthesize mongoCollection;
-@synthesize dbname;
-@synthesize collectionname;
+@synthesize collection = _collection;
 @synthesize jsonDict;
 @synthesize myTextView;
 
@@ -31,10 +28,7 @@
 - (void)dealloc
 {
     [databasesArrayController release];
-    [mongoServer release];
-    [mongoCollection release];
-    [dbname release];
-    [collectionname release];
+    self.collection = nil;
     [jsonDict release];
     [syntaxColoringController setDelegate: nil];
     [syntaxColoringController release];
@@ -53,7 +47,7 @@
     NSString *title;
     
     [super windowDidLoad];
-    title = [[NSString alloc] initWithFormat:@"%@ _id:%@", self.mongoCollection.absoluteName, [jsonDict objectForKey:@"value"]];
+    title = [[NSString alloc] initWithFormat:@"%@ _id:%@", self.collection.absoluteName, [jsonDict objectForKey:@"value"]];
     [self.window setTitle:title];
     [title release];
     [myTextView setString:[jsonDict objectForKey:@"beautified"]];
@@ -131,7 +125,7 @@
     [status display];
     [progress startAnimation: self];
     [progress display];
-    [self.mongoCollection saveWithDocument:[myTextView string] callback:^(MODQuery *mongoQuery) {
+    [self.collection saveWithDocument:[myTextView string] callback:^(MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, [mongoQuery.error localizedDescription]);
         }
