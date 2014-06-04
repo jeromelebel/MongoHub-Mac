@@ -246,8 +246,6 @@
         
         [self closeMongoDB];
         _serverItem = [[MHServerItem alloc] initWithClient:self.client delegate:self];
-        _statusViewController.client = self.client;
-        _statusViewController.connectionStore = self.connectionStore;
         if (self.connectionStore.adminuser.length > 0 && self.connectionStore.adminpass.length > 0) {
 //            self.client.userName = self.connectionStore.adminuser;
 //            self.client.password = self.connectionStore.adminpass;
@@ -277,6 +275,8 @@
             [self didConnect];
         }
         self.client = [MODClient clientWihtURLString:uri];
+        _statusViewController.client = self.client;
+        _statusViewController.connectionStore = self.connectionStore;
         [self.client fetchServerStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
             if (mongoQuery.error) {
                 [self didFailToConnectWithError:mongoQuery.error];
