@@ -277,7 +277,7 @@
         self.client = [MODClient clientWihtURLString:uri];
         _statusViewController.client = self.client;
         _statusViewController.connectionStore = self.connectionStore;
-        [self.client fetchServerStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
+        [self.client serverStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
             if (mongoQuery.error) {
                 [self didFailToConnectWithError:mongoQuery.error];
             } else {
@@ -458,7 +458,7 @@
     if (!notification.object) {
         return;
     }
-    [[self.client databaseForName:[notification.object objectForKey:@"dbname"]] fetchDatabaseStatsWithCallback:nil];
+    [[self.client databaseForName:[notification.object objectForKey:@"dbname"]] statsWithCallback:nil];
     [self getDatabaseList];
     self.addDBController = nil;
 }
@@ -643,7 +643,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 - (void)fetchServerStatusDelta
 {
     [resultsTitle setStringValue:[NSString stringWithFormat:@"Server %@:%@ stats", self.connectionStore.host, self.connectionStore.hostport]];
-    [self.client fetchServerStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
+    [self.client serverStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
         [loaderIndicator stop];
         if (self.client == [mongoQuery.parameters objectForKey:@"client"]) {
             NSMutableDictionary *diff = [[NSMutableDictionary alloc] init];

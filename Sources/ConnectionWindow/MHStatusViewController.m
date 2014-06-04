@@ -34,7 +34,7 @@
     MODQuery *result;
     
     self.title = @"Server stats";
-    result = [self.client fetchServerStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
+    result = [self.client serverStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
         if (self.client == [mongoQuery.parameters objectForKey:@"mongoserver"]) {
             if (serverStatus) {
                 _resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:serverStatus];
@@ -55,7 +55,7 @@
     if (databaseItem) {
         self.title = [NSString stringWithFormat:@"Database %@ stats", databaseItem.name];
         
-        result = [databaseItem.database fetchDatabaseStatsWithCallback:^(MODSortedMutableDictionary *databaseStats, MODQuery *mongoQuery) {
+        result = [databaseItem.database statsWithCallback:^(MODSortedMutableDictionary *databaseStats, MODQuery *mongoQuery) {
             if (databaseStats) {
                 _resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:databaseStats];
             } else if (mongoQuery.error) {
@@ -74,7 +74,7 @@
     
     if (collectionItem) {
         self.title = [NSString stringWithFormat:@"Collection %@.%@ stats", collectionItem.databaseItem.name, collectionItem.name];
-        result = [collectionItem.collection fetchCollectionStatsWithCallback:^(MODSortedMutableDictionary *stats, MODQuery *mongoQuery) {
+        result = [collectionItem.collection statsWithCallback:^(MODSortedMutableDictionary *stats, MODQuery *mongoQuery) {
             if (stats) {
                 _resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:stats];
             } else if (mongoQuery.error) {
