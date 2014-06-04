@@ -321,7 +321,7 @@
     MODQuery *result;
     
     [loaderIndicator start];
-    result = [self.client fetchDatabaseListWithCallback:^(NSArray *list, MODQuery *mongoQuery) {
+    result = [self.client databaseNamesWithCallback:^(NSArray *list, MODQuery *mongoQuery) {
         [loaderIndicator stop];
         if (list != nil) {
             if ([_serverItem updateChildrenWithList:list]) {
