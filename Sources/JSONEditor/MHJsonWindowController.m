@@ -119,22 +119,30 @@
     [syntaxColoringController recolorCompleteFile: sender];
 }
 
--(IBAction) save:(id)sender
+- (IBAction)save:(id)sender
 {
-    [status setStringValue: @"Saving..."];
-    [status display];
+    MODSortedMutableDictionary *document;
+    NSError *error;
+    
+    status.stringValue = @"Saving...";
     [progress startAnimation: self];
-    [progress display];
-    [self.collection saveWithDocument:[myTextView string] callback:^(MODQuery *mongoQuery) {
-        if (mongoQuery.error) {
-            NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, [mongoQuery.error localizedDescription]);
-        }
+    document = [MODRagelJsonParser objectsFromJson:myTextView.string withError:&error];
+    if (error) {
+        NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, error.localizedDescription);
         [progress stopAnimation: self];
-        [progress display];
-        [status setStringValue: @"Saved"];
-        [status display];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kJsonWindowSaved object:nil];
-    }];
+        status.stringValue = error.localizedDescription;
+    } else {
+        [self.collection saveWithDocument:document callback:^(MODQuery *mongoQuery) {
+            [progress stopAnimation:self];
+            if (mongoQuery.error) {
+                NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, mongoQuery.error.localizedDescription);
+                status.stringValue = error.localizedDescription;
+            } else {
+                status.stringValue = @"Saved";
+                [NSNotificationCenter.defaultCenter postNotificationName:kJsonWindowSaved object:nil];
+            }
+        }];
+    }
 }
 
 - (void)mongoQueryDidFinish:(MODQuery *)mongoQuery
