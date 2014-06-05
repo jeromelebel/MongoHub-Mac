@@ -249,6 +249,16 @@
             [fields addObject:field];
         }
     }
+    
+    // Disable spell checking and substitutions.
+    // When dealing with JavaScript objects, switching regular double quotes into smart quotes isn't helpful.
+    [self.insertDataTextView setAutomaticDashSubstitutionEnabled:NO];
+    [self.insertDataTextView setAutomaticDataDetectionEnabled:NO];
+    [self.insertDataTextView setAutomaticLinkDetectionEnabled:NO];
+    [self.insertDataTextView setAutomaticQuoteSubstitutionEnabled:NO];
+    [self.insertDataTextView setAutomaticSpellingCorrectionEnabled:NO];
+    [self.insertDataTextView setAutomaticTextReplacementEnabled:NO];
+    
     [findQueryLoaderIndicator start];
     [_mongoCollection findWithCriteria:criteria fields:fields skip:[_skipTextField intValue] limit:limit sort:sort callback:^(NSArray *documents, NSArray *bsonData, MODQuery *mongoQuery) {
         NSColor *currentColor;
