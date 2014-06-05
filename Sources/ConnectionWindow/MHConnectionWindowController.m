@@ -272,7 +272,6 @@
                 }
                 uri = [[NSString alloc] initWithFormat:@"mongodb://%@:%@", host, hostport];
             }
-            [self didConnect];
         }
         self.client = [MODClient clientWihtURLString:uri];
         _statusViewController.client = self.client;
