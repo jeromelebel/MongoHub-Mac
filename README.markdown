@@ -24,6 +24,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 ** Current **
     
     - Avoid modification while connecting to a secondary node
+    - Avoid automatic correction from the system while editing document https://github.com/fotonauts/MongoHub-Mac/issues/121 (Thanks to Anthony Williams with https://github.com/fotonauts/MongoHub-Mac/pull/122)
 
 ## History
 
