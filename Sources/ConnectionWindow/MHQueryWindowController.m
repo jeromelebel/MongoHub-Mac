@@ -790,7 +790,7 @@
 
 @implementation MHQueryWindowController (IndexTab)
 
-- (IBAction)indexQuery:(id)sender
+- (IBAction)indexQueryAction:(id)sender
 {
     [self.indexLoaderIndicator start];
     [self.collection indexListWithCallback:^(NSArray *indexes, MODQuery *mongoQuery) {
@@ -812,11 +812,11 @@
             self.indexTextField.stringValue = @"";
         }
         [self.indexLoaderIndicator stop];
-        [self indexQuery:nil];
+        [self indexQueryAction:nil];
     }];
 }
 
-- (IBAction)reIndex:(id)sender
+- (IBAction)reIndexAction:(id)sender
 {
     [self.indexLoaderIndicator start];
     [self.collection reIndexWithCallback:^(MODQuery *mongoQuery) {
@@ -829,7 +829,7 @@
     }];
 }
 
-- (IBAction)dropIndex:(id)sender
+- (IBAction)dropIndexAction:(id)sender
 {
     NSArray *indexes;
     
@@ -841,7 +841,7 @@
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
             }
             [self.indexLoaderIndicator stop];
-            [self indexQuery:nil];
+            [self indexQueryAction:nil];
         }];
     }
 }
