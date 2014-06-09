@@ -838,11 +838,29 @@
 
 - (IBAction)mapReduce:(id)sender
 {
-    [self.collection mapReduceWithMapFunction:self.mrMapFunctionTextView.string reduceFunction:self.mrReduceFunctionTextView.string query:self.mrCriteriaTextField.stringValue sort:nil limit:-1 output:self.mrOutputTextField.stringValue keepTemp:NO finalizeFunction:nil scope:nil jsmode:NO verbose:NO callback:^(MODQuery *mongoQuery) {
-        if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-        }
-    }];
+    NSString *stringQuery = self.mrCriteriaTextField.stringValue;
+    MODSortedMutableDictionary *query = nil;
+    NSString *stringOutput = self.mrOutputTextField.stringValue;
+    MODSortedMutableDictionary *output = nil;
+    NSError *error = nil;
+    
+    if (stringQuery.length > 0) {
+        query = [MODRagelJsonParser objectsFromJson:stringQuery withError:&error];
+    }
+    if (!error && stringOutput.length > 0) {
+        output = [MODRagelJsonParser objectsFromJson:stringOutput withError:&error];
+    }
+    if (error) {
+        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
+    } else {
+        [self.mrLoaderIndicator startAnimation:nil];
+        [self.collection mapReduceWithMapFunction:self.mrMapFunctionTextView.string reduceFunction:self.mrReduceFunctionTextView.string query:query sort:nil limit:-1 output:output keepTemp:NO finalizeFunction:nil scope:nil jsmode:NO verbose:NO callback:^(MODQuery *mongoQuery, MODSortedMutableDictionary *documents) {
+            [self.mrLoaderIndicator stopAnimation:nil];
+            if (mongoQuery.error) {
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+            }
+        }];
+    }
 }
 
 @end
