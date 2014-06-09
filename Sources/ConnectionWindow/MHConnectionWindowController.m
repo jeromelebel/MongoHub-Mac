@@ -47,6 +47,8 @@
 @property (nonatomic, readwrite, strong) MHAddDBController *addDBController;
 @property (nonatomic, readwrite, strong) MHAddCollectionController *addCollectionController;
 @property (nonatomic, readwrite, strong) MHServerItem *serverItem;
+@property (nonatomic, readwrite, strong) NSMutableDictionary *tabItemControllers;
+;
 
 - (void)updateToolbarItems;
 
@@ -81,12 +83,13 @@
 @synthesize mysqlExportWindowController = _mysqlExportWindowController;
 @synthesize loaderIndicator = _loaderIndicator;
 @synthesize serverItem = _serverItem;
+@synthesize tabItemControllers = _tabItemControllers;
 
 - (id)init
 {
     if (self = [super initWithWindowNibName:@"MHConnectionWindow"]) {
         self.databases = [[[NSMutableArray alloc] init] autorelease];
-        _tabItemControllers = [[NSMutableDictionary alloc] init];
+        self.tabItemControllers = [[[NSMutableDictionary alloc] init] autorelease];
     }
     return self;
 }
@@ -95,7 +98,7 @@
 {
     [self.window removeObserver:self forKeyPath:@"firstResponder"];
     [_tabViewController removeObserver:self forKeyPath:@"selectedTabIndex"];
-    [_tabItemControllers release];
+    self.tabItemControllers = nil;
     [self closeMongoDB];
     self.connectionStore = nil;
     self.databases = nil;
@@ -514,7 +517,7 @@
         
         tabItemViewController = _tabViewController.selectedTabItemViewController;
         if ([tabItemViewController isKindOfClass:[MHQueryWindowController class]]) {
-            [_tabItemControllers removeObjectForKey:[[(MHQueryWindowController *)tabItemViewController collection] absoluteName]];
+            [self.tabItemControllers removeObjectForKey:[[(MHQueryWindowController *)tabItemViewController collection] absoluteName]];
         } else if (tabItemViewController == _statusViewController) {
             [_statusViewController release];
             _statusViewController = nil;
@@ -548,10 +551,10 @@
     } else {
         MHQueryWindowController *queryWindowController;
         
-        queryWindowController = [_tabItemControllers objectForKey:[[self.selectedCollectionItem collection] absoluteName]];
+        queryWindowController = [self.tabItemControllers objectForKey:[[self.selectedCollectionItem collection] absoluteName]];
         if (queryWindowController == nil) {
             queryWindowController = [MHQueryWindowController loadQueryController];
-            [_tabItemControllers setObject:queryWindowController forKey:[[self.selectedCollectionItem collection] absoluteName]];
+            [self.tabItemControllers setObject:queryWindowController forKey:[[self.selectedCollectionItem collection] absoluteName]];
             queryWindowController.collection = self.selectedCollectionItem.collection;
             queryWindowController.connectionStore = self.connectionStore;
             [_tabViewController addTabItemViewController:queryWindowController];
@@ -898,8 +901,8 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
         
         [self getCollectionListForDatabaseItem:collectionItem.databaseItem];
         [self showCollectionStatusWithCollectionItem:collectionItem];
-        if ([_tabItemControllers objectForKey:[collectionItem.collection absoluteName]]) {
-            [[_tabItemControllers objectForKey:[collectionItem.collection absoluteName]] select];
+        if ([self.tabItemControllers objectForKey:[collectionItem.collection absoluteName]]) {
+            [[self.tabItemControllers objectForKey:[collectionItem.collection absoluteName]] select];
         } else {
             [_statusViewController select];
         }
@@ -956,7 +959,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
         [_statusViewController release];
         _statusViewController = nil;
     } else {
-        [_tabItemControllers removeObjectForKey:[(MHQueryWindowController *)tabItemViewController collection].absoluteName];
+        [self.tabItemControllers removeObjectForKey:[(MHQueryWindowController *)tabItemViewController collection].absoluteName];
     }
 }
 
