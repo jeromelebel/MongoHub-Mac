@@ -48,7 +48,8 @@
 @property (nonatomic, readwrite, strong) MHAddCollectionController *addCollectionController;
 @property (nonatomic, readwrite, strong) MHServerItem *serverItem;
 @property (nonatomic, readwrite, strong) NSMutableDictionary *tabItemControllers;
-;
+@property (nonatomic, readwrite, strong) MHStatusViewController *statusViewController;
+
 
 - (void)updateToolbarItems;
 
@@ -84,6 +85,7 @@
 @synthesize loaderIndicator = _loaderIndicator;
 @synthesize serverItem = _serverItem;
 @synthesize tabItemControllers = _tabItemControllers;
+@synthesize statusViewController = _statusViewController;
 
 - (id)init
 {
@@ -114,7 +116,7 @@
     self.authWindowController = nil;
     self.mysqlImportWindowController = nil;
     self.mysqlExportWindowController = nil;
-    [_statusViewController release];
+    self.statusViewController = nil;
     self.client = nil;
     [super dealloc];
 }
@@ -134,8 +136,8 @@
     
     [[_splitView.subviews objectAtIndex:1] addSubview:tabView];
     tabView.frame = tabView.superview.bounds;
-    _statusViewController = [[MHStatusViewController loadNewViewController] retain];
-    [_tabViewController addTabItemViewController:_statusViewController];
+    self.statusViewController = [MHStatusViewController loadNewViewController];
+    [_tabViewController addTabItemViewController:self.statusViewController];
     [_databaseCollectionOutlineView setDoubleAction:@selector(outlineViewDoubleClickAction:)];
     [self updateToolbarItems];
     
@@ -156,7 +158,7 @@
     }
     [_tabViewController addObserver:self forKeyPath:@"selectedTabIndex" options:NSKeyValueObservingOptionNew context:nil];
     [self.window addObserver:self forKeyPath:@"firstResponder" options:NSKeyValueObservingOptionNew context:nil];
-    _statusViewController.title = @"Connecting…";
+    self.statusViewController.title = @"Connecting…";
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -205,7 +207,7 @@
 - (void)didFailToConnectWithError:(NSError *)error
 {
     [self.loaderIndicator stopAnimation:nil];
-    _statusViewController.title = [NSString stringWithFormat:@"Error: %@", error.localizedDescription];
+    self.statusViewController.title = [NSString stringWithFormat:@"Error: %@", error.localizedDescription];
     NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", error.localizedDescription);
 }
 
@@ -276,8 +278,8 @@
             }
         }
         self.client = [MODClient clientWihtURLString:uri];
-        _statusViewController.client = self.client;
-        _statusViewController.connectionStore = self.connectionStore;
+        self.statusViewController.client = self.client;
+        self.statusViewController.connectionStore = self.connectionStore;
         [self.client serverStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
             if (mongoQuery.error) {
                 [self didFailToConnectWithError:mongoQuery.error];
@@ -376,35 +378,35 @@
 
 - (void)showDatabaseStatusWithDatabaseItem:(MHDatabaseItem *)databaseItem
 {
-    if (_statusViewController == nil) {
-        _statusViewController = [[MHStatusViewController loadNewViewController] retain];
-        _statusViewController.client = self.client;
-        _statusViewController.connectionStore = self.connectionStore;
-        [_tabViewController addTabItemViewController:_statusViewController];
+    if (self.statusViewController == nil) {
+        self.statusViewController = [MHStatusViewController loadNewViewController];
+        self.statusViewController.client = self.client;
+        self.statusViewController.connectionStore = self.connectionStore;
+        [_tabViewController addTabItemViewController:self.statusViewController];
     }
-    [_statusViewController showDatabaseStatusWithDatabaseItem:databaseItem];
+    [self.statusViewController showDatabaseStatusWithDatabaseItem:databaseItem];
 }
 
 - (void)showCollectionStatusWithCollectionItem:(MHCollectionItem *)collectionItem
 {
-    if (_statusViewController == nil) {
-        _statusViewController = [[MHStatusViewController loadNewViewController] retain];
-        _statusViewController.client = self.client;
-        _statusViewController.connectionStore = self.connectionStore;
-        [_tabViewController addTabItemViewController:_statusViewController];
+    if (self.statusViewController == nil) {
+        self.statusViewController = [MHStatusViewController loadNewViewController];
+        self.statusViewController.client = self.client;
+        self.statusViewController.connectionStore = self.connectionStore;
+        [_tabViewController addTabItemViewController:self.statusViewController];
     }
-    [_statusViewController showCollectionStatusWithCollectionItem:collectionItem];
+    [self.statusViewController showCollectionStatusWithCollectionItem:collectionItem];
 }
 
 - (IBAction)showServerStatus:(id)sender 
 {
-    if (_statusViewController == nil) {
-        _statusViewController = [[MHStatusViewController loadNewViewController] retain];
-        _statusViewController.client = self.client;
-        _statusViewController.connectionStore = self.connectionStore;
-        [_tabViewController addTabItemViewController:_statusViewController];
+    if (self.statusViewController == nil) {
+        self.statusViewController = [MHStatusViewController loadNewViewController];
+        self.statusViewController.client = self.client;
+        self.statusViewController.connectionStore = self.connectionStore;
+        [_tabViewController addTabItemViewController:self.statusViewController];
     }
-    [_statusViewController showServerStatus];
+    [self.statusViewController showServerStatus];
 }
 
 - (IBAction)showDatabaseStatus:(id)sender 
@@ -518,9 +520,8 @@
         tabItemViewController = _tabViewController.selectedTabItemViewController;
         if ([tabItemViewController isKindOfClass:[MHQueryWindowController class]]) {
             [self.tabItemControllers removeObjectForKey:[[(MHQueryWindowController *)tabItemViewController collection] absoluteName]];
-        } else if (tabItemViewController == _statusViewController) {
-            [_statusViewController release];
-            _statusViewController = nil;
+        } else if (tabItemViewController == self.statusViewController) {
+            self.statusViewController = nil;
         }
         [_tabViewController removeTabItemViewController:tabItemViewController];
     } else {
@@ -904,7 +905,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
         if ([self.tabItemControllers objectForKey:[collectionItem.collection absoluteName]]) {
             [[self.tabItemControllers objectForKey:[collectionItem.collection absoluteName]] select];
         } else {
-            [_statusViewController select];
+            [self.statusViewController select];
         }
     } else if (self.selectedDatabaseItem) {
         MHDatabaseItem *databaseItem = self.selectedDatabaseItem;
@@ -955,9 +956,8 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 
 - (void)tabViewController:(MHTabViewController *)tabViewController didRemoveTabItem:(MHTabItemViewController *)tabItemViewController
 {
-    if (tabItemViewController == _statusViewController) {
-        [_statusViewController release];
-        _statusViewController = nil;
+    if (tabItemViewController == self.statusViewController) {
+        self.statusViewController = nil;
     } else {
         [self.tabItemControllers removeObjectForKey:[(MHQueryWindowController *)tabItemViewController collection].absoluteName];
     }
