@@ -7,7 +7,6 @@
 //
 
 #import "Configure.h"
-#import "NSProgressIndicator+Extras.h"
 #import "MHQueryWindowController.h"
 #import "MHResultsOutlineViewController.h"
 #import "NSString+Extras.h"
@@ -252,12 +251,12 @@
     MODSortedMutableDictionary *criteria;
     NSError *error;
     
-    [self.removeQueryLoaderIndicator start];
+    [self.removeQueryLoaderIndicator startAnimation:nil];
     criteria = [MODRagelJsonParser objectsFromJson:self.removeCriteriaTextField.stringValue withError:&error];
     if (error) {
         self.removeResultsTextField.stringValue = @"Error!";
         NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
-        [self.removeQueryLoaderIndicator stop];
+        [self.removeQueryLoaderIndicator stopAnimation:nil];
         [NSViewHelpers cancelColorForTarget:self.removeResultsTextField selector:@selector(setTextColor:)];
         [NSViewHelpers setColor:self.removeResultsTextField.textColor fromColor:NSColor.redColor toTarget:self.removeResultsTextField withSelector:@selector(setTextColor:) delay:1];
     } else {
@@ -273,7 +272,7 @@
                     self.removeResultsTextField.stringValue = [NSString stringWithFormat:@"Removed Documents: %lld", count];
                     flashColor = NSColor.greenColor;
                 }
-                [self.removeQueryLoaderIndicator stop];
+                [self.removeQueryLoaderIndicator stopAnimation:nil];
                 [NSViewHelpers cancelColorForTarget:self.removeResultsTextField selector:@selector(setTextColor:)];
                 [NSViewHelpers setColor:self.removeResultsTextField.textColor fromColor:flashColor toTarget:self.removeResultsTextField withSelector:@selector(setTextColor:) delay:1];
             }];
@@ -489,7 +488,7 @@
             [fields addObject:field];
         }
     }
-    [self.findQueryLoaderIndicator start];
+    [self.findQueryLoaderIndicator startAnimation:nil];
 
     if (jsonCriteria.length > 0) {
         criteria = [MODRagelJsonParser objectsFromJson:jsonCriteria withError:&error];
@@ -512,7 +511,7 @@
         currentColor = self.findTotalResultsTextField.textColor;
         self.findTotalResultsTextField.textColor = NSColor.redColor;
         [NSViewHelpers setColor:currentColor fromColor:NSColor.redColor toTarget:self.findTotalResultsTextField withSelector:@selector(setTextColor:) delay:1];
-        [self.findQueryLoaderIndicator stop];
+        [self.findQueryLoaderIndicator stopAnimation:nil];
     } else {
         [self.collection findWithCriteria:criteria fields:fields skip:self.findSkipTextField.intValue limit:limit sort:sort callback:^(NSArray *documents, NSArray *bsonData, MODQuery *mongoQuery) {
             NSColor *currentColor;
@@ -536,7 +535,7 @@
             currentColor = self.findTotalResultsTextField.textColor;
             self.findTotalResultsTextField.textColor = flashColor;
             [NSViewHelpers setColor:currentColor fromColor:flashColor toTarget:self.findTotalResultsTextField withSelector:@selector(setTextColor:) delay:1];
-            [self.findQueryLoaderIndicator stop];
+            [self.findQueryLoaderIndicator stopAnimation:nil];
         }];
     }
     [fields release];
@@ -559,7 +558,7 @@
     MODSortedMutableDictionary *criteria;
     MODSortedMutableDictionary *inCriteria;
     
-    [self.removeQueryLoaderIndicator start];
+    [self.removeQueryLoaderIndicator startAnimation:nil];
     documentIds = [[NSMutableArray alloc] init];
     for (NSDictionary *document in self.findResultsViewController.selectedDocuments) {
         [documentIds addObject:[document objectForKey:@"objectvalueid"]];
@@ -573,7 +572,7 @@
         } else {
             
         }
-        [self.removeQueryLoaderIndicator stop];
+        [self.removeQueryLoaderIndicator stopAnimation:nil];
         [self findQuery:nil];
     }];
     [criteria release];
@@ -628,12 +627,12 @@
     id objects;
     NSError *error;
     
-    [self.insertLoaderIndicator start];
+    [self.insertLoaderIndicator startAnimation:nil];
     objects = [MODRagelJsonParser objectsFromJson:self.insertDataTextView.string withError:&error];
     if (error) {
         NSColor *currentColor;
         
-        [self.insertLoaderIndicator stop];
+        [self.insertLoaderIndicator stopAnimation:nil];
         NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
         self.insertResultsTextField.stringValue = @"Parsing error";
         [NSViewHelpers cancelColorForTarget:self.insertResultsTextField selector:@selector(setTextColor:)];
@@ -648,7 +647,7 @@
             NSColor *currentColor;
             NSColor *flashColor;
             
-            [self.insertLoaderIndicator stop];
+            [self.insertLoaderIndicator stopAnimation:nil];
             if (mongoQuery.error) {
                 flashColor = [NSColor redColor];
                 [self.insertResultsTextField setStringValue:@"Error!"];
@@ -675,7 +674,7 @@
     MODSortedMutableDictionary *update = nil;
     NSError *error = nil;
     
-    [self.updateQueryLoaderIndicator start];
+    [self.updateQueryLoaderIndicator startAnimation:nil];
     criteria = [MODRagelJsonParser objectsFromJson:self.updateCriteriaTextField.stringValue withError:&error];
     if (!error) {
         update = [MODRagelJsonParser objectsFromJson:self.updateUpdateTextField.stringValue withError:&error];
@@ -683,7 +682,7 @@
     if (error) {
         self.updateResultsTextField.stringValue = @"Error!";
         NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
-        [self.updateQueryLoaderIndicator stop];
+        [self.updateQueryLoaderIndicator stopAnimation:nil];
         [NSViewHelpers cancelColorForTarget:self.updateResultsTextField selector:@selector(setTextColor:)];
         [NSViewHelpers setColor:self.updateResultsTextField.textColor fromColor:NSColor.redColor toTarget:self.updateResultsTextField withSelector:@selector(setTextColor:) delay:1];
     } else {
@@ -705,7 +704,7 @@
                     self.updateResultsTextField.stringValue = [NSString stringWithFormat:@"Updated Documents: %lld", count];
                     flashColor = NSColor.greenColor;
                 }
-                [self.updateQueryLoaderIndicator stop];
+                [self.updateQueryLoaderIndicator stopAnimation:nil];
                 [NSViewHelpers cancelColorForTarget:self.updateResultsTextField selector:@selector(setTextColor:)];
                 [NSViewHelpers setColor:self.updateResultsTextField.textColor fromColor:flashColor toTarget:self.updateResultsTextField withSelector:@selector(setTextColor:) delay:1];
             }];
@@ -792,40 +791,40 @@
 
 - (IBAction)indexQueryAction:(id)sender
 {
-    [self.indexLoaderIndicator start];
+    [self.indexLoaderIndicator startAnimation:nil];
     [self.collection indexListWithCallback:^(NSArray *indexes, MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         }
         self.indexesOutlineViewController.results = [MODHelper convertForOutlineWithObjects:indexes bsonData:nil];
-        [self.indexLoaderIndicator stop];
+        [self.indexLoaderIndicator stopAnimation:nil];
     }];
 }
 
 - (IBAction)createIndexAction:(id)sender
 {
-    [self.indexLoaderIndicator start];
+    [self.indexLoaderIndicator startAnimation:nil];
     [self.collection createIndex:self.indexTextField.stringValue name:nil options:0 callback:^(MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         } else {
             self.indexTextField.stringValue = @"";
         }
-        [self.indexLoaderIndicator stop];
+        [self.indexLoaderIndicator stopAnimation:nil];
         [self indexQueryAction:nil];
     }];
 }
 
 - (IBAction)reIndexAction:(id)sender
 {
-    [self.indexLoaderIndicator start];
+    [self.indexLoaderIndicator startAnimation:nil];
     [self.collection reIndexWithCallback:^(MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         } else {
             self.indexTextField.stringValue = @"";
         }
-        [self.indexLoaderIndicator stop];
+        [self.indexLoaderIndicator stopAnimation:nil];
     }];
 }
 
@@ -835,12 +834,12 @@
     
     indexes = self.indexesOutlineViewController.selectedDocuments;
     if (indexes.count == 1) {
-        [self.indexLoaderIndicator start];
+        [self.indexLoaderIndicator startAnimation:nil];
         [self.collection dropIndexName:[[[indexes objectAtIndex:0] objectForKey:@"objectvalue"] objectForKey:@"name"] callback:^(MODQuery *mongoQuery) {
             if (mongoQuery.error) {
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
             }
-            [self.indexLoaderIndicator stop];
+            [self.indexLoaderIndicator stopAnimation:nil];
             [self indexQueryAction:nil];
         }];
     }
@@ -865,7 +864,7 @@
 
 - (void)mongoCollection:(MODCollection *)collection queryResultFetched:(NSArray *)result withMongoQuery:(MODQuery *)mongoQuery errorMessage:(NSString *)errorMessage
 {
-    [self.findQueryLoaderIndicator stop];
+    [self.findQueryLoaderIndicator stopAnimation:nil];
     if (collection == self.collection) {
         if (errorMessage) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", errorMessage);
@@ -891,7 +890,7 @@
 - (void)mongoCollection:(MODCollection *)collection updateDonwWithMongoQuery:(MODQuery *)mongoQuery errorMessage:(NSString *)errorMessage
 {
     if (collection == self.collection) {
-        [self.findQueryLoaderIndicator stop];
+        [self.findQueryLoaderIndicator stopAnimation:nil];
         if (errorMessage) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", errorMessage);
         }
