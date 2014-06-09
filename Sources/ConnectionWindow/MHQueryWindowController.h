@@ -156,10 +156,10 @@
 @end
 
 @interface MHQueryWindowController (IndexTab)
-- (IBAction)indexQuery:(id)sender;
-- (IBAction)ensureIndex:(id)sender;
-- (IBAction)reIndex:(id)sender;
-- (IBAction)dropIndex:(id)sender;
+- (IBAction)indexQueryAction:(id)sender;
+- (IBAction)createIndexAction:(id)sender;
+- (IBAction)reIndexAction:(id)sender;
+- (IBAction)dropIndexAction:(id)sender;
 
 @end
 

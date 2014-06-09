@@ -792,15 +792,17 @@
 
 - (IBAction)indexQuery:(id)sender
 {
+    [self.indexLoaderIndicator start];
     [self.collection indexListWithCallback:^(NSArray *indexes, MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         }
         self.indexesOutlineViewController.results = [MODHelper convertForOutlineWithObjects:indexes bsonData:nil];
+        [self.indexLoaderIndicator stop];
     }];
 }
 
-- (IBAction)ensureIndex:(id)sender
+- (IBAction)createIndexAction:(id)sender
 {
     [self.indexLoaderIndicator start];
     [self.collection createIndex:self.indexTextField.stringValue name:nil options:0 callback:^(MODQuery *mongoQuery) {
