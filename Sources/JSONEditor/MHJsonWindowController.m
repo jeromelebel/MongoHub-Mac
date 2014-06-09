@@ -8,16 +8,21 @@
 
 #import "MHJsonWindowController.h"
 #import "Configure.h"
-#import "NSProgressIndicator+Extras.h"
 #import "DatabasesArrayController.h"
 #import "NSString+Extras.h"
 #import <mongo-objc-driver/MOD_public.h>
+
+@interface MHJsonWindowController ()
+@property (nonatomic, readwrite, strong) NSProgressIndicator *progressIndicator;
+
+@end
 
 @implementation MHJsonWindowController
 @synthesize databasesArrayController;
 @synthesize collection = _collection;
 @synthesize jsonDict;
 @synthesize myTextView;
+@synthesize progressIndicator = _progressIndicator;
 
 - (id)init
 {
@@ -33,6 +38,7 @@
     [syntaxColoringController setDelegate: nil];
     [syntaxColoringController release];
     syntaxColoringController = nil;
+    self.progressIndicator = nil;
     [super dealloc];
 }
 
@@ -72,17 +78,13 @@
 
 - (void)textViewControllerWillStartSyntaxRecoloring: (UKSyntaxColoredTextViewController*)sender
 {
-    // Show your progress indicator.
-    [progress startAnimation: self];
-    [progress display];
+    [self.progressIndicator startAnimation:self];
 }
 
 
 - (void)textViewControllerDidFinishSyntaxRecoloring: (UKSyntaxColoredTextViewController*)sender
 {
-    // Hide your progress indicator.
-    [progress stopAnimation: self];
-    [progress display];
+    [self.progressIndicator stopAnimation: self];
 }
 
 -(NSString *)syntaxDefinitionFilenameForTextViewController: (UKSyntaxColoredTextViewController*)sender
@@ -125,15 +127,15 @@
     NSError *error;
     
     status.stringValue = @"Saving...";
-    [progress startAnimation: self];
+    [self.progressIndicator startAnimation: self];
     document = [MODRagelJsonParser objectsFromJson:myTextView.string withError:&error];
     if (error) {
         NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, error.localizedDescription);
-        [progress stopAnimation: self];
+        [self.progressIndicator stopAnimation: self];
         status.stringValue = error.localizedDescription;
     } else {
         [self.collection saveWithDocument:document callback:^(MODQuery *mongoQuery) {
-            [progress stopAnimation:self];
+            [self.progressIndicator stopAnimation:self];
             if (mongoQuery.error) {
                 NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, mongoQuery.error.localizedDescription);
                 status.stringValue = error.localizedDescription;

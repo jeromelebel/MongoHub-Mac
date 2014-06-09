@@ -24,7 +24,7 @@
     MODCollection                       *_collection;
     NSDictionary                        *jsonDict;
     IBOutlet NSTextView                 *myTextView;
-    IBOutlet NSProgressIndicator        *progress;
+    NSProgressIndicator                 *_progressIndicator;
     IBOutlet NSTextField                *status;
     UKSyntaxColoredTextViewController   *syntaxColoringController;
 }
@@ -33,6 +33,7 @@
 @property (nonatomic, retain) NSDictionary *jsonDict;
 @property (nonatomic, retain) NSTextView *myTextView;
 @property (nonatomic, readwrite, retain) MODCollection *collection;
+@property (nonatomic, readonly, strong) IBOutlet NSProgressIndicator *progressIndicator;
 
 - (IBAction)save:(id)sender;
 - (IBAction)recolorCompleteFile: (id)sender;
