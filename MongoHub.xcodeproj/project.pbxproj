@@ -57,6 +57,7 @@
 		027A1D951767DC1F0048AD60 /* MODMinKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 027A1D931767DC1F0048AD60 /* MODMinKey.m */; };
 		0280706917675D8D00653483 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0280706617675D8D00653483 /* NSData+Base64.m */; };
 		0280706A17675D8D00653483 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0280706817675D8D00653483 /* NSString+Base64.m */; };
+		029CAA731946028800FD44B4 /* NSTextView+MOD.m in Sources */ = {isa = PBXBuildFile; fileRef = 029CAA721946028800FD44B4 /* NSTextView+MOD.m */; };
 		029D30A5145613420021B9C9 /* MHDatabaseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D30A4145613420021B9C9 /* MHDatabaseItem.m */; };
 		029D30A9145613580021B9C9 /* MHCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D30A8145613580021B9C9 /* MHCollectionItem.m */; };
 		029D30AC145613C30021B9C9 /* MHServerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D30AB145613C30021B9C9 /* MHServerItem.m */; };
@@ -325,6 +326,8 @@
 		0280706617675D8D00653483 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		0280706717675D8D00653483 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
 		0280706817675D8D00653483 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		029CAA711946028800FD44B4 /* NSTextView+MOD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextView+MOD.h"; sourceTree = "<group>"; };
+		029CAA721946028800FD44B4 /* NSTextView+MOD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextView+MOD.m"; sourceTree = "<group>"; };
 		029D30A3145613420021B9C9 /* MHDatabaseItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDatabaseItem.h; sourceTree = "<group>"; };
 		029D30A4145613420021B9C9 /* MHDatabaseItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHDatabaseItem.m; sourceTree = "<group>"; };
 		029D30A7145613580021B9C9 /* MHCollectionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollectionItem.h; sourceTree = "<group>"; };
@@ -1039,6 +1042,8 @@
 				024F678F1427F3DE00956BF6 /* MODHelper.m */,
 				025F635015AE21F300CD0EB4 /* NSViewHelpers.h */,
 				025F635115AE21F300CD0EB4 /* NSViewHelpers.m */,
+				029CAA711946028800FD44B4 /* NSTextView+MOD.h */,
+				029CAA721946028800FD44B4 /* NSTextView+MOD.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1326,6 +1331,7 @@
 				1D93C1DA11832C1D003216F7 /* MHConnectionStore.m in Sources */,
 				1D93C1E411833342003216F7 /* ConnectionsCollectionView.m in Sources */,
 				1D93C1E511833342003216F7 /* IconCollectionItem.m in Sources */,
+				029CAA731946028800FD44B4 /* NSTextView+MOD.m in Sources */,
 				1D93C1E611833342003216F7 /* IconViewBox.m in Sources */,
 				1D93C24F11833599003216F7 /* ConnectionsArrayController.m in Sources */,
 				1D93C29A11833F26003216F7 /* MHDatabaseStore.m in Sources */,
