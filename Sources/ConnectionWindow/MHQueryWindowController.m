@@ -834,7 +834,7 @@
     indexes = self.indexesOutlineViewController.selectedDocuments;
     if (indexes.count == 1) {
         [self.indexLoaderIndicator start];
-        [self.collection dropIndex:[[[indexes objectAtIndex:0] objectForKey:@"objectvalue"] objectForKey:@"key"] callback:^(MODQuery *mongoQuery) {
+        [self.collection dropIndexName:[[[indexes objectAtIndex:0] objectForKey:@"objectvalue"] objectForKey:@"name"] callback:^(MODQuery *mongoQuery) {
             if (mongoQuery.error) {
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
             }
