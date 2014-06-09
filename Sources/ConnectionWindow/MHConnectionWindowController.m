@@ -49,6 +49,7 @@
 @property (nonatomic, readwrite, strong) MHServerItem *serverItem;
 @property (nonatomic, readwrite, strong) NSMutableDictionary *tabItemControllers;
 @property (nonatomic, readwrite, strong) MHStatusViewController *statusViewController;
+@property (nonatomic, readwrite, weak) IBOutlet MHTabViewController *tabViewController;
 
 
 - (void)updateToolbarItems;
@@ -99,7 +100,7 @@
 - (void)dealloc
 {
     [self.window removeObserver:self forKeyPath:@"firstResponder"];
-    [_tabViewController removeObserver:self forKeyPath:@"selectedTabIndex"];
+    [self.tabViewController removeObserver:self forKeyPath:@"selectedTabIndex"];
     self.tabItemControllers = nil;
     [self closeMongoDB];
     self.connectionStore = nil;
@@ -132,12 +133,12 @@
 
 - (void)awakeFromNib
 {
-    NSView *tabView = _tabViewController.view;
+    NSView *tabView = self.tabViewController.view;
     
     [[_splitView.subviews objectAtIndex:1] addSubview:tabView];
     tabView.frame = tabView.superview.bounds;
     self.statusViewController = [MHStatusViewController loadNewViewController];
-    [_tabViewController addTabItemViewController:self.statusViewController];
+    [self.tabViewController addTabItemViewController:self.statusViewController];
     [_databaseCollectionOutlineView setDoubleAction:@selector(outlineViewDoubleClickAction:)];
     [self updateToolbarItems];
     
@@ -156,18 +157,18 @@
             self.window.title = [NSString stringWithFormat:@"%@ [%@:%d]", self.connectionStore.alias, host, hostPort];
         }
     }
-    [_tabViewController addObserver:self forKeyPath:@"selectedTabIndex" options:NSKeyValueObservingOptionNew context:nil];
+    [self.tabViewController addObserver:self forKeyPath:@"selectedTabIndex" options:NSKeyValueObservingOptionNew context:nil];
     [self.window addObserver:self forKeyPath:@"firstResponder" options:NSKeyValueObservingOptionNew context:nil];
     self.statusViewController.title = @"Connecting…";
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ((object == _tabViewController && [keyPath isEqualToString:@"selectedTabIndex"])
+    if ((object == self.tabViewController && [keyPath isEqualToString:@"selectedTabIndex"])
         || (object == self.window && [keyPath isEqualToString:@"firstResponder"] && self.window.firstResponder != _databaseCollectionOutlineView && self.window.firstResponder != self.window)) {
 // update the outline view selection if the tab changed, or if the first responder changed
 // don't do it if the first responder is the outline view or the windw, other we will lose the new user selection
-        id selectedTab = _tabViewController.selectedTabItemViewController;
+        id selectedTab = self.tabViewController.selectedTabItemViewController;
         
         if ([selectedTab isKindOfClass:[MHQueryWindowController class]]) {
             NSIndexSet *indexes = nil;
@@ -382,7 +383,7 @@
         self.statusViewController = [MHStatusViewController loadNewViewController];
         self.statusViewController.client = self.client;
         self.statusViewController.connectionStore = self.connectionStore;
-        [_tabViewController addTabItemViewController:self.statusViewController];
+        [self.tabViewController addTabItemViewController:self.statusViewController];
     }
     [self.statusViewController showDatabaseStatusWithDatabaseItem:databaseItem];
 }
@@ -393,7 +394,7 @@
         self.statusViewController = [MHStatusViewController loadNewViewController];
         self.statusViewController.client = self.client;
         self.statusViewController.connectionStore = self.connectionStore;
-        [_tabViewController addTabItemViewController:self.statusViewController];
+        [self.tabViewController addTabItemViewController:self.statusViewController];
     }
     [self.statusViewController showCollectionStatusWithCollectionItem:collectionItem];
 }
@@ -404,7 +405,7 @@
         self.statusViewController = [MHStatusViewController loadNewViewController];
         self.statusViewController.client = self.client;
         self.statusViewController.connectionStore = self.connectionStore;
-        [_tabViewController addTabItemViewController:self.statusViewController];
+        [self.tabViewController addTabItemViewController:self.statusViewController];
     }
     [self.statusViewController showServerStatus];
 }
@@ -517,13 +518,13 @@
     if ([theEvent.charactersIgnoringModifiers isEqualToString:@"w"] && (theEvent.modifierFlags & NSDeviceIndependentModifierFlagsMask) == (NSUInteger)(NSCommandKeyMask | NSControlKeyMask)) {
         MHTabItemViewController *tabItemViewController;
         
-        tabItemViewController = _tabViewController.selectedTabItemViewController;
+        tabItemViewController = self.tabViewController.selectedTabItemViewController;
         if ([tabItemViewController isKindOfClass:[MHQueryWindowController class]]) {
             [self.tabItemControllers removeObjectForKey:[[(MHQueryWindowController *)tabItemViewController collection] absoluteName]];
         } else if (tabItemViewController == self.statusViewController) {
             self.statusViewController = nil;
         }
-        [_tabViewController removeTabItemViewController:tabItemViewController];
+        [self.tabViewController removeTabItemViewController:tabItemViewController];
     } else {
         [super keyDown:theEvent];
     }
@@ -558,7 +559,7 @@
             [self.tabItemControllers setObject:queryWindowController forKey:[[self.selectedCollectionItem collection] absoluteName]];
             queryWindowController.collection = self.selectedCollectionItem.collection;
             queryWindowController.connectionStore = self.connectionStore;
-            [_tabViewController addTabItemViewController:queryWindowController];
+            [self.tabViewController addTabItemViewController:queryWindowController];
         }
         [queryWindowController select];
     }

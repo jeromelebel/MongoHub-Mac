@@ -2148,7 +2148,7 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">_tabViewController</string>
+						<string key="label">tabViewController</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="427234976"/>
 					</object>
@@ -3391,7 +3391,7 @@
 							<string>_mainTabView</string>
 							<string>_splitView</string>
 							<string>_tabTitleView</string>
-							<string>_tabViewController</string>
+							<string>tabViewController</string>
 							<string>_toolbar</string>
 							<string>bundleVersion</string>
 							<string>createCollectionOrDatabaseMenu</string>
@@ -3430,7 +3430,7 @@
 							<string>_mainTabView</string>
 							<string>_splitView</string>
 							<string>_tabTitleView</string>
-							<string>_tabViewController</string>
+							<string>tabViewController</string>
 							<string>_toolbar</string>
 							<string>bundleVersion</string>
 							<string>createCollectionOrDatabaseMenu</string>
@@ -3464,7 +3464,7 @@
 								<string key="candidateClassName">MHTabTitleView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">_tabViewController</string>
+								<string key="name">tabViewController</string>
 								<string key="candidateClassName">MHTabViewController</string>
 							</object>
 							<object class="IBToOneOutletInfo">

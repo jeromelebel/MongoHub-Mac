@@ -38,7 +38,7 @@
     IBOutlet DatabasesArrayController       *_databaseStoreArrayController;
     
     MHStatusViewController                  *_statusViewController;
-    IBOutlet MHTabViewController            *_tabViewController;
+    MHTabViewController                     *_tabViewController;
     IBOutlet NSSplitView                    *_splitView;
     
     MHServerItem                            *_serverItem;
@@ -87,6 +87,8 @@
 @property (nonatomic, retain) MHMysqlImportWindowController *mysqlImportWindowController;
 @property (nonatomic, retain) MHMysqlExportWindowController *mysqlExportWindowController;
 @property (nonatomic, readonly, assign) NSManagedObjectContext *managedObjectContext;
+
+@property (nonatomic, readonly, weak) IBOutlet MHTabViewController *tabViewController;
 
 - (IBAction)reconnect:(id)sender;
 - (IBAction)showServerStatus:(id)sender;
