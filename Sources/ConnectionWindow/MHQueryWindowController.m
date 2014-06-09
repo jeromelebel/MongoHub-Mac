@@ -815,19 +815,6 @@
     }];
 }
 
-- (IBAction)reIndexAction:(id)sender
-{
-    [self.indexLoaderIndicator startAnimation:nil];
-    [self.collection reIndexWithCallback:^(MODQuery *mongoQuery) {
-        if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-        } else {
-            self.indexTextField.stringValue = @"";
-        }
-        [self.indexLoaderIndicator stopAnimation:nil];
-    }];
-}
-
 - (IBAction)dropIndexAction:(id)sender
 {
     NSArray *indexes;

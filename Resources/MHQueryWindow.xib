@@ -1090,7 +1090,7 @@ DQ
                                         </scroller>
                                     </scrollView>
                                     <textField verticalHuggingPriority="750" id="234">
-                                        <rect key="frame" x="26" y="387" width="41" height="14"/>
+                                        <rect key="frame" x="18" y="387" width="49" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Index" id="235">
                                             <font key="font" metaFont="smallSystem"/>
@@ -1099,7 +1099,7 @@ DQ
                                         </textFieldCell>
                                     </textField>
                                     <button verticalHuggingPriority="750" id="233">
-                                        <rect key="frame" x="301" y="411" width="118" height="25"/>
+                                        <rect key="frame" x="292" y="411" width="118" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="roundTextured" title="Create Index" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="left" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="236">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1110,7 +1110,7 @@ DQ
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" id="271">
-                                        <rect key="frame" x="66" y="383" width="463" height="22"/>
+                                        <rect key="frame" x="66" y="383" width="498" height="22"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="272">
                                             <font key="font" metaFont="system"/>
@@ -1119,7 +1119,7 @@ DQ
                                         </textFieldCell>
                                     </textField>
                                     <button toolTip="Command+R" verticalHuggingPriority="750" id="275">
-                                        <rect key="frame" x="29" y="411" width="118" height="25"/>
+                                        <rect key="frame" x="20" y="411" width="118" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="roundTextured" title="Get Indexes" bezelStyle="texturedRounded" image="NSListViewTemplate" imagePosition="left" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="276">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1132,7 +1132,7 @@ DQ
                                         </connections>
                                     </button>
                                     <button toolTip="Command+delete" verticalHuggingPriority="750" id="277">
-                                        <rect key="frame" x="163" y="411" width="118" height="25"/>
+                                        <rect key="frame" x="154" y="411" width="118" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="roundTextured" title="Drop Index" bezelStyle="texturedRounded" image="NSStopProgressTemplate" imagePosition="left" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="278">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1146,19 +1146,8 @@ CA
                                             <action selector="dropIndexAction:" target="-2" id="u5l-XN-HoZ"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" id="279">
-                                        <rect key="frame" x="435" y="411" width="118" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" title="ReIndex" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="left" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="280">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="reIndexAction:" target="-2" id="nMD-wG-nHC"/>
-                                        </connections>
-                                    </button>
                                     <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="498">
-                                        <rect key="frame" x="537" y="386" width="16" height="16"/>
+                                        <rect key="frame" x="548" y="416" width="16" height="16"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                     </progressIndicator>
                                 </subviews>
@@ -1432,7 +1421,6 @@ CA
         <image name="NSAddTemplate" width="8" height="8"/>
         <image name="NSListViewTemplate" width="11" height="10"/>
         <image name="NSPathTemplate" width="13" height="10"/>
-        <image name="NSRefreshTemplate" width="10" height="12"/>
         <image name="NSRemoveTemplate" width="8" height="8"/>
         <image name="NSStopProgressTemplate" width="11" height="11"/>
         <image name="indexmenu" width="32" height="32"/>
