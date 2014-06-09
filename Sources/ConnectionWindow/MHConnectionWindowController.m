@@ -87,6 +87,7 @@
 @synthesize serverItem = _serverItem;
 @synthesize tabItemControllers = _tabItemControllers;
 @synthesize statusViewController = _statusViewController;
+@synthesize tabViewController = _tabViewController;
 
 - (id)init
 {
