@@ -121,7 +121,6 @@
 		1DA6804A118875B300DFDD29 /* runmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DA68045118875B300DFDD29 /* runmenu.png */; };
 		1DA6804B118875B300DFDD29 /* updatemenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DA68046118875B300DFDD29 /* updatemenu.png */; };
 		1DA6806C11888BDD00DFDD29 /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6806B11888BDD00DFDD29 /* NSString+Extras.m */; };
-		1DBFFAF512C1FDF200B643CA /* NSProgressIndicator+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFFAF412C1FDF200B643CA /* NSProgressIndicator+Extras.m */; };
 		1DCC562912C264600025F181 /* StatMonitorTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DCC562812C264600025F181 /* StatMonitorTableController.m */; };
 		1DD1CA8312C8EFD4007F2909 /* SyntaxDefinition.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1CA8112C8EFD4007F2909 /* SyntaxDefinition.plist */; };
 		1DD1CA8412C8EFD4007F2909 /* SyntaxColorDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1CA8212C8EFD4007F2909 /* SyntaxColorDefaults.plist */; };
@@ -392,8 +391,6 @@
 		1DA68046118875B300DFDD29 /* updatemenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = updatemenu.png; path = Resources/images/updatemenu.png; sourceTree = SOURCE_ROOT; };
 		1DA6806A11888BDD00DFDD29 /* NSString+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extras.h"; sourceTree = "<group>"; };
 		1DA6806B11888BDD00DFDD29 /* NSString+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extras.m"; sourceTree = "<group>"; };
-		1DBFFAF312C1FDF200B643CA /* NSProgressIndicator+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSProgressIndicator+Extras.h"; sourceTree = "<group>"; };
-		1DBFFAF412C1FDF200B643CA /* NSProgressIndicator+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSProgressIndicator+Extras.m"; sourceTree = "<group>"; };
 		1DCC562712C264600025F181 /* StatMonitorTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatMonitorTableController.h; sourceTree = "<group>"; };
 		1DCC562812C264600025F181 /* StatMonitorTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatMonitorTableController.m; sourceTree = "<group>"; };
 		1DD1CA8112C8EFD4007F2909 /* SyntaxDefinition.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SyntaxDefinition.plist; sourceTree = "<group>"; };
@@ -751,8 +748,6 @@
 				1D26619011CFD1640092C6B5 /* FieldMapDataObject.m */,
 				1DEC7F3912B7ECAC00FC804E /* MHTunnel.h */,
 				1DEC7F3A12B7ECAC00FC804E /* MHTunnel.m */,
-				1DBFFAF312C1FDF200B643CA /* NSProgressIndicator+Extras.h */,
-				1DBFFAF412C1FDF200B643CA /* NSProgressIndicator+Extras.m */,
 				1D64100012C8E16C0030AA4C /* NSArray+Color.h */,
 				1D64100112C8E16C0030AA4C /* NSArray+Color.m */,
 				1D64100312C8E1C00030AA4C /* NSScanner+SkipUpToCharset.h */,
@@ -1082,7 +1077,6 @@
 				1D26619111CFD1640092C6B5 /* FieldMapDataObject.m in Sources */,
 				1D26619411CFD2560092C6B5 /* FieldMapTableController.m in Sources */,
 				1DEC7F3B12B7ECAD00FC804E /* MHTunnel.m in Sources */,
-				1DBFFAF512C1FDF200B643CA /* NSProgressIndicator+Extras.m in Sources */,
 				1DCC562912C264600025F181 /* StatMonitorTableController.m in Sources */,
 				1D64100212C8E16C0030AA4C /* NSArray+Color.m in Sources */,
 				0279C093189C03E000F8BACB /* MHImportExportFeedback.m in Sources */,
