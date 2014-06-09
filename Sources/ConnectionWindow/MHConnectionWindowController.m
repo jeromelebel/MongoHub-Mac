@@ -219,16 +219,16 @@
         if (!self.sshTunnel) {
             self.sshTunnel = [[[MHTunnel alloc] init] autorelease];
         }
-        [self.sshTunnel setDelegate:self];
-        [self.sshTunnel setUser:self.connectionStore.sshuser];
-        [self.sshTunnel setHost:self.connectionStore.sshhost];
-        [self.sshTunnel setPassword:self.connectionStore.sshpassword];
-        [self.sshTunnel setKeyfile:self.connectionStore.sshkeyfile.stringByExpandingTildeInPath];
-        [self.sshTunnel setPort:self.connectionStore.sshport.intValue];
-        [self.sshTunnel setAliveCountMax:3];
-        [self.sshTunnel setAliveInterval:30];
-        [self.sshTunnel setTcpKeepAlive:YES];
-        [self.sshTunnel setCompression:YES];
+        self.sshTunnel.delegate = self;
+        self.sshTunnel.user = self.connectionStore.sshuser;
+        self.sshTunnel.host = self.connectionStore.sshhost;
+        self.sshTunnel.password = self.connectionStore.sshpassword;
+        self.sshTunnel.keyfile = self.connectionStore.sshkeyfile.stringByExpandingTildeInPath;
+        self.sshTunnel.port = self.connectionStore.sshport.intValue;
+        self.sshTunnel.aliveCountMax = 3;
+        self.sshTunnel.aliveInterval = 30;
+        self.sshTunnel.tcpKeepAlive = YES;
+        self.sshTunnel.compression = YES;
         hostPort = (unsigned short)self.connectionStore.hostport.intValue;
         if (hostPort == 0) {
             hostPort = MODClient.defaultPort;
