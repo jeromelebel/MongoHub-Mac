@@ -44,8 +44,9 @@
 #define DEFAULT_MONGO_IP                            @"127.0.0.1"
 
 @interface MHConnectionWindowController()
-@property (nonatomic, readwrite, retain) MHAddDBController *addDBController;
-@property (nonatomic, readwrite, retain) MHAddCollectionController *addCollectionController;
+@property (nonatomic, readwrite, strong) MHAddDBController *addDBController;
+@property (nonatomic, readwrite, strong) MHAddCollectionController *addCollectionController;
+@property (nonatomic, readwrite, strong) MHServerItem *serverItem;
 
 - (void)updateToolbarItems;
 
@@ -79,7 +80,7 @@
 @synthesize mysqlImportWindowController = _mysqlImportWindowController;
 @synthesize mysqlExportWindowController = _mysqlExportWindowController;
 @synthesize loaderIndicator = _loaderIndicator;
-
+@synthesize serverItem = _serverItem;
 
 - (id)init
 {
@@ -121,8 +122,7 @@
     [_serverMonitorTimer release];
     _serverMonitorTimer = nil;
     self.client = nil;
-    [_serverItem release];
-    _serverItem = nil;
+    self.serverItem = nil;
 }
 
 - (void)awakeFromNib
@@ -169,7 +169,7 @@
             MHDatabaseItem *databaseOutlineViewItem;
             MHCollectionItem *collectionOutlineViewItem;
             
-            databaseOutlineViewItem = [_serverItem databaseItemWithName:[(MHQueryWindowController *)selectedTab collection].name];
+            databaseOutlineViewItem = [self.serverItem databaseItemWithName:[(MHQueryWindowController *)selectedTab collection].name];
             collectionOutlineViewItem = [databaseOutlineViewItem collectionItemWithName:[(MHQueryWindowController *)selectedTab collection].name];
             if (collectionOutlineViewItem) {
                 [_databaseCollectionOutlineView expandItem:databaseOutlineViewItem];
@@ -244,7 +244,7 @@
         NSString *uri;
         
         [self closeMongoDB];
-        _serverItem = [[MHServerItem alloc] initWithClient:self.client delegate:self];
+        self.serverItem = [[[MHServerItem alloc] initWithClient:self.client delegate:self] autorelease];
         if (self.connectionStore.adminuser.length > 0 && self.connectionStore.adminpass.length > 0) {
 //            self.client.userName = self.connectionStore.adminuser;
 //            self.client.password = self.connectionStore.adminpass;
@@ -322,11 +322,11 @@
     result = [self.client databaseNamesWithCallback:^(NSArray *list, MODQuery *mongoQuery) {
         [self.loaderIndicator stopAnimation:nil];
         if (list != nil) {
-            if ([_serverItem updateChildrenWithList:list]) {
+            if ([self.serverItem updateChildrenWithList:list]) {
                 [_databaseCollectionOutlineView reloadData];
             }
         } else if (self.connectionStore.defaultdb) {
-            if ([_serverItem updateChildrenWithList:[NSArray arrayWithObject:self.connectionStore.defaultdb]]) {
+            if ([self.serverItem updateChildrenWithList:[NSArray arrayWithObject:self.connectionStore.defaultdb]]) {
                 [_databaseCollectionOutlineView reloadData];
             }
         } else if (mongoQuery.error) {
@@ -342,7 +342,7 @@
 {
     MHDatabaseItem *databaseItem;
     
-    databaseItem = [_serverItem databaseItemWithName:databaseName];
+    databaseItem = [self.serverItem databaseItemWithName:databaseName];
     if (databaseItem) {
         [self getCollectionListForDatabaseItem:databaseItem];
     }
@@ -359,7 +359,7 @@
         MHDatabaseItem *databaseItem;
         
         [self.loaderIndicator stopAnimation:nil];
-        databaseItem = [_serverItem databaseItemWithName:mongoDatabase.name];
+        databaseItem = [self.serverItem databaseItemWithName:mongoDatabase.name];
         if (collectionList && databaseItem) {
             if ([databaseItem updateChildrenWithList:collectionList]) {
                 [_databaseCollectionOutlineView reloadData];
@@ -862,7 +862,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
 {
     if (!item) {
-        return _serverItem.databaseItems.count;
+        return self.serverItem.databaseItems.count;
     } else if ([item isKindOfClass:[MHDatabaseItem class]]) {
         return [item collectionItems].count;
     } else {
@@ -873,7 +873,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item
 {
     if (!item) {
-        return [_serverItem.databaseItems objectAtIndex:index];
+        return [self.serverItem.databaseItems objectAtIndex:index];
     } else if ([item isKindOfClass:[MHDatabaseItem class]]) {
         return [[item collectionItems] objectAtIndex:index];
     } else {
