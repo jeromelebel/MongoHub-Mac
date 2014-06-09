@@ -263,7 +263,7 @@
             uri = [[NSString alloc] initWithFormat:@"mongodb://%@", self.connectionStore.servers];
         } else {
             if (self.connectionStore.usessh.intValue == 1) {
-                uri = [[NSString alloc] initWithFormat:@"127.0.0.1:%u", _sshTunnelPort];
+                uri = [[NSString alloc] initWithFormat:@"mongodb://127.0.0.1:%u", _sshTunnelPort];
             } else {
                 NSString *host = self.connectionStore.host.stringByTrimmingWhitespace;
                 NSNumber *hostport = self.connectionStore.hostport;
