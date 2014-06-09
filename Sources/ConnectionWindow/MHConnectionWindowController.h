@@ -47,7 +47,7 @@
     NSTimer                                 *_serverMonitorTimer;
     IBOutlet NSOutlineView                  *_databaseCollectionOutlineView;
     IBOutlet NSTextField                    *resultsTitle;
-    IBOutlet NSProgressIndicator            *loaderIndicator;
+    IBOutlet NSProgressIndicator            *_loaderIndicator;
     IBOutlet NSButton                       *reconnectButton;
     IBOutlet NSButton                       *monitorButton;
     IBOutlet NSPanel                        *monitorPanel;

@@ -8,7 +8,6 @@
 
 #import "Configure.h"
 #import "NSString+Extras.h"
-#import "NSProgressIndicator+Extras.h"
 #import "MHConnectionWindowController.h"
 #import "MHQueryWindowController.h"
 #import "MHAddDBController.h"
@@ -67,7 +66,6 @@
 
 @synthesize connectionStore = _connectionStore;
 @synthesize client = _client;
-@synthesize loaderIndicator;
 @synthesize monitorButton;
 @synthesize reconnectButton;
 @synthesize statMonitorTableController;
@@ -80,6 +78,7 @@
 @synthesize authWindowController;
 @synthesize mysqlImportWindowController = _mysqlImportWindowController;
 @synthesize mysqlExportWindowController = _mysqlExportWindowController;
+@synthesize loaderIndicator = _loaderIndicator;
 
 
 - (id)init
@@ -190,7 +189,7 @@
 
 - (void)didConnect
 {
-    [loaderIndicator stop];
+    [self.loaderIndicator stopAnimation:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDatabase:) name:kNewDBWindowWillClose object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addCollection:) name:kNewCollectionWindowWillClose object:nil];
@@ -202,14 +201,14 @@
 
 - (void)didFailToConnectWithError:(NSError *)error
 {
-    [loaderIndicator stop];
+    [self.loaderIndicator stopAnimation:nil];
     _statusViewController.title = [NSString stringWithFormat:@"Error: %@", error.localizedDescription];
     NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", error.localizedDescription);
 }
 
 - (void)connectToServer
 {
-    [loaderIndicator start];
+    [self.loaderIndicator startAnimation:nil];
     reconnectButton.enabled = NO;
     monitorButton.enabled = NO;
     if ((self.sshTunnel == nil || !self.sshTunnel.connected) && self.connectionStore.usessh.intValue == 1) {
@@ -319,9 +318,9 @@
 {
     MODQuery *result;
     
-    [loaderIndicator start];
+    [self.loaderIndicator startAnimation:nil];
     result = [self.client databaseNamesWithCallback:^(NSArray *list, MODQuery *mongoQuery) {
-        [loaderIndicator stop];
+        [self.loaderIndicator stopAnimation:nil];
         if (list != nil) {
             if ([_serverItem updateChildrenWithList:list]) {
                 [_databaseCollectionOutlineView reloadData];
@@ -355,11 +354,11 @@
     MODQuery *result;
     
     mongoDatabase = databaseItem.database;
-    [loaderIndicator start];
+    [self.loaderIndicator startAnimation:nil];
     result = [mongoDatabase fetchCollectionListWithCallback:^(NSArray *collectionList, MODQuery *mongoQuery) {
         MHDatabaseItem *databaseItem;
         
-        [loaderIndicator stop];
+        [self.loaderIndicator stopAnimation:nil];
         databaseItem = [_serverItem databaseItemWithName:mongoDatabase.name];
         if (collectionList && databaseItem) {
             if ([databaseItem updateChildrenWithList:collectionList]) {
@@ -471,9 +470,9 @@
     MODDatabase *mongoDatabase;
     
     mongoDatabase = self.selectedDatabaseItem.database;
-    [loaderIndicator start];
+    [self.loaderIndicator startAnimation:nil];
     [mongoDatabase createCollectionWithName:collectionName callback:^(MODQuery *mongoQuery) {
-        [loaderIndicator stop];
+        [self.loaderIndicator stopAnimation:nil];
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
         }
@@ -496,9 +495,9 @@
     if (collection) {
         NSString *databaseName = collection.database.name;
         
-        [loaderIndicator start];
+        [self.loaderIndicator startAnimation:nil];
         [collection dropWithCallback:^(MODQuery *mongoQuery) {
-            [loaderIndicator stop];
+            [self.loaderIndicator stopAnimation:nil];
             if (mongoQuery.error) {
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
             } else {
@@ -528,9 +527,9 @@
 
 - (void)dropDatabase
 {
-    [loaderIndicator start];
+    [self.loaderIndicator startAnimation:nil];
     [self.selectedDatabaseItem.database dropWithCallback:^(MODQuery *mongoQuery) {
-        [loaderIndicator stop];
+        [self.loaderIndicator stopAnimation:nil];
         [self getDatabaseList];
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
@@ -643,7 +642,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 {
     [resultsTitle setStringValue:[NSString stringWithFormat:@"Server %@:%@ stats", self.connectionStore.host, self.connectionStore.hostport]];
     [self.client serverStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
-        [loaderIndicator stop];
+        [self.loaderIndicator stopAnimation:nil];
         if (self.client == [mongoQuery.parameters objectForKey:@"client"]) {
             NSMutableDictionary *diff = [[NSMutableDictionary alloc] init];
             
