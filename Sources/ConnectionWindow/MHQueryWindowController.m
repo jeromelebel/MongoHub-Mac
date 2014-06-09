@@ -688,11 +688,13 @@
         [NSViewHelpers setColor:self.updateResultsTextField.textColor fromColor:NSColor.redColor toTarget:self.updateResultsTextField withSelector:@selector(setTextColor:) delay:1];
     } else {
         [self.collection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
+            MODSortedMutableDictionary *realUpdate;
             if (self.updateMultiCheckBox.state == 0 && count > 0) {
                 count = 1;
             }
             
-            [self.collection updateWithCriteria:criteria update:update upsert:self.updateUpsetCheckBox.state multiUpdate:self.updateMultiCheckBox.state callback:^(MODQuery *mongoQuery) {
+            realUpdate = [[MODSortedMutableDictionary alloc] initWithObjectsAndKeys:update, @"$set", nil];
+            [self.collection updateWithCriteria:criteria update:realUpdate upsert:self.updateUpsetCheckBox.state multiUpdate:self.updateMultiCheckBox.state callback:^(MODQuery *mongoQuery) {
                 NSColor *flashColor;
                 
                 if (mongoQuery.error) {
@@ -707,6 +709,7 @@
                 [NSViewHelpers cancelColorForTarget:self.updateResultsTextField selector:@selector(setTextColor:)];
                 [NSViewHelpers setColor:self.updateResultsTextField.textColor fromColor:flashColor toTarget:self.updateResultsTextField withSelector:@selector(setTextColor:) delay:1];
             }];
+            [realUpdate release];
         }];
     }
 }
@@ -722,7 +725,7 @@
     }
     NSString *sets;
     if (self.updateUpdateTextField.stringValue.length > 0) {
-        sets = [[NSString alloc] initWithFormat:@", %@", self.updateUpdateTextField.stringValue];
+        sets = [[NSString alloc] initWithFormat:@", { $set: %@ }", self.updateUpdateTextField.stringValue];
     } else {
         sets = [[NSString alloc] initWithString:@""];
     }
