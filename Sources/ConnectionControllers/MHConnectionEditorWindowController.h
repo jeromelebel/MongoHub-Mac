@@ -20,35 +20,55 @@
 
 @interface MHConnectionEditorWindowController : NSWindowController
 {
-    IBOutlet NSTextField                *_hostTextField;
-    IBOutlet NSTextField                *_hostportTextField;
-    IBOutlet NSButton                   *_usereplCheckBox;
-    IBOutlet NSTextField                *_serversTextField;
-    IBOutlet NSTextField                *_replnameTextField;
-    IBOutlet NSTextField                *_aliasTextField;
-    IBOutlet NSTextField                *_adminuserTextField;
-    IBOutlet NSSecureTextField          *_adminpassTextField;
-    IBOutlet NSTextField                *_defaultdbTextField;
-    IBOutlet NSButton                   *_usesshCheckBox;
-    IBOutlet NSTextField                *_sshhostTextField;
-    IBOutlet NSTextField                *_sshportTextField;
-    IBOutlet NSTextField                *_sshuserTextField;
-    IBOutlet NSSecureTextField          *_sshpasswordTextField;
-    IBOutlet NSTextField                *_sshkeyfileTextField;
-    IBOutlet NSButton                   *_selectKeyFileButton;
-    IBOutlet NSButton                   *_addSaveButton;
+    NSTextField                         *_hostTextField;
+    NSTextField                         *_hostportTextField;
+    NSButton                            *_usereplCheckBox;
+    NSTextField                         *_serversTextField;
+    NSTextField                         *_replnameTextField;
+    NSTextField                         *_aliasTextField;
+    NSTextField                         *_adminuserTextField;
+    NSSecureTextField                   *_adminpassTextField;
+    NSTextField                         *_defaultdbTextField;
+    NSButton                            *_usesshCheckBox;
+    NSTextField                         *_sshhostTextField;
+    NSTextField                         *_sshportTextField;
+    NSTextField                         *_sshuserTextField;
+    NSSecureTextField                   *_sshpasswordTextField;
+    NSTextField                         *_sshkeyfileTextField;
+    NSButton                            *_selectKeyFileButton;
+    NSButton                            *_addSaveButton;
+    NSButton                            *_slaveOK;
     
     MHConnectionStore                   *_editedConnectionStore;
     MHConnectionStore                   *_connectionStoreDefaultValue;
     BOOL                                _newConnection;
     id<MHConnectionEditorWindowControllerDelegate> _delegate;
 }
-@property(nonatomic, retain, readwrite) MHConnectionStore *editedConnectionStore;
-@property(nonatomic, retain, readwrite) MHConnectionStore *connectionStoreDefaultValue;
-@property(nonatomic, assign, readwrite) id<MHConnectionEditorWindowControllerDelegate> delegate;
-@property(nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, assign, readonly) ConnectionsArrayController *connectionsArrayController;
-@property(nonatomic, assign, readonly, getter=isNewConnetion) BOOL newConnection;
+@property (nonatomic, retain, readwrite) MHConnectionStore *editedConnectionStore;
+@property (nonatomic, retain, readwrite) MHConnectionStore *connectionStoreDefaultValue;
+@property (nonatomic, assign, readwrite) id<MHConnectionEditorWindowControllerDelegate> delegate;
+@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, assign, readonly, getter=isNewConnetion) BOOL newConnection;
+
+@property (nonatomic, readonly, assign) IBOutlet NSButton *slaveOK;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *hostTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *hostportTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSButton *usereplCheckBox;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *serversTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *replnameTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *aliasTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *adminuserTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSSecureTextField *adminpassTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *defaultdbTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSButton *usesshCheckBox;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *sshhostTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *sshportTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *sshuserTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSSecureTextField *sshpasswordTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *sshkeyfileTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSButton *selectKeyFileButton;
+@property (nonatomic, readonly, assign) IBOutlet NSButton *addSaveButton;
+@property (nonatomic, readonly, assign) IBOutlet ConnectionsArrayController *connectionsArrayController;
 
 - (IBAction)cancelAction:(id)sender;
 - (IBAction)addSaveAction:(id)sender;

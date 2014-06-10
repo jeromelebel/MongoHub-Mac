@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHConnectionEditorWindowController">
             <connections>
-                <outlet property="_addSaveButton" destination="11" id="120"/>
-                <outlet property="_adminpassTextField" destination="85" id="132"/>
-                <outlet property="_adminuserTextField" destination="79" id="131"/>
-                <outlet property="_aliasTextField" destination="27" id="128"/>
-                <outlet property="_connectionsArrayController" destination="21" id="123"/>
-                <outlet property="_defaultdbTextField" destination="91" id="133"/>
-                <outlet property="_hostTextField" destination="3" id="129"/>
-                <outlet property="_hostportTextField" destination="32" id="130"/>
-                <outlet property="_replnameTextField" destination="105" id="137"/>
-                <outlet property="_selectKeyFileButton" destination="114" id="162"/>
-                <outlet property="_serversTextField" destination="100" id="136"/>
-                <outlet property="_sshhostTextField" destination="47" id="138"/>
-                <outlet property="_sshkeyfileTextField" destination="111" id="142"/>
-                <outlet property="_sshpasswordTextField" destination="71" id="141"/>
-                <outlet property="_sshportTextField" destination="76" id="139"/>
-                <outlet property="_sshuserTextField" destination="51" id="140"/>
-                <outlet property="_usereplCheckBox" destination="94" id="134"/>
-                <outlet property="_usesshCheckBox" destination="34" id="135"/>
+                <outlet property="addSaveButton" destination="11" id="WBj-QH-AgK"/>
+                <outlet property="adminpassTextField" destination="85" id="PXA-VR-zex"/>
+                <outlet property="adminuserTextField" destination="79" id="ZN0-qv-yXb"/>
+                <outlet property="aliasTextField" destination="27" id="FQ7-rk-i4Z"/>
+                <outlet property="connectionsArrayController" destination="21" id="kN0-iw-FcP"/>
+                <outlet property="defaultdbTextField" destination="91" id="rvT-vm-3H4"/>
+                <outlet property="hostTextField" destination="3" id="Onr-ju-x6A"/>
+                <outlet property="hostportTextField" destination="32" id="QUl-QK-bCN"/>
+                <outlet property="replnameTextField" destination="105" id="wzS-aS-zb5"/>
+                <outlet property="selectKeyFileButton" destination="114" id="g3t-bU-zzn"/>
+                <outlet property="serversTextField" destination="100" id="01x-2a-h1y"/>
+                <outlet property="slaveOK" destination="EXv-7C-nFc" id="b1w-qc-5rs"/>
+                <outlet property="sshhostTextField" destination="47" id="RZ1-GN-vnc"/>
+                <outlet property="sshkeyfileTextField" destination="111" id="u4P-Zl-4rC"/>
+                <outlet property="sshpasswordTextField" destination="71" id="Z9b-Nd-g7o"/>
+                <outlet property="sshportTextField" destination="76" id="MmB-ih-lac"/>
+                <outlet property="sshuserTextField" destination="51" id="mVm-mF-hhs"/>
+                <outlet property="usereplCheckBox" destination="94" id="Glm-oE-b2t"/>
+                <outlet property="usesshCheckBox" destination="34" id="Xaw-m3-zU3"/>
                 <outlet property="window" destination="1" id="19"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
-        <window title="Add New Connection" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" wantsToBeColor="NO" visibleAtLaunch="NO" animationBehavior="default" id="1">
+        <window title="Add New Connection" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="529" y="165" width="349" height="501"/>
+            <rect key="contentRect" x="529" y="165" width="349" height="534"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="349" height="501"/>
+                <rect key="frame" x="0.0" y="0.0" width="349" height="534"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" id="3">
-                        <rect key="frame" x="82" y="433" width="169" height="22"/>
+                        <rect key="frame" x="82" y="461" width="169" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="127.0.0.1" drawsBackground="YES" id="4">
                             <font key="font" metaFont="system"/>
@@ -52,7 +53,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" id="7">
-                        <rect key="frame" x="15" y="436" width="61" height="17"/>
+                        <rect key="frame" x="15" y="464" width="61" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Address" id="8">
                             <font key="font" metaFont="system"/>
@@ -61,7 +62,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="9">
-                        <rect key="frame" x="35" y="467" width="41" height="17"/>
+                        <rect key="frame" x="35" y="495" width="41" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name" id="10">
                             <font key="font" metaFont="system"/>
@@ -100,7 +101,7 @@ Gw
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="27">
-                        <rect key="frame" x="82" y="464" width="247" height="22"/>
+                        <rect key="frame" x="82" y="492" width="247" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Label" drawsBackground="YES" id="28">
                             <font key="font" metaFont="system"/>
@@ -112,7 +113,7 @@ Gw
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" id="30">
-                        <rect key="frame" x="256" y="436" width="9" height="17"/>
+                        <rect key="frame" x="256" y="464" width="9" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title=":" id="31">
                             <font key="font" metaFont="system"/>
@@ -121,7 +122,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="32">
-                        <rect key="frame" x="270" y="433" width="59" height="22"/>
+                        <rect key="frame" x="270" y="461" width="59" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="27017" drawsBackground="YES" id="33">
                             <font key="font" metaFont="system"/>
@@ -232,7 +233,7 @@ Gw
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" id="79">
-                        <rect key="frame" x="82" y="402" width="169" height="22"/>
+                        <rect key="frame" x="82" y="430" width="169" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Admin Username" drawsBackground="YES" id="80">
                             <font key="font" metaFont="system"/>
@@ -244,7 +245,7 @@ Gw
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" id="81">
-                        <rect key="frame" x="38" y="405" width="38" height="17"/>
+                        <rect key="frame" x="38" y="433" width="38" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="User" id="82">
                             <font key="font" metaFont="system"/>
@@ -253,7 +254,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="83">
-                        <rect key="frame" x="12" y="371" width="64" height="17"/>
+                        <rect key="frame" x="12" y="399" width="64" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password" id="84">
                             <font key="font" metaFont="system"/>
@@ -262,7 +263,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <secureTextField verticalHuggingPriority="750" id="85">
-                        <rect key="frame" x="82" y="371" width="169" height="22"/>
+                        <rect key="frame" x="82" y="399" width="169" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Password" drawsBackground="YES" usesSingleLineMode="YES" id="86">
                             <font key="font" metaFont="system"/>
@@ -277,7 +278,7 @@ Gw
                         </connections>
                     </secureTextField>
                     <textField verticalHuggingPriority="750" id="89">
-                        <rect key="frame" x="3" y="342" width="73" height="17"/>
+                        <rect key="frame" x="3" y="370" width="73" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Database" id="90">
                             <font key="font" metaFont="system"/>
@@ -286,7 +287,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="91">
-                        <rect key="frame" x="82" y="340" width="247" height="22"/>
+                        <rect key="frame" x="82" y="368" width="247" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Database Name" drawsBackground="YES" id="92">
                             <font key="font" metaFont="system"/>
@@ -405,6 +406,14 @@ Gw
                             <action selector="chooseKeyPathAction:" target="-2" id="122"/>
                             <outlet property="nextKeyView" destination="13" id="159"/>
                         </connections>
+                    </button>
+                    <button id="EXv-7C-nFc">
+                        <rect key="frame" x="80" y="344" width="77" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Slave OK" bezelStyle="regularSquare" imagePosition="left" inset="2" id="8Bs-KU-Rpo">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
                     </button>
                 </subviews>
             </view>
