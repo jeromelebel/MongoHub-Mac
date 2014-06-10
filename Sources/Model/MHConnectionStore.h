@@ -51,6 +51,6 @@
 @property (nonatomic, retain) NSNumber *bindport;
 @property (nonatomic, retain) NSNumber *usessh;
 @property (nonatomic, retain) NSNumber *userepl;
-@property (nonatomic, assign) BOOL *slaveOK;
+@property (nonatomic, assign) BOOL slaveOK;
 
 @end
