@@ -409,16 +409,19 @@
         [self.tabViewController addTabItemViewController:self.statusViewController];
     }
     [self.statusViewController showServerStatus];
+    [self.statusViewController select];
 }
 
 - (IBAction)showDatabaseStatus:(id)sender 
 {
     [self showDatabaseStatusWithDatabaseItem:self.selectedDatabaseItem];
+    [self.statusViewController select];
 }
 
 - (IBAction)showCollStats:(id)sender 
 {
     [self showCollectionStatusWithCollectionItem:self.selectedCollectionItem];
+    [self.statusViewController select];
 }
 
 - (void)outlineViewDoubleClickAction:(id)sender
