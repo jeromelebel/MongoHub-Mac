@@ -24,12 +24,12 @@
         </item>
     </channel>
     <channel>
-        <beta>1</beta>
         <title>MongoHub Beta</title>
         <link>https://mongohub.s3.amazonaws.com/mongohub_su_feed.xml</link>
         <description>Beta updates.</description>
         <language>en</language>
         <item>
+            <beta>1</beta>
             <title>Version 2.7 beta 2</title>
             <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b2.zip" sparkle:version="2.7b2" length="3626529" type="application/octet-stream" />
             <description><![CDATA[
