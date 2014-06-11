@@ -227,28 +227,7 @@
     [self updateQueryComposer:nil];
     [self removeQueryComposer:nil];
     [self exportQueryComposer:nil];
-}
 
-- (IBAction)findQuery:(id)sender
-{
-    int limit = [_limitTextField intValue];
-    NSMutableArray *fields;
-    NSString *criteria;
-    NSString *sort = [self formatedQuerySort];
-    NSString *queryTitle = [[_criteriaComboBox stringValue] retain];
-    
-    [self findQueryComposer:nil];
-    if (limit <= 0) {
-        limit = 30;
-    }
-    criteria = [self formatedQueryWithReplace:YES];
-    fields = [[NSMutableArray alloc] init];
-    for (NSString *field in [[_fieldsTextField stringValue] componentsSeparatedByString:@","]) {
-        field = [field stringByTrimmingWhitespace];
-        if ([field length] > 0) {
-            [fields addObject:field];
-        }
-    }
     
     // Using a fixed-width font is a little easier on the eyes when dealing with JavaScript objects.
     [self.mapFunctionTextView setFont:[NSFont fontWithName:@"Menlo" size:12]];
@@ -285,6 +264,28 @@
     [self.insertDataTextView setAutomaticQuoteSubstitutionEnabled:NO];
     [self.insertDataTextView setAutomaticSpellingCorrectionEnabled:NO];
     [self.insertDataTextView setAutomaticTextReplacementEnabled:NO];
+}
+
+- (IBAction)findQuery:(id)sender
+{
+    int limit = [_limitTextField intValue];
+    NSMutableArray *fields;
+    NSString *criteria;
+    NSString *sort = [self formatedQuerySort];
+    NSString *queryTitle = [[_criteriaComboBox stringValue] retain];
+    
+    [self findQueryComposer:nil];
+    if (limit <= 0) {
+        limit = 30;
+    }
+    criteria = [self formatedQueryWithReplace:YES];
+    fields = [[NSMutableArray alloc] init];
+    for (NSString *field in [[_fieldsTextField stringValue] componentsSeparatedByString:@","]) {
+        field = [field stringByTrimmingWhitespace];
+        if ([field length] > 0) {
+            [fields addObject:field];
+        }
+    }
     
     [findQueryLoaderIndicator start];
     [_mongoCollection findWithCriteria:criteria fields:fields skip:[_skipTextField intValue] limit:limit sort:sort callback:^(NSArray *documents, NSArray *bsonData, MODQuery *mongoQuery) {
