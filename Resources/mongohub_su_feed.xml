@@ -6,18 +6,14 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Version 2.6</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.6.zip" sparkle:version="2.6" length="3204854" type="application/octet-stream" />
+            <title>Version 2.6.1</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.6.1.zip" sparkle:version="2.6.1" length="3210528" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.6</h3>
+                <h3>2.6.1</h3>
                 <ul>
-                    <li>Support for tengen json</li>
-                    <li>Progress bar while importing/exporting to/from file</li>
-                    <li>A lot of fix to convert dates with milliseconds into json and parse dates with milliseconds</li>
-                    <li>Using more sheets instead of modal panels</li>
-                    <li>Few crashes fixed</li>
-                    <li>More checks to make sure a document is parsed correctly (and therefore there is no modification while converting a document into json and parsing again the json)</li>
-                    <li>Better support for long integer vs integer</li>
+                    <li>Avoid automatic correction from the system while editing a new document <a href='https://github.com/fotonauts/MongoHub-Mac/issues/121'>issue #121</a> (Thanks to Anthony Williams with <a href='https://github.com/fotonauts/MongoHub-Mac/pull/122'>pull #122</a>)
+                    <li>Avoid automatic correction from the system while doing map/reduce</li>
+                    <li>Be able to downgrade from 2.7 beta</li>
                 </ul>
             ]]>
             </description>
