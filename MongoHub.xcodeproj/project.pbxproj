@@ -297,6 +297,7 @@
 		02A7C40D1482DF080099CDD1 /* MHMysqlExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMysqlExporter.m; sourceTree = "<group>"; };
 		02AA29911477F8BD0041865F /* MHFileExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHFileExporter.h; sourceTree = "<group>"; };
 		02AA29921477F8BD0041865F /* MHFileExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHFileExporter.m; sourceTree = "<group>"; };
+		02AB33A6194850BD008C06B9 /* MongoHub_DataModel3.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel3.0.xcdatamodel; sourceTree = "<group>"; };
 		02B143DA147C720D005AB320 /* MHFileImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHFileImporter.h; sourceTree = "<group>"; };
 		02B143DB147C720D005AB320 /* MHFileImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHFileImporter.m; sourceTree = "<group>"; };
 		02CEE9BC1486DD7A00E488DA /* MHTabTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabTitleView.h; sourceTree = "<group>"; };
@@ -1307,11 +1308,12 @@
 		021BEA641463709A0091C2EA /* MongoHub_DataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				02AB33A6194850BD008C06B9 /* MongoHub_DataModel3.0.xcdatamodel */,
 				021BEA651463709A0091C2EA /* MongoHub_DataModel.xcdatamodel */,
 				021BEA661463709A0091C2EA /* MongoHub_DataModel1.0.xcdatamodel */,
 				021BEA671463709A0091C2EA /* MongoHub_DataModel2.0.xcdatamodel */,
 			);
-			currentVersion = 021BEA651463709A0091C2EA /* MongoHub_DataModel.xcdatamodel */;
+			currentVersion = 02AB33A6194850BD008C06B9 /* MongoHub_DataModel3.0.xcdatamodel */;
 			path = MongoHub_DataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

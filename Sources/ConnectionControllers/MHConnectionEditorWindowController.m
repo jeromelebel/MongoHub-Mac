@@ -121,6 +121,7 @@
         if (defaultValue.sshpassword) self.sshpasswordTextField.stringValue = defaultValue.sshpassword;
         if (defaultValue.sshkeyfile) self.sshkeyfileTextField.stringValue = defaultValue.sshkeyfile;
         self.usesshCheckBox.state = defaultValue.usessh.boolValue?NSOnState:NSOffState;
+        self.slaveOK.state = defaultValue.slaveOK?NSOnState:NSOffState;
     } else {
         self.window.title = NSLocalizedString(@"New Connection", @"New Connection");
         self.hostTextField.stringValue = @"";
@@ -138,6 +139,7 @@
         self.sshpasswordTextField.stringValue = @"";
         self.sshkeyfileTextField.stringValue = @"";
         self.usesshCheckBox.state = NSOffState;
+        self.slaveOK.state = NSOffState;
     }
     self.sshhostTextField.enabled = self.usereplCheckBox.state == NSOnState;
     self.sshuserTextField.enabled = self.usereplCheckBox.state == NSOnState;
@@ -256,6 +258,7 @@
     self.editedConnectionStore.sshpassword = self.sshpasswordTextField.stringValue;
     self.editedConnectionStore.sshkeyfile = self.sshkeyfileTextField.stringValue;
     self.editedConnectionStore.usessh = [NSNumber numberWithBool:useSSH];
+    self.editedConnectionStore.slaveOK = self.slaveOK.state == NSOnState;
     if (self.newConnection) {
         [self.connectionsArrayController addObject:self.editedConnectionStore];
     }
