@@ -251,6 +251,30 @@
     }
     
     // Using a fixed-width font is a little easier on the eyes when dealing with JavaScript objects.
+    [self.mapFunctionTextView setFont:[NSFont fontWithName:@"Menlo" size:12]];
+    
+    // Disable spell checking and substitutions.
+    // When dealing with JavaScript objects, switching regular double quotes into smart quotes isn't helpful.
+    [self.mapFunctionTextView setAutomaticDashSubstitutionEnabled:NO];
+    [self.mapFunctionTextView setAutomaticDataDetectionEnabled:NO];
+    [self.mapFunctionTextView setAutomaticLinkDetectionEnabled:NO];
+    [self.mapFunctionTextView setAutomaticQuoteSubstitutionEnabled:NO];
+    [self.mapFunctionTextView setAutomaticSpellingCorrectionEnabled:NO];
+    [self.mapFunctionTextView setAutomaticTextReplacementEnabled:NO];
+    
+    // Using a fixed-width font is a little easier on the eyes when dealing with JavaScript objects.
+    [self.reduceFunctionTextView setFont:[NSFont fontWithName:@"Menlo" size:12]];
+    
+    // Disable spell checking and substitutions.
+    // When dealing with JavaScript objects, switching regular double quotes into smart quotes isn't helpful.
+    [self.reduceFunctionTextView setAutomaticDashSubstitutionEnabled:NO];
+    [self.reduceFunctionTextView setAutomaticDataDetectionEnabled:NO];
+    [self.reduceFunctionTextView setAutomaticLinkDetectionEnabled:NO];
+    [self.reduceFunctionTextView setAutomaticQuoteSubstitutionEnabled:NO];
+    [self.reduceFunctionTextView setAutomaticSpellingCorrectionEnabled:NO];
+    [self.reduceFunctionTextView setAutomaticTextReplacementEnabled:NO];
+    
+    // Using a fixed-width font is a little easier on the eyes when dealing with JavaScript objects.
     [self.insertDataTextView setFont:[NSFont fontWithName:@"Menlo" size:12]];
     
     // Disable spell checking and substitutions.
