@@ -30,10 +30,10 @@
         <description>Beta updates.</description>
         <language>en</language>
         <item>
-            <title>Version 2.7 beta 1</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b1.zip" sparkle:version="2.7b1" length="3626529" type="application/octet-stream" />
+            <title>Version 2.7 beta 2</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b2.zip" sparkle:version="2.7b2" length="3626529" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.7 beta 1</h3>
+                <h3>2.7 beta 2</h3>
                 <ul>
                     <li>Avoid modification while connecting to a secondary node</li>
                     <li>Avoid automatic correction from the system while editing a new document <a href='https://github.com/fotonauts/MongoHub-Mac/issues/121'>issue #121</a> (Thanks to Anthony Williams with <a href='https://github.com/fotonauts/MongoHub-Mac/pull/122'>pull #122</a>)
