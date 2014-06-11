@@ -37,7 +37,7 @@
     NSTextField                         *_sshkeyfileTextField;
     NSButton                            *_selectKeyFileButton;
     NSButton                            *_addSaveButton;
-    NSButton                            *_slaveOK;
+    NSPopUpButton                       *_defaultReadModePopUpButton;
     
     MHConnectionStore                   *_editedConnectionStore;
     MHConnectionStore                   *_connectionStoreDefaultValue;
@@ -50,7 +50,6 @@
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, assign, readonly, getter=isNewConnetion) BOOL newConnection;
 
-@property (nonatomic, readonly, assign) IBOutlet NSButton *slaveOK;
 @property (nonatomic, readonly, assign) IBOutlet NSTextField *hostTextField;
 @property (nonatomic, readonly, assign) IBOutlet NSTextField *hostportTextField;
 @property (nonatomic, readonly, assign) IBOutlet NSButton *usereplCheckBox;
@@ -68,6 +67,7 @@
 @property (nonatomic, readonly, assign) IBOutlet NSTextField *sshkeyfileTextField;
 @property (nonatomic, readonly, assign) IBOutlet NSButton *selectKeyFileButton;
 @property (nonatomic, readonly, assign) IBOutlet NSButton *addSaveButton;
+@property (nonatomic, readonly, assign) IBOutlet NSPopUpButton *defaultReadModePopUpButton;
 @property (nonatomic, readonly, assign) IBOutlet ConnectionsArrayController *connectionsArrayController;
 
 - (IBAction)cancelAction:(id)sender;

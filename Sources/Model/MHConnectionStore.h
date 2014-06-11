@@ -7,6 +7,7 @@
 //
 
 #import <CoreData/CoreData.h>
+#import <mongo-objc-driver/MOD_public.h>
 
 @interface MHConnectionStore : NSManagedObject
 {
@@ -33,6 +34,6 @@
 @property (nonatomic, retain) NSNumber *bindport;
 @property (nonatomic, retain) NSNumber *usessh;
 @property (nonatomic, retain) NSNumber *userepl;
-@property (nonatomic, assign) BOOL slaveOK;
+@property (nonatomic, assign) MODReadPreferencesReadMode defaultReadMode;
 
 @end

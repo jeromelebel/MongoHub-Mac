@@ -280,6 +280,7 @@
             }
         }
         self.client = [MODClient clientWihtURLString:uri];
+        self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
         self.statusViewController.client = self.client;
         self.statusViewController.connectionStore = self.connectionStore;
         [self.client serverStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {

@@ -34,7 +34,7 @@
 @dynamic sshkeyfile;
 @dynamic bindaddress;
 @dynamic bindport;
-@dynamic slaveOK;
+@dynamic defaultReadMode;
 
 - (NSArray *)queryHistoryWithDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName
 {

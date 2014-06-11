@@ -14,7 +14,6 @@
 #define COPY_ALIAS_SUFFIX @" - Copy"
 
 @interface MHConnectionEditorWindowController ()
-@property (nonatomic, readwrite, assign) NSButton *slaveOK;
 @property (nonatomic, readwrite, assign) NSTextField *hostTextField;
 @property (nonatomic, readwrite, assign) NSTextField *hostportTextField;
 @property (nonatomic, readwrite, assign) NSButton *usereplCheckBox;
@@ -32,10 +31,55 @@
 @property (nonatomic, readwrite, assign) NSTextField *sshkeyfileTextField;
 @property (nonatomic, readwrite, assign) NSButton *selectKeyFileButton;
 @property (nonatomic, readwrite, assign) NSButton *addSaveButton;
+@property (nonatomic, readwrite, assign) NSPopUpButton *defaultReadModePopUpButton;
 
 @property (nonatomic, readwrite, assign, getter=isNewConnetion) BOOL newConnection;
 
 @end
+
+static NSInteger tagFromPreferenceReadMode(MODReadPreferencesReadMode readMode)
+{
+    switch (readMode) {
+        case MODReadPreferencesReadPrimaryMode:
+            return 0;
+            break;
+        case MODReadPreferencesReadSecondaryMode:
+            return 1;
+            break;
+        case MODReadPreferencesReadPrimaryPreferredMode:
+            return 2;
+            break;
+        case MODReadPreferencesReadSecondaryPreferredMode:
+            return 3;
+            break;
+        case MODReadPreferencesReadNearestMode:
+            return 4;
+            break;
+    }
+    return 0;
+}
+
+static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
+{
+    switch (tag) {
+        default:
+        case 0:
+            return MODReadPreferencesReadPrimaryMode;
+            break;
+        case 1:
+            return MODReadPreferencesReadSecondaryMode;
+            break;
+        case 2:
+            return MODReadPreferencesReadPrimaryPreferredMode;
+            break;
+        case 3:
+            return MODReadPreferencesReadSecondaryPreferredMode;
+            break;
+        case 4:
+            return MODReadPreferencesReadNearestMode;
+            break;
+    }
+}
 
 @implementation MHConnectionEditorWindowController
 
@@ -44,7 +88,7 @@
 @synthesize newConnection = _newConnection;
 @synthesize connectionStoreDefaultValue = _connectionStoreDefaultValue;
 
-@synthesize slaveOK = _slaveOK, hostTextField = _hostTextField, hostportTextField = _hostportTextField, usereplCheckBox = _usereplCheckBox, serversTextField = _serversTextField, replnameTextField = _replnameTextField, aliasTextField = _aliasTextField, adminuserTextField = _adminuserTextField, adminpassTextField = _adminpassTextField, defaultdbTextField = _defaultdbTextField, usesshCheckBox = _usesshCheckBox, sshhostTextField = _sshhostTextField, sshportTextField = _sshportTextField, sshuserTextField = _sshuserTextField, sshpasswordTextField = _sshpasswordTextField, sshkeyfileTextField = _sshkeyfileTextField, selectKeyFileButton = _selectKeyFileButton, addSaveButton = _addSaveButton;
+@synthesize hostTextField = _hostTextField, hostportTextField = _hostportTextField, usereplCheckBox = _usereplCheckBox, serversTextField = _serversTextField, replnameTextField = _replnameTextField, aliasTextField = _aliasTextField, adminuserTextField = _adminuserTextField, adminpassTextField = _adminpassTextField, defaultdbTextField = _defaultdbTextField, usesshCheckBox = _usesshCheckBox, sshhostTextField = _sshhostTextField, sshportTextField = _sshportTextField, sshuserTextField = _sshuserTextField, sshpasswordTextField = _sshpasswordTextField, sshkeyfileTextField = _sshkeyfileTextField, selectKeyFileButton = _selectKeyFileButton, addSaveButton = _addSaveButton, defaultReadModePopUpButton = _defaultReadModePopUpButton;
 
 - (id)init
 {
@@ -121,7 +165,7 @@
         if (defaultValue.sshpassword) self.sshpasswordTextField.stringValue = defaultValue.sshpassword;
         if (defaultValue.sshkeyfile) self.sshkeyfileTextField.stringValue = defaultValue.sshkeyfile;
         self.usesshCheckBox.state = defaultValue.usessh.boolValue?NSOnState:NSOffState;
-        self.slaveOK.state = defaultValue.slaveOK?NSOnState:NSOffState;
+        [self.defaultReadModePopUpButton selectItemWithTag:tagFromPreferenceReadMode(defaultValue.defaultReadMode)];
     } else {
         self.window.title = NSLocalizedString(@"New Connection", @"New Connection");
         self.hostTextField.stringValue = @"";
@@ -139,7 +183,7 @@
         self.sshpasswordTextField.stringValue = @"";
         self.sshkeyfileTextField.stringValue = @"";
         self.usesshCheckBox.state = NSOffState;
-        self.slaveOK.state = NSOffState;
+        [self.defaultReadModePopUpButton selectItemWithTag:0];
     }
     self.sshhostTextField.enabled = self.usereplCheckBox.state == NSOnState;
     self.sshuserTextField.enabled = self.usereplCheckBox.state == NSOnState;
@@ -258,7 +302,7 @@
     self.editedConnectionStore.sshpassword = self.sshpasswordTextField.stringValue;
     self.editedConnectionStore.sshkeyfile = self.sshkeyfileTextField.stringValue;
     self.editedConnectionStore.usessh = [NSNumber numberWithBool:useSSH];
-    self.editedConnectionStore.slaveOK = self.slaveOK.state == NSOnState;
+    self.editedConnectionStore.defaultReadMode = preferenceReadModeFromTag(self.defaultReadModePopUpButton.selectedTag);
     if (self.newConnection) {
         [self.connectionsArrayController addObject:self.editedConnectionStore];
     }
