@@ -25,6 +25,8 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ## History
 
+** 2.6.1 - june 12, 2014 **
+
 ** 2.6 - april 17, 2014 **
 
     - Support for tengen json
