@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
     <channel>
         <title>MongoHub</title>
-        <link>https://mongohub.s3.amazonaws.com/su_feed.xml</link>
+        <link>https://mongohub.s3.amazonaws.com/mongohub_su_feed.xml</link>
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
@@ -26,12 +26,12 @@
     <channel>
         <beta>1</beta>
         <title>MongoHub Beta</title>
-        <link>https://mongohub.s3.amazonaws.com/su_feed.xml</link>
+        <link>https://mongohub.s3.amazonaws.com/mongohub_su_feed.xml</link>
         <description>Beta updates.</description>
         <language>en</language>
         <item>
             <title>Version 2.7 beta 1</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b1.zip" sparkle:version="2.67b1" length="3626529" type="application/octet-stream" />
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b1.zip" sparkle:version="2.7b1" length="3626529" type="application/octet-stream" />
             <description><![CDATA[
                 <h3>2.7 beta 1</h3>
                 <ul>
