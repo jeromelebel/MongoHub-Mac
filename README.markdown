@@ -24,12 +24,14 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 ** Current **
     
     - Avoid modification while connecting to a secondary node
-    - Avoid automatic correction from the system while editing a new document https://github.com/fotonauts/MongoHub-Mac/issues/121 (Thanks to Anthony Williams with https://github.com/fotonauts/MongoHub-Mac/pull/122)
-    - Avoid automatic correction from the system while doing map/reduce
 
 ## History
 
-** 2.6.1 - june 12, 2014 **
+** 2.6.2 - june 12, 2014 **
+
+    - Be able to downgrade from 2.7 beta
+    - Avoid automatic correction from the system while editing a new document https://github.com/fotonauts/MongoHub-Mac/issues/121 (Thanks to Anthony Williams with https://github.com/fotonauts/MongoHub-Mac/pull/122)
+    - Avoid automatic correction from the system while doing map/reduce
 
 ** 2.6 - april 17, 2014 **
 
