@@ -27,7 +27,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** Beta **
     
-    - Support for functions and scope functions
+    - Support for functions and scope functions https://github.com/fotonauts/MongoHub-Mac/issues/120
 
 ## History
 
