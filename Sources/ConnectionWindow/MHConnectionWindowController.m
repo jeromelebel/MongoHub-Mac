@@ -50,6 +50,7 @@
 @property (nonatomic, readwrite, strong) NSMutableDictionary *tabItemControllers;
 @property (nonatomic, readwrite, strong) MHStatusViewController *statusViewController;
 @property (nonatomic, readwrite, weak) IBOutlet MHTabViewController *tabViewController;
+@property (nonatomic, readwrite, assign) unsigned short sshTunnelPort;
 
 
 - (void)updateToolbarItems;
@@ -88,6 +89,7 @@
 @synthesize tabItemControllers = _tabItemControllers;
 @synthesize statusViewController = _statusViewController;
 @synthesize tabViewController = _tabViewController;
+@synthesize sshTunnelPort = _sshTunnelPort;
 
 - (id)init
 {
@@ -222,7 +224,7 @@
         unsigned short hostPort;
         NSString *hostAddress;
         
-        _sshTunnelPort = [MHTunnel findFreeTCPPort];
+        self.sshTunnelPort = [MHTunnel findFreeTCPPort];
         if (!self.sshTunnel) {
             self.sshTunnel = [[[MHTunnel alloc] init] autorelease];
         }
@@ -244,28 +246,28 @@
         if (hostAddress.length == 0) {
             hostAddress = @"127.0.0.1";
         }
-        [self.sshTunnel addForwardingPortWithBindAddress:nil bindPort:_sshTunnelPort hostAddress:hostAddress hostPort:hostPort reverseForwarding:NO];
+        [self.sshTunnel addForwardingPortWithBindAddress:nil bindPort:self.sshTunnelPort hostAddress:hostAddress hostPort:hostPort reverseForwarding:NO];
         [self.sshTunnel start];
         return;
     } else {
+        NSString *auth = @"";
+        NSString *ip = nil;
         NSString *uri;
         
         [self closeMongoDB];
         self.serverItem = [[[MHServerItem alloc] initWithClient:self.client delegate:self] autorelease];
-        if (self.connectionStore.adminuser.length > 0 && self.connectionStore.adminpass.length > 0) {
-//            self.client.userName = self.connectionStore.adminuser;
-//            self.client.password = self.connectionStore.adminpass;
-//            if (self.connectionStore.defaultdb.length > 0) {
-//                self.client.authDatabase = self.connectionStore.defaultdb;
-//            } else {
-//                self.client.authDatabase = @"admin";
-//            }
+        if (self.connectionStore.adminuser.length > 0) {
+            if (self.connectionStore.adminpass.length > 0) {
+                auth = [NSString stringWithFormat:@"%@:%@@", self.connectionStore.adminuser, self.connectionStore.adminpass];
+            } else {
+                auth = [NSString stringWithFormat:@"%@@", self.connectionStore.adminuser];
+            }
         }
         if (self.connectionStore.userepl.intValue == 1) {
-            uri = [[NSString alloc] initWithFormat:@"mongodb://%@", self.connectionStore.servers];
+            ip = self.connectionStore.servers;
         } else {
             if (self.connectionStore.usessh.intValue == 1) {
-                uri = [[NSString alloc] initWithFormat:@"mongodb://127.0.0.1:%u", _sshTunnelPort];
+                ip = [NSString stringWithFormat:@"127.0.0.1:%u", self.sshTunnelPort];
             } else {
                 NSString *host = self.connectionStore.host.stringByTrimmingWhitespace;
                 NSNumber *hostport = self.connectionStore.hostport;
@@ -274,11 +276,14 @@
                     host = DEFAULT_MONGO_IP;
                 }
                 if (hostport.intValue == 0) {
-                    hostport = [NSNumber numberWithInt:MODClient.defaultPort];
+                    ip = [NSString stringWithFormat:@"%@", host];
+                } else {
+                    ip = [NSString stringWithFormat:@"%@:%@", host, hostport];
                 }
-                uri = [[NSString alloc] initWithFormat:@"mongodb://%@:%@", host, hostport];
             }
         }
+        NSAssert(ip != nil, @"need an ip");
+        uri = [NSString stringWithFormat:@"mongodb://%@%@/%@", auth, ip, self.connectionStore.defaultdb];
         self.client = [MODClient clientWihtURLString:uri];
         self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
         self.statusViewController.client = self.client;
@@ -290,7 +295,6 @@
                 [self didConnect];
             }
         }];
-        [uri release];
     }
 }
 
