@@ -363,7 +363,7 @@
     
     mongoDatabase = databaseItem.database;
     [self.loaderIndicator startAnimation:nil];
-    result = [mongoDatabase fetchCollectionListWithCallback:^(NSArray *collectionList, MODQuery *mongoQuery) {
+    result = [mongoDatabase collectionNamesWithCallback:^(NSArray *collectionList, MODQuery *mongoQuery) {
         MHDatabaseItem *databaseItem;
         
         [self.loaderIndicator stopAnimation:nil];
