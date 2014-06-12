@@ -6,10 +6,10 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Version 2.6.1</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.6.1.zip" sparkle:version="2.6.1" length="3210528" type="application/octet-stream" />
+            <title>Version 2.6.2</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.6.2.zip" sparkle:version="2.6.2" length="3211494" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.6.1</h3>
+                <h3>2.6.2</h3>
                 <ul>
                     <li>Avoid automatic correction from the system while editing a new document <a href='https://github.com/fotonauts/MongoHub-Mac/issues/121'>issue #121</a> (Thanks to Anthony Williams with <a href='https://github.com/fotonauts/MongoHub-Mac/pull/122'>pull #122</a>)
                     <li>Avoid automatic correction from the system while doing map/reduce</li>
