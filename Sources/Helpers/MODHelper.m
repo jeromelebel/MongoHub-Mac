@@ -157,7 +157,13 @@
         }
     } else if ([dataValue isKindOfClass:[MODUndefined class]]) {
         type = @"Undefined";
-      value = [dataValue jsonValueWithPretty:YES strictJSON:NO];
+        value = [dataValue jsonValueWithPretty:YES strictJSON:NO];
+    } else if ([dataValue isKindOfClass:[MODFunction class]]) {
+        type = @"Function";
+        value = [dataValue function];
+    } else if ([dataValue isKindOfClass:[MODScopeFunction class]]) {
+        type = @"ScopeFunction";
+        value = [dataValue function];
     } else {
         NSLog(@"type %@ value %@", [dataValue class], dataValue);
         NSAssert(NO, @"unknown type type %@ value %@", [dataValue class], dataValue);

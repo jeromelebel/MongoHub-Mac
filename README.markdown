@@ -25,6 +25,10 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     
     - Avoid modification while connecting to a secondary node
 
+** Beta **
+    
+    - Support for functions and scope functions
+
 ## History
 
 ** 2.6.2 - june 12, 2014 **
