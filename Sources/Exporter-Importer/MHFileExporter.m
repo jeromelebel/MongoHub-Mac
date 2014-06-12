@@ -46,7 +46,7 @@
         self.error = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
         [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterStopNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.error, @"error", nil]];
     } else {
-        [_collection countWithCriteria:nil callback:^(int64_t count, MODQuery *mongoQuery) {
+        [_collection countWithCriteria:nil readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
             MODCursor *cursor;
             int64_t step;
             

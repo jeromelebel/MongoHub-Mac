@@ -108,7 +108,7 @@
 {
     MODQuery *query;
     
-    query = [collection countWithCriteria:nil callback:nil];
+    query = [collection countWithCriteria:nil readPreferences:nil callback:nil];
     [query waitUntilFinished];
     return [[query.parameters objectForKey:@"count"] longLongValue];
 }

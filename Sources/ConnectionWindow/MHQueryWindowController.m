@@ -253,7 +253,7 @@
         [NSViewHelpers cancelColorForTarget:self.removeResultsTextField selector:@selector(setTextColor:)];
         [NSViewHelpers setColor:self.removeResultsTextField.textColor fromColor:NSColor.redColor toTarget:self.removeResultsTextField withSelector:@selector(setTextColor:) delay:1];
     } else {
-        [self.collection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
+        [self.collection countWithCriteria:criteria readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
             [self.collection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
                 NSColor *flashColor;
                 
@@ -519,7 +519,7 @@
                     [_connectionStore addNewQuery:[NSDictionary dictionaryWithObjectsAndKeys:queryTitle, @"title", self.findSortTextField.stringValue, @"sort", self.findFieldsTextField.stringValue, @"fields", self.findLimitTextField.stringValue, @"limit", self.findSkipTextField.stringValue, @"skip", nil] withDatabaseName:self.collection.name collectionName:self.collection.name];
                 }
                 self.findResultsViewController.results = [MODHelper convertForOutlineWithObjects:documents bsonData:bsonData];
-                [self.collection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
+                [self.collection countWithCriteria:criteria readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
                     self.findTotalResultsTextField.stringValue = [NSString stringWithFormat:@"Total Results: %lld (%0.2fs)", count, [[mongoQuery.userInfo objectForKey:@"timequery"] duration]];
                 }];
                 flashColor = [NSColor greenColor];
@@ -679,7 +679,7 @@
         [NSViewHelpers cancelColorForTarget:self.updateResultsTextField selector:@selector(setTextColor:)];
         [NSViewHelpers setColor:self.updateResultsTextField.textColor fromColor:NSColor.redColor toTarget:self.updateResultsTextField withSelector:@selector(setTextColor:) delay:1];
     } else {
-        [self.collection countWithCriteria:criteria callback:^(int64_t count, MODQuery *mongoQuery) {
+        [self.collection countWithCriteria:criteria readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
             MODSortedMutableDictionary *realUpdate;
             if (self.updateMultiCheckBox.state == 0 && count > 0) {
                 count = 1;
@@ -847,7 +847,7 @@
         NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
     } else {
         [self.mrLoaderIndicator startAnimation:nil];
-        [self.collection mapReduceWithMapFunction:self.mrMapFunctionTextView.string reduceFunction:self.mrReduceFunctionTextView.string query:query sort:nil limit:-1 output:output keepTemp:NO finalizeFunction:nil scope:nil jsmode:NO verbose:NO callback:^(MODQuery *mongoQuery, MODSortedMutableDictionary *documents) {
+        [self.collection mapReduceWithMapFunction:self.mrMapFunctionTextView.string reduceFunction:self.mrReduceFunctionTextView.string query:query sort:nil limit:-1 output:output keepTemp:NO finalizeFunction:nil scope:nil jsmode:NO verbose:NO readPreferences:nil callback:^(MODQuery *mongoQuery, MODSortedMutableDictionary *documents) {
             [self.mrLoaderIndicator stopAnimation:nil];
             if (mongoQuery.error) {
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);

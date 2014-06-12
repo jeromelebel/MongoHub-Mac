@@ -34,7 +34,7 @@
     MODQuery *result;
     
     self.title = @"Server stats";
-    result = [self.client serverStatusWithCallback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
+    result = [self.client serverStatusWithReadPreferences:nil callback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
         if (self.client == [mongoQuery.parameters objectForKey:@"mongoserver"]) {
             if (serverStatus) {
                 _resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:serverStatus];
@@ -55,7 +55,7 @@
     if (databaseItem) {
         self.title = [NSString stringWithFormat:@"Database %@ stats", databaseItem.name];
         
-        result = [databaseItem.database statsWithCallback:^(MODSortedMutableDictionary *databaseStats, MODQuery *mongoQuery) {
+        result = [databaseItem.database statsWithReadPreferences:nil callback:^(MODSortedMutableDictionary *databaseStats, MODQuery *mongoQuery) {
             if (databaseStats) {
                 _resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:databaseStats];
             } else if (mongoQuery.error) {
