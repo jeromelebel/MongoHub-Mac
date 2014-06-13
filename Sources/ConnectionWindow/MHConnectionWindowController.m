@@ -102,6 +102,8 @@
 
 - (void)dealloc
 {
+    [NSNotificationCenter.defaultCenter removeObserver:self name:kNewDBWindowWillClose object:nil];
+    [NSNotificationCenter.defaultCenter removeObserver:self name:kNewCollectionWindowWillClose object:nil];
     [self.window removeObserver:self forKeyPath:@"firstResponder"];
     [self.tabViewController removeObserver:self forKeyPath:@"selectedTabIndex"];
     self.tabItemControllers = nil;
@@ -138,6 +140,8 @@
 {
     NSView *tabView = self.tabViewController.view;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDatabase:) name:kNewDBWindowWillClose object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addCollection:) name:kNewCollectionWindowWillClose object:nil];
     [[_splitView.subviews objectAtIndex:1] addSubview:tabView];
     tabView.frame = tabView.superview.bounds;
     self.statusViewController = [MHStatusViewController loadNewViewController];
@@ -200,8 +204,6 @@
 {
     [self.loaderIndicator stopAnimation:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDatabase:) name:kNewDBWindowWillClose object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addCollection:) name:kNewCollectionWindowWillClose object:nil];
     reconnectButton.enabled = YES;
     monitorButton.enabled = YES;
     [self getDatabaseList];
