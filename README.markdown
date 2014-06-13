@@ -27,9 +27,12 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** Beta **
     
-    - Support for functions and scope functions https://github.com/fotonauts/MongoHub-Mac/issues/120
-
 ## History
+
+** 2.7 beta 3 - june 13, 2014 **
+
+    - Support for functions and scope functions https://github.com/fotonauts/MongoHub-Mac/issues/120
+    - Fix to connect to mongoHQ https://github.com/fotonauts/MongoHub-Mac/issues/124
 
 ** 2.6.2 - june 12, 2014 **
 
@@ -41,7 +44,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
     - Avoid automatic correction from the system while editing a new document https://github.com/fotonauts/MongoHub-Mac/issues/121 (Thanks to Anthony Williams with https://github.com/fotonauts/MongoHub-Mac/pull/122)
     - Avoid automatic correction from the system while doing map/reduce
-    - Adding the reading mode for a connection
+    - Better support for primary and secondary
 
 ** 2.6 - april 17, 2014 **
 
