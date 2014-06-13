@@ -11,8 +11,8 @@
             <description><![CDATA[
                 <h3>2.6.2</h3>
                 <ul>
-                    <li>Avoid automatic correction from the system while editing a new document <a href='https://github.com/fotonauts/MongoHub-Mac/issues/121'>issue #121</a> (Thanks to Anthony Williams with <a href='https://github.com/fotonauts/MongoHub-Mac/pull/122'>pull #122</a>)
-                    <li>Avoid automatic correction from the system while doing map/reduce</li>
+                    <li>Avoid automatic correction from Mac OS X while typing a new document <a href='https://github.com/fotonauts/MongoHub-Mac/issues/121'>issue #121</a> (Thanks to Anthony Williams with <a href='https://github.com/fotonauts/MongoHub-Mac/pull/122'>pull #122</a>)
+                    <li>Avoid automatic correction from Mac OS X while typing map/reduce functions</li>
                     <li>Be able to downgrade from 2.7 beta</li>
                 </ul>
             ]]>
@@ -34,8 +34,8 @@
                     <li>Support for functions and scope functions <a href='https://github.com/fotonauts/MongoHub-Mac/issues/120'>issue #120</a></li>
                     <li>Fix to connect to mongoHQ <a href='https://github.com/fotonauts/MongoHub-Mac/issues/124'>issue #124</a></li>
                     <li>Better support for primary and secondary</li>
-                    <li>Avoid automatic correction from the system while editing a new document <a href='https://github.com/fotonauts/MongoHub-Mac/issues/121'>issue #121</a> (Thanks to Anthony Williams with <a href='https://github.com/fotonauts/MongoHub-Mac/pull/122'>pull #122</a>)
-                    <li>Avoid automatic correction from the system while doing map/reduce</li>
+                    <li>Avoid automatic correction from Mac OS X while typing a new document <a href='https://github.com/fotonauts/MongoHub-Mac/issues/121'>issue #121</a> (Thanks to Anthony Williams with <a href='https://github.com/fotonauts/MongoHub-Mac/pull/122'>pull #122</a>)
+                    <li>Avoid automatic correction from Mac OS X while typing map/reduce functions</li>
                 </ul>
             ]]>
             </description>
