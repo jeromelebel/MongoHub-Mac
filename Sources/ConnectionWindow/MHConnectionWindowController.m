@@ -73,7 +73,6 @@
 @synthesize connectionStore = _connectionStore;
 @synthesize client = _client;
 @synthesize monitorButton;
-@synthesize reconnectButton;
 @synthesize statMonitorTableController;
 @synthesize databases = _databases;
 @synthesize sshTunnel = _sshTunnel;
@@ -115,7 +114,6 @@
     self.addCollectionController = nil;
     self.resultsTitle = nil;
     self.loaderIndicator = nil;
-    self.reconnectButton = nil;
     self.monitorButton = nil;
     self.statMonitorTableController = nil;
     self.bundleVersion = nil;
@@ -200,16 +198,6 @@
     }
 }
 
-- (void)didConnect
-{
-    [self.loaderIndicator stopAnimation:nil];
-    
-    reconnectButton.enabled = YES;
-    monitorButton.enabled = YES;
-    [self getDatabaseList];
-    [self showServerStatus:nil];
-}
-
 - (void)didFailToConnectWithError:(NSError *)error
 {
     [self.loaderIndicator stopAnimation:nil];
@@ -220,7 +208,6 @@
 - (void)connectToServer
 {
     [self.loaderIndicator startAnimation:nil];
-    reconnectButton.enabled = NO;
     monitorButton.enabled = NO;
     if ((self.sshTunnel == nil || !self.sshTunnel.connected) && self.connectionStore.usessh.intValue == 1) {
         unsigned short hostPort;
@@ -290,13 +277,11 @@
         self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
         self.statusViewController.client = self.client;
         self.statusViewController.connectionStore = self.connectionStore;
-        [self.client serverStatusWithReadPreferences:nil callback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
-            if (mongoQuery.error) {
-                [self didFailToConnectWithError:mongoQuery.error];
-            } else {
-                [self didConnect];
-            }
-        }];
+        [self.loaderIndicator stopAnimation:nil];
+        
+        monitorButton.enabled = YES;
+        [self getDatabaseList];
+        [self showServerStatus:nil];
     }
 }
 
@@ -990,7 +975,9 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     NSLog(@"SSH TUNNEL ERROR: %@", error);
     if (!tunnel.connected) {
         // after being connected, we don't really care about errors
-        [self didFailToConnectWithError:error];
+        [self.loaderIndicator stopAnimation:nil];
+        self.statusViewController.title = [NSString stringWithFormat:@"Error: %@", error.localizedDescription];
+        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", error.localizedDescription);
     }
 }
 

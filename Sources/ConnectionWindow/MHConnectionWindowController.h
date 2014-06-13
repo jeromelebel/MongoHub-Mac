@@ -48,7 +48,6 @@
     IBOutlet NSOutlineView                  *_databaseCollectionOutlineView;
     IBOutlet NSTextField                    *resultsTitle;
     IBOutlet NSProgressIndicator            *_loaderIndicator;
-    IBOutlet NSButton                       *reconnectButton;
     IBOutlet NSButton                       *monitorButton;
     IBOutlet NSPanel                        *monitorPanel;
     IBOutlet StatMonitorTableController     *statMonitorTableController;
@@ -80,7 +79,6 @@
 @property (nonatomic, retain) NSTextField *resultsTitle;
 @property (nonatomic, retain) NSProgressIndicator *loaderIndicator;
 @property (nonatomic, retain) NSButton *monitorButton;
-@property (nonatomic, retain) NSButton *reconnectButton;
 @property (nonatomic, retain) StatMonitorTableController *statMonitorTableController;
 @property (nonatomic, retain) NSTextField *bundleVersion;
 @property (nonatomic, retain) AuthWindowController *authWindowController;
