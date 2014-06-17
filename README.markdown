@@ -23,6 +23,8 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** Current **
 
+    - Fix for a crash when having problem to parse a json https://github.com/fotonauts/MongoHub-Mac/issues/125
+    
 ## History
 
 ** 2.6.2 - june 12, 2014 **
