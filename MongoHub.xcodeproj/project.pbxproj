@@ -297,6 +297,8 @@
 		02A7C40D1482DF080099CDD1 /* MHMysqlExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMysqlExporter.m; sourceTree = "<group>"; };
 		02AA29911477F8BD0041865F /* MHFileExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHFileExporter.h; sourceTree = "<group>"; };
 		02AA29921477F8BD0041865F /* MHFileExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHFileExporter.m; sourceTree = "<group>"; };
+		02AB057A142971CE00B7CD19 /* MODObjectId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODObjectId.m; sourceTree = "<group>"; };
+		02AB057B142971CE00B7CD19 /* MODObjectId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODObjectId.h; sourceTree = "<group>"; };
 		02AB33A6194850BD008C06B9 /* MongoHub_DataModel3.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel3.0.xcdatamodel; sourceTree = "<group>"; };
 		02AB33AF194880AB008C06B9 /* MongoHub_DataModel4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel4.xcdatamodel; sourceTree = "<group>"; };
 		02B143DA147C720D005AB320 /* MHFileImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHFileImporter.h; sourceTree = "<group>"; };
