@@ -324,7 +324,7 @@
             if ([self.serverItem updateChildrenWithList:list]) {
                 [_databaseCollectionOutlineView reloadData];
             }
-        } else if (self.connectionStore.defaultdb) {
+        } else if (self.connectionStore.defaultdb && self.connectionStore.defaultdb.length > 0) {
             if ([self.serverItem updateChildrenWithList:[NSArray arrayWithObject:self.connectionStore.defaultdb]]) {
                 [_databaseCollectionOutlineView reloadData];
             }
