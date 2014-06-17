@@ -36,10 +36,10 @@
     self.title = @"Server stats";
     result = [self.client serverStatusWithReadPreferences:nil callback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
         if (self.client == [mongoQuery.parameters objectForKey:@"mongoserver"]) {
-            if (serverStatus) {
-                _resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:serverStatus];
-            } else if (mongoQuery.error) {
+            if (mongoQuery.error) {
                 _resultsOutlineViewController.results = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[mongoQuery.error localizedDescription], @"value", @"error", @"name", nil]];
+            } else if (serverStatus) {
+                _resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:serverStatus];
             } else {
                 _resultsOutlineViewController.results = [NSArray array];
             }
