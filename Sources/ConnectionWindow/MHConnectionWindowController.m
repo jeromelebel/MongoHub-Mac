@@ -272,7 +272,7 @@
             }
         }
         NSAssert(ip != nil, @"need an ip");
-        uri = [NSString stringWithFormat:@"mongodb://%@%@/%@", auth, ip, self.connectionStore.defaultdb];
+        uri = [NSString stringWithFormat:@"mongodb://%@%@/%@?ssl=%@", auth, ip, self.connectionStore.defaultdb, self.connectionStore.usessl?@"true":@"false"];
         self.client = [MODClient clientWihtURLString:uri];
         self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
         self.statusViewController.client = self.client;
