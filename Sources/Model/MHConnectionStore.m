@@ -15,26 +15,9 @@
 
 @implementation MHConnectionStore
 
-@dynamic host;
-@dynamic hostport;
-@dynamic servers;
-@dynamic repl_name;
-@dynamic alias;
-@dynamic adminuser;
-@dynamic adminpass;
-@dynamic defaultdb;
-@dynamic databases;
-@dynamic userepl;
+@synthesize host = _host, hostport = _hostport, servers = _servers, repl_name = _repl_name, alias = _alias, adminuser = _adminuser, adminpass = _adminpass, defaultdb = _defaultdb, databases = _databases, userepl = _userepl;
 
-@dynamic usessh;
-@dynamic sshhost;
-@dynamic sshport;
-@dynamic sshuser;
-@dynamic sshpassword;
-@dynamic sshkeyfile;
-@dynamic bindaddress;
-@dynamic bindport;
-@dynamic defaultReadMode;
+@synthesize usessl = _usessl, usessh = _usessh, sshhost = _sshhost, sshport = _sshport, sshuser = _sshuser, sshpassword = _sshpassword, sshkeyfile = _sshkeyfile, bindaddress = _bindaddress, bindport = _bindport, defaultReadMode = _defaultReadMode;
 
 - (NSArray *)queryHistoryWithDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName
 {

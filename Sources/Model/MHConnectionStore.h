@@ -11,6 +11,26 @@
 
 @interface MHConnectionStore : NSManagedObject
 {
+    NSString *_host;
+    NSNumber *_hostport;
+    NSString *_servers;
+    NSString *_repl_name;
+    NSString *_alias;
+    NSString *_adminuser;
+    NSString *_adminpass;
+    NSString *_defaultdb;
+    NSNumber *_usessl;
+    NSNumber *_usessh;
+    NSString *_sshhost;
+    NSNumber *_sshport;
+    NSString *_sshuser;
+    NSString *_sshpassword;
+    NSString *_sshkeyfile;
+    NSString *_bindaddress;
+    NSNumber *_bindport;
+    NSSet *_databases;
+    NSNumber *_userepl;
+    MODReadPreferencesReadMode _defaultReadMode;
 }
 
 - (NSArray *)queryHistoryWithDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
@@ -25,6 +45,8 @@
 @property (nonatomic, retain) NSString *adminpass;
 @property (nonatomic, retain) NSString *defaultdb;
 @property (nonatomic, retain) NSSet *databases;
+@property (nonatomic, retain) NSNumber *usessl;
+@property (nonatomic, retain) NSNumber *usessh;
 @property (nonatomic, retain) NSString *sshhost;
 @property (nonatomic, retain) NSNumber *sshport;
 @property (nonatomic, retain) NSString *sshuser;
@@ -32,7 +54,6 @@
 @property (nonatomic, retain) NSString *sshkeyfile;
 @property (nonatomic, retain) NSString *bindaddress;
 @property (nonatomic, retain) NSNumber *bindport;
-@property (nonatomic, retain) NSNumber *usessh;
 @property (nonatomic, retain) NSNumber *userepl;
 @property (nonatomic, assign) MODReadPreferencesReadMode defaultReadMode;
 

@@ -29,6 +29,7 @@
     NSTextField                         *_adminuserTextField;
     NSSecureTextField                   *_adminpassTextField;
     NSTextField                         *_defaultdbTextField;
+    NSButton                            *_useSSLCheckBox;
     NSButton                            *_usesshCheckBox;
     NSTextField                         *_sshhostTextField;
     NSTextField                         *_sshportTextField;
@@ -59,6 +60,7 @@
 @property (nonatomic, readonly, assign) IBOutlet NSTextField *adminuserTextField;
 @property (nonatomic, readonly, assign) IBOutlet NSSecureTextField *adminpassTextField;
 @property (nonatomic, readonly, assign) IBOutlet NSTextField *defaultdbTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSButton *useSSLCheckBox;
 @property (nonatomic, readonly, assign) IBOutlet NSButton *usesshCheckBox;
 @property (nonatomic, readonly, assign) IBOutlet NSTextField *sshhostTextField;
 @property (nonatomic, readonly, assign) IBOutlet NSTextField *sshportTextField;

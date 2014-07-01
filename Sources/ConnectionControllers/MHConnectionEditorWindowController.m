@@ -23,6 +23,7 @@
 @property (nonatomic, readwrite, assign) NSTextField *adminuserTextField;
 @property (nonatomic, readwrite, assign) NSSecureTextField *adminpassTextField;
 @property (nonatomic, readwrite, assign) NSTextField *defaultdbTextField;
+@property (nonatomic, readwrite, assign) NSButton *useSSLCheckBox;
 @property (nonatomic, readwrite, assign) NSButton *usesshCheckBox;
 @property (nonatomic, readwrite, assign) NSTextField *sshhostTextField;
 @property (nonatomic, readwrite, assign) NSTextField *sshportTextField;
@@ -88,7 +89,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 @synthesize newConnection = _newConnection;
 @synthesize connectionStoreDefaultValue = _connectionStoreDefaultValue;
 
-@synthesize hostTextField = _hostTextField, hostportTextField = _hostportTextField, usereplCheckBox = _usereplCheckBox, serversTextField = _serversTextField, replnameTextField = _replnameTextField, aliasTextField = _aliasTextField, adminuserTextField = _adminuserTextField, adminpassTextField = _adminpassTextField, defaultdbTextField = _defaultdbTextField, usesshCheckBox = _usesshCheckBox, sshhostTextField = _sshhostTextField, sshportTextField = _sshportTextField, sshuserTextField = _sshuserTextField, sshpasswordTextField = _sshpasswordTextField, sshkeyfileTextField = _sshkeyfileTextField, selectKeyFileButton = _selectKeyFileButton, addSaveButton = _addSaveButton, defaultReadModePopUpButton = _defaultReadModePopUpButton;
+@synthesize hostTextField = _hostTextField, hostportTextField = _hostportTextField, usereplCheckBox = _usereplCheckBox, serversTextField = _serversTextField, replnameTextField = _replnameTextField, aliasTextField = _aliasTextField, adminuserTextField = _adminuserTextField, adminpassTextField = _adminpassTextField, defaultdbTextField = _defaultdbTextField, usesshCheckBox = _usesshCheckBox, sshhostTextField = _sshhostTextField, sshportTextField = _sshportTextField, sshuserTextField = _sshuserTextField, sshpasswordTextField = _sshpasswordTextField, sshkeyfileTextField = _sshkeyfileTextField, selectKeyFileButton = _selectKeyFileButton, addSaveButton = _addSaveButton, defaultReadModePopUpButton = _defaultReadModePopUpButton, useSSLCheckBox = _useSSLCheckBox;
 
 - (id)init
 {
@@ -166,6 +167,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         if (defaultValue.sshkeyfile) self.sshkeyfileTextField.stringValue = defaultValue.sshkeyfile;
         self.usesshCheckBox.state = defaultValue.usessh.boolValue?NSOnState:NSOffState;
         [self.defaultReadModePopUpButton selectItemWithTag:tagFromPreferenceReadMode(defaultValue.defaultReadMode)];
+        self.useSSLCheckBox.state = defaultValue.usessl.boolValue;
     } else {
         self.window.title = NSLocalizedString(@"New Connection", @"New Connection");
         self.hostTextField.stringValue = @"";
@@ -182,6 +184,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         self.sshuserTextField.stringValue = @"";
         self.sshpasswordTextField.stringValue = @"";
         self.sshkeyfileTextField.stringValue = @"";
+        self.useSSLCheckBox.state = NSOffState;
         self.usesshCheckBox.state = NSOffState;
         [self.defaultReadModePopUpButton selectItemWithTag:0];
     }
@@ -296,6 +299,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     self.editedConnectionStore.adminuser = [self.adminuserTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     self.editedConnectionStore.adminpass = self.adminpassTextField.stringValue;
     self.editedConnectionStore.defaultdb = defaultdb;
+    self.editedConnectionStore.usessl = [NSNumber numberWithBool:self.useSSLCheckBox.state == NSOnState];
     self.editedConnectionStore.sshhost = sshHost;
     self.editedConnectionStore.sshport = [NSNumber numberWithLongLong:sshPort];
     self.editedConnectionStore.sshuser = self.sshuserTextField.stringValue;
