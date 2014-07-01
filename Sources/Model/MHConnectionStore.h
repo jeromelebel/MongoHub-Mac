@@ -11,26 +11,6 @@
 
 @interface MHConnectionStore : NSManagedObject
 {
-    NSString *_host;
-    NSNumber *_hostport;
-    NSString *_servers;
-    NSString *_repl_name;
-    NSString *_alias;
-    NSString *_adminuser;
-    NSString *_adminpass;
-    NSString *_defaultdb;
-    NSNumber *_usessl;
-    NSNumber *_usessh;
-    NSString *_sshhost;
-    NSNumber *_sshport;
-    NSString *_sshuser;
-    NSString *_sshpassword;
-    NSString *_sshkeyfile;
-    NSString *_bindaddress;
-    NSNumber *_bindport;
-    NSSet *_databases;
-    NSNumber *_userepl;
-    MODReadPreferencesReadMode _defaultReadMode;
 }
 
 - (NSArray *)queryHistoryWithDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
