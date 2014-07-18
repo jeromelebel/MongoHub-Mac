@@ -6,15 +6,32 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Version 2.7</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7.zip" sparkle:version="2.7" length="3211494" type="application/octet-stream" />
+            <title>Version 2.6.2</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.6.2.zip" sparkle:version="2.6.2" length="3211494" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.7</h3>
+                <h3>2.6.2</h3>
                 <ul>
-                    <li>Fix for a crash when having problem to parse a json <a href='https://github.com/fotonauts/MongoHub-Mac/issues/125'>issue #125</a></li>
-                    <li>Support for functions and scope functions <a href='https://github.com/fotonauts/MongoHub-Mac/issues/120'>issue #120</a></li>
-                    <li>Fix to connect to mongoHQ <a href='https://github.com/fotonauts/MongoHub-Mac/issues/124'>issue #124</a></li>
-                    <li>Better support for primary and secondary</li>
+                <li>Avoid automatic correction from Mac OS X while typing a new document <a href='https://github.com/fotonauts/MongoHub-Mac/issues/121'>issue #121</a> (Thanks to Anthony Williams with <a href='https://github.com/fotonauts/MongoHub-Mac/pull/122'>pull #122</a>)
+                <li>Avoid automatic correction from Mac OS X while typing map/reduce functions</li>
+                <li>Be able to downgrade from 2.7 beta</li>
+                </ul>
+            ]]>
+            </description>
+        </item>
+    </channel>
+    <channel>
+        <title>MongoHub Beta</title>
+        <link>https://mongohub.s3.amazonaws.com/mongohub_su_feed.xml</link>
+        <description>Beta updates.</description>
+        <language>en</language>
+        <item>
+            <beta>1</beta>
+            <title>Version 2.7 beta 4</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b3.zip" sparkle:version="2.7b4" length="3651506" type="application/octet-stream" />
+            <description><![CDATA[
+                <h3>2.7 beta 4</h3>
+                <ul>
+                <li>Working SSL</li>
                 </ul>
             ]]>
             </description>
