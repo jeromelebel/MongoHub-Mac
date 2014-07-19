@@ -29,6 +29,10 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     - Fix to connect to mongoHQ https://github.com/fotonauts/MongoHub-Mac/issues/124
     - Better support for primary and secondary
 
+** Beta **
+
+    - Fix for ports higher than 32767 (bug introduced in 2.7)
+
 ## History
 
 ** 2.7 beta 4 - july 18, 2014 **
