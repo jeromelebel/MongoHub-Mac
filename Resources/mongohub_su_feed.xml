@@ -26,12 +26,12 @@
         <language>en</language>
         <item>
             <beta>1</beta>
-            <title>Version 2.7 beta 4</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b4.zip" sparkle:version="2.7b4" length="3651506" type="application/octet-stream" />
+            <title>Version 2.7 beta 5</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b5.zip" sparkle:version="2.7b5" length="3693798" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.7 beta 4</h3>
+                <h3>2.7 beta 5</h3>
                 <ul>
-                <li>Working SSL</li>
+                <li>Fix for ports higher than 32767 (bug introduced in 2.7 beta)</li>
                 </ul>
             ]]>
             </description>
