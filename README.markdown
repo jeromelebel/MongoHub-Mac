@@ -31,6 +31,10 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ## History
 
+** 2.7 beta 6 - july 21, 2014 **
+
+    - SSL was activated for all connexions
+
 ** 2.7 beta 5 - july 19, 2014 **
 
     - Fix for ports higher than 32767 (bug introduced in 2.7)
