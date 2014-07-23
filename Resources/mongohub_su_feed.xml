@@ -29,9 +29,9 @@
             <title>Version 2.7 beta 7</title>
             <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b7.zip" sparkle:version="2.7b7" length="3666010" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.7 beta 6</h3>
+                <h3>2.7 beta 7</h3>
                 <ul>
-                <li>SSL was activated for all connexions</li>
+                <li>SFix for a problem to parse json (bug introduced in 2.7)s</li>
                 </ul>
             ]]>
             </description>
