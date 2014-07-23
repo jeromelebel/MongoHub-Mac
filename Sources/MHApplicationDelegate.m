@@ -518,6 +518,20 @@
     return result;
 }
 
+-(void)applicationWillFinishLaunching:(NSNotification *)aNotification
+{
+    NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
+    [appleEventManager setEventHandler:self
+                           andSelector:@selector(handleGetURLEvent:withReplyEvent:)
+                         forEventClass:kInternetEventClass andEventID:kAEGetURL];
+}
+
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
+{
+    NSURL *url = [NSURL URLWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
+    NSLog(@"%@", url);
+}
+
 @end
 
 @implementation MHApplicationDelegate(MHConnectionEditorWindowControllerDelegate)
