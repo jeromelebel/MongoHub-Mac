@@ -31,6 +31,10 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ## History
 
+** 2.7 beta 7 - july 23, 2014 **
+
+    - Fix for a problem to parse json (bug introduced in 2.7)
+
 ** 2.7 beta 6 - july 21, 2014 **
 
     - SSL was activated for all connexions

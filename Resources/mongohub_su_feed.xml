@@ -26,8 +26,8 @@
         <language>en</language>
         <item>
             <beta>1</beta>
-            <title>Version 2.7 beta 6</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b6.zip" sparkle:version="2.7b6" length="3664190" type="application/octet-stream" />
+            <title>Version 2.7 beta 7</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b7.zip" sparkle:version="2.7b7" length="3666010" type="application/octet-stream" />
             <description><![CDATA[
                 <h3>2.7 beta 6</h3>
                 <ul>
