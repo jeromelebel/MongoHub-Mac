@@ -81,6 +81,9 @@
         result = [self addInternetPasswordWithProtocol:protocol host:host port:port account:account password:password];
     } else if (![oldPassword isEqualToString:password]){
         result = [self updateInternetPasswordProtocol:protocol host:host port:port account:account password:password];
+    } else {
+        // the password already exists, and is the same. No need to update
+        result = YES;
     }
     return result;
 }
