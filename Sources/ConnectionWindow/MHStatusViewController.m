@@ -35,7 +35,7 @@
     
     self.title = @"Server stats";
     result = [self.client serverStatusWithReadPreferences:nil callback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
-        if (self.client == [mongoQuery.parameters objectForKey:@"mongoserver"]) {
+        if (self.client == mongoQuery.owner) {
             if (mongoQuery.error) {
                 _resultsOutlineViewController.results = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[mongoQuery.error localizedDescription], @"value", @"error", @"name", nil]];
             } else if (serverStatus) {
