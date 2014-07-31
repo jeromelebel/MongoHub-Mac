@@ -9,7 +9,6 @@
 #import "Configure.h"
 #import "MHAddDBController.h"
 #import "DatabasesArrayController.h"
-#import "MHDatabaseStore.h"
 #import "NSString+Extras.h"
 
 @implementation MHAddDBController
