@@ -28,6 +28,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     - Support for functions and scope functions https://github.com/fotonauts/MongoHub-Mac/issues/120
     - Fix to connect to mongoHQ https://github.com/fotonauts/MongoHub-Mac/issues/124
     - Better support for primary and secondary
+    - SSH password saved into the keychain
 
 ## History
 
