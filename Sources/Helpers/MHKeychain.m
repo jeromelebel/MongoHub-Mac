@@ -47,7 +47,6 @@
     OSErr status = noErr;
     
     query = [self queryForClass:kSecClassInternetPassword label:nil protocol:protocol host:host port:port account:account password:password];
-    NSLog(@"add %@", query);
     status = SecItemAdd((CFDictionaryRef)query, NULL);
     if (status != noErr) {
         NSLog(@"Error getting item: %d for service: %@, account: %@\n", (int)status, host, account);
@@ -58,12 +57,13 @@
 
 + (BOOL)updateInternetPasswordProtocol:(CFTypeRef)protocol host:(NSString *)host port:(NSUInteger)port account:(NSString *)account password:(NSString *)password
 {
+    NSDictionary *update;
     NSDictionary *query;
     OSErr status;
     
     query = [self queryForClass:kSecClassInternetPassword label:nil protocol:protocol host:host port:port account:account password:nil];
-    NSLog(@"update %@", query);
-    status = SecItemUpdate((CFDictionaryRef)query, NULL);
+    update = [self queryForClass:kSecClassInternetPassword label:nil protocol:protocol host:host port:port account:account password:password];
+    status = SecItemUpdate((CFDictionaryRef)query, (CFDictionaryRef)update);
     if (status != noErr) {
         NSLog(@"Error updating item: %d for %@ %@ %@\n", (int)status, host, account, account);
     }
@@ -74,9 +74,12 @@
 + (BOOL)addOrUpdateInternetPasswordWithProtocol:(CFTypeRef)protocol host:(NSString *)host port:(NSUInteger)port account:(NSString *)account password:(NSString *)password
 {
     BOOL result;
+    NSString *oldPassword;
     
-    result = [self addInternetPasswordWithProtocol:protocol host:host port:port account:account password:password];
-    if (!result) {
+    oldPassword = [self internetPasswordProtocol:protocol host:host port:port account:account];
+    if (oldPassword == nil) {
+        result = [self addInternetPasswordWithProtocol:protocol host:host port:port account:account password:password];
+    } else if (![oldPassword isEqualToString:password]){
         result = [self updateInternetPasswordProtocol:protocol host:host port:port account:account password:password];
     }
     return result;
