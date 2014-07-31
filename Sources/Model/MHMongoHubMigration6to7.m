@@ -15,7 +15,7 @@
 - (BOOL)createDestinationInstancesForSourceInstance:(NSManagedObject *)sourceInstance entityMapping:(NSEntityMapping *)mapping manager:(NSMigrationManager *)manager error:(NSError *__autoreleasing *)error
 {
     NSManagedObjectContext *destMOC = manager.destinationContext;
-    MHConnectionStore *newConnection;
+    NSManagedObject *newConnection;
     NSString *password = [sourceInstance valueForKey:@"sshpassword"];
     NSString *user = [sourceInstance valueForKey:@"sshuser"];
     NSString *host;
