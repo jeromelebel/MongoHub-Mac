@@ -1328,7 +1328,7 @@
 				021BEA661463709A0091C2EA /* MongoHub_DataModel1.0.xcdatamodel */,
 				021BEA671463709A0091C2EA /* MongoHub_DataModel2.0.xcdatamodel */,
 			);
-			currentVersion = 02B7CCE4197AA07D0031A57A /* MongoHub_DataModel6.xcdatamodel */;
+			currentVersion = 02940E021982A17A005AF3C1 /* MongoHub_DataModel7.xcdatamodel */;
 			path = MongoHub_DataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -11,53 +11,84 @@
 
 @implementation MHKeychain
 
-+ (NSMutableDictionary *)queryForHost:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port password:(NSString *)password
++ (NSMutableDictionary *)queryForClass:(CFTypeRef)itemClass label:(NSString *)label protocol:(CFTypeRef)protocol host:(NSString *)host port:(NSUInteger)port account:(NSString *)account password:(NSString *)password
 {
     NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
     
-    [query setObject:(id)kSecClassInternetPassword forKey:(id)kSecClass];
+    [query setObject:itemClass forKey:(id)kSecClass];
     if (account)
         [query setObject:account forKey:(id)kSecAttrAccount];
     if (protocol)
-        [query setObject:@"mongo" forKey:(id)kSecAttrProtocol];
+        [query setObject:protocol forKey:(id)kSecAttrProtocol];
     if (host)
         [query setObject:host forKey:(id)kSecAttrServer];
     if (port)
         [query setObject:[NSNumber numberWithUnsignedInteger:port] forKey:(id)kSecAttrPort];
     if (password) {
         [query setObject:[password dataUsingEncoding:NSUTF8StringEncoding] forKey:(id)kSecValueData];
-        if (account) {
+        if (label) {
+            [query setObject:label forKey:(id)kSecAttrLabel];
+        } else if (host && account) {
             [query setObject:[NSString stringWithFormat:@"%@ (%@)", host, account] forKey:(id)kSecAttrLabel];
-        } else {
+        } else if (host) {
             [query setObject:host forKey:(id)kSecAttrLabel];
         }
     }
     
     return [query autorelease];
 }
+@end
 
-+ (BOOL)addItemWithHost:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port password:(NSString *)password
+@implementation MHKeychain (InternetPassword)
+
++ (BOOL)addInternetPasswordWithProtocol:(CFTypeRef)protocol host:(NSString *)host port:(NSUInteger)port account:(NSString *)account password:(NSString *)password
 {
     NSDictionary *query;
-    OSErr status = 0;
+    OSErr status = noErr;
     
-    query = [self queryForHost:host account:account protocol:protocol port:port password:password];
-    
+    query = [self queryForClass:kSecClassInternetPassword label:nil protocol:protocol host:host port:port account:account password:password];
+    NSLog(@"add %@", query);
     status = SecItemAdd((CFDictionaryRef)query, NULL);
-    if (status != 0) {
+    if (status != noErr) {
         NSLog(@"Error getting item: %d for service: %@, account: %@\n", (int)status, host, account);
     }
     
-    return !status;
+    return status == noErr;
 }
 
-+ (NSString *)passwordWithHost:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port name:(NSString *)name
++ (BOOL)updateInternetPasswordProtocol:(CFTypeRef)protocol host:(NSString *)host port:(NSUInteger)port account:(NSString *)account password:(NSString *)password
+{
+    NSDictionary *query;
+    OSErr status;
+    
+    query = [self queryForClass:kSecClassInternetPassword label:nil protocol:protocol host:host port:port account:account password:nil];
+    NSLog(@"update %@", query);
+    status = SecItemUpdate((CFDictionaryRef)query, NULL);
+    if (status != noErr) {
+        NSLog(@"Error updating item: %d for %@ %@ %@\n", (int)status, host, account, account);
+    }
+    
+    return status == noErr;
+}
+
++ (BOOL)addOrUpdateInternetPasswordWithProtocol:(CFTypeRef)protocol host:(NSString *)host port:(NSUInteger)port account:(NSString *)account password:(NSString *)password
+{
+    BOOL result;
+    
+    result = [self addInternetPasswordWithProtocol:protocol host:host port:port account:account password:password];
+    if (!result) {
+        result = [self updateInternetPasswordProtocol:protocol host:host port:port account:account password:password];
+    }
+    return result;
+}
+
++ (NSString *)internetPasswordProtocol:(CFTypeRef)protocol host:(NSString *)host port:(NSUInteger)port account:(NSString *)account
 {
     NSMutableDictionary *query;
     CFTypeRef result;
     OSErr status;
     
-    query = [self queryForHost:host account:account protocol:protocol port:port password:nil];
+    query = [self queryForClass:kSecClassInternetPassword label:nil protocol:protocol host:host port:port account:account password:nil];
     [query setObject:(id)kCFBooleanTrue forKey:kSecReturnData];
 	[query setObject:(id)kSecMatchLimitOne forKey:(id)kSecMatchLimit];
     
@@ -69,34 +100,97 @@
     }
 }
 
-+ (BOOL)updateItemWithHost:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port name:(NSString *)name password:(NSString *)password
++ (BOOL)deleteInternetPasswordProtocol:(CFTypeRef)protocol host:(NSString *)host port:(NSUInteger)port account:(NSString *)account
 {
     NSDictionary *query;
     OSErr status;
     
-    query = [self queryForHost:host account:account protocol:protocol port:port password:password];
-    
-    status = SecItemUpdate((CFDictionaryRef)query, NULL);
-    if (status != 0) {
-        NSLog(@"Error updating item: %d for %@ %@ %@\n", (int)status, host, account, name);
-    }
-    
-    return !status;
-}
-
-+ (NSString *)deleteItemWithHost:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port name:(NSString *)name
-{
-    NSDictionary *query;
-    OSErr status;
-    
-    query = [self queryForHost:host account:account protocol:protocol port:port password:nil];
+    query = [self queryForClass:kSecClassInternetPassword label:nil protocol:protocol host:host port:port account:account password:nil];
     
     status = SecItemDelete((CFDictionaryRef)query);
-    if (status != 0) {
-        NSLog(@"Error deleting item: %d for %@ %@ %@\n", (int)status, host, account, name);
+    if (status != noErr) {
+        NSLog(@"Error deleting item: %d for %@ %@ %@\n", (int)status, host, account, account);
     }
     
-    return !status;
+    return status == noErr;
+}
+
+@end
+
+@implementation MHKeychain (GenericPassword)
+
++ (BOOL)addItemWithLabel:(NSString *)label host:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port password:(NSString *)password
+{
+    NSDictionary *query;
+    OSErr status = noErr;
+    
+    query = [self queryForClass:kSecClassGenericPassword label:label protocol:protocol host:host port:port account:account password:password];
+    
+    status = SecItemAdd((CFDictionaryRef)query, NULL);
+    if (status != noErr) {
+        NSLog(@"Error getting item: %d for service: %@, account: %@\n", (int)status, host, account);
+    }
+    
+    return status == noErr;
+}
+
++ (BOOL)updateItemWithLabel:(NSString *)label host:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port password:(NSString *)password
+{
+    NSDictionary *query;
+    OSErr status;
+    
+    query = [self queryForClass:kSecClassGenericPassword label:label protocol:protocol host:host port:port account:account password:nil];
+    
+    status = SecItemUpdate((CFDictionaryRef)query, NULL);
+    if (status != noErr) {
+        NSLog(@"Error updating item: %d for %@ %@\n", (int)status, host, account);
+    }
+    
+    return status == noErr;
+}
+
++ (BOOL)addOrUpdateItemWithLabel:(NSString *)label host:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port password:(NSString *)password
+{
+    BOOL result;
+    
+    result = [self addItemWithLabel:label host:host account:account protocol:protocol port:port password:password];
+    if (!result) {
+        result = [self updateItemWithLabel:label host:host account:account protocol:protocol port:port password:password];
+    }
+    return result;
+}
+
++ (NSString *)passwordWithLabel:(NSString *)label host:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port
+{
+    NSMutableDictionary *query;
+    CFTypeRef result;
+    OSErr status;
+    
+    query = [self queryForClass:kSecClassGenericPassword label:label protocol:protocol host:host port:port account:account password:nil];
+    [query setObject:(id)kCFBooleanTrue forKey:kSecReturnData];
+	[query setObject:(id)kSecMatchLimitOne forKey:(id)kSecMatchLimit];
+    
+	status = SecItemCopyMatching((CFDictionaryRef)query, &result);
+    if (status != noErr) {
+        return nil;
+    } else {
+        return [[[NSString alloc] initWithUTF8String:[(NSData *)result bytes]] autorelease];
+    }
+}
+
++ (BOOL)deleteItemWithLabel:(NSString *)label host:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port
+{
+    NSDictionary *query;
+    OSErr status;
+    
+    query = [self queryForClass:kSecClassGenericPassword label:label protocol:protocol host:host port:port account:account password:nil];
+    
+    status = SecItemDelete((CFDictionaryRef)query);
+    if (status != noErr) {
+        NSLog(@"Error deleting item: %d for %@ %@\n", (int)status, host, account);
+    }
+    
+    return status == noErr;
 }
 
 @end

@@ -19,14 +19,19 @@
     NSString *password = [sourceInstance valueForKey:@"sshpassword"];
     NSString *user = [sourceInstance valueForKey:@"sshuser"];
     NSString *host;
+    NSString *hostAndPort;
 
-    if ([[sourceInstance valueForKey:@"sshport"] integerValue] == 0) {
-        host = [NSString stringWithFormat:@"%@", [sourceInstance valueForKey:@"sshhost"]];
-    } else {
-        host = [NSString stringWithFormat:@"%@:%@", [sourceInstance valueForKey:@"sshhost"], [sourceInstance valueForKey:@"sshport"]];
+    host = [sourceInstance valueForKey:@"sshhost"];
+    if ([[sourceInstance valueForKey:@"sshport"] integerValue] != 0) {
+        hostAndPort = [NSString stringWithFormat:@"%@:%@", [sourceInstance valueForKey:@"sshhost"], [sourceInstance valueForKey:@"sshport"]];
     }
     if (password && password.length > 0) {
-        [MHKeychain addItemWithHost:host account:user protocol:@"ssh" port:[[sourceInstance valueForKey:@"sshport"] unsignedIntegerValue] password:password];
+        BOOL result;
+        
+        result = [MHKeychain addOrUpdateInternetPasswordWithProtocol:kSecAttrProtocolSSH host:host port:[[sourceInstance valueForKey:@"sshport"] unsignedIntegerValue] account:user password:password];
+        if (!result) {
+            NSLog(@"can't save password for %@@%@", user, hostAndPort);
+        }
     }
     newConnection = [NSEntityDescription insertNewObjectForEntityForName:@"Connection" inManagedObjectContext:destMOC];
     NSArray *keys = sourceInstance.entity.attributesByName.allKeys;

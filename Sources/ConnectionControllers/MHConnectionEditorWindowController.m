@@ -9,6 +9,7 @@
 #import "MHConnectionEditorWindowController.h"
 #import "MHConnectionStore.h"
 #import "DatabasesArrayController.h"
+#import "MHKeychain.h"
 #import <mongo-objc-driver/MOD_public.h>
 
 #define COPY_ALIAS_SUFFIX @" - Copy"
@@ -163,7 +164,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
             self.sshportTextField.stringValue = defaultValue.sshport.stringValue;
         }
         if (defaultValue.sshuser) self.sshuserTextField.stringValue = defaultValue.sshuser;
-        if (defaultValue.sshpassword) self.sshpasswordTextField.stringValue = defaultValue.sshpassword;
+        if (defaultValue.usessh && defaultValue.sshpassword) self.sshpasswordTextField.stringValue = defaultValue.sshpassword;
         if (defaultValue.sshkeyfile) self.sshkeyfileTextField.stringValue = defaultValue.sshkeyfile;
         self.usesshCheckBox.state = defaultValue.usessh.boolValue?NSOnState:NSOffState;
         [self.defaultReadModePopUpButton selectItemWithTag:tagFromPreferenceReadMode(defaultValue.defaultReadMode)];
@@ -300,12 +301,12 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     self.editedConnectionStore.adminpass = self.adminpassTextField.stringValue;
     self.editedConnectionStore.defaultdb = defaultdb;
     self.editedConnectionStore.usessl = [NSNumber numberWithBool:self.useSSLCheckBox.state == NSOnState];
+    self.editedConnectionStore.usessh = [NSNumber numberWithBool:useSSH];
     self.editedConnectionStore.sshhost = sshHost;
     self.editedConnectionStore.sshport = [NSNumber numberWithLongLong:sshPort];
     self.editedConnectionStore.sshuser = self.sshuserTextField.stringValue;
     self.editedConnectionStore.sshpassword = self.sshpasswordTextField.stringValue;
     self.editedConnectionStore.sshkeyfile = self.sshkeyfileTextField.stringValue;
-    self.editedConnectionStore.usessh = [NSNumber numberWithBool:useSSH];
     self.editedConnectionStore.defaultReadMode = preferenceReadModeFromTag(self.defaultReadModePopUpButton.selectedTag);
     if (self.newConnection) {
         [self.connectionsArrayController addObject:self.editedConnectionStore];
@@ -364,6 +365,23 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     useRepl = self.usereplCheckBox.state == NSOnState;
     self.serversTextField.enabled = useRepl;
     self.replnameTextField.enabled = useRepl;
+}
+
+- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
+{
+    if (control == self.sshhostTextField || control == self.sshportTextField || control == self.sshuserTextField) {
+        NSString *password = nil;
+        
+        if (self.sshhostTextField.stringValue.length > 0) {
+            password = [MHKeychain internetPasswordProtocol:kSecAttrProtocolSSH host:self.sshhostTextField.stringValue port:self.sshportTextField.integerValue account:self.sshuserTextField.stringValue];
+        }
+        if (password) {
+            self.sshpasswordTextField.stringValue = password;
+        } else {
+            self.sshpasswordTextField.stringValue = @"";
+        }
+    }
+    return YES;
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "MHConnectionStore.h"
+#import "MHKeychain.h"
 
 #define MAX_QUERY_PER_COLLECTION 20
 #define QUERY_HISTORY_KEY @"query_history"
@@ -104,6 +105,18 @@
     [queriesAndTitles release];
     [sortedTitles release];
     [allQueries release];
+}
+
+- (NSString *)sshpassword
+{
+    return [MHKeychain internetPasswordProtocol:kSecAttrProtocolSSH host:self.sshhost port:self.sshport.unsignedIntegerValue account:self.sshuser];
+}
+
+- (void)setSshpassword:(NSString *)sshpassword
+{
+    if (self.usessh) {
+        [MHKeychain addOrUpdateInternetPasswordWithProtocol:kSecAttrProtocolSSH host:self.sshhost port:self.sshport.unsignedIntegerValue account:self.sshuser password:sshpassword];
+    }
 }
 
 @end
