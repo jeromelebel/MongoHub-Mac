@@ -11,47 +11,53 @@
 
 @implementation MHKeychain
 
-+ (NSMutableDictionary *)queryForService:(NSString *)service account:(NSString *)account label:(NSString *)label description:(NSString *)description password:(NSString *)password
++ (NSMutableDictionary *)queryForHost:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port password:(NSString *)password
 {
     NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
     
-    [query setObject:(id)kSecClassGenericPassword forKey:(id)kSecClass];
-    if (service)
-        [query setObject:service forKey:(id)kSecAttrService];
+    [query setObject:(id)kSecClassInternetPassword forKey:(id)kSecClass];
     if (account)
         [query setObject:account forKey:(id)kSecAttrAccount];
-    if (label)
-        [query setObject:label forKey:(id)kSecLabelItemAttr];
-    if (description)
-        [query setObject:description forKey:(id)kSecDescriptionItemAttr];
-    if (password)
-        [query setObject:password forKey:(id)kSecValueRef];
+    if (protocol)
+        [query setObject:@"mongo" forKey:(id)kSecAttrProtocol];
+    if (host)
+        [query setObject:host forKey:(id)kSecAttrServer];
+    if (port)
+        [query setObject:[NSNumber numberWithUnsignedInteger:port] forKey:(id)kSecAttrPort];
+    if (password) {
+        [query setObject:[password dataUsingEncoding:NSUTF8StringEncoding] forKey:(id)kSecValueData];
+        if (account) {
+            [query setObject:[NSString stringWithFormat:@"%@ (%@)", host, account] forKey:(id)kSecAttrLabel];
+        } else {
+            [query setObject:host forKey:(id)kSecAttrLabel];
+        }
+    }
     
     return [query autorelease];
 }
 
-+ (BOOL)addItemWithService:(NSString *)service account:(NSString *)account name:(NSString *)name kind:(NSString *)kind password:(NSString *)password
++ (BOOL)addItemWithHost:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port password:(NSString *)password
 {
     NSDictionary *query;
-    OSErr status;
+    OSErr status = 0;
     
-    query = [self queryForService:service account:account label:@"mongo label" description:@"mongo description" password:password];
+    query = [self queryForHost:host account:account protocol:protocol port:port password:password];
     
     status = SecItemAdd((CFDictionaryRef)query, NULL);
     if (status != 0) {
-        NSLog(@"Error getting item: %d for %@ %@ %@ %@\n", (int)status, service, account, name, kind);
+        NSLog(@"Error getting item: %d for service: %@, account: %@\n", (int)status, host, account);
     }
     
     return !status;
 }
 
-+ (NSString *)passwordWithService:(NSString *)service account:(NSString *)account name:(NSString *)name kind:(NSString *)kind
++ (NSString *)passwordWithHost:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port name:(NSString *)name
 {
     NSMutableDictionary *query;
     CFTypeRef result;
     OSErr status;
     
-    query = [self queryForService:service account:account label:@"mongo label" description:@"mongo description" password:nil];
+    query = [self queryForHost:host account:account protocol:protocol port:port password:nil];
     [query setObject:(id)kCFBooleanTrue forKey:kSecReturnData];
 	[query setObject:(id)kSecMatchLimitOne forKey:(id)kSecMatchLimit];
     
@@ -63,31 +69,31 @@
     }
 }
 
-+ (BOOL)updateItemWithService:(NSString *)service account:(NSString *)account name:(NSString *)name kind:(NSString *)kind password:(NSString *)password
++ (BOOL)updateItemWithHost:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port name:(NSString *)name password:(NSString *)password
 {
     NSDictionary *query;
     OSErr status;
     
-    query = [self queryForService:service account:account label:@"mongo label" description:@"mongo description" password:password];
+    query = [self queryForHost:host account:account protocol:protocol port:port password:password];
     
     status = SecItemUpdate((CFDictionaryRef)query, NULL);
     if (status != 0) {
-        NSLog(@"Error updating item: %d for %@ %@ %@ %@\n", (int)status, service, account, name, kind);
+        NSLog(@"Error updating item: %d for %@ %@ %@\n", (int)status, host, account, name);
     }
     
     return !status;
 }
 
-+ (NSString *)deleteItemWithService:(NSString *)service account:(NSString *)account name:(NSString *)name kind:(NSString *)kind
++ (NSString *)deleteItemWithHost:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port name:(NSString *)name
 {
     NSDictionary *query;
     OSErr status;
     
-    query = [self queryForService:service account:account label:@"mongo label" description:@"mongo description" password:nil];
+    query = [self queryForHost:host account:account protocol:protocol port:port password:nil];
     
     status = SecItemDelete((CFDictionaryRef)query);
     if (status != 0) {
-        NSLog(@"Error deleting item: %d for %@ %@ %@ %@\n", (int)status, service, account, name, kind);
+        NSLog(@"Error deleting item: %d for %@ %@ %@\n", (int)status, host, account, name);
     }
     
     return !status;

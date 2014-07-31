@@ -10,9 +10,9 @@
 
 @interface MHKeychain : NSObject
     
-+ (BOOL)addItemWithService:(NSString *)service account:(NSString *)account name:(NSString *)name kind:(NSString *)kind password:(NSString *)password;
-+ (NSString *)passwordWithService:(NSString *)service account:(NSString *)account name:(NSString *)name kind:(NSString *)kind;
-+ (BOOL)updateItemWithService:(NSString *)service account:(NSString *)account name:(NSString *)name kind:(NSString *)kind password:(NSString *)password;
-+ (NSString *)deleteItemWithService:(NSString *)service account:(NSString *)account name:(NSString *)name kind:(NSString *)kind;
++ (BOOL)addItemWithHost:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port password:(NSString *)password;
++ (NSString *)passwordWithHost:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port name:(NSString *)name;
++ (BOOL)updateItemWithHost:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port name:(NSString *)name password:(NSString *)password;
++ (NSString *)deleteItemWithHost:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port name:(NSString *)name;
 
 @end
