@@ -238,8 +238,8 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 - (IBAction)addSaveAction:(id)sender
 {
     NSString *hostName;
-    long long hostPort;
-    long long sshPort;
+    NSInteger hostPort;
+    NSInteger sshPort;
     NSString *defaultdb;
     NSString *alias;
     NSString *sshHost;
@@ -249,7 +249,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     BOOL useReplica;
     
     hostName = [self.hostTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    hostPort = [self.hostportTextField.stringValue longLongValue];
+    hostPort = self.hostportTextField.stringValue.integerValue;
     defaultdb = [self.defaultdbTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     alias = [self.aliasTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     sshHost = [self.sshhostTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -257,7 +257,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     useReplica = self.usereplCheckBox.state == NSOnState;
     replicaServers = [self.serversTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     replicaName = [self.replnameTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    sshPort = [self.sshportTextField.stringValue longLongValue];
+    sshPort = self.sshportTextField.stringValue.integerValue;
     
     if ([hostName isEqualToString:@"flame.mongohq.com"] && defaultdb.length == 0) {
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"DB should not be empty if you are using mongohq", @""));
