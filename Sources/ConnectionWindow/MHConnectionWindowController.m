@@ -21,7 +21,6 @@
 #import "MHCollectionItem.h"
 #import "SidebarBadgeCell.h"
 #import "MHConnectionStore.h"
-#import "MHDatabaseStore.h"
 #import "MHFileExporter.h"
 #import "MHFileImporter.h"
 #import "MODHelper.h"
