@@ -1043,7 +1043,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./scripts/update_submodule.sh jeromelebel mongo-objc-driver master Library/mongo-objc-driver\n";
+			shellScript = "./scripts/update_submodule.sh jeromelebel mongo-objc-driver master Libraries/mongo-objc-driver\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
