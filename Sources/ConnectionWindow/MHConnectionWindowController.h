@@ -88,7 +88,6 @@
 - (IBAction)showCollStats:(id)sender;
 - (IBAction)createDatabase:(id)sender;
 - (IBAction)createCollection:(id)sender;
-- (void)createCollectionForDatabaseName:(NSString *)databaseName;
 - (IBAction)dropDatabaseOrCollection:(id)sender;
 - (IBAction)query:(id)sender;
 - (void)connectToServer;

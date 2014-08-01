@@ -134,8 +134,6 @@
 {
     NSView *tabView = self.tabViewController.view;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDatabase:) name:kNewDBWindowWillClose object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addCollection:) name:kNewCollectionWindowWillClose object:nil];
     [[_splitView.subviews objectAtIndex:1] addSubview:tabView];
     tabView.frame = tabView.superview.bounds;
     self.statusViewController = [MHStatusViewController loadNewViewController];
@@ -424,46 +422,40 @@
 
 - (IBAction)createDatabase:(id)sender
 {
-    if (!self.addDBController) {
-        self.addDBController = [[[MHAddDBController alloc] init] autorelease];
-    }
+    NSAssert(self.addDBController == nil, @"we should not be already adding a database");
+    self.addDBController = [[[MHAddDBController alloc] init] autorelease];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDatabase:) name:kNewDBWindowWillClose object:self.addDBController];
     [self.addDBController modalForWindow:self.window];
+}
+
+- (void)addDatabase:(NSNotification *)notification
+{
+    NSAssert(self.addDBController != nil, @"we should be adding a database");
+    [[self.client databaseForName:self.addDBController.databaseName] statsWithReadPreferences:nil callback:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:self.addDBController];
+    self.addDBController = nil;
+    [self getDatabaseList];
 }
 
 - (IBAction)createCollection:(id)sender
 {
     if (self.selectedDatabaseItem) {
-        [self createCollectionForDatabaseName:self.selectedDatabaseItem.database.name];
-    }
-}
-
-- (void)createCollectionForDatabaseName:(NSString *)databaseName
-{
-    if (!self.addCollectionController) {
+        NSAssert(self.addCollectionController == nil, @"we should not be already adding a collection");
         self.addCollectionController = [[[MHAddCollectionController alloc] init] autorelease];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addCollection:) name:kNewCollectionWindowWillClose object:self.addCollectionController];
+        [self.addCollectionController modalForWindow:self.window];
     }
-    [self.addCollectionController modalForWindow:self.window];
-}
-
-- (void)addDatabase:(NSNotification *)notification
-{
-    MHAddDBController *addDatabaseController = notification.object;
-    [[self.client databaseForName:addDatabaseController.databaseName] statsWithReadPreferences:nil callback:nil];
-    [self getDatabaseList];
-    self.addDBController = nil;
 }
 
 - (void)addCollection:(NSNotification *)notification
 {
-    if (!notification.object) {
-        return;
-    }
-    MHAddCollectionController *addCollectionController = notification.object;
     MODDatabase *mongoDatabase;
     
+    NSAssert(self.addCollectionController != nil, @"we should be adding a collection");
+    NSAssert(self.selectedDatabaseItem != nil, @"we should have a selected database");
     mongoDatabase = self.selectedDatabaseItem.database;
     [self.loaderIndicator startAnimation:nil];
-    [mongoDatabase createCollectionWithName:addCollectionController.collectionName callback:^(MODQuery *mongoQuery) {
+    [mongoDatabase createCollectionWithName:self.addCollectionController.collectionName callback:^(MODQuery *mongoQuery) {
         [self.loaderIndicator stopAnimation:nil];
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
