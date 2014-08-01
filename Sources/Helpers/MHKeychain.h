@@ -22,10 +22,10 @@
 @end
 
 @interface MHKeychain (GenericPassword)
-+ (BOOL)addItemWithLabel:(NSString *)label host:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port password:(NSString *)password;
-+ (BOOL)updateItemWithLabel:(NSString *)label host:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port password:(NSString *)password;
-+ (BOOL)addOrUpdateItemWithLabel:(NSString *)label host:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port password:(NSString *)password;
-+ (NSString *)passwordWithLabel:(NSString *)label host:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port;
-+ (BOOL)deleteItemWithLabel:(NSString *)label host:(NSString *)host account:(NSString *)account protocol:(NSString *)protocol port:(NSUInteger)port;
++ (BOOL)addItemWithLabel:(NSString *)label account:(NSString *)account description:(NSString *)description password:(NSString *)password;
++ (BOOL)updateItemWithLabel:(NSString *)label account:(NSString *)account description:(NSString *)description password:(NSString *)password;
++ (BOOL)addOrUpdateItemWithLabel:(NSString *)label account:(NSString *)account description:(NSString *)description password:(NSString *)password;
++ (NSString *)passwordWithLabel:(NSString *)label account:(NSString *)account description:(NSString *)description;
++ (BOOL)deleteItemWithLabel:(NSString *)label account:(NSString *)account description:(NSString *)description;
 
 @end
