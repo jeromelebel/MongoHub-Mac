@@ -8,7 +8,6 @@
 
 #import "MHMysqlImportWindowController.h"
 #import "Configure.h"
-#import "DatabasesArrayController.h"
 #import "NSString+Extras.h"
 #import <mongo-objc-driver/MOD_public.h>
 #import <MCPKit/MCPKit.h>
@@ -41,7 +40,6 @@
 
 - (void)dealloc
 {
-    [databasesArrayController release];
     self.mysqlConnection = nil;
     self.database = nil;
     self.dbsArrayController = nil;
