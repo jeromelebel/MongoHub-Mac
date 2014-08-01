@@ -32,6 +32,12 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     - Fix for adding a database with more than one server connected (the database was created on all servers)
     - Fix for adding a collection with more than one server connected (the collection was created on all servers)
 
+** Beta **
+
+    - SSH password saved into the keychain
+    - Fix for adding a database with more than one server connected (the database was created on all servers)
+    - Fix for adding a collection with more than one server connected (the collection was created on all servers)
+
 ## History
 
 ** 2.7 beta 7 - july 23, 2014 **
