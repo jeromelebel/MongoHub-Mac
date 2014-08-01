@@ -15,27 +15,41 @@
 {
     NSManagedObjectContext *destMOC = manager.destinationContext;
     NSManagedObject *newConnection;
-    NSString *password = [sourceInstance valueForKey:@"sshpassword"];
-    NSString *user = [sourceInstance valueForKey:@"sshuser"];
-    NSString *host;
-    NSString *hostAndPort;
-    
-    host = [sourceInstance valueForKey:@"sshhost"];
-    if ([[sourceInstance valueForKey:@"sshport"] integerValue] != 0) {
-        hostAndPort = [NSString stringWithFormat:@"%@:%@", [sourceInstance valueForKey:@"sshhost"], [sourceInstance valueForKey:@"sshport"]];
+    NSString *mainHost = [sourceInstance valueForKey:@"host"];
+    NSNumber *mainHostPort = [sourceInstance valueForKey:@"hostport"];
+    NSString *servers = [sourceInstance valueForKey:@"servers"];
+    NSString *user = [sourceInstance valueForKey:@"adminuser"];
+    NSString *password = [sourceInstance valueForKey:@"adminpass"];
+    NSMutableArray *allServersArray;
+    NSString *newServersValue;
+
+    if (mainHostPort.integerValue != 0) {
+        allServersArray = [NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%@:%@", mainHost, mainHostPort], nil];
+    } else {
+        allServersArray = [NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%@", mainHost], nil];
     }
-    if (password && password.length > 0) {
-        BOOL result;
-        
-        result = [MHKeychain addOrUpdateInternetPasswordWithProtocol:kSecAttrProtocolSSH host:host port:[[sourceInstance valueForKey:@"sshport"] unsignedIntegerValue] account:user password:password];
-        if (!result) {
-            NSLog(@"can't save password for %@@%@", user, hostAndPort);
+    for (NSString *host in [servers componentsSeparatedByString:@","]) {
+        [allServersArray addObject:[host stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+    }
+    [allServersArray sortUsingSelector:@selector(compare:)];
+    if (user.length == 0) {
+        newServersValue = [allServersArray componentsJoinedByString:@","];
+    } else {
+        newServersValue = [allServersArray componentsJoinedByString:@","];
+        newServersValue = [NSString stringWithFormat:@"%@@%@", user, newServersValue];
+        if (password.length > 0) {
+            [MHKeychain addOrUpdateItemWithLabel:newServersValue account:newServersValue description:nil password:password];
         }
     }
+    
     newConnection = [NSEntityDescription insertNewObjectForEntityForName:@"Connection" inManagedObjectContext:destMOC];
     NSArray *keys = sourceInstance.entity.attributesByName.allKeys;
     NSMutableDictionary *values = [[sourceInstance dictionaryWithValuesForKeys:keys] mutableCopy];
-    [values removeObjectForKey:@"sshpassword"];
+    [values removeObjectForKey:@"host"];
+    [values removeObjectForKey:@"hostport"];
+    [values removeObjectForKey:@"servers"];
+    [values removeObjectForKey:@"adminpass"];
+    [values setObject:newServersValue forKey:@"servers"];
     [newConnection setValuesForKeysWithDictionary:values];
     [manager associateSourceInstance:sourceInstance withDestinationInstance:newConnection forEntityMapping:mapping];
     [values release];
