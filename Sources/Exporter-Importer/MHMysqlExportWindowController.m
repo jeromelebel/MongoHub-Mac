@@ -8,7 +8,6 @@
 
 #import "MHMysqlExportWindowController.h"
 #import "Configure.h"
-#import "DatabasesArrayController.h"
 #import "NSString+Extras.h"
 #import <mongo-objc-driver/MOD_public.h>
 #import <MCPKit/MCPKit.h>
@@ -37,7 +36,6 @@
 
 - (void)dealloc {
     [dbname release];
-    [databasesArrayController release];
     [db release];
     [mongoDatabase release];
     [dbsArrayController release];

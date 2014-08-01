@@ -7,14 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class DatabasesArrayController;
 @class MCPConnection;
 @class MODCollection;
 @class MODDatabase;
 @class FieldMapTableController;
 
 @interface MHMysqlExportWindowController : NSWindowController {
-    DatabasesArrayController *databasesArrayController;
     NSString *dbname;
     MODDatabase *mongoDatabase;
     MCPConnection *db;
