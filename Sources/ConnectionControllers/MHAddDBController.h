@@ -14,13 +14,11 @@
 {
     IBOutlet NSTextField *dbname;
     
-    NSMutableDictionary *dbInfo;
     MHConnectionStore *conn;
     NSManagedObjectContext              *_managedObjectContext;
 }
 
 @property (nonatomic, retain) NSTextField *dbname;
-@property (nonatomic, retain) NSMutableDictionary *dbInfo;
 @property (nonatomic, retain) MHConnectionStore *conn;
 @property(nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 
