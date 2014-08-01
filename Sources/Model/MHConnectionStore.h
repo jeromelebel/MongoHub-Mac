@@ -16,15 +16,12 @@
 - (NSArray *)queryHistoryWithDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
 - (void)addNewQuery:(NSDictionary *)query withDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
 
-@property (nonatomic, retain) NSString *host;
-@property (nonatomic, retain) NSNumber *hostport;
 @property (nonatomic, retain) NSString *servers;
 @property (nonatomic, retain) NSString *repl_name;
 @property (nonatomic, retain) NSString *alias;
 @property (nonatomic, retain) NSString *adminuser;
 @property (nonatomic, retain) NSString *adminpass;
 @property (nonatomic, retain) NSString *defaultdb;
-@property (nonatomic, retain) NSSet *databases;
 @property (nonatomic, retain) NSNumber *usessl;
 @property (nonatomic, retain) NSNumber *usessh;
 @property (nonatomic, retain) NSString *sshhost;

@@ -143,17 +143,7 @@
     if (self.connectionStore.userepl.intValue == 1) {
         self.window.title = [NSString stringWithFormat:@"%@ [%@]", self.connectionStore.alias, self.connectionStore.repl_name];
     } else {
-        unsigned short hostPort = self.connectionStore.hostport.intValue;
-        NSString *host = self.connectionStore.host.stringByTrimmingWhitespace;
-        
-        if (host.length == 0) {
-            host = DEFAULT_MONGO_IP;
-        }
-        if (hostPort == 0 || hostPort == MODClient.defaultPort) {
-            self.window.title = [NSString stringWithFormat:@"%@ [%@]", self.connectionStore.alias, host];
-        } else {
-            self.window.title = [NSString stringWithFormat:@"%@ [%@:%d]", self.connectionStore.alias, host, hostPort];
-        }
+        self.window.title = [NSString stringWithFormat:@"%@ [%@]", self.connectionStore.alias, self.connectionStore.servers];
     }
     [self.tabViewController addObserver:self forKeyPath:@"selectedTabIndex" options:NSKeyValueObservingOptionNew context:nil];
     [self.window addObserver:self forKeyPath:@"firstResponder" options:NSKeyValueObservingOptionNew context:nil];
@@ -233,7 +223,6 @@
         return;
     } else {
         NSString *auth = @"";
-        NSString *ip = nil;
         NSString *uri;
         
         [self closeMongoDB];
@@ -265,7 +254,7 @@
             }
         }
         NSAssert(ip != nil, @"need an ip");
-        uri = [NSString stringWithFormat:@"mongodb://%@%@/%@?ssl=%@", auth, ip, self.connectionStore.defaultdb, self.connectionStore.usessl.boolValue?@"true":@"false"];
+        uri = [NSString stringWithFormat:@"mongodb://%@%@/%@?ssl=%@", auth, self.connectionStore.servers, self.connectionStore.defaultdb, self.connectionStore.usessl.boolValue?@"true":@"false"];
         self.client = [MODClient clientWihtURLString:uri];
         self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
         self.statusViewController.client = self.client;

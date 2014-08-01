@@ -16,15 +16,11 @@
 
 @implementation MHConnectionStore
 
-@dynamic host;
-@dynamic hostport;
 @dynamic servers;
 @dynamic repl_name;
 @dynamic alias;
 @dynamic adminuser;
-@dynamic adminpass;
 @dynamic defaultdb;
-@dynamic databases;
 @dynamic userepl;
 
 @dynamic usessl;
@@ -116,6 +112,23 @@
 {
     if (self.usessh) {
         [MHKeychain addOrUpdateInternetPasswordWithProtocol:kSecAttrProtocolSSH host:self.sshhost port:self.sshport.unsignedIntegerValue account:self.sshuser password:sshpassword];
+    }
+}
+
+- (NSString *)keychainAccount
+{
+    return [NSString stringWithFormat:@"%@@%@", self.adminuser, self.servers];
+}
+
+- (NSString *)adminpass
+{
+    return [MHKeychain passwordWithLabel:nil account:self.keychainAccount description:nil];
+}
+
+- (void)setAdminpass:(NSString *)adminpass
+{
+    if (self.adminuser.length > 0) {
+        [MHKeychain addOrUpdateItemWithLabel:self.keychainAccount account:self.keychainAccount description:nil password:adminpass];
     }
 }
 
