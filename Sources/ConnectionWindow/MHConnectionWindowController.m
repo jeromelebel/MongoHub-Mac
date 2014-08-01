@@ -12,10 +12,8 @@
 #import "MHQueryWindowController.h"
 #import "MHAddDBController.h"
 #import "MHAddCollectionController.h"
-#import "AuthWindowController.h"
 #import "MHMysqlImportWindowController.h"
 #import "MHMysqlExportWindowController.h"
-#import "DatabasesArrayController.h"
 #import "StatMonitorTableController.h"
 #import "MHTunnel.h"
 #import "MHServerItem.h"
@@ -80,7 +78,6 @@
 @synthesize addCollectionController = _addCollectionController;
 @synthesize resultsTitle;
 @synthesize bundleVersion;
-@synthesize authWindowController;
 @synthesize mysqlImportWindowController = _mysqlImportWindowController;
 @synthesize mysqlExportWindowController = _mysqlExportWindowController;
 @synthesize loaderIndicator = _loaderIndicator;
@@ -117,7 +114,6 @@
     self.monitorButton = nil;
     self.statMonitorTableController = nil;
     self.bundleVersion = nil;
-    self.authWindowController = nil;
     self.mysqlImportWindowController = nil;
     self.mysqlExportWindowController = nil;
     self.statusViewController = nil;
@@ -331,8 +327,6 @@
         } else if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
         }
-        
-        [_databaseStoreArrayController clean:self.connectionStore databases:self.databases];
     }];
     return result;
 }
@@ -559,30 +553,6 @@
         }
         [queryWindowController select];
     }
-}
-
-- (IBAction)showAuth:(id)sender
-{
-    if (!self.selectedDatabaseItem)
-    {
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"Please choose a database!");
-        return;
-    }
-    if (!authWindowController)
-    {
-        authWindowController = [[AuthWindowController alloc] init];
-    }
-    MHDatabaseStore *db = [_databaseStoreArrayController dbInfo:self.connectionStore name:self.selectedDatabaseItem.database.name];
-    if (db) {
-        [authWindowController.userTextField setStringValue:db.user];
-        [authWindowController.passwordTextField setStringValue:db.password];
-    }else {
-        [authWindowController.userTextField setStringValue:@""];
-        [authWindowController.passwordTextField setStringValue:@""];
-    }
-    authWindowController.conn = self.connectionStore;
-    authWindowController.dbname = self.selectedDatabaseItem.database.name;
-    [authWindowController showWindow:self];
 }
 
 - (void)dropWarningDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo

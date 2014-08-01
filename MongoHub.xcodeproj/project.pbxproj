@@ -81,8 +81,6 @@
 		1D1D65651189C93400582917 /* supportmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D1D65641189C93400582917 /* supportmenu.png */; };
 		1D1D65A31189F05600582917 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1D1D65A21189F05600582917 /* Icon.icns */; };
 		1D210BFB1192FF06000EF41C /* key.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D210BFA1192FF06000EF41C /* key.png */; };
-		1D210BFE119301BA000EF41C /* AuthWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D210BFD119301BA000EF41C /* AuthWindowController.m */; };
-		1D210C0011930E18000EF41C /* Auth.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D210BFF11930E18000EF41C /* Auth.xib */; };
 		1D26614E11CFC47C0092C6B5 /* MHMysqlExportWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D26614D11CFC47C0092C6B5 /* MHMysqlExportWindowController.m */; };
 		1D26615211CFC5BE0092C6B5 /* MysqlExport.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D26615111CFC5BE0092C6B5 /* MysqlExport.xib */; };
 		1D26619111CFD1640092C6B5 /* FieldMapDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D26619011CFD1640092C6B5 /* FieldMapDataObject.m */; };
@@ -117,7 +115,6 @@
 		1D93C42C1183744D003216F7 /* collectionicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C42A1183744D003216F7 /* collectionicon.png */; };
 		1D93C42D1183744D003216F7 /* dbicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C42B1183744D003216F7 /* dbicon.png */; };
 		1D93C45411837668003216F7 /* SidebarBadgeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D93C45011837668003216F7 /* SidebarBadgeCell.m */; };
-		1D93C7491184369D003216F7 /* DatabasesArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D93C7481184369D003216F7 /* DatabasesArrayController.m */; };
 		1D93CB5C1184C243003216F7 /* MHResultsOutlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D93CB5B1184C243003216F7 /* MHResultsOutlineViewController.m */; };
 		1DA68047118875B300DFDD29 /* findmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DA68042118875B300DFDD29 /* findmenu.png */; };
 		1DA68048118875B300DFDD29 /* insertmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DA68043118875B300DFDD29 /* insertmenu.png */; };
@@ -344,9 +341,6 @@
 		1D1D65641189C93400582917 /* supportmenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = supportmenu.png; path = Resources/images/supportmenu.png; sourceTree = SOURCE_ROOT; };
 		1D1D65A21189F05600582917 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = Resources/images/Icon.icns; sourceTree = SOURCE_ROOT; };
 		1D210BFA1192FF06000EF41C /* key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = key.png; path = Resources/images/key.png; sourceTree = SOURCE_ROOT; };
-		1D210BFC119301BA000EF41C /* AuthWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthWindowController.h; sourceTree = "<group>"; };
-		1D210BFD119301BA000EF41C /* AuthWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthWindowController.m; sourceTree = "<group>"; };
-		1D210BFF11930E18000EF41C /* Auth.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Auth.xib; sourceTree = "<group>"; };
 		1D26614C11CFC47C0092C6B5 /* MHMysqlExportWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMysqlExportWindowController.h; sourceTree = "<group>"; };
 		1D26614D11CFC47C0092C6B5 /* MHMysqlExportWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMysqlExportWindowController.m; sourceTree = "<group>"; };
 		1D26615111CFC5BE0092C6B5 /* MysqlExport.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MysqlExport.xib; sourceTree = "<group>"; };
@@ -399,8 +393,6 @@
 		1D93C42B1183744D003216F7 /* dbicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dbicon.png; path = Resources/images/dbicon.png; sourceTree = SOURCE_ROOT; };
 		1D93C44F11837668003216F7 /* SidebarBadgeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarBadgeCell.h; sourceTree = "<group>"; };
 		1D93C45011837668003216F7 /* SidebarBadgeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarBadgeCell.m; sourceTree = "<group>"; };
-		1D93C7471184369D003216F7 /* DatabasesArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabasesArrayController.h; sourceTree = "<group>"; };
-		1D93C7481184369D003216F7 /* DatabasesArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabasesArrayController.m; sourceTree = "<group>"; };
 		1D93CB5A1184C243003216F7 /* MHResultsOutlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHResultsOutlineViewController.h; sourceTree = "<group>"; };
 		1D93CB5B1184C243003216F7 /* MHResultsOutlineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHResultsOutlineViewController.m; sourceTree = "<group>"; };
 		1DA68042118875B300DFDD29 /* findmenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = findmenu.png; path = Resources/images/findmenu.png; sourceTree = SOURCE_ROOT; };
@@ -539,8 +531,6 @@
 				1D93CB5B1184C243003216F7 /* MHResultsOutlineViewController.m */,
 				0262CA40148C1852009033F9 /* MHQueryWindowController.h */,
 				1DF96F9111883B3800C35AB8 /* MHQueryWindowController.m */,
-				1D210BFC119301BA000EF41C /* AuthWindowController.h */,
-				1D210BFD119301BA000EF41C /* AuthWindowController.m */,
 				020F5125148973BA00D4B54B /* MHStatusViewController.h */,
 				020F5126148973BA00D4B54B /* MHStatusViewController.m */,
 			);
@@ -692,8 +682,6 @@
 			children = (
 				1D93C24D11833599003216F7 /* ConnectionsArrayController.h */,
 				1D93C24E11833599003216F7 /* ConnectionsArrayController.m */,
-				1D93C7471184369D003216F7 /* DatabasesArrayController.h */,
-				1D93C7481184369D003216F7 /* DatabasesArrayController.m */,
 				1D26619211CFD2560092C6B5 /* FieldMapTableController.h */,
 				1D26619311CFD2560092C6B5 /* FieldMapTableController.m */,
 				1DCC562712C264600025F181 /* StatMonitorTableController.h */,
@@ -836,7 +824,6 @@
 				1D79945611875E7A009C187F /* MHAddDBController.xib */,
 				1DF96E3C11881EB400C35AB8 /* MHAddCollectionController.xib */,
 				1DF96F9311883D5E00C35AB8 /* MHQueryWindow.xib */,
-				1D210BFF11930E18000EF41C /* Auth.xib */,
 				1D601B5511C8F24300C86274 /* MysqlImport.xib */,
 				1D26615111CFC5BE0092C6B5 /* MysqlExport.xib */,
 				1D64100E12C8E6BE0030AA4C /* MHJsonWindow.xib */,
@@ -1007,7 +994,6 @@
 				1D1D65A31189F05600582917 /* Icon.icns in Resources */,
 				1D58BE0B118ED8D20045A044 /* mapreducemenu.png in Resources */,
 				1D210BFB1192FF06000EF41C /* key.png in Resources */,
-				1D210C0011930E18000EF41C /* Auth.xib in Resources */,
 				1D601B3811C8E13000C86274 /* importmenu.png in Resources */,
 				1D601B3911C8E13000C86274 /* exportmenu.png in Resources */,
 				1D601B3D11C8E7F900C86274 /* exportbox.png in Resources */,
@@ -1089,13 +1075,11 @@
 				1D93C24F11833599003216F7 /* ConnectionsArrayController.m in Sources */,
 				1D93C29A11833F26003216F7 /* MHDatabaseStore.m in Sources */,
 				1D93C45411837668003216F7 /* SidebarBadgeCell.m in Sources */,
-				1D93C7491184369D003216F7 /* DatabasesArrayController.m in Sources */,
 				1D93CB5C1184C243003216F7 /* MHResultsOutlineViewController.m in Sources */,
 				1D799455118755EE009C187F /* MHAddDBController.m in Sources */,
 				1DF96E3B11881AED00C35AB8 /* MHAddCollectionController.m in Sources */,
 				1DF96F9211883B3800C35AB8 /* MHQueryWindowController.m in Sources */,
 				1DA6806C11888BDD00DFDD29 /* NSString+Extras.m in Sources */,
-				1D210BFE119301BA000EF41C /* AuthWindowController.m in Sources */,
 				1D601B5211C8F08C00C86274 /* MHMysqlImportWindowController.m in Sources */,
 				1D26614E11CFC47C0092C6B5 /* MHMysqlExportWindowController.m in Sources */,
 				1D26619111CFD1640092C6B5 /* FieldMapDataObject.m in Sources */,

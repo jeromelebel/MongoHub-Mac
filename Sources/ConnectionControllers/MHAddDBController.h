@@ -7,16 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class DatabasesArrayController;
 @class MHConnectionStore;
 @class MHAddDBController;
 
 @interface MHAddDBController : NSWindowController
 {
     IBOutlet NSTextField *dbname;
-    IBOutlet NSTextField *user;
-    IBOutlet NSSecureTextField *password;
-    IBOutlet DatabasesArrayController   *_databasesArrayController;
     
     NSMutableDictionary *dbInfo;
     MHConnectionStore *conn;
@@ -24,11 +20,8 @@
 }
 
 @property (nonatomic, retain) NSTextField *dbname;
-@property (nonatomic, retain) NSTextField *user;
-@property (nonatomic, retain) NSSecureTextField *password;
 @property (nonatomic, retain) NSMutableDictionary *dbInfo;
 @property (nonatomic, retain) MHConnectionStore *conn;
-@property (nonatomic, retain) DatabasesArrayController *databasesArrayController;
 @property(nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 
 - (IBAction)add:(id)sender;

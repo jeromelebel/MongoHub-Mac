@@ -12,11 +12,9 @@
 #import "MHTabViewController.h"
 
 @class BWSheetController;
-@class DatabasesArrayController;
 @class StatMonitorTableController;
 @class MHAddDBController;
 @class MHAddCollectionController;
-@class AuthWindowController;
 @class MHMysqlImportWindowController;
 @class MHMysqlExportWindowController;
 @class MHResultsOutlineViewController;
@@ -35,7 +33,6 @@
 {
     NSMutableDictionary                     *_tabItemControllers;
     IBOutlet NSMenu                         *createCollectionOrDatabaseMenu;
-    IBOutlet DatabasesArrayController       *_databaseStoreArrayController;
     
     MHStatusViewController                  *_statusViewController;
     MHTabViewController                     *_tabViewController;
@@ -57,7 +54,6 @@
     unsigned short                          _sshTunnelPort;
     MHAddDBController                       *_addDBController;
     MHAddCollectionController               *_addCollectionController;
-    AuthWindowController                    *authWindowController;
     MHMysqlImportWindowController           *_mysqlImportWindowController;
     MHMysqlExportWindowController           *_mysqlExportWindowController;
     IBOutlet NSTextField                    *bundleVersion;
@@ -81,7 +77,6 @@
 @property (nonatomic, retain) NSButton *monitorButton;
 @property (nonatomic, retain) StatMonitorTableController *statMonitorTableController;
 @property (nonatomic, retain) NSTextField *bundleVersion;
-@property (nonatomic, retain) AuthWindowController *authWindowController;
 @property (nonatomic, retain) MHMysqlImportWindowController *mysqlImportWindowController;
 @property (nonatomic, retain) MHMysqlExportWindowController *mysqlExportWindowController;
 @property (nonatomic, readonly, assign) NSManagedObjectContext *managedObjectContext;
@@ -96,7 +91,6 @@
 - (void)createCollectionForDatabaseName:(NSString *)databaseName;
 - (IBAction)dropDatabaseOrCollection:(id)sender;
 - (IBAction)query:(id)sender;
-- (IBAction)showAuth:(id)sender;
 - (void)connectToServer;
 - (void)dropWarning:(NSString *)msg;
 
