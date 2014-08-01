@@ -1,5 +1,5 @@
 //
-//  DatabasesArrayController.h
+//  ConnectionsArrayController.h
 //  MongoHub
 //
 //  Created by Syd on 10-4-24.

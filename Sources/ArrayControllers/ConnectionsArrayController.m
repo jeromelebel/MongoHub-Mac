@@ -1,5 +1,5 @@
 //
-//  DatabasesArrayController.m
+//  ConnectionsArrayController.m
 //  MongoHub
 //
 //  Created by Syd on 10-4-24.
