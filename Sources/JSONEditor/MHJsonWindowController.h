@@ -10,7 +10,6 @@
 #import "UKSyntaxColoredTextViewController.h"
 #import <mongo-objc-driver/MOD_public.h>
 
-@class DatabasesArrayController;
 @class MODClient;
 @class MODCollection;
 
@@ -20,7 +19,6 @@
 
 @interface MHJsonWindowController : NSWindowController <UKSyntaxColoredTextViewDelegate, MODQueryCallbackTarget>
 {
-    DatabasesArrayController            *databasesArrayController;
     MODCollection                       *_collection;
     NSDictionary                        *jsonDict;
     IBOutlet NSTextView                 *myTextView;
@@ -29,7 +27,6 @@
     UKSyntaxColoredTextViewController   *syntaxColoringController;
 }
 
-@property (nonatomic, retain) DatabasesArrayController *databasesArrayController;
 @property (nonatomic, retain) NSDictionary *jsonDict;
 @property (nonatomic, retain) NSTextView *myTextView;
 @property (nonatomic, readwrite, retain) MODCollection *collection;

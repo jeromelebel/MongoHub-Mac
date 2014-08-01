@@ -8,7 +8,6 @@
 
 #import "MHJsonWindowController.h"
 #import "Configure.h"
-#import "DatabasesArrayController.h"
 #import "NSString+Extras.h"
 #import <mongo-objc-driver/MOD_public.h>
 
@@ -18,7 +17,6 @@
 @end
 
 @implementation MHJsonWindowController
-@synthesize databasesArrayController;
 @synthesize collection = _collection;
 @synthesize jsonDict;
 @synthesize myTextView;
@@ -32,7 +30,6 @@
 
 - (void)dealloc
 {
-    [databasesArrayController release];
     self.collection = nil;
     [jsonDict release];
     [syntaxColoringController setDelegate: nil];
