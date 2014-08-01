@@ -13,12 +13,10 @@
 {
     IBOutlet NSTextField *collectionname;
     NSMutableString *dbname;
-    NSMutableDictionary *dbInfo;
 }
 
 @property (nonatomic, retain) NSTextField *collectionname;
 @property (nonatomic, retain) NSString *dbname;
-@property (nonatomic, retain) NSMutableDictionary *dbInfo;
 
 - (IBAction)add:(id)sender;
 - (IBAction)cancel:(id)sender;
