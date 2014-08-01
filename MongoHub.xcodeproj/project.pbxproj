@@ -25,10 +25,12 @@
 		020F511B14896DE700D4B54B /* MHTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 020F511914896DE700D4B54B /* MHTabViewController.xib */; };
 		020F5128148973BA00D4B54B /* MHStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 020F5126148973BA00D4B54B /* MHStatusViewController.m */; };
 		020F5129148973BA00D4B54B /* MHStatusViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 020F5127148973BA00D4B54B /* MHStatusViewController.xib */; };
+		021315AE198ABF41006378C5 /* MHMongoHubMigration7to8.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 021315AD198ABF41006378C5 /* MHMongoHubMigration7to8.xcmappingmodel */; };
 		0213CAEE1431F3400027795D /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 1DFC2A8C11970BD0006AA167 /* dsa_pub.pem */; };
 		021BEA681463709A0091C2EA /* MongoHub_DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 021BEA641463709A0091C2EA /* MongoHub_DataModel.xcdatamodeld */; };
 		023230AE15E051300075498C /* MHConnectionEditorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 023230AD15E051300075498C /* MHConnectionEditorWindowController.m */; };
 		0242F11A198922B900C73FEC /* MHMongoHubMigration6to7.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0242F119198922B800C73FEC /* MHMongoHubMigration6to7.xcmappingmodel */; };
+		0242F138198ABE3E00C73FEC /* MHMongoHubMigration7to8.m in Sources */ = {isa = PBXBuildFile; fileRef = 0242F137198ABE3E00C73FEC /* MHMongoHubMigration7to8.m */; };
 		024F67901427F3DE00956BF6 /* MODHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 024F678F1427F3DE00956BF6 /* MODHelper.m */; };
 		0252361218FECEE700286EC9 /* MHExporterImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0252361118FECEE700286EC9 /* MHExporterImporter.m */; };
 		0255B568181A9A210019739D /* MHKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255B567181A9A210019739D /* MHKeychain.m */; };
@@ -257,6 +259,7 @@
 		020F5125148973BA00D4B54B /* MHStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHStatusViewController.h; sourceTree = "<group>"; };
 		020F5126148973BA00D4B54B /* MHStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHStatusViewController.m; sourceTree = "<group>"; };
 		020F5127148973BA00D4B54B /* MHStatusViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHStatusViewController.xib; sourceTree = "<group>"; };
+		021315AD198ABF41006378C5 /* MHMongoHubMigration7to8.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MHMongoHubMigration7to8.xcmappingmodel; sourceTree = "<group>"; };
 		0213CAF31431FEF50027795D /* mongohub_su_feed.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = mongohub_su_feed.xml; sourceTree = "<group>"; };
 		021BEA651463709A0091C2EA /* MongoHub_DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel.xcdatamodel; sourceTree = "<group>"; };
 		021BEA661463709A0091C2EA /* MongoHub_DataModel1.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel1.0.xcdatamodel; sourceTree = "<group>"; };
@@ -266,6 +269,9 @@
 		023230AD15E051300075498C /* MHConnectionEditorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHConnectionEditorWindowController.m; sourceTree = "<group>"; };
 		0242F119198922B800C73FEC /* MHMongoHubMigration6to7.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MHMongoHubMigration6to7.xcmappingmodel; sourceTree = "<group>"; };
 		0242F11B1989475F00C73FEC /* MongoHub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MongoHub.entitlements; sourceTree = "<group>"; };
+		0242F133198ABAA900C73FEC /* MongoHub_DataModel8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel8.xcdatamodel; sourceTree = "<group>"; };
+		0242F136198ABE3E00C73FEC /* MHMongoHubMigration7to8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMongoHubMigration7to8.h; sourceTree = "<group>"; };
+		0242F137198ABE3E00C73FEC /* MHMongoHubMigration7to8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMongoHubMigration7to8.m; sourceTree = "<group>"; };
 		024F678E1427F3DE00956BF6 /* MODHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODHelper.h; sourceTree = "<group>"; };
 		024F678F1427F3DE00956BF6 /* MODHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODHelper.m; sourceTree = "<group>"; };
 		0252361018FEC2E100286EC9 /* MHExporterImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHExporterImporter.h; sourceTree = "<group>"; };
@@ -586,6 +592,9 @@
 				1D93C29911833F26003216F7 /* MHDatabaseStore.m */,
 				025CBC6C1982AE4E00C8E272 /* MHMongoHubMigration6to7.h */,
 				025CBC6D1982AE4E00C8E272 /* MHMongoHubMigration6to7.m */,
+				021315AD198ABF41006378C5 /* MHMongoHubMigration7to8.xcmappingmodel */,
+				0242F136198ABE3E00C73FEC /* MHMongoHubMigration7to8.h */,
+				0242F137198ABE3E00C73FEC /* MHMongoHubMigration7to8.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1075,6 +1084,7 @@
 				1D93C1E411833342003216F7 /* ConnectionsCollectionView.m in Sources */,
 				1D93C1E511833342003216F7 /* IconCollectionItem.m in Sources */,
 				029CAA731946028800FD44B4 /* NSTextView+MOD.m in Sources */,
+				021315AE198ABF41006378C5 /* MHMongoHubMigration7to8.xcmappingmodel in Sources */,
 				1D93C1E611833342003216F7 /* IconViewBox.m in Sources */,
 				1D93C24F11833599003216F7 /* ConnectionsArrayController.m in Sources */,
 				1D93C29A11833F26003216F7 /* MHDatabaseStore.m in Sources */,
@@ -1113,6 +1123,7 @@
 				020F5128148973BA00D4B54B /* MHStatusViewController.m in Sources */,
 				0262CA3C148C14A8009033F9 /* MHTabItemViewController.m in Sources */,
 				0262CA3F148C1838009033F9 /* MHConnectionWindowController.m in Sources */,
+				0242F138198ABE3E00C73FEC /* MHMongoHubMigration7to8.m in Sources */,
 				025B8F0C1531C76E00849A71 /* MHTabTitleContainerView.m in Sources */,
 				025F635215AE21F300CD0EB4 /* NSViewHelpers.m in Sources */,
 				025CBC6E1982AE4E00C8E272 /* MHMongoHubMigration6to7.m in Sources */,
@@ -1323,6 +1334,7 @@
 				02AF1BEC1962B4F000926F75 /* MongoHub_DataModel5.xcdatamodel */,
 				02B7CCE4197AA07D0031A57A /* MongoHub_DataModel6.xcdatamodel */,
 				02940E021982A17A005AF3C1 /* MongoHub_DataModel7.xcdatamodel */,
+				0242F133198ABAA900C73FEC /* MongoHub_DataModel8.xcdatamodel */,
 				02AB33A6194850BD008C06B9 /* MongoHub_DataModel3.0.xcdatamodel */,
 				021BEA651463709A0091C2EA /* MongoHub_DataModel.xcdatamodel */,
 				021BEA661463709A0091C2EA /* MongoHub_DataModel1.0.xcdatamodel */,
