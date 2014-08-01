@@ -166,13 +166,6 @@
 			remoteGlobalIDString = 02F121BD1410EF5200197811;
 			remoteInfo = "mongo-test";
 		};
-		021E5CD91926601D00F3ED81 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 021E5CCE19265FC300F3ED81 /* mongo-objc-driver.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 02ABA1BF14103B37000417F4;
-			remoteInfo = "mongo-objc-driver";
-		};
 		02216F611412D6E900789BD1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -186,6 +179,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 02216F201412D54600789BD1;
 			remoteInfo = Submodules;
+		};
+		02787191198BFE510089BDD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 021E5CCE19265FC300F3ED81 /* mongo-objc-driver.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 02ABA1BF14103B37000417F4;
+			remoteInfo = "mongo-objc-driver";
 		};
 		790512FB0DDD0A100070760D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -883,7 +883,7 @@
 			dependencies = (
 				02216F641412D6F000789BD1 /* PBXTargetDependency */,
 				790512FC0DDD0A100070760D /* PBXTargetDependency */,
-				021E5CDA1926601D00F3ED81 /* PBXTargetDependency */,
+				02787192198BFE510089BDD5 /* PBXTargetDependency */,
 			);
 			name = MongoHub;
 			productInstallPath = "$(HOME)/Applications";
@@ -1118,11 +1118,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		021E5CDA1926601D00F3ED81 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "mongo-objc-driver";
-			targetProxy = 021E5CD91926601D00F3ED81 /* PBXContainerItemProxy */;
-		};
 		02216F621412D6E900789BD1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 02216F201412D54600789BD1 /* Submodules */;
@@ -1132,6 +1127,11 @@
 			isa = PBXTargetDependency;
 			target = 02216F201412D54600789BD1 /* Submodules */;
 			targetProxy = 02216F631412D6F000789BD1 /* PBXContainerItemProxy */;
+		};
+		02787192198BFE510089BDD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "mongo-objc-driver";
+			targetProxy = 02787191198BFE510089BDD5 /* PBXContainerItemProxy */;
 		};
 		790512FC0DDD0A100070760D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
