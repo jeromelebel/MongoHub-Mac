@@ -5,11 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6185.11"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="AddDBController">
+        <customObject id="-2" userLabel="File's Owner" customClass="MHAddDBController">
             <connections>
-                <outlet property="databasesArrayController" destination="30" id="32"/>
-                <outlet property="dbname" destination="7" id="21"/>
-                <outlet property="window" destination="1" id="3"/>
+                <outlet property="_databaseNameTextField" destination="7" id="RJj-He-gU2"/>
+                <outlet property="window" destination="1" id="pri-BN-QEy"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -77,10 +76,5 @@ Gw
                 <outlet property="initialFirstResponder" destination="7" id="35"/>
             </connections>
         </window>
-        <arrayController mode="entity" entityName="Database" id="30" customClass="DatabasesArrayController">
-            <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="31"/>
-            </connections>
-        </arrayController>
     </objects>
 </document>

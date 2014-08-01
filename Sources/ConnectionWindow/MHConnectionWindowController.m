@@ -427,7 +427,6 @@
     if (!self.addDBController) {
         self.addDBController = [[[MHAddDBController alloc] init] autorelease];
     }
-    self.addDBController.conn = self.connectionStore;
     [self.addDBController modalForWindow:self.window];
 }
 
@@ -443,16 +442,13 @@
     if (!self.addCollectionController) {
         self.addCollectionController = [[[MHAddCollectionController alloc] init] autorelease];
     }
-    self.addCollectionController.dbname = databaseName;
     [self.addCollectionController modalForWindow:self.window];
 }
 
 - (void)addDatabase:(NSNotification *)notification
 {
-    if (!notification.object) {
-        return;
-    }
-    [[self.client databaseForName:[notification.object objectForKey:@"dbname"]] statsWithReadPreferences:nil callback:nil];
+    MHAddDBController *addDatabaseController = notification.object;
+    [[self.client databaseForName:addDatabaseController.databaseName] statsWithReadPreferences:nil callback:nil];
     [self getDatabaseList];
     self.addDBController = nil;
 }
@@ -462,12 +458,12 @@
     if (!notification.object) {
         return;
     }
-    NSString *collectionName = [notification.object objectForKey:@"collectionname"];
+    MHAddCollectionController *addCollectionController = notification.object;
     MODDatabase *mongoDatabase;
     
     mongoDatabase = self.selectedDatabaseItem.database;
     [self.loaderIndicator startAnimation:nil];
-    [mongoDatabase createCollectionWithName:collectionName callback:^(MODQuery *mongoQuery) {
+    [mongoDatabase createCollectionWithName:addCollectionController.collectionName callback:^(MODQuery *mongoQuery) {
         [self.loaderIndicator stopAnimation:nil];
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);

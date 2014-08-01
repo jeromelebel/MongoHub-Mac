@@ -10,22 +10,20 @@
 #import "MHAddCollectionController.h"
 
 
+@interface MHAddCollectionController ()
+@property (nonatomic, readwrite, strong) NSTextField *collectionNameTextField;
+
+@end
+
 @implementation MHAddCollectionController
 
-@synthesize dbname;
-@synthesize collectionname;
+@synthesize collectionName = _collectionName;
+@synthesize collectionNameTextField = _collectionNameTextField;
 
 - (id)init
 {
     self = [super initWithWindowNibName:@"MHAddCollectionController"];
     return self;
-}
-
-- (void)dealloc
-{
-    [dbname release];
-    [collectionname release];
-    [super dealloc];
 }
 
 - (IBAction)cancel:(id)sender
@@ -35,18 +33,15 @@
 
 - (IBAction)add:(id)sender
 {
-    NSMutableDictionary *dbInfo;
-    
-    [self retain];
-    if ([ [collectionname stringValue] length] == 0) {
+    if (self.collectionName.length == 0) {
         NSRunAlertPanel(@"Error", @"Collection name can not be empty", @"OK", nil, nil);
-        return;
+    } else {
+        [self retain];
+        // the delegate will release this instance in this notification, so we need to make sure we keep ourself arround to close the window
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNewCollectionWindowWillClose object:self];
+        [NSApp endSheet:self.window];
+        [self autorelease];
     }
-    dbInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:dbname, @"dbname", collectionname.stringValue, @"collectionname", nil];
-    // the delegate will release this instance in this notification, so we need to make sure we keep ourself arround to close the window
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNewCollectionWindowWillClose object:dbInfo];
-    [NSApp endSheet:self.window];
-    [self release];
 }
 
 - (void)modalForWindow:(NSWindow *)window
@@ -57,6 +52,11 @@
 - (void)didEndSheet:(NSWindow *)window returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
 {
     [self.window orderOut:self];
+}
+
+- (NSString *)collectionName
+{
+    return self.collectionNameTextField.stringValue;
 }
 
 @end

@@ -12,15 +12,9 @@
 
 @interface MHAddDBController : NSWindowController
 {
-    IBOutlet NSTextField *dbname;
-    
-    MHConnectionStore *conn;
-    NSManagedObjectContext              *_managedObjectContext;
+    IBOutlet NSTextField                *_databaseNameTextField;
 }
-
-@property (nonatomic, retain) NSTextField *dbname;
-@property (nonatomic, retain) MHConnectionStore *conn;
-@property(nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, readonly, strong) NSString *databaseName;
 
 - (IBAction)add:(id)sender;
 - (IBAction)cancel:(id)sender;

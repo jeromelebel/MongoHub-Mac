@@ -10,10 +10,14 @@
 #import "MHAddDBController.h"
 #import "NSString+Extras.h"
 
+@interface MHAddDBController ()
+@property (nonatomic, readwrite, strong) NSTextField *databaseNameTextField;
+
+@end
+
 @implementation MHAddDBController
 
-@synthesize dbname;
-@synthesize conn;
+@synthesize databaseNameTextField = _databaseNameTextField;
 
 - (id)init
 {
@@ -23,14 +27,7 @@
 
 - (void)dealloc
 {
-    [dbname release];
-    [conn release];
     [super dealloc];
-}
-
-- (NSManagedObjectContext *)managedObjectContext
-{
-    return [conn managedObjectContext];
 }
 
 - (IBAction)cancel:(id)sender
@@ -40,18 +37,16 @@
 
 - (IBAction)add:(id)sender
 {
-    NSMutableDictionary *dbInfo;
-    
     [self retain];
-    if ([ [dbname stringValue] length] == 0) {
+    if (self.databaseName.length == 0) {
         NSRunAlertPanel(@"Error", @"Database name can not be empty", @"OK", nil, nil);
-        return;
+    } else {
+        [self retain];
+        // the delegate will release this instance in this notification, so we need to make sure we keep ourself arround to close the window
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNewDBWindowWillClose object:self];
+        [NSApp endSheet:self.window];
+        [self autorelease];
     }
-    dbInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:dbname.stringValue, @"dbname", nil];
-    // the delegate will release this instance in this notification, so we need to make sure we keep ourself arround to close the window
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNewDBWindowWillClose object:dbInfo];
-    [NSApp endSheet:self.window];
-    [self autorelease];
 }
 
 - (void)modalForWindow:(NSWindow *)window
@@ -62,6 +57,11 @@
 - (void)didEndSheet:(NSWindow *)window returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
 {
     [self.window orderOut:self];
+}
+
+- (NSString *)databaseName
+{
+    return self.databaseNameTextField.stringValue;
 }
 
 @end

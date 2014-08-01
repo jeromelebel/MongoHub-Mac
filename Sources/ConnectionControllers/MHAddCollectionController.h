@@ -11,12 +11,11 @@
 
 @interface MHAddCollectionController : NSWindowController
 {
-    IBOutlet NSTextField *collectionname;
-    NSMutableString *dbname;
+    IBOutlet NSTextField                *_collectionNameTextField;
+    NSString                            *_collectionName;
 }
 
-@property (nonatomic, retain) NSTextField *collectionname;
-@property (nonatomic, retain) NSString *dbname;
+@property (nonatomic, readonly, strong) NSString *collectionName;
 
 - (IBAction)add:(id)sender;
 - (IBAction)cancel:(id)sender;
