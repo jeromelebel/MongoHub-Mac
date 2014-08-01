@@ -18,7 +18,7 @@
     
     [query setObject:itemClass forKey:(id)kSecClass];
     if ([(id)itemClass isEqualToString:kSecClassGenericPassword]) {
-        [query setObject:NSBundle.mainBundle.bundleIdentifier forKey:kSecAttrService];
+        [query setObject:@"mongodb" forKey:kSecAttrService];
     }
     if (description) {
         [query setObject:description forKey:(id)kSecAttrDescription];
