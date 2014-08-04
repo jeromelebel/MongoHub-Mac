@@ -336,21 +336,10 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 
 - (IBAction)chooseKeyPathAction:(id)sender
 {
-    NSOpenPanel *tvarNSOpenPanelObj = [NSOpenPanel openPanel];
-    NSInteger tvarNSInteger = [tvarNSOpenPanelObj runModal];
-    if (tvarNSInteger == NSOKButton) {
-        NSLog(@"doOpen we have an OK button");
-        //NSString * tvarDirectory = [tvarNSOpenPanelObj directory];
-        //NSLog(@"doOpen directory = %@",tvarDirectory);
-        NSString * tvarFilename = [[tvarNSOpenPanelObj URL] path];
-        NSLog(@"doOpen filename = %@",tvarFilename);
-        [self.sshkeyfileTextField setStringValue:tvarFilename];
-    } else if (tvarNSInteger == NSCancelButton) {
-        NSLog(@"doOpen we have a Cancel button");
-        return;
-    } else {
-        NSLog(@"doOpen tvarInt not equal 1 or zero = %ld",(long int)tvarNSInteger);
-        return;
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    
+    if (openPanel.runModal == NSOKButton) {
+        self.sshkeyfileTextField.stringValue = openPanel.URL.path;
     }
 }
 
