@@ -208,6 +208,7 @@ DQ
                         </buttonCell>
                         <connections>
                             <action selector="addSaveAction:" target="-2" id="119"/>
+                            <outlet property="nextKeyView" destination="27" id="TjD-lV-mOh"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" id="13">

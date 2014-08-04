@@ -200,6 +200,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         [self.defaultReadModePopUpButton selectItemWithTag:0];
     }
     [self _updateSSHFields];
+    [self _updateSingleServerReplicaSetFields];
     [super windowDidLoad];
 }
 
@@ -243,6 +244,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     } else {
         [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:REPLICASET_TAB_IDENTIER];
     }
+    [self _updateSingleServerReplicaSetFields];
 }
 
 - (IBAction)addSaveAction:(id)sender
@@ -256,7 +258,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     NSString *replicaServers;
     NSString *replicaName;
     BOOL useSSH;
-    BOOL useReplica;
+    BOOL useReplicaSet;
     
     hostName = [self.hostTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     hostPort = self.hostportTextField.stringValue.integerValue;
@@ -264,7 +266,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     alias = [self.aliasTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     sshHost = [self.sshhostTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     useSSH = self.usesshCheckBox.state == NSOnState;
-    useReplica = self.singleReplicaSetPopUpButton.selectedTag == 1;
+    useReplicaSet = self.singleReplicaSetPopUpButton.selectedTag == 1;
     replicaServers = [self.serversTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     replicaName = [self.replnameTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     sshPort = self.sshportTextField.stringValue.integerValue;
@@ -285,7 +287,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"ssh port should be between 1 and 65535 (or empty)", @""));
         return;
     }
-    if (useReplica && (replicaServers.length == 0 || replicaName.length == 0)) {
+    if (useReplicaSet && (replicaServers.length == 0 || replicaName.length == 0)) {
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"You need to set the list of servers", @""));
         return;
     }
@@ -297,8 +299,8 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     if (!self.editedConnectionStore) {
         self.editedConnectionStore = [[self.connectionsArrayController newObject] retain];
     }
-    self.editedConnectionStore.userepl = [NSNumber numberWithBool:useReplica];
-    if (useReplica) {
+    self.editedConnectionStore.userepl = [NSNumber numberWithBool:useReplicaSet];
+    if (useReplicaSet) {
         self.editedConnectionStore.servers = replicaServers;
         self.editedConnectionStore.repl_name = replicaName;
     } else if (hostPort == 0) {
@@ -349,7 +351,21 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     } else {
         NSLog(@"doOpen tvarInt not equal 1 or zero = %ld",(long int)tvarNSInteger);
         return;
-    } // end if
+    }
+}
+
+- (void)_updateSingleServerReplicaSetFields
+{
+    BOOL useReplicaSet;
+    
+    useReplicaSet = self.singleReplicaSetPopUpButton.selectedTag == 1;
+    if (useReplicaSet) {
+        self.singleReplicaSetPopUpButton.nextKeyView = self.replnameTextField;
+        self.serversTextField.nextKeyView = self.defaultdbTextField;
+    } else {
+        self.singleReplicaSetPopUpButton.nextKeyView = self.hostTextField;
+        self.hostportTextField.nextKeyView = self.defaultdbTextField;
+    }
 }
 
 - (void)_updateSSHFields
