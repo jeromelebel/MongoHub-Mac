@@ -14,7 +14,13 @@
                 <outlet property="connectionsArrayController" destination="21" id="kN0-iw-FcP"/>
                 <outlet property="defaultReadModePopUpButton" destination="rqH-1A-H0s" id="xTi-ZY-9tD"/>
                 <outlet property="defaultdbTextField" destination="91" id="rvT-vm-3H4"/>
+                <outlet property="hostTextField" destination="uBy-gb-irv" id="Ljs-np-8sE"/>
+                <outlet property="hostportTextField" destination="e3c-6q-I5k" id="1y9-7h-hCI"/>
+                <outlet property="replnameTextField" destination="HQD-OS-8KZ" id="hIj-pX-PnX"/>
                 <outlet property="selectKeyFileButton" destination="114" id="g3t-bU-zzn"/>
+                <outlet property="serversTextField" destination="5SR-LB-gxG" id="6dO-WV-R84"/>
+                <outlet property="singleReplicaSetPopUpButton" destination="pEj-GV-7Pc" id="MN3-Zo-GGx"/>
+                <outlet property="singleReplicaSetTabView" destination="USt-ks-5Fl" id="YHf-J1-9zU"/>
                 <outlet property="sshhostTextField" destination="47" id="RZ1-GN-vnc"/>
                 <outlet property="sshkeyfileTextField" destination="111" id="u4P-Zl-4rC"/>
                 <outlet property="sshpasswordTextField" destination="71" id="Z9b-Nd-g7o"/>
