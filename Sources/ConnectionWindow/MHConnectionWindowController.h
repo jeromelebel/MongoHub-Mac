@@ -51,7 +51,7 @@
     IBOutlet NSToolbar                      *_toolbar;
     NSMutableArray                          *_databases;
     MHTunnel                                *_sshTunnel;
-    unsigned short                          _sshTunnelPort;
+    NSMutableDictionary                     *_sshBindedPortMapping;
     MHAddDBController                       *_addDBController;
     MHAddCollectionController               *_addCollectionController;
     MHMysqlImportWindowController           *_mysqlImportWindowController;
@@ -71,7 +71,6 @@
 @property (nonatomic, retain) MHConnectionStore *connectionStore;
 @property (nonatomic, retain) MODClient *client;
 @property (nonatomic, retain) NSMutableArray *databases;
-@property (nonatomic, retain) MHTunnel *sshTunnel;
 @property (nonatomic, retain) NSTextField *resultsTitle;
 @property (nonatomic, retain) NSProgressIndicator *loaderIndicator;
 @property (nonatomic, retain) NSButton *monitorButton;

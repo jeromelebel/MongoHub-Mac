@@ -47,7 +47,8 @@
 @property (nonatomic, readwrite, strong) NSMutableDictionary *tabItemControllers;
 @property (nonatomic, readwrite, strong) MHStatusViewController *statusViewController;
 @property (nonatomic, readwrite, weak) IBOutlet MHTabViewController *tabViewController;
-@property (nonatomic, readwrite, assign) unsigned short sshTunnelPort;
+@property (nonatomic, readwrite, strong) MHTunnel *sshTunnel;
+@property (nonatomic, readwrite, strong) NSMutableDictionary *sshBindedPortMapping;
 
 
 - (void)updateToolbarItems;
@@ -73,6 +74,7 @@
 @synthesize statMonitorTableController;
 @synthesize databases = _databases;
 @synthesize sshTunnel = _sshTunnel;
+@synthesize sshBindedPortMapping = _sshBindedPortMapping;
 @synthesize addDBController = _addDBController;
 @synthesize addCollectionController = _addCollectionController;
 @synthesize resultsTitle;
@@ -84,7 +86,6 @@
 @synthesize tabItemControllers = _tabItemControllers;
 @synthesize statusViewController = _statusViewController;
 @synthesize tabViewController = _tabViewController;
-@synthesize sshTunnelPort = _sshTunnelPort;
 
 - (id)init
 {
@@ -106,6 +107,7 @@
     self.connectionStore = nil;
     self.databases = nil;
     self.sshTunnel = nil;
+    self.sshBindedPortMapping = nil;
     self.addDBController = nil;
     self.addCollectionController = nil;
     self.resultsTitle = nil;
@@ -140,7 +142,7 @@
     [_databaseCollectionOutlineView setDoubleAction:@selector(outlineViewDoubleClickAction:)];
     [self updateToolbarItems];
     
-    if (self.connectionStore.userepl.intValue == 1) {
+    if (self.connectionStore.userepl.boolValue) {
         self.window.title = [NSString stringWithFormat:@"%@ [%@]", self.connectionStore.alias, self.connectionStore.repl_name];
     } else {
         self.window.title = [NSString stringWithFormat:@"%@ [%@]", self.connectionStore.alias, self.connectionStore.servers];
@@ -192,14 +194,9 @@
 {
     [self.loaderIndicator startAnimation:nil];
     monitorButton.enabled = NO;
-    if ((self.sshTunnel == nil || !self.sshTunnel.connected) && self.connectionStore.usessh.intValue == 1) {
-        unsigned short hostPort;
-        NSString *hostAddress;
-        
-        self.sshTunnelPort = [MHTunnel findFreeTCPPort];
-        if (!self.sshTunnel) {
-            self.sshTunnel = [[[MHTunnel alloc] init] autorelease];
-        }
+    if (self.sshTunnel == nil && self.connectionStore.usessh.boolValue) {
+        self.sshBindedPortMapping = [NSMutableDictionary dictionary];
+        self.sshTunnel = [[[MHTunnel alloc] init] autorelease];
         self.sshTunnel.delegate = self;
         self.sshTunnel.user = self.connectionStore.sshuser;
         self.sshTunnel.host = self.connectionStore.sshhost;
@@ -210,20 +207,27 @@
         self.sshTunnel.aliveInterval = 30;
         self.sshTunnel.tcpKeepAlive = YES;
         self.sshTunnel.compression = YES;
-        hostPort = (unsigned short)self.connectionStore.hostport.intValue;
-        if (hostPort == 0) {
-            hostPort = MODClient.defaultPort;
+        for (NSString *hostnameAndPort in self.connectionStore.arrayServers) {
+            NSInteger hostPort, sshBindedPort;
+            NSString *hostAddress;
+            
+            sshBindedPort = [MHTunnel findFreeTCPPort];
+            hostAddress = [MHConnectionStore hostnameFromServer:hostnameAndPort WithPort:&hostPort];
+            if (hostPort == 0) {
+                hostPort = MODClient.defaultPort;
+            }
+            if (hostAddress.length == 0) {
+                hostAddress = @"127.0.0.1";
+            }
+            [self.sshTunnel addForwardingPortWithBindAddress:nil bindPort:sshBindedPort hostAddress:hostAddress hostPort:hostPort reverseForwarding:NO];
+            [self.sshBindedPortMapping setObject:[NSNumber numberWithInteger:sshBindedPort] forKey:hostnameAndPort];
         }
-        hostAddress = self.connectionStore.host.stringByTrimmingWhitespace;
-        if (hostAddress.length == 0) {
-            hostAddress = @"127.0.0.1";
-        }
-        [self.sshTunnel addForwardingPortWithBindAddress:nil bindPort:self.sshTunnelPort hostAddress:hostAddress hostPort:hostPort reverseForwarding:NO];
         [self.sshTunnel start];
         return;
     } else {
         NSString *auth = @"";
         NSString *uri;
+        NSString *servers;
         
         [self closeMongoDB];
         self.serverItem = [[[MHServerItem alloc] initWithClient:self.client delegate:self] autorelease];
@@ -234,27 +238,24 @@
                 auth = [NSString stringWithFormat:@"%@@", self.connectionStore.adminuser];
             }
         }
-        if (self.connectionStore.userepl.intValue == 1) {
-            ip = self.connectionStore.servers;
+        if (!self.connectionStore.usessh.boolValue) {
+            servers = self.connectionStore.servers;
         } else {
-            if (self.connectionStore.usessh.intValue == 1) {
-                ip = [NSString stringWithFormat:@"127.0.0.1:%u", self.sshTunnelPort];
-            } else {
-                NSString *host = self.connectionStore.host.stringByTrimmingWhitespace;
-                NSNumber *hostport = self.connectionStore.hostport;
+            NSMutableString *mappedIps;
+            
+            mappedIps = [NSMutableString string];
+            for (NSString *hostnameAndPort in self.connectionStore.arrayServers) {
+                NSNumber *bindedPort = [self.sshBindedPortMapping objectForKey:hostnameAndPort];
                 
-                if (host.length == 0) {
-                    host = DEFAULT_MONGO_IP;
-                }
-                if (hostport.intValue == 0) {
-                    ip = [NSString stringWithFormat:@"%@", host];
+                if (mappedIps.length > 0) {
+                    [mappedIps appendFormat:@",127.0.0.1:%ld", (long)bindedPort.integerValue];
                 } else {
-                    ip = [NSString stringWithFormat:@"%@:%@", host, hostport];
+                    [mappedIps appendFormat:@"127.0.0.1:%ld", (long)bindedPort.integerValue];
                 }
             }
+            servers = mappedIps;
         }
-        NSAssert(ip != nil, @"need an ip");
-        uri = [NSString stringWithFormat:@"mongodb://%@%@/%@?ssl=%@", auth, self.connectionStore.servers, self.connectionStore.defaultdb, self.connectionStore.usessl.boolValue?@"true":@"false"];
+        uri = [NSString stringWithFormat:@"mongodb://%@%@/%@?ssl=%@", auth, servers, self.connectionStore.defaultdb, self.connectionStore.usessl.boolValue?@"true":@"false"];
         self.client = [MODClient clientWihtURLString:uri];
         self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
         self.statusViewController.client = self.client;
@@ -289,9 +290,7 @@
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-    if (self.sshTunnel.isRunning) {
-        [self.sshTunnel stop];
-    }
+    [self.sshTunnel stop];
     [self release];
 }
 
@@ -587,7 +586,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 
 - (void)fetchServerStatusDelta
 {
-    [resultsTitle setStringValue:[NSString stringWithFormat:@"Server %@:%@ stats", self.connectionStore.host, self.connectionStore.hostport]];
+    [resultsTitle setStringValue:[NSString stringWithFormat:@"Server %@ stats", self.connectionStore.alias]];
     [self.client serverStatusWithReadPreferences:nil callback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
         [self.loaderIndicator stopAnimation:nil];
         if (self.client == [mongoQuery.parameters objectForKey:@"client"]) {
