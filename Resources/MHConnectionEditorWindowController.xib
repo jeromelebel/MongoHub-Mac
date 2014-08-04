@@ -61,7 +61,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="79">
-                        <rect key="frame" x="102" y="433" width="169" height="22"/>
+                        <rect key="frame" x="102" y="433" width="247" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Username (optional)" drawsBackground="YES" id="80">
                             <font key="font" metaFont="system"/>
@@ -91,7 +91,7 @@
                         </textFieldCell>
                     </textField>
                     <secureTextField verticalHuggingPriority="750" id="85">
-                        <rect key="frame" x="102" y="403" width="169" height="22"/>
+                        <rect key="frame" x="102" y="403" width="247" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Password (optional)" drawsBackground="YES" usesSingleLineMode="YES" id="86">
                             <font key="font" metaFont="system"/>
@@ -365,11 +365,11 @@ Gw
                         <tabViewItems>
                             <tabViewItem label="Single Server" identifier="singleserver" id="EBH-Cr-8Gf">
                                 <view key="view" id="dNh-ei-F8I">
-                                    <rect key="frame" x="0.0" y="0.0" width="369" height="55"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="369" height="58"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" id="uBy-gb-irv">
-                                            <rect key="frame" x="102" y="31" width="169" height="22"/>
+                                            <rect key="frame" x="102" y="33" width="180" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="127.0.0.1" drawsBackground="YES" id="EZX-fr-zWj">
                                                 <font key="font" metaFont="system"/>
@@ -381,7 +381,7 @@ Gw
                                             </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="kuA-9s-Oxf">
-                                            <rect key="frame" x="35" y="34" width="61" height="17"/>
+                                            <rect key="frame" x="-2" y="36" width="98" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Address:" id="5co-OL-iOe">
                                                 <font key="font" metaFont="system"/>
@@ -390,7 +390,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="aIQ-VV-StS">
-                                            <rect key="frame" x="276" y="34" width="9" height="17"/>
+                                            <rect key="frame" x="282" y="36" width="9" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title=":" id="ZPl-lh-fMC">
                                                 <font key="font" metaFont="system"/>
@@ -399,7 +399,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="e3c-6q-I5k">
-                                            <rect key="frame" x="290" y="31" width="59" height="22"/>
+                                            <rect key="frame" x="290" y="33" width="59" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="27017" drawsBackground="YES" id="G1T-RH-P6Q">
                                                 <font key="font" metaFont="system"/>
