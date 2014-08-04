@@ -24,6 +24,8 @@
     NSTextField                         *_hostportTextField;
     NSButton                            *_usereplCheckBox;
     NSTextField                         *_serversTextField;
+    NSPopUpButton                       *_singleReplicaSetPopUpButton;
+    NSTabView                           *_singleReplicaSetTabView;
     NSTextField                         *_replnameTextField;
     NSTextField                         *_aliasTextField;
     NSTextField                         *_adminuserTextField;
@@ -51,14 +53,15 @@
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, assign, readonly, getter=isNewConnetion) BOOL newConnection;
 
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *hostTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *hostportTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSButton *usereplCheckBox;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *serversTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *replnameTextField;
 @property (nonatomic, readonly, assign) IBOutlet NSTextField *aliasTextField;
 @property (nonatomic, readonly, assign) IBOutlet NSTextField *adminuserTextField;
 @property (nonatomic, readonly, assign) IBOutlet NSSecureTextField *adminpassTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSPopUpButton *singleReplicaSetPopUpButton;
+@property (nonatomic, readonly, assign) IBOutlet NSTabView *singleReplicaSetTabView;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *hostTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *hostportTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *serversTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *replnameTextField;
 @property (nonatomic, readonly, assign) IBOutlet NSTextField *defaultdbTextField;
 @property (nonatomic, readonly, assign) IBOutlet NSButton *useSSLCheckBox;
 @property (nonatomic, readonly, assign) IBOutlet NSButton *usesshCheckBox;

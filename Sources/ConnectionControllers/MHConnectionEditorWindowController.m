@@ -15,14 +15,15 @@
 #define COPY_ALIAS_SUFFIX @" - Copy"
 
 @interface MHConnectionEditorWindowController ()
-@property (nonatomic, readwrite, assign) NSTextField *hostTextField;
-@property (nonatomic, readwrite, assign) NSTextField *hostportTextField;
-@property (nonatomic, readwrite, assign) NSButton *usereplCheckBox;
-@property (nonatomic, readwrite, assign) NSTextField *serversTextField;
-@property (nonatomic, readwrite, assign) NSTextField *replnameTextField;
 @property (nonatomic, readwrite, assign) NSTextField *aliasTextField;
 @property (nonatomic, readwrite, assign) NSTextField *adminuserTextField;
 @property (nonatomic, readwrite, assign) NSSecureTextField *adminpassTextField;
+@property (nonatomic, readwrite, assign) NSPopUpButton *singleReplicaSetPopUpButton;
+@property (nonatomic, readwrite, assign) NSTabView *singleReplicaSetTabView;
+@property (nonatomic, readwrite, assign) NSTextField *hostTextField;
+@property (nonatomic, readwrite, assign) NSTextField *hostportTextField;
+@property (nonatomic, readwrite, assign) NSTextField *serversTextField;
+@property (nonatomic, readwrite, assign) NSTextField *replnameTextField;
 @property (nonatomic, readwrite, assign) NSTextField *defaultdbTextField;
 @property (nonatomic, readwrite, assign) NSButton *useSSLCheckBox;
 @property (nonatomic, readwrite, assign) NSButton *usesshCheckBox;
@@ -90,7 +91,9 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 @synthesize newConnection = _newConnection;
 @synthesize connectionStoreDefaultValue = _connectionStoreDefaultValue;
 
-@synthesize hostTextField = _hostTextField, hostportTextField = _hostportTextField, usereplCheckBox = _usereplCheckBox, serversTextField = _serversTextField, replnameTextField = _replnameTextField, aliasTextField = _aliasTextField, adminuserTextField = _adminuserTextField, adminpassTextField = _adminpassTextField, defaultdbTextField = _defaultdbTextField, usesshCheckBox = _usesshCheckBox, sshhostTextField = _sshhostTextField, sshportTextField = _sshportTextField, sshuserTextField = _sshuserTextField, sshpasswordTextField = _sshpasswordTextField, sshkeyfileTextField = _sshkeyfileTextField, selectKeyFileButton = _selectKeyFileButton, addSaveButton = _addSaveButton, defaultReadModePopUpButton = _defaultReadModePopUpButton, useSSLCheckBox = _useSSLCheckBox;
+@synthesize hostTextField = _hostTextField, hostportTextField = _hostportTextField, serversTextField = _serversTextField, replnameTextField = _replnameTextField, aliasTextField = _aliasTextField, adminuserTextField = _adminuserTextField, adminpassTextField = _adminpassTextField, defaultdbTextField = _defaultdbTextField, usesshCheckBox = _usesshCheckBox, sshhostTextField = _sshhostTextField, sshportTextField = _sshportTextField, sshuserTextField = _sshuserTextField, sshpasswordTextField = _sshpasswordTextField, sshkeyfileTextField = _sshkeyfileTextField, selectKeyFileButton = _selectKeyFileButton, addSaveButton = _addSaveButton, defaultReadModePopUpButton = _defaultReadModePopUpButton, useSSLCheckBox = _useSSLCheckBox;
+@synthesize singleReplicaSetPopUpButton = _singleReplicaSetPopUpButton;
+@synthesize singleReplicaSetTabView = _singleReplicaSetTabView;
 
 - (id)init
 {
@@ -145,15 +148,21 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
             self.aliasTextField.stringValue = defaultValue.alias;
         }
         self.window.title = self.aliasTextField.stringValue;
-        self.hostTextField.stringValue = defaultValue.host;
-        if (defaultValue.hostport.stringValue.longLongValue == 0) {
-            self.hostportTextField.stringValue = @"";
+        if (defaultValue.userepl.boolValue) {
+            [self.singleReplicaSetPopUpButton selectItemAtIndex:1];
+            [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:@"replicatset"];
+            if (defaultValue.servers) self.hostportTextField.stringValue = defaultValue.servers;
+            if (defaultValue.repl_name) self.replnameTextField.stringValue = defaultValue.repl_name;
         } else {
-            self.hostportTextField.stringValue = defaultValue.hostport.stringValue;
+            NSInteger port;
+            
+            [self.singleReplicaSetPopUpButton selectItemAtIndex:0];
+            [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:@"singleserver"];
+            self.hostTextField.stringValue = [MHConnectionStore hostnameFromServer:defaultValue.servers WithPort:&port];
+            if (port != 0) {
+                self.hostportTextField.stringValue = [NSString stringWithFormat:@"%ld", (long)port];
+            }
         }
-        if (defaultValue.servers) self.serversTextField.stringValue = defaultValue.servers;
-        if (defaultValue.repl_name) self.replnameTextField.stringValue = defaultValue.repl_name;
-        self.usereplCheckBox.state = defaultValue.userepl.boolValue?NSOnState:NSOffState;
         if (defaultValue.adminuser) self.adminuserTextField.stringValue = defaultValue.adminuser;
         if (defaultValue.adminpass) self.adminpassTextField.stringValue = defaultValue.adminpass;
         if (defaultValue.defaultdb) self.defaultdbTextField.stringValue = defaultValue.defaultdb;
@@ -175,7 +184,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         self.hostportTextField.stringValue = @"";
         self.serversTextField.stringValue = @"";
         self.replnameTextField.stringValue = @"";
-        self.usereplCheckBox.state = NSOffState;
         self.aliasTextField.stringValue = @"";
         self.adminuserTextField.stringValue = @"";
         self.adminpassTextField.stringValue = @"";
@@ -189,14 +197,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         self.usesshCheckBox.state = NSOffState;
         [self.defaultReadModePopUpButton selectItemWithTag:0];
     }
-    self.sshhostTextField.enabled = self.usereplCheckBox.state == NSOnState;
-    self.sshuserTextField.enabled = self.usereplCheckBox.state == NSOnState;
-    self.sshportTextField.enabled = self.usereplCheckBox.state == NSOnState;
-    self.sshpasswordTextField.enabled = self.usereplCheckBox.state == NSOnState;
-    self.sshkeyfileTextField.enabled = self.usereplCheckBox.state == NSOnState;
-    self.selectKeyFileButton.enabled = self.usereplCheckBox.state == NSOnState;
-    self.serversTextField.enabled = self.usereplCheckBox.state == NSOnState;
-    self.replnameTextField.enabled = self.usereplCheckBox.state == NSOnState;
     [self _updateSSHFields];
     [self _updateReplFields];
     [super windowDidLoad];
@@ -254,20 +254,16 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     alias = [self.aliasTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     sshHost = [self.sshhostTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     useSSH = self.usesshCheckBox.state == NSOnState;
-    useReplica = self.usereplCheckBox.state == NSOnState;
+    useReplica = self.singleReplicaSetPopUpButton.selectedTag == 1;
     replicaServers = [self.serversTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     replicaName = [self.replnameTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     sshPort = self.sshportTextField.stringValue.integerValue;
     
-    if ([hostName isEqualToString:@"flame.mongohq.com"] && defaultdb.length == 0) {
-        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"DB should not be empty if you are using mongohq", @""));
-        return;
-    }
     if (hostPort < 0 || hostPort > 65535) {
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"Host port should be between 1 and 65535 (or empty)", @""));
         return;
     }
-    if (alias.length < 1) {
+    if (alias.length == 0) {
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"Name should not be less than 1 charaters", @""));
         return;
     }
@@ -291,9 +287,13 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     if (!self.editedConnectionStore) {
         self.editedConnectionStore = [[self.connectionsArrayController newObject] retain];
     }
-    self.editedConnectionStore.host = hostName;
-    self.editedConnectionStore.hostport = [NSNumber numberWithLongLong:hostPort];
-    self.editedConnectionStore.servers = replicaServers;
+    if (useReplica) {
+        self.editedConnectionStore.servers = replicaServers;
+    } else if (hostPort == 0) {
+        self.editedConnectionStore.servers = hostName;
+    } else {
+        self.editedConnectionStore.servers = [NSString stringWithFormat:@"%@:%ld", hostName, (long)hostPort];
+    }
     self.editedConnectionStore.repl_name = replicaName;
     self.editedConnectionStore.userepl = [NSNumber numberWithBool:useReplica];
     self.editedConnectionStore.alias = alias;
@@ -362,7 +362,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 {
     BOOL useRepl;
     
-    useRepl = self.usereplCheckBox.state == NSOnState;
+    useRepl = self.singleReplicaSetPopUpButton.selectedTag == 1;
     self.serversTextField.enabled = useRepl;
     self.replnameTextField.enabled = useRepl;
 }

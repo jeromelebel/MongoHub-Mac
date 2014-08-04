@@ -179,7 +179,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
-                            <tabViewItem label="Single Server" identifier="1" id="EBH-Cr-8Gf">
+                            <tabViewItem label="Single Server" identifier="singleserver" id="EBH-Cr-8Gf">
                                 <view key="view" id="dNh-ei-F8I">
                                     <rect key="frame" x="0.0" y="0.0" width="369" height="55"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -229,7 +229,7 @@
                                     </subviews>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="Replica Set" identifier="2" id="YRY-ul-3hX">
+                            <tabViewItem label="Replica Set" identifier="replicaset" id="YRY-ul-3hX">
                                 <view key="view" id="IRY-E2-sEi">
                                     <rect key="frame" x="0.0" y="0.0" width="369" height="55"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
