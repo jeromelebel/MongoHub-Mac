@@ -255,6 +255,9 @@
             }
             servers = mappedIps;
         }
+        if (servers.length == 0) {
+            servers = DEFAULT_MONGO_IP;
+        }
         uri = [NSString stringWithFormat:@"mongodb://%@%@/%@?ssl=%@", auth, servers, self.connectionStore.defaultdb, self.connectionStore.usessl.boolValue?@"true":@"false"];
         self.client = [MODClient clientWihtURLString:uri];
         self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
