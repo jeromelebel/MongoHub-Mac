@@ -59,6 +59,9 @@
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
+                        <connections>
+                            <outlet property="nextKeyView" destination="79" id="jlN-Hx-Ioc"/>
+                        </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" id="79">
                         <rect key="frame" x="102" y="433" width="247" height="22"/>
@@ -102,7 +105,7 @@
                             </allowedInputSourceLocales>
                         </secureTextFieldCell>
                         <connections>
-                            <outlet property="nextKeyView" destination="91" id="148"/>
+                            <outlet property="nextKeyView" destination="pEj-GV-7Pc" id="Ise-tk-h1B"/>
                         </connections>
                     </secureTextField>
                     <textField verticalHuggingPriority="750" id="89">
@@ -122,6 +125,9 @@
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
+                        <connections>
+                            <outlet property="nextKeyView" destination="rqH-1A-H0s" id="GYY-ry-S3V"/>
+                        </connections>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" id="rqH-1A-H0s">
                         <rect key="frame" x="100" y="252" width="252" height="26"/>
@@ -139,6 +145,9 @@
                                 </items>
                             </menu>
                         </popUpButtonCell>
+                        <connections>
+                            <outlet property="nextKeyView" destination="a2P-8z-1w5" id="jIy-qu-RAK"/>
+                        </connections>
                     </popUpButton>
                     <textField verticalHuggingPriority="750" id="6XC-gc-Bsl">
                         <rect key="frame" x="-2" y="257" width="98" height="17"/>
@@ -156,6 +165,9 @@
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <outlet property="nextKeyView" destination="34" id="WpK-Xu-E7j"/>
+                        </connections>
                     </button>
                     <popUpButton verticalHuggingPriority="750" id="pEj-GV-7Pc">
                         <rect key="frame" x="100" y="371" width="252" height="26"/>
@@ -172,6 +184,7 @@
                         </popUpButtonCell>
                         <connections>
                             <action selector="singleServerReplicaSetChoiceAction:" target="-2" id="2CF-CA-AEi"/>
+                            <outlet property="nextKeyView" destination="uBy-gb-irv" id="1oJ-rz-CX7"/>
                         </connections>
                     </popUpButton>
                     <textField verticalHuggingPriority="750" id="KXC-hB-L6i">
@@ -221,7 +234,7 @@ Gw
                         </buttonCell>
                         <connections>
                             <action selector="enableSSH:" target="-2" id="70"/>
-                            <outlet property="nextKeyView" destination="47" id="153"/>
+                            <outlet property="nextKeyView" destination="47" id="2np-YO-J4l"/>
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="45">
@@ -377,7 +390,7 @@ Gw
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
-                                                <outlet property="nextKeyView" destination="e3c-6q-I5k" id="cbJ-YR-dNJ"/>
+                                                <outlet property="nextKeyView" destination="e3c-6q-I5k" id="ZWr-hW-8BH"/>
                                             </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="kuA-9s-Oxf">
@@ -407,7 +420,7 @@ Gw
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
-                                                <outlet property="nextKeyView" destination="79" id="UNJ-Pr-A9e"/>
+                                                <outlet property="nextKeyView" destination="HQD-OS-8KZ" id="hZa-CM-oHk"/>
                                             </connections>
                                         </textField>
                                     </subviews>
@@ -436,7 +449,7 @@ Gw
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
-                                                <outlet property="nextKeyView" destination="HQD-OS-8KZ" id="2t4-Kn-Owl"/>
+                                                <outlet property="nextKeyView" destination="91" id="B9p-zv-szd"/>
                                             </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="Tsw-51-tNh">
@@ -457,13 +470,16 @@ Gw
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
-                                                <outlet property="nextKeyView" destination="34" id="I4a-Vu-QQO"/>
+                                                <outlet property="nextKeyView" destination="5SR-LB-gxG" id="zhX-BM-rHh"/>
                                             </connections>
                                         </textField>
                                     </subviews>
                                 </view>
                             </tabViewItem>
                         </tabViewItems>
+                        <connections>
+                            <outlet property="nextKeyView" destination="e3c-6q-I5k" id="hB5-z5-RfQ"/>
+                        </connections>
                     </tabView>
                 </subviews>
             </view>
