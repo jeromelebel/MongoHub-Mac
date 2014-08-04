@@ -39,8 +39,12 @@
     NSArray *components;
     
     components = [server componentsSeparatedByString:@":"];
-    if (components.count > 1 && port) {
-        *port = [[components objectAtIndex:1] integerValue];
+    if (port) {
+        if (components.count > 1) {
+            *port = [[components objectAtIndex:1] integerValue];
+        } else {
+            *port = 0;
+        }
     }
     return [components objectAtIndex:0];
 }
