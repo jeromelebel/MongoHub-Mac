@@ -28,8 +28,10 @@
     } else {
         allServersArray = [NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%@", mainHost], nil];
     }
-    for (NSString *host in [servers componentsSeparatedByString:@","]) {
-        [allServersArray addObject:[host stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+    if (servers.length > 0) {
+        for (NSString *host in [servers componentsSeparatedByString:@","]) {
+            [allServersArray addObject:[host stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+        }
     }
     [allServersArray sortUsingSelector:@selector(compare:)];
     if (user.length == 0) {
