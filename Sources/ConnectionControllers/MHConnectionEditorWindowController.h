@@ -3,7 +3,6 @@
 //  MongoHub
 //
 //  Created by Jérôme Lebel on 19/08/12.
-//  Copyright (c) 2012 ThePeppersStudio.COM. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
