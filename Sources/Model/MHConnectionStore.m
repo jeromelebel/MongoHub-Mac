@@ -126,23 +126,10 @@
     }
 }
 
-- (NSString *)keychainAccount
-{
-    NSString *servers = self.sortedServers;
-    
-    if (self.adminuser.length > 0) {
-        return [NSString stringWithFormat:@"%@@%@", self.adminuser, servers];
-    } else {
-        return servers;
-    }
-}
-
 - (NSString *)adminpass
 {
     if (self.adminuser.length > 0) {
-        NSString *keychainAccount = self.keychainAccount;
-        
-        return [MHKeychain passwordWithLabel:keychainAccount account:keychainAccount description:nil];
+        return [MHKeychain passwordWithLabel:[NSString stringWithFormat:@"%@ (%@)", self.servers, self.adminuser] account:self.adminuser service:self.servers description:nil];
     } else {
         return nil;
     }
@@ -151,9 +138,7 @@
 - (void)setAdminpass:(NSString *)adminpass
 {
     if (self.adminuser.length > 0) {
-        NSString *keychainAccount = self.keychainAccount;
-        
-        [MHKeychain addOrUpdateItemWithLabel:keychainAccount account:keychainAccount description:@"nil" password:adminpass];
+        [MHKeychain addOrUpdateItemWithLabel:[NSString stringWithFormat:@"%@ (%@)", self.servers, self.adminuser] account:self.adminuser service:self.servers description:nil password:adminpass];
     }
 }
 

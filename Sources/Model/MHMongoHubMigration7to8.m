@@ -38,9 +38,8 @@
         newServersValue = [allServersArray componentsJoinedByString:@","];
     } else {
         newServersValue = [allServersArray componentsJoinedByString:@","];
-        newServersValue = [NSString stringWithFormat:@"%@@%@", user, newServersValue];
         if (password.length > 0) {
-            [MHKeychain addOrUpdateItemWithLabel:newServersValue account:newServersValue description:nil password:password];
+            [MHKeychain addOrUpdateItemWithLabel:[NSString stringWithFormat:@"%@ (%@)", newServersValue, user] account:user service:newServersValue description:nil password:password];
         }
     }
     
