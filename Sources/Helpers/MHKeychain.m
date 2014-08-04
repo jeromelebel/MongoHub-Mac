@@ -110,7 +110,9 @@
 	[query setObject:(id)kSecMatchLimitOne forKey:(id)kSecMatchLimit];
     
 	status = SecItemCopyMatching((CFDictionaryRef)query, &result);
-    if (status != noErr && status != errSecItemNotFound) {
+    if (status != errSecItemNotFound) {
+        return nil;
+    } else if (status != noErr) {
         NSLog(@"Error searching internet password: %d for %@ %@ %@\n", (int)status, host, account, account);
         return nil;
     } else {
@@ -195,7 +197,9 @@
 	[query setObject:(id)kSecMatchLimitOne forKey:(id)kSecMatchLimit];
     
 	status = SecItemCopyMatching((CFDictionaryRef)query, &result);
-    if (status != noErr && status != errSecItemNotFound) {
+    if (status == errSecItemNotFound) {
+        return nil;
+    } else if (status != noErr) {
         NSLog(@"Error searching item: %d for %@ %@ %@\n", (int)status, label, account, description);
         return nil;
     } else {
