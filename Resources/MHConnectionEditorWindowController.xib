@@ -126,16 +126,16 @@
                     <popUpButton verticalHuggingPriority="750" id="rqH-1A-H0s">
                         <rect key="frame" x="100" y="247" width="252" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" title="Nearest" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="4" imageScaling="proportionallyDown" inset="2" selectedItem="RZ8-MX-qYo" id="DeA-9a-zhr">
+                        <popUpButtonCell key="cell" type="push" title="Primary Preferred" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="2" imageScaling="proportionallyDown" inset="2" selectedItem="pFX-5Y-2f8" id="DeA-9a-zhr">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" id="DEt-Vg-Oma">
                                 <items>
                                     <menuItem title="Primary" id="bi4-Jw-H9M"/>
                                     <menuItem title="Secondary" tag="1" id="bmH-Lr-dme"/>
-                                    <menuItem title="Primary Preferred" tag="2" id="pFX-5Y-2f8"/>
+                                    <menuItem title="Primary Preferred" state="on" tag="2" id="pFX-5Y-2f8"/>
                                     <menuItem title="Secondary Preferred" tag="3" id="oDA-4B-y4d"/>
-                                    <menuItem title="Nearest" state="on" tag="4" id="RZ8-MX-qYo"/>
+                                    <menuItem title="Nearest" tag="4" id="RZ8-MX-qYo"/>
                                 </items>
                             </menu>
                         </popUpButtonCell>
@@ -160,13 +160,13 @@
                     <popUpButton verticalHuggingPriority="750" id="pEj-GV-7Pc">
                         <rect key="frame" x="100" y="367" width="252" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" title="Single Server" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="3" imageScaling="proportionallyDown" inset="2" selectedItem="eLj-mm-eiP" id="MlS-fd-SsO">
+                        <popUpButtonCell key="cell" type="push" title="Replica Set" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="4Cr-SW-ghG" id="MlS-fd-SsO">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" id="tKN-ip-eGX">
                                 <items>
-                                    <menuItem title="Single Server" state="on" tag="3" id="eLj-mm-eiP"/>
-                                    <menuItem title="Replica Set" tag="4" id="4Cr-SW-ghG"/>
+                                    <menuItem title="Single Server" id="eLj-mm-eiP"/>
+                                    <menuItem title="Replica Set" state="on" tag="1" id="4Cr-SW-ghG"/>
                                 </items>
                             </menu>
                         </popUpButtonCell>
