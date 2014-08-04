@@ -116,7 +116,7 @@
         NSLog(@"Error searching internet password: %d for %@ %@ %@\n", (int)status, host, account, account);
         return nil;
     } else {
-        return [[[NSString alloc] initWithUTF8String:[(NSData *)result bytes]] autorelease];
+        return [[[NSString alloc] initWithBytes:[(NSData *)result bytes] length:[(NSData *)result length] encoding:NSUTF8StringEncoding] autorelease];
     }
 }
 
@@ -203,7 +203,7 @@
         NSLog(@"Error searching item: %d for %@ %@ %@\n", (int)status, label, account, description);
         return nil;
     } else {
-        return [[[NSString alloc] initWithUTF8String:[(NSData *)result bytes]] autorelease];
+        return [[[NSString alloc] initWithBytes:[(NSData *)result bytes] length:[(NSData *)result length] encoding:NSUTF8StringEncoding] autorelease];
     }
 }
 
