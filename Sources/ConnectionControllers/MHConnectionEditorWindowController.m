@@ -13,6 +13,8 @@
 #import <mongo-objc-driver/MOD_public.h>
 
 #define COPY_ALIAS_SUFFIX @" - Copy"
+#define SINGLESERVER_TAB_IDENTIER           @"singleserver"
+#define REPLICASET_TAB_IDENTIER             @"replicaset"
 
 @interface MHConnectionEditorWindowController ()
 @property (nonatomic, readwrite, assign) NSTextField *aliasTextField;
@@ -150,14 +152,14 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         self.window.title = self.aliasTextField.stringValue;
         if (defaultValue.userepl.boolValue) {
             [self.singleReplicaSetPopUpButton selectItemAtIndex:1];
-            [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:@"replicatset"];
+            [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:REPLICASET_TAB_IDENTIER];
             if (defaultValue.servers) self.hostportTextField.stringValue = defaultValue.servers;
             if (defaultValue.repl_name) self.replnameTextField.stringValue = defaultValue.repl_name;
         } else {
             NSInteger port;
             
             [self.singleReplicaSetPopUpButton selectItemAtIndex:0];
-            [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:@"singleserver"];
+            [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:SINGLESERVER_TAB_IDENTIER];
             self.hostTextField.stringValue = [MHConnectionStore hostnameFromServer:defaultValue.servers WithPort:&port];
             if (port != 0) {
                 self.hostportTextField.stringValue = [NSString stringWithFormat:@"%ld", (long)port];
@@ -198,7 +200,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         [self.defaultReadModePopUpButton selectItemWithTag:0];
     }
     [self _updateSSHFields];
-    [self _updateReplFields];
     [super windowDidLoad];
 }
 
@@ -233,6 +234,15 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"alias=%@", alias];
     NSArray *items = [self.connectionsArrayController itemsUsingFetchPredicate:predicate];
     return (items.count == 1)?[items objectAtIndex:0]:nil;
+}
+
+- (IBAction)singleServerReplicaSetChoiceAction:(id)sender
+{
+    if (self.singleReplicaSetPopUpButton.selectedTag == 0) {
+        [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:SINGLESERVER_TAB_IDENTIER];
+    } else {
+        [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:REPLICASET_TAB_IDENTIER];
+    }
 }
 
 - (IBAction)addSaveAction:(id)sender
@@ -276,7 +286,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         return;
     }
     if (useReplica && (replicaServers.length == 0 || replicaName.length == 0)) {
-        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"Name already in use!", @""));
+        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"You need to set the list of servers", @""));
         return;
     }
     MHConnectionStore *sameAliasConnection = [self connectionStoreWithAlias:alias];
@@ -287,15 +297,17 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     if (!self.editedConnectionStore) {
         self.editedConnectionStore = [[self.connectionsArrayController newObject] retain];
     }
+    self.editedConnectionStore.userepl = [NSNumber numberWithBool:useReplica];
     if (useReplica) {
         self.editedConnectionStore.servers = replicaServers;
+        self.editedConnectionStore.repl_name = replicaName;
     } else if (hostPort == 0) {
         self.editedConnectionStore.servers = hostName;
+        self.editedConnectionStore.repl_name = nil;
     } else {
         self.editedConnectionStore.servers = [NSString stringWithFormat:@"%@:%ld", hostName, (long)hostPort];
+        self.editedConnectionStore.repl_name = nil;
     }
-    self.editedConnectionStore.repl_name = replicaName;
-    self.editedConnectionStore.userepl = [NSNumber numberWithBool:useReplica];
     self.editedConnectionStore.alias = alias;
     self.editedConnectionStore.adminuser = [self.adminuserTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     self.editedConnectionStore.adminpass = self.adminpassTextField.stringValue;
@@ -318,11 +330,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 - (IBAction)enableSSH:(id)sender
 {
     [self _updateSSHFields];
-}
-
-- (IBAction)enableRepl:(id)sender
-{
-    [self _updateReplFields];
 }
 
 - (IBAction)chooseKeyPathAction:(id)sender
@@ -356,15 +363,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     self.sshpasswordTextField.enabled = useSSH;
     self.sshkeyfileTextField.enabled = useSSH;
     self.selectKeyFileButton.enabled = useSSH;
-}
-
-- (void)_updateReplFields
-{
-    BOOL useRepl;
-    
-    useRepl = self.singleReplicaSetPopUpButton.selectedTag == 1;
-    self.serversTextField.enabled = useRepl;
-    self.replnameTextField.enabled = useRepl;
 }
 
 - (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor

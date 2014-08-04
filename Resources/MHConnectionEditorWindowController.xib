@@ -166,10 +166,13 @@
                             <menu key="menu" title="OtherViews" id="tKN-ip-eGX">
                                 <items>
                                     <menuItem title="Single Server" state="on" tag="3" id="eLj-mm-eiP"/>
-                                    <menuItem title="Replica Set" state="on" tag="4" id="4Cr-SW-ghG"/>
+                                    <menuItem title="Replica Set" tag="4" id="4Cr-SW-ghG"/>
                                 </items>
                             </menu>
                         </popUpButtonCell>
+                        <connections>
+                            <action selector="singleServerReplicaSetChoiceAction:" target="-2" id="2CF-CA-AEi"/>
+                        </connections>
                     </popUpButton>
                     <textField verticalHuggingPriority="750" id="KXC-hB-L6i">
                         <rect key="frame" x="49" y="372" width="47" height="17"/>
