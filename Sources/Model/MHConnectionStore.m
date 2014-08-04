@@ -34,6 +34,17 @@
 @dynamic bindport;
 @dynamic defaultReadMode;
 
++ (NSString *)hostnameFromServer:(NSString *)server WithPort:(NSInteger *)port
+{
+    NSArray *components;
+    
+    components = [server componentsSeparatedByString:@":"];
+    if (components.count > 1 && port) {
+        *port = [[components objectAtIndex:1] integerValue];
+    }
+    return [components objectAtIndex:0];
+}
+
 - (NSArray *)queryHistoryWithDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName
 {
     NSString *absolute;
@@ -130,6 +141,16 @@
     if (self.adminuser.length > 0) {
         [MHKeychain addOrUpdateItemWithLabel:self.keychainAccount account:self.keychainAccount description:nil password:adminpass];
     }
+}
+
+- (NSArray *)arrayServers
+{
+    return [[super valueForKey:@"servers"] componentsSeparatedByString:@","];
+}
+
+- (NSString *)sortedServers
+{
+    return [[self.arrayServers sortedArrayUsingSelector:@selector(compare:)] componentsJoinedByString:@","];
 }
 
 @end

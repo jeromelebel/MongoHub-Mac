@@ -12,6 +12,7 @@
 @interface MHConnectionStore : NSManagedObject
 {
 }
++ (NSString *)hostnameFromServer:(NSString *)server WithPort:(NSInteger *)port;
 
 - (NSArray *)queryHistoryWithDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
 - (void)addNewQuery:(NSDictionary *)query withDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
@@ -33,5 +34,8 @@
 @property (nonatomic, retain) NSNumber *bindport;
 @property (nonatomic, retain) NSNumber *userepl;
 @property (nonatomic, assign) MODReadPreferencesReadMode defaultReadMode;
+
+@property (nonatomic, readonly, assign) NSString *sortedServers;
+@property (nonatomic, readonly, assign) NSArray *arrayServers;
 
 @end
