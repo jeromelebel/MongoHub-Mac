@@ -152,7 +152,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         if (defaultValue.userepl.boolValue) {
             [self.singleReplicaSetPopUpButton selectItemAtIndex:1];
             [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:REPLICASET_TAB_IDENTIER];
-            if (defaultValue.servers) self.hostportTextField.stringValue = defaultValue.servers;
+            if (defaultValue.servers) self.serversTextField.stringValue = defaultValue.servers;
             if (defaultValue.repl_name) self.replnameTextField.stringValue = defaultValue.repl_name;
         } else {
             NSInteger port;
