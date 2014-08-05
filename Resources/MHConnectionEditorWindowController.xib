@@ -293,7 +293,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <secureTextField verticalHuggingPriority="750" id="71">
-                        <rect key="frame" x="103" y="96" width="247" height="22"/>
+                        <rect key="frame" x="102" y="96" width="247" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="72">
                             <font key="font" metaFont="system"/>
