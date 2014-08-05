@@ -254,7 +254,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     NSString *defaultdb;
     NSString *alias;
     NSString *sshHost;
-    NSString *replicaServers;
+    NSMutableArray *replicaServers = [NSMutableArray array];
     NSString *replicaName;
     BOOL useSSH;
     BOOL useReplicaSet;
@@ -266,33 +266,49 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     sshHost = [self.sshhostTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     useSSH = self.usesshCheckBox.state == NSOnState;
     useReplicaSet = self.singleReplicaSetPopUpButton.selectedTag == 1;
-    replicaServers = [self.serversTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    for (NSString *replicaHost in [self.serversTextField.stringValue componentsSeparatedByString:@","]) {
+        replicaHost = [replicaHost stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (replicaHost.length > 0) {
+            [replicaServers addObject:replicaHost];
+        }
+    }
     replicaName = [self.replnameTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     sshPort = self.sshportTextField.stringValue.integerValue;
     
     if (hostPort < 0 || hostPort > 65535) {
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"Host port should be between 1 and 65535 (or empty)", @""));
+        [self.hostportTextField becomeFirstResponder];
         return;
     }
     if (alias.length == 0) {
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"Name should not be less than 1 charaters", @""));
+        [self.aliasTextField becomeFirstResponder];
         return;
     }
     if (useSSH && sshHost.length == 0) {
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"Tunneling requires SSH Host!", @""));
+        [self.sshhostTextField becomeFirstResponder];
         return;
     }
     if (useSSH && (sshPort < 0 || sshPort > 65535)) {
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"ssh port should be between 1 and 65535 (or empty)", @""));
+        [self.sshportTextField becomeFirstResponder];
         return;
     }
-    if (useReplicaSet && (replicaServers.length == 0 || replicaName.length == 0)) {
+    if (useReplicaSet && replicaServers.count == 0) {
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"You need to set the list of servers", @""));
+        [self.serversTextField becomeFirstResponder];
+        return;
+    }
+    if (useReplicaSet && replicaName.length == 0) {
+        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"You need to set a replica set name", @""));
+        [self.replnameTextField becomeFirstResponder];
         return;
     }
     MHConnectionStore *sameAliasConnection = [self connectionStoreWithAlias:alias];
     if (sameAliasConnection && sameAliasConnection != self.editedConnectionStore) {
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"Name already in use!", @""));
+        [self.aliasTextField becomeFirstResponder];
         return;
     }
     if (!self.editedConnectionStore) {
@@ -300,7 +316,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     }
     self.editedConnectionStore.userepl = [NSNumber numberWithBool:useReplicaSet];
     if (useReplicaSet) {
-        self.editedConnectionStore.servers = replicaServers;
+        self.editedConnectionStore.servers = [replicaServers componentsJoinedByString:@","];
         self.editedConnectionStore.repl_name = replicaName;
     } else if (hostPort == 0) {
         self.editedConnectionStore.servers = hostName;
