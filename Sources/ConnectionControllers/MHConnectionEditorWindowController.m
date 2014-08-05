@@ -305,6 +305,11 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         [self.replnameTextField becomeFirstResponder];
         return;
     }
+    if (self.adminpassTextField.stringValue.length > 0 && self.adminuserTextField.stringValue == 0) {
+        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"You need set a user name if you enter a password", @""));
+        [self.adminuserTextField becomeFirstResponder];
+        return;
+    }
     MHConnectionStore *sameAliasConnection = [self connectionStoreWithAlias:alias];
     if (sameAliasConnection && sameAliasConnection != self.editedConnectionStore) {
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"Name already in use!", @""));
@@ -326,7 +331,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         self.editedConnectionStore.repl_name = nil;
     }
     self.editedConnectionStore.alias = alias;
-    self.editedConnectionStore.adminuser = [self.adminuserTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    self.editedConnectionStore.adminuser = self.adminuserTextField.stringValue;
     self.editedConnectionStore.adminpass = self.adminpassTextField.stringValue;
     self.editedConnectionStore.defaultdb = defaultdb;
     self.editedConnectionStore.usessl = [NSNumber numberWithBool:self.useSSLCheckBox.state == NSOnState];
