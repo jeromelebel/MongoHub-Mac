@@ -365,10 +365,10 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     useReplicaSet = self.singleReplicaSetPopUpButton.selectedTag == 1;
     if (useReplicaSet) {
         self.singleReplicaSetPopUpButton.nextKeyView = self.replnameTextField;
-        self.serversTextField.nextKeyView = self.defaultdbTextField;
+        self.serversTextField.nextKeyView = self.adminuserTextField;
     } else {
         self.singleReplicaSetPopUpButton.nextKeyView = self.hostTextField;
-        self.hostportTextField.nextKeyView = self.defaultdbTextField;
+        self.hostportTextField.nextKeyView = self.adminuserTextField;
     }
 }
 

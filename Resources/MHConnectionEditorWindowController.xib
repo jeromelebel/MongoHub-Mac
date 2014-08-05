@@ -60,11 +60,11 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
-                            <outlet property="nextKeyView" destination="79" id="jlN-Hx-Ioc"/>
+                            <outlet property="nextKeyView" destination="pEj-GV-7Pc" id="HQq-6b-2FS"/>
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" id="79">
-                        <rect key="frame" x="102" y="433" width="247" height="22"/>
+                        <rect key="frame" x="102" y="344" width="247" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Username (optional)" drawsBackground="YES" id="80">
                             <font key="font" metaFont="system"/>
@@ -76,7 +76,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" id="81">
-                        <rect key="frame" x="-2" y="436" width="98" height="17"/>
+                        <rect key="frame" x="-2" y="347" width="98" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="User:" id="82">
                             <font key="font" metaFont="system"/>
@@ -85,7 +85,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="83">
-                        <rect key="frame" x="-2" y="403" width="98" height="17"/>
+                        <rect key="frame" x="-2" y="314" width="98" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="84">
                             <font key="font" metaFont="system"/>
@@ -94,7 +94,7 @@
                         </textFieldCell>
                     </textField>
                     <secureTextField verticalHuggingPriority="750" id="85">
-                        <rect key="frame" x="102" y="403" width="247" height="22"/>
+                        <rect key="frame" x="102" y="314" width="247" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Password (optional)" drawsBackground="YES" usesSingleLineMode="YES" id="86">
                             <font key="font" metaFont="system"/>
@@ -105,7 +105,7 @@
                             </allowedInputSourceLocales>
                         </secureTextFieldCell>
                         <connections>
-                            <outlet property="nextKeyView" destination="pEj-GV-7Pc" id="Ise-tk-h1B"/>
+                            <outlet property="nextKeyView" destination="91" id="RgY-4P-Bnw"/>
                         </connections>
                     </secureTextField>
                     <textField verticalHuggingPriority="750" id="89">
@@ -170,7 +170,7 @@
                         </connections>
                     </button>
                     <popUpButton verticalHuggingPriority="750" id="pEj-GV-7Pc">
-                        <rect key="frame" x="100" y="371" width="252" height="26"/>
+                        <rect key="frame" x="100" y="431" width="252" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="Replica Set" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="4Cr-SW-ghG" id="MlS-fd-SsO">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -188,7 +188,7 @@
                         </connections>
                     </popUpButton>
                     <textField verticalHuggingPriority="750" id="KXC-hB-L6i">
-                        <rect key="frame" x="-2" y="376" width="98" height="17"/>
+                        <rect key="frame" x="-2" y="436" width="98" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Server:" id="8Z3-qh-G5G">
                             <font key="font" metaFont="system"/>
@@ -373,7 +373,7 @@ Gw
                         </connections>
                     </button>
                     <tabView drawsBackground="NO" type="noTabsNoBorder" initialItem="EBH-Cr-8Gf" id="USt-ks-5Fl">
-                        <rect key="frame" x="0.0" y="311" width="369" height="58"/>
+                        <rect key="frame" x="0.0" y="371" width="369" height="58"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
@@ -450,7 +450,7 @@ Gw
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
-                                                <outlet property="nextKeyView" destination="91" id="B9p-zv-szd"/>
+                                                <outlet property="nextKeyView" destination="79" id="NQk-5y-UV4"/>
                                             </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="Tsw-51-tNh">
