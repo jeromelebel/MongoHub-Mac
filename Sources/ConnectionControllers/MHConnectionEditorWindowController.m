@@ -332,7 +332,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         return;
     }
     if (!self.editedConnectionStore) {
-        self.editedConnectionStore = [[self.connectionsArrayController newObject] retain];
+        self.editedConnectionStore = self.connectionsArrayController.newObject;
     }
     self.editedConnectionStore.userepl = [NSNumber numberWithBool:useReplicaSet];
     if (useReplicaSet) {
