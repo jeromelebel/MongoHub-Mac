@@ -246,6 +246,26 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     [self _updateSingleServerReplicaSetFields];
 }
 
+- (NSString *)servers
+{
+    NSString *hostName;
+    NSInteger hostPort;
+    NSString *result;
+    
+    hostName = [self.hostTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    hostPort = self.hostportTextField.stringValue.integerValue;
+    if (self.singleReplicaSetPopUpButton.selectedTag == 1) {
+        result = [MHConnectionStore cleanupServers:self.serversTextField.stringValue];
+    } else if (hostPort == 0) {
+        result = hostName;
+    } else if (hostPort > 0 && hostPort <= 65535) {
+        result = [NSString stringWithFormat:@"%@:%ld", hostName, (long)hostPort];
+    } else {
+        result = nil;
+    }
+    return result;
+}
+
 - (IBAction)addSaveAction:(id)sender
 {
     NSString *hostName;
@@ -254,7 +274,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     NSString *defaultdb;
     NSString *alias;
     NSString *sshHost;
-    NSMutableArray *replicaServers = [NSMutableArray array];
+    NSString *replicaServers;
     NSString *replicaName;
     BOOL useSSH;
     BOOL useReplicaSet;
@@ -266,12 +286,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     sshHost = [self.sshhostTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     useSSH = self.usesshCheckBox.state == NSOnState;
     useReplicaSet = self.singleReplicaSetPopUpButton.selectedTag == 1;
-    for (NSString *replicaHost in [self.serversTextField.stringValue componentsSeparatedByString:@","]) {
-        replicaHost = [replicaHost stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        if (replicaHost.length > 0) {
-            [replicaServers addObject:replicaHost];
-        }
-    }
+    replicaServers = [MHConnectionStore cleanupServers:self.serversTextField.stringValue];
     replicaName = [self.replnameTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     sshPort = self.sshportTextField.stringValue.integerValue;
     
@@ -295,8 +310,8 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         [self.sshportTextField becomeFirstResponder];
         return;
     }
-    if (useReplicaSet && replicaServers.count == 0) {
-        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"You need to set the list of servers", @""));
+    if (useReplicaSet && [replicaServers componentsSeparatedByString:@","].count <= 1) {
+        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"You need to set more than one server", @""));
         [self.serversTextField becomeFirstResponder];
         return;
     }
@@ -321,15 +336,11 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     }
     self.editedConnectionStore.userepl = [NSNumber numberWithBool:useReplicaSet];
     if (useReplicaSet) {
-        self.editedConnectionStore.servers = [replicaServers componentsJoinedByString:@","];
         self.editedConnectionStore.repl_name = replicaName;
-    } else if (hostPort == 0) {
-        self.editedConnectionStore.servers = hostName;
-        self.editedConnectionStore.repl_name = nil;
     } else {
-        self.editedConnectionStore.servers = [NSString stringWithFormat:@"%@:%ld", hostName, (long)hostPort];
         self.editedConnectionStore.repl_name = nil;
     }
+    self.editedConnectionStore.servers = self.servers;
     self.editedConnectionStore.alias = alias;
     self.editedConnectionStore.adminuser = self.adminuserTextField.stringValue;
     self.editedConnectionStore.adminpass = self.adminpassTextField.stringValue;
@@ -392,7 +403,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 
 - (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
 {
-    if (control == self.sshhostTextField || control == self.sshportTextField || control == self.sshuserTextField) {
+    if (control == self.sshuserTextField) {
         NSString *password = nil;
         
         if (self.sshhostTextField.stringValue.length > 0) {
@@ -402,6 +413,17 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
             self.sshpasswordTextField.stringValue = password;
         } else {
             self.sshpasswordTextField.stringValue = @"";
+        }
+    } else if (control == self.adminuserTextField) {
+        NSString *password = nil;
+        
+        if (self.adminuserTextField.stringValue.length > 0) {
+            password = [MHConnectionStore passwordForServers:self.servers username:self.adminuserTextField.stringValue];
+        }
+        if (password) {
+            self.adminpassTextField.stringValue = password;
+        } else {
+            self.adminpassTextField.stringValue = @"";
         }
     }
     return YES;

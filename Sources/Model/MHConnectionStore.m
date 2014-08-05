@@ -49,6 +49,36 @@
     return [components objectAtIndex:0];
 }
 
++ (NSString *)sortedServers:(NSString *)servers
+{
+    NSMutableArray *array = [NSMutableArray array];
+    
+    for (NSString *host in [servers componentsSeparatedByString:@","]) {
+        [array addObject:[host stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+    }
+    [array sortedArrayUsingSelector:@selector(compare:)];
+    return [array componentsJoinedByString:@","];
+}
+
++ (NSString *)cleanupServers:(NSString *)servers
+{
+    NSMutableArray *array = [NSMutableArray array];
+    
+    for (NSString *host in [servers componentsSeparatedByString:@","]) {
+        [array addObject:[host stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+    }
+    return [array componentsJoinedByString:@","];
+}
+
++ (NSString *)passwordForServers:(NSString *)servers username:(NSString *)username
+{
+    NSString *keychainServers;
+    
+    NSParameterAssert(username.length > 0);
+    keychainServers = [self sortedServers:servers];
+    return [MHKeychain passwordWithLabel:[NSString stringWithFormat:@"%@ (%@)", keychainServers, username] account:username service:keychainServers description:nil];
+}
+
 - (NSArray *)queryHistoryWithDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName
 {
     NSString *absolute;
@@ -133,7 +163,7 @@
 - (NSString *)adminpass
 {
     if (self.adminuser.length > 0) {
-        return [MHKeychain passwordWithLabel:[NSString stringWithFormat:@"%@ (%@)", self.servers, self.adminuser] account:self.adminuser service:self.servers description:nil];
+        return [self.class passwordForServers:self.servers username:self.adminuser];
     } else {
         return nil;
     }
@@ -142,18 +172,16 @@
 - (void)setAdminpass:(NSString *)adminpass
 {
     if (self.adminuser.length > 0) {
-        [MHKeychain addOrUpdateItemWithLabel:[NSString stringWithFormat:@"%@ (%@)", self.servers, self.adminuser] account:self.adminuser service:self.servers description:nil password:adminpass];
+        NSString *keychainServers;
+        
+        keychainServers = [self.class sortedServers:self.servers];
+        [MHKeychain addOrUpdateItemWithLabel:[NSString stringWithFormat:@"%@ (%@)", keychainServers, self.adminuser] account:self.adminuser service:keychainServers description:nil password:adminpass];
     }
 }
 
 - (NSArray *)arrayServers
 {
     return [[super valueForKey:@"servers"] componentsSeparatedByString:@","];
-}
-
-- (NSString *)sortedServers
-{
-    return [[self.arrayServers sortedArrayUsingSelector:@selector(compare:)] componentsJoinedByString:@","];
 }
 
 @end

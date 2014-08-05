@@ -13,6 +13,9 @@
 {
 }
 + (NSString *)hostnameFromServer:(NSString *)server WithPort:(NSInteger *)port;
++ (NSString *)cleanupServers:(NSString *)servers;
++ (NSString *)passwordForServers:(NSString *)servers username:(NSString *)username;
++ (NSString *)sortedServers:(NSString *)servers;
 
 - (NSArray *)queryHistoryWithDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
 - (void)addNewQuery:(NSDictionary *)query withDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
@@ -35,7 +38,6 @@
 @property (nonatomic, retain) NSNumber *userepl;
 @property (nonatomic, assign) MODReadPreferencesReadMode defaultReadMode;
 
-@property (nonatomic, readonly, assign) NSString *sortedServers;
 @property (nonatomic, readonly, assign) NSArray *arrayServers;
 
 @end
