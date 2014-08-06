@@ -257,7 +257,7 @@
             [options addObject:@"ssl=true"];
         }
         if (self.connectionStore.repl_name.length > 0) {
-            [options addObject:[NSString stringWithFormat:@"replicaSet=%@", self.connectionStore.repl_name].stringByEscapingURL];
+            [options addObject:[NSString stringWithFormat:@"replicaSet=%@", self.connectionStore.repl_name.stringByEscapingURL]];
         }
         uri = [NSString stringWithFormat:@"mongodb://%@%@/%@?%@", auth, servers, self.connectionStore.defaultdb.stringByEscapingURL, [options componentsJoinedByString:@"&"]];
         NSLog(@"uri %@", uri);
