@@ -14,6 +14,4 @@
 - (NSString*)stringByEscapingURL;
 - (NSString *)stringByTrimmingWhitespace;
 
-+ (NSString*)UUIDString;
-
 @end
