@@ -14,6 +14,7 @@
 #define COPY_ALIAS_SUFFIX @" - Copy"
 #define SINGLESERVER_TAB_IDENTIER           @"singleserver"
 #define REPLICASET_TAB_IDENTIER             @"replicaset"
+#define SHARDEDCLUSTER_TAB_IDENTIER         @"shardedcluster"
 
 @interface MHConnectionEditorWindowController ()
 @property (nonatomic, readwrite, assign) NSTextField *aliasTextField;
@@ -23,8 +24,9 @@
 @property (nonatomic, readwrite, assign) NSTabView *singleReplicaSetTabView;
 @property (nonatomic, readwrite, assign) NSTextField *hostTextField;
 @property (nonatomic, readwrite, assign) NSTextField *hostportTextField;
-@property (nonatomic, readwrite, assign) NSTextField *serversTextField;
-@property (nonatomic, readwrite, assign) NSTextField *replnameTextField;
+@property (nonatomic, readwrite, assign) NSTextField *replicaSetServersTextField;
+@property (nonatomic, readwrite, assign) NSTextField *replicaSetNameTextField;
+@property (nonatomic, readwrite, assign) NSTextField *shardedClusterServersTextField;
 @property (nonatomic, readwrite, assign) NSTextField *defaultdbTextField;
 @property (nonatomic, readwrite, assign) NSButton *useSSLCheckBox;
 @property (nonatomic, readwrite, assign) NSButton *usesshCheckBox;
@@ -92,7 +94,12 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 @synthesize newConnection = _newConnection;
 @synthesize connectionStoreDefaultValue = _connectionStoreDefaultValue;
 
-@synthesize hostTextField = _hostTextField, hostportTextField = _hostportTextField, serversTextField = _serversTextField, replnameTextField = _replnameTextField, aliasTextField = _aliasTextField, adminuserTextField = _adminuserTextField, adminpassTextField = _adminpassTextField, defaultdbTextField = _defaultdbTextField, usesshCheckBox = _usesshCheckBox, sshhostTextField = _sshhostTextField, sshportTextField = _sshportTextField, sshuserTextField = _sshuserTextField, sshpasswordTextField = _sshpasswordTextField, sshkeyfileTextField = _sshkeyfileTextField, selectKeyFileButton = _selectKeyFileButton, addSaveButton = _addSaveButton, defaultReadModePopUpButton = _defaultReadModePopUpButton, useSSLCheckBox = _useSSLCheckBox;
+@synthesize hostTextField = _hostTextField;
+@synthesize hostportTextField = _hostportTextField;
+@synthesize replicaSetServersTextField = _replicaSetServersTextField;
+@synthesize replicaSetNameTextField = _replicaSetNameTextField;
+@synthesize shardedClusterServersTextField = _shardedClusterServersTextField;
+@synthesize aliasTextField = _aliasTextField, adminuserTextField = _adminuserTextField, adminpassTextField = _adminpassTextField, defaultdbTextField = _defaultdbTextField, usesshCheckBox = _usesshCheckBox, sshhostTextField = _sshhostTextField, sshportTextField = _sshportTextField, sshuserTextField = _sshuserTextField, sshpasswordTextField = _sshpasswordTextField, sshkeyfileTextField = _sshkeyfileTextField, selectKeyFileButton = _selectKeyFileButton, addSaveButton = _addSaveButton, defaultReadModePopUpButton = _defaultReadModePopUpButton, useSSLCheckBox = _useSSLCheckBox;
 @synthesize singleReplicaSetPopUpButton = _singleReplicaSetPopUpButton;
 @synthesize singleReplicaSetTabView = _singleReplicaSetTabView;
 
@@ -149,11 +156,15 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
             self.aliasTextField.stringValue = defaultValue.alias;
         }
         self.window.title = self.aliasTextField.stringValue;
-        if (defaultValue.userepl.boolValue) {
+        if (defaultValue.repl_name.length > 0) {
             [self.singleReplicaSetPopUpButton selectItemAtIndex:1];
             [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:REPLICASET_TAB_IDENTIER];
-            if (defaultValue.servers) self.serversTextField.stringValue = defaultValue.servers;
-            if (defaultValue.repl_name) self.replnameTextField.stringValue = defaultValue.repl_name;
+            if (defaultValue.servers) self.replicaSetServersTextField.stringValue = defaultValue.servers;
+            if (defaultValue.repl_name) self.replicaSetNameTextField.stringValue = defaultValue.repl_name;
+        } else if ([MHConnectionStore  splitServers:defaultValue.servers].count > 1) {
+            [self.singleReplicaSetPopUpButton selectItemAtIndex:2];
+            [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:SHARDEDCLUSTER_TAB_IDENTIER];
+            self.shardedClusterServersTextField.stringValue = defaultValue.servers;
         } else {
             NSInteger port;
             
@@ -183,8 +194,8 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         self.window.title = NSLocalizedString(@"New Connection", @"New Connection");
         self.hostTextField.stringValue = @"";
         self.hostportTextField.stringValue = @"";
-        self.serversTextField.stringValue = @"";
-        self.replnameTextField.stringValue = @"";
+        self.replicaSetServersTextField.stringValue = @"";
+        self.replicaSetNameTextField.stringValue = @"";
         self.aliasTextField.stringValue = @"";
         self.adminuserTextField.stringValue = @"";
         self.adminpassTextField.stringValue = @"";
@@ -199,7 +210,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         [self.defaultReadModePopUpButton selectItemWithTag:0];
     }
     [self _updateSSHFields];
-    [self _updateSingleServerReplicaSetFields];
+    [self _updateServerFields];
     [super windowDidLoad];
 }
 
@@ -238,12 +249,23 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 
 - (IBAction)singleServerReplicaSetChoiceAction:(id)sender
 {
+    if ([self.singleReplicaSetTabView.selectedTabViewItem.identifier isEqualTo:SHARDEDCLUSTER_TAB_IDENTIER]
+        && self.shardedClusterServersTextField.stringValue) {
+        self.replicaSetServersTextField.stringValue = self.shardedClusterServersTextField.stringValue;
+    } else if ([self.singleReplicaSetTabView.selectedTabViewItem.identifier isEqualTo:REPLICASET_TAB_IDENTIER]
+        && self.replicaSetServersTextField.stringValue) {
+        self.shardedClusterServersTextField.stringValue = self.replicaSetServersTextField.stringValue;
+    }
     if (self.singleReplicaSetPopUpButton.selectedTag == 0) {
         [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:SINGLESERVER_TAB_IDENTIER];
-    } else {
+    } else if (self.singleReplicaSetPopUpButton.selectedTag == 1) {
         [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:REPLICASET_TAB_IDENTIER];
+    } else if (self.singleReplicaSetPopUpButton.selectedTag == 2) {
+        [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:SHARDEDCLUSTER_TAB_IDENTIER];
+    } else {
+        NSAssert(NO, @"unknown value %ld", (long)self.singleReplicaSetPopUpButton.selectedTag);
     }
-    [self _updateSingleServerReplicaSetFields];
+    [self _updateServerFields];
 }
 
 - (NSString *)servers
@@ -254,8 +276,8 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     
     hostName = [self.hostTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     hostPort = self.hostportTextField.stringValue.integerValue;
-    if (self.singleReplicaSetPopUpButton.selectedTag == 1) {
-        result = [MHConnectionStore cleanupServers:self.serversTextField.stringValue];
+    if (self.singleReplicaSetPopUpButton.selectedTag == 1 || self.singleReplicaSetPopUpButton.selectedTag == 2) {
+        result = [MHConnectionStore cleanupServers:self.replicaSetServersTextField.stringValue];
     } else if (hostPort == 0) {
         result = hostName;
     } else if (hostPort > 0 && hostPort <= 65535) {
@@ -286,8 +308,8 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     sshHost = [self.sshhostTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     useSSH = self.usesshCheckBox.state == NSOnState;
     useReplicaSet = self.singleReplicaSetPopUpButton.selectedTag == 1;
-    replicaServers = [MHConnectionStore cleanupServers:self.serversTextField.stringValue];
-    replicaName = [self.replnameTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    replicaServers = [MHConnectionStore cleanupServers:self.replicaSetServersTextField.stringValue];
+    replicaName = [self.replicaSetNameTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     sshPort = self.sshportTextField.stringValue.integerValue;
     
     if (hostPort < 0 || hostPort > 65535) {
@@ -312,12 +334,12 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     }
     if (useReplicaSet && [replicaServers componentsSeparatedByString:@","].count <= 1) {
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"You need to set more than one server", @""));
-        [self.serversTextField becomeFirstResponder];
+        [self.replicaSetServersTextField becomeFirstResponder];
         return;
     }
     if (useReplicaSet && replicaName.length == 0) {
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"You need to set a replica set name", @""));
-        [self.replnameTextField becomeFirstResponder];
+        [self.replicaSetNameTextField becomeFirstResponder];
         return;
     }
     if (self.adminpassTextField.stringValue.length > 0 && self.adminuserTextField.stringValue == 0) {
@@ -334,7 +356,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     if (!self.editedConnectionStore) {
         self.editedConnectionStore = self.connectionsArrayController.newObject;
     }
-    self.editedConnectionStore.userepl = [NSNumber numberWithBool:useReplicaSet];
     if (useReplicaSet) {
         self.editedConnectionStore.repl_name = replicaName;
     } else {
@@ -374,17 +395,19 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     }
 }
 
-- (void)_updateSingleServerReplicaSetFields
+- (void)_updateServerFields
 {
-    BOOL useReplicaSet;
-    
-    useReplicaSet = self.singleReplicaSetPopUpButton.selectedTag == 1;
-    if (useReplicaSet) {
-        self.singleReplicaSetPopUpButton.nextKeyView = self.replnameTextField;
-        self.serversTextField.nextKeyView = self.adminuserTextField;
-    } else {
+    if (self.singleReplicaSetPopUpButton.selectedTag == 2) {
+        self.singleReplicaSetPopUpButton.nextKeyView = self.shardedClusterServersTextField;
+        self.shardedClusterServersTextField.nextKeyView = self.adminuserTextField;
+    } else if (self.singleReplicaSetPopUpButton.selectedTag == 1) {
+        self.singleReplicaSetPopUpButton.nextKeyView = self.replicaSetNameTextField;
+        self.replicaSetServersTextField.nextKeyView = self.adminuserTextField;
+    } else if (self.singleReplicaSetPopUpButton.selectedTag == 0) {
         self.singleReplicaSetPopUpButton.nextKeyView = self.hostTextField;
         self.hostportTextField.nextKeyView = self.adminuserTextField;
+    } else {
+        NSAssert(NO, @"unknown value %ld", (long)self.singleReplicaSetPopUpButton.selectedTag);;
     }
 }
 

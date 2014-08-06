@@ -16,9 +16,10 @@
                 <outlet property="defaultdbTextField" destination="91" id="rvT-vm-3H4"/>
                 <outlet property="hostTextField" destination="uBy-gb-irv" id="Ljs-np-8sE"/>
                 <outlet property="hostportTextField" destination="e3c-6q-I5k" id="1y9-7h-hCI"/>
-                <outlet property="replnameTextField" destination="HQD-OS-8KZ" id="hIj-pX-PnX"/>
+                <outlet property="replicaSetNameTextField" destination="HQD-OS-8KZ" id="vji-da-eTh"/>
+                <outlet property="replicaSetServersTextField" destination="5SR-LB-gxG" id="CmD-VU-ZNS"/>
                 <outlet property="selectKeyFileButton" destination="114" id="g3t-bU-zzn"/>
-                <outlet property="serversTextField" destination="5SR-LB-gxG" id="6dO-WV-R84"/>
+                <outlet property="shardedClusterServersTextField" destination="iJd-Yi-nbi" id="K3h-mV-PgI"/>
                 <outlet property="singleReplicaSetPopUpButton" destination="pEj-GV-7Pc" id="MN3-Zo-GGx"/>
                 <outlet property="singleReplicaSetTabView" destination="USt-ks-5Fl" id="YHf-J1-9zU"/>
                 <outlet property="sshhostTextField" destination="47" id="RZ1-GN-vnc"/>
@@ -173,13 +174,14 @@
                     <popUpButton verticalHuggingPriority="750" id="pEj-GV-7Pc">
                         <rect key="frame" x="100" y="431" width="252" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" title="Replica Set" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="4Cr-SW-ghG" id="MlS-fd-SsO">
+                        <popUpButtonCell key="cell" type="push" title="Sharded Cluster" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="2" imageScaling="proportionallyDown" inset="2" selectedItem="0kr-NS-YZ7" id="MlS-fd-SsO">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" id="tKN-ip-eGX">
                                 <items>
                                     <menuItem title="Single Server" id="eLj-mm-eiP"/>
-                                    <menuItem title="Replica Set" state="on" tag="1" id="4Cr-SW-ghG"/>
+                                    <menuItem title="Replica Set" tag="1" id="4Cr-SW-ghG"/>
+                                    <menuItem title="Sharded Cluster" state="on" tag="2" id="0kr-NS-YZ7"/>
                                 </items>
                             </menu>
                         </popUpButtonCell>
@@ -473,6 +475,35 @@ Gw
                                             </textFieldCell>
                                             <connections>
                                                 <outlet property="nextKeyView" destination="5SR-LB-gxG" id="zhX-BM-rHh"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Sharded Cluster" identifier="shardedcluster" id="QhM-6v-JXN">
+                                <view key="view" id="gca-gq-Dve">
+                                    <rect key="frame" x="0.0" y="0.0" width="369" height="58"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" id="ieX-c5-XDb">
+                                            <rect key="frame" x="-2" y="36" width="98" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Servers:" id="Ihr-oy-80T">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" id="iJd-Yi-nbi">
+                                            <rect key="frame" x="102" y="33" width="247" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="host1:port1,host2:port2…" drawsBackground="YES" id="UWY-Zx-tCn">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <outlet property="nextKeyView" destination="79" id="Lnq-j1-4Qg"/>
                                             </connections>
                                         </textField>
                                     </subviews>

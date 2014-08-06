@@ -20,6 +20,7 @@
 + (NSString *)cleanupServers:(NSString *)servers;
 + (NSString *)passwordForServers:(NSString *)servers username:(NSString *)username;
 + (NSString *)sortedServers:(NSString *)servers;
++ (NSMutableArray *)splitServers:(NSString *)servers;
 
 - (BOOL)setValuesFromStringURL:(NSString *)stringURL errorMessage:(NSString **)errorMessage;
 - (NSArray *)queryHistoryWithDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
@@ -40,7 +41,6 @@
 @property (nonatomic, retain) NSString *sshkeyfile;
 @property (nonatomic, retain) NSString *bindaddress;
 @property (nonatomic, retain) NSNumber *bindport;
-@property (nonatomic, retain) NSNumber *userepl;
 @property (nonatomic, assign) MODReadPreferencesReadMode defaultReadMode;
 
 @property (nonatomic, readonly, assign) NSArray *arrayServers;

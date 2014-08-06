@@ -140,11 +140,7 @@
     [_databaseCollectionOutlineView setDoubleAction:@selector(outlineViewDoubleClickAction:)];
     [self updateToolbarItems];
     
-    if (self.connectionStore.userepl.boolValue) {
-        self.window.title = [NSString stringWithFormat:@"%@ [%@]", self.connectionStore.alias, self.connectionStore.repl_name];
-    } else {
-        self.window.title = [NSString stringWithFormat:@"%@ [%@]", self.connectionStore.alias, self.connectionStore.servers];
-    }
+    self.window.title = [NSString stringWithFormat:@"%@ [%@]", self.connectionStore.alias, self.connectionStore.servers];
     [self.tabViewController addObserver:self forKeyPath:@"selectedTabIndex" options:NSKeyValueObservingOptionNew context:nil];
     [self.window addObserver:self forKeyPath:@"firstResponder" options:NSKeyValueObservingOptionNew context:nil];
     self.statusViewController.title = @"Connecting…";

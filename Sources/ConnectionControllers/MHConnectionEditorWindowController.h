@@ -19,16 +19,17 @@
 
 @interface MHConnectionEditorWindowController : NSWindowController
 {
-    NSTextField                         *_hostTextField;
-    NSTextField                         *_hostportTextField;
-    NSButton                            *_usereplCheckBox;
-    NSTextField                         *_serversTextField;
-    NSPopUpButton                       *_singleReplicaSetPopUpButton;
-    NSTabView                           *_singleReplicaSetTabView;
-    NSTextField                         *_replnameTextField;
     NSTextField                         *_aliasTextField;
     NSTextField                         *_adminuserTextField;
     NSSecureTextField                   *_adminpassTextField;
+    NSTextField                         *_hostTextField;
+    NSTextField                         *_hostportTextField;
+    NSButton                            *_usereplCheckBox;
+    NSPopUpButton                       *_singleReplicaSetPopUpButton;
+    NSTabView                           *_singleReplicaSetTabView;
+    NSTextField                         *_replicaSetNameTextField;
+    NSTextField                         *_replicaSetServersTextField;
+    NSTextField                         *_shardedClusterServersTextField;
     NSTextField                         *_defaultdbTextField;
     NSButton                            *_useSSLCheckBox;
     NSButton                            *_usesshCheckBox;
@@ -59,8 +60,9 @@
 @property (nonatomic, readonly, assign) IBOutlet NSTabView *singleReplicaSetTabView;
 @property (nonatomic, readonly, assign) IBOutlet NSTextField *hostTextField;
 @property (nonatomic, readonly, assign) IBOutlet NSTextField *hostportTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *serversTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *replnameTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *replicaSetServersTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *replicaSetNameTextField;
+@property (nonatomic, readonly, assign) IBOutlet NSTextField *shardedClusterServersTextField;
 @property (nonatomic, readonly, assign) IBOutlet NSTextField *defaultdbTextField;
 @property (nonatomic, readonly, assign) IBOutlet NSButton *useSSLCheckBox;
 @property (nonatomic, readonly, assign) IBOutlet NSButton *usesshCheckBox;

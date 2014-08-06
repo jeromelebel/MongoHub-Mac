@@ -22,7 +22,6 @@
 @dynamic alias;
 @dynamic adminuser;
 @dynamic defaultdb;
-@dynamic userepl;
 
 @dynamic usessl;
 @dynamic usessh;
@@ -54,26 +53,19 @@
 
 + (NSString *)sortedServers:(NSString *)servers
 {
-    NSMutableArray *array = [NSMutableArray array];
+    NSMutableArray *array;
     
     if (servers.length == 0) {
         servers = DEFAULT_MONGO_IP;
     }
-    for (NSString *host in [servers componentsSeparatedByString:@","]) {
-        [array addObject:[host stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
-    }
+    array = [self splitServers:servers];
     [array sortedArrayUsingSelector:@selector(compare:)];
     return [array componentsJoinedByString:@","];
 }
 
 + (NSString *)cleanupServers:(NSString *)servers
 {
-    NSMutableArray *array = [NSMutableArray array];
-    
-    for (NSString *host in [servers componentsSeparatedByString:@","]) {
-        [array addObject:[host stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
-    }
-    return [array componentsJoinedByString:@","];
+    return [[self splitServers:servers] componentsJoinedByString:@","];
 }
 
 + (NSString *)passwordForServers:(NSString *)servers username:(NSString *)username
@@ -84,6 +76,17 @@
     keychainServers = [self sortedServers:servers];
     return [MHKeychain passwordWithLabel:[NSString stringWithFormat:@"%@ (%@)", keychainServers, username] account:username service:keychainServers description:nil];
 }
+
++ (NSMutableArray *)splitServers:(NSString *)servers
+{
+    NSMutableArray *array = [NSMutableArray array];
+    
+    for (NSString *host in [servers componentsSeparatedByString:@","]) {
+        [array addObject:[host stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+    }
+    return array;
+}
+
 
 - (void)dealloc
 {
@@ -257,7 +260,7 @@
 
 - (NSArray *)arrayServers
 {
-    return [[super valueForKey:@"servers"] componentsSeparatedByString:@","];
+    return [self.class splitServers:self.servers];
 }
 
 - (void)didSave
