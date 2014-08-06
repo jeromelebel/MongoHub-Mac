@@ -33,7 +33,7 @@
 
 - (NSString*)stringByEscapingURL
 {
-    return [self stringByPercentEscapingCharacters:@";/?:@&=+$,"];    
+    return [self stringByPercentEscapingCharacters:@";/?:@&=+$%,"];
 }
 
 - (NSString*)stringByUnescapingURL

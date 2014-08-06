@@ -260,7 +260,6 @@
             [options addObject:[NSString stringWithFormat:@"replicaSet=%@", self.connectionStore.repl_name.stringByEscapingURL]];
         }
         uri = [NSString stringWithFormat:@"mongodb://%@%@/%@?%@", auth, servers, self.connectionStore.defaultdb.stringByEscapingURL, [options componentsJoinedByString:@"&"]];
-        NSLog(@"uri %@", uri);
         self.client = [MODClient clientWihtURLString:uri];
         self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
         self.statusViewController.client = self.client;
