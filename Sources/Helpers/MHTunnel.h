@@ -41,7 +41,6 @@ typedef enum {
 	BOOL                            _running;
 	BOOL                            _connected;
 	
-	NSString                        *uid;
 	NSString                        *_name;
 	NSString                        *_host;
 	int                             _port;
@@ -56,7 +55,6 @@ typedef enum {
 	NSMutableArray                  *_portForwardings;
 }
 
-@property (nonatomic, retain, readwrite) NSString* uid;
 @property (nonatomic, retain, readwrite) NSString* name;
 @property (nonatomic, retain, readwrite) NSString* host;
 @property (nonatomic, assign, readwrite) int port;

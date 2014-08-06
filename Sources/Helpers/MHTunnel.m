@@ -27,7 +27,6 @@
 
 @implementation MHTunnel
 
-@synthesize uid;
 @synthesize name = _name;
 @synthesize host = _host;
 @synthesize port = _port;
@@ -119,7 +118,6 @@ static BOOL testLocalPortAvailable(unsigned short port)
 - (id)init
 {
     if (self = [super init]) {
-        uid = [[NSString UUIDString] retain];
         self.portForwardings = [[NSMutableArray alloc] init];
     }
     
@@ -129,7 +127,6 @@ static BOOL testLocalPortAvailable(unsigned short port)
 - (id)initWithCoder:(NSCoder *)coder
 {
     if (self = [self init]) {
-        uid = [coder decodeObjectForKey:@"uid"];
         _name = [coder decodeObjectForKey:@"name"];
         _host = [coder decodeObjectForKey:@"host"];
         _port = [coder decodeIntForKey:@"port"];
@@ -150,7 +147,6 @@ static BOOL testLocalPortAvailable(unsigned short port)
 - (void)dealloc
 {
     [self stop];
-    self.uid = nil;
     self.name = nil;
     self.host = nil;
     self.user = nil;
@@ -163,7 +159,6 @@ static BOOL testLocalPortAvailable(unsigned short port)
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeObject:uid forKey:@"uid"];
     [coder encodeObject:_name forKey:@"name"];
     [coder encodeObject:_host forKey:@"host"];
     [coder encodeInt:_port forKey:@"port"];
