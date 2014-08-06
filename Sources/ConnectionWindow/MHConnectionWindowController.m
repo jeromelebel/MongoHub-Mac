@@ -140,7 +140,7 @@
     [_databaseCollectionOutlineView setDoubleAction:@selector(outlineViewDoubleClickAction:)];
     [self updateToolbarItems];
     
-    self.window.title = [NSString stringWithFormat:@"%@ [%@]", self.connectionStore.alias, self.connectionStore.servers];
+    self.window.title = self.connectionStore.alias;
     [self.tabViewController addObserver:self forKeyPath:@"selectedTabIndex" options:NSKeyValueObservingOptionNew context:nil];
     [self.window addObserver:self forKeyPath:@"firstResponder" options:NSKeyValueObservingOptionNew context:nil];
     self.statusViewController.title = @"Connecting…";
