@@ -161,7 +161,7 @@
     [allQueries release];
 }
 
-- (BOOL)setValuesFromStringURL:(NSString *)stringURL
+- (BOOL)setValuesFromStringURL:(NSString *)stringURL errorMessage:(NSString **)errorMessage
 {
     NSString *user = nil;
     NSString *password = nil;
@@ -171,15 +171,17 @@
     NSArray *pathComponents;
     NSArray *serverComponents;
     
-    NSString *errorMessage;
-    
     if (![stringURL hasPrefix:MONGODB_SCHEME]) {
-        errorMessage = @"Unknown scheme";
+        if (errorMessage) {
+            *errorMessage = @"Unknown scheme";
+        }
         return NO;
     }
     stringURL = [stringURL substringFromIndex:MONGODB_SCHEME.length];
     if (stringURL.length == 0) {
-        errorMessage = @"Empty URL";
+        if (errorMessage) {
+            *errorMessage = @"Empty URL";
+        }
         return NO;
     }
     pathComponents = [stringURL componentsSeparatedByString:@"/"];
@@ -197,12 +199,16 @@
                 user = [userComponents objectAtIndex:0];
                 password = [userComponents objectAtIndex:1];
             } else {
-                errorMessage = @"Unable to parse user and password";
+                if (errorMessage) {
+                    *errorMessage = @"Unable to parse user and password";
+                }
                 return NO;
             }
         }
     } else {
-        errorMessage = @"Unable to parse host name(s) and user";
+        if (errorMessage) {
+            *errorMessage = @"Unable to parse host name(s) and user";
+        }
         return NO;
     }
     
@@ -210,7 +216,9 @@
     
     if (user.length == 0 && password.length != 0) {
         NSLog(@"no user found while having a password in URL: %@", stringURL);
-        errorMessage = @"User name required when having a password";
+        if (errorMessage) {
+            *errorMessage = @"User name required when having a password";
+        }
         return NO;
     }
     
@@ -218,11 +226,10 @@
     self.servers = servers;
     self.defaultdb = databaseName;
     self.adminpass = password;
-    NSLog(@"user %@", user);
-    NSLog(@"password %@", password);
-    NSLog(@"servers %@", servers);
-    NSLog(@"databaseName %@", databaseName);
     
+    if (errorMessage) {
+        *errorMessage = nil;
+    }
     return YES;
 }
 
@@ -255,14 +262,14 @@
 
 - (void)didSave
 {
-    if (self.sshpassword.length > 0 && self.usessh && self.sshuser.length > 0 && self.sshhost.length > 0) {
-        [MHKeychain addOrUpdateInternetPasswordWithProtocol:kSecAttrProtocolSSH host:self.sshhost port:self.sshport.unsignedIntegerValue account:self.sshuser password:self.sshpassword];
+    if (_sshpassword.length > 0 && self.usessh && self.sshuser.length > 0 && self.sshhost.length > 0) {
+        [MHKeychain addOrUpdateInternetPasswordWithProtocol:kSecAttrProtocolSSH host:self.sshhost port:self.sshport.unsignedIntegerValue account:self.sshuser password:_sshpassword];
     }
-    if (self.adminpass.length > 0 && self.adminuser.length > 0) {
+    if (_adminpass.length > 0 && self.adminuser.length > 0) {
         NSString *keychainServers;
         
         keychainServers = [self.class sortedServers:self.servers];
-        [MHKeychain addOrUpdateItemWithLabel:[NSString stringWithFormat:@"%@ (%@)", keychainServers, self.adminuser] account:self.adminuser service:keychainServers description:nil password:self.adminpass];
+        [MHKeychain addOrUpdateItemWithLabel:[NSString stringWithFormat:@"%@ (%@)", keychainServers, self.adminuser] account:self.adminuser service:keychainServers description:nil password:_adminpass];
     }
     self.adminpass = nil;
     self.sshpassword = nil;

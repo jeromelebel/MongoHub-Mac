@@ -21,7 +21,7 @@
 + (NSString *)passwordForServers:(NSString *)servers username:(NSString *)username;
 + (NSString *)sortedServers:(NSString *)servers;
 
-- (BOOL)setValuesFromStringURL:(NSString *)stringURL;
+- (BOOL)setValuesFromStringURL:(NSString *)stringURL errorMessage:(NSString **)errorMessage;
 - (NSArray *)queryHistoryWithDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
 - (void)addNewQuery:(NSDictionary *)query withDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
 

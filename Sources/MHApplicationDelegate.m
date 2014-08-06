@@ -529,9 +529,15 @@
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
 {
     MHConnectionStore *connectionStore;
+    NSEntityDescription *entity;
+    NSString *errorMessage;
     
-    connectionStore = self.connectionsArrayController.newObject;
-    [connectionStore setValuesFromStringURL:[event paramDescriptorForKeyword:keyDirectObject].stringValue];
+    entity = [NSEntityDescription entityForName:@"Connection" inManagedObjectContext:self.managedObjectContext];
+    connectionStore = [[[MHConnectionStore alloc] initWithEntity:entity insertIntoManagedObjectContext:nil] autorelease];
+    if (![connectionStore setValuesFromStringURL:[event paramDescriptorForKeyword:keyDirectObject].stringValue errorMessage:&errorMessage]) {
+        [[NSAlert alertWithMessageText:errorMessage defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", [event paramDescriptorForKeyword:keyDirectObject].stringValue] runModal];
+        return;
+    }
 
     self.connectionEditorWindowController = [[[MHConnectionEditorWindowController alloc] init] autorelease];
     self.connectionEditorWindowController.delegate = self;
