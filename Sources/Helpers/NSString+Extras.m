@@ -11,21 +11,6 @@
 
 @implementation NSString (Extras)
 
-+ (NSString*)stringFromResource:(NSString*)resourceName
-{
-    NSString *path = [[NSBundle mainBundle] pathForResource:resourceName ofType:nil];
-    return [NSString stringWithContentsOfFile:path usedEncoding:nil error:nil];
-}
-
-# pragma Comparing
-
-- (NSComparisonResult)compareCaseInsensitive:(NSString*)other
-{
-    NSString *selfString = [self lowercaseString];
-    NSString *otherString = [other lowercaseString];
-    return [selfString compare:otherString];
-}
-
 - (NSString*)stringByPercentEscapingCharacters:(NSString*)characters
 {
     return [(NSString*)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)self, NULL, (CFStringRef)characters, kCFStringEncodingUTF8) autorelease];
@@ -34,11 +19,6 @@
 - (NSString*)stringByEscapingURL
 {
     return [self stringByPercentEscapingCharacters:@";/?:@&=+$%,"];
-}
-
-- (NSString*)stringByUnescapingURL
-{
-    return [(NSString*)CFURLCreateStringByReplacingPercentEscapes(NULL, (CFStringRef)self, CFSTR("")) autorelease];
 }
 
 - (NSString *)stringByTrimmingWhitespace

@@ -11,11 +11,7 @@
 
 @interface NSString (Extras)
 
-+ (NSString*)stringFromResource:(NSString*)resourceName;
-- (NSComparisonResult)compareCaseInsensitive:(NSString*)other;
-- (NSString*)stringByPercentEscapingCharacters:(NSString*)characters;
 - (NSString*)stringByEscapingURL;
-- (NSString*)stringByUnescapingURL;
 - (NSString *)stringByTrimmingWhitespace;
 
 + (NSString*)UUIDString;
