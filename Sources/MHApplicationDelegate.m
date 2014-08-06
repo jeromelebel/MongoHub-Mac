@@ -528,8 +528,15 @@
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
 {
-    NSURL *url = [NSURL URLWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
-    NSLog(@"%@", url);
+    MHConnectionStore *connectionStore;
+    
+    connectionStore = self.connectionsArrayController.newObject;
+    [connectionStore setValuesFromStringURL:[event paramDescriptorForKeyword:keyDirectObject].stringValue];
+
+    self.connectionEditorWindowController = [[[MHConnectionEditorWindowController alloc] init] autorelease];
+    self.connectionEditorWindowController.delegate = self;
+    self.connectionEditorWindowController.connectionStoreDefaultValue = connectionStore;
+    [self.connectionEditorWindowController modalForWindow:self.window];
 }
 
 @end
