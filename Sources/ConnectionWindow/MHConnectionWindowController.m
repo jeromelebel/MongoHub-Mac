@@ -38,8 +38,6 @@
 #define FILE_IMPORT_TOOLBAR_ITEM_TAG                6
 #define FILE_EXPORT_TOOLBAR_ITEM_TAG                7
 
-#define DEFAULT_MONGO_IP                            @"127.0.0.1"
-
 @interface MHConnectionWindowController()
 @property (nonatomic, readwrite, strong) MHAddDBController *addDBController;
 @property (nonatomic, readwrite, strong) MHAddCollectionController *addCollectionController;
