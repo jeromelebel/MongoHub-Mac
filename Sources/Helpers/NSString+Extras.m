@@ -11,14 +11,9 @@
 
 @implementation NSString (Extras)
 
-- (NSString*)stringByPercentEscapingCharacters:(NSString*)characters
-{
-    return [(NSString*)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)self, NULL, (CFStringRef)characters, kCFStringEncodingUTF8) autorelease];
-}
-
 - (NSString*)stringByEscapingURL
 {
-    return [self stringByPercentEscapingCharacters:@";/?:@&=+$%,"];
+    return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@";/?:@&=+$%,"]];
 }
 
 - (NSString *)stringByTrimmingWhitespace
