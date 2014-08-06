@@ -13,6 +13,7 @@
 #define QUERY_HISTORY_KEY @"query_history"
 #define SORTED_TITLE_KEY @"sorted_titles"
 #define QUERY_KEY @"queries"
+#define MONGODB_SCHEME              @"mongodb://"
 
 @implementation MHConnectionStore
 
@@ -28,11 +29,13 @@
 @dynamic sshhost;
 @dynamic sshport;
 @dynamic sshuser;
-@dynamic sshpassword;
 @dynamic sshkeyfile;
 @dynamic bindaddress;
 @dynamic bindport;
 @dynamic defaultReadMode;
+
+@synthesize adminpass = _adminpass;
+@synthesize sshpassword = _sshpassword;
 
 + (NSString *)hostnameFromServer:(NSString *)server WithPort:(NSInteger *)port
 {
@@ -53,6 +56,9 @@
 {
     NSMutableArray *array = [NSMutableArray array];
     
+    if (servers.length == 0) {
+        servers = DEFAULT_MONGO_IP;
+    }
     for (NSString *host in [servers componentsSeparatedByString:@","]) {
         [array addObject:[host stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
     }
@@ -77,6 +83,13 @@
     NSParameterAssert(username.length > 0);
     keychainServers = [self sortedServers:servers];
     return [MHKeychain passwordWithLabel:[NSString stringWithFormat:@"%@ (%@)", keychainServers, username] account:username service:keychainServers description:nil];
+}
+
+- (void)dealloc
+{
+    self.adminpass = nil;
+    self.sshpassword = nil;
+    [super dealloc];
 }
 
 - (NSArray *)queryHistoryWithDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName
@@ -148,40 +161,111 @@
     [allQueries release];
 }
 
+- (BOOL)setValuesFromStringURL:(NSString *)stringURL
+{
+    NSString *user = nil;
+    NSString *password = nil;
+    NSString *servers = nil;
+    NSString *databaseName = nil;
+    
+    NSArray *pathComponents;
+    NSArray *serverComponents;
+    
+    NSString *errorMessage;
+    
+    if (![stringURL hasPrefix:MONGODB_SCHEME]) {
+        errorMessage = @"Unknown scheme";
+        return NO;
+    }
+    stringURL = [stringURL substringFromIndex:MONGODB_SCHEME.length];
+    if (stringURL.length == 0) {
+        errorMessage = @"Empty URL";
+        return NO;
+    }
+    pathComponents = [stringURL componentsSeparatedByString:@"/"];
+    serverComponents = [[pathComponents objectAtIndex:0] componentsSeparatedByString:@"@"];
+    if (serverComponents.count == 1) {
+        servers = [serverComponents objectAtIndex:0];
+    } else if (serverComponents.count == 2) {
+        servers = [serverComponents objectAtIndex:1];
+        if ([[serverComponents objectAtIndex:0] length] > 0) {
+            NSArray *userComponents = [[serverComponents objectAtIndex:0] componentsSeparatedByString:@":"];
+            
+            if (userComponents.count == 1) {
+                user = [userComponents objectAtIndex:0];
+            } else if (userComponents.count == 2) {
+                user = [userComponents objectAtIndex:0];
+                password = [userComponents objectAtIndex:1];
+            } else {
+                errorMessage = @"Unable to parse user and password";
+                return NO;
+            }
+        }
+    } else {
+        errorMessage = @"Unable to parse host name(s) and user";
+        return NO;
+    }
+    
+    
+    
+    if (user.length == 0 && password.length != 0) {
+        NSLog(@"no user found while having a password in URL: %@", stringURL);
+        errorMessage = @"User name required when having a password";
+        return NO;
+    }
+    
+    self.adminuser = user;
+    self.servers = servers;
+    self.defaultdb = databaseName;
+    self.adminpass = password;
+    NSLog(@"user %@", user);
+    NSLog(@"password %@", password);
+    NSLog(@"servers %@", servers);
+    NSLog(@"databaseName %@", databaseName);
+    
+    return YES;
+}
+
 - (NSString *)sshpassword
 {
-    return [MHKeychain internetPasswordProtocol:kSecAttrProtocolSSH host:self.sshhost port:self.sshport.unsignedIntegerValue account:self.sshuser];
-}
-
-- (void)setSshpassword:(NSString *)sshpassword
-{
-    if (self.usessh) {
-        [MHKeychain addOrUpdateInternetPasswordWithProtocol:kSecAttrProtocolSSH host:self.sshhost port:self.sshport.unsignedIntegerValue account:self.sshuser password:sshpassword];
-    }
-}
-
-- (NSString *)adminpass
-{
-    if (self.adminuser.length > 0) {
-        return [self.class passwordForServers:self.servers username:self.adminuser];
+    if (_sshpassword) {
+        return _sshpassword;
+    } else if (self.sshhost.length > 0 && self.sshuser > 0) {
+        return [MHKeychain internetPasswordProtocol:kSecAttrProtocolSSH host:self.sshhost port:self.sshport.unsignedIntegerValue account:self.sshuser];
     } else {
         return nil;
     }
 }
 
-- (void)setAdminpass:(NSString *)adminpass
+- (NSString *)adminpass
 {
-    if (self.adminuser.length > 0) {
-        NSString *keychainServers;
-        
-        keychainServers = [self.class sortedServers:self.servers];
-        [MHKeychain addOrUpdateItemWithLabel:[NSString stringWithFormat:@"%@ (%@)", keychainServers, self.adminuser] account:self.adminuser service:keychainServers description:nil password:adminpass];
+    if (_adminpass) {
+        return _adminpass;
+    } else if (self.adminuser.length > 0) {
+        return [self.class passwordForServers:[self.class sortedServers:self.servers] username:self.adminuser];
+    } else {
+        return nil;
     }
 }
 
 - (NSArray *)arrayServers
 {
     return [[super valueForKey:@"servers"] componentsSeparatedByString:@","];
+}
+
+- (void)didSave
+{
+    if (self.sshpassword.length > 0 && self.usessh && self.sshuser.length > 0 && self.sshhost.length > 0) {
+        [MHKeychain addOrUpdateInternetPasswordWithProtocol:kSecAttrProtocolSSH host:self.sshhost port:self.sshport.unsignedIntegerValue account:self.sshuser password:self.sshpassword];
+    }
+    if (self.adminpass.length > 0 && self.adminuser.length > 0) {
+        NSString *keychainServers;
+        
+        keychainServers = [self.class sortedServers:self.servers];
+        [MHKeychain addOrUpdateItemWithLabel:[NSString stringWithFormat:@"%@ (%@)", keychainServers, self.adminuser] account:self.adminuser service:keychainServers description:nil password:self.adminpass];
+    }
+    self.adminpass = nil;
+    self.sshpassword = nil;
 }
 
 @end

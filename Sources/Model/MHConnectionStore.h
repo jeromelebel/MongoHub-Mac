@@ -9,14 +9,19 @@
 #import <CoreData/CoreData.h>
 #import <mongo-objc-driver/MOD_public.h>
 
+#define DEFAULT_MONGO_IP                            @"127.0.0.1"
+
 @interface MHConnectionStore : NSManagedObject
 {
+    NSString                    *_adminpass;
+    NSString                    *_sshpassword;
 }
 + (NSString *)hostnameFromServer:(NSString *)server WithPort:(NSInteger *)port;
 + (NSString *)cleanupServers:(NSString *)servers;
 + (NSString *)passwordForServers:(NSString *)servers username:(NSString *)username;
 + (NSString *)sortedServers:(NSString *)servers;
 
+- (BOOL)setValuesFromStringURL:(NSString *)stringURL;
 - (NSArray *)queryHistoryWithDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
 - (void)addNewQuery:(NSDictionary *)query withDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
 
