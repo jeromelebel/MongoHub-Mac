@@ -16,9 +16,6 @@
 - (NSString*)stringByPercentEscapingCharacters:(NSString*)characters;
 - (NSString*)stringByEscapingURL;
 - (NSString*)stringByUnescapingURL;
-- (BOOL) containsString:(NSString *)aString;
-- (BOOL) containsString:(NSString *)aString ignoringCase:(BOOL)flag;
-- (int)countSubstring:(NSString *)aString ignoringCase:(BOOL)flag;
 - (NSString *)stringByTrimmingWhitespace;
 
 + (NSString*)UUIDString;
