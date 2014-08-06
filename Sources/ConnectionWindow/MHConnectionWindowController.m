@@ -222,14 +222,15 @@
         NSString *auth = @"";
         NSString *uri;
         NSString *servers;
+        NSMutableArray *options = [NSMutableArray array];
         
         [self closeMongoDB];
         self.serverItem = [[[MHServerItem alloc] initWithClient:self.client delegate:self] autorelease];
         if (self.connectionStore.adminuser.length > 0) {
             if (self.connectionStore.adminpass.length > 0) {
-                auth = [NSString stringWithFormat:@"%@:%@@", self.connectionStore.adminuser, self.connectionStore.adminpass];
+                auth = [NSString stringWithFormat:@"%@:%@@", self.connectionStore.adminuser.stringByEscapingURL, self.connectionStore.adminpass.stringByEscapingURL];
             } else {
-                auth = [NSString stringWithFormat:@"%@@", self.connectionStore.adminuser];
+                auth = [NSString stringWithFormat:@"%@@", self.connectionStore.adminuser.stringByEscapingURL];
             }
         }
         if (!self.connectionStore.usessh.boolValue) {
@@ -252,7 +253,14 @@
         if (servers.length == 0) {
             servers = DEFAULT_MONGO_IP;
         }
-        uri = [NSString stringWithFormat:@"mongodb://%@%@/%@?ssl=%@", auth, servers, self.connectionStore.defaultdb, self.connectionStore.usessl.boolValue?@"true":@"false"];
+        if (self.connectionStore.usessl.boolValue) {
+            [options addObject:@"ssl=true"];
+        }
+        if (self.connectionStore.repl_name.length > 0) {
+            [options addObject:[NSString stringWithFormat:@"replicaSet=%@", self.connectionStore.repl_name].stringByEscapingURL];
+        }
+        uri = [NSString stringWithFormat:@"mongodb://%@%@/%@?%@", auth, servers, self.connectionStore.defaultdb.stringByEscapingURL, [options componentsJoinedByString:@"&"]];
+        NSLog(@"uri %@", uri);
         self.client = [MODClient clientWihtURLString:uri];
         self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
         self.statusViewController.client = self.client;
