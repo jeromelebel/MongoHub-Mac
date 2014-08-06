@@ -123,7 +123,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         self.addSaveButton.title = NSLocalizedString(@"Add", @"Add connection");
     }
     if (defaultValue) {
-        if (self.newConnection) {
+        if (self.newConnection && defaultValue.alias.length > 0) {
             NSCharacterSet *numberOrWhiteSpace = [NSCharacterSet characterSetWithCharactersInString:@"1234567890 "];
             NSString *baseAlias = defaultValue.alias;
             NSString *alias;
@@ -145,7 +145,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
                 index++;
             }
             self.aliasTextField.stringValue = alias;
-        } else {
+        } else if (defaultValue.alias) {
             self.aliasTextField.stringValue = defaultValue.alias;
         }
         self.window.title = self.aliasTextField.stringValue;
