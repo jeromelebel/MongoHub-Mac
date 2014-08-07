@@ -293,7 +293,7 @@
             auth = [NSString stringWithFormat:@"%@@", self.adminuser.mh_stringByEscapingURL];
         }
     }
-    if (!self.usessh.boolValue) {
+    if (!self.usessh.boolValue || !sshMapping) {
         servers = self.servers;
     } else {
         NSMutableString *mappedIps;
