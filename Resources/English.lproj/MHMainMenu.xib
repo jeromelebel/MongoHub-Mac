@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6185.11"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -11,8 +11,8 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
-        <window title="MongoHub" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" wantsToBeColor="NO" frameAutosaveName="MongoHub" animationBehavior="default" id="21" userLabel="Window">
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="MongoHub" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="MongoHub" animationBehavior="default" id="21" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="97" y="539" width="600" height="282"/>
@@ -42,11 +42,11 @@
                                 </collectionView>
                             </subviews>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="529">
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="529">
                             <rect key="frame" x="1" y="144" width="233" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="528">
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="528">
                             <rect key="frame" x="234" y="1" width="15" height="143"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
@@ -59,7 +59,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="showAddConnectionPanel:" target="205" id="568"/>
+                            <action selector="addNewConnectionAction:" target="205" id="rec-Fp-CsM"/>
                         </connections>
                     </button>
                     <button toolTip="Remove Connection" verticalHuggingPriority="750" id="556">
@@ -70,7 +70,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="deleteConnection:" target="205" id="570"/>
+                            <action selector="deleteConnectionAction:" target="205" id="EjC-DN-UBc"/>
                             <binding destination="542" name="enabled" keyPath="selectedObjects.@count" id="580"/>
                         </connections>
                     </button>
@@ -82,7 +82,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="showEditConnectionPanel:" target="205" id="585"/>
+                            <action selector="editConnectionAction:" target="205" id="2Wd-3i-fD7"/>
                             <binding destination="542" name="enabled" keyPath="selectedObjects.@count" id="574"/>
                         </connections>
                     </button>
@@ -94,7 +94,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="showConnectionWindow:" target="205" id="586"/>
+                            <action selector="openConnectionAction:" target="205" id="XrF-Q3-dej"/>
                             <binding destination="542" name="enabled" keyPath="selectedObjects.@count" id="577"/>
                         </connections>
                     </button>
@@ -176,20 +176,19 @@
                         <items>
                             <menuItem title="Add Connection" keyEquivalent="n" id="75">
                                 <connections>
-                                    <action selector="performClick:" target="554" id="590"/>
+                                    <action selector="addNewConnectionAction:" target="205" id="QK5-vJ-zaq"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Edit Connection" keyEquivalent="e" id="588">
+                                <connections>
+                                    <action selector="editConnectionAction:" target="205" id="NMl-ec-gBh"/>
+                                    <binding destination="542" name="enabled" keyPath="selectedObjects.@count" id="616"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Duplicate Connection" keyEquivalent="d" id="7zg-uW-JzR">
                                 <connections>
-                                    <action selector="duplicateConnection:" target="205" id="ua4-qW-kY0"/>
+                                    <action selector="duplicateConnectionAction:" target="205" id="l65-GE-tzL"/>
                                     <binding destination="542" name="enabled" keyPath="selectedObjects.@count" id="7kl-d9-zUa"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Edit Connection" id="588">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="performClick:" target="558" id="592"/>
-                                    <binding destination="542" name="enabled" keyPath="selectedObjects.@count" id="616"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Delete Connection" id="587">
@@ -197,15 +196,17 @@
 CA
 </string>
                                 <connections>
-                                    <action selector="performClick:" target="556" id="591"/>
+                                    <action selector="deleteConnectionAction:" target="205" id="ziw-pY-4JS"/>
                                     <binding destination="542" name="enabled" keyPath="selectedObjects.@count" id="613"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="594"/>
                             <menuItem title="Connect" id="589">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                 <connections>
-                                    <action selector="performClick:" target="560" id="593"/>
+                                    <action selector="openConnectionAction:" target="205" id="FgA-ve-Ai7"/>
                                     <binding destination="542" name="enabled" keyPath="selectedObjects.@count" id="619"/>
                                 </connections>
                             </menuItem>
@@ -491,12 +492,12 @@ CA
             </connections>
         </customObject>
         <customObject id="392" customClass="NSFontManager"/>
-        <collectionViewItem id="531" customClass="IconCollectionItem">
+        <collectionViewItem id="531" customClass="MHConnectionViewItem">
             <connections>
                 <outlet property="view" destination="532" id="534"/>
             </connections>
         </collectionViewItem>
-        <view wantsLayer="YES" id="532" customClass="IconViewBox">
+        <view wantsLayer="YES" id="532" customClass="MHConnectionIconView">
             <rect key="frame" x="0.0" y="0.0" width="179" height="157"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
@@ -543,7 +544,7 @@ CA
                         <rect key="frame" x="17" y="133" width="297" height="22"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="MongoHub" id="609">
-                            <font key="font" size="18" name="LucidaGrande-Bold"/>
+                            <font key="font" metaFont="systemBold" size="18"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>

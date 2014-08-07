@@ -66,6 +66,8 @@
 		02E0FE40151DE2420094C1CD /* button_ArrowRight_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE33151DE2420094C1CD /* button_ArrowRight_overlay.png */; };
 		02E0FE41151DE2420094C1CD /* close_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE34151DE2420094C1CD /* close_button.png */; };
 		02E0FE42151DE2420094C1CD /* overlay_close_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE35151DE2420094C1CD /* overlay_close_button.png */; };
+		02E79EA41993E7950016B4C9 /* MHConnectionIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E79EA31993E7950016B4C9 /* MHConnectionIconView.m */; };
+		02E79EA71993F3F90016B4C9 /* MHConnectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E79EA61993F3F90016B4C9 /* MHConnectionViewItem.m */; };
 		02F2A1F71817E48B0053CB20 /* MHPreferenceController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F2A1F61817E48B0053CB20 /* MHPreferenceController.xib */; };
 		02F2A1FA1817E4BC0053CB20 /* MHPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2A1F91817E4BC0053CB20 /* MHPreferenceController.m */; };
 		02FCD3CF13BB9EA400316A9F /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FCD3CE13BB9EA400316A9F /* Sparkle.framework */; };
@@ -102,8 +104,6 @@
 		1D8A624E11897C6800D55937 /* indexmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D8A624D11897C6800D55937 /* indexmenu.png */; };
 		1D93C1DA11832C1D003216F7 /* MHConnectionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D93C1D911832C1D003216F7 /* MHConnectionStore.m */; };
 		1D93C1E411833342003216F7 /* ConnectionsCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D93C1DF11833342003216F7 /* ConnectionsCollectionView.m */; };
-		1D93C1E511833342003216F7 /* IconCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D93C1E111833342003216F7 /* IconCollectionItem.m */; };
-		1D93C1E611833342003216F7 /* IconViewBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D93C1E311833342003216F7 /* IconViewBox.m */; };
 		1D93C24F11833599003216F7 /* ConnectionsArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D93C24E11833599003216F7 /* ConnectionsArrayController.m */; };
 		1D93C27211833A19003216F7 /* database.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C27111833A19003216F7 /* database.png */; };
 		1D93C29A11833F26003216F7 /* MHDatabaseStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D93C29911833F26003216F7 /* MHDatabaseStore.m */; };
@@ -328,6 +328,10 @@
 		02E0FE34151DE2420094C1CD /* close_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_button.png; sourceTree = "<group>"; };
 		02E0FE35151DE2420094C1CD /* overlay_close_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay_close_button.png; sourceTree = "<group>"; };
 		02E79E9C199275A60016B4C9 /* MongoHub_DataModel9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel9.xcdatamodel; sourceTree = "<group>"; };
+		02E79EA21993E7950016B4C9 /* MHConnectionIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHConnectionIconView.h; sourceTree = "<group>"; };
+		02E79EA31993E7950016B4C9 /* MHConnectionIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHConnectionIconView.m; sourceTree = "<group>"; };
+		02E79EA51993F3F90016B4C9 /* MHConnectionViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHConnectionViewItem.h; sourceTree = "<group>"; };
+		02E79EA61993F3F90016B4C9 /* MHConnectionViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHConnectionViewItem.m; sourceTree = "<group>"; };
 		02F2A1F61817E48B0053CB20 /* MHPreferenceController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHPreferenceController.xib; sourceTree = "<group>"; };
 		02F2A1F81817E4BC0053CB20 /* MHPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHPreferenceController.h; sourceTree = "<group>"; };
 		02F2A1F91817E4BC0053CB20 /* MHPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPreferenceController.m; sourceTree = "<group>"; };
@@ -374,10 +378,6 @@
 		1D93C1D911832C1D003216F7 /* MHConnectionStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHConnectionStore.m; sourceTree = "<group>"; };
 		1D93C1DE11833342003216F7 /* ConnectionsCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionsCollectionView.h; sourceTree = "<group>"; };
 		1D93C1DF11833342003216F7 /* ConnectionsCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionsCollectionView.m; sourceTree = "<group>"; };
-		1D93C1E011833342003216F7 /* IconCollectionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconCollectionItem.h; sourceTree = "<group>"; };
-		1D93C1E111833342003216F7 /* IconCollectionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconCollectionItem.m; sourceTree = "<group>"; };
-		1D93C1E211833342003216F7 /* IconViewBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconViewBox.h; sourceTree = "<group>"; };
-		1D93C1E311833342003216F7 /* IconViewBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconViewBox.m; sourceTree = "<group>"; };
 		1D93C24D11833599003216F7 /* ConnectionsArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionsArrayController.h; sourceTree = "<group>"; };
 		1D93C24E11833599003216F7 /* ConnectionsArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionsArrayController.m; sourceTree = "<group>"; };
 		1D93C27111833A19003216F7 /* database.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = database.png; path = Resources/images/database.png; sourceTree = SOURCE_ROOT; };
@@ -670,10 +670,10 @@
 			children = (
 				1D93C1DE11833342003216F7 /* ConnectionsCollectionView.h */,
 				1D93C1DF11833342003216F7 /* ConnectionsCollectionView.m */,
-				1D93C1E011833342003216F7 /* IconCollectionItem.h */,
-				1D93C1E111833342003216F7 /* IconCollectionItem.m */,
-				1D93C1E211833342003216F7 /* IconViewBox.h */,
-				1D93C1E311833342003216F7 /* IconViewBox.m */,
+				02E79EA21993E7950016B4C9 /* MHConnectionIconView.h */,
+				02E79EA31993E7950016B4C9 /* MHConnectionIconView.m */,
+				02E79EA51993F3F90016B4C9 /* MHConnectionViewItem.h */,
+				02E79EA61993F3F90016B4C9 /* MHConnectionViewItem.m */,
 			);
 			path = ConnectionsCollectionView;
 			sourceTree = "<group>";
@@ -1069,10 +1069,8 @@
 				77C8280E06725ACE000B614F /* MHApplicationDelegate.m in Sources */,
 				1D93C1DA11832C1D003216F7 /* MHConnectionStore.m in Sources */,
 				1D93C1E411833342003216F7 /* ConnectionsCollectionView.m in Sources */,
-				1D93C1E511833342003216F7 /* IconCollectionItem.m in Sources */,
 				029CAA731946028800FD44B4 /* NSTextView+MOD.m in Sources */,
 				021315AE198ABF41006378C5 /* MHMongoHubMigration7to8.xcmappingmodel in Sources */,
-				1D93C1E611833342003216F7 /* IconViewBox.m in Sources */,
 				1D93C24F11833599003216F7 /* ConnectionsArrayController.m in Sources */,
 				1D93C29A11833F26003216F7 /* MHDatabaseStore.m in Sources */,
 				1D93C45411837668003216F7 /* SidebarBadgeCell.m in Sources */,
@@ -1091,6 +1089,7 @@
 				0279C093189C03E000F8BACB /* MHImportExportFeedback.m in Sources */,
 				1D64100512C8E1C00030AA4C /* NSScanner+SkipUpToCharset.m in Sources */,
 				1D64100812C8E21C0030AA4C /* UKSyntaxColoredTextViewController.m in Sources */,
+				02E79EA71993F3F90016B4C9 /* MHConnectionViewItem.m in Sources */,
 				1D64100D12C8E3D90030AA4C /* MHJsonWindowController.m in Sources */,
 				024F67901427F3DE00956BF6 /* MODHelper.m in Sources */,
 				029D30A5145613420021B9C9 /* MHDatabaseItem.m in Sources */,
@@ -1113,6 +1112,7 @@
 				025F635215AE21F300CD0EB4 /* NSViewHelpers.m in Sources */,
 				025CBC6E1982AE4E00C8E272 /* MHMongoHubMigration6to7.m in Sources */,
 				023230AE15E051300075498C /* MHConnectionEditorWindowController.m in Sources */,
+				02E79EA41993E7950016B4C9 /* MHConnectionIconView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

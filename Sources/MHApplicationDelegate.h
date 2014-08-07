@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MHConnectionEditorWindowController.h"
+#import "MHConnectionViewItem.h"
 
 @class ConnectionsCollectionView;
 @class ConnectionsArrayController;
@@ -51,23 +52,10 @@ typedef enum {
 @property (nonatomic, strong, readonly) MHPreferenceController *preferenceController;
 @property (nonatomic, assign, readwrite) MHSoftwareUpdateChannel softwareUpdateChannel;
 
-- (void)saveConnections;
-- (IBAction)showAddConnectionPanel:(id)sender;
-- (IBAction)showEditConnectionPanel:(id)sender;
-- (IBAction)duplicateConnection:(id)sender;
-- (IBAction)deleteConnection:(id)sender;
-- (IBAction)resizeConnectionItemView:(id)sender;
-- (IBAction)showConnectionWindow:(id)sender;
-- (BOOL)isOpenedConnection:(MHConnectionStore *)aConnection;
-- (void)doubleClick:(id)sender;
-
-- (IBAction)openSupportPanel:(id)sender;
-- (IBAction)closeSupportPanel:(id)sender;
-- (IBAction)openFeatureRequestBugReport:(id)sender;
-- (IBAction)openConnectionWindow:(id)sender;
-- (IBAction)openPreferenceWindow:(id)sender;
-
 @end
 
 @interface MHApplicationDelegate (MHConnectionEditorWindowControllerDelegate) <MHConnectionEditorWindowControllerDelegate>
+@end
+
+@interface MHApplicationDelegate (MHConnectionViewItemDelegate) <MHConnectionViewItemDelegate>
 @end

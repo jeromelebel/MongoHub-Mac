@@ -38,6 +38,8 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     - Migrate database password into the keychain https://github.com/jeromelebel/MongoHub-Mac/issues/106
     - Fix for adding a database with more than one server connected (the database was created on all servers)
     - Fix for adding a collection with more than one server connected (the collection was created on all servers)
+    - Adding contextual menu in the main window
+    - Can copy mongodb url
 
 ## History
 

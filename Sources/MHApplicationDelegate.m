@@ -306,8 +306,57 @@
     [updater checkForUpdatesInBackground];
 }
 
+- (void)openConnection:(MHConnectionStore *)connection
+{
+    if ([self isOpenedConnection:connection]) {
+        return;
+    }
+    MHConnectionWindowController *connectionWindowController = [[MHConnectionWindowController alloc] init];
+    connectionWindowController.connectionStore = connection;
+    [connectionWindowController showWindow:self];
+}
+
+- (void)editConnection:(MHConnectionStore *)connection
+{
+    self.connectionEditorWindowController = [[[MHConnectionEditorWindowController alloc] init] autorelease];
+    self.connectionEditorWindowController.delegate = self;
+    self.connectionEditorWindowController.editedConnectionStore = connection;
+    [self.connectionEditorWindowController modalForWindow:self.window];
+}
+
+- (void)duplicateConnection:(MHConnectionStore *)connection
+{
+    if (!self.connectionEditorWindowController) {
+        self.connectionEditorWindowController = [[[MHConnectionEditorWindowController alloc] init] autorelease];
+        self.connectionEditorWindowController.delegate = self;
+        self.connectionEditorWindowController.connectionStoreDefaultValue = connection;
+        [self.connectionEditorWindowController modalForWindow:self.window];
+    }
+}
+
+- (void)deleteConnection:(MHConnectionStore *)connection
+{
+    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+    [alert addButtonWithTitle:@"Cancel"];
+    [alert addButtonWithTitle:@"Delete"];
+    [alert setMessageText:[NSString stringWithFormat:@"Delete \"%@\"?", connection.alias]];
+    [alert setInformativeText:@"Deleted connections cannot be restored."];
+    [alert setAlertStyle:NSWarningAlertStyle];
+    
+    [alert beginSheetModalForWindow:_window modalDelegate:self didEndSelector:@selector(deleteConnectionAlertDidEnd:returnCode:contextInfo:) contextInfo:connection];
+}
+
+- (void)copyURLConnection:(MHConnectionStore *)connection
+{
+    NSPasteboard *pasteboard = NSPasteboard.generalPasteboard;
+    
+    [pasteboard declareTypes:@[ NSStringPboardType, NSURLPboardType ] owner:nil];
+    [pasteboard setString:[connection stringURLWithSSHMapping:nil] forType:NSStringPboardType];
+    [pasteboard writeObjects:@[ [NSURL URLWithString:[connection stringURLWithSSHMapping:nil]] ]];
+}
+
 #pragma mark connections related method
-- (IBAction)showAddConnectionPanel:(id)sender
+- (IBAction)addNewConnectionAction:(id)sender
 {
     if (!self.connectionEditorWindowController) {
         self.connectionEditorWindowController = [[[MHConnectionEditorWindowController alloc] init] autorelease];
@@ -316,47 +365,33 @@
     }
 }
 
-- (IBAction)duplicateConnection:(id)sender
+- (IBAction)editConnectionAction:(id)sender
 {
-    if ([connectionsArrayController selectedObjects] && !self.connectionEditorWindowController) {
-        self.connectionEditorWindowController = [[MHConnectionEditorWindowController alloc] init];
-        self.connectionEditorWindowController.delegate = self;
-        self.connectionEditorWindowController.connectionStoreDefaultValue = [[connectionsArrayController selectedObjects] objectAtIndex:0];
-        [self.connectionEditorWindowController modalForWindow:self.window];
+    if (connectionsArrayController.selectedObjects.count == 1 && !self.connectionEditorWindowController) {
+        [self editConnection:[connectionsArrayController.selectedObjects objectAtIndex:0]];
     }
 }
 
-- (IBAction)deleteConnection:(id)sender
+- (IBAction)duplicateConnectionAction:(id)sender
 {
-    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-    [alert addButtonWithTitle:@"Cancel"];
-    [alert addButtonWithTitle:@"Delete"];
-    [alert setMessageText:@"Delete the connection?"];
-    [alert setInformativeText:@"Deleted connections cannot be restored."];
-    [alert setAlertStyle:NSWarningAlertStyle];
+    if (connectionsArrayController.selectedObjects.count == 1 && !self.connectionEditorWindowController) {
+        [self duplicateConnection:[connectionsArrayController.selectedObjects objectAtIndex:0]];
+    }
+}
 
-    [alert beginSheetModalForWindow:_window modalDelegate:self didEndSelector:@selector(deleteConnectionAlertDidEnd:returnCode:contextInfo:) contextInfo:nil];
+- (IBAction)deleteConnectionAction:(id)sender
+{
+    if (connectionsArrayController.selectedObjects.count == 1) {
+        [self deleteConnection:[connectionsArrayController.selectedObjects objectAtIndex:0]];
+    }
 }
 
 - (void)deleteConnectionAlertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
 {
     if (returnCode == NSAlertSecondButtonReturn) {
-        [connectionsArrayController remove:self];
+        [connectionsArrayController removeObject:contextInfo];
         [self saveConnections];
     }
-}
-
-- (IBAction)showEditConnectionPanel:(id)sender
-{
-    if (![connectionsArrayController selectedObjects] || self.connectionEditorWindowController) {
-        return;
-    }
-    MHConnectionStore *connection = [[connectionsArrayController selectedObjects] objectAtIndex:0];
-    
-    self.connectionEditorWindowController = [[[MHConnectionEditorWindowController alloc] init] autorelease];
-    self.connectionEditorWindowController.delegate = self;
-    self.connectionEditorWindowController.editedConnectionStore = connection;
-    [self.connectionEditorWindowController modalForWindow:self.window];
 }
 
 - (IBAction)resizeConnectionItemView:(id)sender
@@ -365,24 +400,12 @@
     [connectionsCollectionView setSubviewSize:theSize];
 }
 
-- (IBAction)showConnectionWindow:(id)sender {
+- (IBAction)openConnectionAction:(id)sender
+{
     if (![connectionsArrayController selectedObjects]) {
         return;
     }
-    [self doubleClick:[[connectionsArrayController selectedObjects] objectAtIndex:0]];
-}
-
-- (void)doubleClick:(id)sender
-{
-    if (![sender isKindOfClass:[MHConnectionStore class]]) {
-        sender = [[connectionsArrayController selectedObjects] objectAtIndex:0];
-    }
-    if ([self isOpenedConnection:sender]) {
-        return;
-    }
-    MHConnectionWindowController *connectionWindowController = [[MHConnectionWindowController alloc] init];
-    connectionWindowController.connectionStore = sender;
-    [connectionWindowController showWindow:sender];
+    [self openConnection:[[connectionsArrayController selectedObjects] objectAtIndex:0]];
 }
 
 - (BOOL)isOpenedConnection:(MHConnectionStore *)aConnection
@@ -566,3 +589,33 @@
 }
 
 @end
+
+@implementation MHApplicationDelegate (MHConnectionViewItemDelegate)
+
+- (void)connectionViewItemDelegateOpen:(MHConnectionViewItem *)connectionViewItem
+{
+    [self openConnection:connectionViewItem.representedObject];
+}
+
+- (void)connectionViewItemDelegateEdit:(MHConnectionViewItem *)connectionViewItem
+{
+    [self editConnection:connectionViewItem.representedObject];
+}
+
+- (void)connectionViewItemDelegateDuplicate:(MHConnectionViewItem *)connectionViewItem
+{
+    [self duplicateConnection:connectionViewItem.representedObject];
+}
+
+- (void)connectionViewItemDelegateCopyURL:(MHConnectionViewItem *)connectionViewItem
+{
+    [self copyURLConnection:connectionViewItem.representedObject];
+}
+
+- (void)connectionViewItemDelegateDelete:(MHConnectionViewItem *)connectionViewItem
+{
+    [self deleteConnection:connectionViewItem.representedObject];
+}
+
+@end
+
