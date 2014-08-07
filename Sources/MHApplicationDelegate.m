@@ -593,6 +593,11 @@
 
 @implementation MHApplicationDelegate (MHConnectionViewItemDelegate)
 
+- (void)connectionViewItemDelegateNewItem:(MHConnectionCollectionView *)connectionCollectionView
+{
+    [self addNewConnectionAction:nil];
+}
+
 - (void)connectionViewItemDelegate:(MHConnectionCollectionView *)connectionCollectionView openItem:(MHConnectionViewItem *)connectionViewItem
 {
     [self openConnection:connectionViewItem.representedObject];

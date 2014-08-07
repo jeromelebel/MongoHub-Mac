@@ -23,6 +23,11 @@
     connectionIconView.needsDisplay = YES;
 }
 
+- (void)menuNewAction:(id)sender
+{
+    [(MHConnectionCollectionView *)self.collectionView newItem];
+}
+
 - (void)menuOpenAction:(id)sender
 {
     [(MHConnectionCollectionView *)self.collectionView openItem:self];
@@ -68,6 +73,8 @@
     [menu addItemWithTitle:@"Copy URL" action:@selector(menuCopyURLAction:) keyEquivalent:@""].target = self;
     [menu addItem:[NSMenuItem separatorItem]];
     [menu addItemWithTitle:@"Delete…" action:@selector(menuDeleteAction:) keyEquivalent:@""].target = self;
+    [menu addItem:[NSMenuItem separatorItem]];
+    [menu addItemWithTitle:@"New…" action:@selector(menuNewAction:) keyEquivalent:@""].target = self;
     [NSMenu popUpContextMenu:menu withEvent:event forView:connectionIconView];
 }
 

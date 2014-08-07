@@ -12,6 +12,7 @@
 @class MHConnectionViewItem;
 
 @protocol MHConnectionCollectionViewDelegate <NSCollectionViewDelegate>
+- (void)connectionViewItemDelegateNewItem:(MHConnectionCollectionView *)connectionCollectionView;
 - (void)connectionViewItemDelegate:(MHConnectionCollectionView *)connectionCollectionView openItem:(MHConnectionViewItem *)connectionViewItem;
 - (void)connectionViewItemDelegate:(MHConnectionCollectionView *)connectionCollectionView editItem:(MHConnectionViewItem *)connectionViewItem;
 - (void)connectionViewItemDelegate:(MHConnectionCollectionView *)connectionCollectionView duplicateItem:(MHConnectionViewItem *)connectionViewItem;
@@ -23,6 +24,7 @@
 @interface MHConnectionCollectionView : NSCollectionView
 @property (nonatomic, readwrite, assign) NSSize itemSize;
 
+- (void)newItem;
 - (void)openItem:(MHConnectionViewItem *)item;
 - (void)editItem:(MHConnectionViewItem *)item;
 - (void)duplicateItem:(MHConnectionViewItem *)item;
