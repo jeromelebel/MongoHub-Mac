@@ -8,9 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MHConnectionEditorWindowController.h"
-#import "MHConnectionViewItem.h"
+#import "MHConnectionCollectionView.h"
 
-@class ConnectionsCollectionView;
+@class MHConnectionCollectionView;
 @class ConnectionsArrayController;
 @class MHConnectionStore;
 @class MHConnectionEditorWindowController;
@@ -32,7 +32,7 @@ typedef enum {
     MHConnectionEditorWindowController      *_connectionEditorWindowController;
     MHPreferenceController                  *_preferenceController;
     
-    IBOutlet ConnectionsCollectionView      *connectionsCollectionView;
+    IBOutlet MHConnectionCollectionView     *_connectionCollectionView;
     IBOutlet ConnectionsArrayController     *connectionsArrayController;
     IBOutlet NSTextField                    *bundleVersion;
   
@@ -46,7 +46,7 @@ typedef enum {
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 
-@property (nonatomic, retain) ConnectionsCollectionView *connectionsCollectionView;
+@property (nonatomic, retain) MHConnectionCollectionView *connectionCollectionView;
 @property (nonatomic, retain) ConnectionsArrayController *connectionsArrayController;
 @property (nonatomic, retain) NSTextField *bundleVersion;
 @property (nonatomic, strong, readonly) MHPreferenceController *preferenceController;
@@ -57,5 +57,5 @@ typedef enum {
 @interface MHApplicationDelegate (MHConnectionEditorWindowControllerDelegate) <MHConnectionEditorWindowControllerDelegate>
 @end
 
-@interface MHApplicationDelegate (MHConnectionViewItemDelegate) <MHConnectionViewItemDelegate>
+@interface MHApplicationDelegate (MHConnectionViewItemDelegate) <MHConnectionCollectionViewDelegate>
 @end

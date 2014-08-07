@@ -29,10 +29,10 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <collectionView selectable="YES" id="530" customClass="ConnectionsCollectionView">
+                                <collectionView selectable="YES" id="530" customClass="MHConnectionCollectionView">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="primaryBackgroundColor" white="0.13293850806451613" alpha="1" colorSpace="calibratedWhite"/>
                                     <connections>
                                         <binding destination="542" name="content" keyPath="arrangedObjects" id="551"/>
                                         <binding destination="542" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="551" id="584"/>
@@ -483,6 +483,7 @@ DQ
         </customObject>
         <customObject id="205" userLabel="MHApplicationDelegate" customClass="MHApplicationDelegate">
             <connections>
+                <outlet property="_connectionCollectionView" destination="530" id="ePU-9Y-RqE"/>
                 <outlet property="_window" destination="21" id="736"/>
                 <outlet property="bundleVersion" destination="603" id="620"/>
                 <outlet property="connectionsArrayController" destination="542" id="565"/>

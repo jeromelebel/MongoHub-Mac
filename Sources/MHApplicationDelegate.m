@@ -14,6 +14,7 @@
 #import "MHConnectionEditorWindowController.h"
 #import "MHConnectionStore.h"
 #import "MHPreferenceController.h"
+#import "MHConnectionViewItem.h"
 #import <Sparkle/Sparkle.h>
 
 #define YOUR_EXTERNAL_RECORD_EXTENSION @"mgo"
@@ -28,7 +29,7 @@
 @implementation MHApplicationDelegate
 
 @synthesize window = _window;
-@synthesize connectionsCollectionView;
+@synthesize connectionCollectionView = _connectionCollectionView;
 @synthesize connectionsArrayController;
 @synthesize bundleVersion;
 @synthesize preferenceController = _preferenceController;
@@ -46,7 +47,7 @@
     [persistentStoreCoordinator release];
     [managedObjectModel release];
     
-    [connectionsCollectionView release];
+    self.connectionCollectionView = nil;
     [connectionsArrayController release];
     
     [bundleVersion release];
@@ -396,8 +397,11 @@
 
 - (IBAction)resizeConnectionItemView:(id)sender
 {
-    CGFloat theSize = [sender floatValue]/100.0f*360.0f;
-    [connectionsCollectionView setSubviewSize:theSize];
+    CGFloat value = [sender floatValue]/100.0f*360.0f;
+    NSSize size = NSMakeSize(value, value);
+    
+    self.connectionCollectionView.maxItemSize = size;
+    self.connectionCollectionView.minItemSize = size;
 }
 
 - (IBAction)openConnectionAction:(id)sender
@@ -582,7 +586,7 @@
 - (void)connectionWindowControllerDidValidate:(MHConnectionEditorWindowController *)controller
 {
     [self saveConnections];
-    [connectionsCollectionView setNeedsDisplay:YES];
+    self.connectionCollectionView.needsDisplay = YES;
     if (self.connectionEditorWindowController == controller) {
         self.connectionEditorWindowController = nil;
     }
@@ -592,27 +596,27 @@
 
 @implementation MHApplicationDelegate (MHConnectionViewItemDelegate)
 
-- (void)connectionViewItemDelegateOpen:(MHConnectionViewItem *)connectionViewItem
+- (void)connectionViewItemDelegate:(MHConnectionCollectionView *)connectionCollectionView openItem:(MHConnectionViewItem *)connectionViewItem
 {
     [self openConnection:connectionViewItem.representedObject];
 }
 
-- (void)connectionViewItemDelegateEdit:(MHConnectionViewItem *)connectionViewItem
+- (void)connectionViewItemDelegate:(MHConnectionCollectionView *)connectionCollectionView editItem:(MHConnectionViewItem *)connectionViewItem
 {
     [self editConnection:connectionViewItem.representedObject];
 }
 
-- (void)connectionViewItemDelegateDuplicate:(MHConnectionViewItem *)connectionViewItem
+- (void)connectionViewItemDelegate:(MHConnectionCollectionView *)connectionCollectionView duplicateItem:(MHConnectionViewItem *)connectionViewItem
 {
     [self duplicateConnection:connectionViewItem.representedObject];
 }
 
-- (void)connectionViewItemDelegateCopyURL:(MHConnectionViewItem *)connectionViewItem
+- (void)connectionViewItemDelegate:(MHConnectionCollectionView *)connectionCollectionView copyURLItem:(MHConnectionViewItem *)connectionViewItem
 {
     [self copyURLConnection:connectionViewItem.representedObject];
 }
 
-- (void)connectionViewItemDelegateDelete:(MHConnectionViewItem *)connectionViewItem
+- (void)connectionViewItemDelegate:(MHConnectionCollectionView *)connectionCollectionView deleteItem:(MHConnectionViewItem *)connectionViewItem
 {
     [self deleteConnection:connectionViewItem.representedObject];
 }

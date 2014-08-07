@@ -7,14 +7,13 @@
 //
 
 #import "MHConnectionViewItem.h"
+#import "MHConnectionCollectionView.h"
 
 @interface MHConnectionViewItem ()
 
 @end
 
 @implementation MHConnectionViewItem
-
-@synthesize delegate = _delegate;
 
 -(void)setSelected:(BOOL)flag
 {
@@ -26,27 +25,27 @@
 
 - (void)menuOpenAction:(id)sender
 {
-    [(id<MHConnectionViewItemDelegate>)self.collectionView.delegate connectionViewItemDelegateOpen:self];
+    [(MHConnectionCollectionView *)self.collectionView openItem:self];
 }
 
 - (void)menuEditAction:(id)sender
 {
-    [(id<MHConnectionViewItemDelegate>)self.collectionView.delegate connectionViewItemDelegateEdit:self];
+    [(MHConnectionCollectionView *)self.collectionView editItem:self];
 }
 
 - (void)menuDuplicateAction:(id)sender
 {
-    [(id<MHConnectionViewItemDelegate>)self.collectionView.delegate connectionViewItemDelegateDuplicate:self];
+    [(MHConnectionCollectionView *)self.collectionView duplicateItem:self];
 }
 
 - (void)menuCopyURLAction:(id)sender
 {
-    [(id<MHConnectionViewItemDelegate>)self.collectionView.delegate connectionViewItemDelegateCopyURL:self];
+    [(MHConnectionCollectionView *)self.collectionView copyURLItem:self];
 }
 
 - (void)menuDeleteAction:(id)sender
 {
-    [(id<MHConnectionViewItemDelegate>)self.collectionView.delegate connectionViewItemDelegateDelete:self];
+    [(MHConnectionCollectionView *)self.collectionView deleteItem:self];
 }
 
 @end
