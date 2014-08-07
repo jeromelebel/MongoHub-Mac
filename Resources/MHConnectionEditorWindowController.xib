@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
+        <deployment defaultVersion="1070" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6185.11"/>
     </dependencies>
     <objects>
@@ -64,7 +65,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" id="79">
-                        <rect key="frame" x="102" y="344" width="247" height="22"/>
+                        <rect key="frame" x="102" y="315" width="247" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Username (optional)" drawsBackground="YES" id="80">
                             <font key="font" metaFont="system"/>
@@ -77,7 +78,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" id="81">
-                        <rect key="frame" x="-2" y="347" width="98" height="17"/>
+                        <rect key="frame" x="-2" y="318" width="98" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="User:" id="82">
                             <font key="font" metaFont="system"/>
@@ -86,7 +87,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="83">
-                        <rect key="frame" x="-2" y="314" width="98" height="17"/>
+                        <rect key="frame" x="-2" y="285" width="98" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="84">
                             <font key="font" metaFont="system"/>
@@ -95,7 +96,7 @@
                         </textFieldCell>
                     </textField>
                     <secureTextField verticalHuggingPriority="750" id="85">
-                        <rect key="frame" x="102" y="314" width="247" height="22"/>
+                        <rect key="frame" x="102" y="285" width="247" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Password (optional)" drawsBackground="YES" usesSingleLineMode="YES" id="86">
                             <font key="font" metaFont="system"/>
@@ -110,7 +111,7 @@
                         </connections>
                     </secureTextField>
                     <textField verticalHuggingPriority="750" id="89">
-                        <rect key="frame" x="-2" y="286" width="98" height="17"/>
+                        <rect key="frame" x="-2" y="257" width="98" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Database:" id="90">
                             <font key="font" metaFont="system"/>
@@ -119,7 +120,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="91">
-                        <rect key="frame" x="102" y="284" width="247" height="22"/>
+                        <rect key="frame" x="102" y="255" width="247" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Database Name (optional)" drawsBackground="YES" id="92">
                             <font key="font" metaFont="system"/>
@@ -130,37 +131,8 @@
                             <outlet property="nextKeyView" destination="rqH-1A-H0s" id="GYY-ry-S3V"/>
                         </connections>
                     </textField>
-                    <popUpButton verticalHuggingPriority="750" id="rqH-1A-H0s">
-                        <rect key="frame" x="100" y="252" width="252" height="26"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="DeA-9a-zhr">
-                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
-                            <menu key="menu" title="OtherViews" id="DEt-Vg-Oma">
-                                <items>
-                                    <menuItem title="Primary" id="bi4-Jw-H9M"/>
-                                    <menuItem title="Secondary" tag="1" id="bmH-Lr-dme"/>
-                                    <menuItem title="Primary Preferred" tag="2" id="pFX-5Y-2f8"/>
-                                    <menuItem title="Secondary Preferred" tag="3" id="oDA-4B-y4d"/>
-                                    <menuItem title="Nearest" tag="4" id="RZ8-MX-qYo"/>
-                                </items>
-                            </menu>
-                        </popUpButtonCell>
-                        <connections>
-                            <outlet property="nextKeyView" destination="a2P-8z-1w5" id="jIy-qu-RAK"/>
-                        </connections>
-                    </popUpButton>
-                    <textField verticalHuggingPriority="750" id="6XC-gc-Bsl">
-                        <rect key="frame" x="-2" y="257" width="98" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Read Mode:" id="VaL-Oh-d0g">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <button id="a2P-8z-1w5">
-                        <rect key="frame" x="100" y="232" width="43" height="18"/>
+                        <rect key="frame" x="100" y="231" width="43" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="SSL" bezelStyle="regularSquare" imagePosition="left" inset="2" id="3Fb-h1-uec">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -375,17 +347,17 @@ Gw
                         </connections>
                     </button>
                     <tabView drawsBackground="NO" type="noTabsNoBorder" initialItem="EBH-Cr-8Gf" id="USt-ks-5Fl">
-                        <rect key="frame" x="0.0" y="371" width="369" height="58"/>
+                        <rect key="frame" x="0.0" y="342" width="369" height="87"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Single Server" identifier="singleserver" id="EBH-Cr-8Gf">
                                 <view key="view" id="dNh-ei-F8I">
-                                    <rect key="frame" x="0.0" y="0.0" width="369" height="58"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="369" height="86"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" id="uBy-gb-irv">
-                                            <rect key="frame" x="102" y="33" width="180" height="22"/>
+                                            <rect key="frame" x="102" y="61" width="180" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="127.0.0.1" drawsBackground="YES" id="EZX-fr-zWj">
                                                 <font key="font" metaFont="system"/>
@@ -397,7 +369,7 @@ Gw
                                             </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="kuA-9s-Oxf">
-                                            <rect key="frame" x="-2" y="36" width="98" height="17"/>
+                                            <rect key="frame" x="-2" y="64" width="98" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Address:" id="5co-OL-iOe">
                                                 <font key="font" metaFont="system"/>
@@ -406,7 +378,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="aIQ-VV-StS">
-                                            <rect key="frame" x="282" y="36" width="9" height="17"/>
+                                            <rect key="frame" x="282" y="64" width="9" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title=":" id="ZPl-lh-fMC">
                                                 <font key="font" metaFont="system"/>
@@ -415,7 +387,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="e3c-6q-I5k">
-                                            <rect key="frame" x="290" y="33" width="59" height="22"/>
+                                            <rect key="frame" x="290" y="61" width="59" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="27017" drawsBackground="YES" id="G1T-RH-P6Q">
                                                 <font key="font" metaFont="system"/>
@@ -431,11 +403,40 @@ Gw
                             </tabViewItem>
                             <tabViewItem label="Replica Set" identifier="replicaset" id="YRY-ul-3hX">
                                 <view key="view" id="IRY-E2-sEi">
-                                    <rect key="frame" x="0.0" y="0.0" width="369" height="58"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="369" height="87"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
+                                        <popUpButton verticalHuggingPriority="750" id="rqH-1A-H0s">
+                                            <rect key="frame" x="100" y="0.0" width="252" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="DeA-9a-zhr">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" title="OtherViews" id="DEt-Vg-Oma">
+                                                    <items>
+                                                        <menuItem title="Primary" id="bi4-Jw-H9M"/>
+                                                        <menuItem title="Secondary" tag="1" id="bmH-Lr-dme"/>
+                                                        <menuItem title="Primary Preferred" tag="2" id="pFX-5Y-2f8"/>
+                                                        <menuItem title="Secondary Preferred" tag="3" id="oDA-4B-y4d"/>
+                                                        <menuItem title="Nearest" tag="4" id="RZ8-MX-qYo"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <outlet property="nextKeyView" destination="a2P-8z-1w5" id="jIy-qu-RAK"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <textField verticalHuggingPriority="750" id="6XC-gc-Bsl">
+                                            <rect key="frame" x="-2" y="5" width="98" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Read Mode:" id="VaL-Oh-d0g">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                         <textField verticalHuggingPriority="750" id="kle-8o-tP6">
-                                            <rect key="frame" x="-2" y="6" width="98" height="17"/>
+                                            <rect key="frame" x="-2" y="35" width="98" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Servers:" id="GDm-7k-dmh">
                                                 <font key="font" metaFont="system"/>
@@ -444,7 +445,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="5SR-LB-gxG">
-                                            <rect key="frame" x="102" y="3" width="247" height="22"/>
+                                            <rect key="frame" x="102" y="32" width="247" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="host1:port1,host2:port2…" drawsBackground="YES" id="NPg-sX-doJ">
                                                 <font key="font" metaFont="system"/>
@@ -456,7 +457,7 @@ Gw
                                             </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="Tsw-51-tNh">
-                                            <rect key="frame" x="-2" y="36" width="98" height="17"/>
+                                            <rect key="frame" x="-2" y="65" width="98" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Set Name:" id="ube-0E-9Sd">
                                                 <font key="font" metaFont="system"/>
@@ -465,7 +466,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="HQD-OS-8KZ">
-                                            <rect key="frame" x="102" y="33" width="247" height="22"/>
+                                            <rect key="frame" x="102" y="62" width="247" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="demo_repl" drawsBackground="YES" id="C6R-QE-Jse">
                                                 <font key="font" metaFont="system"/>
@@ -481,11 +482,11 @@ Gw
                             </tabViewItem>
                             <tabViewItem label="Sharded Cluster" identifier="shardedcluster" id="QhM-6v-JXN">
                                 <view key="view" id="gca-gq-Dve">
-                                    <rect key="frame" x="0.0" y="0.0" width="369" height="58"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="369" height="87"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" id="ieX-c5-XDb">
-                                            <rect key="frame" x="-2" y="36" width="98" height="17"/>
+                                            <rect key="frame" x="-2" y="65" width="98" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Servers:" id="Ihr-oy-80T">
                                                 <font key="font" metaFont="system"/>
@@ -494,7 +495,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="iJd-Yi-nbi">
-                                            <rect key="frame" x="102" y="33" width="247" height="22"/>
+                                            <rect key="frame" x="102" y="62" width="247" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="host1:port1,host2:port2…" drawsBackground="YES" id="UWY-Zx-tCn">
                                                 <font key="font" metaFont="system"/>
