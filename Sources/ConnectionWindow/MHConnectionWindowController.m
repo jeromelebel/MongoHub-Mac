@@ -7,7 +7,7 @@
 //
 
 #import "Configure.h"
-#import "NSString+Extras.h"
+#import "NSString+Helpers.h"
 #import "MHConnectionWindowController.h"
 #import "MHQueryWindowController.h"
 #import "MHAddDBController.h"
@@ -228,9 +228,9 @@
         self.serverItem = [[[MHServerItem alloc] initWithClient:self.client delegate:self] autorelease];
         if (self.connectionStore.adminuser.length > 0) {
             if (self.connectionStore.adminpass.length > 0) {
-                auth = [NSString stringWithFormat:@"%@:%@@", self.connectionStore.adminuser.stringByEscapingURL, self.connectionStore.adminpass.stringByEscapingURL];
+                auth = [NSString stringWithFormat:@"%@:%@@", self.connectionStore.adminuser.mh_stringByEscapingURL, self.connectionStore.adminpass.mh_stringByEscapingURL];
             } else {
-                auth = [NSString stringWithFormat:@"%@@", self.connectionStore.adminuser.stringByEscapingURL];
+                auth = [NSString stringWithFormat:@"%@@", self.connectionStore.adminuser.mh_stringByEscapingURL];
             }
         }
         if (!self.connectionStore.usessh.boolValue) {
@@ -257,9 +257,9 @@
             [options addObject:@"ssl=true"];
         }
         if (self.connectionStore.repl_name.length > 0) {
-            [options addObject:[NSString stringWithFormat:@"replicaSet=%@", self.connectionStore.repl_name.stringByEscapingURL]];
+            [options addObject:[NSString stringWithFormat:@"replicaSet=%@", self.connectionStore.repl_name.mh_stringByEscapingURL]];
         }
-        uri = [NSString stringWithFormat:@"mongodb://%@%@/%@?%@", auth, servers, self.connectionStore.defaultdb.stringByEscapingURL, [options componentsJoinedByString:@"&"]];
+        uri = [NSString stringWithFormat:@"mongodb://%@%@/%@?%@", auth, servers, self.connectionStore.defaultdb.mh_stringByEscapingURL, [options componentsJoinedByString:@"&"]];
         self.client = [MODClient clientWihtURLString:uri];
         self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
         self.statusViewController.client = self.client;

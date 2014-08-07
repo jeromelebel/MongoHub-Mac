@@ -9,7 +9,7 @@
 #import "Configure.h"
 #import "MHQueryWindowController.h"
 #import "MHResultsOutlineViewController.h"
-#import "NSString+Extras.h"
+#import "NSString+Helpers.h"
 #import "MHJsonWindowController.h"
 #import <mongo-objc-driver/MOD_public.h>
 #import "MODHelper.h"
@@ -161,7 +161,7 @@
 {
     NSString *result;
     
-    result = self.findSortTextField.stringValue.stringByTrimmingWhitespace;
+    result = self.findSortTextField.stringValue.mh_stringByTrimmingWhitespace;
     if ([result length] == 0) {
         result = @"{ \"_id\": 1}";
     }
@@ -476,7 +476,7 @@
     jsonCriteria = [self formatedQueryWithReplace:YES];
     fields = [[NSMutableArray alloc] init];
     for (NSString *field in [self.findFieldsTextField.stringValue componentsSeparatedByString:@","]) {
-        field = [field stringByTrimmingWhitespace];
+        field = field.mh_stringByTrimmingWhitespace;
         if ([field length] > 0) {
             [fields addObject:field];
         }
@@ -752,7 +752,7 @@
     id objects;
     
     objects = [MODRagelJsonParser objectsFromJson:self.removeCriteriaTextField.stringValue withError:NULL];
-    if (((self.removeCriteriaTextField.stringValue.stringByTrimmingWhitespace.length == 0) || (objects && [objects count] == 0))
+    if (((self.removeCriteriaTextField.stringValue.mh_stringByTrimmingWhitespace.length == 0) || (objects && [objects count] == 0))
         && ((self.view.window.currentEvent.modifierFlags & NSCommandKeyMask) != NSCommandKeyMask)) {
         NSAlert *alert;
         

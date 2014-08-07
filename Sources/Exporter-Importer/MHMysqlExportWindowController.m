@@ -8,7 +8,7 @@
 
 #import "MHMysqlExportWindowController.h"
 #import "Configure.h"
-#import "NSString+Extras.h"
+#import "NSString+Helpers.h"
 #import <mongo-objc-driver/MOD_public.h>
 #import <MCPKit/MCPKit.h>
 #import "FieldMapTableController.h"
@@ -174,11 +174,11 @@
         [self initInterface];
         [db release];
     }
-    mysqlHostname = [[hostTextField stringValue] stringByTrimmingWhitespace];
+    mysqlHostname = hostTextField.stringValue.mh_stringByTrimmingWhitespace;
     if ([mysqlHostname length] == 0) {
         mysqlHostname = [[hostTextField cell] placeholderString];
     }
-    userName = [[userTextField stringValue] stringByTrimmingWhitespace];
+    userName = userTextField.stringValue.mh_stringByTrimmingWhitespace;
     if ([userName length] == 0) {
         userName = [[userTextField cell] placeholderString];
     }

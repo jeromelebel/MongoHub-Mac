@@ -7,7 +7,6 @@
 
 #import "MODHelper.h"
 #import <mongo-objc-driver/MOD_public.h>
-#import "NSString+Extras.h"
 
 @interface MODHelper()
 + (NSMutableDictionary *)convertForOutlineWithValue:(id)dataValue dataKey:(NSString *)dataKey;

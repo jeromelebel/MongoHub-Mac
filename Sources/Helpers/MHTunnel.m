@@ -6,8 +6,6 @@
 //
 
 #import "MHTunnel.h"
-#import "NSString+Extras.h"
-
 #import <assert.h>
 #import <errno.h>
 #import <stdbool.h>

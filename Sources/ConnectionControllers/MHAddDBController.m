@@ -8,7 +8,6 @@
 
 #import "Configure.h"
 #import "MHAddDBController.h"
-#import "NSString+Extras.h"
 
 @interface MHAddDBController ()
 @property (nonatomic, readwrite, strong) NSTextField *databaseNameTextField;
