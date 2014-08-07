@@ -2,8 +2,7 @@
 //  MHTunnel.m
 //  MongoHub
 //
-//  Created by Syd on 10-12-15.
-//  Copyright 2010 ThePeppersStudio.COM. All rights reserved.
+//  Created by Jerome Lebel on 07/08/2014.
 //
 
 #import "MHTunnel.h"
