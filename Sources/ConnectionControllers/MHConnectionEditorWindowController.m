@@ -213,6 +213,8 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         self.useSSLCheckBox.state = NSOffState;
         self.usesshCheckBox.state = NSOffState;
         [self.defaultReadModePopUpButton selectItemWithTag:0];
+        [self.singleReplicaSetPopUpButton selectItemAtIndex:0];
+        [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:SINGLESERVER_TAB_IDENTIER];
     }
     [self _updateSSHFields];
     [self _updateServerFields];
