@@ -31,7 +31,7 @@ typedef enum {
 - (void)tunnelDidFailToConnect:(MHTunnel *)tunnel withError:(NSError *)error;
 @end
 
-@interface MHTunnel : NSObject <NSCoding>
+@interface MHTunnel : NSObject
 {
 	id<MHTunnelDelegate>            _delegate;
 	

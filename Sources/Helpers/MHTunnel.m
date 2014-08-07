@@ -124,26 +124,6 @@ static BOOL testLocalPortAvailable(unsigned short port)
     return (self);
 }
 
-- (id)initWithCoder:(NSCoder *)coder
-{
-    if (self = [self init]) {
-        _name = [coder decodeObjectForKey:@"name"];
-        _host = [coder decodeObjectForKey:@"host"];
-        _port = [coder decodeIntForKey:@"port"];
-        _user = [coder decodeObjectForKey:@"user"];
-        _password = [coder decodeObjectForKey:@"password"];
-        _keyfile = [coder decodeObjectForKey:@"keyfile"];
-        _aliveInterval = [coder decodeIntForKey:@"aliveInterval"];
-        _aliveCountMax = [coder decodeIntForKey:@"aliveCountMax"];
-        self.tcpKeepAlive = [coder decodeBoolForKey:@"tcpKeepAlive"];
-        self.compression = [coder decodeBoolForKey:@"compression"];
-        self.additionalArgs = [coder decodeObjectForKey:@"additionalArgs"];
-        self.portForwardings = [[[coder decodeObjectForKey:@"portForwardings"] mutableCopy] autorelease];
-    }
-    
-    return (self);
-}
-
 - (void)dealloc
 {
     [self stop];
@@ -155,22 +135,6 @@ static BOOL testLocalPortAvailable(unsigned short port)
     self.additionalArgs = nil;
     self.portForwardings = nil;
     [super dealloc];
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder
-{
-    [coder encodeObject:_name forKey:@"name"];
-    [coder encodeObject:_host forKey:@"host"];
-    [coder encodeInt:_port forKey:@"port"];
-    [coder encodeObject:_user forKey:@"user"];
-    [coder encodeObject:_password forKey:@"password"];
-    [coder encodeObject:_keyfile forKey:@"keyfile"];
-    [coder encodeInt:_aliveInterval forKey:@"aliveInterval"];
-    [coder encodeInt:_aliveCountMax forKey:@"aliveCountMax"];
-    [coder encodeBool:self.tcpKeepAlive forKey:@"tcpKeepAlive"];
-    [coder encodeBool:self.compression forKey:@"compression"];
-    [coder encodeObject:self.additionalArgs forKey:@"additionalArgs"];
-    [coder encodeObject:self.portForwardings forKey:@"portForwardings"];
 }
 
 - (void)_connected
