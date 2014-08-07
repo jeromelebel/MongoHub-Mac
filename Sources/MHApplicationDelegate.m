@@ -349,10 +349,11 @@
 - (void)copyURLConnection:(MHConnectionStore *)connection
 {
     NSPasteboard *pasteboard = NSPasteboard.generalPasteboard;
+    NSString *stringURL = [connection stringURLWithSSHMapping:nil];
     
     [pasteboard declareTypes:@[ NSStringPboardType, NSURLPboardType ] owner:nil];
-    [pasteboard setString:[connection stringURLWithSSHMapping:nil] forType:NSStringPboardType];
-    [pasteboard writeObjects:@[ [NSURL URLWithString:[connection stringURLWithSSHMapping:nil]] ]];
+    [pasteboard setString:stringURL forType:NSStringPboardType];
+    [pasteboard setString:stringURL forType:NSURLPboardType];
 }
 
 #pragma mark connections related method
