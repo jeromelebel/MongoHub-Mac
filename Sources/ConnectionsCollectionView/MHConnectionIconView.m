@@ -45,6 +45,7 @@
 - (void)rightMouseDown:(NSEvent *)event
 {
     if (event.clickCount == 1) {
+        self.delegate.selected = YES;
         [self.delegate connectionIconViewOpenContextualMenu:self withEvent:event];
     } else {
         [super rightMouseDown:event];
