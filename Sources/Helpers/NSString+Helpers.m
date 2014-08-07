@@ -12,7 +12,7 @@
 
 - (NSString*)mh_stringByEscapingURL
 {
-    return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    return [self stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
 }
 
 - (NSString *)mh_stringByTrimmingWhitespace
