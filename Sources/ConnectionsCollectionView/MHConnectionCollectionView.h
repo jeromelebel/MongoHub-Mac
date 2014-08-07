@@ -21,6 +21,8 @@
 @end
 
 @interface MHConnectionCollectionView : NSCollectionView
+@property (nonatomic, readwrite, assign) NSSize itemSize;
+
 - (void)openItem:(MHConnectionViewItem *)item;
 - (void)editItem:(MHConnectionViewItem *)item;
 - (void)duplicateItem:(MHConnectionViewItem *)item;

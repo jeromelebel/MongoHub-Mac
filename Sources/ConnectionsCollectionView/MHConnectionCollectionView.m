@@ -10,6 +10,17 @@
 
 @implementation MHConnectionCollectionView
 
+- (void)setItemSize:(NSSize)itemSize
+{
+    self.maxItemSize = itemSize;
+    self.minItemSize = itemSize;
+}
+
+- (NSSize)itemSize
+{
+    return self.maxItemSize;
+}
+
 - (void)openItem:(MHConnectionViewItem *)item
 {
     [(id<MHConnectionCollectionViewDelegate>)self.delegate connectionViewItemDelegate:self openItem:item];

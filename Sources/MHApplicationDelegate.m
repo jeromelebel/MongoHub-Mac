@@ -398,10 +398,8 @@
 - (IBAction)resizeConnectionItemView:(id)sender
 {
     CGFloat value = [sender floatValue]/100.0f*360.0f;
-    NSSize size = NSMakeSize(value, value);
     
-    self.connectionCollectionView.maxItemSize = size;
-    self.connectionCollectionView.minItemSize = size;
+    self.connectionCollectionView.itemSize = NSMakeSize(value, value);
 }
 
 - (IBAction)openConnectionAction:(id)sender
