@@ -10,7 +10,6 @@
 
 @implementation MHConnectionIconView
 
-@synthesize selected = _selected;
 @synthesize delegate = _delegate;
 
 - (void)drawRect:(NSRect)dirtyRect

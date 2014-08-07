@@ -20,10 +20,8 @@
 
 @interface MHConnectionIconView : NSView
 {
-    BOOL                                _selected;
     id<MHConnectionIconViewDelegate>    _delegate;
 }
-@property (nonatomic, readwrite, assign, getter = isSelected) BOOL selected;
 @property (nonatomic, readwrite, weak) id<MHConnectionIconViewDelegate> delegate;
 
 @end
