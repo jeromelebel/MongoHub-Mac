@@ -10,7 +10,6 @@
 #import "MHApplicationDelegate.h"
 #import "MHConnectionWindowController.h"
 #import "ConnectionsArrayController.h"
-#import "ConnectionsCollectionView.h"
 #import "MHConnectionEditorWindowController.h"
 #import "MHConnectionStore.h"
 #import "MHPreferenceController.h"

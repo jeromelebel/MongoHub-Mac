@@ -487,7 +487,6 @@ DQ
                 <outlet property="_window" destination="21" id="736"/>
                 <outlet property="bundleVersion" destination="603" id="620"/>
                 <outlet property="connectionsArrayController" destination="542" id="565"/>
-                <outlet property="connectionsCollectionView" destination="530" id="566"/>
                 <outlet property="supportPanel" destination="599" id="713"/>
                 <outlet property="updater" destination="621" id="733"/>
             </connections>
