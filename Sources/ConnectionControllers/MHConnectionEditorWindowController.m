@@ -185,7 +185,12 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
             self.sshportTextField.stringValue = defaultValue.sshport.stringValue;
         }
         if (defaultValue.sshuser) self.sshuserTextField.stringValue = defaultValue.sshuser;
-        if (defaultValue.usessh && defaultValue.sshpassword) self.sshpasswordTextField.stringValue = defaultValue.sshpassword;
+        if (defaultValue.usessh.boolValue && defaultValue.sshpassword) {
+            // there is no need to fetch for the ssh password if ssh is turned off
+            // let's fetch for it, when the user will turn on ssh
+            // (we keep the ssh settings even if it is turned off)
+            self.sshpasswordTextField.stringValue = defaultValue.sshpassword;
+        }
         if (defaultValue.sshkeyfile) self.sshkeyfileTextField.stringValue = defaultValue.sshkeyfile;
         self.usesshCheckBox.state = defaultValue.usessh.boolValue?NSOnState:NSOffState;
         [self.defaultReadModePopUpButton selectItemWithTag:tagFromPreferenceReadMode(defaultValue.defaultReadMode)];
@@ -422,21 +427,18 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     self.sshpasswordTextField.enabled = useSSH;
     self.sshkeyfileTextField.enabled = useSSH;
     self.selectKeyFileButton.enabled = useSSH;
+    if (useSSH && self.adminpassTextField.stringValue.length == 0) {
+        // if we turn on ssh for the first time, let's try to search in the keychain to get a password
+        // no need to do it before if the guy doesn't use ssh
+        // (we keep the ssh settings even if it is disabled)
+        [self updateSSHPassword];
+    }
 }
 
 - (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
 {
     if (control == self.sshuserTextField) {
-        NSString *password = nil;
-        
-        if (self.sshhostTextField.stringValue.length > 0) {
-            password = [MHKeychain internetPasswordProtocol:kSecAttrProtocolSSH host:self.sshhostTextField.stringValue port:self.sshportTextField.integerValue account:self.sshuserTextField.stringValue];
-        }
-        if (password) {
-            self.sshpasswordTextField.stringValue = password;
-        } else {
-            self.sshpasswordTextField.stringValue = @"";
-        }
+        [self updateSSHPassword];
     } else if (control == self.adminuserTextField) {
         NSString *password = nil;
         
@@ -450,6 +452,20 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         }
     }
     return YES;
+}
+
+- (void)updateSSHPassword
+{
+    NSString *password = nil;
+    
+    if (self.sshhostTextField.stringValue.length > 0) {
+        password = [MHKeychain internetPasswordProtocol:kSecAttrProtocolSSH host:self.sshhostTextField.stringValue port:self.sshportTextField.integerValue account:self.sshuserTextField.stringValue];
+    }
+    if (password) {
+        self.sshpasswordTextField.stringValue = password;
+    } else {
+        self.sshpasswordTextField.stringValue = @"";
+    }
 }
 
 @end
