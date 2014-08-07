@@ -8,6 +8,7 @@
 
 #import "MHConnectionStore.h"
 #import "MHKeychain.h"
+#import "NSString+Helpers.h"
 
 #define MAX_QUERY_PER_COLLECTION 20
 #define QUERY_HISTORY_KEY @"query_history"
@@ -276,6 +277,50 @@
     }
     self.adminpass = nil;
     self.sshpassword = nil;
+}
+
+- (NSString *)stringURLWithSSHMapping:(NSDictionary *)sshMapping
+{
+    NSString *auth = @"";
+    NSString *uri;
+    NSString *servers;
+    NSMutableArray *options = [NSMutableArray array];
+    
+    if (self.adminuser.length > 0) {
+        if (self.adminpass.length > 0) {
+            auth = [NSString stringWithFormat:@"%@:%@@", self.adminuser.mh_stringByEscapingURL, self.adminpass.mh_stringByEscapingURL];
+        } else {
+            auth = [NSString stringWithFormat:@"%@@", self.adminuser.mh_stringByEscapingURL];
+        }
+    }
+    if (!self.usessh.boolValue) {
+        servers = self.servers;
+    } else {
+        NSMutableString *mappedIps;
+        
+        mappedIps = [NSMutableString string];
+        for (NSString *hostnameAndPort in self.arrayServers) {
+            NSNumber *bindedPort = [sshMapping objectForKey:hostnameAndPort];
+            
+            if (mappedIps.length > 0) {
+                [mappedIps appendFormat:@",127.0.0.1:%ld", (long)bindedPort.integerValue];
+            } else {
+                [mappedIps appendFormat:@"127.0.0.1:%ld", (long)bindedPort.integerValue];
+            }
+        }
+        servers = mappedIps;
+    }
+    if (servers.length == 0) {
+        servers = DEFAULT_MONGO_IP;
+    }
+    if (self.usessl.boolValue) {
+        [options addObject:@"ssl=true"];
+    }
+    if (self.repl_name.length > 0) {
+        [options addObject:[NSString stringWithFormat:@"replicaSet=%@", self.repl_name.mh_stringByEscapingURL]];
+    }
+    uri = [NSString stringWithFormat:@"%@%@%@/%@?%@", MONGODB_SCHEME, auth, servers, self.defaultdb.mh_stringByEscapingURL, [options componentsJoinedByString:@"&"]];
+    return uri;
 }
 
 @end

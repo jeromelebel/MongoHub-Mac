@@ -25,6 +25,7 @@
 - (BOOL)setValuesFromStringURL:(NSString *)stringURL errorMessage:(NSString **)errorMessage;
 - (NSArray *)queryHistoryWithDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
 - (void)addNewQuery:(NSDictionary *)query withDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
+- (NSString *)stringURLWithSSHMapping:(NSDictionary *)sshMapping;
 
 @property (nonatomic, retain) NSString *servers;
 @property (nonatomic, retain) NSString *repl_name;

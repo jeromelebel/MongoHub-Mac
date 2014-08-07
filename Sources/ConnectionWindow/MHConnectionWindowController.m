@@ -219,48 +219,10 @@
         [self.sshTunnel start];
         return;
     } else {
-        NSString *auth = @"";
-        NSString *uri;
-        NSString *servers;
-        NSMutableArray *options = [NSMutableArray array];
         
         [self closeMongoDB];
         self.serverItem = [[[MHServerItem alloc] initWithClient:self.client delegate:self] autorelease];
-        if (self.connectionStore.adminuser.length > 0) {
-            if (self.connectionStore.adminpass.length > 0) {
-                auth = [NSString stringWithFormat:@"%@:%@@", self.connectionStore.adminuser.mh_stringByEscapingURL, self.connectionStore.adminpass.mh_stringByEscapingURL];
-            } else {
-                auth = [NSString stringWithFormat:@"%@@", self.connectionStore.adminuser.mh_stringByEscapingURL];
-            }
-        }
-        if (!self.connectionStore.usessh.boolValue) {
-            servers = self.connectionStore.servers;
-        } else {
-            NSMutableString *mappedIps;
-            
-            mappedIps = [NSMutableString string];
-            for (NSString *hostnameAndPort in self.connectionStore.arrayServers) {
-                NSNumber *bindedPort = [self.sshBindedPortMapping objectForKey:hostnameAndPort];
-                
-                if (mappedIps.length > 0) {
-                    [mappedIps appendFormat:@",127.0.0.1:%ld", (long)bindedPort.integerValue];
-                } else {
-                    [mappedIps appendFormat:@"127.0.0.1:%ld", (long)bindedPort.integerValue];
-                }
-            }
-            servers = mappedIps;
-        }
-        if (servers.length == 0) {
-            servers = DEFAULT_MONGO_IP;
-        }
-        if (self.connectionStore.usessl.boolValue) {
-            [options addObject:@"ssl=true"];
-        }
-        if (self.connectionStore.repl_name.length > 0) {
-            [options addObject:[NSString stringWithFormat:@"replicaSet=%@", self.connectionStore.repl_name.mh_stringByEscapingURL]];
-        }
-        uri = [NSString stringWithFormat:@"mongodb://%@%@/%@?%@", auth, servers, self.connectionStore.defaultdb.mh_stringByEscapingURL, [options componentsJoinedByString:@"&"]];
-        self.client = [MODClient clientWihtURLString:uri];
+        self.client = [MODClient clientWihtURLString:[self.connectionStore stringURLWithSSHMapping:self.sshBindedPortMapping]];
         self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
         self.statusViewController.client = self.client;
         self.statusViewController.connectionStore = self.connectionStore;
