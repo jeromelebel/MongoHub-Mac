@@ -5,7 +5,7 @@ Mac OS X (10.7.x, 10.8.x, 10.9.x), intel(64bit/32bit) based.
 ## Download
 
 [HERE](https://mongohub.s3.amazonaws.com/MongoHub.zip)
-Or you can compile it yourself
+Or you can compile it yourself using Xcode
 
 ## Build
 
