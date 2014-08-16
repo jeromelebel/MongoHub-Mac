@@ -17,6 +17,9 @@
 #define UKSCTD_DEFAULT_TEXTENCODING     NSUTF8StringEncoding
 #endif
 
+#define kJsonWindowWillClose @"kJsonWindowWillClose"
+#define kJsonWindowSaved @"kJsonWindowSaved"
+
 @interface MHJsonWindowController : NSWindowController <UKSyntaxColoredTextViewDelegate, MODQueryCallbackTarget>
 {
     MODCollection                       *_collection;

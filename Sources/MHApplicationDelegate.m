@@ -6,7 +6,6 @@
 //  Copyright MusicPeace.ORG 2010 . All rights reserved.
 //
 
-#import "Configure.h"
 #import "MHApplicationDelegate.h"
 #import "MHConnectionWindowController.h"
 #import "ConnectionsArrayController.h"

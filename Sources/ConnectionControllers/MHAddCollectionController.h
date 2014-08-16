@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+#define kNewCollectionWindowWillClose @"NewCollectionWindowWillClose"
 
 @interface MHAddCollectionController : NSWindowController
 {

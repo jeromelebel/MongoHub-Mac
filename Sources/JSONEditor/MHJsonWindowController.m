@@ -7,7 +7,6 @@
 //
 
 #import "MHJsonWindowController.h"
-#import "Configure.h"
 #import <mongo-objc-driver/MOD_public.h>
 
 @interface MHJsonWindowController ()

@@ -6,7 +6,6 @@
 //  Copyright 2010 MusicPeace.ORG. All rights reserved.
 //
 
-#import "Configure.h"
 #import "NSString+Helpers.h"
 #import "MHConnectionWindowController.h"
 #import "MHQueryWindowController.h"

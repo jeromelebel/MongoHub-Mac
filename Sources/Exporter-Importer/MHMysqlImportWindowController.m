@@ -7,7 +7,6 @@
 //
 
 #import "MHMysqlImportWindowController.h"
-#import "Configure.h"
 #import "NSString+Helpers.h"
 #import <mongo-objc-driver/MOD_public.h>
 #import <MCPKit/MCPKit.h>

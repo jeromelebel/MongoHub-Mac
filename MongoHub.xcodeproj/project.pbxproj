@@ -381,7 +381,6 @@
 		1D93C24D11833599003216F7 /* ConnectionsArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionsArrayController.h; sourceTree = "<group>"; };
 		1D93C24E11833599003216F7 /* ConnectionsArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionsArrayController.m; sourceTree = "<group>"; };
 		1D93C27111833A19003216F7 /* database.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = database.png; path = Resources/images/database.png; sourceTree = SOURCE_ROOT; };
-		1D93C27411833C2A003216F7 /* Configure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configure.h; sourceTree = "<group>"; };
 		1D93C29811833F26003216F7 /* MHDatabaseStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDatabaseStore.h; sourceTree = "<group>"; };
 		1D93C29911833F26003216F7 /* MHDatabaseStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHDatabaseStore.m; sourceTree = "<group>"; };
 		1D93C29F118343EF003216F7 /* MHConnectionEditorWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MHConnectionEditorWindowController.xib; sourceTree = "<group>"; };
@@ -566,7 +565,6 @@
 				77C8280C06725ACE000B614F /* MHApplicationDelegate.m */,
 				02F2A1F81817E4BC0053CB20 /* MHPreferenceController.h */,
 				02F2A1F91817E4BC0053CB20 /* MHPreferenceController.m */,
-				1D93C27411833C2A003216F7 /* Configure.h */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			path = Sources;

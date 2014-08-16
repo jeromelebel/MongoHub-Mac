@@ -10,6 +10,8 @@
 @class MHConnectionStore;
 @class MHAddDBController;
 
+#define kNewDBWindowWillClose @"NewDBWindowWillClose"
+
 @interface MHAddDBController : NSWindowController
 {
     IBOutlet NSTextField                *_databaseNameTextField;

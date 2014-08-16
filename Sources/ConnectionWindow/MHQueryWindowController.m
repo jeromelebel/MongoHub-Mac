@@ -6,7 +6,6 @@
 //  Copyright 2010 ThePeppersStudio.COM. All rights reserved.
 //
 
-#import "Configure.h"
 #import "MHQueryWindowController.h"
 #import "MHResultsOutlineViewController.h"
 #import "NSString+Helpers.h"
