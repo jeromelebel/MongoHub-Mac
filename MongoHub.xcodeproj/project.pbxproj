@@ -138,14 +138,6 @@
 		1DF96F9411883D5E00C35AB8 /* MHQueryWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF96F9311883D5E00C35AB8 /* MHQueryWindow.xib */; };
 		2F7446990DB6B7EA00F9684A /* MHMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F7446970DB6B7EA00F9684A /* MHMainMenu.xib */; };
 		77C8280E06725ACE000B614F /* MHApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C8280C06725ACE000B614F /* MHApplicationDelegate.m */; };
-		797A78450DDCFB3E0050D0C2 /* GetMetadataForFile.c in Sources */ = {isa = PBXBuildFile; fileRef = 797A783F0DDCFB3E0050D0C2 /* GetMetadataForFile.c */; };
-		797A78480DDCFB3E0050D0C2 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 797A78420DDCFB3E0050D0C2 /* main.c */; };
-		797A78490DDCFB3E0050D0C2 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 797A78440DDCFB3E0050D0C2 /* MySpotlightImporter.m */; };
-		797A784A0DDCFC070050D0C2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C82804067257F0000B614F /* CoreData.framework */; };
-		797A784B0DDCFC090050D0C2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
-		797A7AE20DDCFCE80050D0C2 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797A7AE10DDCFCE80050D0C2 /* CoreFoundation.framework */; };
-		797A7AE40DDCFCF40050D0C2 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797A7AE30DDCFCF40050D0C2 /* CoreServices.framework */; };
-		799CAA890DDE04C70030CB95 /* MongoHub.mdimporter in CopyFiles */ = {isa = PBXBuildFile; fileRef = 797A78390DDCFADE0050D0C2 /* MongoHub.mdimporter */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -166,13 +158,6 @@
 			remoteGlobalIDString = 02F121BD1410EF5200197811;
 			remoteInfo = "mongo-test";
 		};
-		02216F611412D6E900789BD1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 02216F201412D54600789BD1;
-			remoteInfo = Submodules;
-		};
 		02216F631412D6F000789BD1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -186,13 +171,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 02ABA1BF14103B37000417F4;
 			remoteInfo = "mongo-objc-driver";
-		};
-		790512FB0DDD0A100070760D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 797A78380DDCFADE0050D0C2;
-			remoteInfo = "MongoHub Spotlight Importer";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -243,7 +221,6 @@
 			dstPath = ../Library/Spotlight;
 			dstSubfolderSpec = 7;
 			files = (
-				799CAA890DDE04C70030CB95 /* MongoHub.mdimporter in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,31 +404,13 @@
 		77C82804067257F0000B614F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		77C8280B06725ACE000B614F /* MHApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHApplicationDelegate.h; sourceTree = "<group>"; };
 		77C8280C06725ACE000B614F /* MHApplicationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHApplicationDelegate.m; sourceTree = "<group>"; };
-		797A78390DDCFADE0050D0C2 /* MongoHub.mdimporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MongoHub.mdimporter; sourceTree = BUILT_PRODUCTS_DIR; };
-		797A783F0DDCFB3E0050D0C2 /* GetMetadataForFile.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = GetMetadataForFile.c; sourceTree = "<group>"; };
-		797A78410DDCFB3E0050D0C2 /* Importer-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 4; path = "Importer-Info.plist"; sourceTree = "<group>"; };
-		797A78420DDCFB3E0050D0C2 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		797A78430DDCFB3E0050D0C2 /* MySpotlightImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySpotlightImporter.h; sourceTree = "<group>"; };
-		797A78440DDCFB3E0050D0C2 /* MySpotlightImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySpotlightImporter.m; sourceTree = "<group>"; };
 		797A7AE10DDCFCE80050D0C2 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = ../../../../../../../../../../../../System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<group>"; };
 		797A7AE30DDCFCF40050D0C2 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = ../../../../../../../../../../../../System/Library/Frameworks/CoreServices.framework; sourceTree = "<group>"; };
-		797A7AE70DDCFD2A0050D0C2 /* Importer Read Me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MongoHub-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 4; path = "MongoHub-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* MongoHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MongoHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		797A78370DDCFADE0050D0C2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				797A784A0DDCFC070050D0C2 /* CoreData.framework in Frameworks */,
-				797A784B0DDCFC090050D0C2 /* Foundation.framework in Frameworks */,
-				797A7AE20DDCFCE80050D0C2 /* CoreFoundation.framework in Frameworks */,
-				797A7AE40DDCFCF40050D0C2 /* CoreServices.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8D11072E0486CEB800E47090 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -492,19 +451,6 @@
 				021E5CCE19265FC300F3ED81 /* mongo-objc-driver.xcodeproj */,
 			);
 			path = "mongo-objc-driver";
-			sourceTree = "<group>";
-		};
-		0233716E145B640D0084D0F7 /* Spotlight Importer */ = {
-			isa = PBXGroup;
-			children = (
-				797A78420DDCFB3E0050D0C2 /* main.c */,
-				797A783F0DDCFB3E0050D0C2 /* GetMetadataForFile.c */,
-				797A78430DDCFB3E0050D0C2 /* MySpotlightImporter.h */,
-				797A78440DDCFB3E0050D0C2 /* MySpotlightImporter.m */,
-				797A78410DDCFB3E0050D0C2 /* Importer-Info.plist */,
-				797A7AE70DDCFD2A0050D0C2 /* Importer Read Me.txt */,
-			);
-			path = "Spotlight Importer";
 			sourceTree = "<group>";
 		};
 		0262CA37148C1201009033F9 /* TabViews */ = {
@@ -658,7 +604,6 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* MongoHub.app */,
-				797A78390DDCFADE0050D0C2 /* MongoHub.mdimporter */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -790,7 +735,6 @@
 			children = (
 				0242F11B1989475F00C73FEC /* MongoHub.entitlements */,
 				02D1872F14636F1300D49ED1 /* Sources */,
-				0233716E145B640D0084D0F7 /* Spotlight Importer */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				02216E5F14128CBF00789BD1 /* Libraries */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -846,24 +790,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		797A78380DDCFADE0050D0C2 /* MongoHub Spotlight Importer */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 797A783D0DDCFADE0050D0C2 /* Build configuration list for PBXNativeTarget "MongoHub Spotlight Importer" */;
-			buildPhases = (
-				797A78350DDCFADE0050D0C2 /* Resources */,
-				797A78360DDCFADE0050D0C2 /* Sources */,
-				797A78370DDCFADE0050D0C2 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				02216F621412D6E900789BD1 /* PBXTargetDependency */,
-			);
-			name = "MongoHub Spotlight Importer";
-			productName = "MongoHub Spotlight Importer";
-			productReference = 797A78390DDCFADE0050D0C2 /* MongoHub.mdimporter */;
-			productType = "com.apple.product-type.bundle";
-		};
 		8D1107260486CEB800E47090 /* MongoHub */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 26FC0A840875C7B200E6366F /* Build configuration list for PBXNativeTarget "MongoHub" */;
@@ -881,7 +807,6 @@
 			);
 			dependencies = (
 				02216F641412D6F000789BD1 /* PBXTargetDependency */,
-				790512FC0DDD0A100070760D /* PBXTargetDependency */,
 				02787192198BFE510089BDD5 /* PBXTargetDependency */,
 			);
 			name = MongoHub;
@@ -930,7 +855,6 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* MongoHub */,
-				797A78380DDCFADE0050D0C2 /* MongoHub Spotlight Importer */,
 				02216F201412D54600789BD1 /* Submodules */,
 			);
 		};
@@ -954,13 +878,6 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
-		797A78350DDCFADE0050D0C2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8D1107290486CEB800E47090 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1047,16 +964,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		797A78360DDCFADE0050D0C2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				797A78450DDCFB3E0050D0C2 /* GetMetadataForFile.c in Sources */,
-				797A78480DDCFB3E0050D0C2 /* main.c in Sources */,
-				797A78490DDCFB3E0050D0C2 /* MySpotlightImporter.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1117,11 +1024,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		02216F621412D6E900789BD1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 02216F201412D54600789BD1 /* Submodules */;
-			targetProxy = 02216F611412D6E900789BD1 /* PBXContainerItemProxy */;
-		};
 		02216F641412D6F000789BD1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 02216F201412D54600789BD1 /* Submodules */;
@@ -1131,11 +1033,6 @@
 			isa = PBXTargetDependency;
 			name = "mongo-objc-driver";
 			targetProxy = 02787191198BFE510089BDD5 /* PBXContainerItemProxy */;
-		};
-		790512FC0DDD0A100070760D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 797A78380DDCFADE0050D0C2 /* MongoHub Spotlight Importer */;
-			targetProxy = 790512FB0DDD0A100070760D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1227,47 +1124,6 @@
 			};
 			name = Release;
 		};
-		797A783B0DDCFADE0050D0C2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INFOPLIST_FILE = "Spotlight Importer/Importer-Info.plist";
-				INSTALL_PATH = "@executable_path/../Contents/Library/Spotlight";
-				LIBRARY_STYLE = BUNDLE;
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = MongoHub;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				VALID_ARCHS = "i386 x86_64";
-				WRAPPER_EXTENSION = mdimporter;
-			};
-			name = Debug;
-		};
-		797A783C0DDCFADE0050D0C2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_MODEL_TUNING = G5;
-				INFOPLIST_FILE = "Spotlight Importer/Importer-Info.plist";
-				INSTALL_PATH = "@executable_path/../Contents/Library/Spotlight";
-				LIBRARY_STYLE = BUNDLE;
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = MongoHub;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				VALID_ARCHS = "i386 x86_64";
-				WRAPPER_EXTENSION = mdimporter;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1294,15 +1150,6 @@
 			buildConfigurations = (
 				26FC0A890875C7B200E6366F /* Debug */,
 				26FC0A8A0875C7B200E6366F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		797A783D0DDCFADE0050D0C2 /* Build configuration list for PBXNativeTarget "MongoHub Spotlight Importer" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				797A783B0DDCFADE0050D0C2 /* Debug */,
-				797A783C0DDCFADE0050D0C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
