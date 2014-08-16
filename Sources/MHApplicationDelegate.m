@@ -302,9 +302,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
-    NSString *appVersion = [[NSString alloc] initWithFormat:@"version: %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-    [bundleVersion setStringValue: appVersion];
-    [appVersion release];
+    self.bundleVersion.stringValue = [NSString stringWithFormat:@"version: %@", [NSBundle.mainBundle.infoDictionary objectForKey:@"CFBundleShortVersionString"]];
     
     self.updater = [[[SUUpdater alloc] init] autorelease];
     self.updater.delegate = self;
