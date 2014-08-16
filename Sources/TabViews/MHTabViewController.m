@@ -2,7 +2,7 @@
 //  MHTabViewController.m
 //  MongoHub
 //
-//  Created by Jérôme Lebel on 02/12/11.
+//  Created by Jérôme Lebel on 02/12/2011.
 //
 
 #import "MHTabViewController.h"

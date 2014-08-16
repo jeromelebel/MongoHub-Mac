@@ -2,7 +2,7 @@
 //  MODHelper.m
 //  MongoHub
 //
-//  Created by Jérôme Lebel on 20/09/11.
+//  Created by Jérôme Lebel on 20/09/2011.
 //
 
 #import "MODHelper.h"

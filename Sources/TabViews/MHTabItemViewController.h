@@ -2,7 +2,7 @@
 //  MHTabItemViewController.h
 //  MongoHub
 //
-//  Created by Jérôme Lebel on 04/12/11.
+//  Created by Jérôme Lebel on 04/12/2011.
 //
 
 #import <Cocoa/Cocoa.h>

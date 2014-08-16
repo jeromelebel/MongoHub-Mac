@@ -2,7 +2,7 @@
 //  MHCollectionItem.m
 //  MongoHub
 //
-//  Created by Jérôme Lebel on 24/10/11.
+//  Created by Jérôme Lebel on 24/10/2011.
 //
 
 #import "MHCollectionItem.h"

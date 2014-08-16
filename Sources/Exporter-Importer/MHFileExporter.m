@@ -2,7 +2,7 @@
 //  MHFileExporter.m
 //  MongoHub
 //
-//  Created by Jérôme Lebel on 19/11/11.
+//  Created by Jérôme Lebel on 19/11/2011.
 //
 
 #import "MHFileExporter.h"

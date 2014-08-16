@@ -2,7 +2,7 @@
 //  MHPreferenceController.h
 //  MongoHub
 //
-//  Created by Jérôme Lebel on 23/10/13.
+//  Created by Jérôme Lebel on 23/10/2013.
 //
 
 #import <Cocoa/Cocoa.h>

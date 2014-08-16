@@ -2,7 +2,7 @@
 //  MHTabTitleContainerView.h
 //  MongoHub
 //
-//  Created by Jérôme Lebel on 08/04/12.
+//  Created by Jérôme Lebel on 08/04/2012.
 //
 
 #import <Cocoa/Cocoa.h>

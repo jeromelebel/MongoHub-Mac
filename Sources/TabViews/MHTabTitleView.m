@@ -2,7 +2,7 @@
 //  MHTabTitleView.m
 //  MongoHub
 //
-//  Created by Jérôme Lebel on 30/11/11.
+//  Created by Jérôme Lebel on 30/11/2011.
 //
 
 #import "MHTabTitleView.h"

@@ -2,7 +2,7 @@
 //  MHConnectionEditorWindowController.h
 //  MongoHub
 //
-//  Created by Jérôme Lebel on 19/08/12.
+//  Created by Jérôme Lebel on 19/08/2012.
 //
 
 #import <Cocoa/Cocoa.h>

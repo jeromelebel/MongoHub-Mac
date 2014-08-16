@@ -2,7 +2,7 @@
 //  NSViewHelpers.h
 //  MongoHub
 //
-//  Created by Jérôme Lebel on 11/07/12.
+//  Created by Jérôme Lebel on 11/07/2012.
 //
 
 #import <Cocoa/Cocoa.h>

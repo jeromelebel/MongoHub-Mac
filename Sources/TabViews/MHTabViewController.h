@@ -2,7 +2,7 @@
 //  MHTabViewController.h
 //  MongoHub
 //
-//  Created by Jérôme Lebel on 02/12/11.
+//  Created by Jérôme Lebel on 02/12/2011.
 //  Copyright (c) 2011 fotonauts. All rights reserved.
 //
 
