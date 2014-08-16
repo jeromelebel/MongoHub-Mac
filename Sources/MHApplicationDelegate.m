@@ -308,8 +308,7 @@
     
     self.updater = [[[SUUpdater alloc] init] autorelease];
     self.updater.delegate = self;
-    [self performSelector:@selector(checkForUpdatesEveryDay:) withObject:nil afterDelay:3600 * 24];
-    [self.updater checkForUpdatesInBackground];
+    [self checkForUpdatesEveryDay:nil];
 }
 
 - (void)checkForUpdatesEveryDay:(id)sender
