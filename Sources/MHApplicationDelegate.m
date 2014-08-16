@@ -23,10 +23,12 @@
 
 @interface MHApplicationDelegate()
 @property (nonatomic, strong, readwrite) MHConnectionEditorWindowController *connectionEditorWindowController;
+@property (nonatomic, strong, readwrite) SUUpdater *updater;
 @end
 
 @implementation MHApplicationDelegate
 
+@synthesize updater = _updater;
 @synthesize window = _window;
 @synthesize connectionCollectionView = _connectionCollectionView;
 @synthesize connectionsArrayController;
@@ -37,6 +39,8 @@
 - (void)awakeFromNib
 {
     [connectionsArrayController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"alias" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
+    self.updater = [[[SUUpdater alloc] init] autorelease];
+    self.updater.delegate = self;
 }
 
 - (void)dealloc
@@ -303,7 +307,7 @@
     NSString *appVersion = [[NSString alloc] initWithFormat:@"version: %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
     [bundleVersion setStringValue: appVersion];
     [appVersion release];
-    [updater checkForUpdatesInBackground];
+    [self.updater checkForUpdatesInBackground];
 }
 
 - (void)openConnection:(MHConnectionStore *)connection
@@ -357,6 +361,11 @@
 }
 
 #pragma mark connections related method
+- (IBAction)checkForUpdatesAction:(id)sender
+{
+    [self.updater checkForUpdates:sender];
+}
+
 - (IBAction)addNewConnectionAction:(id)sender
 {
     if (!self.connectionEditorWindowController) {
@@ -491,7 +500,7 @@
             break;
     }
     [NSUserDefaults.standardUserDefaults synchronize];
-    [updater checkForUpdatesInBackground];
+    [self.updater checkForUpdatesInBackground];
 }
 
 @end

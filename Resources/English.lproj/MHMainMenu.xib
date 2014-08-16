@@ -134,7 +134,7 @@
                             <menuItem title="Check for updates" id="622">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="checkForUpdates:" target="621" id="624"/>
+                                    <action selector="checkForUpdatesAction:" target="205" id="Hn9-Qf-WuP"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="623"/>
@@ -476,11 +476,6 @@ DQ
                 </menuItem>
             </items>
         </menu>
-        <customObject id="621" customClass="SUUpdater">
-            <connections>
-                <outlet property="delegate" destination="205" id="bKc-K4-KEF"/>
-            </connections>
-        </customObject>
         <customObject id="205" userLabel="MHApplicationDelegate" customClass="MHApplicationDelegate">
             <connections>
                 <outlet property="_connectionCollectionView" destination="530" id="ePU-9Y-RqE"/>
@@ -488,7 +483,6 @@ DQ
                 <outlet property="bundleVersion" destination="603" id="620"/>
                 <outlet property="connectionsArrayController" destination="542" id="565"/>
                 <outlet property="supportPanel" destination="599" id="713"/>
-                <outlet property="updater" destination="621" id="733"/>
             </connections>
         </customObject>
         <collectionViewItem id="531" customClass="MHConnectionViewItem">

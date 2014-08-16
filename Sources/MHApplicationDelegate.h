@@ -37,7 +37,7 @@ typedef enum {
     IBOutlet NSTextField                    *bundleVersion;
   
     IBOutlet NSPanel                        *supportPanel;
-    IBOutlet SUUpdater                      *updater;
+    SUUpdater                               *_updater;
 }
 
 @property (nonatomic, retain, readonly) NSWindow *window;
