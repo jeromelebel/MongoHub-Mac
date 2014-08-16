@@ -49,7 +49,6 @@ typedef enum {
 @property (nonatomic, retain) MHConnectionCollectionView *connectionCollectionView;
 @property (nonatomic, retain) ConnectionsArrayController *connectionsArrayController;
 @property (nonatomic, retain) NSTextField *bundleVersion;
-@property (nonatomic, strong, readonly) MHPreferenceController *preferenceController;
 @property (nonatomic, assign, readwrite) MHSoftwareUpdateChannel softwareUpdateChannel;
 
 @end

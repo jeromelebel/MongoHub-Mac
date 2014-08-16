@@ -24,6 +24,8 @@
 @interface MHApplicationDelegate()
 @property (nonatomic, strong, readwrite) MHConnectionEditorWindowController *connectionEditorWindowController;
 @property (nonatomic, strong, readwrite) SUUpdater *updater;
+@property (nonatomic, strong, readwrite) MHPreferenceController *preferenceController;
+
 @end
 
 @implementation MHApplicationDelegate
@@ -49,6 +51,8 @@
     [managedObjectModel release];
     
     self.connectionCollectionView = nil;
+    self.preferenceController = nil;
+    self.updater = nil;
     [connectionsArrayController release];
     
     [bundleVersion release];
@@ -466,19 +470,18 @@
 
 - (IBAction)openPreferenceWindow:(id)sender
 {
-    if (!_preferenceController) {
-        _preferenceController = [[MHPreferenceController preferenceController] retain];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closingPreferenceController:) name:MHPreferenceControllerClosing object:_preferenceController];
+    if (!self.preferenceController) {
+        self.preferenceController = [MHPreferenceController preferenceController];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closingPreferenceController:) name:MHPreferenceControllerClosing object:self.preferenceController];
     }
-    [_preferenceController openWindow:sender];
+    [self.preferenceController openWindow:sender];
 }
 
 - (void)closingPreferenceController:(NSNotification *)notification
 {
-    if (notification.object == _preferenceController) {
+    if (notification.object == self.preferenceController) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:notification.object];
-        [_preferenceController autorelease];
-        _preferenceController = nil;
+        self.preferenceController = nil;
     }
 }
 
