@@ -39,8 +39,6 @@
 - (void)awakeFromNib
 {
     [connectionsArrayController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"alias" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
-    self.updater = [[[SUUpdater alloc] init] autorelease];
-    self.updater.delegate = self;
 }
 
 - (void)dealloc
@@ -307,7 +305,17 @@
     NSString *appVersion = [[NSString alloc] initWithFormat:@"version: %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
     [bundleVersion setStringValue: appVersion];
     [appVersion release];
+    
+    self.updater = [[[SUUpdater alloc] init] autorelease];
+    self.updater.delegate = self;
+    [self performSelector:@selector(checkForUpdatesEveryDay:) withObject:nil afterDelay:3600 * 24];
     [self.updater checkForUpdatesInBackground];
+}
+
+- (void)checkForUpdatesEveryDay:(id)sender
+{
+    [self.updater checkForUpdatesInBackground];
+    [self performSelector:@selector(checkForUpdatesEveryDay:) withObject:nil afterDelay:3600 * 24];
 }
 
 - (void)openConnection:(MHConnectionStore *)connection
@@ -361,6 +369,7 @@
 }
 
 #pragma mark connections related method
+
 - (IBAction)checkForUpdatesAction:(id)sender
 {
     [self.updater checkForUpdates:sender];
