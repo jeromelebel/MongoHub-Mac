@@ -1,3 +1,3 @@
-[submodule "Libraries/mongo-objc-driver"]
-	path = Libraries/mongo-objc-driver
-	url = git@github.com:fotonauts/mongo-objc-driver.git
+[submodule "Libraries/MongoObjCDriver"]
+	path = Libraries/MongoObjCDriver
+	url = git@github.com:jeromelebel/MongoObjCDriver.git
