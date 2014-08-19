@@ -23,7 +23,7 @@
 #import "MHFileExporter.h"
 #import "MHFileImporter.h"
 #import "MODHelper.h"
-#import <mongo-objc-driver/MOD_public.h>
+#import <MongoObjCDriver/MongoObjCDriver.h>
 #import "MHStatusViewController.h"
 #import "MHTabViewController.h"
 #import "MHImportExportFeedback.h"

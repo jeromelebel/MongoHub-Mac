@@ -9,7 +9,7 @@
 #import "MHConnectionStore.h"
 #import "MHDatabaseItem.h"
 #import "MHCollectionItem.h"
-#import <mongo-objc-driver/MOD_public.h>
+#import <MongoObjCDriver/MongoObjCDriver.h>
 #import "MHResultsOutlineViewController.h"
 #import "MODHelper.h"
 

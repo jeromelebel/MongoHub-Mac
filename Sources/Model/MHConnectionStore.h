@@ -7,7 +7,7 @@
 //
 
 #import <CoreData/CoreData.h>
-#import <mongo-objc-driver/MOD_public.h>
+#import <MongoObjCDriver/MongoObjCDriver.h>
 
 #define DEFAULT_MONGO_IP                            @"127.0.0.1"
 

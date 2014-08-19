@@ -7,7 +7,7 @@
 //
 
 #import "MHJsonWindowController.h"
-#import <mongo-objc-driver/MOD_public.h>
+#import <MongoObjCDriver/MongoObjCDriver.h>
 
 @interface MHJsonWindowController ()
 @property (nonatomic, readwrite, strong) NSProgressIndicator *progressIndicator;

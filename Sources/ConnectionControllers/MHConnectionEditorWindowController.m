@@ -9,7 +9,7 @@
 #import "MHConnectionStore.h"
 #import "ConnectionsArrayController.h"
 #import "MHKeychain.h"
-#import <mongo-objc-driver/MOD_public.h>
+#import <MongoObjCDriver/MongoObjCDriver.h>
 
 #define COPY_ALIAS_SUFFIX @" - Copy"
 #define SINGLESERVER_TAB_IDENTIER           @"singleserver"

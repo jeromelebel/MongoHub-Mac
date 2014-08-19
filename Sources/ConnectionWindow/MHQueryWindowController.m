@@ -10,7 +10,7 @@
 #import "MHResultsOutlineViewController.h"
 #import "NSString+Helpers.h"
 #import "MHJsonWindowController.h"
-#import <mongo-objc-driver/MOD_public.h>
+#import <MongoObjCDriver/MongoObjCDriver.h>
 #import "MODHelper.h"
 #import "MHConnectionStore.h"
 #import "NSViewHelpers.h"

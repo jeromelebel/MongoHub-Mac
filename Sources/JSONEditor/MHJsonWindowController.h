@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "UKSyntaxColoredTextViewController.h"
-#import <mongo-objc-driver/MOD_public.h>
+#import <MongoObjCDriver/MongoObjCDriver.h>
 
 @class MODClient;
 @class MODCollection;

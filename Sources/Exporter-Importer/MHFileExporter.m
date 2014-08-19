@@ -6,7 +6,7 @@
 //
 
 #import "MHFileExporter.h"
-#import <mongo-objc-driver/MOD_public.h>
+#import <MongoObjCDriver/MongoObjCDriver.h>
 
 @interface MHFileExporter ()
 @property (nonatomic, readwrite, retain) NSError *error;
