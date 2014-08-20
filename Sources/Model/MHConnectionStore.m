@@ -179,7 +179,7 @@
     NSArray *components;
     NSArray *pathComponents;
     NSArray *serverComponents;
-    NSDictionary *parameterComponents;
+    NSDictionary *parameterComponents = nil;
     
     if (![stringURL hasPrefix:MONGODB_SCHEME]) {
         if (errorMessage) {
