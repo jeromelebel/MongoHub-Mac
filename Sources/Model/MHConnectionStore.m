@@ -83,7 +83,10 @@
     NSMutableArray *array = [NSMutableArray array];
     
     for (NSString *host in [servers componentsSeparatedByString:@","]) {
-        [array addObject:[host stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+        host = [host stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        if (host.length > 0) {
+            [array addObject:host];
+        }
     }
     return array;
 }
