@@ -11,8 +11,8 @@
 @class ConnectionsArrayController;
 
 @protocol MHConnectionEditorWindowControllerDelegate <NSObject>
-@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain, readonly) ConnectionsArrayController *connectionsArrayController;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, readonly) ConnectionsArrayController *connectionsArrayController;
 - (void)connectionWindowControllerDidCancel:(MHConnectionEditorWindowController *)controller;
 - (void)connectionWindowControllerDidValidate:(MHConnectionEditorWindowController *)controller;
 @end
@@ -47,10 +47,10 @@
     BOOL                                _newConnection;
     id<MHConnectionEditorWindowControllerDelegate> _delegate;
 }
-@property (nonatomic, retain, readwrite) MHConnectionStore *editedConnectionStore;
-@property (nonatomic, retain, readwrite) MHConnectionStore *connectionStoreDefaultValue;
+@property (nonatomic, strong, readwrite) MHConnectionStore *editedConnectionStore;
+@property (nonatomic, strong, readwrite) MHConnectionStore *connectionStoreDefaultValue;
 @property (nonatomic, assign, readwrite) id<MHConnectionEditorWindowControllerDelegate> delegate;
-@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, assign, readonly, getter=isNewConnetion) BOOL newConnection;
 
 @property (nonatomic, readonly, assign) IBOutlet NSTextField *aliasTextField;
