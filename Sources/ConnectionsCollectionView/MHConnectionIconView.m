@@ -55,6 +55,7 @@
 - (void)mouseDown:(NSEvent *)event
 {
     if (event.modifierFlags & NSControlKeyMask) {
+        self.delegate.selected = YES;
         [self.delegate connectionIconViewOpenContextualMenu:self withEvent:event];
     } else if (event.clickCount == 2) {
         [self.delegate connectionIconViewDoubleClick:self];
