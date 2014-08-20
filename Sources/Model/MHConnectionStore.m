@@ -9,6 +9,7 @@
 #import "MHConnectionStore.h"
 #import "MHKeychain.h"
 #import "NSString+Helpers.h"
+#import "NSDictionary+MongoHub.h"
 
 #define MAX_QUERY_PER_COLLECTION 20
 #define QUERY_HISTORY_KEY @"query_history"
@@ -175,8 +176,10 @@
     NSString *servers = nil;
     NSString *databaseName = nil;
     
+    NSArray *components;
     NSArray *pathComponents;
     NSArray *serverComponents;
+    NSDictionary *parameterComponents;
     
     if (![stringURL hasPrefix:MONGODB_SCHEME]) {
         if (errorMessage) {
@@ -184,6 +187,7 @@
         }
         return NO;
     }
+    
     stringURL = [stringURL substringFromIndex:MONGODB_SCHEME.length];
     if (stringURL.length == 0) {
         if (errorMessage) {
@@ -191,7 +195,23 @@
         }
         return NO;
     }
+    
+    /* first try to find the parameters */
+    components = [stringURL componentsSeparatedByString:@"?"];
+    if (components.count > 2) {
+        if (errorMessage) {
+            *errorMessage = @"More than one \"?\" in the URL";
+        }
+        return NO;
+    } else if (components.count == 2) {
+        // remove the parameters from the url
+        
+        parameterComponents = [NSDictionary mh_dictionaryFromURLParameters:[components objectAtIndex:1]];
+        stringURL = [components objectAtIndex:0];
+    }
+    
     pathComponents = [stringURL componentsSeparatedByString:@"/"];
+    
     serverComponents = [[pathComponents objectAtIndex:0] componentsSeparatedByString:@"@"];
     if (serverComponents.count == 1) {
         servers = [serverComponents objectAtIndex:0];
@@ -233,6 +253,12 @@
     self.servers = servers;
     self.defaultdb = databaseName;
     self.adminpass = password;
+    if ([[parameterComponents objectForKey:@"replicaSet"] length] > 0) {
+        self.repl_name = [parameterComponents objectForKey:@"replicaSet"];
+    }
+    if ([[parameterComponents objectForKey:@"ssl"] isEqual:@"true"]) {
+        self.usessl = YES;
+    }
     
     if (errorMessage) {
         *errorMessage = nil;
