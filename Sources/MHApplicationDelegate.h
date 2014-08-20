@@ -30,6 +30,7 @@ typedef enum {
     NSManagedObjectModel                    *managedObjectModel;
     NSManagedObjectContext                  *managedObjectContext;
     MHConnectionEditorWindowController      *_connectionEditorWindowController;
+    NSMutableArray                          *_urlConnectionEditorWindowControllers;
     MHPreferenceController                  *_preferenceController;
     
     IBOutlet MHConnectionCollectionView     *_connectionCollectionView;

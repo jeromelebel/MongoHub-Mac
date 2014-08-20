@@ -24,6 +24,7 @@
 @property (nonatomic, strong, readwrite) MHConnectionEditorWindowController *connectionEditorWindowController;
 @property (nonatomic, strong, readwrite) SUUpdater *updater;
 @property (nonatomic, strong, readwrite) MHPreferenceController *preferenceController;
+@property (nonatomic, strong, readwrite) NSMutableArray *urlConnectionEditorWindowControllers;
 
 @end
 
@@ -36,9 +37,11 @@
 @synthesize bundleVersion;
 @synthesize preferenceController = _preferenceController;
 @synthesize connectionEditorWindowController = _connectionEditorWindowController;
+@synthesize urlConnectionEditorWindowControllers = _urlConnectionEditorWindowControllers;
 
 - (void)awakeFromNib
 {
+    self.urlConnectionEditorWindowControllers = [NSMutableArray array];
     [connectionsArrayController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"alias" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
 }
 
@@ -49,6 +52,7 @@
     [persistentStoreCoordinator release];
     [managedObjectModel release];
     
+    self.urlConnectionEditorWindowControllers = nil;
     self.connectionCollectionView = nil;
     self.preferenceController = nil;
     self.updater = nil;
@@ -574,6 +578,7 @@
     NSEntityDescription *entity;
     NSString *errorMessage;
     NSString *stringURL;
+    MHConnectionEditorWindowController *controller;
     
     entity = [NSEntityDescription entityForName:@"Connection" inManagedObjectContext:self.managedObjectContext];
     stringURL = [event paramDescriptorForKeyword:keyDirectObject].stringValue;
@@ -583,11 +588,12 @@
         return;
     }
 
-    self.connectionEditorWindowController = [[[MHConnectionEditorWindowController alloc] init] autorelease];
-    self.connectionEditorWindowController.delegate = self;
-    self.connectionEditorWindowController.connectionStoreDefaultValue = connectionStore;
-    self.connectionEditorWindowController.window.title = stringURL;
-    [self.connectionEditorWindowController showWindow:nil];
+    controller = [[[MHConnectionEditorWindowController alloc] init] autorelease];
+    controller.delegate = self;
+    controller.connectionStoreDefaultValue = connectionStore;
+    controller.window.title = stringURL;
+    [controller showWindow:nil];
+    [self.urlConnectionEditorWindowControllers addObject:controller];
 }
 
 @end
@@ -598,6 +604,8 @@
 {
     if (self.connectionEditorWindowController == controller) {
         self.connectionEditorWindowController = nil;
+    } else {
+        [self.urlConnectionEditorWindowControllers removeObject:controller];
     }
 }
 
@@ -607,6 +615,8 @@
     self.connectionCollectionView.needsDisplay = YES;
     if (self.connectionEditorWindowController == controller) {
         self.connectionEditorWindowController = nil;
+    } else {
+        [self.urlConnectionEditorWindowControllers removeObject:controller];
     }
 }
 
