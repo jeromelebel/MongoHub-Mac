@@ -573,18 +573,21 @@
     MHConnectionStore *connectionStore;
     NSEntityDescription *entity;
     NSString *errorMessage;
+    NSString *stringURL;
     
     entity = [NSEntityDescription entityForName:@"Connection" inManagedObjectContext:self.managedObjectContext];
+    stringURL = [event paramDescriptorForKeyword:keyDirectObject].stringValue;
     connectionStore = [[[MHConnectionStore alloc] initWithEntity:entity insertIntoManagedObjectContext:nil] autorelease];
-    if (![connectionStore setValuesFromStringURL:[event paramDescriptorForKeyword:keyDirectObject].stringValue errorMessage:&errorMessage]) {
-        [[NSAlert alertWithMessageText:errorMessage defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", [event paramDescriptorForKeyword:keyDirectObject].stringValue] runModal];
+    if (![connectionStore setValuesFromStringURL:stringURL errorMessage:&errorMessage]) {
+        [[NSAlert alertWithMessageText:errorMessage defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", stringURL] runModal];
         return;
     }
 
     self.connectionEditorWindowController = [[[MHConnectionEditorWindowController alloc] init] autorelease];
     self.connectionEditorWindowController.delegate = self;
     self.connectionEditorWindowController.connectionStoreDefaultValue = connectionStore;
-    [self.connectionEditorWindowController modalForWindow:self.window];
+    self.connectionEditorWindowController.window.title = stringURL;
+    [self.connectionEditorWindowController showWindow:nil];
 }
 
 @end
