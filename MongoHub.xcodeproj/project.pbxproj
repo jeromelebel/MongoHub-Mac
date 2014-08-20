@@ -122,7 +122,7 @@
 		1DA68049118875B300DFDD29 /* removemenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DA68044118875B300DFDD29 /* removemenu.png */; };
 		1DA6804A118875B300DFDD29 /* runmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DA68045118875B300DFDD29 /* runmenu.png */; };
 		1DA6804B118875B300DFDD29 /* updatemenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DA68046118875B300DFDD29 /* updatemenu.png */; };
-		1DA6806C11888BDD00DFDD29 /* NSString+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6806B11888BDD00DFDD29 /* NSString+Helpers.m */; };
+		1DA6806C11888BDD00DFDD29 /* NSString+MongoHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6806B11888BDD00DFDD29 /* NSString+MongoHub.m */; };
 		1DCC562912C264600025F181 /* StatMonitorTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DCC562812C264600025F181 /* StatMonitorTableController.m */; };
 		1DD1CA8312C8EFD4007F2909 /* SyntaxDefinition.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1CA8112C8EFD4007F2909 /* SyntaxDefinition.plist */; };
 		1DD1CA8412C8EFD4007F2909 /* SyntaxColorDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1CA8212C8EFD4007F2909 /* SyntaxColorDefaults.plist */; };
@@ -337,8 +337,8 @@
 		1DA68044118875B300DFDD29 /* removemenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = removemenu.png; path = Resources/images/removemenu.png; sourceTree = SOURCE_ROOT; };
 		1DA68045118875B300DFDD29 /* runmenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = runmenu.png; path = Resources/images/runmenu.png; sourceTree = SOURCE_ROOT; };
 		1DA68046118875B300DFDD29 /* updatemenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = updatemenu.png; path = Resources/images/updatemenu.png; sourceTree = SOURCE_ROOT; };
-		1DA6806A11888BDD00DFDD29 /* NSString+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Helpers.h"; sourceTree = "<group>"; };
-		1DA6806B11888BDD00DFDD29 /* NSString+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Helpers.m"; sourceTree = "<group>"; };
+		1DA6806A11888BDD00DFDD29 /* NSString+MongoHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MongoHub.h"; sourceTree = "<group>"; };
+		1DA6806B11888BDD00DFDD29 /* NSString+MongoHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MongoHub.m"; sourceTree = "<group>"; };
 		1DCC562712C264600025F181 /* StatMonitorTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatMonitorTableController.h; sourceTree = "<group>"; };
 		1DCC562812C264600025F181 /* StatMonitorTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatMonitorTableController.m; sourceTree = "<group>"; };
 		1DD1CA8112C8EFD4007F2909 /* SyntaxDefinition.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SyntaxDefinition.plist; sourceTree = "<group>"; };
@@ -659,8 +659,8 @@
 			children = (
 				0255B566181A9A210019739D /* MHKeychain.h */,
 				0255B567181A9A210019739D /* MHKeychain.m */,
-				1DA6806A11888BDD00DFDD29 /* NSString+Helpers.h */,
-				1DA6806B11888BDD00DFDD29 /* NSString+Helpers.m */,
+				1DA6806A11888BDD00DFDD29 /* NSString+MongoHub.h */,
+				1DA6806B11888BDD00DFDD29 /* NSString+MongoHub.m */,
 				1D26618F11CFD1640092C6B5 /* FieldMapDataObject.h */,
 				1D26619011CFD1640092C6B5 /* FieldMapDataObject.m */,
 				1DEC7F3912B7ECAC00FC804E /* MHTunnel.h */,
@@ -940,7 +940,7 @@
 				1D799455118755EE009C187F /* MHAddDBController.m in Sources */,
 				1DF96E3B11881AED00C35AB8 /* MHAddCollectionController.m in Sources */,
 				1DF96F9211883B3800C35AB8 /* MHQueryWindowController.m in Sources */,
-				1DA6806C11888BDD00DFDD29 /* NSString+Helpers.m in Sources */,
+				1DA6806C11888BDD00DFDD29 /* NSString+MongoHub.m in Sources */,
 				1D601B5211C8F08C00C86274 /* MHMysqlImportWindowController.m in Sources */,
 				1D26614E11CFC47C0092C6B5 /* MHMysqlExportWindowController.m in Sources */,
 				1D26619111CFD1640092C6B5 /* FieldMapDataObject.m in Sources */,

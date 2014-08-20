@@ -8,7 +8,7 @@
 
 #import "MHQueryWindowController.h"
 #import "MHResultsOutlineViewController.h"
-#import "NSString+Helpers.h"
+#import "NSString+MongoHub.h"
 #import "MHJsonWindowController.h"
 #import <MongoObjCDriver/MongoObjCDriver.h>
 #import "MODHelper.h"

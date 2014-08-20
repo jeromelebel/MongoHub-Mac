@@ -7,7 +7,7 @@
 //
 
 #import "MHMysqlExportWindowController.h"
-#import "NSString+Helpers.h"
+#import "NSString+MongoHub.h"
 #import <MongoObjCDriver/MongoObjCDriver.h>
 #import <MCPKit/MCPKit.h>
 #import "FieldMapTableController.h"

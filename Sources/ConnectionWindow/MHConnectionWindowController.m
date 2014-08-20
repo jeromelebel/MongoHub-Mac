@@ -6,7 +6,7 @@
 //  Copyright 2010 MusicPeace.ORG. All rights reserved.
 //
 
-#import "NSString+Helpers.h"
+#import "NSString+MongoHub.h"
 #import "MHConnectionWindowController.h"
 #import "MHQueryWindowController.h"
 #import "MHAddDBController.h"

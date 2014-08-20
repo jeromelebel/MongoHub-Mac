@@ -1,14 +1,14 @@
 //
-//  NSString+Helpers.h
+//  NSString+MongoHub.h
 //  MongoHub
 //
 //  Created by Jerome on 07/08/2014.
 //
 
-#import "NSString+Helpers.h"
+#import "NSString+MongoHub.h"
 
 
-@implementation NSString (Helpers)
+@implementation NSString (MongoHub)
 
 - (NSString*)mh_stringByEscapingURL
 {

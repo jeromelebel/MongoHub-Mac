@@ -8,7 +8,7 @@
 
 #import "MHConnectionStore.h"
 #import "MHKeychain.h"
-#import "NSString+Helpers.h"
+#import "NSString+MongoHub.h"
 #import "NSDictionary+MongoHub.h"
 
 #define MAX_QUERY_PER_COLLECTION 20
