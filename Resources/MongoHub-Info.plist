@@ -6,17 +6,6 @@
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>com.mongohub.mongodb</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>mongodb</string>
-			</array>
-		</dict>
-	</array>
 	<key>CFBundleIconFile</key>
 	<string>Icon.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -31,10 +20,25 @@
 	<string>2.7b7</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.mongohub.mongodb</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>mongodb</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>2.7b7</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.developer-tools</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2010, The Peppers Studio</string>
 	<key>NSMainNibFile</key>
@@ -43,7 +47,5 @@
 	<string>NSApplication</string>
 	<key>SUFeedURL</key>
 	<string>https://mongohub.s3.amazonaws.com/mongohub_su_feed.xml</string>
-	<key>NSHighResolutionCapable</key>
-	<true/>
 </dict>
 </plist>
