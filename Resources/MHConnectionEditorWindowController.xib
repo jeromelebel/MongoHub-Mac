@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6206.8" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6185.11"/>
+        <deployment defaultVersion="1070" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6206.8"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHConnectionEditorWindowController">
@@ -149,7 +150,7 @@
                             <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" id="tKN-ip-eGX">
                                 <items>
-                                    <menuItem title="Single Server" state="on" id="eLj-mm-eiP"/>
+                                    <menuItem title="Single Server" id="eLj-mm-eiP"/>
                                     <menuItem title="Replica Set" tag="1" id="4Cr-SW-ghG"/>
                                     <menuItem title="Sharded Cluster" tag="2" id="0kr-NS-YZ7"/>
                                 </items>
@@ -467,7 +468,7 @@ Gw
                                         <textField verticalHuggingPriority="750" id="HQD-OS-8KZ">
                                             <rect key="frame" x="102" y="62" width="247" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="demo_repl" drawsBackground="YES" id="C6R-QE-Jse">
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Replica Set Name" drawsBackground="YES" id="C6R-QE-Jse">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
