@@ -67,14 +67,14 @@
     NSMenu *menu;
     
     menu = [[[NSMenu alloc] init] autorelease];
-    [menu addItemWithTitle:@"Open" action:@selector(menuOpenAction:) keyEquivalent:@""].target = self;
-    [menu addItemWithTitle:@"Edit…" action:@selector(menuEditAction:) keyEquivalent:@""].target = self;
-    [menu addItemWithTitle:@"Duplicate…" action:@selector(menuDuplicateAction:) keyEquivalent:@""].target = self;
+    [menu addItemWithTitle:@"Open Connection" action:@selector(menuOpenAction:) keyEquivalent:@""].target = self;
+    [menu addItemWithTitle:@"Edit Connection…" action:@selector(menuEditAction:) keyEquivalent:@""].target = self;
+    [menu addItemWithTitle:@"Duplicate Connection…" action:@selector(menuDuplicateAction:) keyEquivalent:@""].target = self;
     [menu addItemWithTitle:@"Copy URL" action:@selector(menuCopyURLAction:) keyEquivalent:@""].target = self;
     [menu addItem:[NSMenuItem separatorItem]];
-    [menu addItemWithTitle:@"Delete…" action:@selector(menuDeleteAction:) keyEquivalent:@""].target = self;
+    [menu addItemWithTitle:@"Delete Connection…" action:@selector(menuDeleteAction:) keyEquivalent:@""].target = self;
     [menu addItem:[NSMenuItem separatorItem]];
-    [menu addItemWithTitle:@"New…" action:@selector(menuNewAction:) keyEquivalent:@""].target = self;
+    [menu addItemWithTitle:@"New Connection…" action:@selector(menuNewAction:) keyEquivalent:@""].target = self;
     [NSMenu popUpContextMenu:menu withEvent:event forView:connectionIconView];
 }
 

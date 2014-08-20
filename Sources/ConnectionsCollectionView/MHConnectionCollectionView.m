@@ -56,7 +56,7 @@
     NSMenu *menu;
     
     menu = [[[NSMenu alloc] init] autorelease];
-    [menu addItemWithTitle:@"New…" action:@selector(newItemAction:) keyEquivalent:@""].target = self;
+    [menu addItemWithTitle:@"New Connection…" action:@selector(newItemAction:) keyEquivalent:@""].target = self;
     [NSMenu popUpContextMenu:menu withEvent:event forView:self];
 }
 
