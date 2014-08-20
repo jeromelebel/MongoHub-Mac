@@ -1,16 +1,16 @@
 //
-//  NSTextView+MOD.m
+//  NSTextView+MongoHub.m
 //  MongoHub
 //
 //  Created by Jérôme Lebel on 09/06/2014.
 //
 //
 
-#import "NSTextView+MOD.h"
+#import "NSTextView+MongoHub.h"
 
-@implementation NSTextView (MOD)
+@implementation NSTextView (MongoHub)
 
-- (void)mod_jsonSetup
+- (void)mh_jsonSetup
 {
     // Using a fixed-width font is a little easier on the eyes when dealing with JavaScript objects.
     [self setFont:[NSFont fontWithName:@"Menlo" size:12]];
