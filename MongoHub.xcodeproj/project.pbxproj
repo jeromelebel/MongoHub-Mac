@@ -54,6 +54,7 @@
 		02C4C1C819A231090002FBD8 /* MongoObjCDriver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */; };
 		02C4C1CA19A231600002FBD8 /* MongoObjCDriver.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		02CEE9BE1486DD7A00E488DA /* MHTabTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CEE9BD1486DD7A00E488DA /* MHTabTitleView.m */; };
+		02D83E0219A4A28F007AB2F2 /* NSDictionary+MongoHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D83E0119A4A28F007AB2F2 /* NSDictionary+MongoHub.m */; };
 		02E0FE36151DE2420094C1CD /* background-grey_center.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE29151DE2420094C1CD /* background-grey_center.png */; };
 		02E0FE37151DE2420094C1CD /* background-grey_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE2A151DE2420094C1CD /* background-grey_left.png */; };
 		02E0FE38151DE2420094C1CD /* background-grey_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE2B151DE2420094C1CD /* background-grey_right.png */; };
@@ -248,6 +249,8 @@
 		02C4C15F19A230BE0002FBD8 /* MongoObjCDriver.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MongoObjCDriver.xcodeproj; sourceTree = "<group>"; };
 		02CEE9BC1486DD7A00E488DA /* MHTabTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabTitleView.h; sourceTree = "<group>"; };
 		02CEE9BD1486DD7A00E488DA /* MHTabTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTabTitleView.m; sourceTree = "<group>"; };
+		02D83DFF19A4A1A9007AB2F2 /* NSDictionary+MongoHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MongoHub.h"; sourceTree = "<group>"; };
+		02D83E0119A4A28F007AB2F2 /* NSDictionary+MongoHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+MongoHub.m"; sourceTree = "<group>"; };
 		02E0FE29151DE2420094C1CD /* background-grey_center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-grey_center.png"; sourceTree = "<group>"; };
 		02E0FE2A151DE2420094C1CD /* background-grey_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-grey_left.png"; sourceTree = "<group>"; };
 		02E0FE2B151DE2420094C1CD /* background-grey_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-grey_right.png"; sourceTree = "<group>"; };
@@ -672,6 +675,8 @@
 				025F635115AE21F300CD0EB4 /* NSViewHelpers.m */,
 				029CAA711946028800FD44B4 /* NSTextView+MOD.h */,
 				029CAA721946028800FD44B4 /* NSTextView+MOD.m */,
+				02D83DFF19A4A1A9007AB2F2 /* NSDictionary+MongoHub.h */,
+				02D83E0119A4A28F007AB2F2 /* NSDictionary+MongoHub.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -941,6 +946,7 @@
 				1D26619111CFD1640092C6B5 /* FieldMapDataObject.m in Sources */,
 				1D26619411CFD2560092C6B5 /* FieldMapTableController.m in Sources */,
 				1DEC7F3B12B7ECAD00FC804E /* MHTunnel.m in Sources */,
+				02D83E0219A4A28F007AB2F2 /* NSDictionary+MongoHub.m in Sources */,
 				1DCC562912C264600025F181 /* StatMonitorTableController.m in Sources */,
 				1D64100212C8E16C0030AA4C /* NSArray+Color.m in Sources */,
 				0279C093189C03E000F8BACB /* MHImportExportFeedback.m in Sources */,
