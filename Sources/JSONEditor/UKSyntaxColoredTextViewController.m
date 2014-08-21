@@ -30,7 +30,6 @@
 // -----------------------------------------------------------------------------
 
 #import "UKSyntaxColoredTextViewController.h"
-#import "NSArray+Color.h"
 #import "NSScanner+SkipUpToCharset.h"
 
 
@@ -55,6 +54,26 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 + (NSFont *)fontWithPlistElement:(NSDictionary *)element
 {
     return [NSFont fontWithName:element[@"name"] size:[element[@"size"] floatValue]];
+}
+
++ (NSColor *)colorWithPlistElement:(NSArray *)element
+{
+    CGFloat red = 0., green = 0., blue = 0., alpha = 1.0;
+    
+    if (!element) {
+        return nil;
+    }
+    if (element.count >= 3) {
+        red = [element[0] floatValue];
+        green = [element[1] floatValue];
+        blue = [element[2] floatValue];
+    } else {
+        NSLog(@"problem");
+    }
+    if (element.count >= 4) {
+        alpha = [element[3] floatValue];
+    }
+    return [NSColor colorWithCalibratedRed:red green:green blue:blue alpha:alpha];
 }
 
 +(void) makeSurePrefsAreInited
@@ -109,13 +128,13 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
     NSDictionary *syntaxDefinitionDictionary = self.syntaxDefinitionDictionary;
     
     if (syntaxDefinitionDictionary[@"backgroundColor"]) {
-        TEXTVIEW.backgroundColor = [syntaxDefinitionDictionary[@"backgroundColor"] colorValue];
+        TEXTVIEW.backgroundColor = [self.class colorWithPlistElement:syntaxDefinitionDictionary[@"backgroundColor"]];
     }
     if (syntaxDefinitionDictionary[@"insertionPointColor"]) {
-        TEXTVIEW.insertionPointColor = [syntaxDefinitionDictionary[@"insertionPointColor"] colorValue];
+        TEXTVIEW.insertionPointColor = [self.class colorWithPlistElement:syntaxDefinitionDictionary[@"insertionPointColor"]];
     }
     if (syntaxDefinitionDictionary[@"textColor"]) {
-        TEXTVIEW.textColor = [syntaxDefinitionDictionary[@"textColor"] colorValue];
+        TEXTVIEW.textColor = [self.class colorWithPlistElement:syntaxDefinitionDictionary[@"textColor"]];
     }
     if (syntaxDefinitionDictionary[@"font"]) {
         TEXTVIEW.font = [self.class fontWithPlistElement:syntaxDefinitionDictionary[@"font"]];
@@ -870,10 +889,10 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 			NSString*   vComponentType = [vCurrComponent objectForKey: @"Type"];
 			NSString*   vComponentName = [vCurrComponent objectForKey: @"Name"];
 			NSString*   vColorKeyName = [@"SyntaxColoring:Color:" stringByAppendingString: vComponentName];
-			NSColor*	vColor = [[vPrefs arrayForKey: vColorKeyName] colorValue];
+			NSColor*	vColor = [self.class colorWithPlistElement:[vPrefs arrayForKey: vColorKeyName]];
 			
 			if( !vColor )
-				vColor = [[vCurrComponent objectForKey: @"Color"] colorValue];
+				vColor = [self.class colorWithPlistElement:[vCurrComponent objectForKey: @"Color"]];
 			
 			if( [vComponentType isEqualToString: @"BlockComment"] )
 			{

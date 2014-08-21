@@ -96,7 +96,6 @@
 		1D601B3E11C8E7F900C86274 /* importbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D601B3C11C8E7F900C86274 /* importbox.png */; };
 		1D601B5211C8F08C00C86274 /* MHMysqlImportWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D601B5111C8F08C00C86274 /* MHMysqlImportWindowController.m */; };
 		1D601B5611C8F24300C86274 /* MysqlImport.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D601B5511C8F24300C86274 /* MysqlImport.xib */; };
-		1D64100212C8E16C0030AA4C /* NSArray+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D64100112C8E16C0030AA4C /* NSArray+Color.m */; };
 		1D64100512C8E1C00030AA4C /* NSScanner+SkipUpToCharset.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D64100412C8E1C00030AA4C /* NSScanner+SkipUpToCharset.m */; };
 		1D64100812C8E21C0030AA4C /* UKSyntaxColoredTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D64100712C8E21C0030AA4C /* UKSyntaxColoredTextViewController.m */; };
 		1D64100D12C8E3D90030AA4C /* MHJsonWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D64100C12C8E3D90030AA4C /* MHJsonWindowController.m */; };
@@ -297,8 +296,6 @@
 		1D601B5011C8F08C00C86274 /* MHMysqlImportWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMysqlImportWindowController.h; sourceTree = "<group>"; };
 		1D601B5111C8F08C00C86274 /* MHMysqlImportWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMysqlImportWindowController.m; sourceTree = "<group>"; };
 		1D601B5511C8F24300C86274 /* MysqlImport.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MysqlImport.xib; sourceTree = "<group>"; };
-		1D64100012C8E16C0030AA4C /* NSArray+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Color.h"; sourceTree = "<group>"; };
-		1D64100112C8E16C0030AA4C /* NSArray+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Color.m"; sourceTree = "<group>"; };
 		1D64100312C8E1C00030AA4C /* NSScanner+SkipUpToCharset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+SkipUpToCharset.h"; sourceTree = "<group>"; };
 		1D64100412C8E1C00030AA4C /* NSScanner+SkipUpToCharset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+SkipUpToCharset.m"; sourceTree = "<group>"; };
 		1D64100612C8E21C0030AA4C /* UKSyntaxColoredTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKSyntaxColoredTextViewController.h; sourceTree = "<group>"; };
@@ -659,8 +656,6 @@
 				1D26619011CFD1640092C6B5 /* FieldMapDataObject.m */,
 				1DEC7F3912B7ECAC00FC804E /* MHTunnel.h */,
 				1DEC7F3A12B7ECAC00FC804E /* MHTunnel.m */,
-				1D64100012C8E16C0030AA4C /* NSArray+Color.h */,
-				1D64100112C8E16C0030AA4C /* NSArray+Color.m */,
 				1D64100312C8E1C00030AA4C /* NSScanner+SkipUpToCharset.h */,
 				1D64100412C8E1C00030AA4C /* NSScanner+SkipUpToCharset.m */,
 				024F678E1427F3DE00956BF6 /* MODHelper.h */,
@@ -936,7 +931,6 @@
 				1DEC7F3B12B7ECAD00FC804E /* MHTunnel.m in Sources */,
 				02D83E0219A4A28F007AB2F2 /* NSDictionary+MongoHub.m in Sources */,
 				1DCC562912C264600025F181 /* StatMonitorTableController.m in Sources */,
-				1D64100212C8E16C0030AA4C /* NSArray+Color.m in Sources */,
 				0279C093189C03E000F8BACB /* MHImportExportFeedback.m in Sources */,
 				1D64100512C8E1C00030AA4C /* NSScanner+SkipUpToCharset.m in Sources */,
 				1D64100812C8E21C0030AA4C /* UKSyntaxColoredTextViewController.m in Sources */,
