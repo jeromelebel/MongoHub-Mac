@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>insertionPointColor</key>
+	<array>
+		<integer>1</integer>
+		<integer>1</integer>
+		<integer>1</integer>
+	</array>
+	<key>backgroundColor</key>
+	<array>
+		<integer>0</integer>
+		<integer>0</integer>
+		<integer>0</integer>
+	</array>
 	<key>Components</key>
 	<array>
-        <dict>
+		<dict>
 			<key>Color</key>
 			<array>
 				<integer>1</integer>
@@ -12,17 +24,17 @@
 				<integer>1</integer>
 			</array>
 			<key>End</key>
-			<string>"</string>
+			<string>&quot;</string>
 			<key>EscapeChar</key>
 			<string></string>
 			<key>Name</key>
 			<string>QuoteStringsValue</string>
 			<key>Start</key>
-			<string>"</string>
+			<string>&quot;</string>
 			<key>Type</key>
 			<string>String</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Color</key>
 			<array>
 				<integer>0</integer>
@@ -39,7 +51,7 @@
 			<key>Type</key>
 			<string>Keywords</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Color</key>
 			<array>
 				<integer>1</integer>
@@ -58,7 +70,7 @@
 			<key>Type</key>
 			<string>Keywords</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Color</key>
 			<array>
 				<integer>1</integer>
@@ -68,55 +80,55 @@
 			<key>Keywords</key>
 			<array>
 				<string>{</string>
-                <string>}</string>
-                <string>[</string>
-                <string>]</string>
-                <string>"</string>
-                <string>,</string>
-                <string>:</string>
+				<string>}</string>
+				<string>[</string>
+				<string>]</string>
+				<string>&quot;</string>
+				<string>,</string>
+				<string>:</string>
 			</array>
 			<key>Name</key>
 			<string>IdentifiersMark</string>
 			<key>Type</key>
 			<string>Keywords</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Color</key>
 			<array>
 				<real>0.2627450980392157</real>
-				<real>0.66666666666666663</real>
-                <integer>1</integer>
+				<real>0.6666666666666666</real>
+				<integer>1</integer>
 			</array>
 			<key>Keywords</key>
 			<array>
-				<string>"_id"</string>
+				<string>&quot;_id&quot;</string>
 			</array>
 			<key>Name</key>
 			<string>IdentifiersID</string>
 			<key>Type</key>
 			<string>Keywords</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Color</key>
 			<array>
 				<real>0.2627450980392157</real>
-				<real>0.66666666666666663</real>
-                <integer>1</integer>
+				<real>0.6666666666666666</real>
+				<integer>1</integer>
 			</array>
 			<key>End</key>
-			<string>"</string>
+			<string>&quot;</string>
 			<key>Name</key>
 			<string>Operator</string>
 			<key>Start</key>
-			<string>"$</string>
+			<string>&quot;$</string>
 			<key>Type</key>
 			<string>String</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Color</key>
 			<array>
 				<integer>1</integer>
-				<real>0.56470588235294117</real>
+				<real>0.5647058823529412</real>
 				<integer>0</integer>
 			</array>
 			<key>End</key>
@@ -128,11 +140,11 @@
 			<key>Type</key>
 			<string>String</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Color</key>
 			<array>
 				<integer>1</integer>
-				<real>0.56470588235294117</real>
+				<real>0.5647058823529412</real>
 				<integer>0</integer>
 			</array>
 			<key>End</key>
@@ -144,11 +156,11 @@
 			<key>Type</key>
 			<string>String</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Color</key>
 			<array>
 				<integer>1</integer>
-				<real>0.56470588235294117</real>
+				<real>0.5647058823529412</real>
 				<integer>0</integer>
 			</array>
 			<key>End</key>

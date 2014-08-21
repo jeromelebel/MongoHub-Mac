@@ -99,7 +99,14 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 
 -(void)	setUpSyntaxColoring
 {
-    TEXTVIEW.backgroundColor = NSColor.blackColor;
+    NSDictionary *syntaxDefinitionDictionary = self.syntaxDefinitionDictionary;
+    
+    if (syntaxDefinitionDictionary[@"backgroundColor"]) {
+        TEXTVIEW.backgroundColor = [syntaxDefinitionDictionary[@"backgroundColor"] colorValue];
+    }
+    if (syntaxDefinitionDictionary[@"insertionPointColor"]) {
+        TEXTVIEW.insertionPointColor = [syntaxDefinitionDictionary[@"insertionPointColor"] colorValue];
+    }
     
 	// Set up some sensible defaults for syntax coloring:
 	[[self class] makeSurePrefsAreInited];
