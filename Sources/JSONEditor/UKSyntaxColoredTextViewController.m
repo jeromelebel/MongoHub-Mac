@@ -125,19 +125,19 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 
 -(void)	setUpSyntaxColoring
 {
-    NSDictionary *syntaxDefinitionDictionary = self.syntaxDefinitionDictionary;
+    NSDictionary *textFieldSettings = self.syntaxDefinitionDictionary[@"TextField"];
     
-    if (syntaxDefinitionDictionary[@"backgroundColor"]) {
-        TEXTVIEW.backgroundColor = [self.class colorWithPlistElement:syntaxDefinitionDictionary[@"backgroundColor"]];
+    if (textFieldSettings[@"BackgroundColor"]) {
+        TEXTVIEW.backgroundColor = [self.class colorWithPlistElement:textFieldSettings[@"BackgroundColor"]];
     }
-    if (syntaxDefinitionDictionary[@"insertionPointColor"]) {
-        TEXTVIEW.insertionPointColor = [self.class colorWithPlistElement:syntaxDefinitionDictionary[@"insertionPointColor"]];
+    if (textFieldSettings[@"InsertionPointColor"]) {
+        TEXTVIEW.insertionPointColor = [self.class colorWithPlistElement:textFieldSettings[@"InsertionPointColor"]];
     }
-    if (syntaxDefinitionDictionary[@"textColor"]) {
-        TEXTVIEW.textColor = [self.class colorWithPlistElement:syntaxDefinitionDictionary[@"textColor"]];
+    if (textFieldSettings[@"TextColor"]) {
+        TEXTVIEW.textColor = [self.class colorWithPlistElement:textFieldSettings[@"TextColor"]];
     }
-    if (syntaxDefinitionDictionary[@"font"]) {
-        TEXTVIEW.font = [self.class fontWithPlistElement:syntaxDefinitionDictionary[@"font"]];
+    if (textFieldSettings[@"TextFont"]) {
+        TEXTVIEW.font = [self.class fontWithPlistElement:textFieldSettings[@"TextFont"]];
     }
     
 	// Set up some sensible defaults for syntax coloring:

@@ -2,31 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>textColor</key>
-	<array>
-		<integer>1</integer>
-		<integer>1</integer>
-		<integer>1</integer>
-	</array>
-	<key>font</key>
-	<dict>
-		<key>name</key>
-		<string>Menlo</string>
-		<key>size</key>
-		<integer>12</integer>
-	</dict>
-	<key>insertionPointColor</key>
-	<array>
-		<integer>1</integer>
-		<integer>1</integer>
-		<integer>1</integer>
-	</array>
-	<key>backgroundColor</key>
-	<array>
-		<integer>0</integer>
-		<integer>0</integer>
-		<integer>0</integer>
-	</array>
 	<key>Components</key>
 	<array>
 		<dict>
@@ -186,5 +161,33 @@
 			<string>String</string>
 		</dict>
 	</array>
+	<key>TextField</key>
+	<dict>
+		<key>TextColor</key>
+		<array>
+			<integer>1</integer>
+			<integer>1</integer>
+			<integer>1</integer>
+		</array>
+		<key>BackgroundColor</key>
+		<array>
+			<integer>0</integer>
+			<integer>0</integer>
+			<integer>0</integer>
+		</array>
+		<key>TextFont</key>
+		<dict>
+			<key>name</key>
+			<string>Menlo</string>
+			<key>size</key>
+			<integer>12</integer>
+		</dict>
+		<key>InsertionPointColor</key>
+		<array>
+			<integer>1</integer>
+			<integer>1</integer>
+			<integer>1</integer>
+		</array>
+	</dict>
 </dict>
 </plist>
