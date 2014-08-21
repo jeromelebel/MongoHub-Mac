@@ -73,13 +73,11 @@
 	BOOL								syntaxColoringBusy;		// Set while recolorRange is busy, so we don't recursively call recolorRange.
 	NSRange								affectedCharRange;
 	NSString*							replacementString;
-	id<UKSyntaxColoredTextViewDelegate>	delegate;
+	id<UKSyntaxColoredTextViewDelegate>	_delegate;
 }
+@property (nonatomic, readwrite, assign) id<UKSyntaxColoredTextViewDelegate> delegate;
 
 +(void) 	makeSurePrefsAreInited;		// No need to call this.
-
--(void)		setDelegate: (id<UKSyntaxColoredTextViewDelegate>)delegate;
--(id)		delegate;
 
 -(IBAction)	recolorCompleteFile: (id)sender;
 -(IBAction)	toggleAutoSyntaxColoring: (id)sender;

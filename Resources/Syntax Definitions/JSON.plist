@@ -2,6 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>textColor</key>
+	<array>
+		<integer>1</integer>
+		<integer>1</integer>
+		<integer>1</integer>
+	</array>
+	<key>font</key>
+	<dict>
+		<key>name</key>
+		<string>Bank Gothic</string>
+		<key>size</key>
+		<integer>30</integer>
+	</dict>
 	<key>insertionPointColor</key>
 	<array>
 		<integer>1</integer>
