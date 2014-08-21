@@ -52,6 +52,11 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 
 @synthesize delegate = _delegate;
 
++ (NSFont *)fontWithPlistElement:(NSDictionary *)element
+{
+    return [NSFont fontWithName:element[@"name"] size:[element[@"size"] floatValue]];
+}
+
 +(void) makeSurePrefsAreInited
 {
 	if( !sSyntaxColoredTextDocPrefsInited )
@@ -108,6 +113,12 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
     }
     if (syntaxDefinitionDictionary[@"insertionPointColor"]) {
         TEXTVIEW.insertionPointColor = [syntaxDefinitionDictionary[@"insertionPointColor"] colorValue];
+    }
+    if (syntaxDefinitionDictionary[@"textColor"]) {
+        TEXTVIEW.textColor = [syntaxDefinitionDictionary[@"textColor"] colorValue];
+    }
+    if (syntaxDefinitionDictionary[@"font"]) {
+        TEXTVIEW.font = [self.class fontWithPlistElement:syntaxDefinitionDictionary[@"font"]];
     }
     
 	// Set up some sensible defaults for syntax coloring:
@@ -1358,7 +1369,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 
 -(NSDictionary*)	defaultTextAttributes
 {
-    return [NSDictionary dictionaryWithObjectsAndKeys: [NSFont userFixedPitchFontOfSize: 10.0], NSFontAttributeName, nil];
+	return [NSDictionary dictionaryWithObjectsAndKeys:TEXTVIEW.font, NSFontAttributeName, nil];
 }
 
 @end
