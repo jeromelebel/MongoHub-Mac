@@ -15,6 +15,7 @@
 #import "MHConnectionStore.h"
 #import "NSViewHelpers.h"
 #import "NSTextView+MongoHub.h"
+#import "UKSyntaxColoredTextViewController.h"
 
 #define IS_OBJECT_ID(value) ([value length] == 24 && [[value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"1234567890abcdefABCDEF"]] length] == 0)
 
@@ -38,6 +39,7 @@
 @property (nonatomic, readwrite, assign) NSTextView *insertDataTextView;
 @property (nonatomic, readwrite, assign) NSTextField *insertResultsTextField;
 @property (nonatomic, readwrite, assign) NSProgressIndicator *insertLoaderIndicator;
+@property (nonatomic, readwrite, strong) UKSyntaxColoredTextViewController *syntaxColoringController;
 
 @property (nonatomic, readwrite, assign) NSButton *updateButton;
 @property (nonatomic, readwrite, assign) NSTextField *updateCriteriaTextField;
@@ -80,6 +82,7 @@
 @synthesize findResultsViewController = _findResultsViewController, findResultsOutlineView = _findResultsOutlineView, findRemoveButton = _findRemoveButton, findCriteriaComboBox = _findCriteriaComboBox, findFieldsTextField = _findFieldsTextField, findSkipTextField = _findSkipTextField, findLimitTextField = _findLimitTextField, findSortTextField = _findSortTextField, findTotalResultsTextField = _findTotalResultsTextField, findQueryTextField = _findQueryTextField, findQueryLoaderIndicator = _findQueryLoaderIndicator;
 
 @synthesize insertDataTextView = _insertDataTextView, insertResultsTextField = _insertResultsTextField, insertLoaderIndicator = _insertLoaderIndicator, insertButton = _insertButton;
+@synthesize syntaxColoringController = _syntaxColoringController;
 
 @synthesize updateButton = _updateButton, updateCriteriaTextField = _updateCriteriaTextField, updateUpdateTextField = _updateUpdateTextField, updateUpsetCheckBox = _updateUpsetCheckBox, updateMultiCheckBox = _updateMultiCheckBox, updateResultsTextField = _updateResultsTextField, updateQueryTextField = _updateQueryTextField, updateQueryLoaderIndicator = _updateQueryLoaderIndicator;
 
@@ -122,6 +125,7 @@
 {
     [NSNotificationCenter.defaultCenter removeObserver:self name:nil object:nil];
     
+    self.syntaxColoringController = nil;
     self.indexesOutlineViewController = nil;
     self.mrOutlineViewController = nil;
     self.findResultsViewController = nil;
@@ -216,6 +220,10 @@
     self.findResultsViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.findResultsOutlineView] autorelease];
     self.indexesOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.indexOutlineView] autorelease];
     self.mrOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.mrOutlineView] autorelease];
+    
+    self.syntaxColoringController = [[UKSyntaxColoredTextViewController alloc] init];
+    self.syntaxColoringController.delegate = self;
+    self.syntaxColoringController.view = self.insertDataTextView;
     
     self.title = self.collection.absoluteName;
     _jsonWindowControllers = [[NSMutableDictionary alloc] init];
@@ -969,6 +977,15 @@
         }
     }
     return result;
+}
+
+@end
+
+@implementation MHQueryWindowController (UKSyntaxColoredTextViewDelegate)
+
+- (NSString *)syntaxDefinitionFilenameForTextViewController:(UKSyntaxColoredTextViewController*)sender
+{
+    return @"JSON";
 }
 
 @end

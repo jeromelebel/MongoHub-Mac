@@ -7,6 +7,7 @@
 //
 
 #import "MHTabItemViewController.h"
+#import "UKSyntaxColoredTextViewController.h"
 
 @class MHResultsOutlineViewController;
 @class MODCollection;
@@ -37,6 +38,7 @@
     IBOutlet NSTextView                         *_insertDataTextView;
     IBOutlet NSTextField                        *_insertResultsTextField;
     IBOutlet NSProgressIndicator                *_insertLoaderIndicator;
+    UKSyntaxColoredTextViewController           *_syntaxColoringController;
     
     IBOutlet NSButton                           *_updateButton;
     IBOutlet NSTextField                        *_updateCriteriaTextField;
@@ -165,4 +167,7 @@
 @interface MHQueryWindowController (mrTab)
 - (IBAction)mapReduce:(id)sender;
 
+@end
+
+@interface MHQueryWindowController (UKSyntaxColoredTextViewDelegate) <UKSyntaxColoredTextViewDelegate>
 @end
