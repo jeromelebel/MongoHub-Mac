@@ -99,6 +99,8 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 
 -(void)	setUpSyntaxColoring
 {
+    TEXTVIEW.backgroundColor = NSColor.blackColor;
+    
 	// Set up some sensible defaults for syntax coloring:
 	[[self class] makeSurePrefsAreInited];
 	
