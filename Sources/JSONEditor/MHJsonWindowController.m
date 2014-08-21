@@ -11,6 +11,7 @@
 
 @interface MHJsonWindowController ()
 @property (nonatomic, readwrite, strong) NSProgressIndicator *progressIndicator;
+@property (nonatomic, readwrite, strong) UKSyntaxColoredTextViewController *syntaxColoringController;
 
 @end
 
@@ -19,6 +20,7 @@
 @synthesize jsonDict;
 @synthesize myTextView;
 @synthesize progressIndicator = _progressIndicator;
+@synthesize syntaxColoringController = _syntaxColoringController;
 
 - (id)init
 {
@@ -30,9 +32,8 @@
 {
     self.collection = nil;
     [jsonDict release];
-    [syntaxColoringController setDelegate: nil];
-    [syntaxColoringController release];
-    syntaxColoringController = nil;
+    self.syntaxColoringController.delegate = nil;
+    self.syntaxColoringController = nil;
     self.progressIndicator = nil;
     [super dealloc];
 }
@@ -52,9 +53,9 @@
     [self.window setTitle:title];
     [title release];
     [myTextView setString:[jsonDict objectForKey:@"beautified"]];
-    syntaxColoringController = [[UKSyntaxColoredTextViewController alloc] init];
-    [syntaxColoringController setDelegate: self];
-    [syntaxColoringController setView: myTextView];
+    self.syntaxColoringController = [[[UKSyntaxColoredTextViewController alloc] init] autorelease];
+    self.syntaxColoringController.delegate = self;
+    self.syntaxColoringController.view = myTextView;
     
     if ([jsonDict objectForKey:@"bsondata"]) {
         if (![MODClient isEqualWithJson:[jsonDict objectForKey:@"beautified"] toBsonData:[jsonDict objectForKey:@"bsondata"] info:&info]) {
@@ -111,9 +112,9 @@
  IBAction to do a complete recolor of the whole friggin' document.
  -------------------------------------------------------------------------- */
 
-- (IBAction)recolorCompleteFile: (id)sender
+- (IBAction)recolorCompleteFile:(id)sender
 {
-    [syntaxColoringController recolorCompleteFile: sender];
+    [self.syntaxColoringController recolorCompleteFile:sender];
 }
 
 - (IBAction)save:(id)sender

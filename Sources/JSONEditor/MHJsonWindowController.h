@@ -27,7 +27,7 @@
     IBOutlet NSTextView                 *myTextView;
     NSProgressIndicator                 *_progressIndicator;
     IBOutlet NSTextField                *status;
-    UKSyntaxColoredTextViewController   *syntaxColoringController;
+    UKSyntaxColoredTextViewController   *_syntaxColoringController;
 }
 
 @property (nonatomic, retain) NSDictionary *jsonDict;
