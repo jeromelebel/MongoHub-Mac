@@ -83,11 +83,6 @@
     [self.progressIndicator stopAnimation: self];
 }
 
--(NSString *)syntaxDefinitionFilenameForTextViewController: (UKSyntaxColoredTextViewController*)sender
-{
-    return @"JSON";
-}
-
 - (void)selectionInTextViewController: (UKSyntaxColoredTextViewController*)sender                        // Update any selection status display.
               changedToStartCharacter: (NSUInteger)startCharInLine endCharacter: (NSUInteger)endCharInLine
                                inLine: (NSUInteger)lineInDoc startCharacterInDocument: (NSUInteger)startCharInDoc

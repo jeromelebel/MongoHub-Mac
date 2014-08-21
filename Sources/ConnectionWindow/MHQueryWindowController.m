@@ -983,9 +983,4 @@
 
 @implementation MHQueryWindowController (UKSyntaxColoredTextViewDelegate)
 
-- (NSString *)syntaxDefinitionFilenameForTextViewController:(UKSyntaxColoredTextViewController*)sender
-{
-    return @"JSON";
-}
-
 @end

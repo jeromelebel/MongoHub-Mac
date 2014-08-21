@@ -125,7 +125,7 @@
 		1DCC562912C264600025F181 /* StatMonitorTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DCC562812C264600025F181 /* StatMonitorTableController.m */; };
 		1DD1CA8312C8EFD4007F2909 /* SyntaxDefinition.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1CA8112C8EFD4007F2909 /* SyntaxDefinition.plist */; };
 		1DD1CA8412C8EFD4007F2909 /* SyntaxColorDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1CA8212C8EFD4007F2909 /* SyntaxColorDefaults.plist */; };
-		1DDC486912CB7758009924A1 /* JSON.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DDC486812CB7758009924A1 /* JSON.plist */; };
+		1DDC486912CB7758009924A1 /* SyntaxDefinition.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DDC486812CB7758009924A1 /* SyntaxDefinition.plist */; };
 		1DEC7F3B12B7ECAD00FC804E /* MHTunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DEC7F3A12B7ECAC00FC804E /* MHTunnel.m */; };
 		1DEC7FF112B7EDB900FC804E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DEC7FF012B7EDB900FC804E /* Security.framework */; };
 		1DEC803512B7EE2100FC804E /* SSHCommand.sh in Resources */ = {isa = PBXBuildFile; fileRef = 1DEC803412B7EE2100FC804E /* SSHCommand.sh */; };
@@ -337,7 +337,7 @@
 		1DCC562812C264600025F181 /* StatMonitorTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatMonitorTableController.m; sourceTree = "<group>"; };
 		1DD1CA8112C8EFD4007F2909 /* SyntaxDefinition.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SyntaxDefinition.plist; sourceTree = "<group>"; };
 		1DD1CA8212C8EFD4007F2909 /* SyntaxColorDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SyntaxColorDefaults.plist; sourceTree = "<group>"; };
-		1DDC486812CB7758009924A1 /* JSON.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = JSON.plist; sourceTree = "<group>"; };
+		1DDC486812CB7758009924A1 /* SyntaxDefinition.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SyntaxDefinition.plist; sourceTree = "<group>"; };
 		1DEC7F3912B7ECAC00FC804E /* MHTunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTunnel.h; sourceTree = "<group>"; };
 		1DEC7F3A12B7ECAC00FC804E /* MHTunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTunnel.m; sourceTree = "<group>"; };
 		1DEC7FF012B7EDB900FC804E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
@@ -673,7 +673,7 @@
 		1DD1CA8512C8F004007F2909 /* Syntax Definitions */ = {
 			isa = PBXGroup;
 			children = (
-				1DDC486812CB7758009924A1 /* JSON.plist */,
+				1DDC486812CB7758009924A1 /* SyntaxDefinition.plist */,
 			);
 			path = "Syntax Definitions";
 			sourceTree = "<group>";
@@ -863,7 +863,7 @@
 				1D64100F12C8E6BE0030AA4C /* MHJsonWindow.xib in Resources */,
 				1DD1CA8312C8EFD4007F2909 /* SyntaxDefinition.plist in Resources */,
 				1DD1CA8412C8EFD4007F2909 /* SyntaxColorDefaults.plist in Resources */,
-				1DDC486912CB7758009924A1 /* JSON.plist in Resources */,
+				1DDC486912CB7758009924A1 /* SyntaxDefinition.plist in Resources */,
 				0213CAEE1431F3400027795D /* dsa_pub.pem in Resources */,
 				020F511B14896DE700D4B54B /* MHTabViewController.xib in Resources */,
 				020F5129148973BA00D4B54B /* MHStatusViewController.xib in Resources */,
