@@ -35,7 +35,4 @@
 @property (nonatomic, readwrite, retain) MODCollection *collection;
 @property (nonatomic, readonly, strong) IBOutlet NSProgressIndicator *progressIndicator;
 
-- (IBAction)save:(id)sender;
-- (IBAction)recolorCompleteFile: (id)sender;
-
 @end

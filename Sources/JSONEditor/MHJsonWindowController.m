@@ -107,16 +107,6 @@
     [status display];
 }
 
-/* -----------------------------------------------------------------------------
- recolorCompleteFile:
- IBAction to do a complete recolor of the whole friggin' document.
- -------------------------------------------------------------------------- */
-
-- (IBAction)recolorCompleteFile:(id)sender
-{
-    [self.syntaxColoringController recolorCompleteFile:sender];
-}
-
 - (IBAction)save:(id)sender
 {
     MODSortedMutableDictionary *document;
