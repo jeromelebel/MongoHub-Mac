@@ -20,8 +20,8 @@
 @interface MHConnectionEditorWindowController : NSWindowController
 {
     NSTextField                         *_aliasTextField;
-    NSTextField                         *_adminuserTextField;
-    NSSecureTextField                   *_adminpassTextField;
+    NSTextField                         *_adminUserTextField;
+    NSSecureTextField                   *_adminPasswordTextField;
     NSTextField                         *_hostTextField;
     NSTextField                         *_hostportTextField;
     NSButton                            *_usereplCheckBox;
@@ -30,14 +30,15 @@
     NSTextField                         *_replicaSetNameTextField;
     NSTextField                         *_replicaSetServersTextField;
     NSTextField                         *_shardedClusterServersTextField;
-    NSTextField                         *_defaultdbTextField;
-    NSButton                            *_useSSLCheckBox;
-    NSButton                            *_usesshCheckBox;
-    NSTextField                         *_sshhostTextField;
-    NSTextField                         *_sshportTextField;
-    NSTextField                         *_sshuserTextField;
-    NSSecureTextField                   *_sshpasswordTextField;
-    NSTextField                         *_sshkeyfileTextField;
+    NSTextField                         *_defaultDatabaseTextField;
+    NSButton                            *_useSSLCheckbox;
+    NSButton                            *_acceptSelfSignedCertificateCheckbox;
+    NSButton                            *_useSSHCheckBox;
+    NSTextField                         *_sshHostTextField;
+    NSTextField                         *_sshPortTextField;
+    NSTextField                         *_sshUserTextField;
+    NSSecureTextField                   *_sshPasswordTextField;
+    NSTextField                         *_sshKeyfileTextField;
     NSButton                            *_selectKeyFileButton;
     NSButton                            *_addSaveButton;
     NSPopUpButton                       *_defaultReadModePopUpButton;
@@ -52,29 +53,6 @@
 @property (nonatomic, assign, readwrite) id<MHConnectionEditorWindowControllerDelegate> delegate;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, assign, readonly, getter=isNewConnetion) BOOL newConnection;
-
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *aliasTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *adminuserTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSSecureTextField *adminpassTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSPopUpButton *singleReplicaSetPopUpButton;
-@property (nonatomic, readonly, assign) IBOutlet NSTabView *singleReplicaSetTabView;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *hostTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *hostportTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *replicaSetServersTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *replicaSetNameTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *shardedClusterServersTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *defaultdbTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSButton *useSSLCheckBox;
-@property (nonatomic, readonly, assign) IBOutlet NSButton *usesshCheckBox;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *sshhostTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *sshportTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *sshuserTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSSecureTextField *sshpasswordTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSTextField *sshkeyfileTextField;
-@property (nonatomic, readonly, assign) IBOutlet NSButton *selectKeyFileButton;
-@property (nonatomic, readonly, assign) IBOutlet NSButton *addSaveButton;
-@property (nonatomic, readonly, assign) IBOutlet NSPopUpButton *defaultReadModePopUpButton;
-@property (nonatomic, readonly, assign) IBOutlet ConnectionsArrayController *connectionsArrayController;
 
 - (void)modalForWindow:(NSWindow *)window;
 

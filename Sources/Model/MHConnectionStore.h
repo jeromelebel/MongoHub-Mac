@@ -13,8 +13,8 @@
 
 @interface MHConnectionStore : NSManagedObject
 {
-    NSString                    *_adminpass;
-    NSString                    *_sshpassword;
+    NSString                    *_adminPassword;
+    NSString                    *_sshPassword;
 }
 + (NSString *)hostnameFromServer:(NSString *)server WithPort:(NSInteger *)port;
 + (NSString *)cleanupServers:(NSString *)servers;
@@ -27,21 +27,22 @@
 - (void)addNewQuery:(NSDictionary *)query withDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
 - (NSString *)stringURLWithSSHMapping:(NSDictionary *)sshMapping;
 
-@property (nonatomic, retain) NSString *servers;
-@property (nonatomic, retain) NSString *repl_name;
-@property (nonatomic, retain) NSString *alias;
-@property (nonatomic, retain) NSString *adminuser;
-@property (nonatomic, retain) NSString *adminpass;
-@property (nonatomic, retain) NSString *defaultdb;
-@property (nonatomic, retain) NSNumber *usessl;
-@property (nonatomic, retain) NSNumber *usessh;
-@property (nonatomic, retain) NSString *sshhost;
-@property (nonatomic, retain) NSNumber *sshport;
-@property (nonatomic, retain) NSString *sshuser;
-@property (nonatomic, retain) NSString *sshpassword;
-@property (nonatomic, retain) NSString *sshkeyfile;
-@property (nonatomic, retain) NSString *bindaddress;
-@property (nonatomic, retain) NSNumber *bindport;
+@property (nonatomic, strong) NSString *servers;
+@property (nonatomic, strong) NSString *replicaSetName;
+@property (nonatomic, strong) NSString *alias;
+@property (nonatomic, strong) NSString *adminUser;
+@property (nonatomic, strong) NSString *adminPassword;
+@property (nonatomic, strong) NSString *defaultDatabase;
+
+@property (nonatomic, strong) NSNumber *useSSL;
+@property (nonatomic, strong) NSNumber *acceptSelfSignedCertificate;
+
+@property (nonatomic, strong) NSNumber *useSSH;
+@property (nonatomic, strong) NSString *sshHost;
+@property (nonatomic, strong) NSNumber *sshPort;
+@property (nonatomic, strong) NSString *sshUser;
+@property (nonatomic, strong) NSString *sshPassword;
+@property (nonatomic, strong) NSString *sshKeyFileName;
 @property (nonatomic, assign) MODReadPreferencesReadMode defaultReadMode;
 
 @property (nonatomic, readonly, assign) NSArray *arrayServers;

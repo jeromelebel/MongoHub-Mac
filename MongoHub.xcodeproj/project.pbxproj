@@ -203,6 +203,7 @@
 		024F678F1427F3DE00956BF6 /* MODHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODHelper.m; sourceTree = "<group>"; };
 		0252361018FEC2E100286EC9 /* MHExporterImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHExporterImporter.h; sourceTree = "<group>"; };
 		0252361118FECEE700286EC9 /* MHExporterImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHExporterImporter.m; sourceTree = "<group>"; };
+		025410A119AA687C00CF437E /* MongoHub_DataModel10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel10.xcdatamodel; sourceTree = "<group>"; };
 		0255B566181A9A210019739D /* MHKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHKeychain.h; sourceTree = "<group>"; };
 		0255B567181A9A210019739D /* MHKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHKeychain.m; sourceTree = "<group>"; };
 		025B8F0A1531C76E00849A71 /* MHTabTitleContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabTitleContainerView.h; sourceTree = "<group>"; };
@@ -1096,6 +1097,7 @@
 			isa = XCVersionGroup;
 			children = (
 				02E79E9C199275A60016B4C9 /* MongoHub_DataModel9.xcdatamodel */,
+				025410A119AA687C00CF437E /* MongoHub_DataModel10.xcdatamodel */,
 				02AB33AF194880AB008C06B9 /* MongoHub_DataModel4.xcdatamodel */,
 				02AF1BEC1962B4F000926F75 /* MongoHub_DataModel5.xcdatamodel */,
 				02B7CCE4197AA07D0031A57A /* MongoHub_DataModel6.xcdatamodel */,
@@ -1106,7 +1108,7 @@
 				021BEA661463709A0091C2EA /* MongoHub_DataModel1.0.xcdatamodel */,
 				021BEA671463709A0091C2EA /* MongoHub_DataModel2.0.xcdatamodel */,
 			);
-			currentVersion = 02E79E9C199275A60016B4C9 /* MongoHub_DataModel9.xcdatamodel */;
+			currentVersion = 025410A119AA687C00CF437E /* MongoHub_DataModel10.xcdatamodel */;
 			path = MongoHub_DataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

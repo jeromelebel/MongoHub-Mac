@@ -187,15 +187,15 @@
 {
     [self.loaderIndicator startAnimation:nil];
     monitorButton.enabled = NO;
-    if (self.sshTunnel == nil && self.connectionStore.usessh.boolValue) {
+    if (self.sshTunnel == nil && self.connectionStore.useSSH.boolValue) {
         self.sshBindedPortMapping = [NSMutableDictionary dictionary];
         self.sshTunnel = [[[MHTunnel alloc] init] autorelease];
         self.sshTunnel.delegate = self;
-        self.sshTunnel.user = self.connectionStore.sshuser;
-        self.sshTunnel.host = self.connectionStore.sshhost;
-        self.sshTunnel.password = self.connectionStore.sshpassword;
-        self.sshTunnel.keyfile = self.connectionStore.sshkeyfile.stringByExpandingTildeInPath;
-        self.sshTunnel.port = self.connectionStore.sshport.intValue;
+        self.sshTunnel.user = self.connectionStore.sshUser;
+        self.sshTunnel.host = self.connectionStore.sshHost;
+        self.sshTunnel.password = self.connectionStore.sshPassword;
+        self.sshTunnel.keyfile = self.connectionStore.sshKeyFileName.stringByExpandingTildeInPath;
+        self.sshTunnel.port = self.connectionStore.sshPort.intValue;
         self.sshTunnel.aliveCountMax = 3;
         self.sshTunnel.aliveInterval = 30;
         self.sshTunnel.tcpKeepAlive = YES;
@@ -270,8 +270,8 @@
             if ([self.serverItem updateChildrenWithList:list]) {
                 [_databaseCollectionOutlineView reloadData];
             }
-        } else if (self.connectionStore.defaultdb && self.connectionStore.defaultdb.length > 0) {
-            if ([self.serverItem updateChildrenWithList:[NSArray arrayWithObject:self.connectionStore.defaultdb]]) {
+        } else if (self.connectionStore.defaultDatabase.length > 0) {
+            if ([self.serverItem updateChildrenWithList:[NSArray arrayWithObject:self.connectionStore.defaultDatabase]]) {
                 [_databaseCollectionOutlineView reloadData];
             }
         } else if (mongoQuery.error) {
