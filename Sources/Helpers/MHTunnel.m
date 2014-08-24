@@ -147,9 +147,9 @@ static BOOL testLocalPortAvailable(unsigned short port)
     NSMutableDictionary *result;
     
     result = [[NSMutableDictionary alloc] init];
-    if (![_password isEqualToString:@""]) {
+    if (self.password.length > 0) {
         [result setObject:[[NSBundle mainBundle] pathForResource:@"SSHCommand" ofType:@"sh"] forKey:@"SSH_ASKPASS"];
-        [result setObject:_password forKey:@"SSHPASSWORD"];
+        [result setObject:self.password forKey:@"SSHPASSWORD"];
     }
     [result setObject:@":0" forKey:@"DISPLAY"];
     [result setObject:[[[NSProcessInfo processInfo] environment] objectForKey:@"SSH_AUTH_SOCK"] forKey:@"SSH_AUTH_SOCK"];
