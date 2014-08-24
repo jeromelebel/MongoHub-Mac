@@ -222,6 +222,9 @@
         [self closeMongoDB];
         self.serverItem = [[[MHServerItem alloc] initWithClient:self.client delegate:self] autorelease];
         self.client = [MODClient clientWihtURLString:[self.connectionStore stringURLWithSSHMapping:self.sshBindedPortMapping]];
+        if (self.connectionStore.useSSL) {
+            self.client.sslOptions = [[[MODSSLOptions alloc] initWithPemFileName:nil pemPassword:nil caFileName:nil caDirectory:nil crlFileName:nil weakCertificate:self.connectionStore.weakCertificate.boolValue] autorelease];
+        }
         self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
         self.statusViewController.client = self.client;
         self.statusViewController.connectionStore = self.connectionStore;
