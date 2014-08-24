@@ -26,7 +26,7 @@
 @dynamic defaultDatabase;
 
 @dynamic useSSL;
-@dynamic acceptSelfSignedCertificate;
+@dynamic weakCertificate;
 
 @dynamic useSSH;
 @dynamic sshHost;

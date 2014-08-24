@@ -32,7 +32,7 @@
     NSTextField                         *_shardedClusterServersTextField;
     NSTextField                         *_defaultDatabaseTextField;
     NSButton                            *_useSSLCheckbox;
-    NSButton                            *_acceptSelfSignedCertificateCheckbox;
+    NSButton                            *_weakCertificateCheckbox;
     NSButton                            *_useSSHCheckBox;
     NSTextField                         *_sshHostTextField;
     NSTextField                         *_sshPortTextField;

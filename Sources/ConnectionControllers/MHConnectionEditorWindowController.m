@@ -30,7 +30,7 @@
 @property (nonatomic, readwrite, assign) IBOutlet NSTextField *defaultDatabaseTextField;
 
 @property (nonatomic, readwrite, assign) IBOutlet NSButton *useSSLCheckbox;
-@property (nonatomic, readwrite, assign) IBOutlet NSButton *acceptSelfSignedCertificateCheckbox;
+@property (nonatomic, readwrite, assign) IBOutlet NSButton *weakCertificateCheckbox;
 
 @property (nonatomic, readwrite, assign) IBOutlet NSButton *useSSHCheckBox;
 @property (nonatomic, readwrite, assign) IBOutlet NSTextField *sshHostTextField;
@@ -107,7 +107,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 @synthesize adminPasswordTextField = _adminPasswordTextField;
 @synthesize defaultDatabaseTextField = _defaultDatabaseTextField;
 @synthesize useSSLCheckbox = _useSSLCheckbox;
-@synthesize acceptSelfSignedCertificateCheckbox = _acceptSelfSignedCertificateCheckbox;
+@synthesize weakCertificateCheckbox = _weakCertificateCheckbox;
 @synthesize useSSHCheckBox = _useSSHCheckBox;
 @synthesize sshHostTextField = _sshHostTextField;
 @synthesize sshPortTextField = _sshPortTextField;
@@ -212,7 +212,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         self.useSSHCheckBox.state = defaultValue.useSSH.boolValue?NSOnState:NSOffState;
         [self.defaultReadModePopUpButton selectItemWithTag:tagFromPreferenceReadMode(defaultValue.defaultReadMode)];
         self.useSSLCheckbox.state = defaultValue.useSSL.boolValue?NSOnState:NSOffState;
-        self.acceptSelfSignedCertificateCheckbox.state = defaultValue.acceptSelfSignedCertificate.boolValue?NSOnState:NSOffState;
+        self.weakCertificateCheckbox.state = defaultValue.weakCertificate.boolValue?NSOnState:NSOffState;
     } else {
         self.window.title = NSLocalizedString(@"New Connection", @"New Connection");
         self.hostTextField.stringValue = @"";
@@ -229,7 +229,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         self.sshPasswordTextField.stringValue = @"";
         self.sshKeyfileTextField.stringValue = @"";
         self.useSSLCheckbox.state = NSOffState;
-        self.acceptSelfSignedCertificateCheckbox.state = NSOffState;
+        self.weakCertificateCheckbox.state = NSOffState;
         self.useSSHCheckBox.state = NSOffState;
         [self.defaultReadModePopUpButton selectItemWithTag:0];
         [self.singleReplicaSetPopUpButton selectItemAtIndex:0];
@@ -394,7 +394,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     self.editedConnectionStore.adminPassword = self.adminPasswordTextField.stringValue;
     self.editedConnectionStore.defaultDatabase = defaultDatabase;
     self.editedConnectionStore.useSSL = @(self.useSSLCheckbox.state == NSOnState);
-    self.editedConnectionStore.acceptSelfSignedCertificate = @(self.acceptSelfSignedCertificateCheckbox.state == NSOnState);
+    self.editedConnectionStore.weakCertificate = @(self.weakCertificateCheckbox.state == NSOnState);
     self.editedConnectionStore.useSSH = @(useSSH);
     self.editedConnectionStore.sshHost = sshHost;
     self.editedConnectionStore.sshPort = @(sshPort);
@@ -446,7 +446,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 
 - (void)_updateSSLFields
 {
-    self.acceptSelfSignedCertificateCheckbox.enabled = self.useSSLCheckbox.state == NSOnState;
+    self.weakCertificateCheckbox.enabled = self.useSSLCheckbox.state == NSOnState;
 }
 
 - (void)_updateSSHFields

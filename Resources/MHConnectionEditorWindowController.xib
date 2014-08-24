@@ -7,16 +7,12 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHConnectionEditorWindowController">
             <connections>
-                <outlet property="acceptSelfSignedCertificateCheckbox" destination="0LP-qJ-orR" id="33J-Le-xrS"/>
                 <outlet property="addSaveButton" destination="11" id="WBj-QH-AgK"/>
                 <outlet property="adminPasswordTextField" destination="85" id="iSF-pO-3Ny"/>
                 <outlet property="adminUserTextField" destination="79" id="MbE-7o-2fh"/>
-                <outlet property="adminpassTextField" destination="85" id="PXA-VR-zex"/>
-                <outlet property="adminuserTextField" destination="79" id="ZN0-qv-yXb"/>
                 <outlet property="aliasTextField" destination="27" id="FQ7-rk-i4Z"/>
                 <outlet property="defaultDatabaseTextField" destination="91" id="b7v-TY-4sT"/>
                 <outlet property="defaultReadModePopUpButton" destination="rqH-1A-H0s" id="xTi-ZY-9tD"/>
-                <outlet property="defaultdbTextField" destination="91" id="rvT-vm-3H4"/>
                 <outlet property="hostTextField" destination="uBy-gb-irv" id="Ljs-np-8sE"/>
                 <outlet property="hostportTextField" destination="e3c-6q-I5k" id="1y9-7h-hCI"/>
                 <outlet property="replicaSetNameTextField" destination="HQD-OS-8KZ" id="vji-da-eTh"/>
@@ -32,6 +28,7 @@
                 <outlet property="sshUserTextField" destination="51" id="JxA-N0-ADo"/>
                 <outlet property="useSSHCheckBox" destination="34" id="sW5-tL-0kE"/>
                 <outlet property="useSSLCheckbox" destination="a2P-8z-1w5" id="geQ-sO-riz"/>
+                <outlet property="weakCertificateCheckbox" destination="0LP-qJ-orR" id="zgo-gD-eqQ"/>
                 <outlet property="window" destination="1" id="19"/>
             </connections>
         </customObject>
@@ -519,9 +516,9 @@ Gw
                         </connections>
                     </tabView>
                     <button id="0LP-qJ-orR">
-                        <rect key="frame" x="154" y="231" width="164" height="18"/>
+                        <rect key="frame" x="154" y="231" width="124" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Self-Signed Certificate" bezelStyle="regularSquare" imagePosition="left" inset="2" id="rPx-Ii-kqg">
+                        <buttonCell key="cell" type="check" title="Weak Certificate" bezelStyle="regularSquare" imagePosition="left" inset="2" id="rPx-Ii-kqg">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
