@@ -54,6 +54,7 @@
 		02C4C1C819A231090002FBD8 /* MongoObjCDriver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */; };
 		02C4C1CA19A231600002FBD8 /* MongoObjCDriver.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		02CEE9BE1486DD7A00E488DA /* MHTabTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CEE9BD1486DD7A00E488DA /* MHTabTitleView.m */; };
+		02CF9CC919AA9E8A00EEF76B /* MHMongoHubMigration9to10.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 02CF9CC819AA9E8A00EEF76B /* MHMongoHubMigration9to10.xcmappingmodel */; };
 		02D83E0219A4A28F007AB2F2 /* NSDictionary+MongoHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D83E0119A4A28F007AB2F2 /* NSDictionary+MongoHub.m */; };
 		02E0FE36151DE2420094C1CD /* background-grey_center.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE29151DE2420094C1CD /* background-grey_center.png */; };
 		02E0FE37151DE2420094C1CD /* background-grey_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE2A151DE2420094C1CD /* background-grey_left.png */; };
@@ -73,6 +74,7 @@
 		02E79EAA199418400016B4C9 /* MHConnectionCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E79EA9199418400016B4C9 /* MHConnectionCollectionView.m */; };
 		02F2A1F71817E48B0053CB20 /* MHPreferenceController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F2A1F61817E48B0053CB20 /* MHPreferenceController.xib */; };
 		02F2A1FA1817E4BC0053CB20 /* MHPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2A1F91817E4BC0053CB20 /* MHPreferenceController.m */; };
+		02F4F02E19AA9F6D00A9B836 /* MHMongoHubMigration9to10.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F4F02D19AA9F6D00A9B836 /* MHMongoHubMigration9to10.m */; };
 		02FCD3CF13BB9EA400316A9F /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FCD3CE13BB9EA400316A9F /* Sparkle.framework */; };
 		02FCD3D813BBA4A300316A9F /* MCPKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FCD3D713BBA4A300316A9F /* MCPKit.framework */; };
 		02FCD3D913BCC7D200316A9F /* RegexKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 026B2DE413BB6FB8009BEA7B /* RegexKit.framework */; };
@@ -246,6 +248,7 @@
 		02C4C15F19A230BE0002FBD8 /* MongoObjCDriver.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MongoObjCDriver.xcodeproj; sourceTree = "<group>"; };
 		02CEE9BC1486DD7A00E488DA /* MHTabTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabTitleView.h; sourceTree = "<group>"; };
 		02CEE9BD1486DD7A00E488DA /* MHTabTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTabTitleView.m; sourceTree = "<group>"; };
+		02CF9CC819AA9E8A00EEF76B /* MHMongoHubMigration9to10.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MHMongoHubMigration9to10.xcmappingmodel; sourceTree = "<group>"; };
 		02D83DFF19A4A1A9007AB2F2 /* NSDictionary+MongoHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MongoHub.h"; sourceTree = "<group>"; };
 		02D83E0119A4A28F007AB2F2 /* NSDictionary+MongoHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+MongoHub.m"; sourceTree = "<group>"; };
 		02E0FE29151DE2420094C1CD /* background-grey_center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-grey_center.png"; sourceTree = "<group>"; };
@@ -271,6 +274,8 @@
 		02F2A1F61817E48B0053CB20 /* MHPreferenceController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHPreferenceController.xib; sourceTree = "<group>"; };
 		02F2A1F81817E4BC0053CB20 /* MHPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHPreferenceController.h; sourceTree = "<group>"; };
 		02F2A1F91817E4BC0053CB20 /* MHPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPreferenceController.m; sourceTree = "<group>"; };
+		02F4F02C19AA9F6D00A9B836 /* MHMongoHubMigration9to10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMongoHubMigration9to10.h; sourceTree = "<group>"; };
+		02F4F02D19AA9F6D00A9B836 /* MHMongoHubMigration9to10.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMongoHubMigration9to10.m; sourceTree = "<group>"; };
 		02FCD3CE13BB9EA400316A9F /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		02FCD3D713BBA4A300316A9F /* MCPKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MCPKit.framework; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -482,6 +487,9 @@
 				021315AD198ABF41006378C5 /* MHMongoHubMigration7to8.xcmappingmodel */,
 				0242F136198ABE3E00C73FEC /* MHMongoHubMigration7to8.h */,
 				0242F137198ABE3E00C73FEC /* MHMongoHubMigration7to8.m */,
+				02CF9CC819AA9E8A00EEF76B /* MHMongoHubMigration9to10.xcmappingmodel */,
+				02F4F02C19AA9F6D00A9B836 /* MHMongoHubMigration9to10.h */,
+				02F4F02D19AA9F6D00A9B836 /* MHMongoHubMigration9to10.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -913,6 +921,7 @@
 				0255B568181A9A210019739D /* MHKeychain.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				77C8280E06725ACE000B614F /* MHApplicationDelegate.m in Sources */,
+				02F4F02E19AA9F6D00A9B836 /* MHMongoHubMigration9to10.m in Sources */,
 				1D93C1DA11832C1D003216F7 /* MHConnectionStore.m in Sources */,
 				02E79EAA199418400016B4C9 /* MHConnectionCollectionView.m in Sources */,
 				029CAA731946028800FD44B4 /* NSTextView+MongoHub.m in Sources */,
@@ -941,6 +950,7 @@
 				029D30A5145613420021B9C9 /* MHDatabaseItem.m in Sources */,
 				029D30A9145613580021B9C9 /* MHCollectionItem.m in Sources */,
 				029D30AC145613C30021B9C9 /* MHServerItem.m in Sources */,
+				02CF9CC919AA9E8A00EEF76B /* MHMongoHubMigration9to10.xcmappingmodel in Sources */,
 				0242F11A198922B900C73FEC /* MHMongoHubMigration6to7.xcmappingmodel in Sources */,
 				021BEA681463709A0091C2EA /* MongoHub_DataModel.xcdatamodeld in Sources */,
 				02AA29931477F8BD0041865F /* MHFileExporter.m in Sources */,
