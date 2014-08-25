@@ -252,7 +252,6 @@
     [self.sshTunnel stop];
     [self.client cancelAllOperations];
     self.client = nil;
-    self.window = nil;
     [self release];
 }
 
