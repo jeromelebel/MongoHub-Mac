@@ -242,11 +242,6 @@
     [self query:sender];
 }
 
-- (IBAction)reconnect:(id)sender
-{
-    [self connectToServer];
-}
-
 - (void)windowWillClose:(NSNotification *)notification
 {
     [self.sshTunnel stop];
