@@ -41,15 +41,15 @@ typedef enum {
     SUUpdater                               *_updater;
 }
 
-@property (nonatomic, retain, readonly) NSWindow *window;
+@property (nonatomic, strong, readonly) NSWindow *window;
 
-@property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 
-@property (nonatomic, retain) MHConnectionCollectionView *connectionCollectionView;
-@property (nonatomic, retain) ConnectionsArrayController *connectionsArrayController;
-@property (nonatomic, retain) NSTextField *bundleVersion;
+@property (nonatomic, strong) MHConnectionCollectionView *connectionCollectionView;
+@property (nonatomic, strong) ConnectionsArrayController *connectionsArrayController;
+@property (nonatomic, strong) NSTextField *bundleVersion;
 @property (nonatomic, assign, readwrite) MHSoftwareUpdateChannel softwareUpdateChannel;
 
 @end
