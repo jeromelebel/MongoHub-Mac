@@ -87,8 +87,8 @@
 - (id)init
 {
     if (self = [super initWithWindowNibName:@"MHConnectionWindow"]) {
-        self.databases = [[[NSMutableArray alloc] init] autorelease];
-        self.tabItemControllers = [[[NSMutableDictionary alloc] init] autorelease];
+        self.databases = [NSMutableArray array];
+        self.tabItemControllers = [NSMutableDictionary dictionary];
     }
     return self;
 }
