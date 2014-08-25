@@ -239,9 +239,7 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    NSString *appVersion = [[NSString alloc] initWithFormat:@"version: %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-    [bundleVersion setStringValue: appVersion];
-    [appVersion release];
+    bundleVersion.stringValue = [NSString stringWithFormat:@"version: %@", NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"]];
     [self connectToServer];
     [_databaseCollectionOutlineView setDoubleAction:@selector(sidebarDoubleAction:)];
 }
