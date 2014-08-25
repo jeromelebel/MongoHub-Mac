@@ -32,6 +32,7 @@
 
 @protocol MHConnectionWindowControllerDelegate <NSObject>
 - (void)connectionWindowControllerWillClose:(MHConnectionWindowController *)controller;
+- (BOOL)connectionWindowControllerSSHVerbose:(MHConnectionWindowController *)controller;
 
 @end
 

@@ -44,6 +44,11 @@
 
 - (void)awakeFromNib
 {
+    if ([[NSProcessInfo processInfo].environment[@"MONGOC_VERBOSE"] integerValue] != 0) {
+        [MODClient setLogCallback:^(MODLogLevel logLever, const char *logName, const char *message) {
+            NSLog(@"++ %s %s", logName, message);
+        }];
+    }
     self.connectionWindowControllers = [NSMutableArray array];
     self.urlConnectionEditorWindowControllers = [NSMutableArray array];
     [connectionsArrayController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"alias" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
@@ -669,6 +674,11 @@
 - (void)connectionWindowControllerWillClose:(MHConnectionWindowController *)controller
 {
     [self.connectionWindowControllers removeObject:controller];
+}
+
+- (BOOL)connectionWindowControllerSSHVerbose:(MHConnectionWindowController *)controller
+{
+    return [[NSProcessInfo processInfo].environment[@"SSH_VERBOSE"] integerValue] != 0;
 }
 
 @end
