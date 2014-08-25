@@ -39,6 +39,7 @@ typedef enum {
 	MHTunnelError                   _tunnelError;
 	BOOL                            _running;
 	BOOL                            _connected;
+    BOOL                            _verbose;
 	
 	NSString                        *_name;
 	NSString                        *_host;
@@ -69,6 +70,7 @@ typedef enum {
 @property (nonatomic, assign, readwrite) id<MHTunnelDelegate> delegate;
 @property (nonatomic, assign, readonly, getter = isRunning) BOOL running;
 @property (nonatomic, assign, readonly, getter = isConnected) BOOL connected;
+@property (nonatomic, assign, readwrite) BOOL verbose;
 @property (nonatomic, assign, readonly) MHTunnelError tunnelError;
 
 + (unsigned short)findFreeTCPPort;
