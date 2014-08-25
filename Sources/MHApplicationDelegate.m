@@ -26,6 +26,7 @@
 @property (nonatomic, strong, readwrite) MHPreferenceController *preferenceController;
 @property (nonatomic, strong, readwrite) NSMutableArray *urlConnectionEditorWindowControllers;
 @property (nonatomic, strong, readwrite) IBOutlet NSWindow *window;
+@property (nonatomic, strong, readwrite) NSMutableArray *connectionWindowControllers;
 
 @end
 
@@ -39,15 +40,18 @@
 @synthesize preferenceController = _preferenceController;
 @synthesize connectionEditorWindowController = _connectionEditorWindowController;
 @synthesize urlConnectionEditorWindowControllers = _urlConnectionEditorWindowControllers;
+@synthesize connectionWindowControllers = _connectionWindowControllers;
 
 - (void)awakeFromNib
 {
+    self.connectionWindowControllers = [NSMutableArray array];
     self.urlConnectionEditorWindowControllers = [NSMutableArray array];
     [connectionsArrayController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"alias" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
 }
 
 - (void)dealloc
 {
+    self.connectionWindowControllers = nil;
     self.window = nil;
     [managedObjectContext release];
     [persistentStoreCoordinator release];
@@ -325,12 +329,19 @@
 
 - (void)openConnection:(MHConnectionStore *)connection
 {
-    if ([self isOpenedConnection:connection]) {
-        return;
+    MHConnectionWindowController *connectionWindowController;
+    
+    connectionWindowController = [self connectionWindowControllerForConnectionStore:connection];
+    if (connectionWindowController) {
+        [connectionWindowController showWindow:nil];
+    } else {
+        connectionWindowController = [[MHConnectionWindowController alloc] init];
+        connectionWindowController.delegate = self;
+        connectionWindowController.connectionStore = connection;
+        [connectionWindowController showWindow:self];
+        [self.connectionWindowControllers addObject:connectionWindowController];
+        [connectionWindowController release];
     }
-    MHConnectionWindowController *connectionWindowController = [[MHConnectionWindowController alloc] init];
-    connectionWindowController.connectionStore = connection;
-    [connectionWindowController showWindow:self];
 }
 
 - (void)editConnection:(MHConnectionStore *)connection
@@ -433,18 +444,14 @@
     [self openConnection:[[connectionsArrayController selectedObjects] objectAtIndex:0]];
 }
 
-- (BOOL)isOpenedConnection:(MHConnectionStore *)aConnection
+- (MHConnectionWindowController *)connectionWindowControllerForConnectionStore:(MHConnectionStore *)connection
 {
-    NSWindow *aWindow;
-    for (aWindow in [[NSApplication sharedApplication] windows])
-    {
-        id aDelegate = [aWindow delegate];
-        if ([aDelegate isKindOfClass:[MHConnectionWindowController class]] && [aDelegate connectionStore] == aConnection) {
-            [aWindow makeKeyAndOrderFront:nil];
-            return YES;
+    for (MHConnectionWindowController *controller in self.connectionWindowControllers) {
+        if (controller.connectionStore == connection) {
+            return controller;
         }
     }
-    return NO;
+    return nil;
 }
 
 - (void)openSupportPanel:(id)sender
@@ -657,3 +664,11 @@
 
 @end
 
+@implementation MHApplicationDelegate (MHConnectionWindowControllerDelegate)
+
+- (void)connectionWindowControllerWillClose:(MHConnectionWindowController *)controller
+{
+    [self.connectionWindowControllers removeObject:controller];
+}
+
+@end

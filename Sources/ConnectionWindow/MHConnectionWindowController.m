@@ -47,7 +47,6 @@
 @property (nonatomic, readwrite, strong) MHTunnel *sshTunnel;
 @property (nonatomic, readwrite, strong) NSMutableDictionary *sshBindedPortMapping;
 
-
 - (void)updateToolbarItems;
 
 - (void)closeMongoDB;
@@ -65,6 +64,7 @@
 
 @implementation MHConnectionWindowController
 
+@synthesize delegate = _delegate;
 @synthesize connectionStore = _connectionStore;
 @synthesize client = _client;
 @synthesize monitorButton;
@@ -247,7 +247,7 @@
     [self.sshTunnel stop];
     [self.client cancelAllOperations];
     self.client = nil;
-    [self release];
+    [self.delegate connectionWindowControllerWillClose:self];
 }
 
 - (MODQuery *)getDatabaseList

@@ -26,11 +26,18 @@
 @class MHTabTitleView;
 @class MHStatusViewController;
 @class MHImportExportFeedback;
+@class MHConnectionWindowController;
 
 @protocol MHImporterExporter;
 
+@protocol MHConnectionWindowControllerDelegate <NSObject>
+- (void)connectionWindowControllerWillClose:(MHConnectionWindowController *)controller;
+
+@end
+
 @interface MHConnectionWindowController : NSWindowController
 {
+    id<MHConnectionWindowControllerDelegate>_delegate;
     NSMutableDictionary                     *_tabItemControllers;
     IBOutlet NSMenu                         *createCollectionOrDatabaseMenu;
     
@@ -68,16 +75,17 @@
     id<MHImporterExporter>                  _importerExporter;
 }
 
-@property (nonatomic, retain) MHConnectionStore *connectionStore;
-@property (nonatomic, retain) MODClient *client;
-@property (nonatomic, retain) NSMutableArray *databases;
-@property (nonatomic, retain) NSTextField *resultsTitle;
-@property (nonatomic, retain) NSProgressIndicator *loaderIndicator;
-@property (nonatomic, retain) NSButton *monitorButton;
-@property (nonatomic, retain) StatMonitorTableController *statMonitorTableController;
-@property (nonatomic, retain) NSTextField *bundleVersion;
-@property (nonatomic, retain) MHMysqlImportWindowController *mysqlImportWindowController;
-@property (nonatomic, retain) MHMysqlExportWindowController *mysqlExportWindowController;
+@property (nonatomic, readwrite, assign) id<MHConnectionWindowControllerDelegate> delegate;
+@property (nonatomic, readwrite, strong) MHConnectionStore *connectionStore;
+@property (nonatomic, readwrite, strong) MODClient *client;
+@property (nonatomic, readwrite, strong) NSMutableArray *databases;
+@property (nonatomic, readwrite, strong) NSTextField *resultsTitle;
+@property (nonatomic, readwrite, strong) NSProgressIndicator *loaderIndicator;
+@property (nonatomic, readwrite, strong) NSButton *monitorButton;
+@property (nonatomic, readwrite, strong) StatMonitorTableController *statMonitorTableController;
+@property (nonatomic, readwrite, strong) NSTextField *bundleVersion;
+@property (nonatomic, readwrite, strong) MHMysqlImportWindowController *mysqlImportWindowController;
+@property (nonatomic, readwrite, strong) MHMysqlExportWindowController *mysqlExportWindowController;
 @property (nonatomic, readonly, assign) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic, readonly, weak) IBOutlet MHTabViewController *tabViewController;
