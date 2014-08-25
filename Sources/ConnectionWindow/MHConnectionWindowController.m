@@ -183,6 +183,7 @@
     if (self.sshTunnel == nil && self.connectionStore.useSSH.boolValue) {
         self.sshBindedPortMapping = [NSMutableDictionary dictionary];
         self.sshTunnel = [[[MHTunnel alloc] init] autorelease];
+        self.sshTunnel.verbose = [[NSProcessInfo processInfo].environment[@"SSH_VERBOSE"] integerValue] != 0;
         self.sshTunnel.delegate = self;
         self.sshTunnel.user = self.connectionStore.sshUser;
         self.sshTunnel.host = self.connectionStore.sshHost;
