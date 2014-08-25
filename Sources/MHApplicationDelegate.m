@@ -48,7 +48,7 @@
 
 - (void)dealloc
 {
-    [_window release];
+    self.window = nil;
     [managedObjectContext release];
     [persistentStoreCoordinator release];
     [managedObjectModel release];
@@ -360,7 +360,7 @@
     [alert setInformativeText:@"Deleted connections cannot be restored."];
     [alert setAlertStyle:NSWarningAlertStyle];
     
-    [alert beginSheetModalForWindow:_window modalDelegate:self didEndSelector:@selector(deleteConnectionAlertDidEnd:returnCode:contextInfo:) contextInfo:connection];
+    [alert beginSheetModalForWindow:self.window modalDelegate:self didEndSelector:@selector(deleteConnectionAlertDidEnd:returnCode:contextInfo:) contextInfo:connection];
 }
 
 - (void)copyURLConnection:(MHConnectionStore *)connection
@@ -449,7 +449,7 @@
 
 - (void)openSupportPanel:(id)sender
 {
-    [NSApp beginSheet:supportPanel modalForWindow:_window modalDelegate:self didEndSelector:@selector(supportPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [NSApp beginSheet:supportPanel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(supportPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
 }
 
 - (void)supportPanelDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
@@ -469,7 +469,7 @@
 
 - (IBAction)openConnectionWindow:(id)sender
 {
-    [_window makeKeyAndOrderFront:sender];
+    [self.window makeKeyAndOrderFront:sender];
 }
 
 - (IBAction)openPreferenceWindow:(id)sender
