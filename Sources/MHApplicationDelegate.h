@@ -24,7 +24,7 @@ typedef enum {
 
 @interface MHApplicationDelegate : NSObject <NSApplicationDelegate, NSCollectionViewDelegate>
 {
-    IBOutlet NSWindow                       *_window;
+    NSWindow                                *_window;
     
     NSPersistentStoreCoordinator            *persistentStoreCoordinator;
     NSManagedObjectModel                    *managedObjectModel;

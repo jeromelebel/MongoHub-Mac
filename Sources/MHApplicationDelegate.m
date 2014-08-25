@@ -25,6 +25,7 @@
 @property (nonatomic, strong, readwrite) SUUpdater *updater;
 @property (nonatomic, strong, readwrite) MHPreferenceController *preferenceController;
 @property (nonatomic, strong, readwrite) NSMutableArray *urlConnectionEditorWindowControllers;
+@property (nonatomic, strong, readwrite) IBOutlet NSWindow *window;
 
 @end
 
