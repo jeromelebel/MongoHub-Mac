@@ -176,13 +176,6 @@
     }
 }
 
-- (void)didFailToConnectWithError:(NSError *)error
-{
-    [self.loaderIndicator stopAnimation:nil];
-    self.statusViewController.title = [NSString stringWithFormat:@"Error: %@", error.localizedDescription];
-    NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", error.localizedDescription);
-}
-
 - (void)connectToServer
 {
     [self.loaderIndicator startAnimation:nil];
