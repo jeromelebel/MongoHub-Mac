@@ -140,7 +140,7 @@
                         </buttonCell>
                         <connections>
                             <action selector="enableSSLAction:" target="-2" id="ExP-O7-zEh"/>
-                            <outlet property="nextKeyView" destination="34" id="WpK-Xu-E7j"/>
+                            <outlet property="nextKeyView" destination="0LP-qJ-orR" id="Aue-Gz-9EJ"/>
                         </connections>
                     </button>
                     <popUpButton verticalHuggingPriority="750" id="pEj-GV-7Pc">
@@ -522,6 +522,9 @@ Gw
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <outlet property="nextKeyView" destination="34" id="6Dp-qr-dJa"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>
