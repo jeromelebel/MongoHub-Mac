@@ -14,7 +14,15 @@
 {
     NSManagedObjectContext *destMOC = manager.destinationContext;
     NSManagedObject *newConnection;
-    NSDictionary *convertKeys = @{ @"adminuser": @"adminUser", @"defaultdb": @"defaultDatabase", @"repl_name": @"replicaSetName", @"sshhost": @"sshHost", @"sshport": @"sshPort", @"sshuser": @"sshUser", @"usessl": @"useSSL", @"usessh": @"useSSH", @"sshkeyfile": @"sshKeyFileName" };
+    NSDictionary *convertKeys = @{ @"adminuser": @"adminUser",
+                                   @"defaultdb": @"defaultDatabase",
+                                   @"repl_name": @"replicaSetName",
+                                   @"sshhost": @"sshHost",
+                                   @"sshport": @"sshPort",
+                                   @"sshuser": @"sshUser",
+                                   @"usessl": @"useSSL",
+                                   @"usessh": @"useSSH",
+                                   @"sshkeyfile": @"sshKeyFileName" };
     
     newConnection = [NSEntityDescription insertNewObjectForEntityForName:@"Connection" inManagedObjectContext:destMOC];
     NSArray *keys = sourceInstance.entity.attributesByName.allKeys;
