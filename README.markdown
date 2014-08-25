@@ -17,8 +17,6 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** To do list **
     
-    - Should manage a list of database/user/password for each connections
-    - Should save the password into the keychain
     - Create a document editor to edit using an outline view (like the plist editor in Xcode)
 
 ** Current **
