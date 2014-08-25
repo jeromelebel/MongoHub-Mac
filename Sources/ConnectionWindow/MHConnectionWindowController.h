@@ -82,7 +82,6 @@
 
 @property (nonatomic, readonly, weak) IBOutlet MHTabViewController *tabViewController;
 
-- (IBAction)reconnect:(id)sender;
 - (IBAction)showServerStatus:(id)sender;
 - (IBAction)showCollStats:(id)sender;
 - (IBAction)createDatabase:(id)sender;
