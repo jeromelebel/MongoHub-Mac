@@ -34,6 +34,10 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** Beta **
 
+## History
+
+** 2.7 beta 8 - august 25, 2014 **
+
     - Migrate SSH password into the keychain https://github.com/jeromelebel/MongoHub-Mac/issues/106
     - Migrate database password into the keychain https://github.com/jeromelebel/MongoHub-Mac/issues/106
     - Fix for adding a database with more than one server connected (the database was created on all servers)
@@ -41,8 +45,6 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     - Adding contextual menu in the main window
     - Can copy mongodb url
     - Adding the option for weak SSL certificate
-
-## History
 
 ** 2.7 beta 7 - july 23, 2014 **
 
