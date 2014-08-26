@@ -22,6 +22,6 @@
 {
     id<MHConnectionIconViewDelegate>    _delegate;
 }
-@property (nonatomic, readwrite, weak) id<MHConnectionIconViewDelegate> delegate;
+@property (nonatomic, readwrite, weak) IBOutlet id<MHConnectionIconViewDelegate> delegate;
 
 @end
