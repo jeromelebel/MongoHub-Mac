@@ -36,6 +36,10 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ## History
 
+** 2.7 beta 9 - august 26, 2014 **
+
+    - SSL fix
+
 ** 2.7 beta 8 - august 25, 2014 **
 
     - Migrate SSH password into the keychain https://github.com/jeromelebel/MongoHub-Mac/issues/106

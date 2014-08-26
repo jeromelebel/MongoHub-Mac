@@ -26,18 +26,12 @@
         <language>en</language>
         <item>
             <beta>1</beta>
-            <title>Version 2.7 beta 8</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b8.zip" sparkle:version="2.7b8" length="3602736" type="application/octet-stream" />
+            <title>Version 2.7 beta 9</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b9.zip" sparkle:version="2.7b9" length="3602904" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.7 beta 8</h3>
+                <h3>2.7 beta 9</h3>
                 <ul>
-                <li>Migrate SSH password into the keychain <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/106'>issue #106</a></li>
-                <li>Migrate database password into the keychain <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/106'>issue #106</a></li>
-                <li>Fix for adding a database with more than one server connected (the database was created on all servers)</li>
-                <li>Fix for adding a collection with more than one server connected (the collection was created on all servers)</li>
-                <li>Adding contextual menu in the main window</li>
-                <li>Can copy mongodb url</li>
-                <li>Adding the option for weak SSL certificate</li>
+                <li>SSL Fix</li>
                 </ul>
             ]]>
             </description>
