@@ -436,6 +436,7 @@
     if (returnCode == NSAlertSecondButtonReturn) {
         [self.connectionsArrayController removeObject:contextInfo];
         [self saveConnections];
+        [self.connectionsArrayController setSelectedObjects:@[]];
     }
 }
 
