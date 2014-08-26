@@ -64,9 +64,9 @@
 {
     self.connectionWindowControllers = nil;
     self.window = nil;
-    [managedObjectContext release];
-    [persistentStoreCoordinator release];
-    [managedObjectModel release];
+    [_managedObjectContext release];
+    [_persistentStoreCoordinator release];
+    [_managedObjectModel release];
     
     self.urlConnectionEditorWindowControllers = nil;
     self.connectionCollectionView = nil;
@@ -114,12 +114,12 @@
  
 - (NSManagedObjectModel *)managedObjectModel
 {
-    if (managedObjectModel) {
-        return managedObjectModel;
+    if (_managedObjectModel) {
+        return _managedObjectModel;
     }
     
-    managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];    
-    return managedObjectModel;
+    _managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
+    return _managedObjectModel;
 }
 
 
@@ -132,9 +132,9 @@
 
 - (NSPersistentStoreCoordinator *) persistentStoreCoordinator
 {
-    if (persistentStoreCoordinator) return persistentStoreCoordinator;
+    if (_persistentStoreCoordinator) return _persistentStoreCoordinator;
 
-    NSManagedObjectModel *mom = [self managedObjectModel];
+    NSManagedObjectModel *mom = self.managedObjectModel;
     if (!mom) {
         NSAssert(NO, @"Managed object model is nil");
         NSLog(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));
@@ -171,18 +171,18 @@
     [storeOptions setObject:[NSNumber numberWithBool:YES] forKey:NSMigratePersistentStoresAutomaticallyOption];
     [storeOptions setObject:[NSNumber numberWithBool:YES] forKey:NSInferMappingModelAutomaticallyOption];
     
-    persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: mom];
-    if (![persistentStoreCoordinator addPersistentStoreWithType:YOUR_STORE_TYPE 
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: mom];
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:YOUR_STORE_TYPE
                                                 configuration:nil 
                                                 URL:url 
                                                 options:storeOptions 
                                                 error:&error]){
         [[NSApplication sharedApplication] presentError:error];
-        [persistentStoreCoordinator release], persistentStoreCoordinator = nil;
+        [_persistentStoreCoordinator release], _persistentStoreCoordinator = nil;
         return nil;
     }    
 
-    return persistentStoreCoordinator;
+    return _persistentStoreCoordinator;
 }
 
 /**
@@ -192,7 +192,7 @@
  
 - (NSManagedObjectContext *) managedObjectContext
 {
-    if (managedObjectContext) return managedObjectContext;
+    if (_managedObjectContext) return _managedObjectContext;
 
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     
@@ -204,10 +204,10 @@
         [[NSApplication sharedApplication] presentError:error];
         return nil;
     }
-    managedObjectContext = [[NSManagedObjectContext alloc] init];
-    [managedObjectContext setPersistentStoreCoordinator: coordinator];
+    _managedObjectContext = [[NSManagedObjectContext alloc] init];
+    [_managedObjectContext setPersistentStoreCoordinator: coordinator];
 
-    return managedObjectContext;
+    return _managedObjectContext;
 }
 
 /**
@@ -253,17 +253,17 @@
  
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
-    if (!managedObjectContext) return NSTerminateNow;
+    if (!_managedObjectContext) return NSTerminateNow;
 
-    if (![managedObjectContext commitEditing]) {
+    if (![_managedObjectContext commitEditing]) {
         NSLog(@"%@:%@ unable to commit editing to terminate", [self class], NSStringFromSelector(_cmd));
         return NSTerminateCancel;
     }
 
-    if (![managedObjectContext hasChanges]) return NSTerminateNow;
+    if (![_managedObjectContext hasChanges]) return NSTerminateNow;
 
     NSError *error = nil;
-    if (![managedObjectContext save:&error]) {
+    if (![_managedObjectContext save:&error]) {
     
         // This error handling simply presents error information in a panel with an 
         // "Ok" button, which does not include any attempt at error recovery (meaning, 

@@ -26,9 +26,9 @@ typedef enum {
 {
     NSWindow                                *_window;
     
-    NSPersistentStoreCoordinator            *persistentStoreCoordinator;
-    NSManagedObjectModel                    *managedObjectModel;
-    NSManagedObjectContext                  *managedObjectContext;
+    NSPersistentStoreCoordinator            *_persistentStoreCoordinator;
+    NSManagedObjectModel                    *_managedObjectModel;
+    NSManagedObjectContext                  *_managedObjectContext;
     MHConnectionEditorWindowController      *_connectionEditorWindowController;
     NSMutableArray                          *_urlConnectionEditorWindowControllers;
     NSMutableArray                          *_connectionWindowControllers;
