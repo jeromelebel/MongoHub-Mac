@@ -101,7 +101,7 @@
                     <slider verticalHuggingPriority="750" id="708">
                         <rect key="frame" x="417" y="5" width="173" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <sliderCell key="cell" state="on" alignment="left" minValue="20" maxValue="100" doubleValue="45" tickMarkPosition="above" sliderType="linear" id="709"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="20" maxValue="100" doubleValue="45" tickMarkPosition="above" sliderType="linear" id="709"/>
                         <connections>
                             <action selector="resizeConnectionItemView:" target="205" id="732"/>
                         </connections>
