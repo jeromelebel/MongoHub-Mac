@@ -464,7 +464,7 @@
     return nil;
 }
 
-- (void)openSupportPanel:(id)sender
+- (IBAction)openSupportPanel:(id)sender
 {
     [NSApp beginSheet:self.supportPanel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(supportPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
 }
