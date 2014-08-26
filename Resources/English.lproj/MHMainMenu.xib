@@ -490,7 +490,7 @@ DQ
                 <outlet property="view" destination="532" id="534"/>
             </connections>
         </collectionViewItem>
-        <view wantsLayer="YES" id="532" customClass="MHConnectionIconView">
+        <view id="532" customClass="MHConnectionIconView">
             <rect key="frame" x="0.0" y="0.0" width="179" height="157"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
