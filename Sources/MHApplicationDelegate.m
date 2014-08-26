@@ -443,7 +443,7 @@
 {
     CGFloat value = [sender floatValue]/100.0f*360.0f;
     
-    self.connectionCollectionView.itemSize = NSMakeSize(value, value);
+    self.connectionCollectionView.itemSize = NSMakeSize(value, value * 0.8);
 }
 
 - (IBAction)openConnectionAction:(id)sender
