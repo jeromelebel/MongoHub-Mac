@@ -22,9 +22,9 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 ** Current **
 
     - Working SSL
-    - Fix for a crash when having problem to parse a json https://github.com/fotonauts/MongoHub-Mac/issues/125
-    - Support for functions and scope functions https://github.com/fotonauts/MongoHub-Mac/issues/120
-    - Fix to connect to mongoHQ https://github.com/fotonauts/MongoHub-Mac/issues/124
+    - Fix for a crash when having problem to parse a json https://github.com/jeromelebel/MongoHub-Mac/issues/125
+    - Support for functions and scope functions https://github.com/jeromelebel/MongoHub-Mac/issues/120
+    - Fix to connect to mongoHQ https://github.com/jeromelebel/MongoHub-Mac/issues/124
     - Better support for primary and secondary
     - Migrate SSH password into the keychain https://github.com/jeromelebel/MongoHub-Mac/issues/106
     - Migrate database password into the keychain https://github.com/jeromelebel/MongoHub-Mac/issues/106
@@ -68,18 +68,18 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** 2.7 beta 3 - june 13, 2014 **
 
-    - Support for functions and scope functions https://github.com/fotonauts/MongoHub-Mac/issues/120
-    - Fix to connect to mongoHQ https://github.com/fotonauts/MongoHub-Mac/issues/124
+    - Support for functions and scope functions https://github.com/jeromelebel/MongoHub-Mac/issues/120
+    - Fix to connect to mongoHQ https://github.com/jeromelebel/MongoHub-Mac/issues/124
 
 ** 2.6.2 - june 12, 2014 **
 
     - Be able to downgrade from 2.7 beta
-    - Avoid automatic correction from Mac OS X while typing a new document https://github.com/fotonauts/MongoHub-Mac/issues/121 (Thanks to Anthony Williams with https://github.com/fotonauts/MongoHub-Mac/pull/122)
+    - Avoid automatic correction from Mac OS X while typing a new document https://github.com/jeromelebel/MongoHub-Mac/issues/121 (Thanks to Anthony Williams with https://github.com/jeromelebel/MongoHub-Mac/pull/122)
     - Avoid automatic correction from Mac OS X while typing map/reduce functions
 
 ** 2.7 beta 1 and 2 - june 11, 2014 **
 
-    - Avoid automatic correction from Mac OS X while typing a new document https://github.com/fotonauts/MongoHub-Mac/issues/121 (Thanks to Anthony Williams with https://github.com/fotonauts/MongoHub-Mac/pull/122)
+    - Avoid automatic correction from Mac OS X while typing a new document https://github.com/jeromelebel/MongoHub-Mac/issues/121 (Thanks to Anthony Williams with https://github.com/jeromelebel/MongoHub-Mac/pull/122)
     - Avoid automatic correction from Mac OS X while typing map/reduce functions
     - Better support for primary and secondary
 
@@ -119,16 +119,16 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
     - Removing an assert (while editing a document) with too much false positive
     - Connection editor window is displayed as a sheet
-    - Can duplication a connection https://github.com/fotonauts/MongoHub-Mac/issues/75
-    - Short cut to delete a connection (command-backspace) https://github.com/fotonauts/MongoHub-Mac/issues/69
+    - Can duplication a connection https://github.com/jeromelebel/MongoHub-Mac/issues/75
+    - Short cut to delete a connection (command-backspace) https://github.com/jeromelebel/MongoHub-Mac/issues/69
 
 ** 2.5.14 - november 16, 2013 **
 
-    - Using the ssh-agent when having passphrase https://github.com/fotonauts/MongoHub-Mac/issues/93 (thanks for Nick Brook's help)
-    - Fix from a bug introduced in 2.5.13(107), problem to tab away the document outline view to the delete button https://github.com/fotonauts/MongoHub-Mac/issues/97
+    - Using the ssh-agent when having passphrase https://github.com/jeromelebel/MongoHub-Mac/issues/93 (thanks for Nick Brook's help)
+    - Fix from a bug introduced in 2.5.13(107), problem to tab away the document outline view to the delete button https://github.com/jeromelebel/MongoHub-Mac/issues/97
     - Better error reporting for find, update or delete (thanks to Johannes Schriewer)
-    - Fix for database with no name https://github.com/fotonauts/MongoHub-Mac/issues/101
-    - Fix for generating/parsing json with a date with milliseconds https://github.com/fotonauts/MongoHub-Mac/issues/102
+    - Fix for database with no name https://github.com/jeromelebel/MongoHub-Mac/issues/101
+    - Fix for generating/parsing json with a date with milliseconds https://github.com/jeromelebel/MongoHub-Mac/issues/102
     - Adding a preference panel to choose to get beta version (this will support tengen json)
     - Dropping support for Mac OS X 10.6.x
 
@@ -141,11 +141,11 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** 2.5.12(106) - september 8, 2013 **
     
-    - New build to fix the font problem in the query window https://github.com/fotonauts/MongoHub-Mac/issues/91
+    - New build to fix the font problem in the query window https://github.com/jeromelebel/MongoHub-Mac/issues/91
 
 ** 2.5.11(105) - september 7, 2013 **
 
-    - Default port was not set (thanks to undancer) https://github.com/fotonauts/MongoHub-Mac/issues/89
+    - Default port was not set (thanks to undancer) https://github.com/jeromelebel/MongoHub-Mac/issues/89
 
 ** 2.5.10(104) - june 11, 2013 **
 
@@ -162,39 +162,39 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** 2.5.7(101) - june 6, 2013 **
 
-    - Drop database/collection default action must be "No" https://github.com/fotonauts/MongoHub-Mac/issues/65
-    - New Connection window doesn't use 127.0.0.1:27017 by default https://github.com/fotonauts/MongoHub-Mac/issues/60
+    - Drop database/collection default action must be "No" https://github.com/jeromelebel/MongoHub-Mac/issues/65
+    - New Connection window doesn't use 127.0.0.1:27017 by default https://github.com/jeromelebel/MongoHub-Mac/issues/60
     - Double values are truncated while being edited
 
 ** 2.5.6(100) - may 19, 2013 **
 
-    - Unable to reopen connection window after it is closed https://github.com/fotonauts/MongoHub-Mac/issues/63
-    - Horizontal and vertical paddings between "New connection" button and window border must be equal https://github.com/fotonauts/MongoHub-Mac/issues/68
+    - Unable to reopen connection window after it is closed https://github.com/jeromelebel/MongoHub-Mac/issues/63
+    - Horizontal and vertical paddings between "New connection" button and window border must be equal https://github.com/jeromelebel/MongoHub-Mac/issues/68
     - Binary should be imported and exported as base64 (instead of hexa)
     - Accept queries with objectid between double quotes
-    - Bug fix when the mongo host port was left with the default value (while using ssh tunneling) https://github.com/fotonauts/MongoHub-Mac/issues/78
+    - Bug fix when the mongo host port was left with the default value (while using ssh tunneling) https://github.com/jeromelebel/MongoHub-Mac/issues/78
     - ssh tunnel is a lot faster to open the connection now
 
 ** 2.5.5(99) - march 3, 2013 **
 
     - Problem to modify ssh parameters while editing an existing connection (fields were disabled)
     - Multi update checkbox added for updates (thanks to Tom Bocklisch)
-    - Bug fix to export mongo to sql: crash while exporting https://github.com/fotonauts/MongoHub-Mac/issues/58
-    - ObjectId should be in lower case https://github.com/fotonauts/MongoHub-Mac/issues/55
-    - Confirm dialog before connection delete (thanks to falsecz) https://github.com/fotonauts/MongoHub-Mac/pull/57
+    - Bug fix to export mongo to sql: crash while exporting https://github.com/jeromelebel/MongoHub-Mac/issues/58
+    - ObjectId should be in lower case https://github.com/jeromelebel/MongoHub-Mac/issues/55
+    - Confirm dialog before connection delete (thanks to falsecz) https://github.com/jeromelebel/MongoHub-Mac/pull/57
 
 ** 2.5.4(98) - november 1, 2012 **
 
-    - Fix to display Undefined values https://github.com/fotonauts/MongoHub-Mac/issues/49
-    - Fix to avoid a crasher with disconnecting from a server while using ssh tunneling https://github.com/fotonauts/MongoHub-Mac/issues/48
+    - Fix to display Undefined values https://github.com/jeromelebel/MongoHub-Mac/issues/49
+    - Fix to avoid a crasher with disconnecting from a server while using ssh tunneling https://github.com/jeromelebel/MongoHub-Mac/issues/48
     - Use ⌘ to avoid the confirmation panel in the remove tab (either while clicking or pressing the return key)
 
 ** 2.5.3(97) - september 4, 2012 **
 
-    - No more setting for bind address and bind port (bind address is 127.0.0.1 and bind port will be choosen automatically from 40000 or higher) https://github.com/fotonauts/MongoHub-Mac/issues/19
-    - Fix for a crasher when the network goes down https://github.com/fotonauts/MongoHub-Mac/issues/42
-    - Changing from red to green (except for remove) https://github.com/fotonauts/MongoHub-Mac/issues/44
-    - Adding a confirmation dialog correctly when removing all documents https://github.com/fotonauts/MongoHub-Mac/issues/33
+    - No more setting for bind address and bind port (bind address is 127.0.0.1 and bind port will be choosen automatically from 40000 or higher) https://github.com/jeromelebel/MongoHub-Mac/issues/19
+    - Fix for a crasher when the network goes down https://github.com/jeromelebel/MongoHub-Mac/issues/42
+    - Changing from red to green (except for remove) https://github.com/jeromelebel/MongoHub-Mac/issues/44
+    - Adding a confirmation dialog correctly when removing all documents https://github.com/jeromelebel/MongoHub-Mac/issues/33
     - Some cleanup for the connection editor, thanks to Alex Shteinikov (idooo)
 
 ** 2.5.2(96) - july 15, 2012 **
@@ -205,28 +205,28 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     - Close all document windows when close a collection
     - Fix: Making sure the collection outline selection always match the collection tab selection (to make sure Fred doesn't make any mistake)
     - Fix: a blank query will not remove documents anymore. Please use at least '{}'
-    - Fix: problem to import documents with array in it https://github.com/fotonauts/MongoHub-Mac/issues/39
+    - Fix: problem to import documents with array in it https://github.com/jeromelebel/MongoHub-Mac/issues/39
     - Adding multiple document selection
     - Adding document drag
 
 ** 2.5.1(95) - june 21, 2012 **
 
-    - Fix for https://github.com/fotonauts/MongoHub-Mac/issues/36 (open a second time the same database tab)
+    - Fix for https://github.com/jeromelebel/MongoHub-Mac/issues/36 (open a second time the same database tab)
     - Trying to make sure we don't make a mistake between the tab opened and the selection in the database outline view (special for fred)
 
 ** 2.5(94) - may 27, 2012 **
 
-    - Fix for the limit and skip field (limited to 9999) https://github.com/fotonauts/MongoHub-Mac/issues/30
+    - Fix for the limit and skip field (limited to 9999) https://github.com/jeromelebel/MongoHub-Mac/issues/30
     - Adding tabs
 
 ** 2.4.19(93) - may 23, 2012 **
 
-    - Trying to keep type (integer and float) the same as much as possible (when editing a document) https://github.com/fotonauts/MongoHub-Mac/issues/35
-    - Crash fixed when opening a collection with documents that has no "_id" and "name" https://github.com/fotonauts/MongoHub-Mac/issues/24
+    - Trying to keep type (integer and float) the same as much as possible (when editing a document) https://github.com/jeromelebel/MongoHub-Mac/issues/35
+    - Crash fixed when opening a collection with documents that has no "_id" and "name" https://github.com/jeromelebel/MongoHub-Mac/issues/24
 
 ** 2.4.18(92) - may 10, 2012 **
 
-    - Fix crasher when error https://github.com/fotonauts/MongoHub-Mac/issues/31
+    - Fix crasher when error https://github.com/jeromelebel/MongoHub-Mac/issues/31
     - Fix to use an authenticated database
 
 ** 2.4.17(91) - may 5, 2012 **
@@ -236,7 +236,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     - Changing "upset" to "upsert"
     - Fix from billybobuk to get the database list when having auth
     - Adding header in the data outline view
-    - Fix to add a document with structures inside an array (https://github.com/fotonauts/MongoHub-Mac/issues/28)
+    - Fix to add a document with structures inside an array (https://github.com/jeromelebel/MongoHub-Mac/issues/28)
 
 ** 2.4.16(90) - jan 29, 2012 **
 
@@ -247,7 +247,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** 2.4.15(89) - dec 30, 2011 **
 
-    - Crash fixed when remove all documents : https://github.com/fotonauts/MongoHub-Mac/issues/18
+    - Crash fixed when remove all documents : https://github.com/jeromelebel/MongoHub-Mac/issues/18
     - Change minimum size of MainMenu window to avoid display bug (thanks ohardy)
     - Bug fixes (thanks ohardy)
     - Double click on database name collapse or expand item (thanks ohardy)
@@ -416,4 +416,4 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 I'd love to include your contributions, friend.
 
-Then [send me a pull request](https://github.com/fotonauts/MongoHub-Mac/pull/new/master)!
+Then [send me a pull request](https://github.com/jeromelebel/MongoHub-Mac/pull/new/master)!

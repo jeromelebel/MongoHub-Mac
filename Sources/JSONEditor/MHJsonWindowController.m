@@ -62,13 +62,13 @@
             NSLog(@"%@", info);
             NSLog(@"%@", [jsonDict objectForKey:@"bsondata"]);
             NSLog(@"%@", [jsonDict objectForKey:@"beautified"]);
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, self, nil, nil, nil, @"There is a problem to generate the json. If you save the current json, those values might modified:\n%@\n\nPlease open an issue at https://github.com/fotonauts/mongohub-mac/issues", [[info objectForKey:@"differences"] componentsJoinedByString:@"\n"]);
+            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, self, nil, nil, nil, @"There is a problem to generate the json. If you save the current json, those values might modified:\n%@\n\nPlease open an issue at https://github.com/jeromelebel/mongohub-mac/issues", [[info objectForKey:@"differences"] componentsJoinedByString:@"\n"]);
         }
     } else if (![MODClient isEqualWithJson:[jsonDict objectForKey:@"beautified"] toDocument:[jsonDict objectForKey:@"objectvalue"] info:nil]) {
         NSLog(@"%@", info);
         NSLog(@"%@", [jsonDict objectForKey:@"beautified"]);
         NSLog(@"%@", [jsonDict objectForKey:@"objectvalue"]);
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, self, nil, nil, nil, @"There is a problem to generate the json. If you save the current json, those values might modified:\n%@\n\nPlease open an issue at https://github.com/fotonauts/mongohub-mac/issues", [[info objectForKey:@"differences"] componentsJoinedByString:@"\n"]);
+        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, self, nil, nil, nil, @"There is a problem to generate the json. If you save the current json, those values might modified:\n%@\n\nPlease open an issue at https://github.com/jeromelebel/mongohub-mac/issues", [[info objectForKey:@"differences"] componentsJoinedByString:@"\n"]);
     }
 }
 

@@ -476,7 +476,7 @@
 
 - (IBAction)openFeatureRequestBugReport:(id)sender
 {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/fotonauts/MongoHub-Mac/issues"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/jeromelebel/MongoHub-Mac/issues"]];
 }
 
 - (IBAction)openConnectionWindow:(id)sender
