@@ -557,7 +557,7 @@ DQ
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="607">
                             <font key="font" metaFont="cellTitle"/>
                             <string key="title">
-https://github.com/fotonauts/MongoHub-Mac
+https://github.com/jeromelebel/MongoHub-Mac
 </string>
                             <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
