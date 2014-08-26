@@ -26,11 +26,12 @@
         <language>en</language>
         <item>
             <beta>1</beta>
-            <title>Version 2.7 beta 9</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b9.zip" sparkle:version="2.7b9" length="3602904" type="application/octet-stream" />
+            <title>Version 2.7 beta 10</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b10.zip" sparkle:version="2.7b10" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.7 beta 9</h3>
+                <h3>2.7 beta 10</h3>
                 <ul>
+                <li>Display glitch fixed in the connection window</li>
                 <li>SSL Fix</li>
                 </ul>
             ]]>

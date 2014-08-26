@@ -31,10 +31,15 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     - Fix for adding a database with more than one server connected (the database was created on all servers)
     - Fix for adding a collection with more than one server connected (the collection was created on all servers)
     - Adding contextual menu in the main window
+    - Display glitch fixed in the connection window
 
 ** Beta **
 
 ## History
+
+** 2.7 beta 10 - august 27, 2014 **
+
+    - Display glitch fixed in the connection window
 
 ** 2.7 beta 9 - august 26, 2014 **
 
