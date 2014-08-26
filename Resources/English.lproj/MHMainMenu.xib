@@ -478,8 +478,8 @@ DQ
         </menu>
         <customObject id="205" userLabel="MHApplicationDelegate" customClass="MHApplicationDelegate">
             <connections>
-                <outlet property="_connectionCollectionView" destination="530" id="ePU-9Y-RqE"/>
                 <outlet property="bundleVersion" destination="603" id="620"/>
+                <outlet property="connectionCollectionView" destination="530" id="ICL-ok-eGF"/>
                 <outlet property="connectionsArrayController" destination="542" id="565"/>
                 <outlet property="supportPanel" destination="599" id="713"/>
                 <outlet property="window" destination="21" id="1Lh-2b-LRr"/>

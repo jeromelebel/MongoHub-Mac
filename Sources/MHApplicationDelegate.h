@@ -12,7 +12,6 @@
 #import "MHConnectionWindowController.h"
 
 @class MHConnectionCollectionView;
-@class ConnectionsArrayController;
 @class MHConnectionStore;
 @class MHConnectionEditorWindowController;
 @class SUUpdater;
@@ -35,11 +34,11 @@ typedef enum {
     NSMutableArray                          *_connectionWindowControllers;
     MHPreferenceController                  *_preferenceController;
     
-    IBOutlet MHConnectionCollectionView     *_connectionCollectionView;
-    IBOutlet ConnectionsArrayController     *connectionsArrayController;
-    IBOutlet NSTextField                    *bundleVersion;
-  
-    IBOutlet NSPanel                        *supportPanel;
+    MHConnectionCollectionView              *_connectionCollectionView;
+    ConnectionsArrayController              *_connectionsArrayController;
+    NSTextField                             *_bundleVersion;
+    NSPanel                                 *_supportPanel;
+    
     SUUpdater                               *_updater;
 }
 
@@ -48,10 +47,6 @@ typedef enum {
 @property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
-
-@property (nonatomic, strong) MHConnectionCollectionView *connectionCollectionView;
-@property (nonatomic, strong) ConnectionsArrayController *connectionsArrayController;
-@property (nonatomic, strong) NSTextField *bundleVersion;
 @property (nonatomic, assign, readwrite) MHSoftwareUpdateChannel softwareUpdateChannel;
 
 @end

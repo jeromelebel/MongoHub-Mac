@@ -25,8 +25,13 @@
 @property (nonatomic, strong, readwrite) SUUpdater *updater;
 @property (nonatomic, strong, readwrite) MHPreferenceController *preferenceController;
 @property (nonatomic, strong, readwrite) NSMutableArray *urlConnectionEditorWindowControllers;
-@property (nonatomic, strong, readwrite) IBOutlet NSWindow *window;
 @property (nonatomic, strong, readwrite) NSMutableArray *connectionWindowControllers;
+
+@property (nonatomic, strong, readwrite) IBOutlet NSWindow *window;
+@property (nonatomic, strong, readwrite) IBOutlet MHConnectionCollectionView *connectionCollectionView;
+@property (nonatomic, strong, readwrite) IBOutlet ConnectionsArrayController *connectionsArrayController;
+@property (nonatomic, strong, readwrite) IBOutlet NSTextField *bundleVersion;
+@property (nonatomic, strong, readwrite) IBOutlet NSPanel *supportPanel;
 
 @end
 
@@ -35,12 +40,13 @@
 @synthesize updater = _updater;
 @synthesize window = _window;
 @synthesize connectionCollectionView = _connectionCollectionView;
-@synthesize connectionsArrayController;
-@synthesize bundleVersion;
+@synthesize connectionsArrayController = _connectionsArrayController;
+@synthesize bundleVersion = _bundleVersion;
 @synthesize preferenceController = _preferenceController;
 @synthesize connectionEditorWindowController = _connectionEditorWindowController;
 @synthesize urlConnectionEditorWindowControllers = _urlConnectionEditorWindowControllers;
 @synthesize connectionWindowControllers = _connectionWindowControllers;
+@synthesize supportPanel = _supportPanel;
 
 - (void)awakeFromNib
 {
@@ -51,7 +57,7 @@
     }
     self.connectionWindowControllers = [NSMutableArray array];
     self.urlConnectionEditorWindowControllers = [NSMutableArray array];
-    [connectionsArrayController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"alias" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
+    [self.connectionsArrayController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"alias" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
 }
 
 - (void)dealloc
@@ -66,9 +72,8 @@
     self.connectionCollectionView = nil;
     self.preferenceController = nil;
     self.updater = nil;
-    [connectionsArrayController release];
-    
-    [bundleVersion release];
+    self.connectionsArrayController = nil;
+    self.bundleVersion = nil;
     
     [super dealloc];
 }
@@ -407,29 +412,29 @@
 
 - (IBAction)editConnectionAction:(id)sender
 {
-    if (connectionsArrayController.selectedObjects.count == 1 && !self.connectionEditorWindowController) {
-        [self editConnection:[connectionsArrayController.selectedObjects objectAtIndex:0]];
+    if (self.connectionsArrayController.selectedObjects.count == 1 && !self.connectionEditorWindowController) {
+        [self editConnection:[self.connectionsArrayController.selectedObjects objectAtIndex:0]];
     }
 }
 
 - (IBAction)duplicateConnectionAction:(id)sender
 {
-    if (connectionsArrayController.selectedObjects.count == 1 && !self.connectionEditorWindowController) {
-        [self duplicateConnection:[connectionsArrayController.selectedObjects objectAtIndex:0]];
+    if (self.connectionsArrayController.selectedObjects.count == 1 && !self.connectionEditorWindowController) {
+        [self duplicateConnection:[self.connectionsArrayController.selectedObjects objectAtIndex:0]];
     }
 }
 
 - (IBAction)deleteConnectionAction:(id)sender
 {
-    if (connectionsArrayController.selectedObjects.count == 1) {
-        [self deleteConnection:[connectionsArrayController.selectedObjects objectAtIndex:0]];
+    if (self.connectionsArrayController.selectedObjects.count == 1) {
+        [self deleteConnection:[self.connectionsArrayController.selectedObjects objectAtIndex:0]];
     }
 }
 
 - (void)deleteConnectionAlertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
 {
     if (returnCode == NSAlertSecondButtonReturn) {
-        [connectionsArrayController removeObject:contextInfo];
+        [self.connectionsArrayController removeObject:contextInfo];
         [self saveConnections];
     }
 }
@@ -443,10 +448,10 @@
 
 - (IBAction)openConnectionAction:(id)sender
 {
-    if (![connectionsArrayController selectedObjects]) {
+    if (!self.connectionsArrayController.selectedObjects) {
         return;
     }
-    [self openConnection:[[connectionsArrayController selectedObjects] objectAtIndex:0]];
+    [self openConnection:[self.connectionsArrayController.selectedObjects objectAtIndex:0]];
 }
 
 - (MHConnectionWindowController *)connectionWindowControllerForConnectionStore:(MHConnectionStore *)connection
@@ -461,7 +466,7 @@
 
 - (void)openSupportPanel:(id)sender
 {
-    [NSApp beginSheet:supportPanel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(supportPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [NSApp beginSheet:self.supportPanel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(supportPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
 }
 
 - (void)supportPanelDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
@@ -471,7 +476,7 @@
 
 - (IBAction)closeSupportPanel:(id)sender
 {
-    [NSApp endSheet:supportPanel];
+    [NSApp endSheet:self.supportPanel];
 }
 
 - (IBAction)openFeatureRequestBugReport:(id)sender
