@@ -42,6 +42,10 @@
 {
     NSArray *components;
     
+    // just in case we have nil
+    if (!server) {
+        server = @"";
+    }
     components = [server componentsSeparatedByString:@":"];
     if (port) {
         if (components.count > 1) {
