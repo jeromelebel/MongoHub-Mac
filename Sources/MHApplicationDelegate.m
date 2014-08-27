@@ -51,8 +51,8 @@
 - (void)awakeFromNib
 {
     if ([[NSProcessInfo processInfo].environment[@"MONGOC_VERBOSE"] integerValue] != 0) {
-        [MODClient setLogCallback:^(MODLogLevel logLever, const char *logName, const char *message) {
-            NSLog(@"++ %s %s", logName, message);
+        [MODClient setLogCallback:^(MODLogLevel level, const char *domain, const char *message) {
+            NSLog(@"%@ %s %s", [MODClient logLevelStringForLogLevel:level], domain, message);
         }];
     }
     self.connectionWindowControllers = [NSMutableArray array];
