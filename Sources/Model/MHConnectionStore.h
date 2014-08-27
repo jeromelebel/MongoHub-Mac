@@ -16,7 +16,7 @@
     NSString                    *_adminPassword;
     NSString                    *_sshPassword;
 }
-+ (NSString *)hostnameFromServer:(NSString *)server WithPort:(NSInteger *)port;
++ (NSString *)hostnameFromServer:(NSString *)server withPort:(NSInteger *)port;
 + (NSString *)cleanupServers:(NSString *)servers;
 + (NSString *)passwordForServers:(NSString *)servers username:(NSString *)username;
 + (NSString *)sortedServers:(NSString *)servers;

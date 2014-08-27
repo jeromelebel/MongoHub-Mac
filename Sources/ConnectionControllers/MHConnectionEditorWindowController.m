@@ -187,7 +187,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
             
             [self.singleReplicaSetPopUpButton selectItemAtIndex:0];
             [self.singleReplicaSetTabView selectTabViewItemWithIdentifier:SINGLESERVER_TAB_IDENTIER];
-            self.hostTextField.stringValue = [MHConnectionStore hostnameFromServer:defaultValue.servers WithPort:&port];
+            self.hostTextField.stringValue = [MHConnectionStore hostnameFromServer:defaultValue.servers withPort:&port];
             if (port != 0) {
                 self.hostportTextField.stringValue = [NSString stringWithFormat:@"%ld", (long)port];
             }

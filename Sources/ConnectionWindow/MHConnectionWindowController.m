@@ -199,7 +199,7 @@
             NSString *hostAddress;
             
             sshBindedPort = [MHTunnel findFreeTCPPort];
-            hostAddress = [MHConnectionStore hostnameFromServer:hostnameAndPort WithPort:&hostPort];
+            hostAddress = [MHConnectionStore hostnameFromServer:hostnameAndPort withPort:&hostPort];
             if (hostPort == 0) {
                 hostPort = MODClient.defaultPort;
             }

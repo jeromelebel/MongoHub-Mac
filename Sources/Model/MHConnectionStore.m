@@ -38,7 +38,7 @@
 @synthesize adminPassword = _adminPassword;
 @synthesize sshPassword = _sshPassword;
 
-+ (NSString *)hostnameFromServer:(NSString *)server WithPort:(NSInteger *)port
++ (NSString *)hostnameFromServer:(NSString *)server withPort:(NSInteger *)port
 {
     NSArray *components;
     
