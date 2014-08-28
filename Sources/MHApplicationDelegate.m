@@ -13,6 +13,7 @@
 #import "MHConnectionStore.h"
 #import "MHPreferenceController.h"
 #import "MHConnectionViewItem.h"
+#import "MHLogWindowController.h"
 #import <Sparkle/Sparkle.h>
 
 #define YOUR_EXTERNAL_RECORD_EXTENSION @"mgo"
@@ -26,12 +27,17 @@
 @property (nonatomic, strong, readwrite) MHPreferenceController *preferenceController;
 @property (nonatomic, strong, readwrite) NSMutableArray *urlConnectionEditorWindowControllers;
 @property (nonatomic, strong, readwrite) NSMutableArray *connectionWindowControllers;
+@property (nonatomic, strong, readwrite) MHLogWindowController *logWindowController;
 
 @property (nonatomic, strong, readwrite) IBOutlet NSWindow *window;
 @property (nonatomic, strong, readwrite) IBOutlet MHConnectionCollectionView *connectionCollectionView;
 @property (nonatomic, strong, readwrite) IBOutlet ConnectionsArrayController *connectionsArrayController;
 @property (nonatomic, strong, readwrite) IBOutlet NSTextField *bundleVersion;
 @property (nonatomic, strong, readwrite) IBOutlet NSPanel *supportPanel;
+
+@end
+
+@interface MHApplicationDelegate (MHLogWindowControllerDelegate) <MHLogWindowControllerDelegate>
 
 @end
 
@@ -47,6 +53,7 @@
 @synthesize urlConnectionEditorWindowControllers = _urlConnectionEditorWindowControllers;
 @synthesize connectionWindowControllers = _connectionWindowControllers;
 @synthesize supportPanel = _supportPanel;
+@synthesize logWindowController = _logWindowController;
 
 - (void)awakeFromNib
 {
@@ -337,6 +344,16 @@
     [self performSelector:@selector(checkForUpdatesEveryDay:) withObject:nil afterDelay:3600 * 24];
 }
 
+- (MHConnectionWindowController *)connectionWindowControllerForConnectionStore:(MHConnectionStore *)connection
+{
+    for (MHConnectionWindowController *controller in self.connectionWindowControllers) {
+        if (controller.connectionStore == connection) {
+            return controller;
+        }
+    }
+    return nil;
+}
+
 - (void)openConnection:(MHConnectionStore *)connection
 {
     MHConnectionWindowController *connectionWindowController;
@@ -394,7 +411,44 @@
     [pasteboard setString:stringURL forType:NSURLPboardType];
 }
 
-#pragma mark connections related method
+- (void)closingPreferenceController:(NSNotification *)notification
+{
+    if (notification.object == self.preferenceController) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:notification.object];
+        self.preferenceController = nil;
+    }
+}
+
+- (MHSoftwareUpdateChannel)softwareUpdateChannel
+{
+    NSString *value;
+    MHSoftwareUpdateChannel result = MHSoftwareUpdateChannelDefault;
+    
+    value = [NSUserDefaults.standardUserDefaults objectForKey:MHSofwareUpdateChannelKey];
+    if ([value isEqualToString:@"beta"]) {
+        result = MHSoftwareUpdateChannelBeta;
+    }
+    return result;
+}
+
+- (void)setSoftwareUpdateChannel:(MHSoftwareUpdateChannel)value
+{
+    switch (value) {
+        case MHSoftwareUpdateChannelDefault:
+            [NSUserDefaults.standardUserDefaults removeObjectForKey:MHSofwareUpdateChannelKey];
+            break;
+        
+        case MHSoftwareUpdateChannelBeta:
+            [NSUserDefaults.standardUserDefaults setObject:@"beta" forKey:MHSofwareUpdateChannelKey];
+            break;
+    }
+    [NSUserDefaults.standardUserDefaults synchronize];
+    [self.updater checkForUpdatesInBackground];
+}
+
+@end
+
+@implementation MHApplicationDelegate (Action)
 
 - (IBAction)checkForUpdatesAction:(id)sender
 {
@@ -455,16 +509,6 @@
     [self openConnection:[self.connectionsArrayController.selectedObjects objectAtIndex:0]];
 }
 
-- (MHConnectionWindowController *)connectionWindowControllerForConnectionStore:(MHConnectionStore *)connection
-{
-    for (MHConnectionWindowController *controller in self.connectionWindowControllers) {
-        if (controller.connectionStore == connection) {
-            return controller;
-        }
-    }
-    return nil;
-}
-
 - (IBAction)openSupportPanel:(id)sender
 {
     [NSApp beginSheet:self.supportPanel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(supportPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
@@ -499,39 +543,16 @@
     [self.preferenceController openWindow:sender];
 }
 
-- (void)closingPreferenceController:(NSNotification *)notification
+- (IBAction)openLogWindow:(id)sender
 {
-    if (notification.object == self.preferenceController) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:notification.object];
-        self.preferenceController = nil;
+    if (!self.logWindowController) {
+        self.logWindowController = [MHLogWindowController logWindowController];
+        self.logWindowController.delegate = self;
+        [MODClient setLogCallback:^(MODLogLevel level, const char *domain, const char *message) {
+            [self.logWindowController addLogLine:[NSString stringWithUTF8String:message] domain:[NSString stringWithFormat:@"mongoc.%s", domain] level:[MODClient logLevelStringForLogLevel:level]];
+        }];
     }
-}
-
-- (MHSoftwareUpdateChannel)softwareUpdateChannel
-{
-    NSString *value;
-    MHSoftwareUpdateChannel result = MHSoftwareUpdateChannelDefault;
-    
-    value = [NSUserDefaults.standardUserDefaults objectForKey:MHSofwareUpdateChannelKey];
-    if ([value isEqualToString:@"beta"]) {
-        result = MHSoftwareUpdateChannelBeta;
-    }
-    return result;
-}
-
-- (void)setSoftwareUpdateChannel:(MHSoftwareUpdateChannel)value
-{
-    switch (value) {
-        case MHSoftwareUpdateChannelDefault:
-            [NSUserDefaults.standardUserDefaults removeObjectForKey:MHSofwareUpdateChannelKey];
-            break;
-        
-        case MHSoftwareUpdateChannelBeta:
-            [NSUserDefaults.standardUserDefaults setObject:@"beta" forKey:MHSofwareUpdateChannelKey];
-            break;
-    }
-    [NSUserDefaults.standardUserDefaults synchronize];
-    [self.updater checkForUpdatesInBackground];
+    [self.logWindowController showWindow:self];
 }
 
 @end
@@ -685,6 +706,24 @@
 - (BOOL)connectionWindowControllerSSHVerbose:(MHConnectionWindowController *)controller
 {
     return [[NSProcessInfo processInfo].environment[@"SSH_VERBOSE"] integerValue] != 0;
+}
+
+- (void)connectionWindowControllerLogMessage:(NSString *)message domain:(NSString *)domain level:(NSString *)level
+{
+    [self.logWindowController addLogLine:message domain:domain level:level];
+}
+
+@end
+
+
+@implementation MHApplicationDelegate (MHLogWindowControllerDelegate)
+
+- (void)logWindowControllerWillClose:(MHLogWindowController *)logWindowController
+{
+    if (logWindowController == self.logWindowController) {
+        self.logWindowController = nil;
+        [MODClient setLogCallback:nil];
+    }
 }
 
 @end

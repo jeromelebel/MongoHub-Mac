@@ -868,19 +868,24 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 
 - (void)tunnelDidConnect:(MHTunnel *)tunnel
 {
-    NSLog(@"SSH TUNNEL STATUS: CONNECTED");
+    [self.delegate connectionWindowControllerLogMessage:@"connected" domain:[NSString stringWithFormat:@"%@.ssh", self.connectionStore.alias] level:@"info"];
     [self connectToServer];
 }
 
 - (void)tunnelDidFailToConnect:(MHTunnel *)tunnel withError:(NSError *)error;
 {
-    NSLog(@"SSH TUNNEL ERROR: %@", error);
+    [self.delegate connectionWindowControllerLogMessage:error.description domain:[NSString stringWithFormat:@"%@.ssh", self.connectionStore.alias] level:@"error"];
     if (!tunnel.connected) {
         // after being connected, we don't really care about errors
         [self.loaderIndicator stopAnimation:nil];
         self.statusViewController.title = [NSString stringWithFormat:@"Error: %@", error.localizedDescription];
         NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", error.localizedDescription);
     }
+}
+
+- (void)tunnelLogMessage:(NSString *)message
+{
+    [self.delegate connectionWindowControllerLogMessage:message domain:[NSString stringWithFormat:@"%@.ssh", self.connectionStore.alias] level:@"debug"];
 }
 
 @end

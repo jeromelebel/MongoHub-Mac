@@ -177,7 +177,7 @@ static BOOL testLocalPortAvailable(unsigned short port)
         [_task setEnvironment:[self environment]];
         [_task setStandardError:errorPipe];
         
-        NSLog(@"%@ %@", _task.launchPath, [_task.arguments componentsJoinedByString:@" "]);
+        [self logMessage:[NSString stringWithFormat:@"%@ %@", _task.launchPath, [_task.arguments componentsJoinedByString:@" "]]];
         
         [_task launch];
         if ([_delegate respondsToSelector:@selector(tunnelDidStart:)]) [_delegate tunnelDidStart:self];
@@ -239,9 +239,8 @@ static BOOL testLocalPortAvailable(unsigned short port)
         } else if ([string rangeOfString:@"REMOTE HOST IDENTIFICATION HAS CHANGED"].location != NSNotFound) {
             self.tunnelError = MHHostIdentificationChangedTunnelError;
         }
-        if (self.verbose) {
-            NSLog(@"%@", string);
-        }
+        
+        [self logMessage:string];
         if (self.tunnelError != MHNoTunnelError) {
             if ([_delegate respondsToSelector:@selector(tunnelDidFailToConnect:withError:)]) {
                 [_delegate tunnelDidFailToConnect:self withError:[NSError errorWithDomain:MHTunnelDomain code:self.tunnelError userInfo:@{ NSLocalizedDescriptionKey: [self.class errorMessageForTunnelError:self.tunnelError] }]];
@@ -323,6 +322,16 @@ static BOOL testLocalPortAvailable(unsigned short port)
     forwardPort = [[NSString alloc] initWithFormat:@"%@%@%@:%d:%@:%d", reverseForwarding?@"R":@"L", bindAddress?bindAddress:@"", bindAddress?@":":@"", (int)bindPort, hostAddress, (int)hostPort];
     [self.portForwardings addObject:forwardPort];
     [forwardPort release];
+}
+
+- (void)logMessage:(NSString *)message
+{
+    if (self.verbose) {
+        NSLog(@"%@", message);
+    }
+    if ([self.delegate respondsToSelector:@selector(tunnelLogMessage:)]) {
+        [self.delegate tunnelLogMessage:message];
+    }
 }
 
 @end

@@ -34,6 +34,8 @@
 		024F67901427F3DE00956BF6 /* MODHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 024F678F1427F3DE00956BF6 /* MODHelper.m */; };
 		0252361218FECEE700286EC9 /* MHExporterImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0252361118FECEE700286EC9 /* MHExporterImporter.m */; };
 		0255B568181A9A210019739D /* MHKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255B567181A9A210019739D /* MHKeychain.m */; };
+		0259EAFE19AF5CF000181E08 /* MHLogWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0259EAFD19AF5CF000181E08 /* MHLogWindow.xib */; };
+		0259EB0519AF5D6600181E08 /* MHLogWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259EB0419AF5D6600181E08 /* MHLogWindowController.m */; };
 		025B8F0C1531C76E00849A71 /* MHTabTitleContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 025B8F0B1531C76E00849A71 /* MHTabTitleContainerView.m */; };
 		025B8F911531FC7500849A71 /* unselected-tab-border.png in Resources */ = {isa = PBXBuildFile; fileRef = 025B8F901531FC7500849A71 /* unselected-tab-border.png */; };
 		025CBC6E1982AE4E00C8E272 /* MHMongoHubMigration6to7.m in Sources */ = {isa = PBXBuildFile; fileRef = 025CBC6D1982AE4E00C8E272 /* MHMongoHubMigration6to7.m */; };
@@ -207,6 +209,9 @@
 		025410A119AA687C00CF437E /* MongoHub_DataModel10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel10.xcdatamodel; sourceTree = "<group>"; };
 		0255B566181A9A210019739D /* MHKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHKeychain.h; sourceTree = "<group>"; };
 		0255B567181A9A210019739D /* MHKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHKeychain.m; sourceTree = "<group>"; };
+		0259EAFD19AF5CF000181E08 /* MHLogWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHLogWindow.xib; sourceTree = "<group>"; };
+		0259EB0319AF5D6600181E08 /* MHLogWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHLogWindowController.h; sourceTree = "<group>"; };
+		0259EB0419AF5D6600181E08 /* MHLogWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLogWindowController.m; sourceTree = "<group>"; };
 		025B8F0A1531C76E00849A71 /* MHTabTitleContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabTitleContainerView.h; sourceTree = "<group>"; };
 		025B8F0B1531C76E00849A71 /* MHTabTitleContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTabTitleContainerView.m; sourceTree = "<group>"; };
 		025B8F901531FC7500849A71 /* unselected-tab-border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unselected-tab-border.png"; sourceTree = "<group>"; };
@@ -465,6 +470,8 @@
 				77C8280C06725ACE000B614F /* MHApplicationDelegate.m */,
 				02F2A1F81817E4BC0053CB20 /* MHPreferenceController.h */,
 				02F2A1F91817E4BC0053CB20 /* MHPreferenceController.m */,
+				0259EB0319AF5D6600181E08 /* MHLogWindowController.h */,
+				0259EB0419AF5D6600181E08 /* MHLogWindowController.m */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			path = Sources;
@@ -723,6 +730,7 @@
 				1D26615111CFC5BE0092C6B5 /* MysqlExport.xib */,
 				1D64100E12C8E6BE0030AA4C /* MHJsonWindow.xib */,
 				0279C08F189C02F600F8BACB /* MHImportExportFeedback.xib */,
+				0259EAFD19AF5CF000181E08 /* MHLogWindow.xib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -876,6 +884,7 @@
 				02E0FE38151DE2420094C1CD /* background-grey_right.png in Resources */,
 				02E0FE39151DE2420094C1CD /* background_blue_arrow.png in Resources */,
 				02E0FE3A151DE2420094C1CD /* background_blue_center.png in Resources */,
+				0259EAFE19AF5CF000181E08 /* MHLogWindow.xib in Resources */,
 				02E0FE3B151DE2420094C1CD /* background_blue_left.png in Resources */,
 				02E0FE3C151DE2420094C1CD /* background_blue_right.png in Resources */,
 				02E0FE3D151DE2420094C1CD /* unselected-tab-background.png in Resources */,
@@ -917,6 +926,7 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				77C8280E06725ACE000B614F /* MHApplicationDelegate.m in Sources */,
 				02F4F02E19AA9F6D00A9B836 /* MHMongoHubMigration9to10.m in Sources */,
+				0259EB0519AF5D6600181E08 /* MHLogWindowController.m in Sources */,
 				1D93C1DA11832C1D003216F7 /* MHConnectionStore.m in Sources */,
 				02E79EAA199418400016B4C9 /* MHConnectionCollectionView.m in Sources */,
 				029CAA731946028800FD44B4 /* NSTextView+MongoHub.m in Sources */,

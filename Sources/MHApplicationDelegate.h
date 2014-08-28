@@ -16,6 +16,7 @@
 @class MHConnectionEditorWindowController;
 @class SUUpdater;
 @class MHPreferenceController;
+@class MHLogWindowController;
 
 typedef enum {
     MHSoftwareUpdateChannelDefault,
@@ -33,6 +34,7 @@ typedef enum {
     NSMutableArray                          *_urlConnectionEditorWindowControllers;
     NSMutableArray                          *_connectionWindowControllers;
     MHPreferenceController                  *_preferenceController;
+    MHLogWindowController                   *_logWindowController;
     
     MHConnectionCollectionView              *_connectionCollectionView;
     ConnectionsArrayController              *_connectionsArrayController;

@@ -22,12 +22,13 @@ typedef enum {
     MHHostIdentificationChangedTunnelError,
 } MHTunnelError;
 
-@protocol MHTunnelDelegate<NSObject>
+@protocol MHTunnelDelegate <NSObject>
 @optional
 - (void)tunnelDidStart:(MHTunnel *)tunnel;
 - (void)tunnelDidConnect:(MHTunnel *)tunnel;
 - (void)tunnelDidStop:(MHTunnel *)tunnel;
 - (void)tunnelDidFailToConnect:(MHTunnel *)tunnel withError:(NSError *)error;
+- (void)tunnelLogMessage:(NSString *)message;
 @end
 
 @interface MHTunnel : NSObject

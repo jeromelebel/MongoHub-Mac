@@ -450,6 +450,12 @@ DQ
                                     <action selector="openConnectionWindow:" target="205" id="741"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Logs" keyEquivalent="l" id="CG1-Wy-rSb">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="openLogWindow:" target="205" id="0CM-Ge-3MK"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="243">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
