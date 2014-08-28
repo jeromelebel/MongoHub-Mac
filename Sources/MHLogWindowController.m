@@ -37,7 +37,6 @@
 - (void)addLogLine:(NSString *)line domain:(NSString *)domain level:(NSString *)level
 {
     if (!NSThread.isMainThread) {
-        NSLog(@"--------------------- ok");
         dispatch_async(dispatch_get_main_queue(), ^{
             [self addLogLine:line domain:domain level:level];
         });
