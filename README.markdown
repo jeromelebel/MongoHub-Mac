@@ -35,6 +35,8 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** Beta **
 
+    - Adding a log window
+
 ## History
 
 ** 2.7 beta 10 - august 27, 2014 **
