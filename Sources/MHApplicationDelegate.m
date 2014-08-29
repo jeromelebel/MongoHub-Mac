@@ -450,6 +450,13 @@
 
 @implementation MHApplicationDelegate (Action)
 
+- (IBAction)copy:(id)sender
+{
+    if (self.connectionsArrayController.selectedObjects.count == 1 && !self.connectionEditorWindowController) {
+        [self copyURLConnection:self.connectionsArrayController.selectedObjects[0]];
+    }
+}
+
 - (IBAction)checkForUpdatesAction:(id)sender
 {
     [self.updater checkForUpdates:sender];
