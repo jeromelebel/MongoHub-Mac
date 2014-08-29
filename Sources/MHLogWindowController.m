@@ -9,7 +9,7 @@
 #import "MHLogWindowController.h"
 
 @interface MHLogWindowController ()
-@property (nonatomic, strong, readwrite) IBOutlet NSMutableArray *logs;
+@property (nonatomic, strong, readwrite) NSMutableArray *logs;
 @property (nonatomic, assign, readwrite) IBOutlet NSTableView *logTableView;
 
 @end
@@ -32,6 +32,12 @@
         self.logs = [NSMutableArray array];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    self.logs = nil;
+    [super dealloc];
 }
 
 - (void)addLogLine:(NSString *)line domain:(NSString *)domain level:(NSString *)level
