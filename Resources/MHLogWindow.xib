@@ -64,15 +64,13 @@
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ie4-a2-4d3">
                                                             <rect key="frame" x="-2" y="0.0" width="44" height="14"/>
                                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="jSa-Q5-Jot">
+                                                                <dateFormatter key="formatter" timeStyle="medium" id="jx1-CX-j8c"/>
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                <connections>
-                                                                    <binding destination="smD-Sm-dHI" name="value" keyPath="arrangedObjects.time" id="0IF-gX-8ew"/>
-                                                                </connections>
                                                             </textFieldCell>
                                                             <connections>
-                                                                <binding destination="mJf-8z-hny" name="value" keyPath="objectValue.date" id="uVh-a4-oD8"/>
+                                                                <binding destination="mJf-8z-hny" name="value" keyPath="objectValue.date" id="7Uc-3c-teM"/>
                                                             </connections>
                                                         </textField>
                                                     </subviews>
