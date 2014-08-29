@@ -326,11 +326,19 @@ static BOOL testLocalPortAvailable(unsigned short port)
 
 - (void)logMessage:(NSString *)message
 {
-    if (self.verbose) {
-        NSLog(@"%@", message);
-    }
-    if ([self.delegate respondsToSelector:@selector(tunnelLogMessage:)]) {
-        [self.delegate tunnelLogMessage:message];
+    NSArray *lines;
+    
+    lines = [message componentsSeparatedByString:@"\n"];
+    for (NSString *line in lines) {
+        line = [line stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        if (line.length > 0) {
+            if (self.verbose) {
+                NSLog(@"%@", line);
+            }
+            if ([self.delegate respondsToSelector:@selector(tunnelLogMessage:)]) {
+                [self.delegate tunnelLogMessage:line];
+            }
+        }
     }
 }
 
