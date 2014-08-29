@@ -58,4 +58,22 @@
     [self.delegate logWindowControllerWillClose:self];
 }
 
+- (void)copy:(id)sender
+{
+    NSIndexSet *selectedRowIndexes = [self.logTableView selectedRowIndexes];
+    NSMutableString *result;
+    
+    result = [NSMutableString string];
+    [selectedRowIndexes enumerateRangesUsingBlock:^(NSRange range, BOOL *stop) {
+        for (NSUInteger index = range.location; index < range.location + range.length; index++) {
+            NSDictionary *log = self.logs[index];
+            [result appendFormat:@"%@ %@ %@ %@\n", log[@"date"], log[@"domain"], log[@"level"], log[@"log"]];
+        }
+    }];
+    NSPasteboard *pasteboard = NSPasteboard.generalPasteboard;
+    
+    [pasteboard declareTypes:@[ NSStringPboardType ] owner:nil];
+    [pasteboard setString:result forType:NSStringPboardType];
+}
+
 @end
