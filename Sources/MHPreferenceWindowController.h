@@ -16,6 +16,4 @@
 
 + (instancetype)preferenceWindowController;
 
-- (IBAction)openWindow:(id)sender;
-- (IBAction)betaSoftwareAction:(id)sender;
 @end

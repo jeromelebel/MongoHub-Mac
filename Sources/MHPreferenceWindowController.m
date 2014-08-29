@@ -26,7 +26,7 @@
     }
 }
 
-- (void)betaSoftwareAction:(id)sender
+- (IBAction)betaSoftwareAction:(id)sender
 {
     if (_betaSoftwareButton.state == NSOffState) {
         [(MHApplicationDelegate *)NSApplication.sharedApplication.delegate setSoftwareUpdateChannel:MHSoftwareUpdateChannelDefault];
