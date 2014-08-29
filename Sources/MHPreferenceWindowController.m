@@ -35,11 +35,6 @@
     }
 }
 
-- (IBAction)openWindow:(id)sender
-{
-    [self.window makeKeyAndOrderFront:sender];
-}
-
 - (void)windowWillClose:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:MHPreferenceWindowControllerClosing object:self];
