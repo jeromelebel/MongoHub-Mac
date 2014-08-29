@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6206.8"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="MHPreferenceController">
+        <customObject id="-2" userLabel="File's Owner" customClass="MHPreferenceWindowController">
             <connections>
                 <outlet property="_betaSoftwareButton" destination="Lvd-gF-Nde" id="PmH-8o-p77"/>
                 <outlet property="window" destination="1" id="zMK-0U-bCf"/>
