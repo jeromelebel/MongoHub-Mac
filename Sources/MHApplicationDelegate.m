@@ -11,7 +11,7 @@
 #import "ConnectionsArrayController.h"
 #import "MHConnectionEditorWindowController.h"
 #import "MHConnectionStore.h"
-#import "MHPreferenceController.h"
+#import "MHPreferenceWindowController.h"
 #import "MHConnectionViewItem.h"
 #import "MHLogWindowController.h"
 #import <Sparkle/Sparkle.h>
@@ -24,7 +24,7 @@
 @interface MHApplicationDelegate()
 @property (nonatomic, strong, readwrite) MHConnectionEditorWindowController *connectionEditorWindowController;
 @property (nonatomic, strong, readwrite) SUUpdater *updater;
-@property (nonatomic, strong, readwrite) MHPreferenceController *preferenceController;
+@property (nonatomic, strong, readwrite) MHPreferenceWindowController *preferenceWindowController;
 @property (nonatomic, strong, readwrite) NSMutableArray *urlConnectionEditorWindowControllers;
 @property (nonatomic, strong, readwrite) NSMutableArray *connectionWindowControllers;
 @property (nonatomic, strong, readwrite) MHLogWindowController *logWindowController;
@@ -48,7 +48,7 @@
 @synthesize connectionCollectionView = _connectionCollectionView;
 @synthesize connectionsArrayController = _connectionsArrayController;
 @synthesize bundleVersion = _bundleVersion;
-@synthesize preferenceController = _preferenceController;
+@synthesize preferenceWindowController = _preferenceWindowController;
 @synthesize connectionEditorWindowController = _connectionEditorWindowController;
 @synthesize urlConnectionEditorWindowControllers = _urlConnectionEditorWindowControllers;
 @synthesize connectionWindowControllers = _connectionWindowControllers;
@@ -77,7 +77,7 @@
     
     self.urlConnectionEditorWindowControllers = nil;
     self.connectionCollectionView = nil;
-    self.preferenceController = nil;
+    self.preferenceWindowController = nil;
     self.updater = nil;
     self.connectionsArrayController = nil;
     self.bundleVersion = nil;
@@ -411,11 +411,11 @@
     [pasteboard setString:stringURL forType:NSURLPboardType];
 }
 
-- (void)closingPreferenceController:(NSNotification *)notification
+- (void)closingWindowPreferenceController:(NSNotification *)notification
 {
-    if (notification.object == self.preferenceController) {
+    if (notification.object == self.preferenceWindowController) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:notification.object];
-        self.preferenceController = nil;
+        self.preferenceWindowController = nil;
     }
 }
 
@@ -536,11 +536,11 @@
 
 - (IBAction)openPreferenceWindow:(id)sender
 {
-    if (!self.preferenceController) {
-        self.preferenceController = [MHPreferenceController preferenceController];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closingPreferenceController:) name:MHPreferenceControllerClosing object:self.preferenceController];
+    if (!self.preferenceWindowController) {
+        self.preferenceWindowController = [MHPreferenceWindowController preferenceWindowController];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closingWindowPreferenceController:) name:MHPreferenceWindowControllerClosing object:self.preferenceWindowController];
     }
-    [self.preferenceController openWindow:sender];
+    [self.preferenceWindowController showWindow:sender];
 }
 
 - (IBAction)openLogWindow:(id)sender

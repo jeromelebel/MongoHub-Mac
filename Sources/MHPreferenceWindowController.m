@@ -1,22 +1,19 @@
 //
-//  MHPreferenceController.m
+//  MHPreferenceWindowController.m
 //  MongoHub
 //
 //  Created by Jérôme Lebel on 23/10/2013.
 //
 
-#import "MHPreferenceController.h"
+#import "MHPreferenceWindowController.h"
 #import "MHApplicationDelegate.h"
 
-@implementation MHPreferenceController
+@implementation MHPreferenceWindowController
 
-@synthesize window = _window;
-
-+ (MHPreferenceController *)preferenceController
++ (MHPreferenceWindowController *)preferenceWindowController
 {
-    MHPreferenceController *result;
-    result = [[[MHPreferenceController alloc] initWithNibName:@"MHPreferenceController" bundle:NSBundle.mainBundle] autorelease];
-    [result loadView];
+    MHPreferenceWindowController *result;
+    result = [[[MHPreferenceWindowController alloc] initWithWindowNibName:@"MHPreferenceWindow"] autorelease];
     return result;
 }
 
@@ -40,12 +37,12 @@
 
 - (IBAction)openWindow:(id)sender
 {
-    [_window makeKeyAndOrderFront:sender];
+    [self.window makeKeyAndOrderFront:sender];
 }
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:MHPreferenceControllerClosing object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MHPreferenceWindowControllerClosing object:self];
 }
 
 @end

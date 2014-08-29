@@ -15,7 +15,7 @@
 @class MHConnectionStore;
 @class MHConnectionEditorWindowController;
 @class SUUpdater;
-@class MHPreferenceController;
+@class MHPreferenceWindowController;
 @class MHLogWindowController;
 
 typedef enum {
@@ -33,7 +33,7 @@ typedef enum {
     MHConnectionEditorWindowController      *_connectionEditorWindowController;
     NSMutableArray                          *_urlConnectionEditorWindowControllers;
     NSMutableArray                          *_connectionWindowControllers;
-    MHPreferenceController                  *_preferenceController;
+    MHPreferenceWindowController            *_preferenceWindowController;
     MHLogWindowController                   *_logWindowController;
     
     MHConnectionCollectionView              *_connectionCollectionView;

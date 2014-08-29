@@ -74,8 +74,8 @@
 		02E79EA41993E7950016B4C9 /* MHConnectionIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E79EA31993E7950016B4C9 /* MHConnectionIconView.m */; };
 		02E79EA71993F3F90016B4C9 /* MHConnectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E79EA61993F3F90016B4C9 /* MHConnectionViewItem.m */; };
 		02E79EAA199418400016B4C9 /* MHConnectionCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E79EA9199418400016B4C9 /* MHConnectionCollectionView.m */; };
-		02F2A1F71817E48B0053CB20 /* MHPreferenceController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F2A1F61817E48B0053CB20 /* MHPreferenceController.xib */; };
-		02F2A1FA1817E4BC0053CB20 /* MHPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2A1F91817E4BC0053CB20 /* MHPreferenceController.m */; };
+		02F2A1F71817E48B0053CB20 /* MHPreferenceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F2A1F61817E48B0053CB20 /* MHPreferenceWindow.xib */; };
+		02F2A1FA1817E4BC0053CB20 /* MHPreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2A1F91817E4BC0053CB20 /* MHPreferenceWindowController.m */; };
 		02F4F02E19AA9F6D00A9B836 /* MHMongoHubMigration9to10.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F4F02D19AA9F6D00A9B836 /* MHMongoHubMigration9to10.m */; };
 		02FCD3CF13BB9EA400316A9F /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FCD3CE13BB9EA400316A9F /* Sparkle.framework */; };
 		02FCD3D813BBA4A300316A9F /* MCPKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FCD3D713BBA4A300316A9F /* MCPKit.framework */; };
@@ -275,9 +275,9 @@
 		02E79EA61993F3F90016B4C9 /* MHConnectionViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHConnectionViewItem.m; sourceTree = "<group>"; };
 		02E79EA8199418400016B4C9 /* MHConnectionCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHConnectionCollectionView.h; sourceTree = "<group>"; };
 		02E79EA9199418400016B4C9 /* MHConnectionCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHConnectionCollectionView.m; sourceTree = "<group>"; };
-		02F2A1F61817E48B0053CB20 /* MHPreferenceController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHPreferenceController.xib; sourceTree = "<group>"; };
-		02F2A1F81817E4BC0053CB20 /* MHPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHPreferenceController.h; sourceTree = "<group>"; };
-		02F2A1F91817E4BC0053CB20 /* MHPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPreferenceController.m; sourceTree = "<group>"; };
+		02F2A1F61817E48B0053CB20 /* MHPreferenceWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHPreferenceWindow.xib; sourceTree = "<group>"; };
+		02F2A1F81817E4BC0053CB20 /* MHPreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHPreferenceWindowController.h; sourceTree = "<group>"; };
+		02F2A1F91817E4BC0053CB20 /* MHPreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPreferenceWindowController.m; sourceTree = "<group>"; };
 		02F4F02C19AA9F6D00A9B836 /* MHMongoHubMigration9to10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMongoHubMigration9to10.h; sourceTree = "<group>"; };
 		02F4F02D19AA9F6D00A9B836 /* MHMongoHubMigration9to10.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMongoHubMigration9to10.m; sourceTree = "<group>"; };
 		02FCD3CE13BB9EA400316A9F /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
@@ -468,8 +468,8 @@
 				02D345E414770616001083E7 /* Exporter-Importer */,
 				77C8280B06725ACE000B614F /* MHApplicationDelegate.h */,
 				77C8280C06725ACE000B614F /* MHApplicationDelegate.m */,
-				02F2A1F81817E4BC0053CB20 /* MHPreferenceController.h */,
-				02F2A1F91817E4BC0053CB20 /* MHPreferenceController.m */,
+				02F2A1F81817E4BC0053CB20 /* MHPreferenceWindowController.h */,
+				02F2A1F91817E4BC0053CB20 /* MHPreferenceWindowController.m */,
 				0259EB0319AF5D6600181E08 /* MHLogWindowController.h */,
 				0259EB0419AF5D6600181E08 /* MHLogWindowController.m */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
@@ -720,7 +720,7 @@
 				020F511914896DE700D4B54B /* MHTabViewController.xib */,
 				020F5127148973BA00D4B54B /* MHStatusViewController.xib */,
 				2F7446970DB6B7EA00F9684A /* MHMainMenu.xib */,
-				02F2A1F61817E48B0053CB20 /* MHPreferenceController.xib */,
+				02F2A1F61817E48B0053CB20 /* MHPreferenceWindow.xib */,
 				1D93C29F118343EF003216F7 /* MHConnectionEditorWindowController.xib */,
 				1D93C3D01183690E003216F7 /* MHConnectionWindow.xib */,
 				1D79945611875E7A009C187F /* MHAddDBController.xib */,
@@ -851,7 +851,7 @@
 				1DF96E3D11881EB400C35AB8 /* MHAddCollectionController.xib in Resources */,
 				1DF96F9411883D5E00C35AB8 /* MHQueryWindow.xib in Resources */,
 				1DA68047118875B300DFDD29 /* findmenu.png in Resources */,
-				02F2A1F71817E48B0053CB20 /* MHPreferenceController.xib in Resources */,
+				02F2A1F71817E48B0053CB20 /* MHPreferenceWindow.xib in Resources */,
 				1DA68048118875B300DFDD29 /* insertmenu.png in Resources */,
 				1DA68049118875B300DFDD29 /* removemenu.png in Resources */,
 				1DA6804A118875B300DFDD29 /* runmenu.png in Resources */,
@@ -921,7 +921,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02F2A1FA1817E4BC0053CB20 /* MHPreferenceController.m in Sources */,
+				02F2A1FA1817E4BC0053CB20 /* MHPreferenceWindowController.m in Sources */,
 				0255B568181A9A210019739D /* MHKeychain.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				77C8280E06725ACE000B614F /* MHApplicationDelegate.m in Sources */,
