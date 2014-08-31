@@ -163,31 +163,40 @@
 	</array>
 	<key>TextField</key>
 	<dict>
-		<key>TextColor</key>
-		<array>
-			<integer>1</integer>
-			<integer>1</integer>
-			<integer>1</integer>
-		</array>
-		<key>BackgroundColor</key>
-		<array>
-			<integer>0</integer>
-			<integer>0</integer>
-			<integer>0</integer>
-		</array>
-		<key>TextFont</key>
+		<key>Text</key>
 		<dict>
-			<key>name</key>
-			<string>Menlo</string>
-			<key>size</key>
-			<integer>12</integer>
+			<key>Font</key>
+			<dict>
+				<key>name</key>
+				<string>Menlo</string>
+				<key>size</key>
+				<integer>12</integer>
+			</dict>
+			<key>Color</key>
+			<array>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+			</array>
 		</dict>
-		<key>InsertionPointColor</key>
-		<array>
-			<integer>1</integer>
-			<integer>1</integer>
-			<integer>1</integer>
-		</array>
+		<key>Background</key>
+		<dict>
+			<key>Color</key>
+			<array>
+				<integer>0</integer>
+				<integer>0</integer>
+				<integer>0</integer>
+			</array>
+		</dict>
+		<key>InsertionPoint</key>
+		<dict>
+			<key>Color</key>
+			<array>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+			</array>
+		</dict>
 	</dict>
 </dict>
 </plist>
