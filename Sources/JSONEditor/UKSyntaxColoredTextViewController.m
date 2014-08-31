@@ -31,13 +31,7 @@
 
 #import "UKSyntaxColoredTextViewController.h"
 #import "NSScanner+SkipUpToCharset.h"
-
-
-// -----------------------------------------------------------------------------
-//	Globals:
-// -----------------------------------------------------------------------------
-
-static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
+#import "MHJsonColorManager.h"
 
 
 // -----------------------------------------------------------------------------
@@ -50,42 +44,6 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 @implementation UKSyntaxColoredTextViewController
 
 @synthesize delegate = _delegate;
-
-+ (NSFont *)fontWithPlistElement:(NSDictionary *)element
-{
-    return [NSFont fontWithName:element[@"name"] size:[element[@"size"] floatValue]];
-}
-
-+ (NSColor *)colorWithPlistElement:(NSArray *)element
-{
-    CGFloat red = 0., green = 0., blue = 0., alpha = 1.0;
-    
-    if (!element) {
-        return nil;
-    }
-    if (element.count >= 3) {
-        red = [element[0] floatValue];
-        green = [element[1] floatValue];
-        blue = [element[2] floatValue];
-    } else {
-        NSLog(@"problem");
-    }
-    if (element.count >= 4) {
-        alpha = [element[3] floatValue];
-    }
-    return [NSColor colorWithCalibratedRed:red green:green blue:blue alpha:alpha];
-}
-
-+(void) makeSurePrefsAreInited
-{
-	if( !sSyntaxColoredTextDocPrefsInited )
-	{
-		NSUserDefaults*	prefs = [NSUserDefaults standardUserDefaults];
-		[prefs registerDefaults: [NSDictionary dictionaryWithContentsOfFile: [[NSBundle mainBundle] pathForResource: @"SyntaxColorDefaults" ofType: @"plist"]]];
-        
-		sSyntaxColoredTextDocPrefsInited = YES;
-	}
-}
 
 
 /* -----------------------------------------------------------------------------
@@ -125,25 +83,22 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 
 -(void)	setUpSyntaxColoring
 {
-    NSDictionary *textFieldSettings = self.syntaxDefinitionDictionary[@"TextField"];
+    NSDictionary *textFieldSettings = MHJsonColorManager.sharedManager.values[@"TextField"];
     
     if (textFieldSettings[@"Background"][@"Color"]) {
-        TEXTVIEW.backgroundColor = [self.class colorWithPlistElement:textFieldSettings[@"Background"][@"Color"]];
+        TEXTVIEW.backgroundColor = textFieldSettings[@"Background"][@"Color"];
     }
     if (textFieldSettings[@"InsertionPoint"][@"Color"]) {
-        TEXTVIEW.insertionPointColor = [self.class colorWithPlistElement:textFieldSettings[@"InsertionPoint"][@"Color"]];
+        TEXTVIEW.insertionPointColor = textFieldSettings[@"InsertionPoint"][@"Color"];
     }
     if (textFieldSettings[@"Text"]) {
         if (textFieldSettings[@"Text"][@"Color"]) {
-            TEXTVIEW.textColor = [self.class colorWithPlistElement:textFieldSettings[@"Text"][@"Color"]];
+            TEXTVIEW.textColor = textFieldSettings[@"Text"][@"Color"];
         }
         if (textFieldSettings[@"Text"][@"Font"]) {
-            TEXTVIEW.font = [self.class fontWithPlistElement:textFieldSettings[@"Text"][@"Font"]];
+            TEXTVIEW.font = textFieldSettings[@"Text"][@"Font"];
         }
     }
-    
-	// Set up some sensible defaults for syntax coloring:
-	[[self class] makeSurePrefsAreInited];
 	
 	// Register for "text changed" notifications of our text storage:
 	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(processEditing:)
@@ -724,7 +679,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	
 	NSRange nuSelRange = selRange;
 	
-	NSString*	commentPrefix = [[self syntaxDefinitionDictionary] objectForKey: @"OneLineCommentPrefix"];
+	NSString*	commentPrefix = MHJsonColorManager.sharedManager.values[@"OneLineCommentPrefix"];
 	if( !commentPrefix || [commentPrefix length] == 0 )
 		commentPrefix = @"# ";
 	NSInteger	commentPrefixLength = [commentPrefix length];
@@ -865,8 +820,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 		
 		// Load colors and fonts to use from preferences:
 		// Load our dictionary which contains info on coloring this language:
-		NSDictionary*				vSyntaxDefinition = [self syntaxDefinitionDictionary];
-		NSEnumerator*				vComponentsEnny = [[vSyntaxDefinition objectForKey: @"Components"] objectEnumerator];
+		NSEnumerator*				vComponentsEnny = [MHJsonColorManager.sharedManager.values[@"Components"] objectEnumerator];
 		
 		if( vComponentsEnny == nil )	// No new-style list of components to colorize?
 		{
@@ -877,7 +831,6 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 		// Loop over all available components:
 		NSDictionary*				vCurrComponent = nil;
 		NSDictionary*				vStyles = [self defaultTextAttributes];
-		NSUserDefaults*				vPrefs = [NSUserDefaults standardUserDefaults];
         
         NSDictionary*		dStyles = [NSDictionary dictionaryWithObjectsAndKeys:
                                        [NSColor whiteColor], NSForegroundColorAttributeName,
@@ -890,11 +843,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 		{
 			NSString*   vComponentType = [vCurrComponent objectForKey: @"Type"];
 			NSString*   vComponentName = [vCurrComponent objectForKey: @"Name"];
-			NSString*   vColorKeyName = [@"SyntaxColoring:Color:" stringByAppendingString: vComponentName];
-			NSColor*	vColor = [self.class colorWithPlistElement:[vPrefs arrayForKey: vColorKeyName]];
-			
-			if( !vColor )
-				vColor = [self.class colorWithPlistElement:[vCurrComponent objectForKey: @"Color"]];
+			NSColor*	vColor = vCurrComponent[@"Color"];
 			
 			if( [vComponentType isEqualToString: @"BlockComment"] )
 			{
@@ -924,10 +873,6 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 			else if( [vComponentType isEqualToString: @"Keywords"] )
 			{
 				NSArray* vIdents = [vCurrComponent objectForKey: @"Keywords"];
-				if( !vIdents )
-					vIdents = [[NSUserDefaults standardUserDefaults] objectForKey: [@"SyntaxColoring:Keywords:" stringByAppendingString: vComponentName]];
-				if( !vIdents && [vComponentName isEqualToString: @"UserIdentifiers"] )
-					vIdents = [[NSUserDefaults standardUserDefaults] objectForKey: TD_USER_DEFINED_IDENTIFIERS];
 				if( vIdents )
 				{
 					NSCharacterSet*		vIdentCharset = nil;
@@ -1011,60 +956,6 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
                          endCharacterInDocument: endCh];
 	
 	return newSelectedCharRange;
-}
-
-
-/* -----------------------------------------------------------------------------
- syntaxDefinitionFilename:
- Like nibName, this should return the name of the syntax
- definition file to use. Advanced users may use this to allow different
- coloring to take place depending on the file extension by returning
- different file names here.
- 
- Note that the ".plist" extension is automatically appended to the file
- name.
- -------------------------------------------------------------------------- */
-
--(NSString*)	syntaxDefinitionFilename
-{
-	NSString*	syntaxDefFN = nil;
-	if( [self.delegate respondsToSelector: @selector(syntaxDefinitionFilenameForTextViewController:)] )
-		syntaxDefFN = [self.delegate syntaxDefinitionFilenameForTextViewController: self];
-	
-	if( !syntaxDefFN )
-		syntaxDefFN = @"SyntaxDefinition";
-	
-	return syntaxDefFN;
-}
-
-
-/* -----------------------------------------------------------------------------
- syntaxDefinitionDictionary:
- This returns the syntax definition dictionary to use, which indicates
- what ranges of text to colorize. Advanced users may use this to allow
- different coloring to take place depending on the file extension by
- returning different dictionaries here.
- 
- By default, this simply reads a dictionary from the .plist file
- indicated by -syntaxDefinitionFilename.
- -------------------------------------------------------------------------- */
-
--(NSDictionary*)	syntaxDefinitionDictionary
-{
-	NSDictionary*	theDict = nil;
-	
-	if( [self.delegate respondsToSelector: @selector(syntaxDefinitionDictionaryForTextViewController:)] )
-		theDict = [self.delegate syntaxDefinitionDictionaryForTextViewController: self];
-	
-	if( !theDict )
-	{
-		NSBundle*	theBundle = [self nibBundle];
-		if( !theBundle )
-			theBundle = [NSBundle bundleForClass: [self class]];	// Usually the main bundle, but be nice to plugins.
-		theDict = [NSDictionary dictionaryWithContentsOfFile: [theBundle pathForResource: [self syntaxDefinitionFilename] ofType: @"plist"]];
-	}
-	
-	return theDict;
 }
 
 

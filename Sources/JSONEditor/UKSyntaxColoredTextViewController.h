@@ -54,9 +54,6 @@
                                inLine: (NSUInteger)lineInDoc startCharacterInDocument: (NSUInteger)startCharInDoc
                endCharacterInDocument: (NSUInteger)endCharInDoc;
 
--(NSString*)		syntaxDefinitionFilenameForTextViewController: (UKSyntaxColoredTextViewController*)sender;
--(NSDictionary*)	syntaxDefinitionDictionaryForTextViewController: (UKSyntaxColoredTextViewController*)sender;
-
 @end
 
 
@@ -77,8 +74,6 @@
 }
 @property (nonatomic, readwrite, assign) id<UKSyntaxColoredTextViewDelegate> delegate;
 
-+(void) 	makeSurePrefsAreInited;		// No need to call this.
-
 -(IBAction)	recolorCompleteFile: (id)sender;
 -(IBAction)	toggleAutoSyntaxColoring: (id)sender;
 -(IBAction)	toggleMaintainIndentation: (id)sender;
@@ -95,10 +90,6 @@
 -(void)		goToLine: (int)lineNum;
 -(void)		goToCharacter: (int)charNum;
 -(void)		goToRangeFrom: (int)startCh toChar: (int)endCh;
-
-// Override any of the following in one of your subclasses to customize this object further:
--(NSString*)		syntaxDefinitionFilename;   // Defaults to "SyntaxDefinition.plist" in the app bundle's "Resources" directory.
--(NSDictionary*)	syntaxDefinitionDictionary; // Defaults to loading from -syntaxDefinitionFilename.
 
 -(NSDictionary*)	defaultTextAttributes;		// Style attributes dictionary for an NSAttributedString.
 

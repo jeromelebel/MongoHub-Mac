@@ -9,8 +9,12 @@
 #import <AppKit/AppKit.h>
 
 @interface MHJsonColorManager : NSObject
+{
+    NSMutableDictionary                     *_values;
+}
 
-- (NSColor *)colorForComponentKey:(NSString *)key;
-- (NSArray *)components;
+@property (nonatomic, readonly, strong) NSDictionary *values;
+
++ (instancetype)sharedManager;
 
 @end
