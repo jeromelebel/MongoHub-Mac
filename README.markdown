@@ -36,6 +36,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 ** Beta **
 
     - Adding a log window
+    - Accept connecting to slave https://github.com/jeromelebel/MongoHub-Mac/issues/113
 
 ## History
 

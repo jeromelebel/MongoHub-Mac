@@ -19,9 +19,10 @@
 
 @implementation MHConnectionStore
 
+@dynamic alias;
 @dynamic servers;
 @dynamic replicaSetName;
-@dynamic alias;
+@dynamic slaveOK;
 @dynamic adminUser;
 @dynamic defaultDatabase;
 
@@ -351,6 +352,9 @@
     }
     if (self.replicaSetName.length > 0) {
         [options addObject:[NSString stringWithFormat:@"replicaSet=%@", self.replicaSetName.mh_stringByEscapingURL]];
+    }
+    if (self.slaveOK.boolValue) {
+        [options addObject:@"slaveok=true"];
     }
     uri = [NSString stringWithFormat:@"%@%@%@/%@?%@", MONGODB_SCHEME, auth, servers, self.defaultDatabase.mh_stringByEscapingURL, [options componentsJoinedByString:@"&"]];
     return uri;

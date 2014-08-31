@@ -27,9 +27,10 @@
 - (void)addNewQuery:(NSDictionary *)query withDatabaseName:(NSString *)databaseName collectionName:(NSString *)collectionName;
 - (NSString *)stringURLWithSSHMapping:(NSDictionary *)sshMapping;
 
+@property (nonatomic, strong) NSString *alias;
 @property (nonatomic, strong) NSString *servers;
 @property (nonatomic, strong) NSString *replicaSetName;
-@property (nonatomic, strong) NSString *alias;
+@property (nonatomic, strong) NSNumber *slaveOK;
 @property (nonatomic, strong) NSString *adminUser;
 @property (nonatomic, strong) NSString *adminPassword;
 @property (nonatomic, strong) NSString *defaultDatabase;

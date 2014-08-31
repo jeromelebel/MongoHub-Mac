@@ -18,15 +18,22 @@
 
 @interface MHConnectionEditorWindowController ()
 @property (nonatomic, readwrite, assign) IBOutlet NSTextField *aliasTextField;
-@property (nonatomic, readwrite, assign) IBOutlet NSTextField *adminUserTextField;
-@property (nonatomic, readwrite, assign) IBOutlet NSSecureTextField *adminPasswordTextField;
+
 @property (nonatomic, readwrite, assign) IBOutlet NSPopUpButton *singleReplicaSetPopUpButton;
 @property (nonatomic, readwrite, assign) IBOutlet NSTabView *singleReplicaSetTabView;
+
 @property (nonatomic, readwrite, assign) IBOutlet NSTextField *hostTextField;
 @property (nonatomic, readwrite, assign) IBOutlet NSTextField *hostportTextField;
+@property (nonatomic, readwrite, assign) IBOutlet NSButton *slaveOkButton;
+
 @property (nonatomic, readwrite, assign) IBOutlet NSTextField *replicaSetServersTextField;
 @property (nonatomic, readwrite, assign) IBOutlet NSTextField *replicaSetNameTextField;
+@property (nonatomic, readwrite, assign) IBOutlet NSPopUpButton *defaultReadModePopUpButton;
+
 @property (nonatomic, readwrite, assign) IBOutlet NSTextField *shardedClusterServersTextField;
+
+@property (nonatomic, readwrite, assign) IBOutlet NSTextField *adminUserTextField;
+@property (nonatomic, readwrite, assign) IBOutlet NSSecureTextField *adminPasswordTextField;
 @property (nonatomic, readwrite, assign) IBOutlet NSTextField *defaultDatabaseTextField;
 
 @property (nonatomic, readwrite, assign) IBOutlet NSButton *useSSLCheckbox;
@@ -38,9 +45,9 @@
 @property (nonatomic, readwrite, assign) IBOutlet NSTextField *sshUserTextField;
 @property (nonatomic, readwrite, assign) IBOutlet NSSecureTextField *sshPasswordTextField;
 @property (nonatomic, readwrite, assign) IBOutlet NSTextField *sshKeyfileTextField;
+
 @property (nonatomic, readwrite, assign) IBOutlet NSButton *selectKeyFileButton;
 @property (nonatomic, readwrite, assign) IBOutlet NSButton *addSaveButton;
-@property (nonatomic, readwrite, assign) IBOutlet NSPopUpButton *defaultReadModePopUpButton;
 
 @property (nonatomic, readwrite, assign, getter=isNewConnetion) BOOL newConnection;
 
@@ -97,28 +104,36 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 @synthesize newConnection = _newConnection;
 @synthesize connectionStoreDefaultValue = _connectionStoreDefaultValue;
 
+@synthesize aliasTextField = _aliasTextField;
+
+@synthesize singleReplicaSetPopUpButton = _singleReplicaSetPopUpButton;
+@synthesize singleReplicaSetTabView = _singleReplicaSetTabView;
+
 @synthesize hostTextField = _hostTextField;
 @synthesize hostportTextField = _hostportTextField;
+@synthesize slaveOkButton = _slaveOkButton;
+
 @synthesize replicaSetServersTextField = _replicaSetServersTextField;
 @synthesize replicaSetNameTextField = _replicaSetNameTextField;
+@synthesize defaultReadModePopUpButton = _defaultReadModePopUpButton;
+
 @synthesize shardedClusterServersTextField = _shardedClusterServersTextField;
-@synthesize aliasTextField = _aliasTextField;
+
 @synthesize adminUserTextField = _adminUserTextField;
 @synthesize adminPasswordTextField = _adminPasswordTextField;
 @synthesize defaultDatabaseTextField = _defaultDatabaseTextField;
 @synthesize useSSLCheckbox = _useSSLCheckbox;
 @synthesize weakCertificateCheckbox = _weakCertificateCheckbox;
+
 @synthesize useSSHCheckBox = _useSSHCheckBox;
 @synthesize sshHostTextField = _sshHostTextField;
 @synthesize sshPortTextField = _sshPortTextField;
 @synthesize sshUserTextField = _sshUserTextField;
 @synthesize sshPasswordTextField = _sshPasswordTextField;
 @synthesize sshKeyfileTextField = _sshKeyfileTextField;
+
 @synthesize selectKeyFileButton = _selectKeyFileButton;
 @synthesize addSaveButton = _addSaveButton;
-@synthesize defaultReadModePopUpButton = _defaultReadModePopUpButton;
-@synthesize singleReplicaSetPopUpButton = _singleReplicaSetPopUpButton;
-@synthesize singleReplicaSetTabView = _singleReplicaSetTabView;
 
 - (id)init
 {
@@ -192,6 +207,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
                 self.hostportTextField.stringValue = [NSString stringWithFormat:@"%ld", (long)port];
             }
         }
+        self.slaveOkButton.state = defaultValue.slaveOK.boolValue?NSOnState:NSOffState;
         if (defaultValue.adminUser) self.adminUserTextField.stringValue = defaultValue.adminUser;
         if (defaultValue.adminPassword) self.adminPasswordTextField.stringValue = defaultValue.adminPassword;
         if (defaultValue.defaultDatabase) self.defaultDatabaseTextField.stringValue = defaultValue.defaultDatabase;
@@ -217,6 +233,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         self.window.title = NSLocalizedString(@"New Connection", @"New Connection");
         self.hostTextField.stringValue = @"";
         self.hostportTextField.stringValue = @"";
+        self.slaveOkButton.state = NSOffState;
         self.replicaSetServersTextField.stringValue = @"";
         self.replicaSetNameTextField.stringValue = @"";
         self.aliasTextField.stringValue = @"";
@@ -388,8 +405,9 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     } else {
         self.editedConnectionStore.replicaSetName = nil;
     }
-    self.editedConnectionStore.servers = self.servers;
     self.editedConnectionStore.alias = alias;
+    self.editedConnectionStore.servers = self.servers;
+    self.editedConnectionStore.slaveOK = (self.slaveOkButton.state == NSOnState)?@YES:@NO;
     self.editedConnectionStore.adminUser = self.adminUserTextField.stringValue;
     self.editedConnectionStore.adminPassword = self.adminPasswordTextField.stringValue;
     self.editedConnectionStore.defaultDatabase = defaultDatabase;

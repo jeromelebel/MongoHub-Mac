@@ -20,28 +20,39 @@
 @interface MHConnectionEditorWindowController : NSWindowController
 {
     NSTextField                         *_aliasTextField;
-    NSTextField                         *_adminUserTextField;
-    NSSecureTextField                   *_adminPasswordTextField;
-    NSTextField                         *_hostTextField;
-    NSTextField                         *_hostportTextField;
-    NSButton                            *_usereplCheckBox;
+
     NSPopUpButton                       *_singleReplicaSetPopUpButton;
     NSTabView                           *_singleReplicaSetTabView;
+
+    // single server
+    NSTextField                         *_hostTextField;
+    NSTextField                         *_hostportTextField;
+    NSButton                            *_slaveOkButton;
+    
+    // replica set
     NSTextField                         *_replicaSetNameTextField;
     NSTextField                         *_replicaSetServersTextField;
+    NSPopUpButton                       *_defaultReadModePopUpButton;
+    
+    // sharded cluster
     NSTextField                         *_shardedClusterServersTextField;
+    
+    NSTextField                         *_adminUserTextField;
+    NSSecureTextField                   *_adminPasswordTextField;
     NSTextField                         *_defaultDatabaseTextField;
     NSButton                            *_useSSLCheckbox;
-    NSButton                            *_weakCertificateCheckbox;
+    
     NSButton                            *_useSSHCheckBox;
+    NSButton                            *_weakCertificateCheckbox;
+    
     NSTextField                         *_sshHostTextField;
     NSTextField                         *_sshPortTextField;
     NSTextField                         *_sshUserTextField;
     NSSecureTextField                   *_sshPasswordTextField;
     NSTextField                         *_sshKeyfileTextField;
+    
     NSButton                            *_selectKeyFileButton;
     NSButton                            *_addSaveButton;
-    NSPopUpButton                       *_defaultReadModePopUpButton;
     
     MHConnectionStore                   *_editedConnectionStore;
     MHConnectionStore                   *_connectionStoreDefaultValue;
