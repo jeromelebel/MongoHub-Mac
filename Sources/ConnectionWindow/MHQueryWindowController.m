@@ -92,29 +92,6 @@
 
 @synthesize mrOutlineViewController = _mrOutlineViewController, mrOutlineView = _mrOutlineView, mrLoaderIndicator = _mrLoaderIndicator, mrOutputTextField = _mrOutputTextField, mrCriteriaTextField = _mrCriteriaTextField, mrMapFunctionTextView = _mrMapFunctionTextView, mrReduceFunctionTextView = _mrReduceFunctionTextView;
 
-@synthesize expCriticalTextField;
-@synthesize expFieldsTextField;
-@synthesize expSkipTextField;
-@synthesize expLimitTextField;
-@synthesize expSortTextField;
-@synthesize expResultsTextField;
-@synthesize expPathTextField;
-@synthesize expTypePopUpButton;
-@synthesize expQueryTextField;
-@synthesize expJsonArrayCheckBox;
-@synthesize expProgressIndicator;
-
-@synthesize impIgnoreBlanksCheckBox;
-@synthesize impDropCheckBox;
-@synthesize impHeaderlineCheckBox;
-@synthesize impFieldsTextField;
-@synthesize impResultsTextField;
-@synthesize impPathTextField;
-@synthesize impTypePopUpButton;
-@synthesize impJsonArrayCheckBox;
-@synthesize impStopOnErrorCheckBox;
-@synthesize impProgressIndicator;
-
 
 + (id)loadQueryController
 {
@@ -133,29 +110,6 @@
     self.connectionStore = nil;
     
     [_jsonWindowControllers release];
-    
-    [expCriticalTextField release];
-    [expFieldsTextField release];
-    [expSkipTextField release];
-    [expLimitTextField release];
-    [expSortTextField release];
-    [expResultsTextField release];
-    [expPathTextField release];
-    [expTypePopUpButton release];
-    [expQueryTextField release];
-    [expJsonArrayCheckBox release];
-    [expProgressIndicator release];
-    
-    [impIgnoreBlanksCheckBox release];
-    [impDropCheckBox release];
-    [impHeaderlineCheckBox release];
-    [impFieldsTextField release];
-    [impResultsTextField release];
-    [impPathTextField release];
-    [impTypePopUpButton release];
-    [impJsonArrayCheckBox release];
-    [impStopOnErrorCheckBox release];
-    [impProgressIndicator release];
     
     [super dealloc];
 }
@@ -230,7 +184,6 @@
     [self findQueryComposer:nil];
     [self updateQueryComposer:nil];
     [self removeQueryComposer:nil];
-    [self exportQueryComposer:nil];
     
     [self.insertDataTextView mh_jsonSetup];
     [self.mrReduceFunctionTextView mh_jsonSetup];
@@ -307,53 +260,8 @@
         [self updateQueryComposer:nil];
     } else if (ed == self.removeCriteriaTextField) {
         [self removeQueryComposer:nil];
-    } else if (ed == expCriticalTextField || ed == expFieldsTextField || ed == expSortTextField || ed == expSkipTextField || ed == expLimitTextField) {
-        [self exportQueryComposer:nil];
     }
 
-}
-
-- (IBAction) exportQueryComposer:(id)sender
-{
-    NSString *critical;
-    if ([[expCriticalTextField stringValue] length] > 0) {
-        critical = [[NSString alloc] initWithString:[expCriticalTextField stringValue]];
-    }else {
-        critical = [[NSString alloc] initWithString:@""];
-    }
-    
-    NSString *jsFields;
-    if ([[expFieldsTextField stringValue] length] > 0) {
-        NSArray *keys = [[NSArray alloc] initWithArray:[[expFieldsTextField stringValue] componentsSeparatedByString:@","]];
-        NSMutableArray *tmpstr = [[NSMutableArray alloc] initWithCapacity:[keys count]];
-        for (NSString *str in keys) {
-            [tmpstr addObject:[NSString stringWithFormat:@"%@:1", str]];
-        }
-        jsFields = [[NSString alloc] initWithFormat:@", {%@}", [tmpstr componentsJoinedByString:@","] ];
-        [keys release];
-        [tmpstr release];
-    }else {
-        jsFields = [[NSString alloc] initWithString:@""];
-    }
-    
-    NSString *sort;
-    if ([[expSortTextField stringValue] length] > 0) {
-        sort = [[NSString alloc] initWithFormat:@".sort(%@)", [expSortTextField stringValue]];
-    }else {
-        sort = [[NSString alloc] initWithString:@""];
-    }
-    
-    NSString *skip = [[NSString alloc] initWithFormat:@".skip(%d)", [expSkipTextField intValue]];
-    NSString *limit = [[NSString alloc] initWithFormat:@".limit(%d)", [expLimitTextField intValue]];
-    NSString *col = [NSString stringWithFormat:@"%@.%@", self.collection.name, self.collection.name];
-    
-    NSString *query = [NSString stringWithFormat:@"db.%@.find(%@%@)%@%@%@", col, critical, jsFields, sort, skip, limit];
-    [critical release];
-    [jsFields release];
-    [sort release];
-    [skip release];
-    [limit release];
-    [expQueryTextField setStringValue:query];
 }
 
 - (void)showEditWindow:(id)sender
@@ -399,46 +307,6 @@
     } else {
         [_jsonWindowControllers removeObjectForKey:jsonWindowController.jsonDict];
     }
-}
-
-- (IBAction)chooseExportPath:(id)sender
-{
-    NSSavePanel *tvarNSSavePanelObj = [NSSavePanel savePanel];
-    int tvarInt = [tvarNSSavePanelObj runModal];
-    if(tvarInt == NSOKButton){
-        NSLog(@"doSaveAs we have an OK button");
-        //NSString * tvarDirectory = [tvarNSSavePanelObj directory];
-        //NSLog(@"doSaveAs directory = %@",tvarDirectory);
-        NSString * tvarFilename = [[tvarNSSavePanelObj URL] path];
-        NSLog(@"doSaveAs filename = %@",tvarFilename);
-        [expPathTextField setStringValue:tvarFilename];
-    } else if(tvarInt == NSCancelButton) {
-        NSLog(@"doSaveAs we have a Cancel button");
-        return;
-    } else {
-        NSLog(@"doSaveAs tvarInt not equal 1 or zero = %3d",tvarInt);
-        return;
-    } // end if
-}
-
-- (IBAction)chooseImportPath:(id)sender
-{
-    NSOpenPanel *tvarNSOpenPanelObj = [NSOpenPanel openPanel];
-    NSInteger tvarNSInteger = [tvarNSOpenPanelObj runModal];
-    if(tvarNSInteger == NSOKButton){
-        NSLog(@"doOpen we have an OK button");
-        //NSString * tvarDirectory = [tvarNSOpenPanelObj directory];
-        //NSLog(@"doOpen directory = %@",tvarDirectory);
-        NSString * tvarFilename = [[tvarNSOpenPanelObj URL] path];
-        NSLog(@"doOpen filename = %@",tvarFilename);
-        [impPathTextField setStringValue:tvarFilename];
-    } else if(tvarNSInteger == NSCancelButton) {
-        NSLog(@"doOpen we have a Cancel button");
-        return;
-    } else {
-        NSLog(@"doOpen tvarInt not equal 1 or zero = %ld",(long int)tvarNSInteger);
-        return;
-    } // end if
 }
 
 - (IBAction)segmentedControlAction:(id)sender
