@@ -36,6 +36,7 @@
 		0255B568181A9A210019739D /* MHKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255B567181A9A210019739D /* MHKeychain.m */; };
 		0259EAFE19AF5CF000181E08 /* MHLogWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0259EAFD19AF5CF000181E08 /* MHLogWindow.xib */; };
 		0259EB0519AF5D6600181E08 /* MHLogWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259EB0419AF5D6600181E08 /* MHLogWindowController.m */; };
+		0259EB6519B01E7800181E08 /* MHJsonColorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259EB6419B01E7800181E08 /* MHJsonColorManager.m */; };
 		025B8F0C1531C76E00849A71 /* MHTabTitleContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 025B8F0B1531C76E00849A71 /* MHTabTitleContainerView.m */; };
 		025B8F911531FC7500849A71 /* unselected-tab-border.png in Resources */ = {isa = PBXBuildFile; fileRef = 025B8F901531FC7500849A71 /* unselected-tab-border.png */; };
 		025CBC6E1982AE4E00C8E272 /* MHMongoHubMigration6to7.m in Sources */ = {isa = PBXBuildFile; fileRef = 025CBC6D1982AE4E00C8E272 /* MHMongoHubMigration6to7.m */; };
@@ -212,6 +213,8 @@
 		0259EAFD19AF5CF000181E08 /* MHLogWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHLogWindow.xib; sourceTree = "<group>"; };
 		0259EB0319AF5D6600181E08 /* MHLogWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHLogWindowController.h; sourceTree = "<group>"; };
 		0259EB0419AF5D6600181E08 /* MHLogWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLogWindowController.m; sourceTree = "<group>"; };
+		0259EB6319B01E7800181E08 /* MHJsonColorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHJsonColorManager.h; sourceTree = "<group>"; };
+		0259EB6419B01E7800181E08 /* MHJsonColorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHJsonColorManager.m; sourceTree = "<group>"; };
 		025B8F0A1531C76E00849A71 /* MHTabTitleContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabTitleContainerView.h; sourceTree = "<group>"; };
 		025B8F0B1531C76E00849A71 /* MHTabTitleContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTabTitleContainerView.m; sourceTree = "<group>"; };
 		025B8F901531FC7500849A71 /* unselected-tab-border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unselected-tab-border.png"; sourceTree = "<group>"; };
@@ -449,6 +452,8 @@
 				1D64100712C8E21C0030AA4C /* UKSyntaxColoredTextViewController.m */,
 				1D64100B12C8E3D90030AA4C /* MHJsonWindowController.h */,
 				1D64100C12C8E3D90030AA4C /* MHJsonWindowController.m */,
+				0259EB6319B01E7800181E08 /* MHJsonColorManager.h */,
+				0259EB6419B01E7800181E08 /* MHJsonColorManager.m */,
 			);
 			path = JSONEditor;
 			sourceTree = "<group>";
@@ -969,6 +974,7 @@
 				0262CA3F148C1838009033F9 /* MHConnectionWindowController.m in Sources */,
 				0242F138198ABE3E00C73FEC /* MHMongoHubMigration7to8.m in Sources */,
 				025B8F0C1531C76E00849A71 /* MHTabTitleContainerView.m in Sources */,
+				0259EB6519B01E7800181E08 /* MHJsonColorManager.m in Sources */,
 				025F635215AE21F300CD0EB4 /* NSViewHelpers.m in Sources */,
 				025CBC6E1982AE4E00C8E272 /* MHMongoHubMigration6to7.m in Sources */,
 				023230AE15E051300075498C /* MHConnectionEditorWindowController.m in Sources */,
