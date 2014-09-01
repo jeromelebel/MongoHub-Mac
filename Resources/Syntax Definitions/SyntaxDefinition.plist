@@ -176,9 +176,9 @@
 			<key>Font</key>
 			<dict>
 				<key>name</key>
-				<string>Menlo</string>
+				<string>Monaco</string>
 				<key>size</key>
-				<integer>12</integer>
+				<integer>10</integer>
 			</dict>
 			<key>Color</key>
 			<array>

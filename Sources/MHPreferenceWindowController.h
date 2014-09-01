@@ -14,6 +14,8 @@
     NSButton                            *_betaSoftwareButton;
     NSColorWell                         *_textBackgroundColorWell;
     NSTableView                         *_jsonColorTableView;
+    NSTextField                         *_jsonTextLabelView;
+    NSColorWell                         *_jsonTextColorWell;
     
     NSMutableArray                      *_jsonComponents;
 }
