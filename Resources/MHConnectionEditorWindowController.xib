@@ -401,9 +401,9 @@ Gw
                                             </connections>
                                         </textField>
                                         <button id="qPp-qu-Tbh">
-                                            <rect key="frame" x="100" y="38" width="77" height="18"/>
+                                            <rect key="frame" x="100" y="39" width="109" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Slave OK" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Hcg-Jr-NC6">
+                                            <buttonCell key="cell" type="check" title="Secondary OK" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Hcg-Jr-NC6">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
