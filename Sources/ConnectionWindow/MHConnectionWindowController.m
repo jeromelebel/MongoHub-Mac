@@ -660,6 +660,16 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     }
 }
 
+- (BOOL)windowShouldClose:(id)sender
+{
+    if (self.tabViewController.tabCount <= 1) {
+        return YES;
+    } else {
+        [self.tabViewController removeTabItemViewController:self.tabViewController.selectedTabItemViewController];
+        return NO;
+    }
+}
+
 @end
 
 @implementation MHConnectionWindowController (ImportExport)
