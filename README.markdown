@@ -39,6 +39,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     - Accept connecting to slave https://github.com/jeromelebel/MongoHub-Mac/issues/113
     - Can change font and colors in the json editor
     - cmd-w should close the current tab https://github.com/jeromelebel/MongoHub-Mac/issues/119
+    - Better support for tunneling and replica set/sharding
 
 ## History
 
