@@ -8,6 +8,7 @@
 
 #import "MHJsonColorManager.h"
 
+#define MHJsonColorManagerUserDefaultKey @"MHJsonColorManagerUserDefaultKey"
 static MHJsonColorManager *jsonColorManager = nil;
 
 @interface MHJsonColorManager ()
@@ -16,10 +17,7 @@ static MHJsonColorManager *jsonColorManager = nil;
 
 @interface MHJsonColorManager (Convert)
 + (id)valuesFromPlistValues:(id)plistValues;
-+ (NSMutableDictionary *)dictionaryValueFromPlistValue:(NSDictionary *)plistValue;
-+ (NSMutableArray *)arrayValueFromPlistValue:(NSArray *)plistValue;
-+ (NSColor *)colorValueFromPlistValue:(NSArray *)plistValue;
-+ (NSFont *)fontValueFromPlistValue:(NSDictionary *)plistValue;
++ (id)plistValuesFromValues:(id)values;
 @end
 
 @implementation MHJsonColorManager
@@ -49,6 +47,42 @@ static MHJsonColorManager *jsonColorManager = nil;
     
     rowValues = [NSDictionary dictionaryWithContentsOfFile:[NSBundle.mainBundle pathForResource:@"SyntaxDefinition" ofType:@"plist"]];
     self.values = [self.class valuesFromPlistValues:rowValues];
+    rowValues = [[NSUserDefaults standardUserDefaults] objectForKey:MHJsonColorManagerUserDefaultKey];
+    if (rowValues) {
+        NSDictionary *userValues;
+        
+        userValues = [self.class valuesFromPlistValues:rowValues];
+        for (NSString *category in @[ @"Components", @"TextField"]) {
+            for (NSString *key in [self.values[category] allKeys]) {
+                if (userValues[category][key]) {
+                    self.values[category][key] = userValues[category][key];
+                }
+            }
+        }
+    }
+}
+
+- (void)resetValues
+{
+    NSDictionary *rowValues;
+    
+    rowValues = [NSDictionary dictionaryWithContentsOfFile:[NSBundle.mainBundle pathForResource:@"SyntaxDefinition" ofType:@"plist"]];
+    self.values = [self.class valuesFromPlistValues:rowValues];
+    [self valueUpdated];
+}
+
+- (void)valueUpdated
+{
+    NSDictionary *rowValues;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:MHJsonColorManagerHasBeenUpdatedNotification object:self];
+    rowValues = [self.class plistValuesFromValues:self.values];
+    [[NSUserDefaults standardUserDefaults] setObject:rowValues forKey:MHJsonColorManagerUserDefaultKey];
+}
+
+- (void)save
+{
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end
@@ -99,11 +133,9 @@ static MHJsonColorManager *jsonColorManager = nil;
 
 + (NSColor *)colorValueFromPlistValue:(NSArray *)plistValue
 {
+    NSColor *result;
     CGFloat red = 0, green = 0, blue = 0, alpha = 1;
     
-    if (!plistValue) {
-        return nil;
-    }
     if (plistValue.count >= 3) {
         red = [plistValue[0] floatValue];
         green = [plistValue[1] floatValue];
@@ -114,7 +146,8 @@ static MHJsonColorManager *jsonColorManager = nil;
     if (plistValue.count >= 4) {
         alpha = [plistValue[3] floatValue];
     }
-    return [NSColor colorWithCalibratedRed:red green:green blue:blue alpha:alpha];
+    result = [NSColor colorWithCalibratedRed:red green:green blue:blue alpha:alpha];
+    return result;
 }
 
 + (NSFont *)fontValueFromPlistValue:(NSDictionary *)plistValue
@@ -159,7 +192,7 @@ static MHJsonColorManager *jsonColorManager = nil;
     
     result = [NSMutableArray array];
     for (id value in plistValue) {
-        [result addObject:[self valuesFromPlistValues:value]];
+        [result addObject:[self plistValuesFromValues:value]];
     }
     return result;
 }
@@ -168,6 +201,7 @@ static MHJsonColorManager *jsonColorManager = nil;
 {
     NSMutableArray *result;
     
+    color = [color colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     result = [NSMutableArray array];
     [result addObject:[NSNumber numberWithFloat:color.redComponent]];
     [result addObject:[NSNumber numberWithFloat:color.greenComponent]];

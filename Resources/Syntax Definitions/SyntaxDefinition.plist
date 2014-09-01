@@ -3,7 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>Components</key>
-	<array>
+	<dict>
+		<key>QuoteStringsValue</key>
 		<dict>
 			<key>Color</key>
 			<array>
@@ -16,12 +17,13 @@
 			<key>EscapeChar</key>
 			<string></string>
 			<key>Name</key>
-			<string>QuoteStringsValue</string>
+			<string>Quoted String</string>
 			<key>Start</key>
 			<string>&quot;</string>
 			<key>Type</key>
 			<string>String</string>
 		</dict>
+		<key>BooleanValues</key>
 		<dict>
 			<key>Color</key>
 			<array>
@@ -33,12 +35,15 @@
 			<array>
 				<string>:true</string>
 				<string>: true</string>
+				<string>:false</string>
+				<string>: false</string>
 			</array>
 			<key>Name</key>
-			<string>IdentifiersTrue</string>
+			<string>Boolean Values</string>
 			<key>Type</key>
 			<string>Keywords</string>
 		</dict>
+		<key>Null</key>
 		<dict>
 			<key>Color</key>
 			<array>
@@ -50,14 +55,13 @@
 			<array>
 				<string>:null</string>
 				<string>: null</string>
-				<string>:false</string>
-				<string>: false</string>
 			</array>
 			<key>Name</key>
-			<string>IdentifiersFalse</string>
+			<string>Null</string>
 			<key>Type</key>
 			<string>Keywords</string>
 		</dict>
+		<key>JsonStructure</key>
 		<dict>
 			<key>Color</key>
 			<array>
@@ -76,10 +80,11 @@
 				<string>:</string>
 			</array>
 			<key>Name</key>
-			<string>IdentifiersMark</string>
+			<string>{ } [ ] , :</string>
 			<key>Type</key>
 			<string>Keywords</string>
 		</dict>
+		<key>IdKey</key>
 		<dict>
 			<key>Color</key>
 			<array>
@@ -92,10 +97,11 @@
 				<string>&quot;_id&quot;</string>
 			</array>
 			<key>Name</key>
-			<string>IdentifiersID</string>
+			<string>Json Key</string>
 			<key>Type</key>
 			<string>Keywords</string>
 		</dict>
+		<key>JsonKey</key>
 		<dict>
 			<key>Color</key>
 			<array>
@@ -106,12 +112,13 @@
 			<key>End</key>
 			<string>&quot;</string>
 			<key>Name</key>
-			<string>Operator</string>
+			<string>Json Key</string>
 			<key>Start</key>
 			<string>&quot;$</string>
 			<key>Type</key>
 			<string>String</string>
 		</dict>
+		<key>Date</key>
 		<dict>
 			<key>Color</key>
 			<array>
@@ -122,12 +129,13 @@
 			<key>End</key>
 			<string>)</string>
 			<key>Name</key>
-			<string>JSONObj</string>
+			<string>Date</string>
 			<key>Start</key>
 			<string>Date(</string>
 			<key>Type</key>
 			<string>String</string>
 		</dict>
+		<key>ObjectId</key>
 		<dict>
 			<key>Color</key>
 			<array>
@@ -138,29 +146,13 @@
 			<key>End</key>
 			<string>)</string>
 			<key>Name</key>
-			<string>JSONObj</string>
+			<string>ObjectId</string>
 			<key>Start</key>
 			<string>ObjectId(</string>
 			<key>Type</key>
 			<string>String</string>
 		</dict>
-		<dict>
-			<key>Color</key>
-			<array>
-				<integer>1</integer>
-				<real>0.5647058823529412</real>
-				<integer>0</integer>
-			</array>
-			<key>End</key>
-			<string>)</string>
-			<key>Name</key>
-			<string>JSONObj</string>
-			<key>Start</key>
-			<string>Def(</string>
-			<key>Type</key>
-			<string>String</string>
-		</dict>
-	</array>
+	</dict>
 	<key>TextField</key>
 	<dict>
 		<key>Text</key>

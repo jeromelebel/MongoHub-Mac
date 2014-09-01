@@ -45,23 +45,13 @@
 
 @synthesize delegate = _delegate;
 
-
-/* -----------------------------------------------------------------------------
- init:
- Constructor that inits sourceCode member variable as a flag. It's
- storage for the text until the NIB's been loaded.
- -------------------------------------------------------------------------- */
-
--(id)	initWithNibName: (NSString*)inNibName bundle: (NSBundle*)inBundle
+- (instancetype)init
 {
-    self = [super initWithNibName: inNibName bundle: inBundle];
-    if( self )
-	{
-		autoSyntaxColoring = YES;
-		maintainIndentation = YES;
-		recolorTimer = nil;
-		syntaxColoringBusy = NO;
-	}
+    if (self = [super init]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jsonColorManagerChanged:) name:MHJsonColorManagerHasBeenUpdatedNotification object:MHJsonColorManager.sharedManager];
+        autoSyntaxColoring = YES;
+        maintainIndentation = YES;
+    }
     return self;
 }
 
@@ -80,6 +70,10 @@
 	[super dealloc];
 }
 
+- (void)jsonColorManagerChanged:(id)sender
+{
+    [self setUpSyntaxColoring];
+}
 
 -(void)	setUpSyntaxColoring
 {

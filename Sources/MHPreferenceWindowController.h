@@ -11,7 +11,11 @@
 
 @interface MHPreferenceWindowController : NSWindowController
 {
-    IBOutlet NSButton                   *_betaSoftwareButton;
+    NSButton                            *_betaSoftwareButton;
+    NSColorWell                         *_textBackgroundColorWell;
+    NSTableView                         *_jsonColorTableView;
+    
+    NSMutableArray                      *_jsonComponents;
 }
 
 + (instancetype)preferenceWindowController;

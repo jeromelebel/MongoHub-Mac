@@ -7,7 +7,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHPreferenceWindowController">
             <connections>
-                <outlet property="_betaSoftwareButton" destination="Lvd-gF-Nde" id="PmH-8o-p77"/>
+                <outlet property="betaSoftwareButton" destination="Lvd-gF-Nde" id="Ll4-Fc-vfX"/>
+                <outlet property="jsonColorTableView" destination="HL1-5s-6cY" id="vYQ-zh-p2C"/>
+                <outlet property="textBackgroundColorWell" destination="05I-Pv-pb9" id="8vl-pg-BOZ"/>
                 <outlet property="window" destination="1" id="zMK-0U-bCf"/>
             </connections>
         </customObject>
@@ -90,7 +92,7 @@
                                                 <rect key="frame" x="1" y="17" width="238" height="117"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="iGp-ks-BHV" viewBased="YES" id="HL1-5s-6cY">
+                                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="HL1-5s-6cY">
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -129,6 +131,10 @@
                                                                 </prototypeCellViews>
                                                             </tableColumn>
                                                         </tableColumns>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="-2" id="ZCb-9Q-fRS"/>
+                                                            <outlet property="delegate" destination="-2" id="XkH-4z-QEM"/>
+                                                        </connections>
                                                     </tableView>
                                                 </subviews>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -141,10 +147,6 @@
                                                 <rect key="frame" x="224" y="17" width="15" height="102"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
-                                            <tableHeaderView key="headerView" id="iGp-ks-BHV">
-                                                <rect key="frame" x="0.0" y="0.0" width="238" height="17"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </tableHeaderView>
                                         </scrollView>
                                         <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="05I-Pv-pb9">
                                             <rect key="frame" x="142" y="237" width="44" height="23"/>
