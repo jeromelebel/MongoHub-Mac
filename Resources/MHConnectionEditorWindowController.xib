@@ -397,7 +397,7 @@ Gw
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
-                                                <outlet property="nextKeyView" destination="HQD-OS-8KZ" id="hZa-CM-oHk"/>
+                                                <outlet property="nextKeyView" destination="qPp-qu-Tbh" id="Y7i-rS-eua"/>
                                             </connections>
                                         </textField>
                                         <button id="qPp-qu-Tbh">
@@ -407,6 +407,9 @@ Gw
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <outlet property="nextKeyView" destination="HQD-OS-8KZ" id="Rlr-8m-Dew"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </view>
@@ -433,7 +436,7 @@ Gw
                                                 </menu>
                                             </popUpButtonCell>
                                             <connections>
-                                                <outlet property="nextKeyView" destination="a2P-8z-1w5" id="jIy-qu-RAK"/>
+                                                <outlet property="nextKeyView" destination="iJd-Yi-nbi" id="TC4-Bb-vhI"/>
                                             </connections>
                                         </popUpButton>
                                         <textField verticalHuggingPriority="750" id="6XC-gc-Bsl">

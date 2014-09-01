@@ -456,7 +456,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         self.replicaSetServersTextField.nextKeyView = self.adminUserTextField;
     } else if (self.singleReplicaSetPopUpButton.selectedTag == 0) {
         self.singleReplicaSetPopUpButton.nextKeyView = self.hostTextField;
-        self.hostportTextField.nextKeyView = self.adminUserTextField;
+        self.slaveOkButton.nextKeyView = self.adminUserTextField;
     } else {
         NSAssert(NO, @"unknown value %ld", (long)self.singleReplicaSetPopUpButton.selectedTag);;
     }
