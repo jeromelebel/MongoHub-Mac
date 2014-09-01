@@ -212,10 +212,13 @@
         [self.sshTunnel start];
         return;
     } else {
+        NSString *urlString;
         
         [self closeMongoDB];
         self.serverItem = [[[MHServerItem alloc] initWithClient:self.client delegate:self] autorelease];
-        self.client = [MODClient clientWihtURLString:[self.connectionStore stringURLWithSSHMapping:self.sshBindedPortMapping]];
+        urlString = [self.connectionStore stringURLWithSSHMapping:self.sshBindedPortMapping];
+        [self.delegate connectionWindowControllerLogMessage:urlString domain:[NSString stringWithFormat:@"%@.mongo", self.connectionStore.alias] level:@"debug"];
+        self.client = [MODClient clientWihtURLString:urlString];
         if (self.connectionStore.useSSL) {
             self.client.sslOptions = [[[MODSSLOptions alloc] initWithPemFileName:nil pemPassword:nil caFileName:nil caDirectory:nil crlFileName:nil weakCertificate:self.connectionStore.weakCertificate.boolValue] autorelease];
         }
