@@ -95,7 +95,7 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
-    return self.jsonComponents.count;
+    return self.jsonComponents.count + 1;
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
@@ -106,13 +106,19 @@
     if (!result) {
         result = [[[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 10, 10)] autorelease];
         result.identifier = @"MyView";
+        result.font = MHJsonColorManager.sharedManager.values[@"TextField"][@"Text"][@"Font"];
         result.enabled = YES;
         result.editable = NO;
         result.bordered = NO;
         result.drawsBackground = NO;
     }
-    result.stringValue = self.jsonComponents[row][@"Name"];
-    result.textColor = self.jsonComponents[row][@"Color"];
+    if (row == 0) {
+        result.stringValue = @"Regular Text";
+        result.textColor = MHJsonColorManager.sharedManager.values[@"TextField"][@"Text"][@"Color"];
+    } else {
+        result.stringValue = self.jsonComponents[row - 1][@"Name"];
+        result.textColor = self.jsonComponents[row - 1][@"Color"];
+    }
     return result;
 }
 
