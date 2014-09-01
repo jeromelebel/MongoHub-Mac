@@ -41,7 +41,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
     - Adding a log window
     - Accept connecting to secondary server https://github.com/jeromelebel/MongoHub-Mac/issues/113
-    - Can change font and colors in the json editor
+    - Can change font and colors in the json editor and font https://github.com/jeromelebel/MongoHub-Mac/issues/135
     - cmd-w should close the current tab https://github.com/jeromelebel/MongoHub-Mac/issues/119
     - Better support for tunneling with replica set/sharding
 

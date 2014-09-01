@@ -33,7 +33,7 @@
                 <ul>
                 <li>Adding a log window</li>
                 <li>Accept connecting to secondary server <a href='https://github.com/jeromelebel/MongoHub-Mac/pull/113'>issue #113</a></li>
-                <li>Can change font and colors in the json editor</li>
+                <li>Can change font and colors in the json editor and font <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/135'>issue #135</a></li>
                 <li>cmd-w should close the current tab <a href='https://github.com/jeromelebel/MongoHub-Mac/pull/119'>issue #119</a></li>
                 <li>Better support for tunneling with replica set/sharding</li>
                 </ul>
