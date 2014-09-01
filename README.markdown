@@ -35,13 +35,15 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** Beta **
 
+## History
+
+** 2.7 beta 11 - september 2, 2014 **
+
     - Adding a log window
-    - Accept connecting to slave https://github.com/jeromelebel/MongoHub-Mac/issues/113
+    - Accept connecting to secondary server https://github.com/jeromelebel/MongoHub-Mac/issues/113
     - Can change font and colors in the json editor
     - cmd-w should close the current tab https://github.com/jeromelebel/MongoHub-Mac/issues/119
-    - Better support for tunneling and replica set/sharding
-
-## History
+    - Better support for tunneling with replica set/sharding
 
 ** 2.7 beta 10 - august 27, 2014 **
 
