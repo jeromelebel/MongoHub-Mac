@@ -4,7 +4,26 @@
 <dict>
 	<key>Components</key>
 	<dict>
-		<key>QuoteStringsValue</key>
+		<key>SingleQuoteStringsValue</key>
+		<dict>
+			<key>Color</key>
+			<array>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+			</array>
+			<key>End</key>
+			<string>&apos;</string>
+			<key>EscapeChar</key>
+			<string>\</string>
+			<key>Name</key>
+			<string>Quoted String</string>
+			<key>Start</key>
+			<string>&apos;</string>
+			<key>Type</key>
+			<string>String</string>
+		</dict>
+		<key>DoubleQuoteStringsValue</key>
 		<dict>
 			<key>Color</key>
 			<array>
@@ -33,10 +52,8 @@
 			</array>
 			<key>Keywords</key>
 			<array>
-				<string>:true</string>
-				<string>: true</string>
-				<string>:false</string>
-				<string>: false</string>
+				<string>true</string>
+				<string>false</string>
 			</array>
 			<key>Name</key>
 			<string>Boolean Values</string>
@@ -53,8 +70,7 @@
 			</array>
 			<key>Keywords</key>
 			<array>
-				<string>:null</string>
-				<string>: null</string>
+				<string>null</string>
 			</array>
 			<key>Name</key>
 			<string>Null</string>
