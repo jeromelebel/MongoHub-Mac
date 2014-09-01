@@ -197,6 +197,7 @@
         for (NSString *hostnameAndPort in self.connectionStore.arrayServers) {
             NSInteger hostPort, sshBindedPort;
             NSString *hostAddress;
+            NSString *hostAndPortString;
             
             sshBindedPort = [MHTunnel findFreeTCPPort];
             hostAddress = [MHConnectionStore hostnameFromServer:hostnameAndPort withPort:&hostPort];
@@ -207,7 +208,9 @@
                 hostAddress = @"127.0.0.1";
             }
             [self.sshTunnel addForwardingPortWithBindAddress:nil bindPort:sshBindedPort hostAddress:hostAddress hostPort:hostPort reverseForwarding:NO];
-            [self.sshBindedPortMapping setObject:[NSNumber numberWithInteger:sshBindedPort] forKey:hostnameAndPort];
+            hostAndPortString = [NSString stringWithFormat:@"%@:%ld", hostAddress, (long)hostPort];
+            [self.sshBindedPortMapping setObject:[NSNumber numberWithInteger:sshBindedPort] forKey:hostAndPortString];
+            [self.delegate connectionWindowControllerLogMessage:[NSString stringWithFormat:@"mapping 127.0.0.1:%ld => %@", (long)sshBindedPort, hostAndPortString] domain:[NSString stringWithFormat:@"%@.url", self.connectionStore.alias] level:@"debug"];
         }
         [self.sshTunnel start];
         return;
@@ -216,9 +219,10 @@
         
         [self closeMongoDB];
         self.serverItem = [[[MHServerItem alloc] initWithClient:self.client delegate:self] autorelease];
-        urlString = [self.connectionStore stringURLWithSSHMapping:self.sshBindedPortMapping];
-        [self.delegate connectionWindowControllerLogMessage:urlString domain:[NSString stringWithFormat:@"%@.mongo", self.connectionStore.alias] level:@"debug"];
+        urlString = [self.connectionStore stringURLWithSSHMapping:nil];
+        [self.delegate connectionWindowControllerLogMessage:urlString domain:[NSString stringWithFormat:@"%@.url", self.connectionStore.alias] level:@"debug"];
         self.client = [MODClient clientWihtURLString:urlString];
+        self.client.sshMapping = self.sshBindedPortMapping;
         if (self.connectionStore.useSSL) {
             self.client.sslOptions = [[[MODSSLOptions alloc] initWithPemFileName:nil pemPassword:nil caFileName:nil caDirectory:nil crlFileName:nil weakCertificate:self.connectionStore.weakCertificate.boolValue] autorelease];
         }
