@@ -37,6 +37,10 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ## History
 
+** 2.7 beta 12 - september 2, 2014 **
+
+    - Fix in the close behave of a connection window
+
 ** 2.7 beta 11 - september 2, 2014 **
 
     - Adding a log window

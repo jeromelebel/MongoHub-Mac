@@ -26,10 +26,10 @@
         <language>en</language>
         <item>
             <beta>1</beta>
-            <title>Version 2.7 beta 11</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b11.zip" sparkle:version="2.7b11" type="application/octet-stream" />
+            <title>Version 2.7 beta 12</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b12.zip" sparkle:version="2.7b12" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.7 beta 11</h3>
+                <h3>2.7 beta 12</h3>
                 <ul>
                 <li>Adding a log window</li>
                 <li>Accept connecting to secondary server <a href='https://github.com/jeromelebel/MongoHub-Mac/pull/113'>issue #113</a></li>
