@@ -44,7 +44,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** 2.7 beta 12 - september 2, 2014 **
 
-    - Fix in the close behave of a connection window
+    - Fix in the close button of a connection window
 
 ** 2.7 beta 11 - september 2, 2014 **
 
