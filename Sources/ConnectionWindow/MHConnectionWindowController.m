@@ -442,23 +442,6 @@
     }
 }
 
-- (void)keyDown:(NSEvent *)theEvent
-{
-    if ([theEvent.charactersIgnoringModifiers isEqualToString:@"w"] && (theEvent.modifierFlags & NSDeviceIndependentModifierFlagsMask) == (NSUInteger)(NSCommandKeyMask | NSControlKeyMask)) {
-        MHTabItemViewController *tabItemViewController;
-        
-        tabItemViewController = self.tabViewController.selectedTabItemViewController;
-        if ([tabItemViewController isKindOfClass:[MHQueryWindowController class]]) {
-            [self.tabItemControllers removeObjectForKey:[[(MHQueryWindowController *)tabItemViewController collection] absoluteName]];
-        } else if (tabItemViewController == self.statusViewController) {
-            self.statusViewController = nil;
-        }
-        [self.tabViewController removeTabItemViewController:tabItemViewController];
-    } else {
-        [super keyDown:theEvent];
-    }
-}
-
 - (void)dropDatabase
 {
     [self.loaderIndicator startAnimation:nil];
