@@ -666,7 +666,11 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 
 - (BOOL)windowShouldClose:(id)sender
 {
-    if (self.tabViewController.tabCount <= 1) {
+    // only close tabs when using cmd-w, if the current is event is not a key down
+    // (probably mouse down), just close the window
+    if (NSApplication.sharedApplication.currentEvent.type != NSKeyDown) {
+        return YES;
+    } else if (self.tabViewController.tabCount <= 1) {
         return YES;
     } else {
         [self.tabViewController removeTabItemViewController:self.tabViewController.selectedTabItemViewController];
