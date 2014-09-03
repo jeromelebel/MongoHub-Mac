@@ -505,7 +505,7 @@ DQ
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="database" id="539"/>
                 </imageView>
-                <textField verticalHuggingPriority="750" id="540">
+                <textField verticalHuggingPriority="750" tag="1" id="540">
                     <rect key="frame" x="14" y="17" width="145" height="17"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="541">

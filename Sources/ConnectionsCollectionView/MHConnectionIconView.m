@@ -8,6 +8,11 @@
 
 #import "MHConnectionIconView.h"
 
+@interface MHConnectionIconView ()
+@property (nonatomic, readonly, strong) NSTextField *connectionLabel;
+
+@end
+
 @implementation MHConnectionIconView
 
 @synthesize delegate = _delegate;
@@ -46,6 +51,29 @@
 {
     self.delegate.selected = YES;
     [self.delegate connectionIconViewOpenContextualMenu:self withEvent:event];
+}
+
+- (NSTextField *)connectionLabel
+{
+    return [self viewWithTag:1];
+}
+
+- (void)setFrameSize:(NSSize)newSize
+{
+    [super setFrameSize:newSize];
+    if (newSize.width < 90) {
+        self.connectionLabel.font = [NSFont systemFontOfSize:8.0];
+    } else if (newSize.width < 100) {
+        self.connectionLabel.font = [NSFont systemFontOfSize:9.0];
+    } else if (newSize.width < 110) {
+        self.connectionLabel.font = [NSFont systemFontOfSize:10.0];
+    } else if (newSize.width < 130) {
+        self.connectionLabel.font = [NSFont systemFontOfSize:11.0];
+    } else if (newSize.width < 150) {
+        self.connectionLabel.font = [NSFont systemFontOfSize:12.0];
+    } else {
+        self.connectionLabel.font = [NSFont systemFontOfSize:13.0];
+    }
 }
 
 - (void)mouseDown:(NSEvent *)event
