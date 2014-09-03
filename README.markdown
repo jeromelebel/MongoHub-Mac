@@ -40,6 +40,8 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** Beta **
 
+    - Support for url past in the main window
+
 ## History
 
 ** 2.7 beta 12 - september 2, 2014 **
