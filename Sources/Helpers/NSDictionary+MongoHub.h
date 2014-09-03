@@ -12,4 +12,6 @@
 
 + (instancetype)mh_dictionaryFromURLParameters:(NSString *)parameters;
 
+- (NSDictionary *)mh_setKeysToLowerCase;
+
 @end

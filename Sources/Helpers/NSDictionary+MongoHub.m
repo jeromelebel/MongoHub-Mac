@@ -26,4 +26,16 @@
     return result;
 }
 
+- (NSDictionary *)mh_setKeysToLowerCase
+{
+    NSMutableDictionary *result;
+    
+    result = [NSMutableDictionary dictionary];
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        *stop = NO;
+        result[[key lowercaseString]] = obj;
+    }];
+    return result;
+}
+
 @end

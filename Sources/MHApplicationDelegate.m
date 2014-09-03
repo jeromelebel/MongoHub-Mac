@@ -457,6 +457,34 @@
     }
 }
 
+- (IBAction)paste:(id)sender
+{
+    NSString *stringURL;
+    
+    stringURL = [[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString];
+    if (![stringURL hasPrefix:@"mongodb://"]) {
+        [[NSAlert alertWithMessageText:@"No URL found" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+    } else {
+        NSEntityDescription *entity;
+        MHConnectionStore *connectionStore;
+        NSString *errorMessage;
+        MHConnectionEditorWindowController *controller;
+        
+        entity = [NSEntityDescription entityForName:@"Connection" inManagedObjectContext:self.managedObjectContext];
+        connectionStore = [[[MHConnectionStore alloc] initWithEntity:entity insertIntoManagedObjectContext:nil] autorelease];
+        if (![connectionStore setValuesFromStringURL:stringURL errorMessage:&errorMessage]) {
+            [[NSAlert alertWithMessageText:errorMessage defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", stringURL] runModal];
+            return;
+        }
+        controller = [[[MHConnectionEditorWindowController alloc] init] autorelease];
+        controller.delegate = self;
+        controller.connectionStoreDefaultValue = connectionStore;
+        controller.window.title = stringURL;
+        [controller showWindow:nil];
+        [self.urlConnectionEditorWindowControllers addObject:controller];
+    }
+}
+
 - (IBAction)checkForUpdatesAction:(id)sender
 {
     [self.updater checkForUpdates:sender];

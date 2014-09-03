@@ -211,7 +211,7 @@
     } else if (components.count == 2) {
         // remove the parameters from the url
         
-        parameterComponents = [NSDictionary mh_dictionaryFromURLParameters:[components objectAtIndex:1]];
+        parameterComponents = [[NSDictionary mh_dictionaryFromURLParameters:[components objectAtIndex:1]] mh_setKeysToLowerCase];
         stringURL = [components objectAtIndex:0];
     }
     
@@ -258,8 +258,11 @@
     self.servers = servers;
     self.defaultDatabase = databaseName;
     self.adminPassword = password;
-    if ([[parameterComponents objectForKey:@"replicaSet"] length] > 0) {
-        self.replicaSetName = [parameterComponents objectForKey:@"replicaSet"];
+    if ([parameterComponents[@"replicaset"] length] > 0) {
+        self.replicaSetName = [parameterComponents objectForKey:@"replicaset"];
+    }
+    if ([parameterComponents[@"slaveok"] isEqualToString:@"true"]) {
+        self.slaveOK = @YES;
     }
     if ([[parameterComponents objectForKey:@"ssl"] isEqual:@"true"]) {
         self.useSSL = YES;
