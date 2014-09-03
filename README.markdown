@@ -25,7 +25,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     - Fix for a crash when having problem to parse a json https://github.com/jeromelebel/MongoHub-Mac/issues/125
     - Support for functions and scope functions https://github.com/jeromelebel/MongoHub-Mac/issues/120
     - Fix to connect to mongoHQ https://github.com/jeromelebel/MongoHub-Mac/issues/124
-    - Better support for primary and secondary
+    - Better support for primary and secondary in replica set
     - Migrate SSH password into the keychain https://github.com/jeromelebel/MongoHub-Mac/issues/106
     - Migrate database password into the keychain https://github.com/jeromelebel/MongoHub-Mac/issues/106
     - Fix for adding a database with more than one server connected (the database was created on all servers)
