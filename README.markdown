@@ -37,7 +37,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     - Can change font and colors in the json editor and font https://github.com/jeromelebel/MongoHub-Mac/issues/135
     - cmd-w should close the current tab https://github.com/jeromelebel/MongoHub-Mac/issues/119
     - Better support for tunneling with replica set/sharding
-    - Can copy/past mongodb URL
+    - Can copy/past mongodb URI https://github.com/jeromelebel/MongoHub-Mac/issues/108
 
 ** Beta **
 
@@ -72,7 +72,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     - Fix for adding a database with more than one server connected (the database was created on all servers)
     - Fix for adding a collection with more than one server connected (the collection was created on all servers)
     - Adding contextual menu in the main window
-    - Can copy mongodb url
+    - Can copy mongodb URI
     - Adding the option for weak SSL certificate
 
 ** 2.7 beta 7 - july 23, 2014 **
