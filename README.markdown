@@ -21,7 +21,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** Current **
 
-    - Working SSL
+    - SSL Working
     - Fix for a crash when having problem to parse a json https://github.com/jeromelebel/MongoHub-Mac/issues/125
     - Support for functions and scope functions https://github.com/jeromelebel/MongoHub-Mac/issues/120
     - Fix to connect to mongoHQ https://github.com/jeromelebel/MongoHub-Mac/issues/124
@@ -89,7 +89,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** 2.7 beta 4 - july 18, 2014 **
 
-    - Working SSL
+    - SSL Working
 
 ** 2.7 beta 3 - june 13, 2014 **
 
