@@ -41,7 +41,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** Beta **
 
-    - Support for url past in the main window
+    - Support for URI pasted in the main window
 
 ## History
 
