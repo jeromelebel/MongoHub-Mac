@@ -152,7 +152,7 @@
                             <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" id="tKN-ip-eGX">
                                 <items>
-                                    <menuItem title="Single Server" id="eLj-mm-eiP"/>
+                                    <menuItem title="Standalone" id="eLj-mm-eiP"/>
                                     <menuItem title="Replica Set" tag="1" id="4Cr-SW-ghG"/>
                                     <menuItem title="Sharded Cluster" tag="2" id="0kr-NS-YZ7"/>
                                 </items>
