@@ -42,6 +42,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 ** Beta **
 
     - Support for URI pasted in the main window
+    - Adding support for timeout parameter in URL
 
 ## History
 

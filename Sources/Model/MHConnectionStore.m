@@ -29,6 +29,8 @@
 @dynamic useSSL;
 @dynamic weakCertificate;
 
+@dynamic timeout;
+
 @dynamic useSSH;
 @dynamic sshHost;
 @dynamic sshPort;
@@ -264,8 +266,11 @@
     if ([parameterComponents[@"slaveok"] isEqualToString:@"true"]) {
         self.slaveOK = @YES;
     }
-    if ([[parameterComponents objectForKey:@"ssl"] isEqual:@"true"]) {
+    if ([parameterComponents[@"ssl"] isEqualToString:@"true"]) {
         self.useSSL = YES;
+    }
+    if (parameterComponents[@"connecttimeoutms"]) {
+        self.timeout = @([parameterComponents[@"connecttimeoutms"] integerValue]);
     }
     
     if (errorMessage) {
@@ -352,6 +357,9 @@
     }
     if (self.useSSL.boolValue) {
         [options addObject:@"ssl=true"];
+    }
+    if (self.timeout && self.timeout.integerValue > 0) {
+        [options addObject:[NSString stringWithFormat:@"connecttimeoutms=%ld", (long)self.timeout.integerValue]];
     }
     if (self.replicaSetName.length > 0) {
         [options addObject:[NSString stringWithFormat:@"replicaSet=%@", self.replicaSetName.mh_stringByEscapingURL]];
