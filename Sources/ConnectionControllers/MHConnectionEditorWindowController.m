@@ -468,7 +468,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         self.shardedClusterServersTextField.nextKeyView = self.adminUserTextField;
     } else if (self.singleReplicaSetPopUpButton.selectedTag == 1) {
         self.singleReplicaSetPopUpButton.nextKeyView = self.replicaSetNameTextField;
-        self.replicaSetServersTextField.nextKeyView = self.adminUserTextField;
+        self.defaultReadModePopUpButton.nextKeyView = self.adminUserTextField;
     } else if (self.singleReplicaSetPopUpButton.selectedTag == 0) {
         self.singleReplicaSetPopUpButton.nextKeyView = self.hostTextField;
         self.slaveOkButton.nextKeyView = self.adminUserTextField;
