@@ -222,7 +222,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         } else {
             self.sshPortTextField.stringValue = defaultValue.sshPort.stringValue;
         }
-        if (defaultValue.timeout) self.timeoutTextField.stringValue = [NSString stringWithFormat:@"%ld", (long)defaultValue.timeout.integerValue];
+        if (defaultValue.timeout && defaultValue.timeout.integerValue > 0) self.timeoutTextField.stringValue = [NSString stringWithFormat:@"%ld", (long)defaultValue.timeout.integerValue];
         if (defaultValue.sshUser) self.sshUserTextField.stringValue = defaultValue.sshUser;
         if (defaultValue.useSSH.boolValue && defaultValue.sshPassword) {
             // there is no need to fetch for the ssh password if ssh is turned off
