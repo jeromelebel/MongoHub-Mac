@@ -158,7 +158,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     
     [self.hostportTextField.cell setPlaceholderString:[NSString stringWithFormat:@"%d", MODClient.defaultPort]];
     [self.sshUserTextField.cell setPlaceholderString:[NSProcessInfo.processInfo.environment objectForKey:@"USER"]];
-    [self.timeoutTextField.cell setPlaceholderString:[NSString stringWithFormat:@"%ld", (long)10000]];
+    [self.timeoutTextField.cell setPlaceholderString:[NSString stringWithFormat:@"%ld", (long)MODClient.defaultConnectionTimeout]];
     if (self.editedConnectionStore) {
         self.addSaveButton.title = NSLocalizedString(@"Save", @"Save connection (after updating)");
         self.newConnection = NO;
