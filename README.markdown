@@ -38,13 +38,16 @@ This project is very new. Any issues or bug reports are welcome. And I still don
     - cmd-w should close the current tab https://github.com/jeromelebel/MongoHub-Mac/issues/119
     - Better support for tunneling with replica set/sharding
     - Can copy/paste mongodb URI https://github.com/jeromelebel/MongoHub-Mac/issues/108
+    - Adding support for timeout parameter in URL
 
 ** Beta **
 
+## History
+
+** 2.7 beta 13 - september 29, 2014 **
+
     - Support for URI pasted in the main window
     - Adding support for timeout parameter in URL
-
-## History
 
 ** 2.7 beta 12 - september 2, 2014 **
 

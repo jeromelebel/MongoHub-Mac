@@ -26,16 +26,13 @@
         <language>en</language>
         <item>
             <beta>1</beta>
-            <title>Version 2.7 beta 12</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b12.zip" sparkle:version="2.7b12" type="application/octet-stream" />
+            <title>Version 2.7 beta 13</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b13.zip" sparkle:version="2.7b13" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.7 beta 12</h3>
+                <h3>2.7 beta 13</h3>
                 <ul>
-                <li>Adding a log window</li>
-                <li>Accept connecting to secondary server <a href='https://github.com/jeromelebel/MongoHub-Mac/pull/113'>issue #113</a></li>
-                <li>Can change font and colors in the json editor and font <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/135'>issue #135</a></li>
-                <li>cmd-w should close the current tab <a href='https://github.com/jeromelebel/MongoHub-Mac/pull/119'>issue #119</a></li>
-                <li>Better support for tunneling with replica set/sharding</li>
+                <li>Support for URI pasted in the main window</li>
+                <li>Adding support for timeout parameter in URL</li>
                 </ul>
             ]]>
             </description>
