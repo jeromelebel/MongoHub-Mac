@@ -44,6 +44,10 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ## History
 
+** 2.7 beta 14 - september 29, 2014 **
+
+    - Fix to display a lot of collections https://github.com/jeromelebel/MongoHub-Mac/issues/139
+
 ** 2.7 beta 13 - september 29, 2014 **
 
     - Support for URI pasted in the main window

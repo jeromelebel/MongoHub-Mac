@@ -26,13 +26,12 @@
         <language>en</language>
         <item>
             <beta>1</beta>
-            <title>Version 2.7 beta 13</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b13.zip" sparkle:version="2.7b13" type="application/octet-stream" />
+            <title>Version 2.7 beta 14</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b14.zip" sparkle:version="2.7b14" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.7 beta 13</h3>
+                <h3>2.7 beta 14</h3>
                 <ul>
-                <li>Support for URI pasted in the main window</li>
-                <li>Adding support for timeout parameter in URL</li>
+                <li>Fix to display a lot of collections <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/139'>issue #139</a></li>
                 </ul>
             ]]>
             </description>
