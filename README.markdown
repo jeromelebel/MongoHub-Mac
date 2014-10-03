@@ -366,10 +366,10 @@ Just build it, it should work (but let me know if you have an errors or warnings
 - Crash fixed when searching for mongo document with "{ "$oid" : "4E40C5111F85DD1BE9FAF825" }"
 - Adding the error message when the search criteria is invalid
 - Trying to be nice to complete your criteria. To search for an id, you can either type: 
-            * 123
-            * "abc"
-            * "$oid" : "123"
-            * {"$oid" : "123"}
+ - 123
+ - "abc"
+ - "$oid" : "123"
+ - {"$oid" : "123"}
 - Adding Command-R in the index view to reload the index list
 
 
@@ -379,69 +379,69 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **[Update 2.3.2]**
 	
-	- Fixed a bug in jsoneditor related to Date() object;
-	- Add import/export to JSON/CSV functions;
-	- Add support for ssh access use public key;
-	- Add a function to remove single record in find query window;
-	- Fixed a bug to create collection in a database which doesn't have collection;
+- Fixed a bug in jsoneditor related to Date() object;
+- Add import/export to JSON/CSV functions;
+- Add support for ssh access use public key;
+- Add a function to remove single record in find query window;
+- Fixed a bug to create collection in a database which doesn't have collection;
 	
 **[Update 2.3.1]**
-	
-	- Fixed a bug in jsoneditor related to Date() object;
-	- Add execution time in find panel;
-	- Add reconnect support;
-	- Fixed a bug in remove function.
+
+- Fixed a bug in jsoneditor related to Date() object;
+- Add execution time in find panel;
+- Add reconnect support;
+- Fixed a bug in remove function.
 
 **[2.3.0]**
-	
-	- Add mongo stat monitor;
-	- Add replica set connection support;
-	- Add reconnect support;
-	- Add an JSON editor for found results with syntax highlight;
-	- More flexible query style in find window;
-	- Fixed long long int value overflow;
-	- Fixed application crash during open/close connection window.
+
+- Add mongo stat monitor;
+- Add replica set connection support;
+- Add reconnect support;
+- Add an JSON editor for found results with syntax highlight;
+- More flexible query style in find window;
+- Fixed long long int value overflow;
+- Fixed application crash during open/close connection window.
 
 **[2.2.0]**
-	
-	- SSH Tunnel connection support;
-	- Fixed a bug in display ObjectID type fields;
-	- Fixed some UI bugs;
-	- Fixed some memory leaks and random crashes;
-	- Add confirm panel before drop database or collection;
-	- Run queries in a seperate thread so that won't block the UI;
-	- Fixed a bug to install on some 10.6.x(64bit) system.
+
+- SSH Tunnel connection support;
+- Fixed a bug in display ObjectID type fields;
+- Fixed some UI bugs;
+- Fixed some memory leaks and random crashes;
+- Add confirm panel before drop database or collection;
+- Run queries in a seperate thread so that won't block the UI;
+- Fixed a bug to install on some 10.6.x(64bit) system.
 
 **[2.1.0]**
-	
-	- Auto expand and collaspe finding results;
-	- Display Date_t or Timestamp as GMT time format;
-	- Fixed a bug in display ObjectIds in Array element;
-	- Import data from mysql database to mongodb;
-	- Export data from mongodb to mysql database.
+
+- Auto expand and collaspe finding results;
+- Display Date_t or Timestamp as GMT time format;
+- Fixed a bug in display ObjectIds in Array element;
+- Import data from mysql database to mongodb;
+- Export data from mongodb to mysql database.
 
 **[2.0.9]**
-	
-	- Add support for mongohq.com;
-	- Changed update behavior;
-	- Fixed a bug to detect NumberLong type of BSONElement;
-	- Fixed a bug in Array type of BSONElement.
+
+- Add support for mongohq.com;
+- Changed update behavior;
+- Fixed a bug to detect NumberLong type of BSONElement;
+- Fixed a bug in Array type of BSONElement.
 
 **[2.0.8]**
-	
-	- Fix several UI bugs in Query Window;
-	- Fix bugs in Find Query and Update Query;
-	- Fix bugs related to ObjectId;
-	- Fix copy&paste bugs.
+
+- Fix several UI bugs in Query Window;
+- Fix bugs in Find Query and Update Query;
+- Fix bugs related to ObjectId;
+- Fix copy&paste bugs.
 
 **[2.0.7]**
-	
-	- Add sparkle framework to check application updates.
+
+- Add sparkle framework to check application updates.
 
 **[2.0.6]**
-	
-	- fixed some UI bugs;
-	- add admin auth support.
+
+- fixed some UI bugs;
+- add admin auth support.
 
 ## Contribute
 
