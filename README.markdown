@@ -46,7 +46,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ** 2.7 beta 14 - october 4, 2014 **
 
-    - Fix to display a lot of collections issure [139](https://github.com/jeromelebel/MongoHub-Mac/issues/139)
+    - Fix to display a lot of collections issure [issue](https://github.com/jeromelebel/MongoHub-Mac/issues/139)
 
 ** 2.7 beta 13 - september 29, 2014 **
 
