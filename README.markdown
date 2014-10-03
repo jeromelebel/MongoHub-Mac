@@ -110,7 +110,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **2.7 beta 1 and 2 - june 11, 2014**
 
-- Avoid automatic correction from Mac OS X while typing a new document [issue #121](https://github.com/jeromelebel/MongoHub-Mac/issues/121 (Thanks to Anthony Williams with [pull request #122](https://github.com/jeromelebel/MongoHub-Mac/pull/122))
+- Avoid automatic correction from Mac OS X while typing a new document [issue #121](https://github.com/jeromelebel/MongoHub-Mac/issues/121) (Thanks to Anthony Williams with [pull request #122](https://github.com/jeromelebel/MongoHub-Mac/pull/122))
 - Avoid automatic correction from Mac OS X while typing map/reduce functions
 - Better support for primary and secondary
 
@@ -167,7 +167,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 - Can type any value without double quote in the search field, it will be replaced by { "_id": "<value>" }
 - Adding support for retina display (thanks to Patryk Kasperski)
-- Following the strict json for undefined value according to http://docs.mongodb.org/manual/reference/mongodb-extended-json/ (now, exporting and parsing undefined as { "$undefined": true }
+- Following the strict json for undefined value according to [extended json](http://docs.mongodb.org/manual/reference/mongodb-extended-json/) (now, exporting and parsing undefined as { "$undefined": true }
 - Fixing a crash when trying to save an invalid json document
 
 **2.5.12(106) - september 8, 2013**
