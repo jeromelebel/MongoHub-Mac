@@ -42,11 +42,12 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 ## History
 
-[issue](https://github.com/jeromelebel/MongoHub-Mac/issues/139)
+[issue](https://github.com/jeromelebel/MongoHub-Mac/issues/139) test #139
 
 **2.7 beta 14 - october 4, 2014**
 
-* Fix to display a lot of collections [issue](https://github.com/jeromelebel/MongoHub-Mac/issues/139)
+* Fix to display a lot of collections [issue #139](https://github.com/jeromelebel/MongoHub-Mac/issues/139)
+* #139
 
 **2.7 beta 13 - september 29, 2014**
 
