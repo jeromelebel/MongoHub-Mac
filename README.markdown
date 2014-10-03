@@ -44,7 +44,7 @@ This project is very new. Any issues or bug reports are welcome. And I still don
 
 ## History
 
-** 2.7 beta 14 - september 29, 2014 **
+** 2.7 beta 14 - october 4, 2014 **
 
     - Fix to display a lot of collections https://github.com/jeromelebel/MongoHub-Mac/issues/139
 
