@@ -15,7 +15,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 This project is very new. Any issues or bug reports are welcome. And I still don't have time to write a **usage guide**.
 
-** To do list **
+**To do list**
     
     - Create a document editor to edit using an outline view (like the plist editor in Xcode)
 
