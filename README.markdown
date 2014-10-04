@@ -37,10 +37,11 @@ Just build it, it should work (but let me know if you have an errors or warnings
 - Better support for tunneling with replica set/sharding
 - Can copy/paste mongodb URI [issue #108](https://github.com/jeromelebel/MongoHub-Mac/issues/108)
 - Adding support for timeout parameter in URL
+- Update some images to be high resolution [issue #54](https://github.com/jeromelebel/MongoHub-Mac/issues/54)
 
 **Beta**
 
-- Update some png to be retina [issue #54](https://github.com/jeromelebel/MongoHub-Mac/issues/54)
+- Update some images to be high resolution [issue #54](https://github.com/jeromelebel/MongoHub-Mac/issues/54)
 
 ## History
 
