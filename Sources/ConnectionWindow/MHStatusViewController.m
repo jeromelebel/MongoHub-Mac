@@ -19,7 +19,7 @@
 
 + (MHStatusViewController *)loadNewViewController
 {
-    return [[[MHStatusViewController alloc] initWithNibName:@"MHStatusViewController" bundle:nil] autorelease];
+    return [[[MHStatusViewController alloc] initWithNibName:@"MHStatusView" bundle:nil] autorelease];
 }
 
 - (void)dealloc

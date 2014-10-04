@@ -19,7 +19,7 @@
 
 - (id)init
 {
-    self = [super initWithWindowNibName:@"MHAddDBController"];
+    self = [super initWithWindowNibName:@"MHAddDB"];
     return self;
 }
 

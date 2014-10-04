@@ -28,6 +28,11 @@
     [super dealloc];
 }
 
+- (NSString *)nibName
+{
+    return @"MHTabView";
+}
+
 - (void)awakeFromNib
 {
     if (_tabControllers == nil) {

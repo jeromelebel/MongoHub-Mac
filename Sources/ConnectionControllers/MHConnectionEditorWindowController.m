@@ -141,7 +141,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 
 - (id)init
 {
-    self = [super initWithWindowNibName:@"MHConnectionEditorWindowController"];
+    self = [super initWithWindowNibName:@"MHConnectionEditorWindow"];
     return self;
 }
 
