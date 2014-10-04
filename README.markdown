@@ -41,9 +41,12 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **Beta**
 
-- Update some images to be high resolution [issue #54](https://github.com/jeromelebel/MongoHub-Mac/issues/54)
-
 ## History
+
+**2.7 beta 15 - october 4, 2014**
+
+- Fix for ssl [issue #140](https://github.com/jeromelebel/MongoHub-Mac/issues/140)
+- Update some images to be high resolution [issue #54](https://github.com/jeromelebel/MongoHub-Mac/issues/54)
 
 **2.7 beta 14 - october 4, 2014**
 

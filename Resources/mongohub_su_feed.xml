@@ -26,12 +26,13 @@
         <language>en</language>
         <item>
             <beta>1</beta>
-            <title>Version 2.7 beta 14</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b14.zip" sparkle:version="2.7b14" type="application/octet-stream" />
+            <title>Version 2.7 beta 15</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b15.zip" sparkle:version="2.7b15" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.7 beta 14</h3>
+                <h3>2.7 beta 15</h3>
                 <ul>
-                <li>Fix to display a lot of collections <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/139'>issue #139</a></li>
+                <li>Fix for ssl <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/140'>issue #140</a></li>
+                <li>Update some images to be high resolution <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/54'>issue #54</a></li>
                 </ul>
             ]]>
             </description>
