@@ -147,17 +147,15 @@ static void initializeImages(void)
         }
         [_titleAttributes setObject:[NSColor whiteColor] forKey:NSForegroundColorAttributeName];
     } else {
-        image = [_drawingObjects objectForKey:@"unselected-tab-border"];
-        NSRect rect1, rect2;
-        
-        rect1 = NSMakeRect(1, self.bounds.size.height - image.size.height, self.bounds.size.width - 2, image.size.height);
-        rect2 = NSMakeRect(1, 0, 1, image.size.height);
-        
         image = [_drawingObjects objectForKey:@"unselected-tab-background"];
-        [image drawInRect:NSMakeRect(0, self.bounds.size.height - image.size.height, self.bounds.size.width, image.size.height) fromRect:NSMakeRect(0, 0, 1, image.size.height) operation:NSCompositeCopy fraction:1.0];
-        [image drawInRect:NSMakeRect(0, self.bounds.size.height - image.size.height, 1, image.size.height) fromRect:NSMakeRect(0, 0, 1, image.size.height) operation:NSCompositeCopy fraction:1.0];
-        [image drawInRect:NSMakeRect(self.bounds.size.width - 1, self.bounds.size.height - image.size.height, 1, image.size.height) fromRect:NSMakeRect(1, 0, 1, image.size.height) operation:NSCompositeCopy fraction:1.0];
+        [image drawInRect:NSMakeRect(0, self.bounds.size.height - image.size.height, self.bounds.size.width, image.size.height) fromRect:NSMakeRect(0, 0, image.size.width, image.size.height) operation:NSCompositeCopy fraction:1.0];
+        
+        image = [_drawingObjects objectForKey:@"unselected-tab-border"];
+        [image drawInRect:NSMakeRect(0, self.bounds.size.height - image.size.height, 1, image.size.height) fromRect:NSMakeRect(1, 0, 1, image.size.height) operation:NSCompositeCopy fraction:1.0];
+        [image drawInRect:NSMakeRect(self.bounds.size.width - 1, self.bounds.size.height - image.size.height, 1, image.size.height) fromRect:NSMakeRect(0, 0, 1, image.size.height) operation:NSCompositeCopy fraction:1.0];
+
         [_titleAttributes setObject:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
+
     }
     [_attributedTitle setAttributes:_titleAttributes range:NSMakeRange(0, _attributedTitle.length)];
     _titleCell.attributedStringValue = _attributedTitle;

@@ -43,6 +43,26 @@
 		0262CA3C148C14A8009033F9 /* MHTabItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0262CA3A148C14A8009033F9 /* MHTabItemViewController.m */; };
 		0262CA3F148C1838009033F9 /* MHConnectionWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0262CA3E148C1838009033F9 /* MHConnectionWindowController.m */; };
 		026B2DE513BB6FB8009BEA7B /* RegexKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 026B2DE413BB6FB8009BEA7B /* RegexKit.framework */; };
+		027062B519DF803600E6C36A /* unselected-tab-border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062A719DF803600E6C36A /* unselected-tab-border@2x.png */; };
+		027062B619DF803600E6C36A /* unselected-tab-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062A819DF803600E6C36A /* unselected-tab-background@2x.png */; };
+		027062B719DF803600E6C36A /* overlay_close_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062A919DF803600E6C36A /* overlay_close_button@2x.png */; };
+		027062B819DF803600E6C36A /* grip_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062AA19DF803600E6C36A /* grip_button@2x.png */; };
+		027062B919DF803600E6C36A /* close_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062AB19DF803600E6C36A /* close_button@2x.png */; };
+		027062BA19DF803600E6C36A /* button_ArrowRight_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062AC19DF803600E6C36A /* button_ArrowRight_overlay@2x.png */; };
+		027062BB19DF803600E6C36A /* button_ArrowRight_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062AD19DF803600E6C36A /* button_ArrowRight_default@2x.png */; };
+		027062BC19DF803600E6C36A /* background-grey_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062AE19DF803600E6C36A /* background-grey_right@2x.png */; };
+		027062BD19DF803600E6C36A /* background-grey_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062AF19DF803600E6C36A /* background-grey_left@2x.png */; };
+		027062BE19DF803600E6C36A /* background-grey_center@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062B019DF803600E6C36A /* background-grey_center@2x.png */; };
+		027062BF19DF803600E6C36A /* background_blue_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062B119DF803600E6C36A /* background_blue_right@2x.png */; };
+		027062C019DF803600E6C36A /* background_blue_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062B219DF803600E6C36A /* background_blue_left@2x.png */; };
+		027062C119DF803600E6C36A /* background_blue_center@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062B319DF803600E6C36A /* background_blue_center@2x.png */; };
+		027062C219DF803600E6C36A /* background_blue_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062B419DF803600E6C36A /* background_blue_arrow@2x.png */; };
+		027062D119DF822600E6C36A /* removemenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062CB19DF822600E6C36A /* removemenu@2x.png */; };
+		027062D219DF822600E6C36A /* mapreducemenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062CC19DF822600E6C36A /* mapreducemenu@2x.png */; };
+		027062D319DF822600E6C36A /* insertmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062CD19DF822600E6C36A /* insertmenu@2x.png */; };
+		027062D419DF822600E6C36A /* indexmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062CE19DF822600E6C36A /* indexmenu@2x.png */; };
+		027062D519DF822600E6C36A /* findmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062CF19DF822600E6C36A /* findmenu@2x.png */; };
+		027062D619DF822600E6C36A /* editicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062D019DF822600E6C36A /* editicon@2x.png */; };
 		0279C090189C02F600F8BACB /* MHImportExportFeedback.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0279C08F189C02F600F8BACB /* MHImportExportFeedback.xib */; };
 		0279C093189C03E000F8BACB /* MHImportExportFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 0279C092189C03E000F8BACB /* MHImportExportFeedback.m */; };
 		029CAA731946028800FD44B4 /* NSTextView+MongoHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 029CAA721946028800FD44B4 /* NSTextView+MongoHub.m */; };
@@ -149,19 +169,19 @@
 			remoteGlobalIDString = 02216F201412D54600789BD1;
 			remoteInfo = Submodules;
 		};
+		027062C719DF803600E6C36A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 02C4C15F19A230BE0002FBD8 /* MongoObjCDriver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 02E6400C19DB68F900FEFEFC;
+			remoteInfo = "MongoObjCDriver Tests";
+		};
 		02C4C1C419A230BE0002FBD8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 02C4C15F19A230BE0002FBD8 /* MongoObjCDriver.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 02ABA1C014103B37000417F4;
 			remoteInfo = MongoObjCDriver;
-		};
-		02C4C1C619A230BE0002FBD8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 02C4C15F19A230BE0002FBD8 /* MongoObjCDriver.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 02F121BD1410EF5200197811;
-			remoteInfo = "mongo-test";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -227,6 +247,26 @@
 		0262CA40148C1852009033F9 /* MHQueryWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHQueryWindowController.h; sourceTree = "<group>"; };
 		02683D5D1442759100467EBE /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.markdown; path = ../README.markdown; sourceTree = "<group>"; };
 		026B2DE413BB6FB8009BEA7B /* RegexKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RegexKit.framework; sourceTree = "<group>"; };
+		027062A719DF803600E6C36A /* unselected-tab-border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unselected-tab-border@2x.png"; sourceTree = "<group>"; };
+		027062A819DF803600E6C36A /* unselected-tab-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unselected-tab-background@2x.png"; sourceTree = "<group>"; };
+		027062A919DF803600E6C36A /* overlay_close_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay_close_button@2x.png"; sourceTree = "<group>"; };
+		027062AA19DF803600E6C36A /* grip_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grip_button@2x.png"; sourceTree = "<group>"; };
+		027062AB19DF803600E6C36A /* close_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_button@2x.png"; sourceTree = "<group>"; };
+		027062AC19DF803600E6C36A /* button_ArrowRight_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_ArrowRight_overlay@2x.png"; sourceTree = "<group>"; };
+		027062AD19DF803600E6C36A /* button_ArrowRight_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_ArrowRight_default@2x.png"; sourceTree = "<group>"; };
+		027062AE19DF803600E6C36A /* background-grey_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-grey_right@2x.png"; sourceTree = "<group>"; };
+		027062AF19DF803600E6C36A /* background-grey_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-grey_left@2x.png"; sourceTree = "<group>"; };
+		027062B019DF803600E6C36A /* background-grey_center@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-grey_center@2x.png"; sourceTree = "<group>"; };
+		027062B119DF803600E6C36A /* background_blue_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_blue_right@2x.png"; sourceTree = "<group>"; };
+		027062B219DF803600E6C36A /* background_blue_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_blue_left@2x.png"; sourceTree = "<group>"; };
+		027062B319DF803600E6C36A /* background_blue_center@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_blue_center@2x.png"; sourceTree = "<group>"; };
+		027062B419DF803600E6C36A /* background_blue_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_blue_arrow@2x.png"; sourceTree = "<group>"; };
+		027062CB19DF822600E6C36A /* removemenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "removemenu@2x.png"; sourceTree = "<group>"; };
+		027062CC19DF822600E6C36A /* mapreducemenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapreducemenu@2x.png"; sourceTree = "<group>"; };
+		027062CD19DF822600E6C36A /* insertmenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "insertmenu@2x.png"; sourceTree = "<group>"; };
+		027062CE19DF822600E6C36A /* indexmenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indexmenu@2x.png"; sourceTree = "<group>"; };
+		027062CF19DF822600E6C36A /* findmenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "findmenu@2x.png"; sourceTree = "<group>"; };
+		027062D019DF822600E6C36A /* editicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "editicon@2x.png"; sourceTree = "<group>"; };
 		0279C08F189C02F600F8BACB /* MHImportExportFeedback.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHImportExportFeedback.xib; sourceTree = "<group>"; };
 		0279C091189C03E000F8BACB /* MHImportExportFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHImportExportFeedback.h; sourceTree = "<group>"; };
 		0279C092189C03E000F8BACB /* MHImportExportFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHImportExportFeedback.m; sourceTree = "<group>"; };
@@ -421,7 +461,7 @@
 			isa = PBXGroup;
 			children = (
 				02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */,
-				02C4C1C719A230BE0002FBD8 /* mongo-test */,
+				027062C819DF803600E6C36A /* MongoObjCDriver Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -523,6 +563,20 @@
 		02E0FE28151DE2420094C1CD /* tabs */ = {
 			isa = PBXGroup;
 			children = (
+				027062A719DF803600E6C36A /* unselected-tab-border@2x.png */,
+				027062A819DF803600E6C36A /* unselected-tab-background@2x.png */,
+				027062A919DF803600E6C36A /* overlay_close_button@2x.png */,
+				027062AA19DF803600E6C36A /* grip_button@2x.png */,
+				027062AB19DF803600E6C36A /* close_button@2x.png */,
+				027062AC19DF803600E6C36A /* button_ArrowRight_overlay@2x.png */,
+				027062AD19DF803600E6C36A /* button_ArrowRight_default@2x.png */,
+				027062AE19DF803600E6C36A /* background-grey_right@2x.png */,
+				027062AF19DF803600E6C36A /* background-grey_left@2x.png */,
+				027062B019DF803600E6C36A /* background-grey_center@2x.png */,
+				027062B119DF803600E6C36A /* background_blue_right@2x.png */,
+				027062B219DF803600E6C36A /* background_blue_left@2x.png */,
+				027062B319DF803600E6C36A /* background_blue_center@2x.png */,
+				027062B419DF803600E6C36A /* background_blue_arrow@2x.png */,
 				02E0FE29151DE2420094C1CD /* background-grey_center.png */,
 				02E0FE2A151DE2420094C1CD /* background-grey_left.png */,
 				02E0FE2B151DE2420094C1CD /* background-grey_right.png */,
@@ -606,6 +660,7 @@
 				1D601B3711C8E13000C86274 /* exportmenu.png */,
 				1D210BFA1192FF06000EF41C /* key.png */,
 				1D58BE0A118ED8D20045A044 /* mapreducemenu.png */,
+				027062CC19DF822600E6C36A /* mapreducemenu@2x.png */,
 				1D1D65A21189F05600582917 /* Icon.icns */,
 				1D1D65641189C93400582917 /* supportmenu.png */,
 				1D1D65501189C5E000582917 /* collectionmenu.png */,
@@ -613,15 +668,20 @@
 				1D1D65521189C5E000582917 /* querymenu.png */,
 				1D1D65531189C5E000582917 /* servermenu.png */,
 				1D8A624D11897C6800D55937 /* indexmenu.png */,
+				027062CE19DF822600E6C36A /* indexmenu@2x.png */,
 				1DA68042118875B300DFDD29 /* findmenu.png */,
+				027062CF19DF822600E6C36A /* findmenu@2x.png */,
 				1DA68043118875B300DFDD29 /* insertmenu.png */,
+				027062CD19DF822600E6C36A /* insertmenu@2x.png */,
 				1DA68044118875B300DFDD29 /* removemenu.png */,
+				027062CB19DF822600E6C36A /* removemenu@2x.png */,
 				1DA68045118875B300DFDD29 /* runmenu.png */,
 				1DA68046118875B300DFDD29 /* updatemenu.png */,
 				1D93C42A1183744D003216F7 /* collectionicon.png */,
 				1D93C42B1183744D003216F7 /* dbicon.png */,
 				1D93C3AF11836510003216F7 /* connecticon.png */,
 				1D93C3B011836510003216F7 /* editicon.png */,
+				027062D019DF822600E6C36A /* editicon@2x.png */,
 				1D93C27111833A19003216F7 /* database.png */,
 				02E0FE28151DE2420094C1CD /* tabs */,
 			);
@@ -814,18 +874,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		027062C819DF803600E6C36A /* MongoObjCDriver Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "MongoObjCDriver Tests.xctest";
+			remoteRef = 027062C719DF803600E6C36A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = MongoObjCDriver.framework;
 			remoteRef = 02C4C1C419A230BE0002FBD8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		02C4C1C719A230BE0002FBD8 /* mongo-test */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = "mongo-test";
-			remoteRef = 02C4C1C619A230BE0002FBD8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -839,7 +899,9 @@
 				2F7446990DB6B7EA00F9684A /* MHMainMenu.xib in Resources */,
 				1D93C27211833A19003216F7 /* database.png in Resources */,
 				1D93C2A0118343EF003216F7 /* MHConnectionEditorWindowController.xib in Resources */,
+				027062B619DF803600E6C36A /* unselected-tab-background@2x.png in Resources */,
 				1D93C3B111836510003216F7 /* connecticon.png in Resources */,
+				027062BF19DF803600E6C36A /* background_blue_right@2x.png in Resources */,
 				1D93C3B211836510003216F7 /* editicon.png in Resources */,
 				1D93C3D11183690E003216F7 /* MHConnectionWindow.xib in Resources */,
 				1D93C42C1183744D003216F7 /* collectionicon.png in Resources */,
@@ -848,12 +910,17 @@
 				0279C090189C02F600F8BACB /* MHImportExportFeedback.xib in Resources */,
 				1DF96E3D11881EB400C35AB8 /* MHAddCollectionController.xib in Resources */,
 				1DF96F9411883D5E00C35AB8 /* MHQueryWindow.xib in Resources */,
+				027062B519DF803600E6C36A /* unselected-tab-border@2x.png in Resources */,
 				1DA68047118875B300DFDD29 /* findmenu.png in Resources */,
 				02F2A1F71817E48B0053CB20 /* MHPreferenceWindow.xib in Resources */,
+				027062C119DF803600E6C36A /* background_blue_center@2x.png in Resources */,
 				1DA68048118875B300DFDD29 /* insertmenu.png in Resources */,
 				1DA68049118875B300DFDD29 /* removemenu.png in Resources */,
 				1DA6804A118875B300DFDD29 /* runmenu.png in Resources */,
+				027062D219DF822600E6C36A /* mapreducemenu@2x.png in Resources */,
+				027062BB19DF803600E6C36A /* button_ArrowRight_default@2x.png in Resources */,
 				1DA6804B118875B300DFDD29 /* updatemenu.png in Resources */,
+				027062BD19DF803600E6C36A /* background-grey_left@2x.png in Resources */,
 				1D8A624E11897C6800D55937 /* indexmenu.png in Resources */,
 				1D1D65541189C5E000582917 /* collectionmenu.png in Resources */,
 				1D1D65551189C5E000582917 /* dbmenu.png in Resources */,
@@ -861,22 +928,32 @@
 				1D1D65571189C5E000582917 /* servermenu.png in Resources */,
 				1D1D65651189C93400582917 /* supportmenu.png in Resources */,
 				1D1D65A31189F05600582917 /* Icon.icns in Resources */,
+				027062BE19DF803600E6C36A /* background-grey_center@2x.png in Resources */,
 				1D58BE0B118ED8D20045A044 /* mapreducemenu.png in Resources */,
+				027062B919DF803600E6C36A /* close_button@2x.png in Resources */,
 				1D210BFB1192FF06000EF41C /* key.png in Resources */,
 				1D601B3811C8E13000C86274 /* importmenu.png in Resources */,
 				1D601B3911C8E13000C86274 /* exportmenu.png in Resources */,
+				027062C219DF803600E6C36A /* background_blue_arrow@2x.png in Resources */,
 				1D601B3D11C8E7F900C86274 /* exportbox.png in Resources */,
+				027062D119DF822600E6C36A /* removemenu@2x.png in Resources */,
 				1D601B3E11C8E7F900C86274 /* importbox.png in Resources */,
+				027062C019DF803600E6C36A /* background_blue_left@2x.png in Resources */,
+				027062B819DF803600E6C36A /* grip_button@2x.png in Resources */,
 				1D601B5611C8F24300C86274 /* MysqlImport.xib in Resources */,
+				027062BC19DF803600E6C36A /* background-grey_right@2x.png in Resources */,
 				1D26615211CFC5BE0092C6B5 /* MysqlExport.xib in Resources */,
+				027062D519DF822600E6C36A /* findmenu@2x.png in Resources */,
 				1DEC803512B7EE2100FC804E /* SSHCommand.sh in Resources */,
 				1D64100F12C8E6BE0030AA4C /* MHJsonWindow.xib in Resources */,
 				1DDC486912CB7758009924A1 /* SyntaxDefinition.plist in Resources */,
 				020F511B14896DE700D4B54B /* MHTabViewController.xib in Resources */,
+				027062D319DF822600E6C36A /* insertmenu@2x.png in Resources */,
 				020F5129148973BA00D4B54B /* MHStatusViewController.xib in Resources */,
 				02E0FE36151DE2420094C1CD /* background-grey_center.png in Resources */,
 				02E0FE37151DE2420094C1CD /* background-grey_left.png in Resources */,
 				02E0FE38151DE2420094C1CD /* background-grey_right.png in Resources */,
+				027062B719DF803600E6C36A /* overlay_close_button@2x.png in Resources */,
 				02E0FE39151DE2420094C1CD /* background_blue_arrow.png in Resources */,
 				02E0FE3A151DE2420094C1CD /* background_blue_center.png in Resources */,
 				0259EAFE19AF5CF000181E08 /* MHLogWindow.xib in Resources */,
@@ -885,10 +962,13 @@
 				02E0FE3D151DE2420094C1CD /* unselected-tab-background.png in Resources */,
 				02E0FE3E151DE2420094C1CD /* grip_button.png in Resources */,
 				02E0FE3F151DE2420094C1CD /* button_ArrowRight_default.png in Resources */,
+				027062D419DF822600E6C36A /* indexmenu@2x.png in Resources */,
 				02E0FE40151DE2420094C1CD /* button_ArrowRight_overlay.png in Resources */,
+				027062BA19DF803600E6C36A /* button_ArrowRight_overlay@2x.png in Resources */,
 				02E0FE41151DE2420094C1CD /* close_button.png in Resources */,
 				02E0FE42151DE2420094C1CD /* overlay_close_button.png in Resources */,
 				025B8F911531FC7500849A71 /* unselected-tab-border.png in Resources */,
+				027062D619DF822600E6C36A /* editicon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
