@@ -62,7 +62,7 @@
 		027062D319DF822600E6C36A /* insertmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062CD19DF822600E6C36A /* insertmenu@2x.png */; };
 		027062D419DF822600E6C36A /* indexmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062CE19DF822600E6C36A /* indexmenu@2x.png */; };
 		027062D519DF822600E6C36A /* findmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062CF19DF822600E6C36A /* findmenu@2x.png */; };
-		027062D619DF822600E6C36A /* editicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062D019DF822600E6C36A /* editicon@2x.png */; };
+		027062D619DF822600E6C36A /* editmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062D019DF822600E6C36A /* editmenu@2x.png */; };
 		0279C090189C02F600F8BACB /* MHImportExportFeedback.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0279C08F189C02F600F8BACB /* MHImportExportFeedback.xib */; };
 		0279C093189C03E000F8BACB /* MHImportExportFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 0279C092189C03E000F8BACB /* MHImportExportFeedback.m */; };
 		029CAA731946028800FD44B4 /* NSTextView+MongoHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 029CAA721946028800FD44B4 /* NSTextView+MongoHub.m */; };
@@ -133,7 +133,7 @@
 		1D93C2A0118343EF003216F7 /* MHConnectionEditorWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C29F118343EF003216F7 /* MHConnectionEditorWindowController.xib */; };
 		1D93C37C11835BB4003216F7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D93C37B11835BB4003216F7 /* QuartzCore.framework */; };
 		1D93C3B111836510003216F7 /* connecticon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C3AF11836510003216F7 /* connecticon.png */; };
-		1D93C3B211836510003216F7 /* editicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C3B011836510003216F7 /* editicon.png */; };
+		1D93C3B211836510003216F7 /* editmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C3B011836510003216F7 /* editmenu.png */; };
 		1D93C3D11183690E003216F7 /* MHConnectionWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C3D01183690E003216F7 /* MHConnectionWindow.xib */; };
 		1D93C42C1183744D003216F7 /* collectionicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C42A1183744D003216F7 /* collectionicon.png */; };
 		1D93C42D1183744D003216F7 /* dbicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C42B1183744D003216F7 /* dbicon.png */; };
@@ -143,7 +143,6 @@
 		1DA68048118875B300DFDD29 /* insertmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DA68043118875B300DFDD29 /* insertmenu.png */; };
 		1DA68049118875B300DFDD29 /* removemenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DA68044118875B300DFDD29 /* removemenu.png */; };
 		1DA6804A118875B300DFDD29 /* runmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DA68045118875B300DFDD29 /* runmenu.png */; };
-		1DA6804B118875B300DFDD29 /* updatemenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DA68046118875B300DFDD29 /* updatemenu.png */; };
 		1DA6806C11888BDD00DFDD29 /* NSString+MongoHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6806B11888BDD00DFDD29 /* NSString+MongoHub.m */; };
 		1DCC562912C264600025F181 /* StatMonitorTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DCC562812C264600025F181 /* StatMonitorTableController.m */; };
 		1DDC486912CB7758009924A1 /* SyntaxDefinition.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DDC486812CB7758009924A1 /* SyntaxDefinition.plist */; };
@@ -266,7 +265,7 @@
 		027062CD19DF822600E6C36A /* insertmenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "insertmenu@2x.png"; sourceTree = "<group>"; };
 		027062CE19DF822600E6C36A /* indexmenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indexmenu@2x.png"; sourceTree = "<group>"; };
 		027062CF19DF822600E6C36A /* findmenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "findmenu@2x.png"; sourceTree = "<group>"; };
-		027062D019DF822600E6C36A /* editicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "editicon@2x.png"; sourceTree = "<group>"; };
+		027062D019DF822600E6C36A /* editmenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "editmenu@2x.png"; sourceTree = "<group>"; };
 		0279C08F189C02F600F8BACB /* MHImportExportFeedback.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHImportExportFeedback.xib; sourceTree = "<group>"; };
 		0279C091189C03E000F8BACB /* MHImportExportFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHImportExportFeedback.h; sourceTree = "<group>"; };
 		0279C092189C03E000F8BACB /* MHImportExportFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHImportExportFeedback.m; sourceTree = "<group>"; };
@@ -367,7 +366,7 @@
 		1D93C29F118343EF003216F7 /* MHConnectionEditorWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MHConnectionEditorWindowController.xib; sourceTree = "<group>"; };
 		1D93C37B11835BB4003216F7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1D93C3AF11836510003216F7 /* connecticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = connecticon.png; path = Resources/images/connecticon.png; sourceTree = SOURCE_ROOT; };
-		1D93C3B011836510003216F7 /* editicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = editicon.png; path = Resources/images/editicon.png; sourceTree = SOURCE_ROOT; };
+		1D93C3B011836510003216F7 /* editmenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = editmenu.png; path = Resources/images/editmenu.png; sourceTree = SOURCE_ROOT; };
 		1D93C3CD11836863003216F7 /* MHConnectionWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHConnectionWindowController.h; sourceTree = "<group>"; };
 		1D93C3D01183690E003216F7 /* MHConnectionWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MHConnectionWindow.xib; sourceTree = "<group>"; };
 		1D93C42A1183744D003216F7 /* collectionicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = collectionicon.png; path = Resources/images/collectionicon.png; sourceTree = SOURCE_ROOT; };
@@ -380,7 +379,6 @@
 		1DA68043118875B300DFDD29 /* insertmenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = insertmenu.png; path = Resources/images/insertmenu.png; sourceTree = SOURCE_ROOT; };
 		1DA68044118875B300DFDD29 /* removemenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = removemenu.png; path = Resources/images/removemenu.png; sourceTree = SOURCE_ROOT; };
 		1DA68045118875B300DFDD29 /* runmenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = runmenu.png; path = Resources/images/runmenu.png; sourceTree = SOURCE_ROOT; };
-		1DA68046118875B300DFDD29 /* updatemenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = updatemenu.png; path = Resources/images/updatemenu.png; sourceTree = SOURCE_ROOT; };
 		1DA6806A11888BDD00DFDD29 /* NSString+MongoHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MongoHub.h"; sourceTree = "<group>"; };
 		1DA6806B11888BDD00DFDD29 /* NSString+MongoHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MongoHub.m"; sourceTree = "<group>"; };
 		1DCC562712C264600025F181 /* StatMonitorTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatMonitorTableController.h; sourceTree = "<group>"; };
@@ -676,12 +674,11 @@
 				1DA68044118875B300DFDD29 /* removemenu.png */,
 				027062CB19DF822600E6C36A /* removemenu@2x.png */,
 				1DA68045118875B300DFDD29 /* runmenu.png */,
-				1DA68046118875B300DFDD29 /* updatemenu.png */,
 				1D93C42A1183744D003216F7 /* collectionicon.png */,
 				1D93C42B1183744D003216F7 /* dbicon.png */,
 				1D93C3AF11836510003216F7 /* connecticon.png */,
-				1D93C3B011836510003216F7 /* editicon.png */,
-				027062D019DF822600E6C36A /* editicon@2x.png */,
+				1D93C3B011836510003216F7 /* editmenu.png */,
+				027062D019DF822600E6C36A /* editmenu@2x.png */,
 				1D93C27111833A19003216F7 /* database.png */,
 				02E0FE28151DE2420094C1CD /* tabs */,
 			);
@@ -902,7 +899,7 @@
 				027062B619DF803600E6C36A /* unselected-tab-background@2x.png in Resources */,
 				1D93C3B111836510003216F7 /* connecticon.png in Resources */,
 				027062BF19DF803600E6C36A /* background_blue_right@2x.png in Resources */,
-				1D93C3B211836510003216F7 /* editicon.png in Resources */,
+				1D93C3B211836510003216F7 /* editmenu.png in Resources */,
 				1D93C3D11183690E003216F7 /* MHConnectionWindow.xib in Resources */,
 				1D93C42C1183744D003216F7 /* collectionicon.png in Resources */,
 				1D93C42D1183744D003216F7 /* dbicon.png in Resources */,
@@ -919,7 +916,6 @@
 				1DA6804A118875B300DFDD29 /* runmenu.png in Resources */,
 				027062D219DF822600E6C36A /* mapreducemenu@2x.png in Resources */,
 				027062BB19DF803600E6C36A /* button_ArrowRight_default@2x.png in Resources */,
-				1DA6804B118875B300DFDD29 /* updatemenu.png in Resources */,
 				027062BD19DF803600E6C36A /* background-grey_left@2x.png in Resources */,
 				1D8A624E11897C6800D55937 /* indexmenu.png in Resources */,
 				1D1D65541189C5E000582917 /* collectionmenu.png in Resources */,
@@ -968,7 +964,7 @@
 				02E0FE41151DE2420094C1CD /* close_button.png in Resources */,
 				02E0FE42151DE2420094C1CD /* overlay_close_button.png in Resources */,
 				025B8F911531FC7500849A71 /* unselected-tab-border.png in Resources */,
-				027062D619DF822600E6C36A /* editicon@2x.png in Resources */,
+				027062D619DF822600E6C36A /* editmenu@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
