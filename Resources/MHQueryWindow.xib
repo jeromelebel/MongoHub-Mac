@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6206.8" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6206.8"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHQueryWindowController">
@@ -1004,12 +1004,12 @@ CA
                     </tabViewItems>
                 </tabView>
                 <segmentedControl verticalHuggingPriority="750" id="730">
-                    <rect key="frame" x="42" y="461" width="540" height="25"/>
+                    <rect key="frame" x="52" y="461" width="521" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="731">
                         <font key="font" metaFont="system"/>
                         <segments>
-                            <segment label="Find" image="querymenu" selected="YES"/>
+                            <segment label="Find" image="findmenu" selected="YES"/>
                             <segment label="Insert" image="insertmenu" tag="1"/>
                             <segment label="Update" image="updatemenu" tag="2"/>
                             <segment label="Remove" image="removemenu" tag="3"/>
@@ -1030,11 +1030,11 @@ CA
         <image name="NSPathTemplate" width="13" height="10"/>
         <image name="NSRemoveTemplate" width="8" height="8"/>
         <image name="NSStopProgressTemplate" width="11" height="11"/>
-        <image name="indexmenu" width="32" height="32"/>
-        <image name="insertmenu" width="32" height="32"/>
-        <image name="mapreducemenu" width="32" height="32"/>
-        <image name="querymenu" width="32" height="32"/>
-        <image name="removemenu" width="32" height="32"/>
+        <image name="findmenu" width="16" height="16"/>
+        <image name="indexmenu" width="16" height="16"/>
+        <image name="insertmenu" width="16" height="16"/>
+        <image name="mapreducemenu" width="18" height="16"/>
+        <image name="removemenu" width="16" height="16"/>
         <image name="runmenu" width="32" height="32"/>
         <image name="updatemenu" width="32" height="32"/>
     </resources>
