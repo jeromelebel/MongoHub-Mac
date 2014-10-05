@@ -10,7 +10,7 @@
 
 
 @interface MHAddCollectionController ()
-@property (nonatomic, readwrite, strong) NSTextField *collectionNameTextField;
+@property (nonatomic, readwrite, strong) IBOutlet NSTextField *collectionNameTextField;
 
 @end
 

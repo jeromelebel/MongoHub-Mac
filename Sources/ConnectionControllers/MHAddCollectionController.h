@@ -12,7 +12,7 @@
 
 @interface MHAddCollectionController : NSWindowController
 {
-    IBOutlet NSTextField                *_collectionNameTextField;
+    NSTextField                         *_collectionNameTextField;
     NSString                            *_collectionName;
 }
 

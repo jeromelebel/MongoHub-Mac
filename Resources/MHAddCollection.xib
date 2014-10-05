@@ -7,7 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHAddCollectionController">
             <connections>
-                <outlet property="_collectionNameTextField" destination="3" id="51h-DD-BKb"/>
+                <outlet property="collectionNameTextField" destination="3" id="VYg-If-s0O"/>
                 <outlet property="window" destination="1" id="GhP-2s-mZA"/>
             </connections>
         </customObject>
