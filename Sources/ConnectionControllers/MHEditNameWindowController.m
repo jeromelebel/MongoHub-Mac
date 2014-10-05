@@ -1,28 +1,27 @@
 //
-//  MHAddCollectionController.m
+//  MHEditNameWindowController.m
 //  MongoHub
 //
 //  Created by Syd on 10-4-28.
 //  Copyright 2010 ThePeppersStudio.COM. All rights reserved.
 //
 
-#import "MHAddCollectionController.h"
+#import "MHEditNameWindowController.h"
 
 
-@interface MHAddCollectionController ()
+@interface MHEditNameWindowController ()
 @property (nonatomic, readwrite, strong) IBOutlet NSTextField *collectionNameTextField;
 
 @end
 
-@implementation MHAddCollectionController
+@implementation MHEditNameWindowController
 
 @synthesize collectionName = _collectionName;
 @synthesize collectionNameTextField = _collectionNameTextField;
 
-- (id)init
+- (NSString *)windowNibName
 {
-    self = [super initWithWindowNibName:@"MHAddCollection"];
-    return self;
+    return @"MHEditNameWindow";
 }
 
 - (IBAction)cancel:(id)sender

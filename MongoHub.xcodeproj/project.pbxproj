@@ -150,8 +150,8 @@
 		1DEC7F3B12B7ECAD00FC804E /* MHTunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DEC7F3A12B7ECAC00FC804E /* MHTunnel.m */; };
 		1DEC7FF112B7EDB900FC804E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DEC7FF012B7EDB900FC804E /* Security.framework */; };
 		1DEC803512B7EE2100FC804E /* SSHCommand.sh in Resources */ = {isa = PBXBuildFile; fileRef = 1DEC803412B7EE2100FC804E /* SSHCommand.sh */; };
-		1DF96E3B11881AED00C35AB8 /* MHAddCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF96E3A11881AED00C35AB8 /* MHAddCollectionController.m */; };
-		1DF96E3D11881EB400C35AB8 /* MHAddCollection.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF96E3C11881EB400C35AB8 /* MHAddCollection.xib */; };
+		1DF96E3B11881AED00C35AB8 /* MHEditNameWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF96E3A11881AED00C35AB8 /* MHEditNameWindowController.m */; };
+		1DF96E3D11881EB400C35AB8 /* MHEditNameWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF96E3C11881EB400C35AB8 /* MHEditNameWindow.xib */; };
 		1DF96F9211883B3800C35AB8 /* MHQueryWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF96F9111883B3800C35AB8 /* MHQueryWindowController.m */; };
 		1DF96F9411883D5E00C35AB8 /* MHQueryWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF96F9311883D5E00C35AB8 /* MHQueryWindow.xib */; };
 		2F7446990DB6B7EA00F9684A /* MHMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F7446970DB6B7EA00F9684A /* MHMainMenu.xib */; };
@@ -391,9 +391,9 @@
 		1DEC7F3A12B7ECAC00FC804E /* MHTunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTunnel.m; sourceTree = "<group>"; };
 		1DEC7FF012B7EDB900FC804E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		1DEC803412B7EE2100FC804E /* SSHCommand.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = SSHCommand.sh; sourceTree = "<group>"; };
-		1DF96E3911881AED00C35AB8 /* MHAddCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAddCollectionController.h; sourceTree = "<group>"; };
-		1DF96E3A11881AED00C35AB8 /* MHAddCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAddCollectionController.m; sourceTree = "<group>"; };
-		1DF96E3C11881EB400C35AB8 /* MHAddCollection.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MHAddCollection.xib; sourceTree = "<group>"; };
+		1DF96E3911881AED00C35AB8 /* MHEditNameWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHEditNameWindowController.h; sourceTree = "<group>"; };
+		1DF96E3A11881AED00C35AB8 /* MHEditNameWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHEditNameWindowController.m; sourceTree = "<group>"; };
+		1DF96E3C11881EB400C35AB8 /* MHEditNameWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MHEditNameWindow.xib; sourceTree = "<group>"; };
 		1DF96F9111883B3800C35AB8 /* MHQueryWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHQueryWindowController.m; sourceTree = "<group>"; };
 		1DF96F9311883D5E00C35AB8 /* MHQueryWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MHQueryWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -698,8 +698,8 @@
 				023230AD15E051300075498C /* MHConnectionEditorWindowController.m */,
 				1D799453118755EE009C187F /* MHAddDBController.h */,
 				1D799454118755EE009C187F /* MHAddDBController.m */,
-				1DF96E3911881AED00C35AB8 /* MHAddCollectionController.h */,
-				1DF96E3A11881AED00C35AB8 /* MHAddCollectionController.m */,
+				1DF96E3911881AED00C35AB8 /* MHEditNameWindowController.h */,
+				1DF96E3A11881AED00C35AB8 /* MHEditNameWindowController.m */,
 			);
 			path = ConnectionControllers;
 			sourceTree = "<group>";
@@ -784,7 +784,7 @@
 				1D93C29F118343EF003216F7 /* MHConnectionEditorWindow.xib */,
 				1D93C3D01183690E003216F7 /* MHConnectionWindow.xib */,
 				1D79945611875E7A009C187F /* MHAddDB.xib */,
-				1DF96E3C11881EB400C35AB8 /* MHAddCollection.xib */,
+				1DF96E3C11881EB400C35AB8 /* MHEditNameWindow.xib */,
 				1DF96F9311883D5E00C35AB8 /* MHQueryWindow.xib */,
 				1D601B5511C8F24300C86274 /* MysqlImport.xib */,
 				1D26615111CFC5BE0092C6B5 /* MysqlExport.xib */,
@@ -910,7 +910,7 @@
 				1D93C42D1183744D003216F7 /* dbicon.png in Resources */,
 				1D79945711875E7A009C187F /* MHAddDB.xib in Resources */,
 				0279C090189C02F600F8BACB /* MHImportExportFeedback.xib in Resources */,
-				1DF96E3D11881EB400C35AB8 /* MHAddCollection.xib in Resources */,
+				1DF96E3D11881EB400C35AB8 /* MHEditNameWindow.xib in Resources */,
 				1DF96F9411883D5E00C35AB8 /* MHQueryWindow.xib in Resources */,
 				027062B519DF803600E6C36A /* unselected-tab-border@2x.png in Resources */,
 				1DA68047118875B300DFDD29 /* findmenu.png in Resources */,
@@ -1011,7 +1011,7 @@
 				1D93C45411837668003216F7 /* SidebarBadgeCell.m in Sources */,
 				1D93CB5C1184C243003216F7 /* MHResultsOutlineViewController.m in Sources */,
 				1D799455118755EE009C187F /* MHAddDBController.m in Sources */,
-				1DF96E3B11881AED00C35AB8 /* MHAddCollectionController.m in Sources */,
+				1DF96E3B11881AED00C35AB8 /* MHEditNameWindowController.m in Sources */,
 				1DF96F9211883B3800C35AB8 /* MHQueryWindowController.m in Sources */,
 				1DA6806C11888BDD00DFDD29 /* NSString+MongoHub.m in Sources */,
 				1D601B5211C8F08C00C86274 /* MHMysqlImportWindowController.m in Sources */,

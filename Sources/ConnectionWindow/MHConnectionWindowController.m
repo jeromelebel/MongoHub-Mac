@@ -10,7 +10,7 @@
 #import "MHConnectionWindowController.h"
 #import "MHQueryWindowController.h"
 #import "MHAddDBController.h"
-#import "MHAddCollectionController.h"
+#import "MHEditNameWindowController.h"
 #import "MHMysqlImportWindowController.h"
 #import "MHMysqlExportWindowController.h"
 #import "StatMonitorTableController.h"
@@ -40,7 +40,7 @@
 
 @interface MHConnectionWindowController()
 @property (nonatomic, readwrite, strong) MHAddDBController *addDBController;
-@property (nonatomic, readwrite, strong) MHAddCollectionController *addCollectionController;
+@property (nonatomic, readwrite, strong) MHEditNameWindowController *addCollectionController;
 @property (nonatomic, readwrite, strong) MHServerItem *serverItem;
 @property (nonatomic, readwrite, strong) NSMutableDictionary *tabItemControllers;
 @property (nonatomic, readwrite, strong) MHStatusViewController *statusViewController;
@@ -393,7 +393,7 @@
 {
     if (self.selectedDatabaseItem) {
         NSAssert(self.addCollectionController == nil, @"we should not be already adding a collection");
-        self.addCollectionController = [[[MHAddCollectionController alloc] init] autorelease];
+        self.addCollectionController = [[[MHEditNameWindowController alloc] init] autorelease];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addCollection:) name:kNewCollectionWindowWillClose object:self.addCollectionController];
         [self.addCollectionController modalForWindow:self.window];
     }

@@ -1,5 +1,5 @@
 //
-//  MHAddCollectionController.h
+//  MHEditNameWindowController.h
 //  MongoHub
 //
 //  Created by Syd on 10-4-28.
@@ -10,7 +10,7 @@
 
 #define kNewCollectionWindowWillClose @"NewCollectionWindowWillClose"
 
-@interface MHAddCollectionController : NSWindowController
+@interface MHEditNameWindowController : NSWindowController
 {
     NSTextField                         *_collectionNameTextField;
     NSString                            *_collectionName;
