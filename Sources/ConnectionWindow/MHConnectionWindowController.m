@@ -233,7 +233,6 @@
         [self.loaderIndicator stopAnimation:nil];
         
         monitorButton.enabled = YES;
-        [self getDatabaseList];
         [self showServerStatus:nil];
     }
 }
@@ -346,6 +345,7 @@
     }
     [self.statusViewController showServerStatus];
     [self.statusViewController select];
+    [self getDatabaseList];
 }
 
 - (IBAction)showDatabaseStatus:(id)sender 
