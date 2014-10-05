@@ -420,9 +420,9 @@
 - (IBAction)dropDatabaseOrCollection:(id)sender
 {
     if (self.selectedCollectionItem) {
-        [self dropWarning:[NSString stringWithFormat:@"COLLECTION:%@", [[self.selectedCollectionItem collection] absoluteName]]];
+        [self dropWarning:[[self.selectedCollectionItem collection] absoluteName]];
     } else {
-        [self dropWarning:[NSString stringWithFormat:@"DB:%@", self.selectedDatabaseItem.database]];
+        [self dropWarning:self.selectedDatabaseItem.database.name];
     }
 }
 
@@ -495,8 +495,8 @@
     NSAlert *alert = [[[NSAlert alloc] init] autorelease];
     [alert addButtonWithTitle:@"Cancel"];
     [alert addButtonWithTitle:@"OK"];
-    [alert setMessageText:[NSString stringWithFormat:@"Drop this %@?", msg]];
-    [alert setInformativeText:[NSString stringWithFormat:@"Dropped %@ cannot be restored.", msg]];
+    [alert setMessageText:[NSString stringWithFormat:@"Drop \"%@\"?", msg]];
+    [alert setInformativeText:[NSString stringWithFormat:@"Dropping \"%@\" cannot be restored.", msg]];
     [alert setAlertStyle:NSWarningAlertStyle];
     [alert beginSheetModalForWindow:[self window] modalDelegate:self
                      didEndSelector:@selector(dropWarningDidEnd:returnCode:contextInfo:)
