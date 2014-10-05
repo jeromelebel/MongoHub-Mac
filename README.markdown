@@ -42,10 +42,13 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **Beta**
 
+## History
+
+**2.7 beta 16 - october 5, 2014**
+
 - Adding back the edit icon in the main window
 - Adding contextual menu in the database/collection list
-
-## History
+- Workaround for connection problem
 
 **2.7 beta 15 - october 4, 2014**
 
