@@ -10,14 +10,15 @@
 
 
 @interface MHEditNameWindowController ()
-@property (nonatomic, readwrite, strong) IBOutlet NSTextField *collectionNameTextField;
+@property (nonatomic, readwrite, strong) IBOutlet NSTextField *editedNameTextField;
+@property (nonatomic, readwrite, strong) IBOutlet NSTextField *nameTitleTextField;
 
 @end
 
 @implementation MHEditNameWindowController
 
-@synthesize collectionName = _collectionName;
-@synthesize collectionNameTextField = _collectionNameTextField;
+@synthesize editedNameTextField = _editedNameTextField;
+@synthesize nameTitleTextField = _nameTitleTextField;
 
 - (NSString *)windowNibName
 {
@@ -31,7 +32,7 @@
 
 - (IBAction)add:(id)sender
 {
-    if (self.collectionName.length == 0) {
+    if (self.editedName.length == 0) {
         NSRunAlertPanel(@"Error", @"Collection name can not be empty", @"OK", nil, nil);
     } else {
         [self retain];
@@ -52,9 +53,24 @@
     [self.window orderOut:self];
 }
 
-- (NSString *)collectionName
+- (void)setNameTitle:(NSString *)nameTitle
 {
-    return self.collectionNameTextField.stringValue;
+    self.nameTitleTextField.stringValue = nameTitle;
+}
+
+- (NSString *)nameTitle
+{
+    return self.nameTitleTextField.stringValue;
+}
+
+- (void)setEditedName:(NSString *)editedName
+{
+    self.editedNameTextField.stringValue = editedName;
+}
+
+- (NSString *)editedName
+{
+    return self.editedNameTextField.stringValue;
 }
 
 @end

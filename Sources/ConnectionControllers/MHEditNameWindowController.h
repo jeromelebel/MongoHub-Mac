@@ -12,14 +12,13 @@
 
 @interface MHEditNameWindowController : NSWindowController
 {
-    NSTextField                         *_collectionNameTextField;
-    NSString                            *_collectionName;
+    NSTextField                         *_editedNameTextField;
+    NSTextField                         *_nameTitleTextField;
 }
 
-@property (nonatomic, readonly, strong) NSString *collectionName;
+@property (nonatomic, readwrite, assign) NSString *editedName;
+@property (nonatomic, readwrite, assign) NSString *nameTitle;
 
-- (IBAction)add:(id)sender;
-- (IBAction)cancel:(id)sender;
 - (void)modalForWindow:(NSWindow *)window;
 
 @end

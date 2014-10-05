@@ -407,7 +407,7 @@
     NSAssert(self.selectedDatabaseItem != nil, @"we should have a selected database");
     mongoDatabase = self.selectedDatabaseItem.database;
     [self.loaderIndicator startAnimation:nil];
-    [mongoDatabase createCollectionWithName:self.addCollectionController.collectionName callback:^(MODQuery *mongoQuery) {
+    [mongoDatabase createCollectionWithName:self.addCollectionController.editedName callback:^(MODQuery *mongoQuery) {
         [self.loaderIndicator stopAnimation:nil];
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
