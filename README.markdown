@@ -38,10 +38,12 @@ Just build it, it should work (but let me know if you have an errors or warnings
 - Can copy/paste mongodb URI [issue #108](https://github.com/jeromelebel/MongoHub-Mac/issues/108)
 - Adding support for timeout parameter in URL
 - Update some images to be high resolution [issue #54](https://github.com/jeromelebel/MongoHub-Mac/issues/54)
+- Adding contextual menu in the database/collection list
 
 **Beta**
 
 - Adding back the edit icon in the main window
+- Adding contextual menu in the database/collection list
 
 ## History
 

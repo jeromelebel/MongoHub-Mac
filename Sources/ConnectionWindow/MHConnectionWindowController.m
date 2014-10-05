@@ -27,6 +27,7 @@
 #import "MHStatusViewController.h"
 #import "MHTabViewController.h"
 #import "MHImportExportFeedback.h"
+#import "MHDatabaseCollectionOutlineView.h"
 
 #define SERVER_STATUS_TOOLBAR_ITEM_TAG              0
 #define DATABASE_STATUS_TOOLBAR_ITEM_TAG            1
@@ -589,7 +590,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     NSInteger index;
     
     index = [_databaseCollectionOutlineView selectedRow];
-    if (index != NSNotFound) {
+    if (index != -1) {
         id item;
         
         item = [_databaseCollectionOutlineView itemAtRow:index];
@@ -608,7 +609,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     NSInteger index;
     
     index = [_databaseCollectionOutlineView selectedRow];
-    if (index != NSNotFound) {
+    if (index != -1) {
         id item;
         
         item = [_databaseCollectionOutlineView itemAtRow:index];
@@ -766,6 +767,41 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 
 @implementation MHConnectionWindowController(NSOutlineViewDataSource)
 
+- (void)prout:(id)sender
+{
+    
+}
+
+- (NSMenu *)databaseCollectionOutlineView:(MHDatabaseCollectionOutlineView *)outlineView contextualMenuWithEvent:(NSEvent *)event
+{
+    NSMenu *result;
+    id item;
+    NSInteger index;
+    
+    result = [[[NSMenu alloc] init] autorelease];
+    index = _databaseCollectionOutlineView.selectedRow;
+    item = [_databaseCollectionOutlineView itemAtRow:index];
+    if (_databaseCollectionOutlineView.selectedRowIndexes.count == 0) {
+        [result addItemWithTitle:@"New Database…" action:@selector(createDatabase:) keyEquivalent:@""].target = self;
+    } else if ([item isKindOfClass:[MHDatabaseItem class]]) {
+        [result addItemWithTitle:[NSString stringWithFormat:@"%@ Stats", [item name]] action:@selector(showDatabaseStatus:) keyEquivalent:@""].target = self;
+        [result addItemWithTitle:[NSString stringWithFormat:@"Rename %@…", [item name]] action:@selector(prout:) keyEquivalent:@""].target = self;
+        [result addItemWithTitle:[NSString stringWithFormat:@"Drop %@…", [item name]] action:@selector(dropDatabaseOrCollection:) keyEquivalent:@""].target = self;
+        [result addItem:[NSMenuItem separatorItem]];
+        [result addItemWithTitle:@"New Database…" action:@selector(createDatabase:) keyEquivalent:@""].target = self;
+        [result addItemWithTitle:@"New Collection…" action:@selector(createCollection:) keyEquivalent:@""].target = self;
+    } else if ([item isKindOfClass:[MHCollectionItem class]]) {
+        [result addItemWithTitle:[NSString stringWithFormat:@"Open %@", [item name]] action:@selector(query:) keyEquivalent:@""].target = self;
+        [result addItemWithTitle:[NSString stringWithFormat:@"%@ Stats", [item name]] action:@selector(showCollStats:) keyEquivalent:@""].target = self;
+        [result addItemWithTitle:[NSString stringWithFormat:@"Rename %@…", [item name]] action:@selector(prout:) keyEquivalent:@""].target = self;
+        [result addItemWithTitle:[NSString stringWithFormat:@"Drop %@…", [item name]] action:@selector(dropDatabaseOrCollection:) keyEquivalent:@""].target = self;
+        [result addItem:[NSMenuItem separatorItem]];
+        [result addItemWithTitle:@"New Database…" action:@selector(createDatabase:) keyEquivalent:@""].target = self;
+        [result addItemWithTitle:@"New Collection…" action:@selector(createCollection:) keyEquivalent:@""].target = self;
+    }
+    return result;
+}
+
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
 {
     if (!item) {
@@ -815,6 +851,8 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
         
         [self getCollectionListForDatabaseItem:databaseItem];
         [self showDatabaseStatusWithDatabaseItem:databaseItem];
+    } else {
+        [self.statusViewController showServerStatus];
     }
     [self updateToolbarItems];
     [self getDatabaseList];

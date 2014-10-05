@@ -72,6 +72,7 @@
 		02A7C40A1482DEDD0099CDD1 /* MHMysqlImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A7C4091482DEDD0099CDD1 /* MHMysqlImporter.m */; };
 		02A7C40E1482DF080099CDD1 /* MHMysqlExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A7C40D1482DF080099CDD1 /* MHMysqlExporter.m */; };
 		02AA29931477F8BD0041865F /* MHFileExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AA29921477F8BD0041865F /* MHFileExporter.m */; };
+		02ABF65F19E09C76009F4766 /* MHDatabaseCollectionOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02ABF65E19E09C76009F4766 /* MHDatabaseCollectionOutlineView.m */; };
 		02B143DC147C720D005AB320 /* MHFileImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B143DB147C720D005AB320 /* MHFileImporter.m */; };
 		02C4C1C819A231090002FBD8 /* MongoObjCDriver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */; };
 		02C4C1CA19A231600002FBD8 /* MongoObjCDriver.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -286,6 +287,8 @@
 		02AA29921477F8BD0041865F /* MHFileExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHFileExporter.m; sourceTree = "<group>"; };
 		02AB33A6194850BD008C06B9 /* MongoHub_DataModel3.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel3.0.xcdatamodel; sourceTree = "<group>"; };
 		02AB33AF194880AB008C06B9 /* MongoHub_DataModel4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel4.xcdatamodel; sourceTree = "<group>"; };
+		02ABF65D19E09C76009F4766 /* MHDatabaseCollectionOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDatabaseCollectionOutlineView.h; sourceTree = "<group>"; };
+		02ABF65E19E09C76009F4766 /* MHDatabaseCollectionOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHDatabaseCollectionOutlineView.m; sourceTree = "<group>"; };
 		02AF1BEC1962B4F000926F75 /* MongoHub_DataModel5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel5.xcdatamodel; sourceTree = "<group>"; };
 		02B143DA147C720D005AB320 /* MHFileImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHFileImporter.h; sourceTree = "<group>"; };
 		02B143DB147C720D005AB320 /* MHFileImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHFileImporter.m; sourceTree = "<group>"; };
@@ -475,6 +478,8 @@
 				1DF96F9111883B3800C35AB8 /* MHQueryWindowController.m */,
 				020F5125148973BA00D4B54B /* MHStatusViewController.h */,
 				020F5126148973BA00D4B54B /* MHStatusViewController.m */,
+				02ABF65D19E09C76009F4766 /* MHDatabaseCollectionOutlineView.h */,
+				02ABF65E19E09C76009F4766 /* MHDatabaseCollectionOutlineView.m */,
 			);
 			path = ConnectionWindow;
 			sourceTree = "<group>";
@@ -1023,6 +1028,7 @@
 				1D64100D12C8E3D90030AA4C /* MHJsonWindowController.m in Sources */,
 				024F67901427F3DE00956BF6 /* MODHelper.m in Sources */,
 				029D30A5145613420021B9C9 /* MHDatabaseItem.m in Sources */,
+				02ABF65F19E09C76009F4766 /* MHDatabaseCollectionOutlineView.m in Sources */,
 				029D30A9145613580021B9C9 /* MHCollectionItem.m in Sources */,
 				029D30AC145613C30021B9C9 /* MHServerItem.m in Sources */,
 				02CF9CC919AA9E8A00EEF76B /* MHMongoHubMigration9to10.xcmappingmodel in Sources */,

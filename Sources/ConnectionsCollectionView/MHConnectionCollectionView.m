@@ -51,13 +51,26 @@
     [(id<MHConnectionCollectionViewDelegate>)self.delegate connectionViewItemDelegate:self deleteItem:item];
 }
 
-- (void)rightMouseDown:(NSEvent *)event
+- (void)openContextualMenuWithEvent:(NSEvent *)event
 {
     NSMenu *menu;
     
     menu = [[[NSMenu alloc] init] autorelease];
     [menu addItemWithTitle:@"New Connection…" action:@selector(newItemAction:) keyEquivalent:@""].target = self;
     [NSMenu popUpContextMenu:menu withEvent:event forView:self];
+}
+
+- (void)mouseDown:(NSEvent *)event
+{
+    [super mouseDown:event];
+    if ((event.modifierFlags & NSControlKeyMask) == NSControlKeyMask) {
+        [self openContextualMenuWithEvent:event];
+    }
+}
+
+- (void)rightMouseDown:(NSEvent *)event
+{
+    [self openContextualMenuWithEvent:event];
 }
 
 - (void)newItemAction:(id)sender
