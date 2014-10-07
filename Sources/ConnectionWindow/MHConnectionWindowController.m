@@ -159,7 +159,7 @@
             MHDatabaseItem *databaseOutlineViewItem;
             MHCollectionItem *collectionOutlineViewItem;
             
-            databaseOutlineViewItem = [self.serverItem databaseItemWithName:[(MHQueryWindowController *)selectedTab collection].name];
+            databaseOutlineViewItem = [self.serverItem databaseItemWithName:[(MHQueryWindowController *)selectedTab collection].database.name];
             collectionOutlineViewItem = [databaseOutlineViewItem collectionItemWithName:[(MHQueryWindowController *)selectedTab collection].name];
             if (collectionOutlineViewItem) {
                 [_databaseCollectionOutlineView expandItem:databaseOutlineViewItem];
