@@ -13,8 +13,6 @@
 
 @class BWSheetController;
 @class StatMonitorTableController;
-@class MHAddDBController;
-@class MHEditNameWindowController;
 @class MHMysqlImportWindowController;
 @class MHMysqlExportWindowController;
 @class MHResultsOutlineViewController;
@@ -60,8 +58,6 @@
     NSMutableArray                          *_databases;
     MHTunnel                                *_sshTunnel;
     NSMutableDictionary                     *_sshBindedPortMapping;
-    MHAddDBController                       *_addDBController;
-    MHEditNameWindowController              *_addCollectionController;
     MHMysqlImportWindowController           *_mysqlImportWindowController;
     MHMysqlExportWindowController           *_mysqlExportWindowController;
     IBOutlet NSTextField                    *bundleVersion;

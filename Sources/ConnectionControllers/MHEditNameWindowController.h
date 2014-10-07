@@ -8,17 +8,26 @@
 
 #import <Cocoa/Cocoa.h>
 
-#define kNewCollectionWindowWillClose @"NewCollectionWindowWillClose"
+@class MHEditNameWindowController;
+
+@protocol MHEditNameWindowControllerDelegate <NSObject>
+- (void)editNameWindowControllerDidSucceed:(MHEditNameWindowController *)controller;
+@end
 
 @interface MHEditNameWindowController : NSWindowController
 {
-    NSTextField                         *_editedNameTextField;
-    NSTextField                         *_nameTitleTextField;
+    NSTextField                                 *_editedValueTextField;
+    NSTextField                                 *_labelTextField;
+    
+    NSString                                    *_label;
+    NSString                                    *_editedValue;
+    void (^_callback)(MHEditNameWindowController *controller);
 }
 
-@property (nonatomic, readwrite, assign) NSString *editedName;
-@property (nonatomic, readwrite, assign) NSString *nameTitle;
+@property (nonatomic, readonly, strong) NSString *editedValue;
+@property (nonatomic, readwrite, copy) void (^callback)(MHEditNameWindowController *controller);
 
+- (id)initWithLabel:(NSString *)label editedValue:(NSString *)editedValue;
 - (void)modalForWindow:(NSWindow *)window;
 
 @end

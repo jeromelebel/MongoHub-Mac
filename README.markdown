@@ -43,6 +43,8 @@ Just build it, it should work (but let me know if you have an errors or warnings
 **Beta**
 
 - Display (in the log window) the correct error number if the connection failed
+- Can renaming a collection
+- Closing tabs when dropping a collection/database
 
 ## History
 

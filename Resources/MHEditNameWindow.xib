@@ -7,8 +7,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHEditNameWindowController">
             <connections>
-                <outlet property="editedNameTextField" destination="3" id="42Q-A3-Ldb"/>
-                <outlet property="nameTitleTextField" destination="5" id="yLb-rG-Jwz"/>
+                <outlet property="editedValueTextField" destination="3" id="Q0q-J7-Uac"/>
+                <outlet property="labelTextField" destination="5" id="nPr-wm-Sdq"/>
                 <outlet property="window" destination="1" id="GhP-2s-mZA"/>
             </connections>
         </customObject>

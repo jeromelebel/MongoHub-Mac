@@ -9,7 +9,6 @@
 #import "NSString+MongoHub.h"
 #import "MHConnectionWindowController.h"
 #import "MHQueryWindowController.h"
-#import "MHAddDBController.h"
 #import "MHEditNameWindowController.h"
 #import "MHMysqlImportWindowController.h"
 #import "MHMysqlExportWindowController.h"
@@ -38,9 +37,7 @@
 #define FILE_IMPORT_TOOLBAR_ITEM_TAG                6
 #define FILE_EXPORT_TOOLBAR_ITEM_TAG                7
 
-@interface MHConnectionWindowController()
-@property (nonatomic, readwrite, strong) MHAddDBController *addDBController;
-@property (nonatomic, readwrite, strong) MHEditNameWindowController *addCollectionController;
+@interface MHConnectionWindowController ()
 @property (nonatomic, readwrite, strong) MHServerItem *serverItem;
 @property (nonatomic, readwrite, strong) NSMutableDictionary *tabItemControllers;
 @property (nonatomic, readwrite, strong) MHStatusViewController *statusViewController;
@@ -73,8 +70,6 @@
 @synthesize databases = _databases;
 @synthesize sshTunnel = _sshTunnel;
 @synthesize sshBindedPortMapping = _sshBindedPortMapping;
-@synthesize addDBController = _addDBController;
-@synthesize addCollectionController = _addCollectionController;
 @synthesize resultsTitle;
 @synthesize bundleVersion;
 @synthesize mysqlImportWindowController = _mysqlImportWindowController;
@@ -96,8 +91,6 @@
 
 - (void)dealloc
 {
-    [NSNotificationCenter.defaultCenter removeObserver:self name:kNewDBWindowWillClose object:nil];
-    [NSNotificationCenter.defaultCenter removeObserver:self name:kNewCollectionWindowWillClose object:nil];
     [self.window removeObserver:self forKeyPath:@"firstResponder"];
     [self.tabViewController removeObserver:self forKeyPath:@"selectedTabIndex"];
     self.tabItemControllers = nil;
@@ -106,8 +99,6 @@
     self.databases = nil;
     self.sshTunnel = nil;
     self.sshBindedPortMapping = nil;
-    self.addDBController = nil;
-    self.addCollectionController = nil;
     self.resultsTitle = nil;
     self.loaderIndicator = nil;
     self.monitorButton = nil;
@@ -374,47 +365,65 @@
 
 - (IBAction)createDatabase:(id)sender
 {
-    NSAssert(self.addDBController == nil, @"we should not be already adding a database");
-    self.addDBController = [[[MHAddDBController alloc] init] autorelease];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDatabase:) name:kNewDBWindowWillClose object:self.addDBController];
-    [self.addDBController modalForWindow:self.window];
-}
-
-- (void)addDatabase:(NSNotification *)notification
-{
-    NSAssert(self.addDBController != nil, @"we should be adding a database");
-    [[self.client databaseForName:self.addDBController.databaseName] statsWithReadPreferences:nil callback:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:self.addDBController];
-    self.addDBController = nil;
-    [self getDatabaseList];
+    MHEditNameWindowController *editNameWindowController;
+    
+    editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:@"New Collection Name:" editedValue:nil] autorelease];
+    editNameWindowController.callback = ^(MHEditNameWindowController *controller) {
+        [[self.client databaseForName:editNameWindowController.editedValue] statsWithReadPreferences:nil callback:nil];
+        [self getDatabaseList];
+    };
+    [editNameWindowController modalForWindow:self.window];
 }
 
 - (IBAction)createCollection:(id)sender
 {
-    if (self.selectedDatabaseItem) {
-        NSAssert(self.addCollectionController == nil, @"we should not be already adding a collection");
-        self.addCollectionController = [[[MHEditNameWindowController alloc] init] autorelease];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addCollection:) name:kNewCollectionWindowWillClose object:self.addCollectionController];
-        [self.addCollectionController modalForWindow:self.window];
+    MODDatabase *database = self.selectedDatabaseItem.database;
+    
+    if (database) {
+        MHEditNameWindowController *editNameWindowController;
+        
+        editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:@"New Collection Name:" editedValue:nil] autorelease];
+        editNameWindowController.callback = ^(MHEditNameWindowController *controller) {
+            [database createCollectionWithName:editNameWindowController.editedValue callback:^(MODQuery *mongoQuery) {
+                if (mongoQuery.error) {
+                    NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
+                }
+                [self getCollectionListForDatabaseName:database.name];
+            }];
+        };
+        [editNameWindowController modalForWindow:self.window];
     }
 }
 
-- (void)addCollection:(NSNotification *)notification
+- (IBAction)renameCollection:(id)sender
 {
-    MODDatabase *mongoDatabase;
+    MODCollection *collection = self.selectedCollectionItem.collection;
+    NSString *oldCollectionName = collection.absoluteName;
     
-    NSAssert(self.addCollectionController != nil, @"we should be adding a collection");
-    NSAssert(self.selectedDatabaseItem != nil, @"we should have a selected database");
-    mongoDatabase = self.selectedDatabaseItem.database;
-    [self.loaderIndicator startAnimation:nil];
-    [mongoDatabase createCollectionWithName:self.addCollectionController.editedName callback:^(MODQuery *mongoQuery) {
-        [self.loaderIndicator stopAnimation:nil];
-        if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
-        }
-        [self getCollectionListForDatabaseName:mongoDatabase.name];
-    }];
-    self.addCollectionController = nil;
+    if (collection) {
+        MHEditNameWindowController *editNameWindowController;
+        
+        editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:@"New Collection Name:" editedValue:collection.name] autorelease];
+        editNameWindowController.callback = ^(MHEditNameWindowController *controller) {
+            [collection renameWithNewDatabaseName:nil newCollectionName:editNameWindowController.editedValue callback:^(MODQuery *mongoQuery) {
+                if (collection.absoluteName != oldCollectionName) {
+                    MHTabItemViewController *tabItemController;
+                    
+                    tabItemController = self.tabItemControllers[oldCollectionName];
+                    [tabItemController retain];
+                    [self.tabItemControllers removeObjectForKey:oldCollectionName];
+                    self.tabItemControllers[collection.absoluteName] = tabItemController;
+                    tabItemController.title = collection.absoluteName;
+                    [tabItemController release];
+                }
+                if (mongoQuery.error) {
+                    NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
+                }
+                [self getCollectionListForDatabaseName:collection.database.name];
+            }];
+        };
+        [editNameWindowController modalForWindow:self.window];
+    }
 }
 
 - (IBAction)dropDatabaseOrCollection:(id)sender
@@ -437,6 +446,11 @@
             if (mongoQuery.error) {
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
             } else {
+                MHTabItemViewController *tabItemViewController = self.tabItemControllers[collection.absoluteName];
+                
+                if (tabItemViewController) {
+                    [self.tabViewController removeTabItemViewController:tabItemViewController];
+                }
                 [self getCollectionListForDatabaseName:databaseName];
             }
         }];
@@ -445,9 +459,17 @@
 
 - (void)dropDatabase
 {
+    MODDatabase *database = self.selectedDatabaseItem.database;
+    
+    NSParameterAssert(database);
     [self.loaderIndicator startAnimation:nil];
-    [self.selectedDatabaseItem.database dropWithCallback:^(MODQuery *mongoQuery) {
+    [database dropWithCallback:^(MODQuery *mongoQuery) {
         [self.loaderIndicator stopAnimation:nil];
+        for (MHQueryWindowController *queryWindowController in self.tabItemControllers.allValues) {
+            if (queryWindowController.collection.database == database) {
+                [self.tabViewController removeTabItemViewController:queryWindowController];
+            }
+        }
         [self getDatabaseList];
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
@@ -785,7 +807,6 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
         [result addItemWithTitle:@"New Database…" action:@selector(createDatabase:) keyEquivalent:@""].target = self;
     } else if ([item isKindOfClass:[MHDatabaseItem class]]) {
         [result addItemWithTitle:[NSString stringWithFormat:@"%@ Stats", [item name]] action:@selector(showDatabaseStatus:) keyEquivalent:@""].target = self;
-        [result addItemWithTitle:[NSString stringWithFormat:@"Rename %@…", [item name]] action:@selector(prout:) keyEquivalent:@""].target = self;
         [result addItemWithTitle:[NSString stringWithFormat:@"Drop %@…", [item name]] action:@selector(dropDatabaseOrCollection:) keyEquivalent:@""].target = self;
         [result addItem:[NSMenuItem separatorItem]];
         [result addItemWithTitle:@"New Database…" action:@selector(createDatabase:) keyEquivalent:@""].target = self;
@@ -793,7 +814,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     } else if ([item isKindOfClass:[MHCollectionItem class]]) {
         [result addItemWithTitle:[NSString stringWithFormat:@"Open %@", [item name]] action:@selector(query:) keyEquivalent:@""].target = self;
         [result addItemWithTitle:[NSString stringWithFormat:@"%@ Stats", [item name]] action:@selector(showCollStats:) keyEquivalent:@""].target = self;
-        [result addItemWithTitle:[NSString stringWithFormat:@"Rename %@…", [item name]] action:@selector(prout:) keyEquivalent:@""].target = self;
+        [result addItemWithTitle:[NSString stringWithFormat:@"Rename %@…", [item name]] action:@selector(renameCollection:) keyEquivalent:@""].target = self;
         [result addItemWithTitle:[NSString stringWithFormat:@"Drop %@…", [item name]] action:@selector(dropDatabaseOrCollection:) keyEquivalent:@""].target = self;
         [result addItem:[NSMenuItem separatorItem]];
         [result addItemWithTitle:@"New Database…" action:@selector(createDatabase:) keyEquivalent:@""].target = self;
