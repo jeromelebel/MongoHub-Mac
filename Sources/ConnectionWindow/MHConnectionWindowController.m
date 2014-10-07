@@ -367,7 +367,7 @@
 {
     MHEditNameWindowController *editNameWindowController;
     
-    editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:@"New Collection Name:" editedValue:nil] autorelease];
+    editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:@"New Database Name:" editedValue:nil] autorelease];
     editNameWindowController.callback = ^(MHEditNameWindowController *controller) {
         [[self.client databaseForName:editNameWindowController.editedValue] statsWithReadPreferences:nil callback:nil];
         [self getDatabaseList];
@@ -403,7 +403,7 @@
     if (collection) {
         MHEditNameWindowController *editNameWindowController;
         
-        editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:@"New Collection Name:" editedValue:collection.name] autorelease];
+        editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:[NSString stringWithFormat:@"Rename %@:", collection.absoluteName] editedValue:collection.name] autorelease];
         editNameWindowController.callback = ^(MHEditNameWindowController *controller) {
             [collection renameWithNewDatabaseName:nil newCollectionName:editNameWindowController.editedValue callback:^(MODQuery *mongoQuery) {
                 if (collection.absoluteName != oldCollectionName) {
