@@ -429,7 +429,7 @@
 - (IBAction)dropDatabaseOrCollection:(id)sender
 {
     if (self.selectedCollectionItem) {
-        [self dropWarning:[[self.selectedCollectionItem collection] absoluteName]];
+        [self dropWarning:self.selectedCollectionItem.collection.absoluteName];
     } else {
         [self dropWarning:self.selectedDatabaseItem.database.name];
     }
@@ -488,10 +488,10 @@
     } else {
         MHQueryWindowController *queryWindowController;
         
-        queryWindowController = [self.tabItemControllers objectForKey:[[self.selectedCollectionItem collection] absoluteName]];
+        queryWindowController = self.tabItemControllers[self.selectedCollectionItem.collection.absoluteName];
         if (queryWindowController == nil) {
             queryWindowController = [[[MHQueryWindowController alloc] init] autorelease];
-            [self.tabItemControllers setObject:queryWindowController forKey:[[self.selectedCollectionItem collection] absoluteName]];
+            self.tabItemControllers[self.selectedCollectionItem.collection.absoluteName] = queryWindowController;
             queryWindowController.collection = self.selectedCollectionItem.collection;
             queryWindowController.connectionStore = self.connectionStore;
             [self.tabViewController addTabItemViewController:queryWindowController];
@@ -705,7 +705,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.collection exportPath:filePath];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterStopNotification:) name:MHImporterExporterStopNotification object:exporter];
     _importExportFeedback = [[MHImportExportFeedback alloc] initWithImporterExporter:exporter];
-    _importExportFeedback.label = [NSString stringWithFormat:@"Exporting %@ to %@…", [self.selectedCollectionItem.collection absoluteName], [filePath lastPathComponent]];
+    _importExportFeedback.label = [NSString stringWithFormat:@"Exporting %@ to %@…", self.selectedCollectionItem.collection.absoluteName, [filePath lastPathComponent]];
     [_importExportFeedback start];
     [_importExportFeedback displayForWindow:self.window];
     [exporter export];
@@ -720,7 +720,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     importer = [[MHFileImporter alloc] initWithCollection:self.selectedCollectionItem.collection importPath:filePath];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterStopNotification:) name:MHImporterExporterStopNotification object:importer];
     _importExportFeedback = [[MHImportExportFeedback alloc] initWithImporterExporter:importer];
-    _importExportFeedback.label = [NSString stringWithFormat:@"Importing %@ into %@…", [filePath lastPathComponent], [self.selectedCollectionItem.collection absoluteName]];
+    _importExportFeedback.label = [NSString stringWithFormat:@"Importing %@ into %@…", [filePath lastPathComponent], self.selectedCollectionItem.collection.absoluteName];
     [_importExportFeedback start];
     [_importExportFeedback displayForWindow:self.window];
     [importer import];
@@ -862,8 +862,8 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
         
         [self getCollectionListForDatabaseItem:collectionItem.databaseItem];
         [self showCollectionStatusWithCollectionItem:collectionItem];
-        if ([self.tabItemControllers objectForKey:[collectionItem.collection absoluteName]]) {
-            [[self.tabItemControllers objectForKey:[collectionItem.collection absoluteName]] select];
+        if (self.tabItemControllers[collectionItem.collection.absoluteName]) {
+            [self.tabItemControllers[collectionItem.collection.absoluteName] select];
         } else {
             [self.statusViewController select];
         }
