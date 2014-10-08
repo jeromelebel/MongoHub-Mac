@@ -126,7 +126,7 @@
     
     [[_splitView.subviews objectAtIndex:1] addSubview:tabView];
     tabView.frame = tabView.superview.bounds;
-    self.statusViewController = [[MHStatusViewController alloc] init];
+    self.statusViewController = [[[MHStatusViewController alloc] init] autorelease];
     [self.tabViewController addTabItemViewController:self.statusViewController];
     [_databaseCollectionOutlineView setDoubleAction:@selector(outlineViewDoubleClickAction:)];
     [self updateToolbarItems];
@@ -307,7 +307,7 @@
 - (void)showDatabaseStatusWithDatabaseItem:(MHDatabaseItem *)databaseItem
 {
     if (self.statusViewController == nil) {
-        self.statusViewController = [[MHStatusViewController alloc] init];
+        self.statusViewController = [[[MHStatusViewController alloc] init] autorelease];
         self.statusViewController.client = self.client;
         self.statusViewController.connectionStore = self.connectionStore;
         [self.tabViewController addTabItemViewController:self.statusViewController];
@@ -318,7 +318,7 @@
 - (void)showCollectionStatusWithCollectionItem:(MHCollectionItem *)collectionItem
 {
     if (self.statusViewController == nil) {
-        self.statusViewController = [[MHStatusViewController alloc] init];
+        self.statusViewController = [[[MHStatusViewController alloc] init] autorelease];
         self.statusViewController.client = self.client;
         self.statusViewController.connectionStore = self.connectionStore;
         [self.tabViewController addTabItemViewController:self.statusViewController];
@@ -329,7 +329,7 @@
 - (IBAction)showServerStatus:(id)sender 
 {
     if (self.statusViewController == nil) {
-        self.statusViewController = [[MHStatusViewController alloc] init];
+        self.statusViewController = [[[MHStatusViewController alloc] init] autorelease];
         self.statusViewController.client = self.client;
         self.statusViewController.connectionStore = self.connectionStore;
         [self.tabViewController addTabItemViewController:self.statusViewController];
