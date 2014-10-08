@@ -23,6 +23,9 @@
 @property (nonatomic, readwrite, assign) NSSegmentedControl *segmentedControl;
 @property (nonatomic, readwrite, assign) NSTabView *tabView;
 
+@property (nonatomic, readwrite, retain) MODCollection *collection;
+@property (nonatomic, readwrite, retain) MHConnectionStore *connectionStore;
+
 @property (nonatomic, readwrite, retain) MHResultsOutlineViewController *findResultsViewController;
 @property (nonatomic, readwrite, assign) NSOutlineView *findResultsOutlineView;
 @property (nonatomic, readwrite, assign) NSButton *findRemoveButton;
@@ -91,6 +94,16 @@
 @synthesize indexTextField = _indexTextField, indexesOutlineViewController = _indexesOutlineViewController, indexLoaderIndicator = _indexLoaderIndicator, indexOutlineView = _indexOutlineView, indexDropButton = _indexDropButton, indexCreateButton = _indexCreateButton;
 
 @synthesize mrOutlineViewController = _mrOutlineViewController, mrOutlineView = _mrOutlineView, mrLoaderIndicator = _mrLoaderIndicator, mrOutputTextField = _mrOutputTextField, mrCriteriaTextField = _mrCriteriaTextField, mrMapFunctionTextView = _mrMapFunctionTextView, mrReduceFunctionTextView = _mrReduceFunctionTextView;
+
+- (id)initWithCollection:(MODCollection *)collection connectionStore:(MHConnectionStore *)connectionStore
+{
+    self = [self init];
+    if (self) {
+        self.collection = collection;
+        self.connectionStore = connectionStore;
+    }
+    return self;
+}
 
 - (void)dealloc
 {

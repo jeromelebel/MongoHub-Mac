@@ -71,8 +71,10 @@
     IBOutlet NSOutlineView                      *_mrOutlineView;
 }
 
-@property (nonatomic, retain, readwrite) MODCollection *collection;
-@property (nonatomic, retain, readwrite) MHConnectionStore *connectionStore;
+@property (nonatomic, readonly, retain) MODCollection *collection;
+@property (nonatomic, readonly, retain) MHConnectionStore *connectionStore;
+
+- (id)initWithCollection:(MODCollection *)collection connectionStore:(MHConnectionStore *)connectionStore;
 
 - (IBAction)segmentedControlAction:(id)sender;
 
