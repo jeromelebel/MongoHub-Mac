@@ -390,7 +390,7 @@
                 self.findQueryTextField.stringValue = [NSString stringWithFormat:@"Error: %@", [mongoQuery.error localizedDescription]];
             } else {
                 if ([queryTitle length] > 0) {
-                    [_connectionStore addNewQuery:[NSDictionary dictionaryWithObjectsAndKeys:queryTitle, @"title", self.findSortTextField.stringValue, @"sort", self.findFieldsTextField.stringValue, @"fields", self.findLimitTextField.stringValue, @"limit", self.findSkipTextField.stringValue, @"skip", nil] withDatabaseName:self.collection.name collectionName:self.collection.name];
+                    [self.connectionStore addNewQuery:[NSDictionary dictionaryWithObjectsAndKeys:queryTitle, @"title", self.findSortTextField.stringValue, @"sort", self.findFieldsTextField.stringValue, @"fields", self.findLimitTextField.stringValue, @"limit", self.findSkipTextField.stringValue, @"skip", nil] withDatabaseName:self.collection.name collectionName:self.collection.name];
                 }
                 self.findResultsViewController.results = [MODHelper convertForOutlineWithObjects:documents bsonData:bsonData];
                 [self.collection countWithCriteria:criteria readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
@@ -775,12 +775,12 @@
 
 - (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {
-    return [[_connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name] count];
+    return [[self.connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name] count];
 }
 
 - (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index
 {
-    return [[[_connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name] objectAtIndex:index] objectForKey:@"title"];
+    return [[[self.connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name] objectAtIndex:index] objectForKey:@"title"];
 }
 
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification
@@ -789,7 +789,7 @@
     NSUInteger index;
     
     index = self.findCriteriaComboBox.indexOfSelectedItem;
-    queries = [_connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name];
+    queries = [self.connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name];
     if (index < [queries count]) {
         NSDictionary *query;
         
@@ -822,7 +822,7 @@
     NSUInteger result = NSNotFound;
     NSUInteger index = 0;
     
-    for (NSDictionary *history in [_connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name]) {
+    for (NSDictionary *history in [self.connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name]) {
         if ([[history objectForKey:@"title"] isEqualToString:string]) {
             result = index;
             [self comboBoxSelectionDidChange:nil];
@@ -837,7 +837,7 @@
 {
     NSString *result = nil;
     
-    for (NSDictionary *history in [_connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name]) {
+    for (NSDictionary *history in [self.connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name]) {
         if ([[history objectForKey:@"title"] hasPrefix:string]) {
             result = [history objectForKey:@"title"];
             break;
