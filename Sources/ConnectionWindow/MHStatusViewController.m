@@ -12,9 +12,23 @@
 #import "MHResultsOutlineViewController.h"
 #import "MODHelper.h"
 
+@interface MHStatusViewController ()
+@property (nonatomic, retain, readwrite) MODClient *client;
+
+@end
+
 @implementation MHStatusViewController
 
 @synthesize client = _client;
+
+- (id)initWithClient:(MODClient *)client
+{
+    self = [super init];
+    if (self) {
+        self.client = client;
+    }
+    return self;
+}
 
 - (void)dealloc
 {

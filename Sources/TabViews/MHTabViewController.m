@@ -104,6 +104,7 @@
 
 - (void)addTabItemViewController:(MHTabItemViewController *)tabItemViewController
 {
+    NSParameterAssert(tabItemViewController);
     if ([_tabControllers indexOfObject:tabItemViewController] == NSNotFound) {
         MHTabTitleView *titleView;
         

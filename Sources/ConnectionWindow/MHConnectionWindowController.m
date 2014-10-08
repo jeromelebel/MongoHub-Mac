@@ -126,15 +126,12 @@
     
     [[_splitView.subviews objectAtIndex:1] addSubview:tabView];
     tabView.frame = tabView.superview.bounds;
-    self.statusViewController = [[[MHStatusViewController alloc] init] autorelease];
-    [self.tabViewController addTabItemViewController:self.statusViewController];
     [_databaseCollectionOutlineView setDoubleAction:@selector(outlineViewDoubleClickAction:)];
     [self updateToolbarItems];
     
-    self.window.title = self.connectionStore.alias;
+    self.window.title = [NSString stringWithFormat:@"%@, Connecting…", self.connectionStore.alias];
     [self.tabViewController addObserver:self forKeyPath:@"selectedTabIndex" options:NSKeyValueObservingOptionNew context:nil];
     [self.window addObserver:self forKeyPath:@"firstResponder" options:NSKeyValueObservingOptionNew context:nil];
-    self.statusViewController.title = @"Connecting…";
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -219,7 +216,6 @@
             self.client.sslOptions = [[[MODSSLOptions alloc] initWithPemFileName:nil pemPassword:nil caFileName:nil caDirectory:nil crlFileName:nil weakCertificate:self.connectionStore.weakCertificate.boolValue] autorelease];
         }
         self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
-        self.statusViewController.client = self.client;
         [self.loaderIndicator stopAnimation:nil];
         
         monitorButton.enabled = YES;
@@ -255,6 +251,7 @@
     [self.loaderIndicator startAnimation:nil];
     result = [self.client databaseNamesWithCallback:^(NSArray *list, MODQuery *mongoQuery) {
         [self.loaderIndicator stopAnimation:nil];
+        self.window.title = self.connectionStore.alias;
         if (list != nil) {
             if ([self.serverItem updateChildrenWithList:list]) {
                 [_databaseCollectionOutlineView reloadData];
@@ -306,8 +303,7 @@
 - (void)showDatabaseStatusWithDatabaseItem:(MHDatabaseItem *)databaseItem
 {
     if (self.statusViewController == nil) {
-        self.statusViewController = [[[MHStatusViewController alloc] init] autorelease];
-        self.statusViewController.client = self.client;
+        self.statusViewController = [[[MHStatusViewController alloc] initWithClient:self.client] autorelease];
         [self.tabViewController addTabItemViewController:self.statusViewController];
     }
     [self.statusViewController showDatabaseStatusWithDatabaseItem:databaseItem];
@@ -316,8 +312,7 @@
 - (void)showCollectionStatusWithCollectionItem:(MHCollectionItem *)collectionItem
 {
     if (self.statusViewController == nil) {
-        self.statusViewController = [[[MHStatusViewController alloc] init] autorelease];
-        self.statusViewController.client = self.client;
+        self.statusViewController = [[[MHStatusViewController alloc] initWithClient:self.client] autorelease];
         [self.tabViewController addTabItemViewController:self.statusViewController];
     }
     [self.statusViewController showCollectionStatusWithCollectionItem:collectionItem];
@@ -326,8 +321,7 @@
 - (IBAction)showServerStatus:(id)sender 
 {
     if (self.statusViewController == nil) {
-        self.statusViewController = [[[MHStatusViewController alloc] init] autorelease];
-        self.statusViewController.client = self.client;
+        self.statusViewController = [[[MHStatusViewController alloc] initWithClient:self.client] autorelease];
         [self.tabViewController addTabItemViewController:self.statusViewController];
     }
     [self.statusViewController showServerStatus];

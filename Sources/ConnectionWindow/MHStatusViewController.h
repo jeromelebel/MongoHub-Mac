@@ -15,7 +15,9 @@
     MODClient                                   *_client;
 }
 
-@property (nonatomic, retain, readwrite) MODClient *client;
+@property (nonatomic, retain, readonly) MODClient *client;
+
+- (id)initWithClient:(MODClient *)client;
 
 - (MODQuery *)showServerStatus;
 - (MODQuery *)showDatabaseStatusWithDatabaseItem:(MHDatabaseItem *)databaseItem;
