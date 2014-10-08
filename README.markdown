@@ -39,14 +39,19 @@ Just build it, it should work (but let me know if you have an errors or warnings
 - Adding support for timeout parameter in URL
 - Update some images to be high resolution [issue #54](https://github.com/jeromelebel/MongoHub-Mac/issues/54)
 - Adding contextual menu in the database/collection list
+- Can renaming a collection
+- Closing tabs when dropping a collection/database
 
 **Beta**
+
+## History
+
+**2.7 beta 17 - october 8, 2014**
 
 - Display (in the log window) the correct error number if the connection failed
 - Can renaming a collection
 - Closing tabs when dropping a collection/database
-
-## History
+- Connection issues fixed [issue #126](https://github.com/jeromelebel/MongoHub-Mac/issues/126)
 
 **2.7 beta 16 - october 5, 2014**
 
