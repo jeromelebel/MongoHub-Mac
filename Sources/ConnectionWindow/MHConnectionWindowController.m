@@ -220,7 +220,6 @@
         }
         self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
         self.statusViewController.client = self.client;
-        self.statusViewController.connectionStore = self.connectionStore;
         [self.loaderIndicator stopAnimation:nil];
         
         monitorButton.enabled = YES;
@@ -309,7 +308,6 @@
     if (self.statusViewController == nil) {
         self.statusViewController = [[[MHStatusViewController alloc] init] autorelease];
         self.statusViewController.client = self.client;
-        self.statusViewController.connectionStore = self.connectionStore;
         [self.tabViewController addTabItemViewController:self.statusViewController];
     }
     [self.statusViewController showDatabaseStatusWithDatabaseItem:databaseItem];
@@ -320,7 +318,6 @@
     if (self.statusViewController == nil) {
         self.statusViewController = [[[MHStatusViewController alloc] init] autorelease];
         self.statusViewController.client = self.client;
-        self.statusViewController.connectionStore = self.connectionStore;
         [self.tabViewController addTabItemViewController:self.statusViewController];
     }
     [self.statusViewController showCollectionStatusWithCollectionItem:collectionItem];
@@ -331,7 +328,6 @@
     if (self.statusViewController == nil) {
         self.statusViewController = [[[MHStatusViewController alloc] init] autorelease];
         self.statusViewController.client = self.client;
-        self.statusViewController.connectionStore = self.connectionStore;
         [self.tabViewController addTabItemViewController:self.statusViewController];
     }
     [self.statusViewController showServerStatus];

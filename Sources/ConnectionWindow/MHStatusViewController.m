@@ -6,7 +6,6 @@
 //
 
 #import "MHStatusViewController.h"
-#import "MHConnectionStore.h"
 #import "MHDatabaseItem.h"
 #import "MHCollectionItem.h"
 #import <MongoObjCDriver/MongoObjCDriver.h>
@@ -15,12 +14,11 @@
 
 @implementation MHStatusViewController
 
-@synthesize client = _client, connectionStore = _connectionStore;
+@synthesize client = _client;
 
 - (void)dealloc
 {
     self.client = nil;
-    self.connectionStore = nil;
     [super dealloc];
 }
 
