@@ -92,12 +92,6 @@
 
 @synthesize mrOutlineViewController = _mrOutlineViewController, mrOutlineView = _mrOutlineView, mrLoaderIndicator = _mrLoaderIndicator, mrOutputTextField = _mrOutputTextField, mrCriteriaTextField = _mrCriteriaTextField, mrMapFunctionTextView = _mrMapFunctionTextView, mrReduceFunctionTextView = _mrReduceFunctionTextView;
 
-
-+ (id)loadQueryController
-{
-    return [[[MHQueryWindowController alloc] initWithNibName:@"MHQueryWindow" bundle:nil] autorelease];
-}
-
 - (void)dealloc
 {
     [NSNotificationCenter.defaultCenter removeObserver:self name:nil object:nil];
@@ -112,6 +106,11 @@
     [_jsonWindowControllers release];
     
     [super dealloc];
+}
+
+- (NSString *)nibName
+{
+    return @"MHQueryWindow";
 }
 
 - (NSString *)formatedQuerySort

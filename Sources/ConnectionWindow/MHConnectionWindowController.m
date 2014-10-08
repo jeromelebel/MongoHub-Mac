@@ -490,7 +490,7 @@
         
         queryWindowController = [self.tabItemControllers objectForKey:[[self.selectedCollectionItem collection] absoluteName]];
         if (queryWindowController == nil) {
-            queryWindowController = [MHQueryWindowController loadQueryController];
+            queryWindowController = [[[MHQueryWindowController alloc] init] autorelease];
             [self.tabItemControllers setObject:queryWindowController forKey:[[self.selectedCollectionItem collection] absoluteName]];
             queryWindowController.collection = self.selectedCollectionItem.collection;
             queryWindowController.connectionStore = self.connectionStore;

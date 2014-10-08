@@ -74,8 +74,6 @@
 @property (nonatomic, retain, readwrite) MODCollection *collection;
 @property (nonatomic, retain, readwrite) MHConnectionStore *connectionStore;
 
-+ (id)loadQueryController;
-
 - (IBAction)segmentedControlAction:(id)sender;
 
 - (void)showEditWindow:(id)sender;
