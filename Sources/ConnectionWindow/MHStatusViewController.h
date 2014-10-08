@@ -19,8 +19,6 @@
 @property (nonatomic, retain, readwrite) MODClient *client;
 @property (nonatomic, retain, readwrite) MHConnectionStore *connectionStore;
 
-+ (MHStatusViewController *)loadNewViewController;
-
 - (MODQuery *)showServerStatus;
 - (MODQuery *)showDatabaseStatusWithDatabaseItem:(MHDatabaseItem *)databaseItem;
 - (MODQuery *)showCollectionStatusWithCollectionItem:(MHCollectionItem *)collectionItem;

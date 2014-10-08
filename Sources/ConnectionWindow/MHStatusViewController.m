@@ -17,16 +17,16 @@
 
 @synthesize client = _client, connectionStore = _connectionStore;
 
-+ (MHStatusViewController *)loadNewViewController
-{
-    return [[[MHStatusViewController alloc] initWithNibName:@"MHStatusView" bundle:nil] autorelease];
-}
-
 - (void)dealloc
 {
     self.client = nil;
     self.connectionStore = nil;
     [super dealloc];
+}
+
+- (NSString *)nibName
+{
+    return @"MHStatusView";
 }
 
 - (MODQuery *)showServerStatus
