@@ -14,12 +14,16 @@
 
 @interface MHStatusViewController ()
 @property (nonatomic, retain, readwrite) MODClient *client;
+@property (nonatomic, retain, readwrite) MHResultsOutlineViewController *resultsOutlineViewController;
+@property (nonatomic, assign, readwrite) IBOutlet NSOutlineView *outlineView;
 
 @end
 
 @implementation MHStatusViewController
 
 @synthesize client = _client;
+@synthesize resultsOutlineViewController = _resultsOutlineViewController;
+@synthesize outlineView = _outlineView;
 
 - (id)initWithClient:(MODClient *)client
 {
@@ -33,12 +37,18 @@
 - (void)dealloc
 {
     self.client = nil;
+    self.resultsOutlineViewController = nil;
     [super dealloc];
 }
 
 - (NSString *)nibName
 {
     return @"MHStatusView";
+}
+
+- (void)awakeFromNib
+{
+    self.resultsOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.outlineView] autorelease];
 }
 
 - (MODQuery *)showServerStatus
@@ -49,11 +59,11 @@
     result = [self.client serverStatusWithReadPreferences:nil callback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
         if (self.client == mongoQuery.owner) {
             if (mongoQuery.error) {
-                _resultsOutlineViewController.results = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[mongoQuery.error localizedDescription], @"value", @"error", @"name", nil]];
+                self.resultsOutlineViewController.results = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[mongoQuery.error localizedDescription], @"value", @"error", @"name", nil]];
             } else if (serverStatus) {
-                _resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:serverStatus];
+                self.resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:serverStatus];
             } else {
-                _resultsOutlineViewController.results = [NSArray array];
+                self.resultsOutlineViewController.results = [NSArray array];
             }
         }
     }];
@@ -69,11 +79,11 @@
         
         result = [databaseItem.database statsWithReadPreferences:nil callback:^(MODSortedMutableDictionary *databaseStats, MODQuery *mongoQuery) {
             if (databaseStats) {
-                _resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:databaseStats];
+                self.resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:databaseStats];
             } else if (mongoQuery.error) {
-                _resultsOutlineViewController.results = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[mongoQuery.error localizedDescription], @"value", @"error", @"name", nil]];
+                self.resultsOutlineViewController.results = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[mongoQuery.error localizedDescription], @"value", @"error", @"name", nil]];
             } else {
-                _resultsOutlineViewController.results = [NSArray array];
+                self.resultsOutlineViewController.results = [NSArray array];
             }
         }];
     }
@@ -88,11 +98,11 @@
         self.title = [NSString stringWithFormat:@"Collection %@.%@ stats", collectionItem.databaseItem.name, collectionItem.name];
         result = [collectionItem.collection statsWithCallback:^(MODSortedMutableDictionary *stats, MODQuery *mongoQuery) {
             if (stats) {
-                _resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:stats];
+                self.resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:stats];
             } else if (mongoQuery.error) {
-                _resultsOutlineViewController.results = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[mongoQuery.error localizedDescription], @"value", @"error", @"name", nil]];
+                self.resultsOutlineViewController.results = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[mongoQuery.error localizedDescription], @"value", @"error", @"name", nil]];
             } else {
-                _resultsOutlineViewController.results = [NSArray array];
+                self.resultsOutlineViewController.results = [NSArray array];
             }
         }];
     }

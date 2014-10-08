@@ -11,8 +11,9 @@
 
 @interface MHStatusViewController : MHTabItemViewController
 {
-    IBOutlet MHResultsOutlineViewController     *_resultsOutlineViewController;
+    MHResultsOutlineViewController              *_resultsOutlineViewController;
     MODClient                                   *_client;
+    NSOutlineView                               *_outlineView;
 }
 
 @property (nonatomic, retain, readonly) MODClient *client;

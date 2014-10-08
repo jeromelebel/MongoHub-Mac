@@ -9,7 +9,7 @@
 #import "MHResultsOutlineViewController.h"
 
 @interface MHResultsOutlineViewController () <NSOutlineViewDataSource, NSOutlineViewDelegate>
-@property (nonatomic, assign, readwrite) NSOutlineView *outlineView;
+@property (nonatomic, assign, readwrite) IBOutlet NSOutlineView *outlineView;
 
 @end
 
