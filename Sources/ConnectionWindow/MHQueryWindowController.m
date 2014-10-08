@@ -397,7 +397,7 @@
                                                         @"limit": self.findLimitTextField.stringValue,
                                                         @"skip": self.findSkipTextField.stringValue
                                                         }
-                                     withDatabaseName:self.collection.name
+                                     withDatabaseName:@""
                                        collectionName:self.collection.name];
                 }
                 self.findResultsViewController.results = [MODHelper convertForOutlineWithObjects:documents bsonData:bsonData];
@@ -783,12 +783,12 @@
 
 - (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {
-    return [self.connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name].count;
+    return [self.connectionStore queryHistoryWithDatabaseName:@"" collectionName:self.collection.name].count;
 }
 
 - (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index
 {
-    return [[[self.connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name] objectAtIndex:index] objectForKey:@"title"];
+    return [[[self.connectionStore queryHistoryWithDatabaseName:@"" collectionName:self.collection.name] objectAtIndex:index] objectForKey:@"title"];
 }
 
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification
@@ -797,7 +797,7 @@
     NSUInteger index;
     
     index = self.findCriteriaComboBox.indexOfSelectedItem;
-    queries = [self.connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name];
+    queries = [self.connectionStore queryHistoryWithDatabaseName:@"" collectionName:self.collection.name];
     if (index < [queries count]) {
         NSDictionary *query;
         
@@ -830,7 +830,7 @@
     NSUInteger result = NSNotFound;
     NSUInteger index = 0;
     
-    for (NSDictionary *history in [self.connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name]) {
+    for (NSDictionary *history in [self.connectionStore queryHistoryWithDatabaseName:@"" collectionName:self.collection.name]) {
         if ([[history objectForKey:@"title"] isEqualToString:string]) {
             result = index;
             [self comboBoxSelectionDidChange:nil];
@@ -845,7 +845,7 @@
 {
     NSString *result = nil;
     
-    for (NSDictionary *history in [self.connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name]) {
+    for (NSDictionary *history in [self.connectionStore queryHistoryWithDatabaseName:@"" collectionName:self.collection.name]) {
         if ([[history objectForKey:@"title"] hasPrefix:string]) {
             result = [history objectForKey:@"title"];
             break;
