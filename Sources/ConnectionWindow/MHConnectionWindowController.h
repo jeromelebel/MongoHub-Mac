@@ -55,7 +55,6 @@
     IBOutlet NSPanel                        *monitorPanel;
     IBOutlet StatMonitorTableController     *statMonitorTableController;
     IBOutlet NSToolbar                      *_toolbar;
-    NSMutableArray                          *_databases;
     MHTunnel                                *_sshTunnel;
     NSMutableDictionary                     *_sshBindedPortMapping;
     MHMysqlImportWindowController           *_mysqlImportWindowController;
@@ -75,7 +74,6 @@
 @property (nonatomic, readwrite, assign) id<MHConnectionWindowControllerDelegate> delegate;
 @property (nonatomic, readwrite, strong) MHConnectionStore *connectionStore;
 @property (nonatomic, readwrite, strong) MODClient *client;
-@property (nonatomic, readwrite, strong) NSMutableArray *databases;
 @property (nonatomic, readwrite, strong) NSTextField *resultsTitle;
 @property (nonatomic, readwrite, strong) NSProgressIndicator *loaderIndicator;
 @property (nonatomic, readwrite, strong) NSButton *monitorButton;

@@ -67,7 +67,6 @@
 @synthesize client = _client;
 @synthesize monitorButton;
 @synthesize statMonitorTableController;
-@synthesize databases = _databases;
 @synthesize sshTunnel = _sshTunnel;
 @synthesize sshBindedPortMapping = _sshBindedPortMapping;
 @synthesize resultsTitle;
@@ -83,7 +82,6 @@
 - (id)init
 {
     if (self = [super initWithWindowNibName:@"MHConnectionWindow"]) {
-        self.databases = [NSMutableArray array];
         self.tabItemControllers = [NSMutableDictionary dictionary];
     }
     return self;
@@ -96,7 +94,6 @@
     self.tabItemControllers = nil;
     [self closeMongoDB];
     self.connectionStore = nil;
-    self.databases = nil;
     self.sshTunnel = nil;
     self.sshBindedPortMapping = nil;
     self.resultsTitle = nil;
