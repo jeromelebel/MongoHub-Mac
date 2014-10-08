@@ -390,7 +390,15 @@
                 self.findQueryTextField.stringValue = [NSString stringWithFormat:@"Error: %@", [mongoQuery.error localizedDescription]];
             } else {
                 if ([queryTitle length] > 0) {
-                    [self.connectionStore addNewQuery:[NSDictionary dictionaryWithObjectsAndKeys:queryTitle, @"title", self.findSortTextField.stringValue, @"sort", self.findFieldsTextField.stringValue, @"fields", self.findLimitTextField.stringValue, @"limit", self.findSkipTextField.stringValue, @"skip", nil] withDatabaseName:self.collection.name collectionName:self.collection.name];
+                    [self.connectionStore addNewQuery:@{
+                                                        @"title": queryTitle,
+                                                        @"sort": self.findSortTextField.stringValue,
+                                                        @"fields": self.findFieldsTextField.stringValue,
+                                                        @"limit": self.findLimitTextField.stringValue,
+                                                        @"skip": self.findSkipTextField.stringValue
+                                                        }
+                                     withDatabaseName:self.collection.name
+                                       collectionName:self.collection.name];
                 }
                 self.findResultsViewController.results = [MODHelper convertForOutlineWithObjects:documents bsonData:bsonData];
                 [self.collection countWithCriteria:criteria readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
@@ -775,7 +783,7 @@
 
 - (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {
-    return [[self.connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name] count];
+    return [self.connectionStore queryHistoryWithDatabaseName:self.collection.name collectionName:self.collection.name].count;
 }
 
 - (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index
