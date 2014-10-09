@@ -392,7 +392,7 @@
         
         editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:[NSString stringWithFormat:@"Rename %@:", collection.absoluteName] editedValue:collection.name] autorelease];
         editNameWindowController.callback = ^(MHEditNameWindowController *controller) {
-            [collection renameWithNewDatabaseName:nil newCollectionName:editNameWindowController.editedValue callback:^(MODQuery *mongoQuery) {
+            [collection renameWithNewDatabase:nil newCollectionName:editNameWindowController.editedValue dropTargetBeforeRenaming:NO callback:^(MODQuery *mongoQuery) {
                 if (collection.absoluteName != oldCollectionName) {
                     MHTabItemViewController *tabItemController;
                     
