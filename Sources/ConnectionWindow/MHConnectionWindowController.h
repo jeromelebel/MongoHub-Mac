@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "MHServerItem.h"
+#import "MHClientItem.h"
 #import "MHTunnel.h"
 #import "MHTabViewController.h"
 
@@ -44,7 +44,7 @@
     MHTabViewController                     *_tabViewController;
     IBOutlet NSSplitView                    *_splitView;
     
-    MHServerItem                            *_serverItem;
+    MHClientItem                            *_clientItem;
     MHConnectionStore                       *_connectionStore;
     MODClient                               *_client;
     NSTimer                                 *_serverMonitorTimer;
@@ -107,9 +107,6 @@
 @end
 
 @interface MHConnectionWindowController(NSOutlineViewDataSource) <NSOutlineViewDataSource>
-@end
-
-@interface MHConnectionWindowController(MHServerItemDelegateCategory)<MHServerItemDelegate>
 @end
 
 @interface MHConnectionWindowController(MHTabViewControllerDelegate)<MHTabViewControllerDelegate>

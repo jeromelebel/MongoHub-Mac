@@ -7,24 +7,23 @@
 
 #import <Foundation/Foundation.h>
 
-@class MHServerItem;
+@class MHClientItem;
 @class MHCollectionItem;
 @class MODDatabase;
 
 @interface MHDatabaseItem : NSObject
 {
-    MHServerItem *_serverItem;
-    NSString *_name;
-    NSMutableArray *_collectionItems;
-    id _mongoDatabase;
+    MHClientItem                        *_clientItem;
+    MODDatabase                         *_database;
+    NSMutableArray                      *_collectionItems;
 }
 
 @property (nonatomic, readonly, retain) NSString *name;
-@property (nonatomic, readonly, assign) MHServerItem *serverItem;
+@property (nonatomic, readonly, assign) MHClientItem *clientItem;
 @property (nonatomic, readonly, retain) NSArray *collectionItems;
-@property (nonatomic, readonly, retain) MODDatabase *database;
+@property (nonatomic, readonly, strong) MODDatabase *database;
 
-- (id)initWithServerItem:(MHServerItem *)serverItem name:(NSString *)name;
+- (instancetype)initWithClientItem:(MHClientItem *)serverItem database:(MODDatabase *)database;
 - (BOOL)updateChildrenWithList:(NSArray *)list;
 - (MHCollectionItem *)collectionItemWithName:(NSString *)databaseName;
 - (void)removeCollectionItemWithName:(NSString *)name;

@@ -6,18 +6,29 @@
 //
 
 #import "MHDatabaseItem.h"
-#import "MHServerItem.h"
+#import "MHClientItem.h"
 #import "MHCollectionItem.h"
+#import <MongoObjCDriver/MongoObjCDriver.h>
+
+@interface MHDatabaseItem ()
+@property (nonatomic, readwrite, assign) MHClientItem *clientItem;
+@property (nonatomic, readwrite, strong) MODDatabase *database;
+
+@end
 
 @implementation MHDatabaseItem
 
-@synthesize name = _name, serverItem = _serverItem, collectionItems = _collectionItems;
+@synthesize clientItem = _clientItem;
+@synthesize database = _database;
+@synthesize collectionItems = _collectionItems;
 
-- (id)initWithServerItem:(MHServerItem *)serverItem name:(NSString *)name
+- (instancetype)initWithClientItem:(MHClientItem *)clientItem database:(MODDatabase *)database
 {
+    NSParameterAssert(clientItem);
+    NSParameterAssert(database);
     if (self = [self init]) {
-        _serverItem = serverItem;
-        _name = [name retain];
+        self.clientItem = clientItem;
+        self.database = database;
         _collectionItems = [[NSMutableArray alloc] init];
     }
     return self;
@@ -25,18 +36,15 @@
 
 - (void)dealloc
 {
-    [_name release];
+    self.database = nil;
+    self.clientItem = nil;
     [_collectionItems release];
-    [_mongoDatabase release];
     [super dealloc];
 }
 
-- (MODDatabase *)database
+- (NSString *)name
 {
-    if (!_mongoDatabase) {
-        _mongoDatabase = [[_serverItem.delegate databaseWithDatabaseItem:self] retain];
-    }
-    return _mongoDatabase;
+    return self.database.name;
 }
 
 - (void)removeCollectionItemWithName:(NSString *)name
@@ -75,15 +83,17 @@ static NSInteger collectionItemSortFunction(id element1, id element2, void *cont
     NSArray *oldCollectionList;
     
     oldCollectionList = [_collectionItems copy];
-    for (NSString *name in list) {
-        MHCollectionItem *collectionItem;
-        
-        collectionItem = [self collectionItemWithName:name];
-        if (!collectionItem) {
-            collectionItem = [[MHCollectionItem alloc] initWithDatabaseItem:self name:name];
-            [_collectionItems addObject:collectionItem];
-            [collectionItem release];
-            result = YES;
+    if (!self.database.dropped) {
+        for (NSString *collectionName in list) {
+            MHCollectionItem *collectionItem;
+            
+            collectionItem = [self collectionItemWithName:collectionName];
+            if (!collectionItem) {
+                collectionItem = [[MHCollectionItem alloc] initWithDatabaseItem:self collection:[self.database collectionForName:collectionName]];
+                [_collectionItems addObject:collectionItem];
+                [collectionItem release];
+                result = YES;
+            }
         }
     }
     for (MHCollectionItem *oldCollectionItem in oldCollectionList) {

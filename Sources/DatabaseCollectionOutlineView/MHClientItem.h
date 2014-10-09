@@ -1,5 +1,5 @@
 //
-//  MHServerItem.h
+//  MHClientItem.h
 //  MongoHub
 //
 //  Created by Jérôme Lebel on 24/10/2011.
@@ -13,23 +13,16 @@
 @class MODDatabase;
 @class MODCollection;
 
-@protocol MHServerItemDelegate <NSObject>
-- (MODDatabase *)databaseWithDatabaseItem:(MHDatabaseItem *)databaseItem;
-- (MODCollection *)collectionWithCollectionItem:(MHCollectionItem *)collectionItem;
-@end
-
-@interface MHServerItem : NSObject
+@interface MHClientItem : NSObject
 {
     MODClient                       *_client;
     NSMutableArray                  *_databaseItems;
-    id<MHServerItemDelegate>        _delegate;
 }
 
 @property (nonatomic, readonly, retain) MODClient *client;
 @property (nonatomic, readonly, retain) NSArray *databaseItems;
-@property (nonatomic, readonly, assign) id<MHServerItemDelegate> delegate;
 
-- (id)initWithClient:(MODClient *)client delegate:(id)delegate;
+- (instancetype)initWithClient:(MODClient *)client;
 - (MHDatabaseItem *)databaseItemWithName:(NSString *)databaseName;
 - (BOOL)updateChildrenWithList:(NSArray *)list;
 - (void)removeDatabaseItemWithName:(NSString *)databaseName;

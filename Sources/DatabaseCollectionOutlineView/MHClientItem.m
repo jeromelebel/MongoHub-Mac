@@ -1,29 +1,29 @@
 //
-//  MHServerItem.m
+//  MHClientItem.m
 //  MongoHub
 //
 //  Created by Jérôme Lebel on 24/10/2011.
 //
 
-#import "MHServerItem.h"
+#import "MHClientItem.h"
 #import "MHDatabaseItem.h"
+#import <MongoObjcDriver/MongoObjcDriver.h>
 
-@interface MHServerItem ()
+@interface MHClientItem ()
 
 @property (nonatomic, readwrite, retain) MODClient *client;
 @property (nonatomic, readwrite, retain) NSMutableArray *databaseItems;
-@property (nonatomic, readwrite, assign) id<MHServerItemDelegate> delegate;
 
 @end
 
-@implementation MHServerItem
+@implementation MHClientItem
 
-@synthesize client = _client, databaseItems = _databaseItems, delegate = _delegate;
+@synthesize client = _client, databaseItems = _databaseItems;
 
-- (id)initWithClient:(MODClient *)client delegate:(id)delegate
+- (id)initWithClient:(MODClient *)client
 {
+    NSParameterAssert(client);
     if (self = [self init]) {
-        self.delegate = delegate;
         self.client = client;
         self.databaseItems = [NSMutableArray array];
     }
@@ -32,7 +32,6 @@
 
 - (void)dealloc
 {
-    self.delegate = nil;
     self.client = nil;
     self.databaseItems = nil;
     [super dealloc];
@@ -80,7 +79,7 @@ static NSInteger databaseItemSortFunction(id element1, id element2, void *contex
         
         databaseItem = [self databaseItemWithName:databaseName];
         if (!databaseItem) {
-            databaseItem = [[MHDatabaseItem alloc] initWithServerItem:self name:databaseName];
+            databaseItem = [[MHDatabaseItem alloc] initWithClientItem:self database:[self.client databaseForName:databaseName]];
             [(NSMutableArray *)self.databaseItems addObject:databaseItem];
             [databaseItem release];
             result = YES;

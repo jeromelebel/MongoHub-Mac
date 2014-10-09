@@ -7,36 +7,41 @@
 
 #import "MHCollectionItem.h"
 #import "MHDatabaseItem.h"
-#import "MHServerItem.h"
+#import "MHClientItem.h"
+#import <MongoObjcDriver/MongoObjcDriver.h>
 
 @interface MHCollectionItem ()
-
-@property (nonatomic, readwrite, retain) NSString *name;
+@property (nonatomic, readwrite, strong) MODCollection *collection;
+@property (nonatomic, readwrite, assign) MHDatabaseItem *databaseItem;
 
 @end
 
 @implementation MHCollectionItem
 
-@synthesize name = _name, databaseItem = _databaseItem;
+@synthesize collection = _collection;
+@synthesize databaseItem = _databaseItem;
 
-- (id)initWithDatabaseItem:(MHDatabaseItem *)databaseItem name:(NSString *)name
+- (instancetype)initWithDatabaseItem:(MHDatabaseItem *)databaseItem collection:(MODCollection *)collection
 {
+    NSParameterAssert(databaseItem);
+    NSParameterAssert(collection);
     if (self = [self init]) {
-        self.name = name;
-        _databaseItem = databaseItem;
+        self.collection = collection;
+        self.databaseItem = databaseItem;
     }
     return self;
 }
 
 - (void)dealloc
 {
-    self.name = nil;
+    self.collection = nil;
+    self.databaseItem = nil;
     [super dealloc];
 }
 
-- (MODCollection *)collection
+- (NSString *)name
 {
-    return [_databaseItem.serverItem.delegate collectionWithCollectionItem:self];
+    return self.collection.name;
 }
 
 @end

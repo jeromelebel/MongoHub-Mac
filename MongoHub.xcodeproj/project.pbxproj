@@ -68,7 +68,7 @@
 		029CAA731946028800FD44B4 /* NSTextView+MongoHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 029CAA721946028800FD44B4 /* NSTextView+MongoHub.m */; };
 		029D30A5145613420021B9C9 /* MHDatabaseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D30A4145613420021B9C9 /* MHDatabaseItem.m */; };
 		029D30A9145613580021B9C9 /* MHCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D30A8145613580021B9C9 /* MHCollectionItem.m */; };
-		029D30AC145613C30021B9C9 /* MHServerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D30AB145613C30021B9C9 /* MHServerItem.m */; };
+		029D30AC145613C30021B9C9 /* MHClientItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D30AB145613C30021B9C9 /* MHClientItem.m */; };
 		02A7C40A1482DEDD0099CDD1 /* MHMysqlImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A7C4091482DEDD0099CDD1 /* MHMysqlImporter.m */; };
 		02A7C40E1482DF080099CDD1 /* MHMysqlExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A7C40D1482DF080099CDD1 /* MHMysqlExporter.m */; };
 		02AA29931477F8BD0041865F /* MHFileExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AA29921477F8BD0041865F /* MHFileExporter.m */; };
@@ -275,8 +275,8 @@
 		029D30A4145613420021B9C9 /* MHDatabaseItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHDatabaseItem.m; sourceTree = "<group>"; };
 		029D30A7145613580021B9C9 /* MHCollectionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollectionItem.h; sourceTree = "<group>"; };
 		029D30A8145613580021B9C9 /* MHCollectionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionItem.m; sourceTree = "<group>"; };
-		029D30AA145613C30021B9C9 /* MHServerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHServerItem.h; sourceTree = "<group>"; };
-		029D30AB145613C30021B9C9 /* MHServerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHServerItem.m; sourceTree = "<group>"; };
+		029D30AA145613C30021B9C9 /* MHClientItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHClientItem.h; sourceTree = "<group>"; };
+		029D30AB145613C30021B9C9 /* MHClientItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHClientItem.m; sourceTree = "<group>"; };
 		02A7C4081482DEDD0099CDD1 /* MHMysqlImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMysqlImporter.h; sourceTree = "<group>"; };
 		02A7C4091482DEDD0099CDD1 /* MHMysqlImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMysqlImporter.m; sourceTree = "<group>"; };
 		02A7C40C1482DF080099CDD1 /* MHMysqlExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMysqlExporter.h; sourceTree = "<group>"; };
@@ -702,8 +702,8 @@
 			children = (
 				1D93C44F11837668003216F7 /* SidebarBadgeCell.h */,
 				1D93C45011837668003216F7 /* SidebarBadgeCell.m */,
-				029D30AA145613C30021B9C9 /* MHServerItem.h */,
-				029D30AB145613C30021B9C9 /* MHServerItem.m */,
+				029D30AA145613C30021B9C9 /* MHClientItem.h */,
+				029D30AB145613C30021B9C9 /* MHClientItem.m */,
 				029D30A3145613420021B9C9 /* MHDatabaseItem.h */,
 				029D30A4145613420021B9C9 /* MHDatabaseItem.m */,
 				029D30A7145613580021B9C9 /* MHCollectionItem.h */,
@@ -1020,7 +1020,7 @@
 				029D30A5145613420021B9C9 /* MHDatabaseItem.m in Sources */,
 				02ABF65F19E09C76009F4766 /* MHDatabaseCollectionOutlineView.m in Sources */,
 				029D30A9145613580021B9C9 /* MHCollectionItem.m in Sources */,
-				029D30AC145613C30021B9C9 /* MHServerItem.m in Sources */,
+				029D30AC145613C30021B9C9 /* MHClientItem.m in Sources */,
 				02CF9CC919AA9E8A00EEF76B /* MHMongoHubMigration9to10.xcmappingmodel in Sources */,
 				0242F11A198922B900C73FEC /* MHMongoHubMigration6to7.xcmappingmodel in Sources */,
 				021BEA681463709A0091C2EA /* MongoHub_DataModel.xcdatamodeld in Sources */,

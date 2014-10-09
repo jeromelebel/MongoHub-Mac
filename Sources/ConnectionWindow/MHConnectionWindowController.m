@@ -14,7 +14,7 @@
 #import "MHMysqlExportWindowController.h"
 #import "StatMonitorTableController.h"
 #import "MHTunnel.h"
-#import "MHServerItem.h"
+#import "MHClientItem.h"
 #import "MHDatabaseItem.h"
 #import "MHCollectionItem.h"
 #import "SidebarBadgeCell.h"
@@ -38,7 +38,7 @@
 #define FILE_EXPORT_TOOLBAR_ITEM_TAG                7
 
 @interface MHConnectionWindowController ()
-@property (nonatomic, readwrite, strong) MHServerItem *serverItem;
+@property (nonatomic, readwrite, strong) MHClientItem *clientItem;
 @property (nonatomic, readwrite, strong) NSMutableDictionary *tabItemControllers;
 @property (nonatomic, readwrite, strong) MHStatusViewController *statusViewController;
 @property (nonatomic, readwrite, weak) IBOutlet MHTabViewController *tabViewController;
@@ -74,7 +74,7 @@
 @synthesize mysqlImportWindowController = _mysqlImportWindowController;
 @synthesize mysqlExportWindowController = _mysqlExportWindowController;
 @synthesize loaderIndicator = _loaderIndicator;
-@synthesize serverItem = _serverItem;
+@synthesize clientItem = _clientItem;
 @synthesize tabItemControllers = _tabItemControllers;
 @synthesize statusViewController = _statusViewController;
 @synthesize tabViewController = _tabViewController;
@@ -114,7 +114,7 @@
     [_serverMonitorTimer release];
     _serverMonitorTimer = nil;
     self.client = nil;
-    self.serverItem = nil;
+    self.clientItem = nil;
 }
 
 - (void)awakeFromNib
@@ -144,7 +144,7 @@
             MHDatabaseItem *databaseOutlineViewItem;
             MHCollectionItem *collectionOutlineViewItem;
             
-            databaseOutlineViewItem = [self.serverItem databaseItemWithName:[(MHQueryWindowController *)selectedTab collection].database.name];
+            databaseOutlineViewItem = [self.clientItem databaseItemWithName:[(MHQueryWindowController *)selectedTab collection].database.name];
             collectionOutlineViewItem = [databaseOutlineViewItem collectionItemWithName:[(MHQueryWindowController *)selectedTab collection].name];
             if (collectionOutlineViewItem) {
                 [_databaseCollectionOutlineView expandItem:databaseOutlineViewItem];
@@ -204,7 +204,6 @@
         NSString *urlString;
         
         [self closeMongoDB];
-        self.serverItem = [[[MHServerItem alloc] initWithClient:self.client delegate:self] autorelease];
         urlString = [self.connectionStore stringURLWithSSHMapping:nil];
         [self.delegate connectionWindowControllerLogMessage:urlString domain:[NSString stringWithFormat:@"%@.url", self.connectionStore.alias] level:@"debug"];
         self.client = [MODClient clientWihtURLString:urlString];
@@ -216,6 +215,7 @@
         [self.loaderIndicator stopAnimation:nil];
         
         monitorButton.enabled = YES;
+        self.clientItem = [[[MHClientItem alloc] initWithClient:self.client] autorelease];
         [self showServerStatus:nil];
     }
 }
@@ -250,11 +250,11 @@
         [self.loaderIndicator stopAnimation:nil];
         self.window.title = self.connectionStore.alias;
         if (list != nil) {
-            if ([self.serverItem updateChildrenWithList:list]) {
+            if ([self.clientItem updateChildrenWithList:list]) {
                 [_databaseCollectionOutlineView reloadData];
             }
         } else if (self.connectionStore.defaultDatabase.length > 0) {
-            if ([self.serverItem updateChildrenWithList:[NSArray arrayWithObject:self.connectionStore.defaultDatabase]]) {
+            if ([self.clientItem updateChildrenWithList:[NSArray arrayWithObject:self.connectionStore.defaultDatabase]]) {
                 [_databaseCollectionOutlineView reloadData];
             }
         } else if (mongoQuery.error) {
@@ -268,7 +268,7 @@
 {
     MHDatabaseItem *databaseItem;
     
-    databaseItem = [self.serverItem databaseItemWithName:databaseName];
+    databaseItem = [self.clientItem databaseItemWithName:databaseName];
     if (databaseItem) {
         [self getCollectionListForDatabaseItem:databaseItem];
     }
@@ -285,7 +285,7 @@
         MHDatabaseItem *databaseItem;
         
         [self.loaderIndicator stopAnimation:nil];
-        databaseItem = [self.serverItem databaseItemWithName:mongoDatabase.name];
+        databaseItem = [self.clientItem databaseItemWithName:mongoDatabase.name];
         if (collectionList && databaseItem) {
             if ([databaseItem updateChildrenWithList:collectionList]) {
                 [_databaseCollectionOutlineView reloadData];
@@ -452,11 +452,6 @@
     [self.loaderIndicator startAnimation:nil];
     [database dropWithCallback:^(MODQuery *mongoQuery) {
         [self.loaderIndicator stopAnimation:nil];
-        for (MHQueryWindowController *queryWindowController in self.tabItemControllers.allValues) {
-            if (queryWindowController.collection.database == database) {
-                [self.tabViewController removeTabItemViewController:queryWindowController];
-            }
-        }
         [self getDatabaseList];
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
@@ -811,7 +806,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
 {
     if (!item) {
-        return self.serverItem.databaseItems.count;
+        return self.clientItem.databaseItems.count;
     } else if ([item isKindOfClass:[MHDatabaseItem class]]) {
         return [item collectionItems].count;
     } else {
@@ -822,7 +817,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item
 {
     if (!item) {
-        return [self.serverItem.databaseItems objectAtIndex:index];
+        return [self.clientItem.databaseItems objectAtIndex:index];
     } else if ([item isKindOfClass:[MHDatabaseItem class]]) {
         return [[item collectionItems] objectAtIndex:index];
     } else {
@@ -842,9 +837,10 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification
 {
-    if (self.selectedCollectionItem) {
-        MHCollectionItem *collectionItem = self.selectedCollectionItem;
-        
+    MHCollectionItem *collectionItem = self.selectedCollectionItem;
+    MHDatabaseItem *databaseItem = self.selectedDatabaseItem;
+    
+    if (collectionItem && !collectionItem.collection.dropped) {
         [self getCollectionListForDatabaseItem:collectionItem.databaseItem];
         [self showCollectionStatusWithCollectionItem:collectionItem];
         if (self.tabItemControllers[collectionItem.collection.absoluteName]) {
@@ -852,9 +848,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
         } else {
             [self.statusViewController select];
         }
-    } else if (self.selectedDatabaseItem) {
-        MHDatabaseItem *databaseItem = self.selectedDatabaseItem;
-        
+    } else if (databaseItem && !databaseItem.database.dropped) {
         [self getCollectionListForDatabaseItem:databaseItem];
         [self showDatabaseStatusWithDatabaseItem:databaseItem];
     } else {
@@ -880,21 +874,6 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 - (void)outlineViewItemWillExpand:(NSNotification *)notification
 {
     [self getCollectionListForDatabaseItem:[[notification userInfo] objectForKey:@"NSObject"]];
-}
-
-@end
-
-
-@implementation MHConnectionWindowController (MHServerItemDelegateCategory)
-
-- (MODDatabase *)databaseWithDatabaseItem:(MHDatabaseItem *)item
-{
-    return [self.client databaseForName:item.name];
-}
-
-- (MODCollection *)collectionWithCollectionItem:(MHCollectionItem *)item
-{
-    return [[self databaseWithDatabaseItem:item.databaseItem] collectionForName:item.name];
 }
 
 @end

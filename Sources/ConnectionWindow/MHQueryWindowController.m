@@ -16,6 +16,7 @@
 #import "NSViewHelpers.h"
 #import "NSTextView+MongoHub.h"
 #import "UKSyntaxColoredTextViewController.h"
+#import "MHTabViewController.h"
 
 #define IS_OBJECT_ID(value) ([value length] == 24 && [[value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"1234567890abcdefABCDEF"]] length] == 0)
 
@@ -95,12 +96,17 @@
 
 @synthesize mrOutlineViewController = _mrOutlineViewController, mrOutlineView = _mrOutlineView, mrLoaderIndicator = _mrLoaderIndicator, mrOutputTextField = _mrOutputTextField, mrCriteriaTextField = _mrCriteriaTextField, mrMapFunctionTextView = _mrMapFunctionTextView, mrReduceFunctionTextView = _mrReduceFunctionTextView;
 
-- (id)initWithCollection:(MODCollection *)collection connectionStore:(MHConnectionStore *)connectionStore
+- (instancetype)initWithCollection:(MODCollection *)collection connectionStore:(MHConnectionStore *)connectionStore
 {
     self = [self init];
     if (self) {
         self.collection = collection;
         self.connectionStore = connectionStore;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(droppedNotification:) name:MODCollection_Dropped_Notification object:self.collection];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(droppedNotification:) name:MODDatabase_Dropped_Notification object:self.collection.database];
+        NSLog(@"listen to %@", self.collection.database);
+        [self.collection addObserver:self forKeyPath:@"database" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+        [self.collection addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
@@ -108,6 +114,8 @@
 - (void)dealloc
 {
     [NSNotificationCenter.defaultCenter removeObserver:self name:nil object:nil];
+    [self.collection removeObserver:self forKeyPath:@"database"];
+    [self.collection removeObserver:self forKeyPath:@"name"];
     
     self.syntaxColoringController = nil;
     self.indexesOutlineViewController = nil;
@@ -119,6 +127,28 @@
     [_jsonWindowControllers release];
     
     [super dealloc];
+}
+
+- (void)droppedNotification:(NSNotification *)notification
+{
+    NSLog(@"notif %@ %@", notification.name, notification.object);
+    NSParameterAssert(notification.object == self.collection || notification.object == self.collection.database);
+    if (notification.object == self.collection || notification.object == self.collection.database) {
+        [self.tabViewController removeTabItemViewController:self];
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (self.collection == object) {
+        if ([keyPath isEqualToString:@"name"]) {
+            self.title = self.collection.absoluteName;
+        } else if ([keyPath isEqualToString:@"database"]) {
+            self.title = self.collection.absoluteName;
+            [NSNotificationCenter.defaultCenter removeObserver:self name:nil object:change[NSKeyValueChangeOldKey]];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(droppedNotification:) name:MODDatabase_Dropped_Notification object:self.collection.database];
+        }
+    }
 }
 
 - (NSString *)nibName

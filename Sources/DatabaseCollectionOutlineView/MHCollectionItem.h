@@ -12,14 +12,14 @@
 
 @interface MHCollectionItem : NSObject
 {
-    NSString                            *_name;
+    MODCollection                       *_collection;
     MHDatabaseItem                      *_databaseItem;
 }
 
 @property (nonatomic, readonly, retain) NSString *name;
 @property (nonatomic, readonly, assign) MHDatabaseItem *databaseItem;
-@property (nonatomic, readonly, assign) MODCollection *collection;
+@property (nonatomic, readonly, strong) MODCollection *collection;
 
-- (id)initWithDatabaseItem:(MHDatabaseItem *)databaseItem name:(NSString *)name;
+- (instancetype)initWithDatabaseItem:(MHDatabaseItem *)databaseItem collection:(MODCollection *)collection;
 
 @end
