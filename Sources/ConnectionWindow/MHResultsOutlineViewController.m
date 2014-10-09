@@ -17,7 +17,7 @@
 
 @synthesize outlineView = _outlineView, results = _results;
 
-- (id)initWithOutlineView:(NSOutlineView *)outlineView;
+- (instancetype)initWithOutlineView:(NSOutlineView *)outlineView;
 {
     if (self = [super init]) {
         _results = [[NSMutableArray alloc] init];

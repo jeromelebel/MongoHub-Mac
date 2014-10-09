@@ -18,7 +18,7 @@
 @property (nonatomic, retain, readwrite) NSArray *results;
 @property (nonatomic, assign, readonly) NSArray *selectedDocuments;
 
-- (id)initWithOutlineView:(NSOutlineView *)outlineView;
+- (instancetype)initWithOutlineView:(NSOutlineView *)outlineView;
 - (id)rootForItem:(id)item;
 
 @end
