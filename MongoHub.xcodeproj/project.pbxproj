@@ -281,6 +281,7 @@
 		02A7C4091482DEDD0099CDD1 /* MHMysqlImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMysqlImporter.m; sourceTree = "<group>"; };
 		02A7C40C1482DF080099CDD1 /* MHMysqlExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMysqlExporter.h; sourceTree = "<group>"; };
 		02A7C40D1482DF080099CDD1 /* MHMysqlExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMysqlExporter.m; sourceTree = "<group>"; };
+		02A9B23D19E716FE002A73E4 /* MongoHub_DataModel13.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel13.xcdatamodel; sourceTree = "<group>"; };
 		02AA29911477F8BD0041865F /* MHFileExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHFileExporter.h; sourceTree = "<group>"; };
 		02AA29921477F8BD0041865F /* MHFileExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHFileExporter.m; sourceTree = "<group>"; };
 		02AB33A6194850BD008C06B9 /* MongoHub_DataModel3.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel3.0.xcdatamodel; sourceTree = "<group>"; };
@@ -1178,6 +1179,7 @@
 		021BEA641463709A0091C2EA /* MongoHub_DataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				02A9B23D19E716FE002A73E4 /* MongoHub_DataModel13.xcdatamodel */,
 				0258606A19BD3E2A001EDF8A /* MongoHub_DataModel12.xcdatamodel */,
 				0260B93F19B3A4AB00940188 /* MongoHub_DataModel11.xcdatamodel */,
 				02E79E9C199275A60016B4C9 /* MongoHub_DataModel9.xcdatamodel */,
@@ -1192,7 +1194,7 @@
 				021BEA661463709A0091C2EA /* MongoHub_DataModel1.0.xcdatamodel */,
 				021BEA671463709A0091C2EA /* MongoHub_DataModel2.0.xcdatamodel */,
 			);
-			currentVersion = 0258606A19BD3E2A001EDF8A /* MongoHub_DataModel12.xcdatamodel */;
+			currentVersion = 02A9B23D19E716FE002A73E4 /* MongoHub_DataModel13.xcdatamodel */;
 			path = MongoHub_DataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

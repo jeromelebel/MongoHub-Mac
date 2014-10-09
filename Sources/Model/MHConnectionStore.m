@@ -10,6 +10,7 @@
 #import "MHKeychain.h"
 #import "NSString+MongoHub.h"
 #import "NSDictionary+MongoHub.h"
+#import "MHApplicationDelegate.h"
 
 #define MAX_QUERY_PER_COLLECTION 20
 #define QUERY_HISTORY_KEY @"query_history"
@@ -28,8 +29,6 @@
 
 @dynamic useSSL;
 @dynamic weakCertificate;
-
-@dynamic timeout;
 
 @dynamic useSSH;
 @dynamic sshHost;
@@ -269,9 +268,6 @@
     if ([parameterComponents[@"ssl"] isEqualToString:@"true"]) {
         self.useSSL = YES;
     }
-    if (parameterComponents[@"connecttimeoutms"]) {
-        self.timeout = @([parameterComponents[@"connecttimeoutms"] integerValue]);
-    }
     
     if (errorMessage) {
         *errorMessage = nil;
@@ -358,8 +354,11 @@
     if (self.useSSL.boolValue) {
         [options addObject:@"ssl=true"];
     }
-    if (self.timeout && self.timeout.integerValue > 0) {
-        [options addObject:[NSString stringWithFormat:@"connecttimeoutms=%ld", (long)self.timeout.integerValue]];
+    if ([[NSApp delegate] connectTimeout] != 0) {
+        [options addObject:[NSString stringWithFormat:@"connecttimeoutms=%u", [[NSApp delegate] connectTimeout]]];
+    }
+    if ([[NSApp delegate] socketTimeout]) {
+        [options addObject:[NSString stringWithFormat:@"sockettimeoutms=%u", [[NSApp delegate] socketTimeout]]];
     }
     if (self.replicaSetName.length > 0) {
         [options addObject:[NSString stringWithFormat:@"replicaSet=%@", self.replicaSetName.mh_stringByEscapingURL]];

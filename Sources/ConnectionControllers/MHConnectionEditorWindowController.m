@@ -39,8 +39,6 @@
 @property (nonatomic, readwrite, assign) IBOutlet NSButton *useSSLCheckbox;
 @property (nonatomic, readwrite, assign) IBOutlet NSButton *weakCertificateCheckbox;
 
-@property (nonatomic, readwrite, assign) IBOutlet NSTextField *timeoutTextField;
-
 @property (nonatomic, readwrite, assign) IBOutlet NSButton *useSSHCheckBox;
 @property (nonatomic, readwrite, assign) IBOutlet NSTextField *sshHostTextField;
 @property (nonatomic, readwrite, assign) IBOutlet NSTextField *sshPortTextField;
@@ -127,8 +125,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 @synthesize useSSLCheckbox = _useSSLCheckbox;
 @synthesize weakCertificateCheckbox = _weakCertificateCheckbox;
 
-@synthesize timeoutTextField = _timeoutTextField;
-
 @synthesize useSSHCheckBox = _useSSHCheckBox;
 @synthesize sshHostTextField = _sshHostTextField;
 @synthesize sshPortTextField = _sshPortTextField;
@@ -158,7 +154,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     
     [self.hostportTextField.cell setPlaceholderString:[NSString stringWithFormat:@"%d", MODClient.defaultPort]];
     [self.sshUserTextField.cell setPlaceholderString:[NSProcessInfo.processInfo.environment objectForKey:@"USER"]];
-    [self.timeoutTextField.cell setPlaceholderString:[NSString stringWithFormat:@"%ld", (long)MODClient.defaultConnectionTimeout]];
     if (self.editedConnectionStore) {
         self.addSaveButton.title = NSLocalizedString(@"Save", @"Save connection (after updating)");
         self.newConnection = NO;
@@ -222,7 +217,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         } else {
             self.sshPortTextField.stringValue = defaultValue.sshPort.stringValue;
         }
-        if (defaultValue.timeout && defaultValue.timeout.integerValue > 0) self.timeoutTextField.stringValue = [NSString stringWithFormat:@"%ld", (long)defaultValue.timeout.integerValue];
         if (defaultValue.sshUser) self.sshUserTextField.stringValue = defaultValue.sshUser;
         if (defaultValue.useSSH.boolValue && defaultValue.sshPassword) {
             // there is no need to fetch for the ssh password if ssh is turned off
@@ -246,7 +240,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         self.adminUserTextField.stringValue = @"";
         self.adminPasswordTextField.stringValue = @"";
         self.defaultDatabaseTextField.stringValue = @"";
-        self.timeoutTextField.stringValue = @"";
         self.sshHostTextField.stringValue = @"";
         self.sshPortTextField.stringValue = @"";
         self.sshUserTextField.stringValue = @"";
@@ -342,7 +335,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 - (IBAction)addSaveAction:(id)sender
 {
     NSString *hostName;
-    NSInteger timeout;
     NSInteger hostPort;
     NSInteger sshPort;
     NSString *defaultDatabase;
@@ -353,7 +345,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     BOOL useSSH;
     BOOL useReplicaSet;
     
-    timeout = self.timeoutTextField.stringValue.integerValue;
     hostName = [self.hostTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     hostPort = self.hostportTextField.stringValue.integerValue;
     defaultDatabase = [self.defaultDatabaseTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -365,11 +356,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     replicaName = [self.replicaSetNameTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     sshPort = self.sshPortTextField.stringValue.integerValue;
     
-    if (timeout != 0 && timeout < 500) {
-        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"The timeout cannot be below 500ms", @""));
-        [self.timeoutTextField becomeFirstResponder];
-        return;
-    }
     if (hostPort < 0 || hostPort > 65535) {
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"Host port should be between 1 and 65535 (or empty)", @""));
         [self.hostportTextField becomeFirstResponder];
@@ -427,7 +413,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     self.editedConnectionStore.defaultDatabase = defaultDatabase;
     self.editedConnectionStore.useSSL = @(self.useSSLCheckbox.state == NSOnState);
     self.editedConnectionStore.weakCertificate = @(self.weakCertificateCheckbox.state == NSOnState);
-    self.editedConnectionStore.timeout = @(timeout);
     self.editedConnectionStore.useSSH = @(useSSH);
     self.editedConnectionStore.sshHost = sshHost;
     self.editedConnectionStore.sshPort = @(sshPort);

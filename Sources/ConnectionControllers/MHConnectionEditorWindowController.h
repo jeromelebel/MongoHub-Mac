@@ -44,8 +44,6 @@
     NSButton                            *_useSSLCheckbox;
     NSButton                            *_weakCertificateCheckbox;
     
-    NSTextField                         *_timeoutTextField;
-    
     NSButton                            *_useSSHCheckBox;
     NSTextField                         *_sshHostTextField;
     NSTextField                         *_sshPortTextField;

@@ -19,7 +19,9 @@
 #define YOUR_EXTERNAL_RECORD_EXTENSION @"mgo"
 #define YOUR_STORE_TYPE NSXMLStoreType
 
-#define MHSofwareUpdateChannelKey           @"MHSofwareUpdateChannel"
+#define MHSofwareUpdateChannelKey                       @"MHSofwareUpdateChannel"
+#define MHConnectTimeoutKey                             @"MHConnectTimeoutKey"
+#define MHSocketTimeoutKey                              @"MHSocketTimeoutKey"
 
 @interface MHApplicationDelegate()
 @property (nonatomic, strong, readwrite) MHConnectionEditorWindowController *connectionEditorWindowController;
@@ -444,6 +446,44 @@
     }
     [NSUserDefaults.standardUserDefaults synchronize];
     [self.updater checkForUpdatesInBackground];
+}
+
+- (uint32_t)defaultConnectTimeout
+{
+    return MODClient.defaultConnectTimeout;
+}
+
+- (void)setConnectTimeout:(uint32_t)connectTimeout
+{
+    if (connectTimeout == 0 || connectTimeout == MODClient.defaultConnectTimeout) {
+        [NSUserDefaults.standardUserDefaults removeObjectForKey:MHConnectTimeoutKey];
+    } else {
+        [NSUserDefaults.standardUserDefaults setInteger:connectTimeout forKey:MHConnectTimeoutKey];
+    }
+}
+
+- (uint32_t)connectTimeout
+{
+    return [NSUserDefaults.standardUserDefaults integerForKey:MHConnectTimeoutKey];
+}
+
+- (uint32_t)defaultSocketTimeout
+{
+    return MODClient.defaultSocketTimeout;
+}
+
+- (void)setSocketTimeout:(uint32_t)socketTimeout
+{
+    if (socketTimeout == 0 || socketTimeout == MODClient.defaultSocketTimeout) {
+        [NSUserDefaults.standardUserDefaults removeObjectForKey:MHSocketTimeoutKey];
+    } else {
+        [NSUserDefaults.standardUserDefaults setInteger:socketTimeout forKey:MHSocketTimeoutKey];
+    }
+}
+
+- (uint32_t)socketTimeout
+{
+    return [NSUserDefaults.standardUserDefaults integerForKey:MHSocketTimeoutKey];
 }
 
 @end

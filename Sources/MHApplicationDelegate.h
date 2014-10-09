@@ -50,6 +50,10 @@ typedef enum {
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, assign, readwrite) MHSoftwareUpdateChannel softwareUpdateChannel;
+@property (nonatomic, assign, readonly) uint32_t defaultConnectTimeout;
+@property (nonatomic, assign, readwrite) uint32_t connectTimeout;
+@property (nonatomic, assign, readonly) uint32_t defaultSocketTimeout;
+@property (nonatomic, assign, readwrite) uint32_t socketTimeout;
 
 @end
 

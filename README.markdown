@@ -44,6 +44,10 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **Beta**
 
+- Fixing memory leaks
+- Better UI for dropping collections/databases
+- Moving the timeout in the application preference
+
 ## History
 
 **2.7 beta 17 - october 8, 2014**

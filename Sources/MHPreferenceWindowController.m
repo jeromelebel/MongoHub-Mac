@@ -11,13 +11,16 @@
 
 @interface MHPreferenceWindowController ()
 
-@property (nonatomic, readwrite, weak) IBOutlet NSButton *betaSoftwareButton;
-@property (nonatomic, readwrite, weak) IBOutlet NSColorWell *textBackgroundColorWell;
-@property (nonatomic, readwrite, weak) IBOutlet NSTableView *jsonColorTableView;
-@property (nonatomic, readwrite, weak) IBOutlet NSTextField *jsonTextLabelView;
-@property (nonatomic, readwrite, weak) IBOutlet NSColorWell *jsonTextColorWell;
+@property (nonatomic, weak, readwrite) IBOutlet NSButton *betaSoftwareButton;
+@property (nonatomic, weak, readwrite) IBOutlet NSColorWell *textBackgroundColorWell;
+@property (nonatomic, weak, readwrite) IBOutlet NSTableView *jsonColorTableView;
+@property (nonatomic, weak, readwrite) IBOutlet NSTextField *jsonTextLabelView;
+@property (nonatomic, weak, readwrite) IBOutlet NSColorWell *jsonTextColorWell;
 
-@property (nonatomic, readwrite, strong) NSMutableArray *jsonComponents;
+@property (nonatomic, strong, readwrite) NSMutableArray *jsonComponents;
+
+@property (nonatomic, weak, readwrite) IBOutlet NSTextField *connectTimeoutTextField;
+@property (nonatomic, weak, readwrite) IBOutlet NSTextField *socketTimeoutTextField;
 
 @end
 
@@ -33,6 +36,9 @@
 @synthesize jsonTextLabelView = _jsonTextLabelView;
 @synthesize jsonTextColorWell = _jsonTextColorWell;
 
+@synthesize connectTimeoutTextField = _connectTimeoutTextField;
+@synthesize socketTimeoutTextField = _socketTimeoutTextField;
+
 + (MHPreferenceWindowController *)preferenceWindowController
 {
     MHPreferenceWindowController *result;
@@ -43,6 +49,7 @@
 - (void)awakeFromNib
 {
     NSMutableSet *componentNames = [[[NSMutableSet alloc] init] autorelease];
+    uint32_t value;
     
     if ([(MHApplicationDelegate *)NSApplication.sharedApplication.delegate softwareUpdateChannel] == MHSoftwareUpdateChannelBeta) {
         self.betaSoftwareButton.state = NSOnState;
@@ -70,6 +77,17 @@
     self.jsonTextLabelView.font = MHJsonColorManager.sharedManager.values[@"TextField"][@"Text"][@"Font"];
     self.jsonTextLabelView.stringValue = @" ";
     [self.jsonTextLabelView sizeToFit];
+    
+    [self.socketTimeoutTextField.cell setPlaceholderString:[NSString stringWithFormat:@"%u", [[NSApp delegate] defaultSocketTimeout]]];
+    value = [[NSApp delegate] socketTimeout];
+    if (value != 0) {
+        self.socketTimeoutTextField.stringValue = [NSString stringWithFormat:@"%u", value];
+    }
+    [self.connectTimeoutTextField.cell setPlaceholderString:[NSString stringWithFormat:@"%u", [[NSApp delegate] defaultConnectTimeout]]];
+    value = [[NSApp delegate ] connectTimeout];
+    if (value != 0) {
+        self.connectTimeoutTextField.stringValue = [NSString stringWithFormat:@"%u", value];
+    }
 }
 
 - (IBAction)betaSoftwareAction:(id)sender
@@ -160,6 +178,26 @@
     textField.stringValue = @"ASFWBHDfqlahbjiu";
     [textField sizeToFit];
     self.jsonColorTableView.rowHeight = textField.bounds.size.height;
+}
+
+- (IBAction)timeoutTextFieldChanged:(id)sender
+{
+    NSInteger value;
+    
+    value = [sender stringValue].integerValue;
+    if (value < 500 && value != 0) {
+        NSBeginAlertSheet(@"Invalid Value", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"The timeout should be greater than 500");
+    } else if (sender == self.connectTimeoutTextField) {
+        [[NSApp delegate] setConnectTimeout:value];
+        if ([[NSApp delegate] connectTimeout] == 0) {
+            self.connectTimeoutTextField.stringValue = @"";
+        }
+    } else if (sender == self.socketTimeoutTextField) {
+        [[NSApp delegate] setSocketTimeout:value];
+        if ([[NSApp delegate] socketTimeout] == 0) {
+            self.socketTimeoutTextField.stringValue = @"";
+        }
+    }
 }
 
 @end

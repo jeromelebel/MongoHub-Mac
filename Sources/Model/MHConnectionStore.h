@@ -38,8 +38,6 @@
 @property (nonatomic, strong) NSNumber *useSSL;
 @property (nonatomic, strong) NSNumber *weakCertificate;
 
-@property (nonatomic, strong) NSNumber *timeout;
-
 @property (nonatomic, strong) NSNumber *useSSH;
 @property (nonatomic, strong) NSString *sshHost;
 @property (nonatomic, strong) NSNumber *sshPort;

@@ -18,6 +18,9 @@
     NSColorWell                         *_jsonTextColorWell;
     
     NSMutableArray                      *_jsonComponents;
+    
+    NSTextField                         *_connectTimeoutTextField;
+    NSTextField                         *_socketTimeoutTextField;
 }
 
 + (instancetype)preferenceWindowController;

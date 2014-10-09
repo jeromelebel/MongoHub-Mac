@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6206.9" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6206.9"/>
+        <deployment defaultVersion="1070" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHPreferenceWindowController">
             <connections>
                 <outlet property="betaSoftwareButton" destination="Lvd-gF-Nde" id="Ll4-Fc-vfX"/>
+                <outlet property="connectTimeoutTextField" destination="ITT-FC-hwp" id="gPZ-zw-ySa"/>
                 <outlet property="jsonColorTableView" destination="HL1-5s-6cY" id="vYQ-zh-p2C"/>
                 <outlet property="jsonTextColorWell" destination="fPR-dX-W5K" id="oWz-9d-x14"/>
                 <outlet property="jsonTextLabelView" destination="d3x-nM-4k9" id="9S5-aj-Xsh"/>
+                <outlet property="socketTimeoutTextField" destination="VI2-on-GQT" id="DuJ-O7-jot"/>
                 <outlet property="textBackgroundColorWell" destination="05I-Pv-pb9" id="8vl-pg-BOZ"/>
                 <outlet property="window" destination="1" id="zMK-0U-bCf"/>
             </connections>
@@ -20,7 +23,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="645" height="322"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="645" height="322"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -209,6 +212,92 @@
                                         <constraint firstAttribute="bottom" secondItem="d3x-nM-4k9" secondAttribute="bottom" constant="17" id="udl-2m-8CW"/>
                                         <constraint firstAttribute="trailing" secondItem="haM-iY-MVj" secondAttribute="trailing" constant="17" id="yLy-A6-vWh"/>
                                         <constraint firstItem="AWu-0j-Wf8" firstAttribute="leading" secondItem="4BQ-As-NHz" secondAttribute="leading" constant="17" id="ybG-2O-2wA"/>
+                                    </constraints>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Advanced" identifier="" id="ena-Mk-iA8">
+                                <view key="view" id="CrC-ha-OVx">
+                                    <rect key="frame" x="10" y="33" width="599" height="260"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sWz-TA-aFa">
+                                            <rect key="frame" x="15" y="205" width="438" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Socket Timeout:" id="FBu-jO-fE2">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GGZ-MV-HkT">
+                                            <rect key="frame" x="15" y="237" width="438" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Connect Timeout:" id="09A-BD-6ph">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ITT-FC-hwp">
+                                            <rect key="frame" x="459" y="235" width="96" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="96" id="37l-ee-eBw"/>
+                                                <constraint firstAttribute="height" constant="22" id="8dx-ou-NaW"/>
+                                            </constraints>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="I13-Rp-3d3">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="timeoutTextFieldChanged:" target="-2" id="Xno-wX-nfy"/>
+                                            </connections>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VI2-on-GQT">
+                                            <rect key="frame" x="459" y="203" width="96" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="22" id="9iB-8l-hm2"/>
+                                                <constraint firstAttribute="width" constant="96" id="CCn-sa-3SF"/>
+                                            </constraints>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="xfg-p9-fck">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="timeoutTextFieldChanged:" target="-2" id="5up-66-lFa"/>
+                                            </connections>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hMf-Pb-ISt">
+                                            <rect key="frame" x="561" y="237" width="23" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="ms" id="yya-oD-vWA">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EiZ-D2-Asg">
+                                            <rect key="frame" x="561" y="205" width="23" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="ms" id="Ovb-mh-nmG">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="hMf-Pb-ISt" firstAttribute="leading" secondItem="ITT-FC-hwp" secondAttribute="trailing" constant="8" id="6C4-4B-BZ5"/>
+                                        <constraint firstItem="sWz-TA-aFa" firstAttribute="top" secondItem="VI2-on-GQT" secondAttribute="bottom" constant="-19" id="6un-2D-RFG"/>
+                                        <constraint firstItem="EiZ-D2-Asg" firstAttribute="leading" secondItem="VI2-on-GQT" secondAttribute="trailing" constant="8" id="Es8-dU-U9q"/>
+                                        <constraint firstItem="VI2-on-GQT" firstAttribute="leading" secondItem="sWz-TA-aFa" secondAttribute="trailing" constant="8" id="Ihd-at-muP"/>
+                                        <constraint firstAttribute="trailing" secondItem="hMf-Pb-ISt" secondAttribute="trailing" constant="17" id="MFc-bT-Raa"/>
+                                        <constraint firstItem="ITT-FC-hwp" firstAttribute="leading" secondItem="GGZ-MV-HkT" secondAttribute="trailing" constant="8" id="Uhk-sg-xjH"/>
+                                        <constraint firstItem="ITT-FC-hwp" firstAttribute="top" secondItem="CrC-ha-OVx" secondAttribute="top" constant="3" id="c1C-wn-NFt"/>
+                                        <constraint firstItem="GGZ-MV-HkT" firstAttribute="top" secondItem="ITT-FC-hwp" secondAttribute="bottom" constant="-19" id="d6u-eB-bwc"/>
+                                        <constraint firstItem="GGZ-MV-HkT" firstAttribute="leading" secondItem="CrC-ha-OVx" secondAttribute="leading" constant="17" id="jxV-6l-RAb"/>
+                                        <constraint firstItem="hMf-Pb-ISt" firstAttribute="top" secondItem="ITT-FC-hwp" secondAttribute="bottom" constant="-19" id="k5h-o9-l9C"/>
+                                        <constraint firstAttribute="trailing" secondItem="EiZ-D2-Asg" secondAttribute="trailing" constant="17" id="lPg-Gg-LeG"/>
+                                        <constraint firstItem="sWz-TA-aFa" firstAttribute="leading" secondItem="CrC-ha-OVx" secondAttribute="leading" constant="17" id="lkW-ud-Y3l"/>
+                                        <constraint firstItem="EiZ-D2-Asg" firstAttribute="top" secondItem="VI2-on-GQT" secondAttribute="bottom" constant="-19" id="mJw-C5-Bu9"/>
+                                        <constraint firstItem="VI2-on-GQT" firstAttribute="top" secondItem="ITT-FC-hwp" secondAttribute="bottom" constant="10" id="w6v-AL-qkZ"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>
