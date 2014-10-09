@@ -113,7 +113,7 @@ static BOOL testLocalPortAvailable(unsigned short port)
     return result;
 }
 
-- (id)init
+- (instancetype)init
 {
     if (self = [super init]) {
         self.portForwardings = [NSMutableArray array];

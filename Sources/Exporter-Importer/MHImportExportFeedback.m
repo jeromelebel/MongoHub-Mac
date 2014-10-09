@@ -9,7 +9,7 @@
 
 @implementation MHImportExportFeedback
 
-- (id)initWithImporterExporter:(id<MHImporterExporter>)importerExporter
+- (instancetype)initWithImporterExporter:(id<MHImporterExporter>)importerExporter
 {
     self = [self init];
     if (self) {

@@ -79,7 +79,7 @@
 @synthesize statusViewController = _statusViewController;
 @synthesize tabViewController = _tabViewController;
 
-- (id)init
+- (instancetype)init
 {
     if (self = [super initWithWindowNibName:@"MHConnectionWindow"]) {
         self.tabItemControllers = [NSMutableDictionary dictionary];

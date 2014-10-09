@@ -26,7 +26,7 @@
     unsigned long long              _dataProcessed;
 }
 
-- (id)initWithCollection:(MODCollection *)collection importPath:(NSString *)importPath;
+- (instancetype)initWithCollection:(MODCollection *)collection importPath:(NSString *)importPath;
 - (void)import;
 
 @property (nonatomic, retain, readonly) NSString *importPath;

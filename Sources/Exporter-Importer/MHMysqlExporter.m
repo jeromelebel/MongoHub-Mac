@@ -9,7 +9,7 @@
 
 @implementation MHMysqlExporter
 
-- (id)initWithCollection:(MODCollection *)collection
+- (instancetype)initWithCollection:(MODCollection *)collection
 {
     return [self init];
 }

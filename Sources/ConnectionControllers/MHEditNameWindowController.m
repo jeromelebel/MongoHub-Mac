@@ -26,7 +26,7 @@
 @synthesize label = _label;
 @synthesize callback = _callback;
 
-- (id)initWithLabel:(NSString *)label editedValue:(NSString *)editedValue
+- (instancetype)initWithLabel:(NSString *)label editedValue:(NSString *)editedValue
 {
     self = [self init];
     if (self) {

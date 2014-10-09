@@ -11,7 +11,7 @@ static NSMutableArray *_backgroundImages = nil;
 
 @implementation MHTabTitleContainerView
 
-- (id)initWithFrame:(NSRect)frame
+- (instancetype)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {

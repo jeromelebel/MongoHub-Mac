@@ -17,7 +17,7 @@
 }
 @property (nonatomic, readwrite, retain) NSString *label;
 
-- (id)initWithImporterExporter:(id<MHImporterExporter>)importerExporter;
+- (instancetype)initWithImporterExporter:(id<MHImporterExporter>)importerExporter;
 - (void)displayForWindow:(NSWindow *)window;
 - (void)start;
 - (void)close;

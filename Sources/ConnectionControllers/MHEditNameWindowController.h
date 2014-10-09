@@ -27,7 +27,7 @@
 @property (nonatomic, readonly, strong) NSString *editedValue;
 @property (nonatomic, readwrite, copy) void (^callback)(MHEditNameWindowController *controller);
 
-- (id)initWithLabel:(NSString *)label editedValue:(NSString *)editedValue;
+- (instancetype)initWithLabel:(NSString *)label editedValue:(NSString *)editedValue;
 - (void)modalForWindow:(NSWindow *)window;
 
 @end

@@ -31,7 +31,7 @@
 @synthesize progressIndicator;
 @synthesize tablesPopUpButton;
 
-- (id)init
+- (instancetype)init
 {
     self = [super initWithWindowNibName:@"MysqlImport"];
     return self;

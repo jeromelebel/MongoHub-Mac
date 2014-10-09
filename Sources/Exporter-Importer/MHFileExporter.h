@@ -18,7 +18,7 @@
     NSError                     *_error;
 }
 
-- (id)initWithCollection:(MODCollection *)collection exportPath:(NSString *)exportPath;
+- (instancetype)initWithCollection:(MODCollection *)collection exportPath:(NSString *)exportPath;
 - (void)export;
 
 @property (nonatomic, retain, readonly) NSString *exportPath;

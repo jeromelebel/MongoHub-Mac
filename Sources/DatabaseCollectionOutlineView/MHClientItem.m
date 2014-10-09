@@ -20,7 +20,7 @@
 
 @synthesize client = _client, databaseItems = _databaseItems;
 
-- (id)initWithClient:(MODClient *)client
+- (instancetype)initWithClient:(MODClient *)client
 {
     NSParameterAssert(client);
     if (self = [self init]) {

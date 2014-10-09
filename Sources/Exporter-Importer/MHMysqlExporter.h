@@ -14,7 +14,7 @@
     MODCollection *_collection;
 }
 
-- (id)initWithCollection:(MODCollection *)collection;
+- (instancetype)initWithCollection:(MODCollection *)collection;
 - (BOOL)exportWithError:(NSError **)error;
 
 @end

@@ -17,6 +17,6 @@
 @property (nonatomic, retain) NSString *sqlKey;
 @property (nonatomic, retain) NSString *mongoKey;
 
-- (id)initWithSqlKey:(NSString *)pStr1 andMongoKey:(NSString *)pStr2;
+- (instancetype)initWithSqlKey:(NSString *)pStr1 andMongoKey:(NSString *)pStr2;
 
 @end

@@ -30,7 +30,7 @@ static void initializeImages(void)
 
 @synthesize selected = _selected, tabViewController = _tabViewController;
 
-- (id)initWithFrame:(NSRect)frame
+- (instancetype)initWithFrame:(NSRect)frame
 {
     initializeImages();
     self = [super initWithFrame:frame];

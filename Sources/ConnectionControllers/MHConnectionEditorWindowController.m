@@ -139,7 +139,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 @synthesize selectKeyFileButton = _selectKeyFileButton;
 @synthesize addSaveButton = _addSaveButton;
 
-- (id)init
+- (instancetype)init
 {
     self = [super initWithWindowNibName:@"MHConnectionEditorWindow"];
     return self;

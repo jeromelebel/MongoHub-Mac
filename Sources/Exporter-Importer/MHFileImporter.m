@@ -22,7 +22,7 @@
 
 @synthesize collection = _collection, importPath = _importPath, importedDocumentCount = _importedDocumentCount, fileRead = _fileRead, pendingDocuments = _pendingDocuments, fileDescriptor = _fileDescriptor, error = _error;
 
-- (id)initWithCollection:(MODCollection *)collection importPath:(NSString *)importPath
+- (instancetype)initWithCollection:(MODCollection *)collection importPath:(NSString *)importPath
 {
     if (self = [self init]) {
         _collection = [collection retain];

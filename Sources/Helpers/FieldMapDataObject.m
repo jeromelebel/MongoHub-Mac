@@ -14,7 +14,7 @@
 @synthesize sqlKey;
 @synthesize mongoKey;
 
-- (id)initWithSqlKey:(NSString *)pStr1 andMongoKey:(NSString *)pStr2 {
+- (instancetype)initWithSqlKey:(NSString *)pStr1 andMongoKey:(NSString *)pStr2 {
     if (! (self = [super init])) {
         NSLog(@"MyDataObject **** ERROR : [super init] failed ***");
         return self;

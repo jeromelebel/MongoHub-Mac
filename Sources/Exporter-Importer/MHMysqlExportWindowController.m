@@ -28,7 +28,7 @@
 @synthesize tablesPopUpButton;
 @synthesize fieldMapTableController;
 
-- (id)init {
+- (instancetype)init {
     self = [super initWithWindowNibName:@"MysqlExport"];
     return self;
 }

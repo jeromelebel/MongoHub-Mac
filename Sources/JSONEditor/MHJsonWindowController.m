@@ -22,7 +22,7 @@
 @synthesize progressIndicator = _progressIndicator;
 @synthesize syntaxColoringController = _syntaxColoringController;
 
-- (id)init
+- (instancetype)init
 {
     self = [super initWithWindowNibName:@"MHJsonWindow"];
     return self;

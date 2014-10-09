@@ -17,7 +17,7 @@
 
 @synthesize collection = _collection, exportPath = _exportPath, error = _error;
 
-- (id)initWithCollection:(MODCollection *)collection exportPath:(NSString *)exportPath
+- (instancetype)initWithCollection:(MODCollection *)collection exportPath:(NSString *)exportPath
 {
     if (self = [self init]) {
         _collection = [collection retain];
