@@ -25,7 +25,7 @@
 @synthesize resultsOutlineViewController = _resultsOutlineViewController;
 @synthesize outlineView = _outlineView;
 
-- (id)initWithClient:(MODClient *)client
+- (instancetype)initWithClient:(MODClient *)client
 {
     self = [super init];
     if (self) {
