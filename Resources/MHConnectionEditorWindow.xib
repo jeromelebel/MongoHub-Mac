@@ -534,6 +534,9 @@ Gw
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <outlet property="nextKeyView" destination="34" id="LhH-Ir-j6u"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>
