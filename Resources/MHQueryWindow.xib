@@ -434,14 +434,14 @@ CA
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" smartInsertDelete="YES" id="204">
-                                                    <rect key="frame" x="0.0" y="0.0" width="542" height="333"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="542" height="349"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <size key="minSize" width="582" height="349"/>
-                                                    <size key="maxSize" width="582" height="10000000"/>
+                                                    <size key="maxSize" width="584" height="10000000"/>
                                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <size key="minSize" width="582" height="349"/>
-                                                    <size key="maxSize" width="582" height="10000000"/>
+                                                    <size key="maxSize" width="584" height="10000000"/>
                                                 </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
