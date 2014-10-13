@@ -79,12 +79,9 @@
 @synthesize statusViewController = _statusViewController;
 @synthesize tabViewController = _tabViewController;
 
-- (instancetype)init
+- (NSString *)windowNibName
 {
-    if (self = [super initWithWindowNibName:@"MHConnectionWindow"]) {
-        self.tabItemControllers = [NSMutableDictionary dictionary];
-    }
-    return self;
+    return @"MHConnectionWindow2";
 }
 
 - (void)dealloc
@@ -115,11 +112,14 @@
     _serverMonitorTimer = nil;
     self.client = nil;
     self.clientItem = nil;
+    self.tabItemControllers = nil;
 }
 
 - (void)awakeFromNib
 {
     NSView *tabView = self.tabViewController.view;
+    
+    self.tabItemControllers = [NSMutableDictionary dictionary];
     
     [[_splitView.subviews objectAtIndex:1] addSubview:tabView];
     tabView.frame = tabView.superview.bounds;
@@ -768,11 +768,6 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 @end
 
 @implementation MHConnectionWindowController(NSOutlineViewDataSource)
-
-- (void)prout:(id)sender
-{
-    
-}
 
 - (NSMenu *)databaseCollectionOutlineView:(MHDatabaseCollectionOutlineView *)outlineView contextualMenuWithEvent:(NSEvent *)event
 {
