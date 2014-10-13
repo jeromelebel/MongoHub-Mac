@@ -680,6 +680,11 @@
     [line[@"-"] setAction:@selector(updateRemoveOperatorAction:)];
     [line[@"-"] setTarget:self];
     [line[@"popup"] setAction:@selector(updateOperatorPopButtonAction:)];
+    [line[@"popup"] menu].autoenablesItems = NO;
+    for (NSMenuItem *item in [line[@"popup"] menu].itemArray) {
+        item.target = self;
+        item.action = @selector(updateOperatorPopButtonAction:);
+    }
     mainView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.updateTabView addSubview:mainView];
     
@@ -740,13 +745,24 @@
     for (NSPopUpButton *button in shouldBeUpdated) {
         NSUInteger index = [unusedIndexes firstIndex];
         
+        [button.menu itemAtIndex:index].enabled = YES;
         [button selectItemAtIndex:index];
         [unusedIndexes removeIndex:index];
         [usedIndexes addIndex:index];
     }
     for (NSDictionary *lineViews in self.updateOperatorViews) {
+        NSUInteger ii, selectedItemIndex;
+        NSMenu *menu;
+        
         [lineViews[@"+"] setEnabled:(usedIndexes.count != MHUpdateOperatorCount)];
         [lineViews[@"-"] setEnabled:(usedIndexes.count != 1)];
+        menu = lineViews[@"popup"];
+        selectedItemIndex = [lineViews[@"popup"] indexOfSelectedItem];
+        for (ii = 0; ii < MHUpdateOperatorCount; ii++) {
+            if (ii != selectedItemIndex) {
+                [menu itemAtIndex:ii].enabled = [unusedIndexes containsIndex:ii];
+            }
+        }
     }
 }
 
