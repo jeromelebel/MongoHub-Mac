@@ -314,15 +314,15 @@
     self.indexDropButton.enabled = self.indexOutlineView.selectedRowIndexes.count != 0;
 }
 
-- (void)controlTextDidChange:(NSNotification *)nd
+- (void)controlTextDidChange:(NSNotification *)notification
 {
-    NSTextField *ed = [nd object];
+    NSTextField *textField = notification.object;
     
-    if (ed == self.findCriteriaComboBox || ed == self.findFieldsTextField || ed == self.findSortTextField || ed == self.findSkipTextField || ed == self.findLimitTextField) {
+    if (textField == self.findCriteriaComboBox || textField == self.findFieldsTextField || textField == self.findSortTextField || textField == self.findSkipTextField || textField == self.findLimitTextField) {
         [self findQueryComposer:nil];
-    } else if (ed == self.updateCriteriaTextField || ed == self.updateOperatorTextField) {
+    } else if (textField == self.updateCriteriaTextField || textField.superview.superview == self.updateTabView) {
         [self updateQueryComposer:nil];
-    } else if (ed == self.removeCriteriaTextField) {
+    } else if (textField == self.removeCriteriaTextField) {
         [self removeQueryComposer:nil];
     }
 
@@ -668,6 +668,7 @@
     line[@"textfield"] = [mainView viewWithTag:2];
     line[@"+"] = [mainView viewWithTag:3];
     line[@"-"] = [mainView viewWithTag:4];
+    [line[@"textfield"] setDelegate:self];
     [line[@"+"] setTarget:self];
     [line[@"+"] setAction:@selector(updateAddOperatorAction:)];
     [line[@"-"] setTarget:self];
@@ -812,7 +813,7 @@
     if (self.updateCriteriaTextField.stringValue.length > 0) {
         critical = self.updateCriteriaTextField.stringValue.copy;
     } else {
-        critical = @"".copy;
+        critical = @"{}".copy;
     }
     NSString *sets;
     if (self.updateOperatorTextField.stringValue.length > 0) {
