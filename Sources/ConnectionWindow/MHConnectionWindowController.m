@@ -226,10 +226,12 @@
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-    [self.sshTunnel stop];
-    [self.client cancelAllOperations];
-    self.client = nil;
-    [self.delegate connectionWindowControllerWillClose:self];
+    if (notification.object == self.window) {
+        [self.sshTunnel stop];
+        [self.client cancelAllOperations];
+        self.client = nil;
+        [self.delegate connectionWindowControllerWillClose:self];
+    }
 }
 
 - (MODQuery *)getDatabaseList
