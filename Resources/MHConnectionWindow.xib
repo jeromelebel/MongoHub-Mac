@@ -28,15 +28,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="636" height="506"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <splitView dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hZo-C7-Uow">
+                    <splitView autosaveName="ConnectionSplitView" dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hZo-C7-Uow">
                         <rect key="frame" x="0.0" y="0.0" width="636" height="506"/>
                         <subviews>
                             <customView id="N2V-M0-ONb">
-                                <rect key="frame" x="0.0" y="0.0" width="178" height="506"/>
+                                <rect key="frame" x="0.0" y="0.0" width="114" height="506"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XRb-wO-YvR">
-                                        <rect key="frame" x="0.0" y="20" width="178" height="486"/>
+                                        <rect key="frame" x="0.0" y="20" width="114" height="486"/>
                                         <clipView key="contentView" id="Fhd-VU-GjH">
                                             <rect key="frame" x="1" y="17" width="238" height="117"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -48,7 +48,7 @@
                                                     <color key="backgroundColor" red="0.7607843876" green="0.78039222959999999" blue="0.82745105029999999" alpha="1" colorSpace="deviceRGB"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn editable="NO" width="173" minWidth="40" maxWidth="1000" id="ikR-Sr-Q6G">
+                                                        <tableColumn editable="NO" width="109" minWidth="40" maxWidth="1000" id="ikR-Sr-Q6G">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -116,7 +116,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Etf-28-Gnw" userLabel="Extra">
-                                        <rect key="frame" x="44" y="-1" width="136" height="23"/>
+                                        <rect key="frame" x="44" y="-1" width="72" height="23"/>
                                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wvT-Dk-1zz">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -141,7 +141,7 @@
                                 </constraints>
                             </customView>
                             <customView fixedFrame="YES" id="ezB-jO-8kF">
-                                <rect key="frame" x="188" y="0.0" width="448" height="506"/>
+                                <rect key="frame" x="124" y="0.0" width="512" height="506"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </customView>
                         </subviews>

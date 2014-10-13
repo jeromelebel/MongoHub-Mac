@@ -31,6 +31,7 @@
 		023230AE15E051300075498C /* MHConnectionEditorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 023230AD15E051300075498C /* MHConnectionEditorWindowController.m */; };
 		0242F11A198922B900C73FEC /* MHMongoHubMigration6to7.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0242F119198922B800C73FEC /* MHMongoHubMigration6to7.xcmappingmodel */; };
 		0242F138198ABE3E00C73FEC /* MHMongoHubMigration7to8.m in Sources */ = {isa = PBXBuildFile; fileRef = 0242F137198ABE3E00C73FEC /* MHMongoHubMigration7to8.m */; };
+		0243B79019EC222300D06BFE /* MHConnectionWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C3D01183690E003216F7 /* MHConnectionWindow.xib */; };
 		024F67901427F3DE00956BF6 /* MODHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 024F678F1427F3DE00956BF6 /* MODHelper.m */; };
 		0252361218FECEE700286EC9 /* MHExporterImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0252361118FECEE700286EC9 /* MHExporterImporter.m */; };
 		0255B568181A9A210019739D /* MHKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255B567181A9A210019739D /* MHKeychain.m */; };
@@ -134,7 +135,6 @@
 		1D93C37C11835BB4003216F7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D93C37B11835BB4003216F7 /* QuartzCore.framework */; };
 		1D93C3B111836510003216F7 /* connecticon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C3AF11836510003216F7 /* connecticon.png */; };
 		1D93C3B211836510003216F7 /* editmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C3B011836510003216F7 /* editmenu.png */; };
-		1D93C3D11183690E003216F7 /* MHConnectionWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C3D01183690E003216F7 /* MHConnectionWindow.xib */; };
 		1D93C42C1183744D003216F7 /* collectionicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C42A1183744D003216F7 /* collectionicon.png */; };
 		1D93C42D1183744D003216F7 /* dbicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C42B1183744D003216F7 /* dbicon.png */; };
 		1D93C45411837668003216F7 /* SidebarBadgeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D93C45011837668003216F7 /* SidebarBadgeCell.m */; };
@@ -901,7 +901,6 @@
 				1D93C3B111836510003216F7 /* connecticon.png in Resources */,
 				027062BF19DF803600E6C36A /* background_blue_right@2x.png in Resources */,
 				1D93C3B211836510003216F7 /* editmenu.png in Resources */,
-				1D93C3D11183690E003216F7 /* MHConnectionWindow.xib in Resources */,
 				1D93C42C1183744D003216F7 /* collectionicon.png in Resources */,
 				1D93C42D1183744D003216F7 /* dbicon.png in Resources */,
 				0279C090189C02F600F8BACB /* MHImportExportFeedback.xib in Resources */,
@@ -912,6 +911,7 @@
 				02F2A1F71817E48B0053CB20 /* MHPreferenceWindow.xib in Resources */,
 				027062C119DF803600E6C36A /* background_blue_center@2x.png in Resources */,
 				1DA68048118875B300DFDD29 /* insertmenu.png in Resources */,
+				0243B79019EC222300D06BFE /* MHConnectionWindow.xib in Resources */,
 				1DA68049118875B300DFDD29 /* removemenu.png in Resources */,
 				1DA6804A118875B300DFDD29 /* runmenu.png in Resources */,
 				027062D219DF822600E6C36A /* mapreducemenu@2x.png in Resources */,
