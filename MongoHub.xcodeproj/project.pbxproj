@@ -32,6 +32,7 @@
 		0242F11A198922B900C73FEC /* MHMongoHubMigration6to7.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0242F119198922B800C73FEC /* MHMongoHubMigration6to7.xcmappingmodel */; };
 		0242F138198ABE3E00C73FEC /* MHMongoHubMigration7to8.m in Sources */ = {isa = PBXBuildFile; fileRef = 0242F137198ABE3E00C73FEC /* MHMongoHubMigration7to8.m */; };
 		0243B79019EC222300D06BFE /* MHConnectionWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D93C3D01183690E003216F7 /* MHConnectionWindow.xib */; };
+		0243B79219EC357700D06BFE /* MHQueryUpdateOperator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0243B79119EC357700D06BFE /* MHQueryUpdateOperator.xib */; };
 		024F67901427F3DE00956BF6 /* MODHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 024F678F1427F3DE00956BF6 /* MODHelper.m */; };
 		0252361218FECEE700286EC9 /* MHExporterImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0252361118FECEE700286EC9 /* MHExporterImporter.m */; };
 		0255B568181A9A210019739D /* MHKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255B567181A9A210019739D /* MHKeychain.m */; };
@@ -220,6 +221,7 @@
 		0242F133198ABAA900C73FEC /* MongoHub_DataModel8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel8.xcdatamodel; sourceTree = "<group>"; };
 		0242F136198ABE3E00C73FEC /* MHMongoHubMigration7to8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMongoHubMigration7to8.h; sourceTree = "<group>"; };
 		0242F137198ABE3E00C73FEC /* MHMongoHubMigration7to8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMongoHubMigration7to8.m; sourceTree = "<group>"; };
+		0243B79119EC357700D06BFE /* MHQueryUpdateOperator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHQueryUpdateOperator.xib; sourceTree = "<group>"; };
 		024F678E1427F3DE00956BF6 /* MODHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODHelper.h; sourceTree = "<group>"; };
 		024F678F1427F3DE00956BF6 /* MODHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODHelper.m; sourceTree = "<group>"; };
 		0252361018FEC2E100286EC9 /* MHExporterImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHExporterImporter.h; sourceTree = "<group>"; };
@@ -781,6 +783,7 @@
 				1D93C29F118343EF003216F7 /* MHConnectionEditorWindow.xib */,
 				1D93C3D01183690E003216F7 /* MHConnectionWindow.xib */,
 				1DF96E3C11881EB400C35AB8 /* MHEditNameWindow.xib */,
+				0243B79119EC357700D06BFE /* MHQueryUpdateOperator.xib */,
 				1DF96F9311883D5E00C35AB8 /* MHQueryWindow.xib */,
 				1D601B5511C8F24300C86274 /* MysqlImport.xib */,
 				1D26615111CFC5BE0092C6B5 /* MysqlExport.xib */,
@@ -924,6 +927,7 @@
 				1D1D65571189C5E000582917 /* servermenu.png in Resources */,
 				1D1D65651189C93400582917 /* supportmenu.png in Resources */,
 				1D1D65A31189F05600582917 /* Icon.icns in Resources */,
+				0243B79219EC357700D06BFE /* MHQueryUpdateOperator.xib in Resources */,
 				027062BE19DF803600E6C36A /* background-grey_center@2x.png in Resources */,
 				1D58BE0B118ED8D20045A044 /* mapreducemenu.png in Resources */,
 				027062B919DF803600E6C36A /* close_button@2x.png in Resources */,

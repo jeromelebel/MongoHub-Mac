@@ -20,6 +20,8 @@
 
 #define IS_OBJECT_ID(value) ([value length] == 24 && [[value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"1234567890abcdefABCDEF"]] length] == 0)
 
+#define MHUpdateOperatorCount                   9
+
 @interface MHQueryWindowController ()
 @property (nonatomic, readwrite, assign) NSSegmentedControl *segmentedControl;
 @property (nonatomic, readwrite, assign) NSTabView *tabView;
@@ -45,14 +47,19 @@
 @property (nonatomic, readwrite, assign) NSProgressIndicator *insertLoaderIndicator;
 @property (nonatomic, readwrite, strong) UKSyntaxColoredTextViewController *syntaxColoringController;
 
-@property (nonatomic, readwrite, assign) NSButton *updateButton;
-@property (nonatomic, readwrite, assign) NSTextField *updateCriteriaTextField;
-@property (nonatomic, readwrite, assign) NSTextField *updateUpdateTextField;
-@property (nonatomic, readwrite, assign) NSButton *updateUpsetCheckBox;
-@property (nonatomic, readwrite, assign) NSButton *updateMultiCheckBox;
-@property (nonatomic, readwrite, assign) NSTextField *updateResultsTextField;
-@property (nonatomic, readwrite, assign) NSTextField *updateQueryTextField;
-@property (nonatomic, readwrite, assign) NSProgressIndicator *updateQueryLoaderIndicator;
+@property (nonatomic, readwrite, weak) IBOutlet NSView *updateTabView;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *updateButton;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *updateCriteriaTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *updateUpsetCheckBox;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *updateMultiCheckBox;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *updateResultsTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *updateQueryTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *updateQueryLoaderIndicator;
+@property (nonatomic, readwrite, weak) IBOutlet NSPopUpButton *updateOperatorPopUpButton;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *updateOperatorTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *updateOperatorAdd;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *updateOperatorRemove;
+@property (nonatomic, readwrite, strong) NSMutableArray *updateOperatorViews;
 
 @property (nonatomic, readwrite, assign) NSButton *removeButton;
 @property (nonatomic, readwrite, assign) NSTextField *removeCriteriaTextField;
@@ -79,6 +86,12 @@
 
 @end
 
+@interface MHQueryWindowController (UpdateTab)
+- (IBAction)updateAddOperatorAction:(id)sender;
+- (IBAction)updateQueryComposer:(id)sender;
+
+@end
+
 @implementation MHQueryWindowController
 @synthesize collection = _collection, connectionStore = _connectionStore;
 @synthesize tabView = _tabView, segmentedControl = _segmentedControl;
@@ -88,7 +101,19 @@
 @synthesize insertDataTextView = _insertDataTextView, insertResultsTextField = _insertResultsTextField, insertLoaderIndicator = _insertLoaderIndicator, insertButton = _insertButton;
 @synthesize syntaxColoringController = _syntaxColoringController;
 
-@synthesize updateButton = _updateButton, updateCriteriaTextField = _updateCriteriaTextField, updateUpdateTextField = _updateUpdateTextField, updateUpsetCheckBox = _updateUpsetCheckBox, updateMultiCheckBox = _updateMultiCheckBox, updateResultsTextField = _updateResultsTextField, updateQueryTextField = _updateQueryTextField, updateQueryLoaderIndicator = _updateQueryLoaderIndicator;
+@synthesize updateTabView = _updateTabView;
+@synthesize updateButton = _updateButton;
+@synthesize updateCriteriaTextField = _updateCriteriaTextField;
+@synthesize updateUpsetCheckBox = _updateUpsetCheckBox;
+@synthesize updateMultiCheckBox = _updateMultiCheckBox;
+@synthesize updateResultsTextField = _updateResultsTextField;
+@synthesize updateQueryTextField = _updateQueryTextField;
+@synthesize updateQueryLoaderIndicator = _updateQueryLoaderIndicator;
+@synthesize updateOperatorAdd = _updateOperatorAdd;
+@synthesize updateOperatorRemove = _updateOperatorRemove;
+@synthesize updateOperatorPopUpButton = _updateOperatorPopUpButton;
+@synthesize updateOperatorTextField = _updateOperatorTextField;
+@synthesize updateOperatorViews = _updateOperatorViews;
 
 @synthesize removeButton = _removeButton, removeCriteriaTextField = _removeCriteriaTextField, removeResultsTextField = _removeResultsTextField, removeQueryTextField = _removeQueryTextField, removeQueryLoaderIndicator = _removeQueryLoaderIndicator;
 
@@ -122,6 +147,7 @@
     self.findResultsViewController = nil;
     self.collection = nil;
     self.connectionStore = nil;
+    self.updateOperatorViews = nil;
     
     [_jsonWindowControllers release];
     
@@ -212,6 +238,9 @@
 
 - (void)awakeFromNib
 {
+    self.updateOperatorViews = [NSMutableArray array];
+    [self updateAddOperatorAction:nil];
+    
     self.findResultsViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.findResultsOutlineView] autorelease];
     self.indexesOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.indexOutlineView] autorelease];
     self.mrOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.mrOutlineView] autorelease];
@@ -297,7 +326,7 @@
     
     if (ed == self.findCriteriaComboBox || ed == self.findFieldsTextField || ed == self.findSortTextField || ed == self.findSkipTextField || ed == self.findLimitTextField) {
         [self findQueryComposer:nil];
-    } else if (ed == self.updateCriteriaTextField || ed == self.updateUpdateTextField) {
+    } else if (ed == self.updateCriteriaTextField || ed == self.updateOperatorTextField) {
         [self updateQueryComposer:nil];
     } else if (ed == self.removeCriteriaTextField) {
         [self removeQueryComposer:nil];
@@ -585,6 +614,142 @@
 
 @implementation MHQueryWindowController (UpdateTab)
 
+- (void)_updatePrint
+{
+    NSUInteger ii = 0;
+    
+    for (NSDictionary *views in self.updateOperatorViews) {
+        NSLog(@"%lu %@ %@", (unsigned long)ii, [views[@"popup"] titleOfSelectedItem], views[@"main"]);
+        ii++;
+    }
+}
+
+- (NSUInteger)_updateIndexOfOperatorWithView:(NSView *)view
+{
+    NSUInteger index = NSNotFound, ii;
+    
+    ii = 0;
+    for (NSDictionary *views in self.updateOperatorViews) {
+        if ([views.allValues containsObject:view]) {
+            index = ii;
+            break;
+        }
+        ii++;
+    }
+    return index;
+}
+
+- (void)_updateCreateLayoutConstraintsWithOperatorMainView:(NSView *)mainView previousView:(NSView *)previousView
+{
+    for (NSLayoutConstraint *constraint in self.updateTabView.constraints) {
+        if (constraint.firstItem == mainView) {
+            [self.updateTabView removeConstraint:constraint];
+        }
+    }
+    [self.updateTabView addConstraint:[NSLayoutConstraint constraintWithItem:mainView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:previousView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:8.0]];
+    [self.updateTabView addConstraint:[NSLayoutConstraint constraintWithItem:mainView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.updateTabView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0]];
+    [self.updateTabView addConstraint:[NSLayoutConstraint constraintWithItem:mainView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.updateTabView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0]];
+}
+
+- (IBAction)updateAddOperatorAction:(id)sender
+{
+    NSArray *topLevelObjects = nil;
+    NSMutableDictionary *line = [NSMutableDictionary dictionary];
+    NSView *mainView = nil;
+    NSView *previousView;
+    NSUInteger previousViewIndex;
+    
+    [NSBundle.mainBundle loadNibNamed:@"MHQueryUpdateOperator" owner:nil topLevelObjects:&topLevelObjects];
+    NSAssert(topLevelObjects, @"Should have top level objects");
+    NSAssert(topLevelObjects.count == 2, @"Should have only one top level object");
+    for (id topLevelObject in topLevelObjects) {
+        if ([topLevelObject isKindOfClass:NSView.class]) {
+            NSAssert(mainView == nil, @"should have only one NSView as top level object");
+            mainView = topLevelObject;
+        }
+    }
+    NSAssert(mainView != nil, @"Should have found one top level object");
+    line[@"main"] = mainView;
+    line[@"popup"] = [mainView viewWithTag:1];
+    line[@"textfield"] = [mainView viewWithTag:2];
+    line[@"+"] = [mainView viewWithTag:3];
+    line[@"-"] = [mainView viewWithTag:4];
+    [line[@"+"] setTarget:self];
+    [line[@"+"] setAction:@selector(updateAddOperatorAction:)];
+    [line[@"-"] setTarget:self];
+    [line[@"-"] setAction:@selector(updateRemoveOperatorAction:)];
+    [line[@"-"] setTarget:self];
+    [line[@"popup"] setAction:@selector(updateOperatorPopButtonAction:)];
+    mainView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.updateTabView addSubview:mainView];
+    
+    if (sender) {
+        previousView = [sender superview];
+        previousViewIndex = [self _updateIndexOfOperatorWithView:previousView];
+    } else {
+        previousView = self.updateCriteriaTextField;
+        previousViewIndex = NSNotFound;
+    }
+    [self _updateCreateLayoutConstraintsWithOperatorMainView:mainView previousView:previousView];
+    
+    if (sender) {
+        [self.updateOperatorViews insertObject:line atIndex:previousViewIndex + 1];
+        if (self.updateOperatorViews.count > previousViewIndex + 2) {
+            [self _updateCreateLayoutConstraintsWithOperatorMainView:[[self.updateOperatorViews objectAtIndex:previousViewIndex + 2] objectForKey:@"main"] previousView:mainView];
+        }
+    } else {
+        [self.updateOperatorViews addObject:line];
+    }
+    
+    [self updateOperatorPopButtonAction:nil];
+}
+
+- (IBAction)updateRemoveOperatorAction:(id)sender
+{
+    NSView *mainView = [sender superview];
+    NSUInteger index = [self _updateIndexOfOperatorWithView:mainView];
+    
+    [mainView removeFromSuperview];
+    [self.updateOperatorViews removeObjectAtIndex:index];
+    if (index == 0) {
+        [self _updateCreateLayoutConstraintsWithOperatorMainView:[[self.updateOperatorViews objectAtIndex:index] objectForKey:@"main"] previousView:self.updateCriteriaTextField];
+    } else if (self.updateOperatorViews.count > index) {
+        [self _updateCreateLayoutConstraintsWithOperatorMainView:[[self.updateOperatorViews objectAtIndex:index] objectForKey:@"main"] previousView:[[self.updateOperatorViews objectAtIndex:index - 1] objectForKey:@"main"]];
+    }
+
+    [self updateOperatorPopButtonAction:nil];
+}
+
+- (IBAction)updateOperatorPopButtonAction:(id)sender
+{
+    NSMutableIndexSet *usedIndexes = [NSMutableIndexSet indexSet];
+    NSMutableIndexSet *unusedIndexes = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(0, MHUpdateOperatorCount)];
+    NSMutableArray *shouldBeUpdated = [NSMutableArray array];
+    
+    for (NSDictionary *lineViews in self.updateOperatorViews) {
+        NSPopUpButton *popupButton = lineViews[@"popup"];
+        NSUInteger selectedItem = [popupButton indexOfSelectedItem];
+        
+        if ([usedIndexes containsIndex:selectedItem]) {
+            [shouldBeUpdated addObject:popupButton];
+        } else {
+            [usedIndexes addIndex:selectedItem];
+            [unusedIndexes removeIndex:selectedItem];
+        }
+    }
+    for (NSPopUpButton *button in shouldBeUpdated) {
+        NSUInteger index = [unusedIndexes firstIndex];
+        
+        [button selectItemAtIndex:index];
+        [unusedIndexes removeIndex:index];
+        [usedIndexes addIndex:index];
+    }
+    for (NSDictionary *lineViews in self.updateOperatorViews) {
+        [lineViews[@"+"] setEnabled:(usedIndexes.count != MHUpdateOperatorCount)];
+        [lineViews[@"-"] setEnabled:(usedIndexes.count != 1)];
+    }
+}
+
 - (IBAction)updateQuery:(id)sender
 {
     MODSortedMutableDictionary *criteria = nil;
@@ -594,7 +759,7 @@
     [self.updateQueryLoaderIndicator startAnimation:nil];
     criteria = [MODRagelJsonParser objectsFromJson:self.updateCriteriaTextField.stringValue withError:&error];
     if (!error) {
-        update = [MODRagelJsonParser objectsFromJson:self.updateUpdateTextField.stringValue withError:&error];
+        update = [MODRagelJsonParser objectsFromJson:self.updateOperatorTextField.stringValue withError:&error];
     }
     if (error) {
         self.updateResultsTextField.stringValue = @"Error!";
@@ -640,8 +805,8 @@
         critical = @"".copy;
     }
     NSString *sets;
-    if (self.updateUpdateTextField.stringValue.length > 0) {
-        sets = [[NSString alloc] initWithFormat:@", { $set: %@ }", self.updateUpdateTextField.stringValue];
+    if (self.updateOperatorTextField.stringValue.length > 0) {
+        sets = [[NSString alloc] initWithFormat:@", { $set: %@ }", self.updateOperatorTextField.stringValue];
     } else {
         sets = [[NSString alloc] initWithString:@""];
     }

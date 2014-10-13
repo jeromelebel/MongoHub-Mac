@@ -26,6 +26,7 @@
                 <outlet property="_insertDataTextView" destination="204" id="GT2-ad-33c"/>
                 <outlet property="_insertLoaderIndicator" destination="495" id="WhH-o6-NCg"/>
                 <outlet property="_insertResultsTextField" destination="191" id="5jQ-kh-645"/>
+                <outlet property="_monTest" destination="zZC-YL-h8X" id="Ywq-y1-pJm"/>
                 <outlet property="_mrCriteriaTextField" destination="321" id="G5W-nf-c6m"/>
                 <outlet property="_mrLoaderIndicator" destination="501" id="w2k-be-olb"/>
                 <outlet property="_mrMapFunctionTextView" destination="303" id="pUH-WT-yzA"/>
@@ -45,8 +46,13 @@
                 <outlet property="_updateQueryLoaderIndicator" destination="487" id="Gqp-Ph-2Ex"/>
                 <outlet property="_updateQueryTextField" destination="135" id="n2B-Wm-ZVJ"/>
                 <outlet property="_updateResultsTextField" destination="155" id="d9f-OV-Oly"/>
-                <outlet property="_updateUpdateTextField" destination="140" id="wLb-8S-MoD"/>
                 <outlet property="_updateUpsetCheckBox" destination="146" id="0hR-Jh-f9U"/>
+                <outlet property="updateCriteriaTextField" destination="144" id="nJi-Ut-vFm"/>
+                <outlet property="updateMultiCheckBox" destination="1397" id="l0D-PE-Osl"/>
+                <outlet property="updateQueryTextField" destination="135" id="dvi-vW-eMH"/>
+                <outlet property="updateResultsTextField" destination="155" id="5Wo-ru-ZfE"/>
+                <outlet property="updateTabView" destination="707" id="gsd-yR-b2m"/>
+                <outlet property="updateUpsetCheckBox" destination="146" id="GlI-aN-RwT"/>
                 <outlet property="view" destination="1392" id="1393"/>
             </connections>
         </customObject>
@@ -505,7 +511,7 @@ CA
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="135">
-                                        <rect key="frame" x="-2" y="440" width="36" height="14"/>
+                                        <rect key="frame" x="-2" y="440" width="588" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="gDH-f1-QwI"/>
                                         </constraints>
@@ -519,6 +525,7 @@ CA
                                         <rect key="frame" x="568" y="439" width="16" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="9cE-1G-TDU"/>
+                                            <constraint firstAttribute="height" constant="16" id="qAz-NH-2jg"/>
                                         </constraints>
                                     </progressIndicator>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="146">
@@ -563,32 +570,6 @@ CA
                                             <action selector="updateQuery:" target="-2" id="154"/>
                                         </connections>
                                     </button>
-                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="138">
-                                        <rect key="frame" x="-2" y="359" width="42" height="14"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="14" id="IHH-8M-SO0"/>
-                                            <constraint firstAttribute="width" constant="38" id="dwN-vQ-AAy"/>
-                                        </constraints>
-                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Update" id="139">
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="140">
-                                        <rect key="frame" x="44" y="357" width="540" height="19"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="19" id="WVH-8W-fap"/>
-                                        </constraints>
-                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="{ }" drawsBackground="YES" id="141">
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <connections>
-                                            <outlet property="delegate" destination="-2" id="373"/>
-                                        </connections>
-                                    </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="142">
                                         <rect key="frame" x="-2" y="384" width="38" height="14"/>
                                         <constraints>
@@ -620,24 +601,20 @@ CA
                                     <constraint firstItem="148" firstAttribute="baseline" secondItem="146" secondAttribute="baseline" id="1JH-zq-Bti"/>
                                     <constraint firstItem="155" firstAttribute="leading" secondItem="707" secondAttribute="leading" id="3Ax-e0-T7o"/>
                                     <constraint firstItem="487" firstAttribute="top" secondItem="707" secondAttribute="top" id="4e4-Cu-Awq"/>
-                                    <constraint firstItem="140" firstAttribute="baseline" secondItem="138" secondAttribute="baseline" id="4lK-Ic-uY2"/>
                                     <constraint firstItem="135" firstAttribute="leading" secondItem="707" secondAttribute="leading" id="8eR-zD-8j4"/>
                                     <constraint firstItem="148" firstAttribute="baseline" secondItem="1397" secondAttribute="baseline" id="ANn-pn-FHo"/>
                                     <constraint firstAttribute="trailing" secondItem="487" secondAttribute="trailing" id="B1J-D6-peh"/>
                                     <constraint firstItem="148" firstAttribute="top" secondItem="487" secondAttribute="bottom" constant="8" id="D4x-ZG-JZ9"/>
-                                    <constraint firstItem="140" firstAttribute="leading" secondItem="138" secondAttribute="trailing" constant="6" id="Ddv-P4-lzV"/>
                                     <constraint firstAttribute="trailing" secondItem="144" secondAttribute="trailing" id="FV5-Q3-LXG"/>
-                                    <constraint firstItem="140" firstAttribute="top" secondItem="144" secondAttribute="bottom" constant="6" id="IeQ-Eh-KFg"/>
                                     <constraint firstAttribute="trailing" secondItem="155" secondAttribute="trailing" id="OLE-L7-t1y"/>
                                     <constraint firstAttribute="trailing" secondItem="148" secondAttribute="trailing" id="P8f-FF-lWw"/>
                                     <constraint firstItem="144" firstAttribute="leading" secondItem="142" secondAttribute="trailing" constant="10" id="Q7s-fm-uQp"/>
                                     <constraint firstItem="142" firstAttribute="leading" secondItem="707" secondAttribute="leading" id="Z4K-hA-VPQ"/>
                                     <constraint firstItem="146" firstAttribute="leading" secondItem="707" secondAttribute="leading" id="bgl-9P-eWc"/>
                                     <constraint firstItem="135" firstAttribute="centerY" secondItem="487" secondAttribute="centerY" id="dgF-V6-Fu4"/>
-                                    <constraint firstAttribute="trailing" secondItem="140" secondAttribute="trailing" id="eiz-wR-mt4"/>
                                     <constraint firstItem="144" firstAttribute="baseline" secondItem="142" secondAttribute="baseline" id="o0p-8U-kIi"/>
-                                    <constraint firstItem="138" firstAttribute="leading" secondItem="707" secondAttribute="leading" id="o3A-Oj-he2"/>
                                     <constraint firstItem="1397" firstAttribute="leading" secondItem="146" secondAttribute="trailing" constant="17" id="pc2-94-bkg"/>
+                                    <constraint firstAttribute="trailing" secondItem="135" secondAttribute="trailing" id="sPl-Sg-GQn"/>
                                     <constraint firstAttribute="bottom" secondItem="155" secondAttribute="bottom" constant="20" id="z2N-7Y-Dtt"/>
                                     <constraint firstItem="144" firstAttribute="top" secondItem="148" secondAttribute="bottom" constant="8" id="zZC-YL-h8X"/>
                                 </constraints>

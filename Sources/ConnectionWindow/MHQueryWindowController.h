@@ -40,14 +40,19 @@
     IBOutlet NSProgressIndicator                *_insertLoaderIndicator;
     UKSyntaxColoredTextViewController           *_syntaxColoringController;
     
-    IBOutlet NSButton                           *_updateButton;
-    IBOutlet NSTextField                        *_updateCriteriaTextField;
-    IBOutlet NSTextField                        *_updateUpdateTextField;
-    IBOutlet NSButton                           *_updateUpsetCheckBox;
-    IBOutlet NSButton                           *_updateMultiCheckBox;
-    IBOutlet NSTextField                        *_updateResultsTextField;
-    IBOutlet NSTextField                        *_updateQueryTextField;
-    IBOutlet NSProgressIndicator                *_updateQueryLoaderIndicator;
+    NSView                                      *_updateTabView;
+    NSButton                                    *_updateButton;
+    NSTextField                                 *_updateCriteriaTextField;
+    NSButton                                    *_updateUpsetCheckBox;
+    NSButton                                    *_updateMultiCheckBox;
+    NSTextField                                 *_updateResultsTextField;
+    NSTextField                                 *_updateQueryTextField;
+    NSProgressIndicator                         *_updateQueryLoaderIndicator;
+    NSButton                                    *_updateOperatorAdd;
+    NSButton                                    *_updateOperatorRemove;
+    NSPopUpButton                               *_updateOperatorPopUpButton;
+    NSTextField                                 *_updateOperatorTextField;
+    NSMutableArray                              *_updateOperatorViews;
     
     IBOutlet NSButton                           *_removeButton;
     IBOutlet NSTextField                        *_removeCriteriaTextField;
@@ -69,6 +74,8 @@
     IBOutlet NSProgressIndicator                *_mrLoaderIndicator;
     MHResultsOutlineViewController              *_mrOutlineViewController;
     IBOutlet NSOutlineView                      *_mrOutlineView;
+    
+    IBOutlet id                                 _monTest;
 }
 
 @property (nonatomic, readonly, retain) MODCollection *collection;
@@ -93,12 +100,6 @@
 
 @interface MHQueryWindowController (InsertTab)
 - (IBAction)insertQuery:(id)sender;
-
-@end
-
-@interface MHQueryWindowController (UpdateTab)
-- (IBAction)updateQuery:(id)sender;
-- (IBAction)updateQueryComposer:(id)sender;
 
 @end
 
