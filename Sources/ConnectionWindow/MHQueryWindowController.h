@@ -48,9 +48,6 @@
     NSTextField                                 *_updateResultsTextField;
     NSTextField                                 *_updateQueryTextField;
     NSProgressIndicator                         *_updateQueryLoaderIndicator;
-    NSButton                                    *_updateOperatorAdd;
-    NSButton                                    *_updateOperatorRemove;
-    NSPopUpButton                               *_updateOperatorPopUpButton;
     NSTextField                                 *_updateOperatorTextField;
     NSMutableArray                              *_updateOperatorViews;
     

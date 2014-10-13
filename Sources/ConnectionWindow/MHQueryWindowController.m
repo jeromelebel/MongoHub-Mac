@@ -55,10 +55,7 @@
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *updateResultsTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *updateQueryTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *updateQueryLoaderIndicator;
-@property (nonatomic, readwrite, weak) IBOutlet NSPopUpButton *updateOperatorPopUpButton;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *updateOperatorTextField;
-@property (nonatomic, readwrite, weak) IBOutlet NSButton *updateOperatorAdd;
-@property (nonatomic, readwrite, weak) IBOutlet NSButton *updateOperatorRemove;
 @property (nonatomic, readwrite, strong) NSMutableArray *updateOperatorViews;
 
 @property (nonatomic, readwrite, assign) NSButton *removeButton;
@@ -109,9 +106,6 @@
 @synthesize updateResultsTextField = _updateResultsTextField;
 @synthesize updateQueryTextField = _updateQueryTextField;
 @synthesize updateQueryLoaderIndicator = _updateQueryLoaderIndicator;
-@synthesize updateOperatorAdd = _updateOperatorAdd;
-@synthesize updateOperatorRemove = _updateOperatorRemove;
-@synthesize updateOperatorPopUpButton = _updateOperatorPopUpButton;
 @synthesize updateOperatorTextField = _updateOperatorTextField;
 @synthesize updateOperatorViews = _updateOperatorViews;
 
