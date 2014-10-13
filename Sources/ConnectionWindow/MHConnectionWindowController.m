@@ -81,7 +81,7 @@
 
 - (NSString *)windowNibName
 {
-    return @"MHConnectionWindow2";
+    return @"MHConnectionWindow";
 }
 
 - (void)dealloc
