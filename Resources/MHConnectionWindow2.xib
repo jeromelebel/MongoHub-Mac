@@ -42,7 +42,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowHeight="13" indentationPerLevel="14" autoresizesOutlineColumn="YES" outlineTableColumn="ikR-Sr-Q6G" id="PxI-If-Mr2" customClass="MHDatabaseCollectionOutlineView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="238" height="117"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="176" height="20"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="7"/>
                                                     <color key="backgroundColor" red="0.7607843876" green="0.78039222959999999" blue="0.82745105029999999" alpha="1" colorSpace="deviceRGB"/>
@@ -71,7 +71,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="PCI-uy-7qv">
-                                            <rect key="frame" x="1" y="118.89483594894409" width="237.76791381835938" height="15"/>
+                                            <rect key="frame" x="1" y="118.89483594894409" width="238" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="sj4-Fe-2Cd">
@@ -255,7 +255,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" headerView="Xwu-6g-Tfw" id="x5k-zV-svZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="751" height="247"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="751" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
