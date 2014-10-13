@@ -47,7 +47,6 @@
 
 - (void)updateToolbarItems;
 
-- (void)closeMongoDB;
 - (void)fetchServerStatusDelta;
 
 - (MHDatabaseItem *)selectedDatabaseItem;
@@ -89,7 +88,10 @@
     [self.window removeObserver:self forKeyPath:@"firstResponder"];
     [self.tabViewController removeObserver:self forKeyPath:@"selectedTabIndex"];
     self.tabItemControllers = nil;
-    [self closeMongoDB];
+    self.clientItem = nil;
+    [_serverMonitorTimer invalidate];
+    [_serverMonitorTimer release];
+    _serverMonitorTimer = nil;
     self.connectionStore = nil;
     self.sshTunnel = nil;
     self.sshBindedPortMapping = nil;
@@ -103,16 +105,6 @@
     self.statusViewController = nil;
     self.client = nil;
     [super dealloc];
-}
-
-- (void)closeMongoDB
-{
-    [_serverMonitorTimer invalidate];
-    [_serverMonitorTimer release];
-    _serverMonitorTimer = nil;
-    self.client = nil;
-    self.clientItem = nil;
-    self.tabItemControllers = nil;
 }
 
 - (void)awakeFromNib
@@ -203,7 +195,6 @@
     } else {
         NSString *urlString;
         
-        [self closeMongoDB];
         urlString = [self.connectionStore stringURLWithSSHMapping:nil];
         [self.delegate connectionWindowControllerLogMessage:urlString domain:[NSString stringWithFormat:@"%@.url", self.connectionStore.alias] level:@"debug"];
         self.client = [MODClient clientWihtURLString:urlString];
