@@ -664,9 +664,12 @@
 - (SUAppcastItem *)bestValidUpdateInAppcast:(SUAppcast *)appcast forUpdater:(SUUpdater *)bundle
 {
     SUAppcastItem *result = nil;
-    BOOL shouldUseBeta = self.softwareUpdateChannel == MHSoftwareUpdateChannelBeta;
+    BOOL shouldUseBeta;
     id comparator = [MHApplicationDelegate defaultComparator];
   
+    // use beta if the user wants to use beta, or if we are using a beta version right now
+    shouldUseBeta = self.softwareUpdateChannel == MHSoftwareUpdateChannelBeta
+                    || [NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"] rangeOfString:@"b"].location != NSNotFound;
     for (SUAppcastItem *item in appcast.items) {
         if ([self hostSupportsItem:item] && (shouldUseBeta || ![[item.propertiesDictionary objectForKey:@"beta"] isEqualToString:@"1"])) {
           if (result == nil) {
