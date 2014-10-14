@@ -55,7 +55,6 @@
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *updateResultsTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *updateQueryTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *updateQueryLoaderIndicator;
-@property (nonatomic, readwrite, weak) IBOutlet NSTextField *updateOperatorTextField;
 @property (nonatomic, readwrite, strong) NSMutableArray *updateOperatorViews;
 
 @property (nonatomic, readwrite, assign) NSButton *removeButton;
@@ -106,7 +105,6 @@
 @synthesize updateResultsTextField = _updateResultsTextField;
 @synthesize updateQueryTextField = _updateQueryTextField;
 @synthesize updateQueryLoaderIndicator = _updateQueryLoaderIndicator;
-@synthesize updateOperatorTextField = _updateOperatorTextField;
 @synthesize updateOperatorViews = _updateOperatorViews;
 
 @synthesize removeButton = _removeButton, removeCriteriaTextField = _removeCriteriaTextField, removeResultsTextField = _removeResultsTextField, removeQueryTextField = _removeQueryTextField, removeQueryLoaderIndicator = _removeQueryLoaderIndicator;
@@ -150,7 +148,6 @@
 
 - (void)droppedNotification:(NSNotification *)notification
 {
-    NSLog(@"notif %@ %@", notification.name, notification.object);
     NSParameterAssert(notification.object == self.collection || notification.object == self.collection.database);
     if (notification.object == self.collection || notification.object == self.collection.database) {
         [self.tabViewController removeTabItemViewController:self];
@@ -233,10 +230,12 @@
             query = [NSString stringWithFormat:@"{\"_id\": %@}",value];
         } else if ([value hasPrefix:@"\"$oid\""] || [value hasPrefix:@"'$iod'"]) {
             query = [NSString stringWithFormat:@"{\"_id\": {%@}}",value];
+        } else if ([value rangeOfString:@":"].location != NSNotFound) {
+            query = [NSString stringWithFormat:@"{ %@ }", value];
         } else if ([value hasPrefix:@"\""]) {
-            query = [NSString stringWithFormat:@"{\"_id\": %@}",value];
+            query = [NSString stringWithFormat:@"{\"_id\": %@}", value];
         } else {
-            query = [NSString stringWithFormat:@"{\"_id\": \"%@\"}",value];
+            query = [NSString stringWithFormat:@"{\"_id\": \"%@\"}", value];
         }
     }
     if (replace) {
@@ -469,7 +468,11 @@
             [NSViewHelpers cancelColorForTarget:self.findTotalResultsTextField selector:@selector(setTextColor:)];
             currentColor = self.findTotalResultsTextField.textColor;
             self.findTotalResultsTextField.textColor = flashColor;
-            [NSViewHelpers setColor:currentColor fromColor:flashColor toTarget:self.findTotalResultsTextField withSelector:@selector(setTextColor:) delay:1];
+            [NSViewHelpers setColor:currentColor
+                          fromColor:flashColor
+                           toTarget:self.findTotalResultsTextField
+                       withSelector:@selector(setTextColor:)
+                              delay:1];
             [self.findQueryLoaderIndicator stopAnimation:nil];
         }];
     }
@@ -807,47 +810,75 @@
 
 - (IBAction)updateQuery:(id)sender
 {
-    MODSortedMutableDictionary *criteria = nil;
-    MODSortedMutableDictionary *update = nil;
+    MODSortedMutableDictionary *query = nil;
+    MODSortedMutableDictionary *update = [MODSortedMutableDictionary sortedDictionary];
     NSError *error = nil;
     
     [self.updateQueryLoaderIndicator startAnimation:nil];
-    criteria = [MODRagelJsonParser objectsFromJson:self.updateCriteriaTextField.stringValue withError:&error];
-    if (!error) {
-        update = [MODRagelJsonParser objectsFromJson:self.updateOperatorTextField.stringValue withError:&error];
-    }
+    query = [MODRagelJsonParser objectsFromJson:[self formatedJsonWithTextField:self.updateCriteriaTextField replace:NO emptyValid:NO] withError:&error];
     if (error) {
-        self.updateResultsTextField.stringValue = @"Error!";
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
-        [self.updateQueryLoaderIndicator stopAnimation:nil];
+        NSBeginAlertSheet(@"Error In Query", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
         [NSViewHelpers cancelColorForTarget:self.updateResultsTextField selector:@selector(setTextColor:)];
-        [NSViewHelpers setColor:self.updateResultsTextField.textColor fromColor:NSColor.redColor toTarget:self.updateResultsTextField withSelector:@selector(setTextColor:) delay:1];
-    } else {
-        [self.collection countWithCriteria:criteria readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
-            MODSortedMutableDictionary *realUpdate;
-            if (self.updateMultiCheckBox.state == 0 && count > 0) {
-                count = 1;
-            }
-            
-            realUpdate = [[MODSortedMutableDictionary alloc] initWithObjectsAndKeys:update, @"$set", nil];
-            [self.collection updateWithCriteria:criteria update:realUpdate upsert:self.updateUpsetCheckBox.state multiUpdate:self.updateMultiCheckBox.state callback:^(MODQuery *mongoQuery) {
-                NSColor *flashColor;
-                
-                if (mongoQuery.error) {
-                    self.updateResultsTextField.stringValue = @"Error!";
-                    NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-                    flashColor = NSColor.redColor;
-                } else {
-                    self.updateResultsTextField.stringValue = [NSString stringWithFormat:@"Updated Documents: %lld", count];
-                    flashColor = NSColor.greenColor;
-                }
-                [self.updateQueryLoaderIndicator stopAnimation:nil];
-                [NSViewHelpers cancelColorForTarget:self.updateResultsTextField selector:@selector(setTextColor:)];
-                [NSViewHelpers setColor:self.updateResultsTextField.textColor fromColor:flashColor toTarget:self.updateResultsTextField withSelector:@selector(setTextColor:) delay:1];
-            }];
-            [realUpdate release];
-        }];
+        [NSViewHelpers setColor:self.updateResultsTextField.textColor
+                      fromColor:NSColor.redColor
+                       toTarget:self.updateResultsTextField
+                   withSelector:@selector(setTextColor:)
+                          delay:1];
+        [self.updateCriteriaTextField becomeFirstResponder];
+        self.findTotalResultsTextField.stringValue = @"";
+        return;
     }
+    for (NSDictionary *views in self.updateOperatorViews) {
+        NSTextField *textField = views[@"textfield"];
+        NSPopUpButton *popUpButton = views[@"popup"];
+        MODSortedMutableDictionary *value;
+        NSString *key;
+        
+        value = [MODRagelJsonParser objectsFromJson:[self formatedJsonWithTextField:textField replace:NO emptyValid:NO] withError:&error];
+        if (error) {
+            NSBeginAlertSheet([NSString stringWithFormat:@"Error In %@", key], @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
+            [NSViewHelpers cancelColorForTarget:self.updateResultsTextField selector:@selector(setTextColor:)];
+            [NSViewHelpers setColor:self.updateResultsTextField.textColor
+                          fromColor:NSColor.redColor
+                           toTarget:self.updateResultsTextField
+                       withSelector:@selector(setTextColor:)
+                              delay:1];
+            [textField becomeFirstResponder];
+            self.findTotalResultsTextField.stringValue = @"";
+            return;
+        }
+        key = [self _updateStringOperatorWithPopUpButton:popUpButton];
+        [update setObject:value forKey:key];
+    }
+    [self.collection countWithCriteria:query readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
+        if (self.updateMultiCheckBox.state == 0 && count > 0) {
+            count = 1;
+        }
+        
+        [self.collection updateWithCriteria:query
+                                     update:update
+                                     upsert:self.updateUpsetCheckBox.state
+                                multiUpdate:self.updateMultiCheckBox.state
+                                   callback:^(MODQuery *mongoQuery) {
+            NSColor *flashColor;
+            
+            if (mongoQuery.error) {
+                self.updateResultsTextField.stringValue = @"Error!";
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+                flashColor = NSColor.redColor;
+            } else {
+                self.updateResultsTextField.stringValue = [NSString stringWithFormat:@"Updated Documents: %lld", count];
+                flashColor = NSColor.greenColor;
+            }
+            [self.updateQueryLoaderIndicator stopAnimation:nil];
+            [NSViewHelpers cancelColorForTarget:self.updateResultsTextField selector:@selector(setTextColor:)];
+            [NSViewHelpers setColor:self.updateResultsTextField.textColor
+                          fromColor:flashColor
+                           toTarget:self.updateResultsTextField
+                       withSelector:@selector(setTextColor:)
+                              delay:1];
+        }];
+    }];
 }
 
 - (IBAction)updateQueryComposer:(id)sender
