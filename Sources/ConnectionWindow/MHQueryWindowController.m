@@ -175,61 +175,6 @@
     return @"MHQueryWindow";
 }
 
-- (NSString *)formatedQuerySort
-{
-    NSString *result;
-    
-    result = self.findSortTextField.stringValue.mh_stringByTrimmingWhitespace;
-    if ([result length] == 0) {
-        result = @"{ \"_id\": 1}";
-    }
-    return result;
-}
-
-- (NSString *)formatedQueryWithReplace:(BOOL)replace
-{
-    NSString *query = @"";
-    NSString *value;
-    NSString *valueWithoutDoubleQuotes = nil;
-  
-    value = [self.findCriteriaComboBox.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if ([value hasPrefix:@"\""] && [value hasSuffix:@"\""] && ![value isEqualToString:@"\""]) {
-        valueWithoutDoubleQuotes = [value substringWithRange:NSMakeRange(1, value.length - 2)];
-    }
-    if (IS_OBJECT_ID(value) || IS_OBJECT_ID(valueWithoutDoubleQuotes)) {
-        // 24 char length and only hex char... it must be an objectid
-        if (valueWithoutDoubleQuotes) {
-            query = [NSString stringWithFormat:@"{\"_id\": ObjectId(\"%@\")}", valueWithoutDoubleQuotes];
-        } else {
-            query = [NSString stringWithFormat:@"{\"_id\": ObjectId(\"%@\")}", value];
-        }
-    } else if ([value length] > 0) {
-        if ([value hasPrefix:@"{"]) {
-            NSString *innerValue;
-            
-            innerValue = [[value substringFromIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            if ([innerValue hasPrefix:@"\"$oid\""] || [innerValue hasPrefix:@"'$iod'"]) {
-                query = [NSString stringWithFormat:@"{\"_id\": %@ }",value];
-            } else {
-                query = value;
-            }
-        } else if ([value hasPrefix:@"ObjectId"]) {
-          query = [NSString stringWithFormat:@"{\"_id\": %@}",value];
-        } else if ([value hasPrefix:@"\"$oid\""] || [value hasPrefix:@"'$iod'"]) {
-          query = [NSString stringWithFormat:@"{\"_id\": {%@}}",value];
-        } else if ([value hasPrefix:@"\""]) {
-            query = [NSString stringWithFormat:@"{\"_id\": %@}",value];
-        } else {
-            query = [NSString stringWithFormat:@"{\"_id\": \"%@\"}",value];
-        }
-    }
-    if (replace) {
-        self.findCriteriaComboBox.stringValue = query;
-        [self.findCriteriaComboBox selectText:nil];
-    }
-    return query;
-}
-
 - (void)awakeFromNib
 {
     self.updateOperatorViews = [NSMutableArray array];
@@ -255,6 +200,53 @@
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(findResultOutlineViewNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.findResultsOutlineView];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(indexOutlineViewNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.indexOutlineView];
+}
+
+- (NSString *)formatedJsonWithTextField:(NSTextField *)textField replace:(BOOL)replace emptyValid:(BOOL)emptyValid
+{
+    NSString *query = @"";
+    NSString *value;
+    NSString *valueWithoutDoubleQuotes = nil;
+    
+    value = [textField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([value hasPrefix:@"\""] && [value hasSuffix:@"\""] && ![value isEqualToString:@"\""]) {
+        valueWithoutDoubleQuotes = [value substringWithRange:NSMakeRange(1, value.length - 2)];
+    }
+    if (IS_OBJECT_ID(value) || IS_OBJECT_ID(valueWithoutDoubleQuotes)) {
+        // 24 char length and only hex char... it must be an objectid
+        if (valueWithoutDoubleQuotes) {
+            query = [NSString stringWithFormat:@"{\"_id\": ObjectId(\"%@\")}", valueWithoutDoubleQuotes];
+        } else {
+            query = [NSString stringWithFormat:@"{\"_id\": ObjectId(\"%@\")}", value];
+        }
+    } else if ([value length] > 0) {
+        if ([value hasPrefix:@"{"]) {
+            NSString *innerValue;
+            
+            innerValue = [[value substringFromIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            if ([innerValue hasPrefix:@"\"$oid\""] || [innerValue hasPrefix:@"'$iod'"]) {
+                query = [NSString stringWithFormat:@"{\"_id\": %@ }",value];
+            } else {
+                query = value;
+            }
+        } else if ([value hasPrefix:@"ObjectId"]) {
+            query = [NSString stringWithFormat:@"{\"_id\": %@}",value];
+        } else if ([value hasPrefix:@"\"$oid\""] || [value hasPrefix:@"'$iod'"]) {
+            query = [NSString stringWithFormat:@"{\"_id\": {%@}}",value];
+        } else if ([value hasPrefix:@"\""]) {
+            query = [NSString stringWithFormat:@"{\"_id\": %@}",value];
+        } else {
+            query = [NSString stringWithFormat:@"{\"_id\": \"%@\"}",value];
+        }
+    }
+    if (replace) {
+        textField.stringValue = query;
+        [textField selectText:nil];
+    }
+    if (!emptyValid && [query isEqualToString:@""]) {
+        query = @"{}";
+    }
+    return query;
 }
 
 - (void)select
@@ -392,6 +384,17 @@
 
 @implementation MHQueryWindowController (FindTab)
 
+- (NSString *)formatedQuerySort
+{
+    NSString *result;
+    
+    result = self.findSortTextField.stringValue.mh_stringByTrimmingWhitespace;
+    if ([result length] == 0) {
+        result = @"{ \"_id\": 1}";
+    }
+    return result;
+}
+
 - (void)findResultOutlineViewNotification:(NSNotification *)notification
 {
     self.findRemoveButton.enabled = self.findResultsOutlineView.selectedRowIndexes.count != 0;
@@ -412,7 +415,7 @@
     if (limit <= 0) {
         limit = 30;
     }
-    jsonCriteria = [self formatedQueryWithReplace:YES];
+    jsonCriteria = [self formatedJsonWithTextField:self.findCriteriaComboBox replace:YES emptyValid:NO];
     fields = [[NSMutableArray alloc] init];
     for (NSString *field in [self.findFieldsTextField.stringValue componentsSeparatedByString:@","]) {
         field = field.mh_stringByTrimmingWhitespace;
@@ -422,17 +425,9 @@
     }
     [self.findQueryLoaderIndicator startAnimation:nil];
 
-    if (jsonCriteria.length > 0) {
-        criteria = [MODRagelJsonParser objectsFromJson:jsonCriteria withError:&error];
-    } else {
-        criteria = [MODSortedMutableDictionary sortedDictionary];
-    }
+    criteria = [MODRagelJsonParser objectsFromJson:jsonCriteria withError:&error];
     if (!error) {
-        if (jsonSort.length > 0) {
-            sort = [MODRagelJsonParser objectsFromJson:jsonSort withError:&error];
-        } else {
-            sort = [MODSortedMutableDictionary sortedDictionary];
-        }
+        sort = [MODRagelJsonParser objectsFromJson:jsonSort withError:&error];
     }
     if (error) {
         NSColor *currentColor;
@@ -522,7 +517,7 @@
 
 - (IBAction)findQueryComposer:(id)sender
 {
-    NSString *criteria = [self formatedQueryWithReplace:NO];
+    NSString *criteria = [self formatedJsonWithTextField:self.findCriteriaComboBox replace:NO emptyValid:YES];
     NSString *jsFields;
     NSString *sortValue = [self formatedQuerySort];
     NSString *sort;
@@ -616,6 +611,54 @@
         NSLog(@"%lu %@ %@", (unsigned long)ii, [views[@"popup"] titleOfSelectedItem], views[@"main"]);
         ii++;
     }
+}
+
+- (NSString *)_updateStringOperatorWithPopUpButton:(NSPopUpButton *)button
+{
+    NSUInteger index = button.indexOfSelectedItem;
+    NSString *result = nil;
+    
+    switch (index) {
+        case 0:
+            result = @"$currentDate";
+            break;
+            
+        case 1:
+            result = @"$inc";
+            break;
+            
+        case 2:
+            result = @"$max";
+            break;
+            
+        case 3:
+            result = @"$min";
+            break;
+            
+        case 4:
+            result = @"$mul";
+            break;
+            
+        case 5:
+            result = @"$rename";
+            break;
+            
+        case 6:
+            result = @"$setOnInsert";
+            break;
+            
+        case 7:
+            result = @"$set";
+            break;
+            
+        case 8:
+            result = @"$unset";
+            break;
+            
+        default:
+            break;
+    }
+    return result;
 }
 
 - (NSUInteger)_updateIndexOfOperatorWithView:(NSView *)view
@@ -759,6 +802,7 @@
             }
         }
     }
+    [self updateQueryComposer:nil];
 }
 
 - (IBAction)updateQuery:(id)sender
@@ -808,39 +852,40 @@
 
 - (IBAction)updateQueryComposer:(id)sender
 {
+    NSUInteger ii;
     NSString *col = [NSString stringWithFormat:@"%@.%@", self.collection.name, self.collection.name];
     NSString *critical;
-    if (self.updateCriteriaTextField.stringValue.length > 0) {
-        critical = self.updateCriteriaTextField.stringValue.copy;
-    } else {
-        critical = @"{}".copy;
+    NSMutableString *sets;
+    
+    critical = [self formatedJsonWithTextField:self.updateCriteriaTextField replace:NO emptyValid:NO];
+    sets = [NSMutableString stringWithString:@", {"];
+    ii = 0;
+    for (NSDictionary *views in self.updateOperatorViews) {
+        if (ii > 0) {
+            [sets appendString:@", "];
+        }
+        [sets appendString:[self _updateStringOperatorWithPopUpButton:views[@"popup"]]];
+        [sets appendString:@": "];
+        [sets appendString:[self formatedJsonWithTextField:views[@"textfield"] replace:NO emptyValid:NO]];
+        ii++;
     }
-    NSString *sets;
-    if (self.updateOperatorTextField.stringValue.length > 0) {
-        sets = [[NSString alloc] initWithFormat:@", { $set: %@ }", self.updateOperatorTextField.stringValue];
-    } else {
-        sets = [[NSString alloc] initWithString:@""];
-    }
+    [sets appendString:@"}"];
+
     NSString *upset;
     if (self.updateUpsetCheckBox.state == 1) {
-        upset = [[NSString alloc] initWithString:@", true"];
+        upset = @", true";
     } else {
-        upset = [[NSString alloc] initWithString:@", false"];
+        upset = @", false";
     }
     
     NSString *multi;
     if (self.updateMultiCheckBox.state == 1) {
-        multi = [[NSString alloc] initWithString:@", true"];
+        multi = @", true";
     } else {
-        multi = [[NSString alloc] initWithString:@", false"];
+        multi = @", false";
     }
     
-    NSString *query = [NSString stringWithFormat:@"db.%@.update(%@%@%@%@)", col, critical, sets, upset, multi];
-    [critical release];
-    [sets release];
-    [upset release];
-    [multi release];
-    self.updateQueryTextField.stringValue = query;
+    self.updateQueryTextField.stringValue = [NSString stringWithFormat:@"db.%@.update(%@%@%@%@)", col, critical, sets, upset, multi];
 }
 
 @end
