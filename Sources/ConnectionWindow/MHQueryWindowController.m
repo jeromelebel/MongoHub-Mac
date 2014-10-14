@@ -856,6 +856,7 @@
     NSString *col = [NSString stringWithFormat:@"%@.%@", self.collection.name, self.collection.name];
     NSString *critical;
     NSMutableString *sets;
+    NSMutableString *options = [NSMutableString string];
     
     critical = [self formatedJsonWithTextField:self.updateCriteriaTextField replace:NO emptyValid:NO];
     sets = [NSMutableString stringWithString:@", {"];
@@ -871,21 +872,23 @@
     }
     [sets appendString:@"}"];
 
-    NSString *upset;
     if (self.updateUpsetCheckBox.state == 1) {
-        upset = @", true";
-    } else {
-        upset = @", false";
+        [options appendString:@", { upset: true"];
     }
     
-    NSString *multi;
     if (self.updateMultiCheckBox.state == 1) {
-        multi = @", true";
-    } else {
-        multi = @", false";
+        if (options.length == 0) {
+            [options appendString:@", { "];
+        } else {
+            [options appendString:@", "];
+        }
+        [options appendString:@"multi: true "];
+    }
+    if (options.length != 0) {
+        [options appendString:@"}"];
     }
     
-    self.updateQueryTextField.stringValue = [NSString stringWithFormat:@"db.%@.update(%@%@%@%@)", col, critical, sets, upset, multi];
+    self.updateQueryTextField.stringValue = [NSString stringWithFormat:@"db.%@.update(%@%@%@)", col, critical, sets, options];
 }
 
 @end
