@@ -26,15 +26,15 @@
         <language>en</language>
         <item>
             <beta>1</beta>
-            <title>Version 2.7 beta 17</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b17.zip" sparkle:version="2.7b17" type="application/octet-stream" />
+            <title>Version 2.7 beta 18</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b18.zip" sparkle:version="2.7b18" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.7 beta 17</h3>
+                <h3>2.7 beta 18</h3>
                 <ul>
-                <li>Display (in the log window) the correct error number if the connection failed</li>
-                <li>Can renaming a collection</li>
-                <li>Closing tabs when dropping a collection/database</li>
-                <li>Connection issues fixed <a href="https://github.com/jeromelebel/MongoHub-Mac/issues/126">issue #126</a></li>
+                <li>Fixing memory leaks</li>
+                <li>Better UI for dropping collections/databases</li>
+                <li>Moving the timeout in the application preference</li>
+                <li>Nicer update panel <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/142'>issue #142</a></li>
                 </ul>
             ]]>
             </description>
