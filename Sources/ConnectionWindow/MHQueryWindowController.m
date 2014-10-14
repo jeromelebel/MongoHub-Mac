@@ -20,8 +20,6 @@
 
 #define IS_OBJECT_ID(value) ([value length] == 24 && [[value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"1234567890abcdefABCDEF"]] length] == 0)
 
-#define MHUpdateOperatorCount                   9
-
 @interface MHQueryWindowController ()
 @property (nonatomic, readwrite, assign) NSSegmentedControl *segmentedControl;
 @property (nonatomic, readwrite, assign) NSTabView *tabView;
@@ -56,6 +54,7 @@
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *updateQueryTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *updateQueryLoaderIndicator;
 @property (nonatomic, readwrite, strong) NSMutableArray *updateOperatorViews;
+@property (nonatomic, readwrite, strong) NSArray *updateOperatorList;
 
 @property (nonatomic, readwrite, assign) NSButton *removeButton;
 @property (nonatomic, readwrite, assign) NSTextField *removeCriteriaTextField;
@@ -106,6 +105,7 @@
 @synthesize updateQueryTextField = _updateQueryTextField;
 @synthesize updateQueryLoaderIndicator = _updateQueryLoaderIndicator;
 @synthesize updateOperatorViews = _updateOperatorViews;
+@synthesize updateOperatorList = _updateOperatorList;
 
 @synthesize removeButton = _removeButton, removeCriteriaTextField = _removeCriteriaTextField, removeResultsTextField = _removeResultsTextField, removeQueryTextField = _removeQueryTextField, removeQueryLoaderIndicator = _removeQueryLoaderIndicator;
 
@@ -123,9 +123,30 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(droppedNotification:) name:MODDatabase_Dropped_Notification object:self.collection.database];
         [self.collection addObserver:self forKeyPath:@"database" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
         [self.collection addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionNew context:nil];
+        self.updateOperatorList = @[
+                                    @{ @"title": @"Current Date",   @"key": @"$currentDate" },
+                                    @{ @"title": @"Increment",      @"key": @"$inc" },
+                                    @{ @"title": @"Max",            @"key": @"$max" },
+                                    @{ @"title": @"Min",            @"key": @"$min" },
+                                    @{ @"title": @"Multiply",       @"key": @"$mul" },
+                                    @{ @"title": @"Rename",         @"key": @"$rename" },
+                                    @{ @"title": @"Set On Insert",  @"key": @"$setOnInsert" },
+                                    @{ @"title": @"Set",            @"key": @"$set" },
+                                    @{ @"title": @"Unset",          @"key": @"$unset" },
+                                    @{},
+                                    @{ @"title": @"Add To Set",     @"key": @"$addToSet" },
+                                    @{ @"title": @"Pop",            @"key": @"$pop" },
+                                    @{ @"title": @"Pull All",       @"key": @"$pullAll" },
+                                    @{ @"title": @"Pull",           @"key": @"$pull" },
+                                    @{ @"title": @"Push All",       @"key": @"$pushAll" },
+                                    @{ @"title": @"Push",           @"key": @"$push" },
+                                    @{},
+                                    @{ @"title": @"Bit",            @"key": @"$bit" },
+                                    ];
     }
     return self;
 }
+
 
 - (void)dealloc
 {
@@ -140,6 +161,7 @@
     self.collection = nil;
     self.connectionStore = nil;
     self.updateOperatorViews = nil;
+    self.updateOperatorList = nil;
     
     [_jsonWindowControllers release];
     
@@ -619,49 +641,26 @@
 - (NSString *)_updateStringOperatorWithPopUpButton:(NSPopUpButton *)button
 {
     NSUInteger index = button.indexOfSelectedItem;
-    NSString *result = nil;
+    NSDictionary *item;
     
-    switch (index) {
-        case 0:
-            result = @"$currentDate";
-            break;
-            
-        case 1:
-            result = @"$inc";
-            break;
-            
-        case 2:
-            result = @"$max";
-            break;
-            
-        case 3:
-            result = @"$min";
-            break;
-            
-        case 4:
-            result = @"$mul";
-            break;
-            
-        case 5:
-            result = @"$rename";
-            break;
-            
-        case 6:
-            result = @"$setOnInsert";
-            break;
-            
-        case 7:
-            result = @"$set";
-            break;
-            
-        case 8:
-            result = @"$unset";
-            break;
-            
-        default:
-            break;
+    NSAssert(index < self.updateOperatorList.count, @"index too high %lu %lu", (unsigned long)index, (unsigned long)self.updateOperatorList.count);
+    item = self.updateOperatorList[index];
+    NSAssert(item.count == 2, @"it should be a regular item %@", item);
+    return item[@"key"];
+}
+
+- (void)_updateSetupPopUpButton:(NSPopUpButton *)button
+{
+    NSMenu *menu = button.menu;
+    
+    [menu removeAllItems];
+    for (NSDictionary *item in self.updateOperatorList) {
+        if (item.count == 0) {
+            [menu addItem:[NSMenuItem separatorItem]];
+        } else {
+            [menu addItemWithTitle:item[@"title"] action:nil keyEquivalent:@""];
+        }
     }
-    return result;
 }
 
 - (NSUInteger)_updateIndexOfOperatorWithView:(NSView *)view
@@ -721,6 +720,7 @@
     [line[@"-"] setAction:@selector(updateRemoveOperatorAction:)];
     [line[@"-"] setTarget:self];
     [line[@"popup"] setAction:@selector(updateOperatorPopButtonAction:)];
+    [self _updateSetupPopUpButton:line[@"popup"]];
     [line[@"popup"] menu].autoenablesItems = NO;
     for (NSMenuItem *item in [line[@"popup"] menu].itemArray) {
         item.target = self;
@@ -769,9 +769,15 @@
 - (IBAction)updateOperatorPopButtonAction:(id)sender
 {
     NSMutableIndexSet *usedIndexes = [NSMutableIndexSet indexSet];
-    NSMutableIndexSet *unusedIndexes = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(0, MHUpdateOperatorCount)];
+    NSMutableIndexSet *unusedIndexes = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.updateOperatorList.count)];
     NSMutableArray *shouldBeUpdated = [NSMutableArray array];
     
+    [self.updateOperatorList enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
+        if (item.count == 0) {
+            [usedIndexes addIndex:index];
+            [unusedIndexes removeIndex:index];
+        }
+    }];
     for (NSDictionary *lineViews in self.updateOperatorViews) {
         NSPopUpButton *popupButton = lineViews[@"popup"];
         NSUInteger selectedItem = [popupButton indexOfSelectedItem];
@@ -795,11 +801,11 @@
         NSUInteger ii, selectedItemIndex;
         NSMenu *menu;
         
-        [lineViews[@"+"] setEnabled:(usedIndexes.count != MHUpdateOperatorCount)];
+        [lineViews[@"+"] setEnabled:(usedIndexes.count != self.updateOperatorList.count)];
         [lineViews[@"-"] setEnabled:(usedIndexes.count != 1)];
         menu = lineViews[@"popup"];
         selectedItemIndex = [lineViews[@"popup"] indexOfSelectedItem];
-        for (ii = 0; ii < MHUpdateOperatorCount; ii++) {
+        for (ii = 0; ii < self.updateOperatorList.count; ii++) {
             if (ii != selectedItemIndex) {
                 [menu itemAtIndex:ii].enabled = [unusedIndexes containsIndex:ii];
             }
