@@ -521,9 +521,6 @@ CA
                                             <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <connections>
-                                            <outlet property="nextKeyView" destination="144" id="8P5-eZ-GX2"/>
-                                        </connections>
                                     </textField>
                                     <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="487">
                                         <rect key="frame" x="568" y="439" width="16" height="16"/>
@@ -574,7 +571,7 @@ CA
                                         </buttonCell>
                                         <connections>
                                             <action selector="updateQuery:" target="-2" id="154"/>
-                                            <outlet property="nextKeyView" destination="144" id="59S-L6-hpU"/>
+                                            <outlet property="nextKeyView" destination="144" id="WNf-Lh-BX4"/>
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="142">
