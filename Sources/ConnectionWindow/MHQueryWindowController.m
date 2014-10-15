@@ -765,6 +765,14 @@
         [self.updateOperatorViews addObject:line];
     }
     
+    if (!sender) {
+        [line[@"-"] setNextKeyView:self.updateCriteriaTextField.nextKeyView];
+        self.updateCriteriaTextField.nextKeyView = line[@"popup"];
+    } else {
+        [line[@"-"] setNextKeyView:[[self.updateOperatorViews[previousViewIndex] objectForKey:@"-"] nextKeyView]];
+        [[self.updateOperatorViews[previousViewIndex] objectForKey:@"-"] setNextKeyView:line[@"popup"]];
+    }
+    
     [self updateOperatorPopButtonAction:nil];
 }
 
@@ -773,6 +781,11 @@
     NSView *mainView = [sender superview];
     NSUInteger index = [self _updateIndexOfOperatorWithView:mainView];
     
+    if (index == 0) {
+        self.updateCriteriaTextField.nextKeyView = [[self.updateOperatorViews[index] objectForKey:@"-"] nextKeyView];
+    } else {
+        [[self.updateOperatorViews[index - 1] objectForKey:@"-"] setNextKeyView:[[self.updateOperatorViews[index] objectForKey:@"-"] nextKeyView]];
+    }
     [mainView removeFromSuperview];
     [self.updateOperatorViews removeObjectAtIndex:index];
     if (index == 0) {

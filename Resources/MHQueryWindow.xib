@@ -544,6 +544,7 @@ CA
                                         </buttonCell>
                                         <connections>
                                             <action selector="updateQueryComposer:" target="-2" id="372"/>
+                                            <outlet property="nextKeyView" destination="1397" id="uou-aG-vbi"/>
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="1397">
@@ -573,7 +574,7 @@ CA
                                         </buttonCell>
                                         <connections>
                                             <action selector="updateQuery:" target="-2" id="154"/>
-                                            <outlet property="nextKeyView" destination="1397" id="ciq-iH-os7"/>
+                                            <outlet property="nextKeyView" destination="144" id="59S-L6-hpU"/>
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="142">
