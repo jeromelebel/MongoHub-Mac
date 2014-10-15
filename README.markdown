@@ -49,6 +49,10 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 ## History
 
+**2.7 beta 21 - october 15, 2014**
+
+- Workarround for corrupted bson
+
 **2.7 beta 20 - october 15, 2014**
 
 - Disable the remove operator button when needed
