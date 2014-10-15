@@ -47,6 +47,8 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **Beta**
 
+- Fixing next key view in the update tab
+
 ## History
 
 **2.7 beta 21 - october 15, 2014**
