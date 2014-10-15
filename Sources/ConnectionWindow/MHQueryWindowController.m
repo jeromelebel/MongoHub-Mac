@@ -649,17 +649,28 @@
     return item[@"key"];
 }
 
-- (void)_updateSetupPopUpButton:(NSPopUpButton *)button
+- (void)_updatePopUpButtonSetup:(NSPopUpButton *)button
 {
     NSMenu *menu = button.menu;
+    NSUInteger index = 0, ii;
     
     [menu removeAllItems];
+    ii = 0;
     for (NSDictionary *item in self.updateOperatorList) {
         if (item.count == 0) {
             [menu addItem:[NSMenuItem separatorItem]];
         } else {
             [menu addItemWithTitle:item[@"title"] action:nil keyEquivalent:@""];
+            if ([item[@"key"] isEqualToString:@"$set"]) {
+                index = ii;
+            }
         }
+        ii++;
+    }
+    if (self.updateOperatorViews.count == 0) {
+        // the first NSPopUpButton should be set to "Set"
+        // it is probably the most common operator used
+        [button selectItemAtIndex:index];
     }
 }
 
@@ -720,7 +731,7 @@
     [line[@"-"] setAction:@selector(updateRemoveOperatorAction:)];
     [line[@"-"] setTarget:self];
     [line[@"popup"] setAction:@selector(updateOperatorPopButtonAction:)];
-    [self _updateSetupPopUpButton:line[@"popup"]];
+    [self _updatePopUpButtonSetup:line[@"popup"]];
     [line[@"popup"] menu].autoenablesItems = NO;
     for (NSMenuItem *item in [line[@"popup"] menu].itemArray) {
         item.target = self;
