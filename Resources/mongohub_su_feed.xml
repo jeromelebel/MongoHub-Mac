@@ -26,15 +26,14 @@
         <language>en</language>
         <item>
             <beta>1</beta>
-            <title>Version 2.7 beta 18</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b18.zip" sparkle:version="2.7b18" type="application/octet-stream" />
+            <title>Version 2.7 beta 19</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b19.zip" sparkle:version="2.7b19" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.7 beta 18</h3>
+                <h3>2.7 beta 19</h3>
                 <ul>
-                <li>Fixing memory leaks</li>
-                <li>Better UI for dropping collections/databases</li>
-                <li>Moving the timeout in the application preference</li>
-                <li>Nicer update panel <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/142'>issue #142</a></li>
+                <li>Adding more update operator in the update tab</li>
+                <li>Workarround for corrupted bson</li>
+                <li>Always check for debug updates on a debug version</li>
                 </ul>
             ]]>
             </description>
