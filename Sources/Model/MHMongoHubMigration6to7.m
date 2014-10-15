@@ -19,7 +19,7 @@
     NSString *password = [sourceInstance valueForKey:@"sshpassword"];
     NSString *user = [sourceInstance valueForKey:@"sshuser"];
     NSString *host;
-    NSString *hostAndPort;
+    NSString *hostAndPort = nil;
 
     host = [sourceInstance valueForKey:@"sshhost"];
     if ([[sourceInstance valueForKey:@"sshport"] integerValue] != 0) {

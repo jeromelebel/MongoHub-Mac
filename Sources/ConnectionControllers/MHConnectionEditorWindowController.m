@@ -334,7 +334,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 
 - (IBAction)addSaveAction:(id)sender
 {
-    NSString *hostName;
     NSInteger hostPort;
     NSInteger sshPort;
     NSString *defaultDatabase;
@@ -345,7 +344,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     BOOL useSSH;
     BOOL useReplicaSet;
     
-    hostName = [self.hostTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     hostPort = self.hostportTextField.stringValue.integerValue;
     defaultDatabase = [self.defaultDatabaseTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     alias = [self.aliasTextField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -398,7 +396,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         return;
     }
     if (!self.editedConnectionStore) {
-        self.editedConnectionStore = self.connectionsArrayController.newObject;
+        self.editedConnectionStore = [self.connectionsArrayController.newObject autorelease];
     }
     if (useReplicaSet) {
         self.editedConnectionStore.replicaSetName = replicaName;

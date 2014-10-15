@@ -55,7 +55,7 @@
             if (query.error && !self.error) {
                 NSMutableDictionary *userInfo;
                 
-                userInfo = query.error.userInfo.mutableCopy;
+                userInfo = [query.error.userInfo.mutableCopy autorelease];
                 [userInfo setObject:[NSNumber numberWithUnsignedInteger:[[userInfo objectForKey:@"documentIndex"] unsignedIntegerValue] + importedDocumentCount] forKey:@"documentIndex"];
                 self.error = [NSError errorWithDomain:query.error.domain code:query.error.code userInfo:userInfo];
             }

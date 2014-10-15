@@ -107,7 +107,7 @@
 {
     NSMutableString *string;
     
-    string = [[NSMutableString alloc] init];
+    string = [NSMutableString string];
     for (NSDictionary *item in items) {
         [string appendString:[[self rootForItem:item] objectForKey:@"beautified"]];
         [string appendString:@"\n"];
@@ -141,7 +141,7 @@
                 NSIndexSet *indexSet;
                 
                 [self.outlineView deselectRow:idx];
-                indexSet = [[NSIndexSet alloc] initWithIndex:[self.outlineView rowForItem:[self rootForItem:currentItem]]];
+                indexSet = [NSIndexSet indexSetWithIndex:[self.outlineView rowForItem:[self rootForItem:currentItem]]];
                 [self.outlineView selectRowIndexes:indexSet byExtendingSelection:YES];
             }
         }];

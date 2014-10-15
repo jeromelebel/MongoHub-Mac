@@ -111,7 +111,7 @@
     MODClient *copyServer;
     MODCollection *copyCollection;
     
-    copyServer = [self.database.client copy];
+    copyServer = [[self.database.client copy] autorelease];
     
     copyCollection = [[copyServer databaseForName:self.database.name] collectionForName:collectionName];
     if (!copyServer) {

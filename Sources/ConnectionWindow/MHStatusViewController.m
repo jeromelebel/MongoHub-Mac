@@ -72,7 +72,7 @@
 
 - (MODQuery *)showDatabaseStatusWithDatabaseItem:(MHDatabaseItem *)databaseItem
 {
-    MODQuery *result;
+    MODQuery *result = nil;
     
     if (databaseItem) {
         self.title = [NSString stringWithFormat:@"%@ Stats", databaseItem.name];

@@ -222,7 +222,7 @@ static BOOL testLocalPortAvailable(unsigned short port)
 - (void)readStatusFromErrorPipe
 {
     if (_running && self.tunnelError == MHNoTunnelError) {
-        NSString *string = [[NSString alloc] initWithData:_errorFileHandle.availableData encoding:NSASCIIStringEncoding];
+        NSString *string = [[[NSString alloc] initWithData:_errorFileHandle.availableData encoding:NSASCIIStringEncoding] autorelease];
         
         [self logMessage:string];
         if ([string rangeOfString:@"Entering interactive session"].location != NSNotFound) {
@@ -247,7 +247,6 @@ static BOOL testLocalPortAvailable(unsigned short port)
                 [_delegate tunnelDidFailToConnect:self withError:[NSError errorWithDomain:MHTunnelDomain code:self.tunnelError userInfo:@{ NSLocalizedDescriptionKey: [self.class errorMessageForTunnelError:self.tunnelError] }]];
             }
         }
-        [string release];
     }
 }
 

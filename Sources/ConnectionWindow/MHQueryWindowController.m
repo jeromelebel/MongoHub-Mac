@@ -203,7 +203,7 @@
     self.indexesOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.indexOutlineView] autorelease];
     self.mrOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.mrOutlineView] autorelease];
     
-    self.syntaxColoringController = [[UKSyntaxColoredTextViewController alloc] init];
+    self.syntaxColoringController = [[[UKSyntaxColoredTextViewController alloc] init] autorelease];
     self.syntaxColoringController.delegate = self;
     self.syntaxColoringController.view = self.insertDataTextView;
     
@@ -869,7 +869,7 @@
         NSTextField *textField = views[@"textfield"];
         NSPopUpButton *popUpButton = views[@"popup"];
         MODSortedMutableDictionary *value;
-        NSString *key;
+        NSString *key = popUpButton.titleOfSelectedItem;
         
         value = [MODRagelJsonParser objectsFromJson:[self formatedJsonWithTextField:textField replace:NO emptyValid:NO] withError:&error];
         if (error) {
