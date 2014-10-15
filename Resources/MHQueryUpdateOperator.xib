@@ -21,12 +21,12 @@
             <subviews>
                 <popUpButton verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="7E6-av-Yuh">
                     <rect key="frame" x="-3" y="-3" width="102" height="22"/>
-                    <popUpButtonCell key="cell" type="push" title="Set" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="7" imageScaling="proportionallyDown" inset="2" selectedItem="OLb-DZ-QNr" id="j14-vc-hd6">
+                    <popUpButtonCell key="cell" type="push" title="Current Date" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="hyI-sy-TIE" id="j14-vc-hd6">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                         <menu key="menu" id="5tQ-z2-511">
                             <items>
-                                <menuItem title="Current Date" id="hyI-sy-TIE">
+                                <menuItem title="Current Date" state="on" id="hyI-sy-TIE">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                                 <menuItem title="Increment" tag="1" id="E9c-MB-K3M"/>
@@ -35,7 +35,7 @@
                                 <menuItem title="Multiply" tag="4" id="YbL-0s-Shy"/>
                                 <menuItem title="Rename" tag="5" id="4Cb-tg-C13"/>
                                 <menuItem title="Set On Insert" tag="6" id="u2R-A8-1S4"/>
-                                <menuItem title="Set" state="on" tag="7" id="OLb-DZ-QNr">
+                                <menuItem title="Set" tag="7" id="OLb-DZ-QNr">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                                 <menuItem title="Unset" tag="8" id="8h3-R4-id8"/>
@@ -44,6 +44,7 @@
                     </popUpButtonCell>
                     <connections>
                         <action selector="updateOperatorPopButtonAction:" target="-2" id="S5C-5E-88N"/>
+                        <outlet property="nextKeyView" destination="uKc-74-bsi" id="cR6-Ly-9ma"/>
                     </connections>
                 </popUpButton>
                 <button verticalHuggingPriority="750" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="8j4-Vy-YSn">
@@ -54,6 +55,7 @@
                     </buttonCell>
                     <connections>
                         <action selector="updateAddOperatorAction:" target="-2" id="YRA-XB-77d"/>
+                        <outlet property="nextKeyView" destination="2SU-Z4-cHC" id="RV2-DO-S9E"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="2SU-Z4-cHC">
@@ -73,6 +75,9 @@
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <outlet property="nextKeyView" destination="8j4-Vy-YSn" id="VRr-gp-KU3"/>
+                    </connections>
                 </textField>
             </subviews>
             <constraints>
