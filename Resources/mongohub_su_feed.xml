@@ -32,7 +32,7 @@
                 <h3>2.7 beta 21</h3>
                 <ul>
                     <li>Adding more update operator in the update tab</li>
-                    <li>Workarround for corrupted bson</li>
+                    <li>Workaround for corrupted bson</li>
                     <li>Always check for debug updates on a debug version</li>
                     <li>Disable the remove operator button when needed</li>
                 </ul>

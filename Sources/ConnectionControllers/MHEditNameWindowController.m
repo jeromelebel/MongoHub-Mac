@@ -72,7 +72,7 @@
     } else {
         [self retain];
         // the delegate will release this instance after the call,
-        // so we need to make sure we keep ourself arround to close the window
+        // so we need to make sure we keep ourself around to close the window
         self.editedValue = value;
         if (self.callback) {
             self.callback(self);

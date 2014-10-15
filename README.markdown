@@ -42,7 +42,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 - Can renaming a collection
 - Closing tabs when dropping a collection/database
 - Nicer update panel [issue #142](https://github.com/jeromelebel/MongoHub-Mac/issues/142)
-- Workarround for corrupted bson
+- Workaround for corrupted bson
 - Always check for debug updates on a debug version
 
 **Beta**
@@ -51,7 +51,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **2.7 beta 21 - october 15, 2014**
 
-- Workarround for corrupted bson
+- Workaround for corrupted bson
 
 **2.7 beta 20 - october 15, 2014**
 
@@ -60,7 +60,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 **2.7 beta 19 - october 15, 2014**
 
 - Adding more update operator in the update tab
-- Workarround for corrupted bson
+- Workaround for corrupted bson
 - Always check for debug updates on a debug version
 
 **2.7 beta 18 - october 14, 2014**
