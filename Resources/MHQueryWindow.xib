@@ -194,9 +194,9 @@ CA
                                             <action selector="expandFindResults:" target="-2" id="474"/>
                                         </connections>
                                     </button>
-                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="98">
-                                        <rect key="frame" x="-2" y="7" width="77" height="14"/>
-                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="Query Results" id="99">
+                                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="98" userLabel="Query Result">
+                                        <rect key="frame" x="-2" y="7" width="347" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" lineBreakMode="charWrapping" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="Query Results" id="99">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -355,12 +355,12 @@ CA
                                             <outlet property="delegate" destination="-2" id="1381"/>
                                         </connections>
                                     </comboBox>
-                                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="94" userLabel="Query to send">
+                                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="94" userLabel="Query Viewer">
                                         <rect key="frame" x="-2" y="441" width="588" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="Kxo-Zl-pEA"/>
                                         </constraints>
-                                        <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="Query" id="95">
+                                        <textFieldCell key="cell" controlSize="small" lineBreakMode="charWrapping" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="Query" id="95">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -376,6 +376,7 @@ CA
                                     <constraint firstItem="121" firstAttribute="leading" secondItem="1379" secondAttribute="trailing" constant="8" id="2LB-S0-DJ8"/>
                                     <constraint firstItem="82" firstAttribute="baseline" secondItem="121" secondAttribute="baseline" id="7Cq-a4-8Sn"/>
                                     <constraint firstItem="76" firstAttribute="baseline" secondItem="81" secondAttribute="baseline" id="CCY-7G-Ymg"/>
+                                    <constraint firstItem="689" firstAttribute="leading" secondItem="98" secondAttribute="trailing" constant="8" id="I2U-FE-hzC"/>
                                     <constraint firstItem="470" firstAttribute="leading" secondItem="689" secondAttribute="trailing" constant="8" id="Kb3-5J-lmm"/>
                                     <constraint firstItem="67" firstAttribute="top" secondItem="80" secondAttribute="bottom" constant="8" id="Ly1-66-hOn"/>
                                     <constraint firstItem="76" firstAttribute="leading" secondItem="77" secondAttribute="trailing" id="NjH-6G-Bfo"/>
@@ -422,9 +423,9 @@ CA
                                 <rect key="frame" x="0.0" y="0.0" width="584" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="191">
+                                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="191" userLabel="Query Result">
                                         <rect key="frame" x="-2" y="20" width="588" height="22"/>
-                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" placeholderString="Insert Result" id="192">
+                                        <textFieldCell key="cell" controlSize="small" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="center" placeholderString="Insert Result" id="192">
                                             <font key="font" metaFont="system" size="18"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -499,27 +500,30 @@ CA
                                 <rect key="frame" x="0.0" y="0.0" width="584" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="155">
+                                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="155" userLabel="Query Result">
                                         <rect key="frame" x="-2" y="20" width="588" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="ChA-XE-X0t"/>
                                         </constraints>
-                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" placeholderString="Update Result" id="156">
+                                        <textFieldCell key="cell" controlSize="small" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="center" placeholderString="Update Result" id="156">
                                             <font key="font" metaFont="system" size="18"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="135" userLabel="Query to send">
+                                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="135" userLabel="Query Viewer">
                                         <rect key="frame" x="-2" y="440" width="588" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="gDH-f1-QwI"/>
                                         </constraints>
-                                        <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="Query" id="136">
+                                        <textFieldCell key="cell" controlSize="small" lineBreakMode="charWrapping" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="Query" id="136">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <outlet property="nextKeyView" destination="144" id="8P5-eZ-GX2"/>
+                                        </connections>
                                     </textField>
                                     <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="487">
                                         <rect key="frame" x="568" y="439" width="16" height="16"/>
@@ -554,6 +558,7 @@ CA
                                         </buttonCell>
                                         <connections>
                                             <action selector="updateQueryComposer:" target="-2" id="1399"/>
+                                            <outlet property="nextKeyView" destination="148" id="327-H1-Qa3"/>
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="148">
@@ -568,6 +573,7 @@ CA
                                         </buttonCell>
                                         <connections>
                                             <action selector="updateQuery:" target="-2" id="154"/>
+                                            <outlet property="nextKeyView" destination="1397" id="ciq-iH-os7"/>
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="142">
@@ -594,6 +600,7 @@ CA
                                         </textFieldCell>
                                         <connections>
                                             <outlet property="delegate" destination="-2" id="374"/>
+                                            <outlet property="nextKeyView" destination="146" id="2DQ-uB-gTd"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -628,9 +635,9 @@ CA
                                 <rect key="frame" x="0.0" y="0.0" width="584" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="179">
-                                        <rect key="frame" x="27" y="20" width="530" height="22"/>
-                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" placeholderString="Remove Result" id="180">
+                                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="179" userLabel="Query Result">
+                                        <rect key="frame" x="-2" y="20" width="588" height="22"/>
+                                        <textFieldCell key="cell" controlSize="small" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="center" placeholderString="Remove Result" id="180">
                                             <font key="font" metaFont="system" size="18"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -661,12 +668,12 @@ CA
                                             <outlet property="delegate" destination="-2" id="377"/>
                                         </connections>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="172" userLabel="Query to send">
+                                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="172" userLabel="Query Viewer">
                                         <rect key="frame" x="-2" y="440" width="588" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="0Tw-ea-dB9"/>
                                         </constraints>
-                                        <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="Query" id="173">
+                                        <textFieldCell key="cell" controlSize="small" lineBreakMode="charWrapping" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="Query" id="173">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -713,12 +720,15 @@ DQ
                                     <constraint firstAttribute="trailing" secondItem="164" secondAttribute="trailing" id="BVK-5d-Ynr"/>
                                     <constraint firstItem="492" firstAttribute="centerY" secondItem="172" secondAttribute="centerY" id="CO6-YJ-Ikv"/>
                                     <constraint firstItem="164" firstAttribute="leading" secondItem="165" secondAttribute="trailing" constant="8" id="DLm-uy-NCF"/>
+                                    <constraint firstAttribute="bottom" secondItem="179" secondAttribute="bottom" constant="20" id="EKR-Bn-ecx"/>
                                     <constraint firstItem="492" firstAttribute="top" secondItem="709" secondAttribute="top" id="WKa-FA-5Y0"/>
                                     <constraint firstAttribute="trailing" secondItem="172" secondAttribute="trailing" id="Xvl-hb-xq4"/>
                                     <constraint firstItem="172" firstAttribute="leading" secondItem="709" secondAttribute="leading" id="Zpq-Jk-3Z5"/>
+                                    <constraint firstItem="179" firstAttribute="leading" secondItem="709" secondAttribute="leading" id="bDG-uC-8qw"/>
                                     <constraint firstItem="160" firstAttribute="top" secondItem="492" secondAttribute="bottom" constant="8" id="dAs-Us-DDN"/>
                                     <constraint firstItem="165" firstAttribute="leading" secondItem="709" secondAttribute="leading" id="iIZ-Nc-ie5"/>
                                     <constraint firstAttribute="trailing" secondItem="492" secondAttribute="trailing" id="mo6-Ho-Iml"/>
+                                    <constraint firstAttribute="trailing" secondItem="179" secondAttribute="trailing" id="xkm-8b-Fpk"/>
                                     <constraint firstItem="164" firstAttribute="top" secondItem="160" secondAttribute="bottom" constant="8" id="xlO-hI-O9H"/>
                                 </constraints>
                             </view>
