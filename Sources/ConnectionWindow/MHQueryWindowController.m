@@ -876,6 +876,7 @@
                                      update:update
                                      upsert:self.updateUpsetCheckBox.state
                                 multiUpdate:self.updateMultiCheckBox.state
+                               writeConcern:nil
                                    callback:^(MODQuery *mongoQuery) {
             NSColor *flashColor;
             
