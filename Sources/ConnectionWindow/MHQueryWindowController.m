@@ -696,7 +696,13 @@
             [self.updateTabView removeConstraint:constraint];
         }
     }
-    [self.updateTabView addConstraint:[NSLayoutConstraint constraintWithItem:mainView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:previousView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:8.0]];
+    [self.updateTabView addConstraint:[NSLayoutConstraint constraintWithItem:mainView
+                                                                   attribute:NSLayoutAttributeTop
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:previousView
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                  multiplier:1.0
+                                                                    constant:8.0]];
     [self.updateTabView addConstraint:[NSLayoutConstraint constraintWithItem:mainView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.updateTabView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0]];
     [self.updateTabView addConstraint:[NSLayoutConstraint constraintWithItem:mainView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.updateTabView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0]];
 }
