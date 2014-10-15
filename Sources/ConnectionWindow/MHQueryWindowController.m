@@ -667,6 +667,7 @@
         }
         ii++;
     }
+    [button selectItemAtIndex:-1];
     if (self.updateOperatorViews.count == 0) {
         // the first NSPopUpButton should be set to "Set"
         // it is probably the most common operator used
@@ -797,9 +798,9 @@
     }];
     for (NSDictionary *lineViews in self.updateOperatorViews) {
         NSPopUpButton *popupButton = lineViews[@"popup"];
-        NSUInteger selectedItem = [popupButton indexOfSelectedItem];
+        NSInteger selectedItem = [popupButton indexOfSelectedItem];
         
-        if ([usedIndexes containsIndex:selectedItem]) {
+        if (selectedItem == -1 || [usedIndexes containsIndex:selectedItem]) {
             [shouldBeUpdated addObject:popupButton];
         } else {
             [usedIndexes addIndex:selectedItem];
