@@ -48,6 +48,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 **Beta**
 
 - Fixing next key view in the update tab
+- Fixing memory leaks
 
 ## History
 
