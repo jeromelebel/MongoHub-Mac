@@ -813,7 +813,7 @@
         NSMenu *menu;
         
         [lineViews[@"+"] setEnabled:(usedIndexes.count != self.updateOperatorList.count)];
-        [lineViews[@"-"] setEnabled:(usedIndexes.count != 1)];
+        [lineViews[@"-"] setEnabled:(self.updateOperatorViews.count > 1)];
         menu = lineViews[@"popup"];
         selectedItemIndex = [lineViews[@"popup"] indexOfSelectedItem];
         for (ii = 0; ii < self.updateOperatorList.count; ii++) {

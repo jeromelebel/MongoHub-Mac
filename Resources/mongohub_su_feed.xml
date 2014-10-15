@@ -26,14 +26,15 @@
         <language>en</language>
         <item>
             <beta>1</beta>
-            <title>Version 2.7 beta 19</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b19.zip" sparkle:version="2.7b19" type="application/octet-stream" />
+            <title>Version 2.7 beta 20</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.7b20.zip" sparkle:version="2.7b20" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.7 beta 19</h3>
+                <h3>2.7 beta 20</h3>
                 <ul>
                 <li>Adding more update operator in the update tab</li>
                 <li>Workarround for corrupted bson</li>
                 <li>Always check for debug updates on a debug version</li>
+                <li>Disable the remove operator button when needed</li>
                 </ul>
             ]]>
             </description>

@@ -48,6 +48,11 @@ Just build it, it should work (but let me know if you have an errors or warnings
 **Beta**
 
 ## History
+
+**2.7 beta 20 - october 15, 2014**
+
+- Disable the remove operator button when needed
+
 **2.7 beta 19 - october 15, 2014**
 
 - Adding more update operator in the update tab
