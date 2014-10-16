@@ -49,6 +49,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 - Fixing next key view in the update tab
 - Fixing memory leaks
+- A little faster to display a thousand collections in a database
 
 ## History
 
