@@ -11,8 +11,10 @@
 #import <MongoObjCDriver/MongoObjCDriver.h>
 
 @interface MHDatabaseItem ()
-@property (nonatomic, readwrite, assign) MHClientItem *clientItem;
+@property (nonatomic, readwrite, weak) MHClientItem *clientItem;
 @property (nonatomic, readwrite, strong) MODDatabase *database;
+@property (nonatomic, readwrite, strong) NSMutableArray *sortedCollectionNames;
+@property (nonatomic, readwrite, strong) NSMutableDictionary *collectionItems;
 
 @end
 
@@ -21,6 +23,7 @@
 @synthesize clientItem = _clientItem;
 @synthesize database = _database;
 @synthesize collectionItems = _collectionItems;
+@synthesize sortedCollectionNames = _sortedCollectionNames;
 
 - (instancetype)initWithClientItem:(MHClientItem *)clientItem database:(MODDatabase *)database
 {
@@ -29,7 +32,8 @@
     if (self = [self init]) {
         self.clientItem = clientItem;
         self.database = database;
-        _collectionItems = [[NSMutableArray alloc] init];
+        self.collectionItems = [NSMutableDictionary dictionary];
+        self.sortedCollectionNames = [NSMutableArray array];
     }
     return self;
 }
@@ -38,7 +42,8 @@
 {
     self.database = nil;
     self.clientItem = nil;
-    [_collectionItems release];
+    self.sortedCollectionNames = nil;
+    self.collectionItems = nil;
     [super dealloc];
 }
 
@@ -49,27 +54,13 @@
 
 - (void)removeCollectionItemWithName:(NSString *)name
 {
-    NSInteger ii = 0;
-    
-    for (MHCollectionItem *collectionItem in _collectionItems) {
-        if ([collectionItem.name isEqualToString:name]) {
-            [_collectionItems removeObjectAtIndex:ii];
-            break;
-        }
-        ii++;
-    }
+    [(NSMutableDictionary *)self.collectionItems removeObjectForKey:name];
+    [(NSMutableArray *)self.sortedCollectionNames removeObjectIdenticalTo:name];
 }
 
 - (MHCollectionItem *)collectionItemWithName:(NSString *)name
 {
-    MHCollectionItem *result = nil;
-    
-    for (MHCollectionItem *collectionItem in _collectionItems) {
-        if ([collectionItem.name isEqualToString:name]) {
-            result = collectionItem;
-        }
-    }
-    return result;
+    return self.collectionItems[name];
 }
 
 static NSInteger collectionItemSortFunction(id element1, id element2, void *context)
@@ -90,19 +81,20 @@ static NSInteger collectionItemSortFunction(id element1, id element2, void *cont
             collectionItem = [self collectionItemWithName:collectionName];
             if (!collectionItem) {
                 collectionItem = [[MHCollectionItem alloc] initWithDatabaseItem:self collection:[self.database collectionForName:collectionName]];
-                [_collectionItems addObject:collectionItem];
+                [(NSMutableDictionary *)self.collectionItems setObject:collectionItem forKey:collectionName];
+                [(NSMutableArray *)self.sortedCollectionNames addObject:collectionName];
                 [collectionItem release];
                 result = YES;
             }
         }
     }
-    for (MHCollectionItem *oldCollectionItem in oldCollectionList) {
-        if ([list indexOfObject:oldCollectionItem.name] == NSNotFound) {
-            [self removeCollectionItemWithName:oldCollectionItem.name];
+    for (NSString *oldCollectionName in oldCollectionList) {
+        if ([list indexOfObject:oldCollectionName] == NSNotFound) {
+            [self removeCollectionItemWithName:oldCollectionName];
             result = YES;
         }
     }
-    [_collectionItems sortUsingFunction:collectionItemSortFunction context:NULL];
+    [(NSMutableArray *)self.sortedCollectionNames sortUsingSelector:@selector(compare:)];
     [oldCollectionList release];
     return result;
 }

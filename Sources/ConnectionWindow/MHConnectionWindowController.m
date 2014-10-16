@@ -796,7 +796,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     if (!item) {
         return self.clientItem.databaseItems.count;
     } else if ([item isKindOfClass:[MHDatabaseItem class]]) {
-        return [item collectionItems].count;
+        return [item sortedCollectionNames].count;
     } else {
         return 0;
     }
@@ -807,7 +807,9 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     if (!item) {
         return [self.clientItem.databaseItems objectAtIndex:index];
     } else if ([item isKindOfClass:[MHDatabaseItem class]]) {
-        return [[item collectionItems] objectAtIndex:index];
+        NSString *collectionName = [item sortedCollectionNames][index];
+        
+        return [item collectionItems][collectionName];
     } else {
         return nil;
     }

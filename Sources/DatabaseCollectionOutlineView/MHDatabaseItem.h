@@ -15,13 +15,15 @@
 {
     MHClientItem                        *_clientItem;
     MODDatabase                         *_database;
-    NSMutableArray                      *_collectionItems;
+    NSMutableDictionary                 *_collectionItems;
+    NSMutableArray                      *_sortedCollectionNames;
 }
 
-@property (nonatomic, readonly, retain) NSString *name;
-@property (nonatomic, readonly, assign) MHClientItem *clientItem;
-@property (nonatomic, readonly, retain) NSArray *collectionItems;
+@property (nonatomic, readonly, strong) NSString *name;
+@property (nonatomic, readonly, weak) MHClientItem *clientItem;
 @property (nonatomic, readonly, strong) MODDatabase *database;
+@property (nonatomic, readonly, strong) NSArray *sortedCollectionNames;
+@property (nonatomic, readonly, strong) NSDictionary *collectionItems;
 
 - (instancetype)initWithClientItem:(MHClientItem *)serverItem database:(MODDatabase *)database;
 - (BOOL)updateChildrenWithList:(NSArray *)list;
