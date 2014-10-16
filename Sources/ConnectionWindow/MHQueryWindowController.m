@@ -461,7 +461,12 @@
         [NSViewHelpers setColor:currentColor fromColor:NSColor.redColor toTarget:self.findTotalResultsTextField withSelector:@selector(setTextColor:) delay:1];
         [self.findQueryLoaderIndicator stopAnimation:nil];
     } else {
-        [self.collection findWithCriteria:criteria fields:fields skip:self.findSkipTextField.intValue limit:limit sort:sort callback:^(NSArray *documents, NSArray *bsonData, MODQuery *mongoQuery) {
+        [self.collection findWithCriteria:criteria
+                                   fields:fields
+                                     skip:self.findSkipTextField.intValue
+                                    limit:limit
+                                     sort:sort
+                                 callback:^(NSArray *documents, NSArray *bsonData, MODQuery *mongoQuery) {
             NSColor *currentColor;
             NSColor *flashColor;
             
