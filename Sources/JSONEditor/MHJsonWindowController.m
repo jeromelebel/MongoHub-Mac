@@ -118,8 +118,8 @@
         [self.collection saveWithDocument:document callback:^(MODQuery *mongoQuery) {
             [self.progressIndicator stopAnimation:self];
             if (mongoQuery.error) {
-                NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, mongoQuery.error.localizedDescription);
-                status.stringValue = error.localizedDescription;
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
+                status.stringValue = mongoQuery.error.localizedDescription;
             } else {
                 status.stringValue = @"Saved";
                 [NSNotificationCenter.defaultCenter postNotificationName:kJsonWindowSaved object:nil];
