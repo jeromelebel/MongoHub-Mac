@@ -11,7 +11,7 @@
             <description><![CDATA[
                 <h3>3.0.1</h3>
                 <ul>
-                    <li>fixing issue with password that contains some specific characters <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/147'>issue #147</a></li>
+                    <li>Fixing issue with passwords that contain some specific characters <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/147'>issue #147</a></li>
                 </ul>
                 <h3>3.0</h3>
                 <ul>

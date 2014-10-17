@@ -25,7 +25,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **3.0.1 - october 17, 2014**
 
-- fixing issue with password that contains some specific characters [issue #147](https://github.com/jeromelebel/MongoHub-Mac/issues/147)
+- Fixing issue with passwords that contain some specific characters [issue #147](https://github.com/jeromelebel/MongoHub-Mac/issues/147)
 
 **3.0 - october 17, 2014**
 
