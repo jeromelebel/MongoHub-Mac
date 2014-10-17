@@ -19,6 +19,8 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **Current**
 
+- Display correctly errors (if any) while saving a document
+
 **Beta**
 
 ## History
