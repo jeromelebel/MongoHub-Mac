@@ -276,50 +276,39 @@
     [self selectBestTextField];
 }
 
-- (void)_removeQuery
+- (void)_removeQueryWithCriteria:(MODSortedMutableDictionary *)criteria
 {
-    MODSortedMutableDictionary *criteria;
-    NSError *error;
-    
     [self.removeQueryLoaderIndicator startAnimation:nil];
-    criteria = [MODRagelJsonParser objectsFromJson:self.removeCriteriaTextField.stringValue withError:&error];
-    if (error) {
-        self.removeResultsTextField.stringValue = @"Error!";
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
-        [self.removeQueryLoaderIndicator stopAnimation:nil];
-        [NSViewHelpers cancelColorForTarget:self.removeResultsTextField selector:@selector(setTextColor:)];
-        [NSViewHelpers setColor:self.removeResultsTextField.textColor fromColor:NSColor.redColor toTarget:self.removeResultsTextField withSelector:@selector(setTextColor:) delay:1];
-    } else {
-        [self.collection countWithCriteria:criteria readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
-            [self.collection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
-                NSColor *flashColor;
-                
-                if (mongoQuery.error) {
-                    self.removeResultsTextField.stringValue = @"Error!";
-                    NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-                    flashColor = NSColor.redColor;
-                } else {
-                    self.removeResultsTextField.stringValue = [NSString stringWithFormat:@"Removed Documents: %lld", count];
-                    flashColor = NSColor.greenColor;
-                }
-                [self.removeQueryLoaderIndicator stopAnimation:nil];
-                [NSViewHelpers cancelColorForTarget:self.removeResultsTextField selector:@selector(setTextColor:)];
-                [NSViewHelpers setColor:self.removeResultsTextField.textColor fromColor:flashColor toTarget:self.removeResultsTextField withSelector:@selector(setTextColor:) delay:1];
-            }];
+    [self.collection countWithCriteria:criteria readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
+        [self.collection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
+            NSColor *flashColor;
+            
+            if (mongoQuery.error) {
+                self.removeResultsTextField.stringValue = @"Error!";
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+                flashColor = NSColor.redColor;
+            } else {
+                self.removeResultsTextField.stringValue = [NSString stringWithFormat:@"Removed Documents: %lld", count];
+                flashColor = NSColor.greenColor;
+            }
+            [self.removeQueryLoaderIndicator stopAnimation:nil];
+            [NSViewHelpers cancelColorForTarget:self.removeResultsTextField selector:@selector(setTextColor:)];
+            [NSViewHelpers setColor:self.removeResultsTextField.textColor fromColor:flashColor toTarget:self.removeResultsTextField withSelector:@selector(setTextColor:) delay:1];
         }];
-    }
+    }];
 }
 
-- (void)removeAllDocumentsPanelDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
+- (void)removeAllDocumentsPanelDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(MODSortedMutableDictionary *)criteria
 {
     switch (returnCode) {
         case NSAlertAlternateReturn:
-            [self _removeQuery];
+            [self _removeQueryWithCriteria:criteria];
             break;
             
         default:
             break;
     }
+    [criteria release];
 }
 
 - (void)indexOutlineViewNotification:(NSNotification *)notification
@@ -971,33 +960,28 @@
 
 - (IBAction)removeQuery:(id)sender
 {
-    id objects;
+    MODSortedMutableDictionary *criteria;
+    NSError *error;
     
-    objects = [MODRagelJsonParser objectsFromJson:self.removeCriteriaTextField.stringValue withError:NULL];
-    if (((self.removeCriteriaTextField.stringValue.mh_stringByTrimmingWhitespace.length == 0) || (objects && [objects count] == 0))
-        && ((self.view.window.currentEvent.modifierFlags & NSCommandKeyMask) != NSCommandKeyMask)) {
+    criteria = [MODRagelJsonParser objectsFromJson:[self formatedJsonWithTextField:self.removeCriteriaTextField replace:NO emptyValid:NO] withError:&error];
+    if (error) {
+        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, @"%@", @"%@", error.localizedDescription);
+    } else if ([criteria count] == 0 && ((self.view.window.currentEvent.modifierFlags & NSCommandKeyMask) != NSCommandKeyMask)) {
         NSAlert *alert;
         
         alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Are you sure you want to remove all documents in %@", self.collection.absoluteName] defaultButton:@"Cancel" alternateButton:@"Remove All" otherButton:nil informativeTextWithFormat:@"This action cannot be undone"];
         [alert setAlertStyle:NSCriticalAlertStyle];
-        [alert beginSheetModalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(removeAllDocumentsPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
+        [alert beginSheetModalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(removeAllDocumentsPanelDidEnd:returnCode:contextInfo:) contextInfo:[criteria retain]];
     } else {
-        [self _removeQuery];
+        [self _removeQueryWithCriteria:criteria];
     }
 }
 
 - (IBAction)removeQueryComposer:(id)sender
 {
-    NSString *col = [NSString stringWithFormat:@"%@.%@", self.collection.name, self.collection.name];
-    NSString *critical;
-    if (self.removeCriteriaTextField.stringValue.length > 0) {
-        critical = [[NSString alloc] initWithString:self.removeCriteriaTextField.stringValue];
-    }else {
-        critical = [[NSString alloc] initWithString:@""];
-    }
-    NSString *query = [NSString stringWithFormat:@"db.%@.remove(%@)", col, critical];
-    [critical release];
-    self.removeQueryTextField.stringValue = query;
+    NSString *criteria = [self formatedJsonWithTextField:self.removeCriteriaTextField replace:NO emptyValid:NO];
+    
+    self.removeQueryTextField.stringValue = [NSString stringWithFormat:@"db.%@.remove(%@)", self.collection.name, criteria];
 }
 
 @end
