@@ -6,9 +6,13 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Version 3.0</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.zip" sparkle:version="3.0" length="3211494" type="application/octet-stream" />
+            <title>Version 3.0.1</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.1.zip" sparkle:version="3.0.1" length="3211494" type="application/octet-stream" />
             <description><![CDATA[
+                <h3>3.0.1</h3>
+                <ul>
+                    <li>fixing issue with password that contains some specific characters <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/147'>issue #147</a></li>
+                </ul>
                 <h3>3.0</h3>
                 <ul>
                     <li>SSL Working</li>
