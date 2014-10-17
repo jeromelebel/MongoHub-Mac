@@ -12,7 +12,7 @@
 
 - (NSString*)mh_stringByEscapingURL
 {
-    return [self stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
+    return CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)self, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8));
 }
 
 - (NSString *)mh_stringByTrimmingWhitespace
