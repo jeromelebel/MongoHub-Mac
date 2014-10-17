@@ -19,6 +19,12 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **Current**
 
+**Beta**
+
+## History
+
+**3.0 - october 17, 2014**
+
 - SSL Working
 - Fix for a crash when having problem to parse a json [issue #125](https://github.com/jeromelebel/MongoHub-Mac/issues/125)
 - Support for functions and scope functions [issue #120](https://github.com/jeromelebel/MongoHub-Mac/issues/120)
@@ -44,14 +50,8 @@ Just build it, it should work (but let me know if you have an errors or warnings
 - Nicer update panel [issue #142](https://github.com/jeromelebel/MongoHub-Mac/issues/142)
 - Workaround for corrupted bson
 - Always check for debug updates on a debug version
-
-**Beta**
-
-- Fixing next key view in the update tab
 - Fixing memory leaks
 - A little faster to display a thousand collections in a database
-
-## History
 
 **2.7 beta 21 - october 15, 2014**
 

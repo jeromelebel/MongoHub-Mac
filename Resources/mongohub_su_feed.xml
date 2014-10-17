@@ -6,14 +6,38 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Version 2.6.2</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-2.6.2.zip" sparkle:version="2.6.2" length="3211494" type="application/octet-stream" />
+            <title>Version 3.0</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.zip" sparkle:version="3.0" length="3211494" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>2.6.2</h3>
+                <h3>3.0</h3>
                 <ul>
-                <li>Avoid automatic correction from Mac OS X while typing a new document <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/121'>issue #121</a> (Thanks to Anthony Williams with <a href='https://github.com/jeromelebel/MongoHub-Mac/pull/122'>pull #122</a>)
-                <li>Avoid automatic correction from Mac OS X while typing map/reduce functions</li>
-                <li>Be able to downgrade from 2.7 beta</li>
+                    <li>SSL Working</li>
+                    <li>Fix for a crash when having problem to parse a json <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/125'>issue #125</a></li>
+                    <li>Support for functions and scope functions <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/120'>issue #120</a></li>
+                    <li>Fix to connect to mongoHQ <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/124'>issue #124</a></li>
+                    <li>Better support for primary and secondary in replica set</li>
+                    <li>Migrate SSH password into the keychain <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/106'>issue #106</a></li>
+                    <li>Migrate database password into the keychain <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/106'>issue #106</a></li>
+                    <li>Fix for adding a database with more than one server connected (the database was created on all servers)</li>
+                    <li>Fix for adding a collection with more than one server connected (the collection was created on all servers)</li>
+                    <li>Adding contextual menu in the main window</li>
+                    <li>Display glitch fixed in the connection window</li>
+                    <li>Adding a log window</li>
+                    <li>Accept connecting to secondary server <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/113'>issue #113</a></li>
+                    <li>Can change font and colors in the json editor and font <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/135'>issue #135</a></li>
+                    <li>cmd-w should close the current tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/119'>issue #119</a></li>
+                    <li>Better support for tunneling with replica set/sharding</li>
+                    <li>Can copy/paste mongodb URI <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/108'>issue #108</a></li>
+                    <li>Adding support for timeout parameter in URL</li>
+                    <li>Update some images to be high resolution <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/54'>issue #54</a></li>
+                    <li>Adding contextual menu in the database/collection list</li>
+                    <li>Can renaming a collection</li>
+                    <li>Closing tabs when dropping a collection/database</li>
+                    <li>Nicer update panel <a ref='https://github.com/jeromelebel/MongoHub-Mac/issues/142'>issue #142</a></li>
+                    <li>Workaround for corrupted bson</li>
+                    <li>Always check for debug updates on a debug version</li>
+                    <li>Fixing memory leaks</li>
+                    <li>A little faster to display a thousand collections in a database</li>
                 </ul>
             ]]>
             </description>
