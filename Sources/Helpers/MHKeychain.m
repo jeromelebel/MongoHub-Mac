@@ -103,6 +103,7 @@
     NSMutableDictionary *query;
     CFTypeRef result;
     OSErr status;
+    NSString *stringToReturn;
     
     query = [self queryForClass:kSecClassInternetPassword label:nil protocol:protocol host:host port:port account:account service:nil description:nil password:nil];
     [query setObject:(id)kCFBooleanTrue forKey:kSecReturnData];
@@ -110,13 +111,15 @@
     
 	status = SecItemCopyMatching((CFDictionaryRef)query, &result);
     if (status == errSecItemNotFound) {
-        return nil;
+        stringToReturn = nil;
     } else if (status != noErr) {
         NSLog(@"Error searching internet password: %d for %@ %@ %@\n", (int)status, host, account, account);
-        return nil;
+        stringToReturn = nil;
     } else {
-        return [[[NSString alloc] initWithBytes:[(NSData *)result bytes] length:[(NSData *)result length] encoding:NSUTF8StringEncoding] autorelease];
+        stringToReturn = [[[NSString alloc] initWithBytes:[(NSData *)result bytes] length:[(NSData *)result length] encoding:NSUTF8StringEncoding] autorelease];
     }
+    if (result) CFRelease(result);
+    return stringToReturn;
 }
 
 + (BOOL)deleteInternetPasswordProtocol:(CFTypeRef)protocol host:(NSString *)host port:(NSUInteger)port account:(NSString *)account
