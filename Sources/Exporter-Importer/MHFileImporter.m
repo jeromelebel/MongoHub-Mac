@@ -51,7 +51,7 @@
         [_latestQuery waitUntilFinished];
         [_latestQuery release];
         _dataProcessed = _dataRead;
-        _latestQuery = [[_collection insertWithDocuments:self.pendingDocuments callback:^(MODQuery *query) {
+        _latestQuery = [[_collection insertWithDocuments:self.pendingDocuments writeConcern:nil callback:^(MODQuery *query) {
             if (query.error && !self.error) {
                 NSMutableDictionary *userInfo;
                 

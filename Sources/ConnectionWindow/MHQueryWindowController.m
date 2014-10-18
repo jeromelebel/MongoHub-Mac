@@ -597,7 +597,7 @@
         if ([objects isKindOfClass:[MODSortedMutableDictionary class]]) {
             objects = [NSArray arrayWithObject:objects];
         }
-        [self.collection insertWithDocuments:objects callback:^(MODQuery *mongoQuery) {
+        [self.collection insertWithDocuments:objects writeConcern:nil callback:^(MODQuery *mongoQuery) {
             NSColor *currentColor;
             NSColor *flashColor;
             

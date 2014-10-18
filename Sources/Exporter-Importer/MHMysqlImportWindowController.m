@@ -153,7 +153,7 @@
                 } else {
                     callback = nil;
                 }
-                [copyCollection insertWithDocuments:documents callback:callback];
+                [copyCollection insertWithDocuments:documents writeConcern:nil callback:callback];
                 [documents release];
             }
         }
