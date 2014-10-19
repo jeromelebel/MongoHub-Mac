@@ -21,6 +21,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 - Display correctly errors (if any) while saving a document
 - Fixing few issues while editing the criteria in the remove tab
+- Better support for DBRef
 
 **Beta**
 
