@@ -111,7 +111,7 @@
     } else if ([dataValue isKindOfClass:[MODBinary class]]) {
         type = @"Binary";
         value = [dataValue jsonValueWithPretty:YES strictJSON:NO];
-    } else if ([dataValue isKindOfClass:[MODDBPointer class]]) {
+    } else if ([dataValue isKindOfClass:[MODDBRef class]]) {
         type = @"Ref";
         value = [dataValue jsonValueWithPretty:YES strictJSON:NO];
     } else if ([dataValue isKindOfClass:[NSString class]]) {
