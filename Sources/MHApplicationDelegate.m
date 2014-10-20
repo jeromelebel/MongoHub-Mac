@@ -169,7 +169,6 @@
         }
     }
 
-    NSLog(@"%@", self.externalRecordsDirectory);
     NSString *externalRecordsDirectory = [self externalRecordsDirectory];
     if (![fileManager fileExistsAtPath:externalRecordsDirectory isDirectory:NULL]) {
         if (![fileManager createDirectoryAtPath:externalRecordsDirectory withIntermediateDirectories:YES attributes:nil error:&error]) {
