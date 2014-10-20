@@ -95,6 +95,9 @@
             [array addObject:host];
         }
     }
+    if (array.count == 0) {
+        [array addObject:@""];
+    }
     return array;
 }
 
