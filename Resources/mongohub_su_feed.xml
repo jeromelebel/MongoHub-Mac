@@ -6,9 +6,19 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Version 3.0.1</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.1.zip" sparkle:version="3.0.1" length="3211494" type="application/octet-stream" />
+            <title>Version 3.0.2</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.2.zip" sparkle:version="3.0.2" length="3211494" type="application/octet-stream" />
             <description><![CDATA[
+                <h3>3.0.2</h3>
+                <ul>
+                    <li>Adding back the activity monitor (in the toolbar) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/152'>issue #152</a></li>
+                    <li>Display correctly errors (if any) while saving a document</li>
+                    <li>Fixing few issues while editing the criteria in the remove tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/151'>issue #151</a></li>
+                    <li>Better support for DBRef</li>
+                    <li>Problem to autosave the toolbar in the connection window</li>
+                    <li>Maybe a fix for ssh problems <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/146'>issue #146</a></li>
+                    <li>Issue with default filename when doing file export</li>
+                </ul>
                 <h3>3.0.1</h3>
                 <ul>
                     <li>Fixing issue with passwords that contain some specific characters <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/147'>issue #147</a></li>
