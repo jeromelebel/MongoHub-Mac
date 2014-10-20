@@ -19,7 +19,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **Current**
 
-- Adding back the activity monitor (in the toolbar)
+- Adding back the activity monitor (in the toolbar) [issue #152](https://github.com/jeromelebel/MongoHub-Mac/issues/152)
 - Display correctly errors (if any) while saving a document
 - Fixing few issues while editing the criteria in the remove tab
 - Better support for DBRef
