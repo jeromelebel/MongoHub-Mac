@@ -158,7 +158,7 @@
                     <constraint firstAttribute="trailing" secondItem="hZo-C7-Uow" secondAttribute="trailing" id="sFZ-v2-65d"/>
                 </constraints>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="C505BED7-EF91-4587-9C61-0EE8947824D6" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="YbN-bC-uid">
+            <toolbar key="toolbar" implicitIdentifier="C505BED7-EF91-4587-9C61-0EE8947824D6" displayMode="iconAndLabel" sizeMode="regular" id="YbN-bC-uid">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="4825E87A-3042-48E3-A4B4-3975274FD435" label="Server Status" paletteLabel="Server Status" image="servermenu" autovalidates="NO" id="y7B-rm-gPi">
                         <connections>
