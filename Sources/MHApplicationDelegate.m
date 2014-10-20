@@ -37,6 +37,8 @@
 @property (nonatomic, strong, readwrite) IBOutlet NSTextField *bundleVersion;
 @property (nonatomic, strong, readwrite) IBOutlet NSPanel *supportPanel;
 
+@property (nonatomic, readonly, assign) NSString *dataStorePath;
+
 @end
 
 @interface MHApplicationDelegate (MHLogWindowControllerDelegate) <MHLogWindowControllerDelegate>
@@ -85,6 +87,11 @@
     self.bundleVersion = nil;
     
     [super dealloc];
+}
+
+- (NSString *)dataStorePath
+{
+    return [self.applicationSupportDirectory stringByAppendingPathComponent:@"storedata"];
 }
 
 /**
@@ -162,6 +169,7 @@
         }
     }
 
+    NSLog(@"%@", self.externalRecordsDirectory);
     NSString *externalRecordsDirectory = [self externalRecordsDirectory];
     if (![fileManager fileExistsAtPath:externalRecordsDirectory isDirectory:NULL]) {
         if (![fileManager createDirectoryAtPath:externalRecordsDirectory withIntermediateDirectories:YES attributes:nil error:&error]) {
@@ -172,7 +180,7 @@
         };
     }
 
-    NSURL *url = [NSURL fileURLWithPath: [applicationSupportDirectory stringByAppendingPathComponent: @"storedata"]];
+    NSURL *url = [NSURL fileURLWithPath:self.dataStorePath];
     // set store options to enable spotlight indexing
     NSMutableDictionary *storeOptions = [NSMutableDictionary dictionary];
     [storeOptions setObject:YOUR_EXTERNAL_RECORD_EXTENSION forKey:NSExternalRecordExtensionOption];
@@ -199,22 +207,42 @@
     bound to the persistent store coordinator for the application.) 
  */
  
-- (NSManagedObjectContext *) managedObjectContext
+- (NSManagedObjectContext *)managedObjectContext
 {
     if (_managedObjectContext) return _managedObjectContext;
 
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    NSPersistentStoreCoordinator *coordinator = self.persistentStoreCoordinator;
     
     if (!coordinator) {
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        [dict setValue:@"Failed to initialize the store" forKey:NSLocalizedDescriptionKey];
-        [dict setValue:@"There was an error building up the data file." forKey:NSLocalizedFailureReasonErrorKey];
-        NSError *error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
-        [[NSApplication sharedApplication] presentError:error];
-        return nil;
+        NSError *error = nil;
+        NSAlert *alert;
+        
+        alert = [NSAlert alertWithMessageText:@"Failed to load the store database" defaultButton:@"Reset" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@"By clicking on reset you will loose the connection information"];
+        alert.alertStyle = NSCriticalAlertStyle;
+        switch ([alert runModal]) {
+            case 0:
+                return nil;
+                break;
+            case 1:
+                
+                if ([[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:self.dataStorePath] error:&error]) {
+                    coordinator = self.persistentStoreCoordinator;
+                    if (!coordinator) {
+                        return nil;
+                    }
+                } else {
+                    [[NSApplication sharedApplication] presentError:error];
+                    return nil;
+                }
+                break;
+                
+            default:
+                return nil;
+                break;
+        };
     }
     _managedObjectContext = [[NSManagedObjectContext alloc] init];
-    [_managedObjectContext setPersistentStoreCoordinator: coordinator];
+    [_managedObjectContext setPersistentStoreCoordinator:coordinator];
 
     return _managedObjectContext;
 }
