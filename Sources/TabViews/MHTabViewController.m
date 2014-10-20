@@ -130,6 +130,7 @@
     
     index = [_tabControllers indexOfObject:tabItemViewController];
     if (index != NSNotFound) {
+        [tabItemViewController willRemoveFromTabViewController];
         [tabItemViewController retain];
         [self willChangeValueForKey:@"selectedTabIndex"];
         [self _removeCurrentTabItemViewController];

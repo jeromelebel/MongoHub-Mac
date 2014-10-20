@@ -17,5 +17,6 @@
 @property (nonatomic, assign, readwrite) MHTabViewController *tabViewController;
 
 - (void)select;
+- (void)willRemoveFromTabViewController;
 
 @end

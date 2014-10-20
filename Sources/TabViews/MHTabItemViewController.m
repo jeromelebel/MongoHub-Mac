@@ -17,4 +17,9 @@
     [_tabViewController selectTabItemViewController:self];
 }
 
+- (void)willRemoveFromTabViewController
+{
+    
+}
+
 @end
