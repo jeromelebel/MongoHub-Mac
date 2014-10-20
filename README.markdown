@@ -25,6 +25,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 - Better support for DBRef
 - Problem to autosave the toolbar in the connection window
 - Maybe a fix for ssh problems [issue #146](https://github.com/jeromelebel/MongoHub-Mac/issues/146)
+- Issue with default filename when doing file export
 
 **Beta**
 

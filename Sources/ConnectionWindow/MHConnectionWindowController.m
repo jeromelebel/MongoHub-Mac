@@ -668,7 +668,7 @@
 {
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     
-    savePanel.nameFieldStringValue = [NSString stringWithFormat:@"%@-%@", self.selectedDatabaseItem.database, self.selectedCollectionItem.collection.name];
+    savePanel.nameFieldStringValue = [NSString stringWithFormat:@"%@-%@", self.selectedDatabaseItem.database.name, self.selectedCollectionItem.collection.name];
     [savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result == NSOKButton) {
             // wait until the panel is closed to open the import feedback window
