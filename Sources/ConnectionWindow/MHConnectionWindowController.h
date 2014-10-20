@@ -12,7 +12,6 @@
 #import "MHTabViewController.h"
 
 @class BWSheetController;
-@class StatMonitorTableController;
 @class MHMysqlImportWindowController;
 @class MHMysqlExportWindowController;
 @class MHResultsOutlineViewController;
@@ -25,6 +24,7 @@
 @class MHStatusViewController;
 @class MHImportExportFeedback;
 @class MHConnectionWindowController;
+@class MHActivityMonitorViewController;
 
 @protocol MHImporterExporter;
 
@@ -41,6 +41,7 @@
     IBOutlet NSMenu                         *createCollectionOrDatabaseMenu;
     
     MHStatusViewController                  *_statusViewController;
+    MHActivityMonitorViewController         *_activityMonitorViewController;
     MHTabViewController                     *_tabViewController;
     IBOutlet NSSplitView                    *_splitView;
     
@@ -49,24 +50,17 @@
     MODClient                               *_client;
     NSTimer                                 *_serverMonitorTimer;
     IBOutlet NSOutlineView                  *_databaseCollectionOutlineView;
-    IBOutlet NSTextField                    *resultsTitle;
     IBOutlet NSProgressIndicator            *_loaderIndicator;
-    IBOutlet NSButton                       *monitorButton;
-    IBOutlet NSPanel                        *monitorPanel;
-    IBOutlet StatMonitorTableController     *statMonitorTableController;
     IBOutlet NSToolbar                      *_toolbar;
     MHTunnel                                *_sshTunnel;
     NSMutableDictionary                     *_sshBindedPortMapping;
     MHMysqlImportWindowController           *_mysqlImportWindowController;
     MHMysqlExportWindowController           *_mysqlExportWindowController;
     IBOutlet NSTextField                    *bundleVersion;
-    BOOL                                    monitorStopped;
     
     IBOutlet NSView                         *_mainTabView;
     IBOutlet MHTabTitleView                 *_tabTitleView;
-    
-    MODSortedMutableDictionary              *previousServerStatusForDelta;
-    
+        
     MHImportExportFeedback                  *_importExportFeedback;
     id<MHImporterExporter>                  _importerExporter;
 }
@@ -74,10 +68,7 @@
 @property (nonatomic, readwrite, assign) id<MHConnectionWindowControllerDelegate> delegate;
 @property (nonatomic, readwrite, strong) MHConnectionStore *connectionStore;
 @property (nonatomic, readwrite, strong) MODClient *client;
-@property (nonatomic, readwrite, strong) NSTextField *resultsTitle;
 @property (nonatomic, readwrite, strong) NSProgressIndicator *loaderIndicator;
-@property (nonatomic, readwrite, strong) NSButton *monitorButton;
-@property (nonatomic, readwrite, strong) StatMonitorTableController *statMonitorTableController;
 @property (nonatomic, readwrite, strong) NSTextField *bundleVersion;
 @property (nonatomic, readwrite, strong) MHMysqlImportWindowController *mysqlImportWindowController;
 @property (nonatomic, readwrite, strong) MHMysqlExportWindowController *mysqlExportWindowController;
@@ -94,8 +85,6 @@
 - (void)connectToServer;
 - (void)dropWarning:(NSString *)msg;
 
-- (IBAction)startMonitor:(id)sender;
-- (IBAction)stopMonitor:(id)sender;
 @end
 
 @interface MHConnectionWindowController(ImportExport)

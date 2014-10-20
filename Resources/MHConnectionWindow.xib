@@ -11,8 +11,6 @@
                 <outlet property="_splitView" destination="hZo-C7-Uow" id="MCz-8X-JYG"/>
                 <outlet property="_toolbar" destination="YbN-bC-uid" id="6eb-X6-mCg"/>
                 <outlet property="createCollectionOrDatabaseMenu" destination="Yo7-eX-SoT" id="k2p-yU-ZHX"/>
-                <outlet property="monitorPanel" destination="BIB-rn-Jk3" id="1Ly-AJ-Xwf"/>
-                <outlet property="statMonitorTableController" destination="4Nl-3a-Bnc" id="owa-mO-MRr"/>
                 <outlet property="tabViewController" destination="Ibi-sf-ckG" id="1io-7m-zCI"/>
                 <outlet property="window" destination="UQW-h8-mqI" id="Wfu-dy-lou"/>
             </connections>
@@ -42,7 +40,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowHeight="13" indentationPerLevel="14" autoresizesOutlineColumn="YES" outlineTableColumn="ikR-Sr-Q6G" id="PxI-If-Mr2" customClass="MHDatabaseCollectionOutlineView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="176" height="20"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="112" height="20"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="7"/>
                                                     <color key="backgroundColor" red="0.7607843876" green="0.78039222959999999" blue="0.82745105029999999" alpha="1" colorSpace="deviceRGB"/>
@@ -200,6 +198,11 @@
                             <action selector="exportToFileAction:" target="-2" id="v4m-2s-S9n"/>
                         </connections>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="C2FD0C07-5852-48DB-8F67-1259AB7C84AF" label="Activity Monitor" paletteLabel="Activity Monitor" tag="8" image="ActivityMonitor" autovalidates="NO" id="7Me-Dz-faO" userLabel="Activity Monitor">
+                        <connections>
+                            <action selector="showActivityMonitorAction:" target="-2" id="c2Y-UM-Wz9"/>
+                        </connections>
+                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="cFF-Nk-tUu"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="0O1-sV-0w3"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="Tm6-iN-azQ"/>
@@ -219,255 +222,14 @@
             </connections>
             <point key="canvasLocation" x="328" y="532"/>
         </window>
-        <customObject id="4Nl-3a-Bnc" customClass="StatMonitorTableController"/>
         <customObject id="Ibi-sf-ckG" customClass="MHTabViewController">
             <connections>
                 <outlet property="_delegate" destination="-2" id="u32-Gf-dok"/>
             </connections>
         </customObject>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="BIB-rn-Jk3" userLabel="Stats Panel" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES" HUD="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="131" y="133" width="753" height="296"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
-            <view key="contentView" id="Ni0-PD-zja">
-                <rect key="frame" x="0.0" y="0.0" width="753" height="296"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sFW-fU-ESG">
-                        <rect key="frame" x="275" y="-1" width="203" height="28"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="18" id="CXc-mr-zef"/>
-                            <constraint firstAttribute="width" constant="193" id="Y5x-uX-PbY"/>
-                        </constraints>
-                        <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="flJ-rj-3e5">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystem"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="stopMonitor:" target="-2" id="m5L-48-dmN"/>
-                        </connections>
-                    </button>
-                    <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wwW-ex-jxT">
-                        <rect key="frame" x="1" y="28" width="751" height="268"/>
-                        <clipView key="contentView" id="0AX-Ao-tTw">
-                            <rect key="frame" x="0.0" y="17" width="751" height="247"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" headerView="Xwu-6g-Tfw" id="x5k-zV-svZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="751" height="22"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <size key="intercellSpacing" width="3" height="2"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                    <tableColumns>
-                                        <tableColumn identifier="insert" editable="NO" width="53" minWidth="40" maxWidth="1000" id="37l-ab-N06">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="insert/s">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
-                                            </tableHeaderCell>
-                                            <cell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="oYd-sZ-saf">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="hIY-8c-Qcc"/>
-                                                <font key="font" metaFont="systemBold" size="10"/>
-                                            </cell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        </tableColumn>
-                                        <tableColumn identifier="query" editable="NO" width="50" minWidth="10" maxWidth="3.4028234663852886e+38" id="ppT-xL-ujJ">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="query/s">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <cell key="dataCell" alignment="left" id="xLV-vk-oLE">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="lND-Yn-6wc"/>
-                                                <font key="font" metaFont="systemBold" size="10"/>
-                                            </cell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        </tableColumn>
-                                        <tableColumn identifier="update" editable="NO" width="57" minWidth="10" maxWidth="3.4028234663852886e+38" id="xzm-Ix-8Zc">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="update/s">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <cell key="dataCell" alignment="left" id="9sM-3d-cmw">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="GeQ-P3-RZJ"/>
-                                                <font key="font" metaFont="systemBold" size="10"/>
-                                            </cell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        </tableColumn>
-                                        <tableColumn identifier="delete" editable="NO" width="52" minWidth="10" maxWidth="3.4028234663852886e+38" id="CjN-US-1Nf">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="delete/s">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <cell key="dataCell" enabled="NO" alignment="left" id="5ko-kM-icJ">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="v2i-hh-SAf"/>
-                                                <font key="font" metaFont="systemBold" size="10"/>
-                                            </cell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        </tableColumn>
-                                        <tableColumn identifier="getmore" editable="NO" width="65" minWidth="10" maxWidth="3.4028234663852886e+38" id="bZc-s7-D6k">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="getmore/s">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <cell key="dataCell" alignment="left" id="iKE-er-JfA">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="T0M-VH-r3t"/>
-                                                <font key="font" metaFont="systemBold" size="10"/>
-                                            </cell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        </tableColumn>
-                                        <tableColumn identifier="command" editable="NO" width="43" minWidth="10" maxWidth="3.4028234663852886e+38" id="8ak-gz-N5B">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="cmd/s">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <cell key="dataCell" alignment="left" id="6eb-Pg-UdC">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="oE5-o1-Goy"/>
-                                                <font key="font" metaFont="systemBold" size="10"/>
-                                            </cell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        </tableColumn>
-                                        <tableColumn identifier="mapped" editable="NO" width="52" minWidth="10" maxWidth="3.4028234663852886e+38" id="ToB-Ir-h3E">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="mapped">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <cell key="dataCell" alignment="left" id="v3l-oF-uDM">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="zqI-3g-Y6r"/>
-                                                <font key="font" metaFont="systemBold" size="10"/>
-                                            </cell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        </tableColumn>
-                                        <tableColumn identifier="vsize" editable="NO" width="35" minWidth="10" maxWidth="3.4028234663852886e+38" id="9no-CB-fCX">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="vsize">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <cell key="dataCell" alignment="left" id="AbJ-Pv-vZY">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="nRU-Aw-B4P"/>
-                                                <font key="font" metaFont="systemBold" size="10"/>
-                                            </cell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        </tableColumn>
-                                        <tableColumn identifier="res" editable="NO" width="25" minWidth="10" maxWidth="3.4028234663852886e+38" id="YTs-KC-p0p">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="res">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <cell key="dataCell" alignment="left" id="s4H-av-aJq">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="qBJ-a1-MtS"/>
-                                                <font key="font" metaFont="systemBold" size="10"/>
-                                            </cell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        </tableColumn>
-                                        <tableColumn identifier="faults" editable="NO" width="50" minWidth="10" maxWidth="3.4028234663852886e+38" id="b9o-Pz-skj">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="faults/s">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <cell key="dataCell" alignment="left" id="uUw-z5-pWW">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="TSv-p1-2ap"/>
-                                                <font key="font" metaFont="systemBold" size="10"/>
-                                            </cell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        </tableColumn>
-                                        <tableColumn identifier="locked" editable="NO" width="54" minWidth="10" maxWidth="3.4028234663852886e+38" id="ARI-Bu-kDs">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="locked %">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <cell key="dataCell" alignment="left" id="R37-M8-fN0">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" minimumIntegerDigits="1" maximumIntegerDigits="309" id="sSC-e4-wNi">
-                                                    <integer key="multiplier" value="100"/>
-                                                </numberFormatter>
-                                                <font key="font" metaFont="systemBold" size="10"/>
-                                            </cell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        </tableColumn>
-                                        <tableColumn identifier="misses" editable="NO" width="76" minWidth="10" maxWidth="3.4028234663852886e+38" id="wnb-1Y-P1R">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="idx misses %">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <cell key="dataCell" alignment="left" id="23L-1x-KRS">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" minimumIntegerDigits="1" maximumIntegerDigits="309" id="t4e-Ns-vHJ">
-                                                    <integer key="multiplier" value="100"/>
-                                                </numberFormatter>
-                                                <font key="font" metaFont="systemBold" size="10"/>
-                                            </cell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        </tableColumn>
-                                        <tableColumn identifier="conn" editable="NO" width="35" minWidth="10" maxWidth="3.4028234663852886e+38" id="IXg-cq-Kq6">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="conn">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <cell key="dataCell" alignment="left" id="AdB-qX-e7Q">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="Ufi-cV-a2S"/>
-                                                <font key="font" metaFont="systemBold" size="10"/>
-                                            </cell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        </tableColumn>
-                                        <tableColumn identifier="time" editable="NO" width="62" minWidth="10" maxWidth="3.4028234663852886e+38" id="V2x-0h-z2S">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="time">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <cell key="dataCell" alignment="left" id="JtM-76-B4z">
-                                                <dateFormatter key="formatter" formatterBehavior="custom10_4" timeStyle="medium" dateFormat="HH:mm:ss" id="ZPs-Er-YXL"/>
-                                                <font key="font" metaFont="systemBold" size="10"/>
-                                            </cell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        </tableColumn>
-                                    </tableColumns>
-                                </tableView>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="0.14000000060000001" colorSpace="deviceWhite"/>
-                        </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="ud7-3g-QMZ">
-                            <rect key="frame" x="-100" y="-100" width="225" height="15"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" arrowsPosition="none" horizontal="NO" id="nO0-vL-bVh">
-                            <rect key="frame" x="-100" y="-100" width="15" height="120"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                        <tableHeaderView key="headerView" id="Xwu-6g-Tfw">
-                            <rect key="frame" x="0.0" y="0.0" width="751" height="17"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </tableHeaderView>
-                    </scrollView>
-                </subviews>
-                <constraints>
-                    <constraint firstAttribute="bottom" secondItem="sFW-fU-ESG" secondAttribute="bottom" constant="5" id="8f0-ko-gQ2"/>
-                    <constraint firstAttribute="centerX" secondItem="sFW-fU-ESG" secondAttribute="centerX" id="MB9-uJ-m1e"/>
-                    <constraint firstItem="sFW-fU-ESG" firstAttribute="top" secondItem="wwW-ex-jxT" secondAttribute="bottom" constant="5" id="Nim-TQ-bmq"/>
-                    <constraint firstItem="wwW-ex-jxT" firstAttribute="leading" secondItem="Ni0-PD-zja" secondAttribute="leading" constant="1" id="R7q-HT-2iO"/>
-                    <constraint firstAttribute="trailing" secondItem="wwW-ex-jxT" secondAttribute="trailing" constant="1" id="aaq-GV-7UI"/>
-                    <constraint firstItem="wwW-ex-jxT" firstAttribute="top" secondItem="Ni0-PD-zja" secondAttribute="top" id="swc-4j-Tfg"/>
-                </constraints>
-            </view>
-            <connections>
-                <outlet property="delegate" destination="-2" id="oKd-ud-VfS"/>
-            </connections>
-            <point key="canvasLocation" x="318.5" y="-32"/>
-        </window>
     </objects>
     <resources>
+        <image name="ActivityMonitor" width="512" height="512"/>
         <image name="NSAddTemplate" width="8" height="8"/>
         <image name="NSRemoveTemplate" width="8" height="8"/>
         <image name="collectionmenu" width="32" height="32"/>

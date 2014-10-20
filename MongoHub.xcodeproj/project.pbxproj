@@ -68,6 +68,9 @@
 		027062D619DF822600E6C36A /* editmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062D019DF822600E6C36A /* editmenu@2x.png */; };
 		0279C090189C02F600F8BACB /* MHImportExportFeedback.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0279C08F189C02F600F8BACB /* MHImportExportFeedback.xib */; };
 		0279C093189C03E000F8BACB /* MHImportExportFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 0279C092189C03E000F8BACB /* MHImportExportFeedback.m */; };
+		029464DC19F588B900E1B1E6 /* MHActivityMonitorTab.xib in Resources */ = {isa = PBXBuildFile; fileRef = 029464DB19F588B900E1B1E6 /* MHActivityMonitorTab.xib */; };
+		029464DF19F5899F00E1B1E6 /* MHActivityMonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 029464DE19F5899F00E1B1E6 /* MHActivityMonitorViewController.m */; };
+		029464E119F58C4500E1B1E6 /* ActivityMonitor.icns in Resources */ = {isa = PBXBuildFile; fileRef = 029464E019F58C4400E1B1E6 /* ActivityMonitor.icns */; };
 		029CAA731946028800FD44B4 /* NSTextView+MongoHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 029CAA721946028800FD44B4 /* NSTextView+MongoHub.m */; };
 		029D30A5145613420021B9C9 /* MHDatabaseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D30A4145613420021B9C9 /* MHDatabaseItem.m */; };
 		029D30A9145613580021B9C9 /* MHCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D30A8145613580021B9C9 /* MHCollectionItem.m */; };
@@ -145,7 +148,6 @@
 		1DA68049118875B300DFDD29 /* removemenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DA68044118875B300DFDD29 /* removemenu.png */; };
 		1DA6804A118875B300DFDD29 /* runmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DA68045118875B300DFDD29 /* runmenu.png */; };
 		1DA6806C11888BDD00DFDD29 /* NSString+MongoHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6806B11888BDD00DFDD29 /* NSString+MongoHub.m */; };
-		1DCC562912C264600025F181 /* StatMonitorTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DCC562812C264600025F181 /* StatMonitorTableController.m */; };
 		1DDC486912CB7758009924A1 /* SyntaxDefinition.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DDC486812CB7758009924A1 /* SyntaxDefinition.plist */; };
 		1DEC7F3B12B7ECAD00FC804E /* MHTunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DEC7F3A12B7ECAC00FC804E /* MHTunnel.m */; };
 		1DEC7FF112B7EDB900FC804E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DEC7FF012B7EDB900FC804E /* Security.framework */; };
@@ -175,6 +177,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 02E6400C19DB68F900FEFEFC;
 			remoteInfo = "MongoObjCDriver Tests";
+		};
+		029464D919F57AF700E1B1E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 02C4C15F19A230BE0002FBD8 /* MongoObjCDriver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 02F4EA7A19F1ABF400BE9695;
+			remoteInfo = test;
 		};
 		02C4C1C419A230BE0002FBD8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -273,6 +282,10 @@
 		0279C091189C03E000F8BACB /* MHImportExportFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHImportExportFeedback.h; sourceTree = "<group>"; };
 		0279C092189C03E000F8BACB /* MHImportExportFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHImportExportFeedback.m; sourceTree = "<group>"; };
 		02940E021982A17A005AF3C1 /* MongoHub_DataModel7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel7.xcdatamodel; sourceTree = "<group>"; };
+		029464DB19F588B900E1B1E6 /* MHActivityMonitorTab.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHActivityMonitorTab.xib; sourceTree = "<group>"; };
+		029464DD19F5899F00E1B1E6 /* MHActivityMonitorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHActivityMonitorViewController.h; sourceTree = "<group>"; };
+		029464DE19F5899F00E1B1E6 /* MHActivityMonitorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHActivityMonitorViewController.m; sourceTree = "<group>"; };
+		029464E019F58C4400E1B1E6 /* ActivityMonitor.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ActivityMonitor.icns; sourceTree = "<group>"; };
 		029CAA711946028800FD44B4 /* NSTextView+MongoHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextView+MongoHub.h"; sourceTree = "<group>"; };
 		029CAA721946028800FD44B4 /* NSTextView+MongoHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextView+MongoHub.m"; sourceTree = "<group>"; };
 		029D30A3145613420021B9C9 /* MHDatabaseItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDatabaseItem.h; sourceTree = "<group>"; };
@@ -384,8 +397,6 @@
 		1DA68045118875B300DFDD29 /* runmenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = runmenu.png; path = Resources/images/runmenu.png; sourceTree = SOURCE_ROOT; };
 		1DA6806A11888BDD00DFDD29 /* NSString+MongoHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MongoHub.h"; sourceTree = "<group>"; };
 		1DA6806B11888BDD00DFDD29 /* NSString+MongoHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MongoHub.m"; sourceTree = "<group>"; };
-		1DCC562712C264600025F181 /* StatMonitorTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatMonitorTableController.h; sourceTree = "<group>"; };
-		1DCC562812C264600025F181 /* StatMonitorTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatMonitorTableController.m; sourceTree = "<group>"; };
 		1DDC486812CB7758009924A1 /* SyntaxDefinition.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SyntaxDefinition.plist; sourceTree = "<group>"; };
 		1DEC7F3912B7ECAC00FC804E /* MHTunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTunnel.h; sourceTree = "<group>"; };
 		1DEC7F3A12B7ECAC00FC804E /* MHTunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTunnel.m; sourceTree = "<group>"; };
@@ -463,6 +474,7 @@
 			children = (
 				02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */,
 				027062C819DF803600E6C36A /* MongoObjCDriver Tests.xctest */,
+				029464DA19F57AF700E1B1E6 /* test */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -480,6 +492,8 @@
 				020F5126148973BA00D4B54B /* MHStatusViewController.m */,
 				02ABF65D19E09C76009F4766 /* MHDatabaseCollectionOutlineView.h */,
 				02ABF65E19E09C76009F4766 /* MHDatabaseCollectionOutlineView.m */,
+				029464DD19F5899F00E1B1E6 /* MHActivityMonitorViewController.h */,
+				029464DE19F5899F00E1B1E6 /* MHActivityMonitorViewController.m */,
 			);
 			path = ConnectionWindow;
 			sourceTree = "<group>";
@@ -648,8 +662,6 @@
 				1D93C24E11833599003216F7 /* ConnectionsArrayController.m */,
 				1D26619211CFD2560092C6B5 /* FieldMapTableController.h */,
 				1D26619311CFD2560092C6B5 /* FieldMapTableController.m */,
-				1DCC562712C264600025F181 /* StatMonitorTableController.h */,
-				1DCC562812C264600025F181 /* StatMonitorTableController.m */,
 			);
 			path = ArrayControllers;
 			sourceTree = "<group>";
@@ -657,6 +669,7 @@
 		1D93C27011833A19003216F7 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				029464E019F58C4400E1B1E6 /* ActivityMonitor.icns */,
 				1D601B3B11C8E7F900C86274 /* exportbox.png */,
 				1D601B3C11C8E7F900C86274 /* importbox.png */,
 				1D601B3611C8E13000C86274 /* importmenu.png */,
@@ -785,6 +798,7 @@
 				1DF96E3C11881EB400C35AB8 /* MHEditNameWindow.xib */,
 				0243B79119EC357700D06BFE /* MHQueryUpdateOperator.xib */,
 				1DF96F9311883D5E00C35AB8 /* MHQueryWindow.xib */,
+				029464DB19F588B900E1B1E6 /* MHActivityMonitorTab.xib */,
 				1D601B5511C8F24300C86274 /* MysqlImport.xib */,
 				1D26615111CFC5BE0092C6B5 /* MysqlExport.xib */,
 				1D64100E12C8E6BE0030AA4C /* MHJsonWindow.xib */,
@@ -882,6 +896,13 @@
 			remoteRef = 027062C719DF803600E6C36A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		029464DA19F57AF700E1B1E6 /* test */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = test;
+			remoteRef = 029464D919F57AF700E1B1E6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -897,6 +918,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				029464DC19F588B900E1B1E6 /* MHActivityMonitorTab.xib in Resources */,
 				2F7446990DB6B7EA00F9684A /* MHMainMenu.xib in Resources */,
 				1D93C27211833A19003216F7 /* database.png in Resources */,
 				1D93C2A0118343EF003216F7 /* MHConnectionEditorWindow.xib in Resources */,
@@ -935,6 +957,7 @@
 				1D601B3811C8E13000C86274 /* importmenu.png in Resources */,
 				1D601B3911C8E13000C86274 /* exportmenu.png in Resources */,
 				027062C219DF803600E6C36A /* background_blue_arrow@2x.png in Resources */,
+				029464E119F58C4500E1B1E6 /* ActivityMonitor.icns in Resources */,
 				1D601B3D11C8E7F900C86274 /* exportbox.png in Resources */,
 				027062D119DF822600E6C36A /* removemenu@2x.png in Resources */,
 				1D601B3E11C8E7F900C86274 /* importbox.png in Resources */,
@@ -1019,9 +1042,9 @@
 				1D26619411CFD2560092C6B5 /* FieldMapTableController.m in Sources */,
 				1DEC7F3B12B7ECAD00FC804E /* MHTunnel.m in Sources */,
 				02D83E0219A4A28F007AB2F2 /* NSDictionary+MongoHub.m in Sources */,
-				1DCC562912C264600025F181 /* StatMonitorTableController.m in Sources */,
 				0279C093189C03E000F8BACB /* MHImportExportFeedback.m in Sources */,
 				1D64100512C8E1C00030AA4C /* NSScanner+SkipUpToCharset.m in Sources */,
+				029464DF19F5899F00E1B1E6 /* MHActivityMonitorViewController.m in Sources */,
 				1D64100812C8E21C0030AA4C /* UKSyntaxColoredTextViewController.m in Sources */,
 				02E79EA71993F3F90016B4C9 /* MHConnectionViewItem.m in Sources */,
 				1D64100D12C8E3D90030AA4C /* MHJsonWindowController.m in Sources */,

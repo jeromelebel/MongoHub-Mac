@@ -12,7 +12,6 @@
 #import "MHEditNameWindowController.h"
 #import "MHMysqlImportWindowController.h"
 #import "MHMysqlExportWindowController.h"
-#import "StatMonitorTableController.h"
 #import "MHTunnel.h"
 #import "MHClientItem.h"
 #import "MHDatabaseItem.h"
@@ -27,6 +26,7 @@
 #import "MHTabViewController.h"
 #import "MHImportExportFeedback.h"
 #import "MHDatabaseCollectionOutlineView.h"
+#import "MHActivityMonitorViewController.h"
 
 #define SERVER_STATUS_TOOLBAR_ITEM_TAG              0
 #define DATABASE_STATUS_TOOLBAR_ITEM_TAG            1
@@ -41,13 +41,12 @@
 @property (nonatomic, readwrite, strong) MHClientItem *clientItem;
 @property (nonatomic, readwrite, strong) NSMutableDictionary *tabItemControllers;
 @property (nonatomic, readwrite, strong) MHStatusViewController *statusViewController;
+@property (nonatomic, readwrite, strong) MHActivityMonitorViewController *activityMonitorViewController;
 @property (nonatomic, readwrite, weak) IBOutlet MHTabViewController *tabViewController;
 @property (nonatomic, readwrite, strong) MHTunnel *sshTunnel;
 @property (nonatomic, readwrite, strong) NSMutableDictionary *sshBindedPortMapping;
 
 - (void)updateToolbarItems;
-
-- (void)fetchServerStatusDelta;
 
 - (MHDatabaseItem *)selectedDatabaseItem;
 - (MHCollectionItem *)selectedCollectionItem;
@@ -64,11 +63,8 @@
 @synthesize delegate = _delegate;
 @synthesize connectionStore = _connectionStore;
 @synthesize client = _client;
-@synthesize monitorButton;
-@synthesize statMonitorTableController;
 @synthesize sshTunnel = _sshTunnel;
 @synthesize sshBindedPortMapping = _sshBindedPortMapping;
-@synthesize resultsTitle;
 @synthesize bundleVersion;
 @synthesize mysqlImportWindowController = _mysqlImportWindowController;
 @synthesize mysqlExportWindowController = _mysqlExportWindowController;
@@ -76,6 +72,7 @@
 @synthesize clientItem = _clientItem;
 @synthesize tabItemControllers = _tabItemControllers;
 @synthesize statusViewController = _statusViewController;
+@synthesize activityMonitorViewController = _activityMonitorViewController;
 @synthesize tabViewController = _tabViewController;
 
 - (NSString *)windowNibName
@@ -95,10 +92,7 @@
     self.connectionStore = nil;
     self.sshTunnel = nil;
     self.sshBindedPortMapping = nil;
-    self.resultsTitle = nil;
     self.loaderIndicator = nil;
-    self.monitorButton = nil;
-    self.statMonitorTableController = nil;
     self.bundleVersion = nil;
     self.mysqlImportWindowController = nil;
     self.mysqlExportWindowController = nil;
@@ -157,7 +151,6 @@
 - (void)connectToServer
 {
     [self.loaderIndicator startAnimation:nil];
-    monitorButton.enabled = NO;
     if (self.sshTunnel == nil && self.connectionStore.useSSH.boolValue) {
         self.sshBindedPortMapping = [NSMutableDictionary dictionary];
         self.sshTunnel = [[[MHTunnel alloc] init] autorelease];
@@ -205,7 +198,6 @@
         self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
         [self.loaderIndicator stopAnimation:nil];
         
-        monitorButton.enabled = YES;
         self.clientItem = [[[MHClientItem alloc] initWithClient:self.client] autorelease];
         [self showServerStatus:nil];
     }
@@ -331,9 +323,17 @@
     [self.statusViewController select];
 }
 
+- (IBAction)showActivityMonitorAction:(id)sender
+{
+    if (!self.activityMonitorViewController) {
+        self.activityMonitorViewController = [[[MHActivityMonitorViewController alloc] initWithClient:self.client] autorelease];
+        [self.tabViewController addTabItemViewController:self.activityMonitorViewController];
+    }
+    [self.activityMonitorViewController select];
+}
+
 - (void)outlineViewDoubleClickAction:(id)sender
 {
-    NSLog(@"test");
 }
 
 - (void)menuWillOpen:(NSMenu *)menu
@@ -496,87 +496,6 @@
     [alert beginSheetModalForWindow:[self window] modalDelegate:self
                      didEndSelector:@selector(dropWarningDidEnd:returnCode:contextInfo:)
                         contextInfo:nil];
-}
-
-- (IBAction)startMonitor:(id)sender {
-    if (!_serverMonitorTimer) {
-        _serverMonitorTimer = [[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(fetchServerStatusDelta) userInfo:nil repeats:YES] retain];
-        [self fetchServerStatusDelta];
-    }
-    [NSApp beginSheet:monitorPanel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(monitorPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
-    NSLog(@"startMonitor");
-}
-
-- (IBAction)stopMonitor:(id)sender
-{
-    [NSApp endSheet:monitorPanel];
-}
-
-- (void)monitorPanelDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-    [monitorPanel close];
-    [_serverMonitorTimer invalidate];
-    [_serverMonitorTimer release];
-    _serverMonitorTimer = nil;
-}
-
-static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSNumber *value, NSNumber *outOfValue)
-{
-    double valueDiff = [value doubleValue] - [previousValue doubleValue];
-    double outOfValueDiff = [outOfValue doubleValue] - [previousOutOfValue doubleValue];
-    return (outOfValueDiff == 0) ? 0.0 : (valueDiff * 100.0 / outOfValueDiff);
-}
-
-- (void)fetchServerStatusDelta
-{
-    [resultsTitle setStringValue:[NSString stringWithFormat:@"Server %@ stats", self.connectionStore.alias]];
-    [self.client serverStatusWithReadPreferences:nil callback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
-        [self.loaderIndicator stopAnimation:nil];
-        if (self.client == [mongoQuery.parameters objectForKey:@"client"]) {
-            NSMutableDictionary *diff = [[NSMutableDictionary alloc] init];
-            
-            if (previousServerStatusForDelta) {
-                NSNumber *number;
-                NSDate *date;
-                
-                for (NSString *key in [[serverStatus objectForKey:@"opcounters"] allKeys]) {
-                    number = [[NSNumber alloc] initWithInteger:[[[serverStatus objectForKey:@"opcounters"] objectForKey:key] integerValue] - [[[previousServerStatusForDelta objectForKey:@"opcounters"] objectForKey:key] integerValue]];
-                    [diff setObject:number forKey:key];
-                    [number release];
-                }
-                if ([[serverStatus objectForKey:@"mem"] objectForKey:@"mapped"]) {
-                    [diff setObject:[[serverStatus objectForKey:@"mem"] objectForKey:@"mapped"] forKey:@"mapped"];
-                }
-                [diff setObject:[[serverStatus objectForKey:@"mem"] objectForKey:@"virtual"] forKey:@"vsize"];
-                [diff setObject:[[serverStatus objectForKey:@"mem"] objectForKey:@"resident"] forKey:@"res"];
-                number = [[NSNumber alloc] initWithInteger:[[[serverStatus objectForKey:@"extra_info"] objectForKey:@"page_faults"] integerValue] - [[[previousServerStatusForDelta objectForKey:@"extra_info"] objectForKey:@"page_faults"] integerValue]];
-                [diff setObject:number forKey:@"faults"];
-                [number release];
-                number = [[NSNumber alloc] initWithInteger:percentage([[previousServerStatusForDelta objectForKey:@"globalLock"] objectForKey:@"lockTime"],
-                                                                      [[previousServerStatusForDelta objectForKey:@"globalLock"] objectForKey:@"totalTime"],
-                                                                      [[serverStatus objectForKey:@"globalLock"] objectForKey:@"lockTime"],
-                                                                      [[serverStatus objectForKey:@"globalLock"] objectForKey:@"totalTime"])];
-                [diff setObject:number forKey:@"locked"];
-                [number release];
-                number = [[NSNumber alloc] initWithInteger:percentage([[[previousServerStatusForDelta objectForKey:@"indexCounters"] objectForKey:@"btree"] objectForKey:@"misses"],
-                                                                      [[[previousServerStatusForDelta objectForKey:@"indexCounters"] objectForKey:@"btree"] objectForKey:@"accesses"],
-                                                                      [[[serverStatus objectForKey:@"indexCounters"] objectForKey:@"btree"] objectForKey:@"misses"],
-                                                                      [[[serverStatus objectForKey:@"indexCounters"] objectForKey:@"btree"] objectForKey:@"accesses"])];
-                [diff setObject:number forKey:@"misses"];
-                [number release];
-                date = [[NSDate alloc] init];
-                [diff setObject:[[serverStatus objectForKey:@"connections"] objectForKey:@"current"] forKey:@"conn"];
-                [diff setObject:date forKey:@"time"];
-                [date release];
-                [statMonitorTableController addObject:diff];
-            }
-            if (previousServerStatusForDelta) {
-                [previousServerStatusForDelta release];
-            }
-            previousServerStatusForDelta = [serverStatus retain];
-            [diff release];
-        }
-    }];
 }
 
 - (MHDatabaseItem *)selectedDatabaseItem
@@ -874,6 +793,8 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
 {
     if (tabItemViewController == self.statusViewController) {
         self.statusViewController = nil;
+    } else if (tabItemViewController == self.activityMonitorViewController) {
+        self.activityMonitorViewController = nil;
     } else {
         [self.tabItemControllers removeObjectForKey:[(MHQueryWindowController *)tabItemViewController collection].absoluteName];
     }
