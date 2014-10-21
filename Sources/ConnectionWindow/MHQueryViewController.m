@@ -780,6 +780,7 @@
     if ([[NSBundle mainBundle] respondsToSelector:@selector(loadNibNamed:owner:topLevelObjects:)]) {
         [NSBundle.mainBundle loadNibNamed:@"MHQueryUpdateOperatorView" owner:viewController topLevelObjects:nil];
     } else {
+        // specific for 10.7
         NSInvocation *invocation;
         
         invocation = [NSInvocation invocationWithMethodSignature:[NSBundle instanceMethodSignatureForSelector:@selector(loadNibNamed:owner:)]];
