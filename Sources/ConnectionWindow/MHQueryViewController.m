@@ -1,12 +1,12 @@
 //
-//  MHQueryWindowController.m
+//  MHQueryViewController.m
 //  MongoHub
 //
 //  Created by Syd on 10-4-28.
 //  Copyright 2010 ThePeppersStudio.COM. All rights reserved.
 //
 
-#import "MHQueryWindowController.h"
+#import "MHQueryViewController.h"
 #import "MHResultsOutlineViewController.h"
 #import "NSString+MongoHub.h"
 #import "MHJsonWindowController.h"
@@ -20,7 +20,7 @@
 
 #define IS_OBJECT_ID(value) ([value length] == 24 && [[value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"1234567890abcdefABCDEF"]] length] == 0)
 
-@interface MHQueryWindowController ()
+@interface MHQueryViewController ()
 @property (nonatomic, readwrite, weak) IBOutlet NSSegmentedControl *segmentedControl;
 @property (nonatomic, readwrite, weak) IBOutlet NSTabView *tabView;
 
@@ -84,13 +84,13 @@
 
 @end
 
-@interface MHQueryWindowController (UpdateTab)
+@interface MHQueryViewController (UpdateTab)
 - (IBAction)updateAddOperatorAction:(id)sender;
 - (IBAction)updateQueryComposer:(id)sender;
 
 @end
 
-@implementation MHQueryWindowController
+@implementation MHQueryViewController
 @synthesize collection = _collection, connectionStore = _connectionStore;
 @synthesize tabView = _tabView, segmentedControl = _segmentedControl;
 
@@ -207,7 +207,7 @@
 
 - (NSString *)nibName
 {
-    return @"MHQueryWindow";
+    return @"MHQueryView";
 }
 
 - (void)awakeFromNib
@@ -408,7 +408,7 @@
 
 @end
 
-@implementation MHQueryWindowController (FindTab)
+@implementation MHQueryViewController (FindTab)
 
 - (NSString *)formatedQuerySort
 {
@@ -641,7 +641,7 @@
 
 @end
 
-@implementation MHQueryWindowController (InsertTab)
+@implementation MHQueryViewController (InsertTab)
 
 - (IBAction)insertQuery:(id)sender
 {
@@ -687,7 +687,7 @@
 
 @end
 
-@implementation MHQueryWindowController (UpdateTab)
+@implementation MHQueryViewController (UpdateTab)
 
 - (void)_updatePrint
 {
@@ -1027,7 +1027,7 @@
 
 @end
 
-@implementation MHQueryWindowController (RemoveTab)
+@implementation MHQueryViewController (RemoveTab)
 
 - (IBAction)removeQuery:(id)sender
 {
@@ -1057,7 +1057,7 @@
 
 @end
 
-@implementation MHQueryWindowController (IndexTab)
+@implementation MHQueryViewController (IndexTab)
 
 - (IBAction)indexQueryAction:(id)sender
 {
@@ -1104,7 +1104,7 @@
 
 @end
 
-@implementation MHQueryWindowController (mrTab)
+@implementation MHQueryViewController (mrTab)
 
 - (IBAction)mapReduce:(id)sender
 {
@@ -1135,7 +1135,7 @@
 
 @end
 
-@implementation MHQueryWindowController (MODCollectionDelegate)
+@implementation MHQueryViewController (MODCollectionDelegate)
 
 - (void)mongoCollection:(MODCollection *)collection queryResultFetched:(NSArray *)result withMongoQuery:(MODQuery *)mongoQuery errorMessage:(NSString *)errorMessage
 {
@@ -1174,7 +1174,7 @@
 
 @end
 
-@implementation MHQueryWindowController(NSComboBox)
+@implementation MHQueryViewController(NSComboBox)
 
 - (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {
@@ -1251,6 +1251,6 @@
 
 @end
 
-@implementation MHQueryWindowController (UKSyntaxColoredTextViewDelegate)
+@implementation MHQueryViewController (UKSyntaxColoredTextViewDelegate)
 
 @end

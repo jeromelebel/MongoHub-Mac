@@ -8,7 +8,7 @@
 
 #import "NSString+MongoHub.h"
 #import "MHConnectionWindowController.h"
-#import "MHQueryWindowController.h"
+#import "MHQueryViewController.h"
 #import "MHEditNameWindowController.h"
 #import "MHMysqlImportWindowController.h"
 #import "MHMysqlExportWindowController.h"
@@ -125,13 +125,13 @@
 // don't do it if the first responder is the outline view or the windw, other we will lose the new user selection
         id selectedTab = self.tabViewController.selectedTabItemViewController;
         
-        if ([selectedTab isKindOfClass:[MHQueryWindowController class]]) {
+        if ([selectedTab isKindOfClass:[MHQueryViewController class]]) {
             NSIndexSet *indexes = nil;
             MHDatabaseItem *databaseOutlineViewItem;
             MHCollectionItem *collectionOutlineViewItem;
             
-            databaseOutlineViewItem = [self.clientItem databaseItemWithName:[(MHQueryWindowController *)selectedTab collection].database.name];
-            collectionOutlineViewItem = [databaseOutlineViewItem collectionItemWithName:[(MHQueryWindowController *)selectedTab collection].name];
+            databaseOutlineViewItem = [self.clientItem databaseItemWithName:[(MHQueryViewController *)selectedTab collection].database.name];
+            collectionOutlineViewItem = [databaseOutlineViewItem collectionItemWithName:[(MHQueryViewController *)selectedTab collection].name];
             if (collectionOutlineViewItem) {
                 [_databaseCollectionOutlineView expandItem:databaseOutlineViewItem];
                 indexes = [[NSIndexSet alloc] initWithIndex:[_databaseCollectionOutlineView rowForItem:collectionOutlineViewItem]];
@@ -461,11 +461,11 @@
             [_databaseCollectionOutlineView collapseItem:[_databaseCollectionOutlineView itemAtRow:[_databaseCollectionOutlineView selectedRow]]];
         }
     } else {
-        MHQueryWindowController *queryWindowController;
+        MHQueryViewController *queryWindowController;
         
         queryWindowController = self.tabItemControllers[self.selectedCollectionItem.collection.absoluteName];
         if (queryWindowController == nil) {
-            queryWindowController = [[[MHQueryWindowController alloc] initWithCollection:self.selectedCollectionItem.collection connectionStore:self.connectionStore] autorelease];
+            queryWindowController = [[[MHQueryViewController alloc] initWithCollection:self.selectedCollectionItem.collection connectionStore:self.connectionStore] autorelease];
             self.tabItemControllers[self.selectedCollectionItem.collection.absoluteName] = queryWindowController;
             [self.tabViewController addTabItemViewController:queryWindowController];
         }
@@ -796,7 +796,7 @@
     } else if (tabItemViewController == self.activityMonitorViewController) {
         self.activityMonitorViewController = nil;
     } else {
-        [self.tabItemControllers removeObjectForKey:[(MHQueryWindowController *)tabItemViewController collection].absoluteName];
+        [self.tabItemControllers removeObjectForKey:[(MHQueryViewController *)tabItemViewController collection].absoluteName];
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  MHQueryWindowController.h
+//  MHQueryViewController.h
 //  MongoHub
 //
 //  Created by Syd on 10-4-28.
@@ -13,7 +13,7 @@
 @class MODCollection;
 @class MHConnectionStore;
 
-@interface MHQueryWindowController : MHTabItemViewController
+@interface MHQueryViewController : MHTabItemViewController
 {
     MODCollection                               *_collection;
     MHConnectionStore                           *_connectionStore;
@@ -89,33 +89,33 @@
 - (void)jsonWindowWillClose:(id)sender;
 @end
 
-@interface MHQueryWindowController (FindTab)
+@interface MHQueryViewController (FindTab)
 - (void)findQueryComposer;
 
 @end
 
-@interface MHQueryWindowController (InsertTab)
+@interface MHQueryViewController (InsertTab)
 - (IBAction)insertQuery:(id)sender;
 
 @end
 
-@interface MHQueryWindowController (RemoveTab)
+@interface MHQueryViewController (RemoveTab)
 - (IBAction)removeQuery:(id)sender;
 - (void)removeQueryComposer:(id)sender;
 
 @end
 
-@interface MHQueryWindowController (IndexTab)
+@interface MHQueryViewController (IndexTab)
 - (IBAction)indexQueryAction:(id)sender;
 - (IBAction)createIndexAction:(id)sender;
 - (IBAction)dropIndexAction:(id)sender;
 
 @end
 
-@interface MHQueryWindowController (mrTab)
+@interface MHQueryViewController (mrTab)
 - (IBAction)mapReduce:(id)sender;
 
 @end
 
-@interface MHQueryWindowController (UKSyntaxColoredTextViewDelegate) <UKSyntaxColoredTextViewDelegate>
+@interface MHQueryViewController (UKSyntaxColoredTextViewDelegate) <UKSyntaxColoredTextViewDelegate>
 @end
