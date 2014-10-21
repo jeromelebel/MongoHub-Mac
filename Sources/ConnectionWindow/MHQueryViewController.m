@@ -461,6 +461,7 @@
     MODSortedMutableDictionary *criteria = nil;
     MODSortedMutableDictionary *fieldFilter = nil;
     MODSortedMutableDictionary *sort = nil;
+    id fieldWithError = nil;
     NSError *error = nil;
     
     [self findQueryComposer];
@@ -472,11 +473,14 @@
     [self.findQueryLoaderIndicator startAnimation:nil];
 
     criteria = [MODRagelJsonParser objectsFromJson:criteriaJson withError:&error];
+    fieldWithError = self.findCriteriaComboBox;
     if (!error) {
         sort = [MODRagelJsonParser objectsFromJson:sortJson withError:&error];
+        fieldWithError = self.findSortTextField;
     }
     if (!error) {
         fieldFilter = [MODRagelJsonParser objectsFromJson:fieldFilterJson withError:&error];
+        fieldWithError = self.findFieldFilterTextField;
     }
     if (error) {
         NSColor *currentColor;
@@ -488,6 +492,7 @@
         self.findTotalResultsTextField.textColor = NSColor.redColor;
         [NSViewHelpers setColor:currentColor fromColor:NSColor.redColor toTarget:self.findTotalResultsTextField withSelector:@selector(setTextColor:) delay:1];
         [self.findQueryLoaderIndicator stopAnimation:nil];
+        [fieldWithError becomeFirstResponder];
     } else {
         [self.collection findWithCriteria:criteria
                                    fields:fieldFilter
