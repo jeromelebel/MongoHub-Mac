@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="MHQueryWindowController">
+        <customObject id="-2" userLabel="File's Owner" customClass="MHQueryViewController">
             <connections>
                 <outlet property="_indexCreateButton" destination="233" id="1rM-gC-NEQ"/>
                 <outlet property="_indexDropButton" destination="277" id="27s-6M-0Ja"/>
@@ -30,7 +30,7 @@
                 <outlet property="_removeResultsTextField" destination="179" id="dyG-8e-2Bg"/>
                 <outlet property="findCriteriaComboBox" destination="1379" id="QCU-C0-5cX"/>
                 <outlet property="findExpandPopUpButton" destination="cSj-cm-ZZb" id="hRX-Pe-aMM"/>
-                <outlet property="findFieldsTextField" destination="80" id="FsZ-Ho-B8A"/>
+                <outlet property="findFieldFilterTextField" destination="PZE-gt-pMA" id="Fw6-Bz-pba"/>
                 <outlet property="findLimitTextField" destination="79" id="PVF-rz-jbH"/>
                 <outlet property="findNextResultButton" destination="jJq-rr-PxX" id="8N9-Ku-MVd"/>
                 <outlet property="findPreviousResultButton" destination="IaV-3H-hAM" id="LJ0-yN-xJc"/>
@@ -181,21 +181,6 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <tokenField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="80">
-                                        <rect key="frame" x="72" y="387" width="253" height="22"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="22" id="Uok-vT-4Up"/>
-                                        </constraints>
-                                        <tokenFieldCell key="cell" controlSize="small" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" placeholderString="All Fields" drawsBackground="YES" allowsEditingTextAttributes="YES" id="87">
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </tokenFieldCell>
-                                        <connections>
-                                            <outlet property="delegate" destination="-2" id="366"/>
-                                            <outlet property="nextKeyView" destination="76" id="697"/>
-                                        </connections>
-                                    </tokenField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="77">
                                         <rect key="frame" x="331" y="389" width="32" height="14"/>
                                         <constraints>
@@ -292,7 +277,6 @@
                                         </textFieldCell>
                                         <connections>
                                             <outlet property="delegate" destination="-2" id="365"/>
-                                            <outlet property="nextKeyView" destination="80" id="696"/>
                                         </connections>
                                     </textField>
                                     <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1379">
@@ -403,6 +387,20 @@ CA
                                             <action selector="findExpandPopUpButtonAction:" target="-2" id="4XX-Wb-tCm"/>
                                         </connections>
                                     </popUpButton>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PZE-gt-pMA">
+                                        <rect key="frame" x="72" y="387" width="253" height="19"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="19" id="IMM-Ia-Af8"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="{ }" drawsBackground="YES" id="WDZ-zE-nR6">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <outlet property="delegate" destination="-2" id="YNz-VB-VON"/>
+                                        </connections>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="82" firstAttribute="baseline" secondItem="1379" secondAttribute="baseline" id="08I-He-yWx"/>
@@ -413,12 +411,14 @@ CA
                                     <constraint firstItem="76" firstAttribute="baseline" secondItem="81" secondAttribute="baseline" id="CCY-7G-Ymg"/>
                                     <constraint firstItem="689" firstAttribute="leading" secondItem="98" secondAttribute="trailing" constant="8" id="I2U-FE-hzC"/>
                                     <constraint firstItem="689" firstAttribute="baseline" secondItem="cSj-cm-ZZb" secondAttribute="baseline" id="Ka2-ZO-bXU"/>
-                                    <constraint firstItem="67" firstAttribute="top" secondItem="80" secondAttribute="bottom" constant="8" id="Ly1-66-hOn"/>
+                                    <constraint firstItem="PZE-gt-pMA" firstAttribute="leading" secondItem="81" secondAttribute="trailing" constant="8" id="NQb-XQ-bp4"/>
                                     <constraint firstAttribute="bottom" secondItem="67" secondAttribute="bottom" constant="26" id="NXW-um-57T"/>
                                     <constraint firstItem="76" firstAttribute="leading" secondItem="77" secondAttribute="trailing" id="NjH-6G-Bfo"/>
                                     <constraint firstItem="1379" firstAttribute="top" secondItem="94" secondAttribute="bottom" constant="6" id="Q4Y-xF-Zip"/>
                                     <constraint firstItem="123" firstAttribute="leading" secondItem="121" secondAttribute="trailing" constant="8" id="R1O-9X-axl"/>
                                     <constraint firstItem="98" firstAttribute="baseline" secondItem="689" secondAttribute="baseline" id="S7e-bP-BZC"/>
+                                    <constraint firstItem="67" firstAttribute="top" secondItem="PZE-gt-pMA" secondAttribute="bottom" constant="8" id="Ucw-F4-7fa"/>
+                                    <constraint firstItem="PZE-gt-pMA" firstAttribute="top" secondItem="1379" secondAttribute="bottom" constant="12" id="V2E-kt-SPU"/>
                                     <constraint firstItem="cSj-cm-ZZb" firstAttribute="leading" secondItem="689" secondAttribute="trailing" constant="8" id="Wf0-qX-BE6"/>
                                     <constraint firstItem="79" firstAttribute="leading" secondItem="78" secondAttribute="trailing" constant="8" id="Y0D-33-psA"/>
                                     <constraint firstAttribute="trailing" secondItem="123" secondAttribute="trailing" id="ZSS-ZX-7hl"/>
@@ -428,26 +428,24 @@ CA
                                     <constraint firstItem="76" firstAttribute="baseline" secondItem="78" secondAttribute="baseline" id="c9X-tn-wVA"/>
                                     <constraint firstAttribute="trailing" secondItem="103" secondAttribute="trailing" id="cma-9b-zUn"/>
                                     <constraint firstItem="76" firstAttribute="baseline" secondItem="103" secondAttribute="baseline" constant="1" id="ead-Ry-5WK"/>
+                                    <constraint firstItem="77" firstAttribute="leading" secondItem="PZE-gt-pMA" secondAttribute="trailing" constant="8" id="fnM-TN-VCo"/>
                                     <constraint firstItem="98" firstAttribute="leading" secondItem="703" secondAttribute="leading" id="izW-5t-ApQ"/>
                                     <constraint firstItem="94" firstAttribute="top" secondItem="703" secondAttribute="top" id="kJP-yW-KDA"/>
                                     <constraint firstItem="78" firstAttribute="leading" secondItem="76" secondAttribute="trailing" constant="8" id="l3S-tR-HAl"/>
-                                    <constraint firstItem="77" firstAttribute="leading" secondItem="80" secondAttribute="trailing" constant="8" id="lw9-ph-hjS"/>
                                     <constraint firstItem="82" firstAttribute="baseline" secondItem="123" secondAttribute="baseline" id="nbV-H1-lwG"/>
                                     <constraint firstItem="81" firstAttribute="leading" secondItem="703" secondAttribute="leading" id="o2Z-v7-PrG"/>
                                     <constraint firstAttribute="bottom" secondItem="jJq-rr-PxX" secondAttribute="bottom" constant="5" id="pXo-p9-JMN"/>
-                                    <constraint firstItem="76" firstAttribute="baseline" secondItem="80" secondAttribute="baseline" id="pmY-0I-Ppb"/>
                                     <constraint firstItem="103" firstAttribute="leading" secondItem="79" secondAttribute="trailing" constant="8" id="q88-pb-mcQ"/>
                                     <constraint firstItem="IaV-3H-hAM" firstAttribute="centerY" secondItem="cSj-cm-ZZb" secondAttribute="centerY" id="r6m-SY-gAp"/>
                                     <constraint firstItem="IaV-3H-hAM" firstAttribute="leading" secondItem="cSj-cm-ZZb" secondAttribute="trailing" constant="8" id="rCx-8S-u3k"/>
                                     <constraint firstItem="67" firstAttribute="leading" secondItem="703" secondAttribute="leading" id="rUA-U5-S8U"/>
-                                    <constraint firstItem="80" firstAttribute="leading" secondItem="81" secondAttribute="trailing" constant="8" id="rah-G4-RmZ"/>
-                                    <constraint firstItem="80" firstAttribute="top" secondItem="1379" secondAttribute="bottom" constant="9" id="tYV-Mv-UXm"/>
                                     <constraint firstItem="jJq-rr-PxX" firstAttribute="centerY" secondItem="IaV-3H-hAM" secondAttribute="centerY" id="thJ-rQ-F3A"/>
                                     <constraint firstItem="76" firstAttribute="baseline" secondItem="77" secondAttribute="baseline" id="toG-nR-Dww"/>
                                     <constraint firstAttribute="trailing" secondItem="jJq-rr-PxX" secondAttribute="trailing" id="uC5-X5-Qep"/>
                                     <constraint firstItem="76" firstAttribute="baseline" secondItem="79" secondAttribute="baseline" id="uFc-5x-oG1"/>
                                     <constraint firstAttribute="trailing" secondItem="94" secondAttribute="trailing" id="v4r-5P-9d5"/>
                                     <constraint firstItem="1379" firstAttribute="leading" secondItem="82" secondAttribute="trailing" constant="8" id="v8l-88-wcG"/>
+                                    <constraint firstItem="PZE-gt-pMA" firstAttribute="baseline" secondItem="77" secondAttribute="baseline" id="yJL-3V-B7M"/>
                                 </constraints>
                             </view>
                             <connections>

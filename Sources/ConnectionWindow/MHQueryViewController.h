@@ -25,7 +25,7 @@
     MHResultsOutlineViewController              *_findResultsViewController;
     NSOutlineView                               *_findResultsOutlineView;
     NSComboBox                                  *_findCriteriaComboBox;
-    NSTokenField                                *_findFieldsTextField;
+    NSTextField                                 *_findFieldFilterTextField;
     NSTextField                                 *_findSkipTextField;
     NSTextField                                 *_findLimitTextField;
     NSTextField                                 *_findSortTextField;

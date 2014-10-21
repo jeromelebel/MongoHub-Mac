@@ -31,7 +31,7 @@
 @property (nonatomic, readwrite, weak) IBOutlet NSOutlineView *findResultsOutlineView;
 @property (nonatomic, readwrite, weak) IBOutlet NSButton *findRemoveButton;
 @property (nonatomic, readwrite, weak) IBOutlet NSComboBox *findCriteriaComboBox;
-@property (nonatomic, readwrite, weak) IBOutlet NSTokenField *findFieldsTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *findFieldFilterTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *findSkipTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *findLimitTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *findSortTextField;
@@ -98,7 +98,7 @@
 @synthesize findResultsOutlineView = _findResultsOutlineView;
 @synthesize findRemoveButton = _findRemoveButton;
 @synthesize findCriteriaComboBox = _findCriteriaComboBox;
-@synthesize findFieldsTextField = _findFieldsTextField;
+@synthesize findFieldFilterTextField = _findFieldFilterTextField;
 @synthesize findSkipTextField = _findSkipTextField;
 @synthesize findLimitTextField = _findLimitTextField;
 @synthesize findSortTextField = _findSortTextField;
@@ -336,7 +336,7 @@
 {
     NSTextField *textField = notification.object;
     
-    if (textField == self.findCriteriaComboBox || textField == self.findFieldsTextField || textField == self.findSortTextField || textField == self.findSkipTextField || textField == self.findLimitTextField) {
+    if (textField == self.findCriteriaComboBox || textField == self.findFieldFilterTextField || textField == self.findSortTextField || textField == self.findSkipTextField || textField == self.findLimitTextField) {
         [self findQueryComposer];
     } else if (textField == self.updateCriteriaTextField || textField.superview.superview == self.updateTabView) {
         [self updateQueryComposer:nil];
@@ -454,11 +454,12 @@
 - (IBAction)findQuery:(id)sender
 {
     int limit = self.findLimitTextField.intValue;
-    NSMutableArray *fields;
-    NSString *jsonCriteria;
-    NSString *jsonSort = self.formatedQuerySort;
-    NSString *queryTitle = [self.findCriteriaComboBox.stringValue retain];
+    NSString *criteriaJson;
+    NSString *fieldFilterJson;
+    NSString *sortJson = self.formatedQuerySort;
+    NSString *queryTitle = self.findCriteriaComboBox.stringValue;
     MODSortedMutableDictionary *criteria = nil;
+    MODSortedMutableDictionary *fieldFilter = nil;
     MODSortedMutableDictionary *sort = nil;
     NSError *error = nil;
     
@@ -466,19 +467,16 @@
     if (limit <= 0) {
         limit = 30;
     }
-    jsonCriteria = [self formatedJsonWithTextField:self.findCriteriaComboBox replace:YES emptyValid:NO];
-    fields = [[NSMutableArray alloc] init];
-    for (NSString *field in [self.findFieldsTextField.stringValue componentsSeparatedByString:@","]) {
-        field = field.mh_stringByTrimmingWhitespace;
-        if ([field length] > 0) {
-            [fields addObject:field];
-        }
-    }
+    criteriaJson = [self formatedJsonWithTextField:self.findCriteriaComboBox replace:YES emptyValid:NO];
+    fieldFilterJson = [self formatedJsonWithTextField:self.findFieldFilterTextField replace:YES emptyValid:NO];
     [self.findQueryLoaderIndicator startAnimation:nil];
 
-    criteria = [MODRagelJsonParser objectsFromJson:jsonCriteria withError:&error];
+    criteria = [MODRagelJsonParser objectsFromJson:criteriaJson withError:&error];
     if (!error) {
-        sort = [MODRagelJsonParser objectsFromJson:jsonSort withError:&error];
+        sort = [MODRagelJsonParser objectsFromJson:sortJson withError:&error];
+    }
+    if (!error) {
+        fieldFilter = [MODRagelJsonParser objectsFromJson:fieldFilterJson withError:&error];
     }
     if (error) {
         NSColor *currentColor;
@@ -492,7 +490,7 @@
         [self.findQueryLoaderIndicator stopAnimation:nil];
     } else {
         [self.collection findWithCriteria:criteria
-                                   fields:fields
+                                   fields:fieldFilter
                                      skip:self.findSkipTextField.intValue
                                     limit:limit
                                      sort:sort
@@ -509,7 +507,7 @@
                     [self.connectionStore addNewQuery:@{
                                                         @"title": queryTitle,
                                                         @"sort": self.findSortTextField.stringValue,
-                                                        @"fields": self.findFieldsTextField.stringValue,
+                                                        @"fields": self.findFieldFilterTextField.stringValue,
                                                         @"limit": self.findLimitTextField.stringValue,
                                                         @"skip": self.findSkipTextField.stringValue
                                                         }
@@ -534,8 +532,6 @@
             [self.findQueryLoaderIndicator stopAnimation:nil];
         }];
     }
-    [fields release];
-    [queryTitle release];
 }
 
 - (IBAction)findExpandPopUpButtonAction:(id)sender
@@ -574,21 +570,12 @@
 - (void)findQueryComposer
 {
     NSString *criteria = [self formatedJsonWithTextField:self.findCriteriaComboBox replace:NO emptyValid:YES];
-    NSString *jsFields;
+    NSString *fieldFilterJson = [self formatedJsonWithTextField:self.findFieldFilterTextField replace:NO emptyValid:YES];
     NSString *sortValue = [self formatedQuerySort];
     NSString *sort;
     
-    if (self.findFieldsTextField.stringValue.length > 0) {
-        NSArray *keys = [[NSArray alloc] initWithArray:[self.findFieldsTextField.stringValue componentsSeparatedByString:@","]];
-        NSMutableArray *tmpstr = [[NSMutableArray alloc] initWithCapacity:[keys count]];
-        for (NSString *str in keys) {
-            [tmpstr addObject:[NSString stringWithFormat:@"%@:1", str]];
-        }
-        jsFields = [[NSString alloc] initWithFormat:@", {%@}", [tmpstr componentsJoinedByString:@","] ];
-        [keys release];
-        [tmpstr release];
-    }else {
-        jsFields = [[NSString alloc] initWithString:@""];
+    if (fieldFilterJson.length > 0) {
+        fieldFilterJson = [NSString stringWithFormat:@", %@", fieldFilterJson];
     }
     
     if ([sortValue length] > 0) {
@@ -601,8 +588,7 @@
     NSString *limit = [[NSString alloc] initWithFormat:@".limit(%d)", self.findLimitTextField.intValue];
     NSString *col = [NSString stringWithFormat:@"%@.%@", self.collection.name, self.collection.name];
     
-    NSString *query = [NSString stringWithFormat:@"db.%@.find(%@%@)%@%@%@", col, criteria, jsFields, sort, skip, limit];
-    [jsFields release];
+    NSString *query = [NSString stringWithFormat:@"db.%@.find(%@%@)%@%@%@", col, criteria, fieldFilterJson, sort, skip, limit];
     [sort release];
     [skip release];
     [limit release];
@@ -1199,9 +1185,9 @@
         
         query = [queries objectAtIndex:self.findCriteriaComboBox.indexOfSelectedItem];
         if ([query objectForKey:@"fields"]) {
-            self.findFieldsTextField.stringValue = [query objectForKey:@"fields"];
+            self.findFieldFilterTextField.stringValue = [query objectForKey:@"fields"];
         } else {
-            self.findFieldsTextField.stringValue = @"";
+            self.findFieldFilterTextField.stringValue = @"";
         }
         if ([query objectForKey:@"sort"]) {
             self.findSortTextField.stringValue = [query objectForKey:@"sort"];
