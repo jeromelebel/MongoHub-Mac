@@ -21,28 +21,31 @@
 #define IS_OBJECT_ID(value) ([value length] == 24 && [[value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"1234567890abcdefABCDEF"]] length] == 0)
 
 @interface MHQueryWindowController ()
-@property (nonatomic, readwrite, assign) NSSegmentedControl *segmentedControl;
-@property (nonatomic, readwrite, assign) NSTabView *tabView;
+@property (nonatomic, readwrite, weak) IBOutlet NSSegmentedControl *segmentedControl;
+@property (nonatomic, readwrite, weak) IBOutlet NSTabView *tabView;
 
-@property (nonatomic, readwrite, retain) MODCollection *collection;
-@property (nonatomic, readwrite, retain) MHConnectionStore *connectionStore;
+@property (nonatomic, readwrite, strong) MODCollection *collection;
+@property (nonatomic, readwrite, strong) MHConnectionStore *connectionStore;
 
-@property (nonatomic, readwrite, retain) MHResultsOutlineViewController *findResultsViewController;
-@property (nonatomic, readwrite, assign) NSOutlineView *findResultsOutlineView;
-@property (nonatomic, readwrite, assign) NSButton *findRemoveButton;
-@property (nonatomic, readwrite, assign) NSComboBox *findCriteriaComboBox;
-@property (nonatomic, readwrite, assign) NSTokenField *findFieldsTextField;
-@property (nonatomic, readwrite, assign) NSTextField *findSkipTextField;
-@property (nonatomic, readwrite, assign) NSTextField *findLimitTextField;
-@property (nonatomic, readwrite, assign) NSTextField *findSortTextField;
-@property (nonatomic, readwrite, assign) NSTextField *findTotalResultsTextField;
-@property (nonatomic, readwrite, assign) NSTextField *findQueryTextField;
-@property (nonatomic, readwrite, assign) NSProgressIndicator *findQueryLoaderIndicator;
+@property (nonatomic, readwrite, strong) MHResultsOutlineViewController *findResultsViewController;
+@property (nonatomic, readwrite, weak) IBOutlet NSOutlineView *findResultsOutlineView;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *findRemoveButton;
+@property (nonatomic, readwrite, weak) IBOutlet NSComboBox *findCriteriaComboBox;
+@property (nonatomic, readwrite, weak) IBOutlet NSTokenField *findFieldsTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *findSkipTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *findLimitTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *findSortTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *findTotalResultsTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *findQueryTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *findQueryLoaderIndicator;
+@property (nonatomic, readwrite, weak) IBOutlet NSPopUpButton *findExpandPopUpButton;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *findNextResultButton;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *findPreviousResultButton;
 
-@property (nonatomic, readwrite, assign) NSButton *insertButton;
-@property (nonatomic, readwrite, assign) NSTextView *insertDataTextView;
-@property (nonatomic, readwrite, assign) NSTextField *insertResultsTextField;
-@property (nonatomic, readwrite, assign) NSProgressIndicator *insertLoaderIndicator;
+@property (nonatomic, readwrite, weak) NSButton *insertButton;
+@property (nonatomic, readwrite, weak) NSTextView *insertDataTextView;
+@property (nonatomic, readwrite, weak) NSTextField *insertResultsTextField;
+@property (nonatomic, readwrite, weak) NSProgressIndicator *insertLoaderIndicator;
 @property (nonatomic, readwrite, strong) UKSyntaxColoredTextViewController *syntaxColoringController;
 
 @property (nonatomic, readwrite, weak) IBOutlet NSView *updateTabView;
@@ -56,26 +59,26 @@
 @property (nonatomic, readwrite, strong) NSMutableArray *updateOperatorViews;
 @property (nonatomic, readwrite, strong) NSArray *updateOperatorList;
 
-@property (nonatomic, readwrite, assign) NSButton *removeButton;
-@property (nonatomic, readwrite, assign) NSTextField *removeCriteriaTextField;
-@property (nonatomic, readwrite, assign) NSTextField *removeResultsTextField;
-@property (nonatomic, readwrite, assign) NSTextField *removeQueryTextField;
-@property (nonatomic, readwrite, assign) NSProgressIndicator *removeQueryLoaderIndicator;
+@property (nonatomic, readwrite, weak) NSButton *removeButton;
+@property (nonatomic, readwrite, weak) NSTextField *removeCriteriaTextField;
+@property (nonatomic, readwrite, weak) NSTextField *removeResultsTextField;
+@property (nonatomic, readwrite, weak) NSTextField *removeQueryTextField;
+@property (nonatomic, readwrite, weak) NSProgressIndicator *removeQueryLoaderIndicator;
 
-@property (nonatomic, readwrite, assign) NSTextField *indexTextField;
-@property (nonatomic, readwrite, retain) MHResultsOutlineViewController *indexesOutlineViewController;
-@property (nonatomic, readwrite, assign) NSProgressIndicator *indexLoaderIndicator;
-@property (nonatomic, readwrite, assign) NSOutlineView *indexOutlineView;
-@property (nonatomic, readwrite, assign) NSButton *indexDropButton;
-@property (nonatomic, readwrite, assign) NSButton *indexCreateButton;
+@property (nonatomic, readwrite, weak) NSTextField *indexTextField;
+@property (nonatomic, readwrite, strong) MHResultsOutlineViewController *indexesOutlineViewController;
+@property (nonatomic, readwrite, weak) NSProgressIndicator *indexLoaderIndicator;
+@property (nonatomic, readwrite, weak) NSOutlineView *indexOutlineView;
+@property (nonatomic, readwrite, weak) NSButton *indexDropButton;
+@property (nonatomic, readwrite, weak) NSButton *indexCreateButton;
 
-@property (nonatomic, readwrite, retain) MHResultsOutlineViewController *mrOutlineViewController;
-@property (nonatomic, readwrite, assign) NSOutlineView *mrOutlineView;
-@property (nonatomic, readwrite, assign) NSProgressIndicator *mrLoaderIndicator;
-@property (nonatomic, readwrite, assign) NSTextField *mrOutputTextField;
-@property (nonatomic, readwrite, assign) NSTextField *mrCriteriaTextField;
-@property (nonatomic, readwrite, assign) NSTextView *mrMapFunctionTextView;
-@property (nonatomic, readwrite, assign) NSTextView *mrReduceFunctionTextView;
+@property (nonatomic, readwrite, strong) MHResultsOutlineViewController *mrOutlineViewController;
+@property (nonatomic, readwrite, weak) NSOutlineView *mrOutlineView;
+@property (nonatomic, readwrite, weak) NSProgressIndicator *mrLoaderIndicator;
+@property (nonatomic, readwrite, weak) NSTextField *mrOutputTextField;
+@property (nonatomic, readwrite, weak) NSTextField *mrCriteriaTextField;
+@property (nonatomic, readwrite, weak) NSTextView *mrMapFunctionTextView;
+@property (nonatomic, readwrite, weak) NSTextView *mrReduceFunctionTextView;
 
 - (void)selectBestTextField;
 
@@ -91,7 +94,20 @@
 @synthesize collection = _collection, connectionStore = _connectionStore;
 @synthesize tabView = _tabView, segmentedControl = _segmentedControl;
 
-@synthesize findResultsViewController = _findResultsViewController, findResultsOutlineView = _findResultsOutlineView, findRemoveButton = _findRemoveButton, findCriteriaComboBox = _findCriteriaComboBox, findFieldsTextField = _findFieldsTextField, findSkipTextField = _findSkipTextField, findLimitTextField = _findLimitTextField, findSortTextField = _findSortTextField, findTotalResultsTextField = _findTotalResultsTextField, findQueryTextField = _findQueryTextField, findQueryLoaderIndicator = _findQueryLoaderIndicator;
+@synthesize findResultsViewController = _findResultsViewController;
+@synthesize findResultsOutlineView = _findResultsOutlineView;
+@synthesize findRemoveButton = _findRemoveButton;
+@synthesize findCriteriaComboBox = _findCriteriaComboBox;
+@synthesize findFieldsTextField = _findFieldsTextField;
+@synthesize findSkipTextField = _findSkipTextField;
+@synthesize findLimitTextField = _findLimitTextField;
+@synthesize findSortTextField = _findSortTextField;
+@synthesize findTotalResultsTextField = _findTotalResultsTextField;
+@synthesize findQueryTextField = _findQueryTextField;
+@synthesize findQueryLoaderIndicator = _findQueryLoaderIndicator;
+@synthesize findNextResultButton = _findNextResultButton;
+@synthesize findPreviousResultButton = _findPreviousResultButton;
+@synthesize findExpandPopUpButton = _findExpandPopUpButton;
 
 @synthesize insertDataTextView = _insertDataTextView, insertResultsTextField = _insertResultsTextField, insertLoaderIndicator = _insertLoaderIndicator, insertButton = _insertButton;
 @synthesize syntaxColoringController = _syntaxColoringController;
@@ -209,7 +225,7 @@
     
     self.title = self.collection.absoluteName;
     _jsonWindowControllers = [[NSMutableDictionary alloc] init];
-    [self findQueryComposer:nil];
+    [self findQueryComposer];
     [self updateQueryComposer:nil];
     [self removeQueryComposer:nil];
     
@@ -321,7 +337,7 @@
     NSTextField *textField = notification.object;
     
     if (textField == self.findCriteriaComboBox || textField == self.findFieldsTextField || textField == self.findSortTextField || textField == self.findSkipTextField || textField == self.findLimitTextField) {
-        [self findQueryComposer:nil];
+        [self findQueryComposer];
     } else if (textField == self.updateCriteriaTextField || textField.superview.superview == self.updateTabView) {
         [self updateQueryComposer:nil];
     } else if (textField == self.removeCriteriaTextField) {
@@ -398,7 +414,7 @@
 {
     NSString *result;
     
-    result = self.findSortTextField.stringValue.mh_stringByTrimmingWhitespace;
+    result = [self formatedJsonWithTextField:self.findSortTextField replace:NO emptyValid:YES];
     if ([result length] == 0) {
         result = @"{ \"_id\": 1}";
     }
@@ -408,6 +424,31 @@
 - (void)findResultOutlineViewNotification:(NSNotification *)notification
 {
     self.findRemoveButton.enabled = self.findResultsOutlineView.selectedRowIndexes.count != 0;
+}
+
+- (void)_findExpandResult
+{
+    NSInteger expandValue;
+    
+    expandValue = self.findExpandPopUpButton.selectedTag;
+    if (expandValue == 0) {
+        [self.findResultsOutlineView collapseItem:nil collapseChildren:YES];
+    } else if (expandValue == 100) {
+        [self.findResultsOutlineView expandItem:nil expandChildren:YES];
+    } else if (expandValue > 0) {
+        NSInteger index = 0;
+        id item;;
+        NSOutlineView *outlineView = self.findResultsOutlineView;
+        
+        while ((item = [outlineView itemAtRow:index])) {
+            if ([outlineView levelForItem:item] < expandValue) {
+                [outlineView expandItem:item];
+            } else {
+                [outlineView collapseItem:item];
+            }
+            index++;
+        }
+    }
 }
 
 - (IBAction)findQuery:(id)sender
@@ -421,7 +462,7 @@
     MODSortedMutableDictionary *sort = nil;
     NSError *error = nil;
     
-    [self findQueryComposer:nil];
+    [self findQueryComposer];
     if (limit <= 0) {
         limit = 30;
     }
@@ -489,6 +530,7 @@
                            toTarget:self.findTotalResultsTextField
                        withSelector:@selector(setTextColor:)
                               delay:1];
+            [self _findExpandResult];
             [self.findQueryLoaderIndicator stopAnimation:nil];
         }];
     }
@@ -496,14 +538,9 @@
     [queryTitle release];
 }
 
-- (IBAction)expandFindResults:(id)sender
+- (IBAction)findExpandPopUpButtonAction:(id)sender
 {
-    [self.findResultsOutlineView expandItem:nil expandChildren:YES];
-}
-
-- (IBAction)collapseFindResults:(id)sender
-{
-    [self.findResultsOutlineView collapseItem:nil collapseChildren:YES];
+    [self _findExpandResult];
 }
 
 - (IBAction)removeRecord:(id)sender
@@ -534,7 +571,7 @@
     [inCriteria release];
 }
 
-- (IBAction)findQueryComposer:(id)sender
+- (void)findQueryComposer
 {
     NSString *criteria = [self formatedJsonWithTextField:self.findCriteriaComboBox replace:NO emptyValid:YES];
     NSString *jsFields;
@@ -570,6 +607,36 @@
     [skip release];
     [limit release];
     self.findQueryTextField.stringValue = query;
+}
+
+- (IBAction)findNextResultButtonAction:(id)sender
+{
+    NSInteger skipValue;
+    NSInteger limitValue;
+    
+    skipValue = self.findSkipTextField.stringValue.integerValue;
+    limitValue = self.findLimitTextField.stringValue.integerValue;
+    skipValue += limitValue;
+    self.findSkipTextField.stringValue = [NSString stringWithFormat:@"%ld", (long)skipValue];
+    [self findQuery:nil];
+}
+
+- (IBAction)findPreviousResultButtonAction:(id)sender
+{
+    NSInteger skipValue;
+    
+    skipValue = self.findSkipTextField.stringValue.integerValue;
+    if (skipValue > 0) {
+        NSInteger limitValue;
+        
+        limitValue = self.findLimitTextField.stringValue.integerValue;
+        skipValue -= limitValue;
+        if (skipValue < 0) {
+            skipValue = 0;
+        }
+        self.findSkipTextField.stringValue = [NSString stringWithFormat:@"%ld", (long)skipValue];
+        [self findQuery:nil];
+    }
 }
 
 @end

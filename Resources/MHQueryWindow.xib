@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHQueryWindowController">
             <connections>
-                <outlet property="_findCriteriaComboBox" destination="1379" id="9D4-Er-tsG"/>
-                <outlet property="_findFieldsTextField" destination="80" id="mgE-aG-LUd"/>
-                <outlet property="_findLimitTextField" destination="79" id="c8X-1r-uY0"/>
-                <outlet property="_findQueryLoaderIndicator" destination="484" id="Gxs-MC-bDA"/>
-                <outlet property="_findQueryTextField" destination="94" id="P5v-y3-2LS"/>
-                <outlet property="_findRemoveButton" destination="689" id="1SC-1N-BvD"/>
-                <outlet property="_findResultsOutlineView" destination="69" id="DH0-ky-vk2"/>
-                <outlet property="_findSkipTextField" destination="76" id="1S8-RT-f4w"/>
-                <outlet property="_findSortTextField" destination="123" id="YAZ-HT-iX1"/>
-                <outlet property="_findTotalResultsTextField" destination="98" id="jeL-HZ-LGJ"/>
                 <outlet property="_indexCreateButton" destination="233" id="1rM-gC-NEQ"/>
                 <outlet property="_indexDropButton" destination="277" id="27s-6M-0Ja"/>
                 <outlet property="_indexLoaderIndicator" destination="498" id="15J-ti-q9w"/>
@@ -38,17 +28,25 @@
                 <outlet property="_removeQueryLoaderIndicator" destination="492" id="5i7-Rj-ZMY"/>
                 <outlet property="_removeQueryTextField" destination="172" id="fUX-9E-Klk"/>
                 <outlet property="_removeResultsTextField" destination="179" id="dyG-8e-2Bg"/>
-                <outlet property="_segmentedControl" destination="730" id="N9a-fx-BVm"/>
-                <outlet property="_tabView" destination="701" id="4jE-jr-xmP"/>
-                <outlet property="_updateButton" destination="148" id="JxF-IK-OYe"/>
-                <outlet property="_updateCriteriaTextField" destination="144" id="9Oa-7Y-1iY"/>
-                <outlet property="_updateMultiCheckBox" destination="1397" id="mSk-DQ-VV8"/>
-                <outlet property="_updateQueryLoaderIndicator" destination="487" id="Gqp-Ph-2Ex"/>
-                <outlet property="_updateQueryTextField" destination="135" id="n2B-Wm-ZVJ"/>
-                <outlet property="_updateResultsTextField" destination="155" id="d9f-OV-Oly"/>
-                <outlet property="_updateUpsetCheckBox" destination="146" id="0hR-Jh-f9U"/>
+                <outlet property="findCriteriaComboBox" destination="1379" id="QCU-C0-5cX"/>
+                <outlet property="findExpandPopUpButton" destination="cSj-cm-ZZb" id="hRX-Pe-aMM"/>
+                <outlet property="findFieldsTextField" destination="80" id="FsZ-Ho-B8A"/>
+                <outlet property="findLimitTextField" destination="79" id="PVF-rz-jbH"/>
+                <outlet property="findNextResultButton" destination="jJq-rr-PxX" id="8N9-Ku-MVd"/>
+                <outlet property="findPreviousResultButton" destination="IaV-3H-hAM" id="LJ0-yN-xJc"/>
+                <outlet property="findQueryLoaderIndicator" destination="484" id="dyu-7M-kHl"/>
+                <outlet property="findQueryTextField" destination="94" id="WFK-2U-ghi"/>
+                <outlet property="findRemoveButton" destination="689" id="siU-l7-Xvl"/>
+                <outlet property="findResultsOutlineView" destination="69" id="OWA-Yu-RCG"/>
+                <outlet property="findSkipTextField" destination="76" id="cVC-Er-hQq"/>
+                <outlet property="findSortTextField" destination="123" id="NYq-pw-NXB"/>
+                <outlet property="findTotalResultsTextField" destination="98" id="6C1-vR-8lJ"/>
+                <outlet property="segmentedControl" destination="730" id="nzD-uA-qJd"/>
+                <outlet property="tabView" destination="701" id="2yd-zO-DWV"/>
+                <outlet property="updateButton" destination="148" id="Y6Q-2z-1aR"/>
                 <outlet property="updateCriteriaTextField" destination="144" id="nJi-Ut-vFm"/>
                 <outlet property="updateMultiCheckBox" destination="1397" id="l0D-PE-Osl"/>
+                <outlet property="updateQueryLoaderIndicator" destination="487" id="vYl-C6-tMP"/>
                 <outlet property="updateQueryTextField" destination="135" id="dvi-vW-eMH"/>
                 <outlet property="updateResultsTextField" destination="155" id="5Wo-ru-ZfE"/>
                 <outlet property="updateTabView" destination="707" id="gsd-yR-b2m"/>
@@ -72,7 +70,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67">
-                                        <rect key="frame" x="0.0" y="27" width="584" height="352"/>
+                                        <rect key="frame" x="0.0" y="26" width="584" height="353"/>
                                         <clipView key="contentView" id="Nyl-Gu-50U">
                                             <rect key="frame" x="1" y="1" width="582" height="343"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -148,54 +146,8 @@
                                             <outlet property="nextKeyView" destination="689" id="yeT-dX-Fhg"/>
                                         </connections>
                                     </scrollView>
-                                    <button toolTip="Right arrow, or option+right arrow" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="475">
-                                        <rect key="frame" x="509" y="5" width="75" height="18"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="17" id="WlE-E0-0ct"/>
-                                            <constraint firstAttribute="width" constant="75" id="fTm-EQ-Shg"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="roundTextured" title="Collapse" bezelStyle="texturedRounded" image="NSListViewTemplate" imagePosition="left" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="476">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="smallSystem"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="collapseFindResults:" target="-2" id="477"/>
-                                        </connections>
-                                    </button>
-                                    <button toolTip="command+delete" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="689">
-                                        <rect key="frame" x="351" y="5" width="68" height="18"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="68" id="Xhh-dH-0Sv"/>
-                                            <constraint firstAttribute="height" constant="17" id="dbl-bw-Ewt"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="roundTextured" title="Remove" bezelStyle="texturedRounded" image="NSRemoveTemplate" imagePosition="left" alignment="center" controlSize="small" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="690">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <string key="keyEquivalent" base64-UTF8="YES">
-CA
-</string>
-                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="removeRecord:" target="-2" id="693"/>
-                                        </connections>
-                                    </button>
-                                    <button toolTip="Left arrow, or option+left arrow" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="470">
-                                        <rect key="frame" x="427" y="5" width="74" height="18"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="74" id="5b0-fm-Xmx"/>
-                                            <constraint firstAttribute="height" constant="17" id="v9q-j4-S5A"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="roundTextured" title="Expand" bezelStyle="texturedRounded" image="NSPathTemplate" imagePosition="left" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="471">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="smallSystem"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="expandFindResults:" target="-2" id="474"/>
-                                        </connections>
-                                    </button>
                                     <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="98" userLabel="Query Result">
-                                        <rect key="frame" x="-2" y="7" width="347" height="14"/>
+                                        <rect key="frame" x="-2" y="7" width="348" height="14"/>
                                         <textFieldCell key="cell" controlSize="small" lineBreakMode="charWrapping" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="Query Results" id="99">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -299,7 +251,7 @@ CA
                                             <outlet property="nextKeyView" destination="103" id="699"/>
                                         </connections>
                                     </textField>
-                                    <button toolTip="Command+R" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="103">
+                                    <button toolTip="⌘R" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="103">
                                         <rect key="frame" x="502" y="385" width="82" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="82" id="MFk-Lb-GwY"/>
@@ -369,49 +321,133 @@ CA
                                     <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="484">
                                         <rect key="frame" x="568" y="439" width="16" height="16"/>
                                     </progressIndicator>
+                                    <button toolTip="⌘←" verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-3H-hAM" userLabel="Previous Result">
+                                        <rect key="frame" x="516" y="4" width="30" height="19"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="AY6-AY-f1c"/>
+                                            <constraint firstAttribute="height" constant="18" id="dj6-G7-RD6"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSGoLeftTemplate" imagePosition="only" alignment="center" state="on" borderStyle="border" inset="2" id="cCS-66-Cj9">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="cellTitle"/>
+                                            <string key="keyEquivalent"></string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="findPreviousResultButtonAction:" target="-2" id="bNK-cZ-cgO"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="⌘→" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jJq-rr-PxX" userLabel="Next Result">
+                                        <rect key="frame" x="554" y="4" width="30" height="19"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="5uc-Qr-XLN"/>
+                                            <constraint firstAttribute="width" constant="30" id="It7-T1-VZv"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSGoRightTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EGY-pJ-2BC">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="cellTitle"/>
+                                            <string key="keyEquivalent"></string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="findNextResultButtonAction:" target="-2" id="T0H-ci-OyZ"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="command+delete" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="689">
+                                        <rect key="frame" x="352" y="4" width="68" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="68" id="Xhh-dH-0Sv"/>
+                                            <constraint firstAttribute="height" constant="17" id="dbl-bw-Ewt"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="roundTextured" title="Remove" bezelStyle="texturedRounded" image="NSRemoveTemplate" imagePosition="left" alignment="center" controlSize="small" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="690">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="removeRecord:" target="-2" id="693"/>
+                                        </connections>
+                                    </button>
+                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cSj-cm-ZZb">
+                                        <rect key="frame" x="425" y="2" width="86" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="Hjj-Bh-uLM"/>
+                                        </constraints>
+                                        <popUpButtonCell key="cell" type="push" title="Expand 0" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ppn-fc-lJX" id="Exb-AA-qTG">
+                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <menu key="menu" id="0r2-p1-slJ">
+                                                <items>
+                                                    <menuItem title="Expand 0" state="on" keyEquivalent="0" id="ppn-fc-lJX">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                    </menuItem>
+                                                    <menuItem title="Expand 1" tag="1" keyEquivalent="1" id="yeG-k7-do5">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                    </menuItem>
+                                                    <menuItem title="Expand 2" tag="2" keyEquivalent="2" id="ADp-xG-d9i">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                    </menuItem>
+                                                    <menuItem title="Expand 3" tag="3" keyEquivalent="3" id="HKm-gT-KFe">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                    </menuItem>
+                                                    <menuItem title="Expand ∞" tag="100" keyEquivalent="4" id="yeN-CB-t9m">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </popUpButtonCell>
+                                        <connections>
+                                            <action selector="findExpandPopUpButtonAction:" target="-2" id="4XX-Wb-tCm"/>
+                                        </connections>
+                                    </popUpButton>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="82" firstAttribute="baseline" secondItem="1379" secondAttribute="baseline" id="08I-He-yWx"/>
+                                    <constraint firstItem="jJq-rr-PxX" firstAttribute="leading" secondItem="IaV-3H-hAM" secondAttribute="trailing" constant="8" id="0dM-ht-vUI"/>
                                     <constraint firstItem="82" firstAttribute="leading" secondItem="703" secondAttribute="leading" id="13w-vh-54G"/>
                                     <constraint firstItem="121" firstAttribute="leading" secondItem="1379" secondAttribute="trailing" constant="8" id="2LB-S0-DJ8"/>
                                     <constraint firstItem="82" firstAttribute="baseline" secondItem="121" secondAttribute="baseline" id="7Cq-a4-8Sn"/>
                                     <constraint firstItem="76" firstAttribute="baseline" secondItem="81" secondAttribute="baseline" id="CCY-7G-Ymg"/>
                                     <constraint firstItem="689" firstAttribute="leading" secondItem="98" secondAttribute="trailing" constant="8" id="I2U-FE-hzC"/>
-                                    <constraint firstItem="470" firstAttribute="leading" secondItem="689" secondAttribute="trailing" constant="8" id="Kb3-5J-lmm"/>
+                                    <constraint firstItem="689" firstAttribute="baseline" secondItem="cSj-cm-ZZb" secondAttribute="baseline" id="Ka2-ZO-bXU"/>
                                     <constraint firstItem="67" firstAttribute="top" secondItem="80" secondAttribute="bottom" constant="8" id="Ly1-66-hOn"/>
+                                    <constraint firstAttribute="bottom" secondItem="67" secondAttribute="bottom" constant="26" id="NXW-um-57T"/>
                                     <constraint firstItem="76" firstAttribute="leading" secondItem="77" secondAttribute="trailing" id="NjH-6G-Bfo"/>
                                     <constraint firstItem="1379" firstAttribute="top" secondItem="94" secondAttribute="bottom" constant="6" id="Q4Y-xF-Zip"/>
                                     <constraint firstItem="123" firstAttribute="leading" secondItem="121" secondAttribute="trailing" constant="8" id="R1O-9X-axl"/>
-                                    <constraint firstItem="98" firstAttribute="baseline" secondItem="689" secondAttribute="baseline" constant="1" id="S7e-bP-BZC"/>
+                                    <constraint firstItem="98" firstAttribute="baseline" secondItem="689" secondAttribute="baseline" id="S7e-bP-BZC"/>
+                                    <constraint firstItem="cSj-cm-ZZb" firstAttribute="leading" secondItem="689" secondAttribute="trailing" constant="8" id="Wf0-qX-BE6"/>
                                     <constraint firstItem="79" firstAttribute="leading" secondItem="78" secondAttribute="trailing" constant="8" id="Y0D-33-psA"/>
-                                    <constraint firstItem="689" firstAttribute="baseline" secondItem="475" secondAttribute="baseline" id="ZMh-xX-HsR"/>
                                     <constraint firstAttribute="trailing" secondItem="123" secondAttribute="trailing" id="ZSS-ZX-7hl"/>
                                     <constraint firstAttribute="trailing" secondItem="67" secondAttribute="trailing" id="a9f-s4-W9u"/>
-                                    <constraint firstItem="689" firstAttribute="baseline" secondItem="470" secondAttribute="baseline" id="adQ-Wr-JpJ"/>
                                     <constraint firstItem="94" firstAttribute="leading" secondItem="703" secondAttribute="leading" id="bFA-pe-o3L"/>
-                                    <constraint firstItem="475" firstAttribute="leading" secondItem="470" secondAttribute="trailing" constant="8" id="bJ8-dM-EoG"/>
                                     <constraint firstItem="82" firstAttribute="leading" secondItem="703" secondAttribute="leading" id="bNZ-sz-2Ua"/>
                                     <constraint firstItem="76" firstAttribute="baseline" secondItem="78" secondAttribute="baseline" id="c9X-tn-wVA"/>
                                     <constraint firstAttribute="trailing" secondItem="103" secondAttribute="trailing" id="cma-9b-zUn"/>
                                     <constraint firstItem="76" firstAttribute="baseline" secondItem="103" secondAttribute="baseline" constant="1" id="ead-Ry-5WK"/>
-                                    <constraint firstAttribute="trailing" secondItem="475" secondAttribute="trailing" id="fFF-Bb-YpR"/>
                                     <constraint firstItem="98" firstAttribute="leading" secondItem="703" secondAttribute="leading" id="izW-5t-ApQ"/>
                                     <constraint firstItem="94" firstAttribute="top" secondItem="703" secondAttribute="top" id="kJP-yW-KDA"/>
                                     <constraint firstItem="78" firstAttribute="leading" secondItem="76" secondAttribute="trailing" constant="8" id="l3S-tR-HAl"/>
                                     <constraint firstItem="77" firstAttribute="leading" secondItem="80" secondAttribute="trailing" constant="8" id="lw9-ph-hjS"/>
                                     <constraint firstItem="82" firstAttribute="baseline" secondItem="123" secondAttribute="baseline" id="nbV-H1-lwG"/>
                                     <constraint firstItem="81" firstAttribute="leading" secondItem="703" secondAttribute="leading" id="o2Z-v7-PrG"/>
+                                    <constraint firstAttribute="bottom" secondItem="jJq-rr-PxX" secondAttribute="bottom" constant="5" id="pXo-p9-JMN"/>
                                     <constraint firstItem="76" firstAttribute="baseline" secondItem="80" secondAttribute="baseline" id="pmY-0I-Ppb"/>
                                     <constraint firstItem="103" firstAttribute="leading" secondItem="79" secondAttribute="trailing" constant="8" id="q88-pb-mcQ"/>
+                                    <constraint firstItem="IaV-3H-hAM" firstAttribute="centerY" secondItem="cSj-cm-ZZb" secondAttribute="centerY" id="r6m-SY-gAp"/>
+                                    <constraint firstItem="IaV-3H-hAM" firstAttribute="leading" secondItem="cSj-cm-ZZb" secondAttribute="trailing" constant="8" id="rCx-8S-u3k"/>
                                     <constraint firstItem="67" firstAttribute="leading" secondItem="703" secondAttribute="leading" id="rUA-U5-S8U"/>
                                     <constraint firstItem="80" firstAttribute="leading" secondItem="81" secondAttribute="trailing" constant="8" id="rah-G4-RmZ"/>
                                     <constraint firstItem="80" firstAttribute="top" secondItem="1379" secondAttribute="bottom" constant="9" id="tYV-Mv-UXm"/>
+                                    <constraint firstItem="jJq-rr-PxX" firstAttribute="centerY" secondItem="IaV-3H-hAM" secondAttribute="centerY" id="thJ-rQ-F3A"/>
                                     <constraint firstItem="76" firstAttribute="baseline" secondItem="77" secondAttribute="baseline" id="toG-nR-Dww"/>
+                                    <constraint firstAttribute="trailing" secondItem="jJq-rr-PxX" secondAttribute="trailing" id="uC5-X5-Qep"/>
                                     <constraint firstItem="76" firstAttribute="baseline" secondItem="79" secondAttribute="baseline" id="uFc-5x-oG1"/>
                                     <constraint firstAttribute="trailing" secondItem="94" secondAttribute="trailing" id="v4r-5P-9d5"/>
                                     <constraint firstItem="1379" firstAttribute="leading" secondItem="82" secondAttribute="trailing" constant="8" id="v8l-88-wcG"/>
-                                    <constraint firstAttribute="bottom" secondItem="475" secondAttribute="bottom" constant="6" id="wue-Ad-Tr8"/>
-                                    <constraint firstItem="689" firstAttribute="top" secondItem="67" secondAttribute="bottom" constant="4" id="xb7-R8-CVo"/>
                                 </constraints>
                             </view>
                             <connections>
@@ -1235,8 +1271,9 @@ CA
     </objects>
     <resources>
         <image name="NSAddTemplate" width="8" height="8"/>
+        <image name="NSGoLeftTemplate" width="9" height="9"/>
+        <image name="NSGoRightTemplate" width="9" height="9"/>
         <image name="NSListViewTemplate" width="11" height="10"/>
-        <image name="NSPathTemplate" width="13" height="10"/>
         <image name="NSRemoveTemplate" width="8" height="8"/>
         <image name="NSStopProgressTemplate" width="11" height="11"/>
         <image name="editmenu" width="16" height="16"/>

@@ -19,20 +19,23 @@
     MHConnectionStore                           *_connectionStore;
     NSMutableDictionary                         *_jsonWindowControllers;
     
-    IBOutlet NSTabView                          *_tabView;
-    IBOutlet NSSegmentedControl                 *_segmentedControl;
+    NSTabView                                   *_tabView;
+    NSSegmentedControl                          *_segmentedControl;
     
     MHResultsOutlineViewController              *_findResultsViewController;
-    IBOutlet NSOutlineView                      *_findResultsOutlineView;
-    IBOutlet NSComboBox                         *_findCriteriaComboBox;
-    IBOutlet NSTokenField                       *_findFieldsTextField;
-    IBOutlet NSTextField                        *_findSkipTextField;
-    IBOutlet NSTextField                        *_findLimitTextField;
-    IBOutlet NSTextField                        *_findSortTextField;
-    IBOutlet NSTextField                        *_findTotalResultsTextField;
-    IBOutlet NSTextField                        *_findQueryTextField;
-    IBOutlet NSProgressIndicator                *_findQueryLoaderIndicator;
-    IBOutlet NSButton                           *_findRemoveButton;
+    NSOutlineView                               *_findResultsOutlineView;
+    NSComboBox                                  *_findCriteriaComboBox;
+    NSTokenField                                *_findFieldsTextField;
+    NSTextField                                 *_findSkipTextField;
+    NSTextField                                 *_findLimitTextField;
+    NSTextField                                 *_findSortTextField;
+    NSTextField                                 *_findTotalResultsTextField;
+    NSTextField                                 *_findQueryTextField;
+    NSProgressIndicator                         *_findQueryLoaderIndicator;
+    NSButton                                    *_findRemoveButton;
+    NSPopUpButton                               *_findExpandPopUpButton;
+    NSButton                                    *_findNextResultButton;
+    NSButton                                    *_findPreviousResultButton;
     
     IBOutlet NSButton                           *_insertButton;
     IBOutlet NSTextView                         *_insertDataTextView;
@@ -75,8 +78,8 @@
     IBOutlet id                                 _monTest;
 }
 
-@property (nonatomic, readonly, retain) MODCollection *collection;
-@property (nonatomic, readonly, retain) MHConnectionStore *connectionStore;
+@property (nonatomic, readonly, strong) MODCollection *collection;
+@property (nonatomic, readonly, strong) MHConnectionStore *connectionStore;
 
 - (instancetype)initWithCollection:(MODCollection *)collection connectionStore:(MHConnectionStore *)connectionStore;
 
@@ -87,11 +90,7 @@
 @end
 
 @interface MHQueryWindowController (FindTab)
-- (IBAction)findQuery:(id)sender;
-- (IBAction)expandFindResults:(id)sender;
-- (IBAction)collapseFindResults:(id)sender;
-- (IBAction)removeRecord:(id)sender;
-- (IBAction)findQueryComposer:(id)sender;
+- (void)findQueryComposer;
 
 @end
 
