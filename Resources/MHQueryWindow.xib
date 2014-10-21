@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
@@ -268,7 +268,7 @@
                                             <outlet property="nextKeyView" destination="69" id="700"/>
                                         </connections>
                                     </button>
-                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="121">
+                                    <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="121">
                                         <rect key="frame" x="404" y="418" width="26" height="14"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sort" id="122">
                                             <font key="font" metaFont="smallSystem"/>
@@ -292,7 +292,7 @@
                                             <outlet property="nextKeyView" destination="80" id="696"/>
                                         </connections>
                                     </textField>
-                                    <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1379">
+                                    <comboBox verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1379">
                                         <rect key="frame" x="72" y="414" width="329" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="17" id="oUy-is-dln"/>
@@ -1270,11 +1270,11 @@ CA
         </customView>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="8" height="8"/>
-        <image name="NSGoLeftTemplate" width="9" height="9"/>
-        <image name="NSGoRightTemplate" width="9" height="9"/>
-        <image name="NSListViewTemplate" width="11" height="10"/>
-        <image name="NSRemoveTemplate" width="8" height="8"/>
+        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSGoLeftTemplate" width="9" height="12"/>
+        <image name="NSGoRightTemplate" width="9" height="12"/>
+        <image name="NSListViewTemplate" width="14" height="10"/>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStopProgressTemplate" width="11" height="11"/>
         <image name="editmenu" width="16" height="16"/>
         <image name="findmenu" width="16" height="16"/>
