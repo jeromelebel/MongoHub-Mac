@@ -20,7 +20,7 @@
 
 #define IS_OBJECT_ID(value) ([value length] == 24 && [[value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"1234567890abcdefABCDEF"]] length] == 0)
 
-@interface MHQueryViewController ()
+@interface MHQueryViewController () <NSTextFieldDelegate>
 @property (nonatomic, readwrite, weak) IBOutlet NSSegmentedControl *segmentedControl;
 @property (nonatomic, readwrite, weak) IBOutlet NSTabView *tabView;
 
@@ -797,7 +797,7 @@
     line[@"textfield"] = [mainView viewWithTag:2];
     line[@"+"] = [mainView viewWithTag:3];
     line[@"-"] = [mainView viewWithTag:4];
-//    [(NSTextField *)line[@"textfield"] setDelegate:self];
+    [(NSTextField *)line[@"textfield"] setDelegate:self];
     [line[@"+"] setTarget:self];
     [line[@"+"] setAction:@selector(updateAddOperatorAction:)];
     [line[@"-"] setTarget:self];
