@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHConnectionEditorWindowController">
@@ -133,7 +133,7 @@
                         </connections>
                     </textField>
                     <button id="a2P-8z-1w5">
-                        <rect key="frame" x="100" y="223" width="43" height="18"/>
+                        <rect key="frame" x="100" y="223" width="48" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="SSL" bezelStyle="regularSquare" imagePosition="left" inset="2" id="3Fb-h1-uec">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -203,7 +203,7 @@ Gw
                         </connections>
                     </button>
                     <button id="34">
-                        <rect key="frame" x="100" y="184" width="128" height="18"/>
+                        <rect key="frame" x="100" y="184" width="122" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Use SSH Tunnel" bezelStyle="regularSquare" imagePosition="left" alignment="center" inset="2" id="35">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -401,7 +401,7 @@ Gw
                                             </connections>
                                         </textField>
                                         <button id="qPp-qu-Tbh">
-                                            <rect key="frame" x="100" y="39" width="109" height="18"/>
+                                            <rect key="frame" x="100" y="39" width="112" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Secondary OK" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Hcg-Jr-NC6">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -528,7 +528,7 @@ Gw
                         </connections>
                     </tabView>
                     <button id="0LP-qJ-orR">
-                        <rect key="frame" x="154" y="223" width="124" height="18"/>
+                        <rect key="frame" x="152" y="223" width="124" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Weak Certificate" bezelStyle="regularSquare" imagePosition="left" inset="2" id="rPx-Ii-kqg">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
