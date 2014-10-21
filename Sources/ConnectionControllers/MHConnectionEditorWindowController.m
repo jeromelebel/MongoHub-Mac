@@ -281,7 +281,11 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 - (IBAction)cancelAction:(id)sender
 {
     [self.delegate connectionWindowControllerDidCancel:self];
-    [NSApp endSheet:self.window];
+    if (self.window.parentWindow) {
+        [NSApp endSheet:self.window];
+    } else {
+        [self.window close];
+    }
 }
 
 - (MHConnectionStore *)connectionStoreWithAlias:(NSString *)alias
@@ -422,7 +426,11 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         [self.connectionsArrayController addObject:self.editedConnectionStore];
     }
     [self.delegate connectionWindowControllerDidValidate:self];
-    [NSApp endSheet:self.window];
+    if (self.window.parentWindow) {
+        [NSApp endSheet:self.window];
+    } else {
+        [self.window close];
+    }
 }
 
 - (IBAction)enableSSLAction:(id)sender
