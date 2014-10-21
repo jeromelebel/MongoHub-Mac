@@ -21,6 +21,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 - Adding Next and Previous buttons [issue #149](https://github.com/jeromelebel/MongoHub-Mac/issues/149)
 - Adding auto expand popup button to view results
+- Better support for 10.7
 
 **Beta**
 

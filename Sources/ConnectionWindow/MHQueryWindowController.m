@@ -771,21 +771,25 @@
 
 - (IBAction)updateAddOperatorAction:(id)sender
 {
-    NSArray *topLevelObjects = nil;
     NSMutableDictionary *line = [NSMutableDictionary dictionary];
     NSView *mainView = nil;
     NSView *previousView;
     NSUInteger previousViewIndex;
-    
-    [NSBundle.mainBundle loadNibNamed:@"MHQueryUpdateOperator" owner:nil topLevelObjects:&topLevelObjects];
-    NSAssert(topLevelObjects, @"Should have top level objects");
-    NSAssert(topLevelObjects.count == 2, @"Should have only one top level object");
-    for (id topLevelObject in topLevelObjects) {
-        if ([topLevelObject isKindOfClass:NSView.class]) {
-            NSAssert(mainView == nil, @"should have only one NSView as top level object");
-            mainView = topLevelObject;
-        }
+    NSViewController *viewController = [[[NSViewController alloc] init] autorelease];
+
+    if ([[NSBundle mainBundle] respondsToSelector:@selector(loadNibNamed:owner:topLevelObjects:)]) {
+        [NSBundle.mainBundle loadNibNamed:@"MHQueryUpdateOperatorView" owner:viewController topLevelObjects:nil];
+    } else {
+        NSInvocation *invocation;
+        
+        invocation = [NSInvocation invocationWithMethodSignature:[NSBundle instanceMethodSignatureForSelector:@selector(loadNibNamed:owner:)]];
+        invocation.selector = @selector(loadNibNamed:owner:);
+        invocation.target = NSBundle.mainBundle;
+        [invocation setArgument:@"MHQueryUpdateOperatorView" atIndex:2];
+        [invocation setArgument:viewController atIndex:3];
+        [invocation invoke];
     }
+    mainView = viewController.view;
     NSAssert(mainView != nil, @"Should have found one top level object");
     line[@"main"] = mainView;
     line[@"popup"] = [mainView viewWithTag:1];
