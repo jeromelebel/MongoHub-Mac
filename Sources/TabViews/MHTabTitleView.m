@@ -112,7 +112,7 @@ static void initializeImages(void)
     [self removeTrackingRect:_trakingTag];
     [super setFrame:frameRect];
     _trakingTag = [self addTrackingRect:self.bounds owner:self userData:nil assumeInside:NO];
-    _showCloseButton = [self mouse:[self convertPoint:[self.window convertScreenToBase:[NSEvent mouseLocation]] fromView:nil] inRect:self.bounds];
+    _showCloseButton = [self mouse:[self convertPoint:[self convertPoint:[NSEvent mouseLocation] fromView:nil] fromView:nil] inRect:self.bounds];
 }
 
 - (void)drawRect:(NSRect)dirtyRect

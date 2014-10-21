@@ -22,7 +22,7 @@
 
 - (void)addRow:(FieldMapDataObject *)pDataObj;
 
-- (int)numberOfRowsInTableView:(NSTableView *)pTableViewObj;
+- (NSUInteger)numberOfRowsInTableView:(NSTableView *)pTableViewObj;
 
 - (id) tableView:(NSTableView *)pTableViewObj 
 objectValueForTableColumn:(NSTableColumn *)pTableColumn 

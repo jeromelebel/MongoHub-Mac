@@ -111,7 +111,7 @@
 
 - (void)doExportToTable:(NSString *)tableName data:(id)mongoDocument fieldTypes:(NSDictionary *)fieldTypes fieldMapping:(NSArray *)fieldMapping
 {
-    int fieldsCount = [fieldMapping count];
+    NSUInteger fieldsCount = fieldMapping.count;
     NSMutableArray *fields = [[NSMutableArray alloc] initWithCapacity:fieldsCount];
     NSMutableArray *values = [[NSMutableArray alloc] initWithCapacity:fieldsCount];
     for(FieldMapDataObject *field in fieldMapping)
@@ -199,7 +199,7 @@
     [db setEncoding:@"utf8"];
     MCPResult *dbs = [db listDBs];
     NSArray *row;
-    NSMutableArray *databases = [[NSMutableArray alloc] initWithCapacity:[dbs numOfRows]];
+    NSMutableArray *databases = [[NSMutableArray alloc] initWithCapacity:(NSUInteger)[dbs numOfRows]];
     while ((row = [dbs fetchRowAsArray])) {
         NSDictionary *database = [[NSDictionary alloc] initWithObjectsAndKeys:[row objectAtIndex:0], @"name", nil];
         [databases addObject:database];
@@ -225,7 +225,7 @@
     [db selectDB:dbn];
     MCPResult *tbs = [db listTables];
     NSArray *row;
-    NSMutableArray *tables = [[NSMutableArray alloc] initWithCapacity:[tbs numOfRows]];
+    NSMutableArray *tables = [[NSMutableArray alloc] initWithCapacity:(NSUInteger)[tbs numOfRows]];
     while ((row = [tbs fetchRowAsArray])) {
         NSDictionary *table = [[NSDictionary alloc] initWithObjectsAndKeys:[row objectAtIndex:0], @"name", nil];
         [tables addObject:table];

@@ -491,7 +491,7 @@
 
 - (uint32_t)connectTimeout
 {
-    return [NSUserDefaults.standardUserDefaults integerForKey:MHConnectTimeoutKey];
+    return (uint32_t)[NSUserDefaults.standardUserDefaults integerForKey:MHConnectTimeoutKey];
 }
 
 - (uint32_t)defaultSocketTimeout
@@ -510,7 +510,7 @@
 
 - (uint32_t)socketTimeout
 {
-    return [NSUserDefaults.standardUserDefaults integerForKey:MHSocketTimeoutKey];
+    return (uint32_t)[NSUserDefaults.standardUserDefaults integerForKey:MHSocketTimeoutKey];
 }
 
 @end

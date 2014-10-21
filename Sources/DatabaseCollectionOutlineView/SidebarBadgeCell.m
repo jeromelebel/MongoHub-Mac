@@ -61,7 +61,7 @@
     if (_icon != icon) {
         [_icon release];
         _icon = [icon retain];
-        [_icon setFlipped:YES];
+//        [_icon setFlipped:YES];
         [_icon setSize:NSMakeSize(TSBADGECELL_ICON_SIZE, TSBADGECELL_ICON_SIZE)];
     }
 }

@@ -198,7 +198,7 @@
     [self.mysqlConnection setEncoding:@"utf8"];
     MCPResult *dbs = self.mysqlConnection.listDBs;
     NSArray *row;
-    NSMutableArray *databases = [[NSMutableArray alloc] initWithCapacity:[dbs numOfRows]];
+    NSMutableArray *databases = [[NSMutableArray alloc] initWithCapacity:(NSUInteger)[dbs numOfRows]];
     while ((row = [dbs fetchRowAsArray])) {
         NSDictionary *database = [[NSDictionary alloc] initWithObjectsAndKeys:[row objectAtIndex:0], @"name", nil];
         [databases addObject:database];
@@ -223,7 +223,7 @@
     [self.mysqlConnection selectDB:dbn];
     MCPResult *tbs = self.mysqlConnection.listTables;
     NSArray *row;
-    NSMutableArray *tables = [[NSMutableArray alloc] initWithCapacity:[tbs numOfRows]];
+    NSMutableArray *tables = [[NSMutableArray alloc] initWithCapacity:(NSUInteger)[tbs numOfRows]];
     while ((row = [tbs fetchRowAsArray])) {
         NSDictionary *table = [[NSDictionary alloc] initWithObjectsAndKeys:[row objectAtIndex:0], @"name", nil];
         [tables addObject:table];

@@ -78,13 +78,13 @@
     self.jsonTextLabelView.stringValue = @" ";
     [self.jsonTextLabelView sizeToFit];
     
-    [self.socketTimeoutTextField.cell setPlaceholderString:[NSString stringWithFormat:@"%u", [[NSApp delegate] defaultSocketTimeout]]];
-    value = [[NSApp delegate] socketTimeout];
+    [self.socketTimeoutTextField.cell setPlaceholderString:[NSString stringWithFormat:@"%u", [(MHApplicationDelegate *)[NSApp delegate] defaultSocketTimeout]]];
+    value = [(MHApplicationDelegate *)[NSApp delegate] socketTimeout];
     if (value != 0) {
         self.socketTimeoutTextField.stringValue = [NSString stringWithFormat:@"%u", value];
     }
-    [self.connectTimeoutTextField.cell setPlaceholderString:[NSString stringWithFormat:@"%u", [[NSApp delegate] defaultConnectTimeout]]];
-    value = [[NSApp delegate ] connectTimeout];
+    [self.connectTimeoutTextField.cell setPlaceholderString:[NSString stringWithFormat:@"%u", [(MHApplicationDelegate *)[NSApp delegate] defaultConnectTimeout]]];
+    value = [(MHApplicationDelegate *)[NSApp delegate ] connectTimeout];
     if (value != 0) {
         self.connectTimeoutTextField.stringValue = [NSString stringWithFormat:@"%u", value];
     }
@@ -182,19 +182,19 @@
 
 - (IBAction)timeoutTextFieldChanged:(id)sender
 {
-    NSInteger value;
+    uint32_t value;
     
-    value = [sender stringValue].integerValue;
+    value = (uint32_t)[sender stringValue].integerValue;
     if (value < 500 && value != 0) {
         NSBeginAlertSheet(@"Invalid Value", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"The timeout should be greater than 500");
     } else if (sender == self.connectTimeoutTextField) {
-        [[NSApp delegate] setConnectTimeout:value];
-        if ([[NSApp delegate] connectTimeout] == 0) {
+        [(MHApplicationDelegate *)[NSApp delegate] setConnectTimeout:value];
+        if ([(MHApplicationDelegate *)[NSApp delegate] connectTimeout] == 0) {
             self.connectTimeoutTextField.stringValue = @"";
         }
     } else if (sender == self.socketTimeoutTextField) {
-        [[NSApp delegate] setSocketTimeout:value];
-        if ([[NSApp delegate] socketTimeout] == 0) {
+        [(MHApplicationDelegate *)[NSApp delegate] setSocketTimeout:value];
+        if ([(MHApplicationDelegate *)[NSApp delegate] socketTimeout] == 0) {
             self.socketTimeoutTextField.stringValue = @"";
         }
     }

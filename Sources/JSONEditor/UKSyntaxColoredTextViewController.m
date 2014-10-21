@@ -139,7 +139,7 @@
 {
     NSTextStorage	*textStorage = [notification object];
 	NSRange			range = [textStorage editedRange];
-	int				changeInLen = [textStorage changeInLength];
+	NSInteger       changeInLen = [textStorage changeInLength];
 	BOOL			wasInUndoRedo = [[self undoManager] isUndoing] || [[self undoManager] isRedoing];
 	BOOL			textLengthMayHaveChanged = NO;
 	
@@ -176,7 +176,7 @@
                                    atIndex: currRange.location
                             effectiveRange: &effectiveRange];
 		
-		unsigned int		x = range.location;
+		NSUInteger      x = range.location;
 		
 		/* TODO: If we're in a multi-line comment and we're typing a comment-end
          character, or we're in a string and we're typing a quote character,
@@ -247,11 +247,11 @@
 	{
 		NSMutableAttributedString*  textStore = [TEXTVIEW textStorage];
 		BOOL						hadSpaces = NO;
-		unsigned int				lastSpace = affectedCharRange.location,
+		NSUInteger                  lastSpace = affectedCharRange.location,
         prevLineBreak = 0;
 		NSRange						spacesRange = { 0, 0 };
 		unichar						theChar = 0;
-		unsigned int				x = (affectedCharRange.location == 0) ? 0 : affectedCharRange.location -1;
+		NSUInteger                  x = (affectedCharRange.location == 0) ? 0 : affectedCharRange.location -1;
 		NSString*					tsString = [textStore string];
 		
 		while( YES )
@@ -504,7 +504,7 @@
 	
 	NSRange				selRange = [TEXTVIEW selectedRange],
     nuSelRange = selRange;
-	unsigned			x;
+	NSInteger			x;
 	NSMutableString*	str = [[TEXTVIEW textStorage] mutableString];
 	
 	// Unselect any trailing returns so we don't indent the next line after a full-line selection.
@@ -542,8 +542,8 @@
 {
 	NSRange				selRange = [TEXTVIEW selectedRange],
     nuSelRange = selRange;
-	unsigned			x, n;
-	unsigned			lastIndex = selRange.location +selRange.length -1;
+	NSInteger			x, n;
+	NSInteger			lastIndex = selRange.location +selRange.length -1;
 	NSMutableString*	str = [[TEXTVIEW textStorage] mutableString];
 	
 	// Unselect any trailing returns so we don't indent the next line after a full-line selection.
@@ -616,7 +616,7 @@
 -(IBAction)	toggleCommentForSelection: (id)sender
 {
 	NSRange				selRange = [TEXTVIEW selectedRange];
-	unsigned			x;
+	NSInteger			x;
 	NSMutableString*	str = [[TEXTVIEW textStorage] mutableString];
 	
 	if( selRange.length == 0 )
@@ -804,7 +804,7 @@
 			[self.delegate textViewControllerWillStartSyntaxRecoloring: self];
 		
 		// Kludge fix for case where we sometimes exceed text length:ra
-		int diff = [[TEXTVIEW textStorage] length] -(range.location +range.length);
+		NSInteger diff = [[TEXTVIEW textStorage] length] -(range.location +range.length);
 		if( diff < 0 )
 			range.length += diff;
         
@@ -906,14 +906,14 @@
 -(NSRange)  textView: (NSTextView*)theTextView willChangeSelectionFromCharacterRange: (NSRange)oldSelectedCharRange
     toCharacterRange: (NSRange)newSelectedCharRange
 {
-	unsigned		startCh = newSelectedCharRange.location,
+	NSUInteger		startCh = newSelectedCharRange.location,
     endCh = newSelectedCharRange.location +newSelectedCharRange.length;
-	unsigned		lineNo = 0,
+	NSUInteger		lineNo = 0,
     lastLineStart = 0,
     x = 0;
-	unsigned		startChLine = 0, endChLine = 0;
+	NSUInteger		startChLine = 0, endChLine = 0;
 	unichar			lastBreakChar = 0;
-	unsigned		lastBreakOffs = 0;
+	NSUInteger		lastBreakOffs = 0;
     
 	// Calc line number:
 	for( x = 0; (x < startCh) && (x < [[theTextView string] length]); x++ )
@@ -981,7 +981,7 @@
     
     while( ![vScanner isAtEnd] )
     {
-        int		vStartOffs,
+        NSInteger		vStartOffs,
         vEndOffs;
         vIsEndChar = NO;
         
@@ -1039,7 +1039,7 @@
 		
 		while( ![vScanner isAtEnd] )
 		{
-			int		vStartOffs,
+			NSInteger		vStartOffs,
             vEndOffs;
 			
 			// Look for start of multi-line comment:
@@ -1091,7 +1091,7 @@
 		
 		while( ![vScanner isAtEnd] )
 		{
-			int		vStartOffs,
+			NSInteger		vStartOffs,
             vEndOffs;
 			
 			// Look for start of one-line comment:
@@ -1139,7 +1139,7 @@
                                        col, NSForegroundColorAttributeName,
                                        attr, TD_SYNTAX_COLORING_MODE_ATTR,
                                        nil];
-		int					vStartOffs = 0;
+		NSInteger			vStartOffs = 0;
 		BOOL				vDelegateHandlesProgress = [self.delegate respondsToSelector: @selector(textViewControllerProgressedWhileSyntaxRecoloring:)];
 		
 		// Skip any leading whitespace chars, somehow NSScanner doesn't do that:
@@ -1213,7 +1213,7 @@
 		
 		while( ![vScanner isAtEnd] )
 		{
-			int		vStartOffs,
+			NSInteger		vStartOffs,
             vEndOffs;
 			
 			// Look for start of one-line comment:

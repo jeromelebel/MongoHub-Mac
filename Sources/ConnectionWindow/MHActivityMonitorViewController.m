@@ -122,7 +122,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     }];
 }
 
-- (int)numberOfRowsInTableView:(NSTableView *)tableView
+- (NSUInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
     return self.data.count;
 }

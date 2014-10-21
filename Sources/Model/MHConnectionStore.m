@@ -269,7 +269,7 @@
         self.slaveOK = @YES;
     }
     if ([parameterComponents[@"ssl"] isEqualToString:@"true"]) {
-        self.useSSL = YES;
+        self.useSSL = @YES;
     }
     
     if (errorMessage) {
@@ -357,11 +357,11 @@
     if (self.useSSL.boolValue) {
         [options addObject:@"ssl=true"];
     }
-    if ([[NSApp delegate] connectTimeout] != 0) {
-        [options addObject:[NSString stringWithFormat:@"connecttimeoutms=%u", [[NSApp delegate] connectTimeout]]];
+    if ([(MHApplicationDelegate *)[NSApp delegate] connectTimeout] != 0) {
+        [options addObject:[NSString stringWithFormat:@"connecttimeoutms=%u", [(MHApplicationDelegate *)[NSApp delegate] connectTimeout]]];
     }
-    if ([[NSApp delegate] socketTimeout]) {
-        [options addObject:[NSString stringWithFormat:@"sockettimeoutms=%u", [[NSApp delegate] socketTimeout]]];
+    if ([(MHApplicationDelegate *)[NSApp delegate] socketTimeout]) {
+        [options addObject:[NSString stringWithFormat:@"sockettimeoutms=%u", [(MHApplicationDelegate *)[NSApp delegate] socketTimeout]]];
     }
     if (self.replicaSetName.length > 0) {
         [options addObject:[NSString stringWithFormat:@"replicaSet=%@", self.replicaSetName.mh_stringByEscapingURL]];

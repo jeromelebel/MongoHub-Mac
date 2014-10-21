@@ -796,7 +796,7 @@
     line[@"textfield"] = [mainView viewWithTag:2];
     line[@"+"] = [mainView viewWithTag:3];
     line[@"-"] = [mainView viewWithTag:4];
-    [line[@"textfield"] setDelegate:self];
+//    [(NSTextField *)line[@"textfield"] setDelegate:self];
     [line[@"+"] setTarget:self];
     [line[@"+"] setAction:@selector(updateAddOperatorAction:)];
     [line[@"-"] setTarget:self];

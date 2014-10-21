@@ -48,7 +48,7 @@
 } // end addRow
 
 
-- (int)numberOfRowsInTableView:(NSTableView *)pTableViewObj {
+- (NSUInteger)numberOfRowsInTableView:(NSTableView *)pTableViewObj {
     return [self.nsMutaryDataObj count];
 } // end numberOfRowsInTableView
 
