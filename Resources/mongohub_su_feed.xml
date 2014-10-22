@@ -6,9 +6,18 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Version 3.0.2</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.2.zip" sparkle:version="3.0.2" length="3211494" type="application/octet-stream" />
+            <title>Version 3.0.3</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.3.zip" sparkle:version="3.0.3" length="3211494" type="application/octet-stream" />
             <description><![CDATA[
+                <h3>3.0.3</h3>
+                <ul>
+                    <li>Adding Next and Previous buttons <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/149'>issue #149</a></li>
+                    <li>Adding auto expand popup button to view results</li>
+                    <li>Crash closing the connection editor window while it is not a sheet</li>
+                    <li>Field filter now uses json (example : { field_to_see: 1, field_to_filter_out: 0 }) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/116'>issue #116</a></li>
+                    <li>Don't show twice the collection name in the query (in the update tab) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/158'>issue #158</a></li>
+                    <li>Avoiding a crash on 10.7 <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/157'>issue #157</a> (I will drop the support of 10.7 soon)</li>
+                </ul>
                 <h3>3.0.2</h3>
                 <ul>
                     <li>Adding back the activity monitor (in the toolbar) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/152'>issue #152</a></li>
