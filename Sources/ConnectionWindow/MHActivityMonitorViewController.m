@@ -71,6 +71,15 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
     return (outOfValueDiff == 0) ? 0.0 : (valueDiff * 100.0 / outOfValueDiff);
 }
 
+static void addObjectForKeyWithDefault(NSMutableDictionary *dictionary, id value, NSString *key, id defaultValue)
+{
+    if (value) {
+        dictionary[key] = value;
+    } else {
+        dictionary[key] = defaultValue;
+    }
+}
+
 - (void)fetchServerStatusDelta
 {
     self.query = [self.client serverStatusWithReadPreferences:nil callback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
@@ -88,8 +97,8 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
             if ([[serverStatus objectForKey:@"mem"] objectForKey:@"mapped"]) {
                 [diff setObject:[[serverStatus objectForKey:@"mem"] objectForKey:@"mapped"] forKey:@"mapped"];
             }
-            [diff setObject:[[serverStatus objectForKey:@"mem"] objectForKey:@"virtual"] forKey:@"vsize"];
-            [diff setObject:[[serverStatus objectForKey:@"mem"] objectForKey:@"resident"] forKey:@"res"];
+            addObjectForKeyWithDefault(diff, [[serverStatus objectForKey:@"mem"] objectForKey:@"virtual"], @"vsize", @"-");
+            addObjectForKeyWithDefault(diff, [[serverStatus objectForKey:@"mem"] objectForKey:@"resident"], @"res", @"-");
             number = [[NSNumber alloc] initWithInteger:[[[serverStatus objectForKey:@"extra_info"] objectForKey:@"page_faults"] integerValue] - [[[_previousServerStatusForDelta objectForKey:@"extra_info"] objectForKey:@"page_faults"] integerValue]];
             [diff setObject:number forKey:@"faults"];
             [number release];
@@ -106,7 +115,7 @@ static int percentage(NSNumber *previousValue, NSNumber *previousOutOfValue, NSN
             [diff setObject:number forKey:@"misses"];
             [number release];
             date = [[NSDate alloc] init];
-            [diff setObject:[[serverStatus objectForKey:@"connections"] objectForKey:@"current"] forKey:@"conn"];
+            addObjectForKeyWithDefault(diff, [[serverStatus objectForKey:@"connections"] objectForKey:@"current"], @"conn", @"-");
             [diff setObject:date forKey:@"time"];
             [date release];
             [self.data addObject:diff];
