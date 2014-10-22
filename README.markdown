@@ -25,6 +25,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 - Crash closing the connection editor window while it is not a sheet
 - Field filter now uses json (example : { field_to_see: 1, field_to_filter_out: 0 }) [issue #116](https://github.com/jeromelebel/MongoHub-Mac/issues/116)
 - Don't show twice the collection name in the query (in the update tab) [issue #158](https://github.com/jeromelebel/MongoHub-Mac/issues/158)
+- Avoiding a crash on 10.7 [issue #157](https://github.com/jeromelebel/MongoHub-Mac/issues/157) (I will drop the support of 10.7 soon)
 
 **Beta**
 
