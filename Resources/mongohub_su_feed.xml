@@ -6,11 +6,12 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Version 3.0.3</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.3.zip" sparkle:version="3.0.3" length="3211494" type="application/octet-stream" />
+            <title>Version 3.0.4</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.4.zip" sparkle:version="3.0.4" length="3211494" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>3.0.3</h3>
+                <h3>3.0.4</h3>
                 <ul>
+                    <li>Crash in the Monitor Activity <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/155'>issue #155</a></li>
                     <li>Adding Next and Previous buttons <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/149'>issue #149</a></li>
                     <li>Adding auto expand popup button to view results</li>
                     <li>Crash closing the connection editor window while it is not a sheet</li>

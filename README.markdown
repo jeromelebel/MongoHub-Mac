@@ -23,8 +23,9 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 ## History
 
-**3.0.3 - october 22, 2014**
+**3.0.4 - october 22, 2014**
 
+- Crash in the Monitor Activity [issue #155](https://github.com/jeromelebel/MongoHub-Mac/issues/155)
 - Adding Next and Previous buttons [issue #149](https://github.com/jeromelebel/MongoHub-Mac/issues/149)
 - Adding auto expand popup button to view results
 - Crash closing the connection editor window while it is not a sheet
