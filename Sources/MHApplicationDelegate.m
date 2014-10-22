@@ -15,6 +15,7 @@
 #import "MHConnectionViewItem.h"
 #import "MHLogWindowController.h"
 #import <Sparkle/Sparkle.h>
+#import "ALIterativeMigrator.h"
 
 #define YOUR_EXTERNAL_RECORD_EXTENSION @"mgo"
 #define YOUR_STORE_TYPE NSXMLStoreType
@@ -37,7 +38,7 @@
 @property (nonatomic, strong, readwrite) IBOutlet NSTextField *bundleVersion;
 @property (nonatomic, strong, readwrite) IBOutlet NSPanel *supportPanel;
 
-@property (nonatomic, readonly, assign) NSString *dataStorePath;
+@property (nonatomic, readonly, assign) NSURL *dataStoreURL;
 
 @end
 
@@ -89,9 +90,9 @@
     [super dealloc];
 }
 
-- (NSString *)dataStorePath
+- (NSURL *)dataStoreURL
 {
-    return [self.applicationSupportDirectory stringByAppendingPathComponent:@"storedata"];
+    return [NSURL fileURLWithPath:[self.applicationSupportDirectory stringByAppendingPathComponent:@"storedata"]];
 }
 
 /**
@@ -179,22 +180,46 @@
         };
     }
 
-    NSURL *url = [NSURL fileURLWithPath:self.dataStorePath];
     // set store options to enable spotlight indexing
     NSMutableDictionary *storeOptions = [NSMutableDictionary dictionary];
-    [storeOptions setObject:YOUR_EXTERNAL_RECORD_EXTENSION forKey:NSExternalRecordExtensionOption];
-    [storeOptions setObject:externalRecordsDirectory forKey:NSExternalRecordsDirectoryOption];
-    [storeOptions setObject:[NSNumber numberWithBool:YES] forKey:NSMigratePersistentStoresAutomaticallyOption];
-    [storeOptions setObject:[NSNumber numberWithBool:YES] forKey:NSInferMappingModelAutomaticallyOption];
+    storeOptions[NSExternalRecordExtensionOption] = YOUR_EXTERNAL_RECORD_EXTENSION;
+    storeOptions[NSExternalRecordsDirectoryOption] = externalRecordsDirectory;
+    storeOptions[NSMigratePersistentStoresAutomaticallyOption] = @(YES);
+    storeOptions[NSInferMappingModelAutomaticallyOption] = @(YES);
+    storeOptions[NSMigratePersistentStoresAutomaticallyOption] = @(YES);
     
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: mom];
+    NSArray* modelNames = @[
+                            @"MongoHub_DataModel1.0",
+                            @"MongoHub_DataModel2.0",
+                            @"MongoHub_DataModel3.0",
+                            @"MongoHub_DataModel4",
+                            @"MongoHub_DataModel5",
+                            @"MongoHub_DataModel6",
+                            @"MongoHub_DataModel7",
+                            @"MongoHub_DataModel8",
+                            @"MongoHub_DataModel9",
+                            @"MongoHub_DataModel10",
+                            @"MongoHub_DataModel11",
+                            @"MongoHub_DataModel12",
+                            @"MongoHub_DataModel13",
+                            ];
+    if (![ALIterativeMigrator iterativeMigrateURL:self.dataStoreURL
+                                           ofType:YOUR_STORE_TYPE
+                                          toModel:[self managedObjectModel]
+                                orderedModelNames:modelNames
+                                            error:&error]) {
+        NSLog(@"Error migrating to latest model: %@\n %@", error, [error userInfo]);
+        abort();
+    }
     if (![_persistentStoreCoordinator addPersistentStoreWithType:YOUR_STORE_TYPE
-                                                configuration:nil 
-                                                URL:url 
-                                                options:storeOptions 
-                                                error:&error]){
+                                                   configuration:nil
+                                                             URL:self.dataStoreURL
+                                                         options:storeOptions
+                                                           error:&error]) {
         [[NSApplication sharedApplication] presentError:error];
-        [_persistentStoreCoordinator release], _persistentStoreCoordinator = nil;
+        [_persistentStoreCoordinator release];
+        _persistentStoreCoordinator = nil;
         return nil;
     }    
 
@@ -224,7 +249,7 @@
                 break;
             case 1:
                 
-                if ([[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:self.dataStorePath] error:&error]) {
+                if ([[NSFileManager defaultManager] removeItemAtURL:self.dataStoreURL error:&error]) {
                     coordinator = self.persistentStoreCoordinator;
                     if (!coordinator) {
                         return nil;

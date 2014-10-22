@@ -68,6 +68,7 @@
 		027062D619DF822600E6C36A /* editmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 027062D019DF822600E6C36A /* editmenu@2x.png */; };
 		0279C090189C02F600F8BACB /* MHImportExportFeedback.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0279C08F189C02F600F8BACB /* MHImportExportFeedback.xib */; };
 		0279C093189C03E000F8BACB /* MHImportExportFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 0279C092189C03E000F8BACB /* MHImportExportFeedback.m */; };
+		028C6DF019F874D60014B4C0 /* ALIterativeMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = 028C6DEF19F874D60014B4C0 /* ALIterativeMigrator.m */; };
 		029464DC19F588B900E1B1E6 /* MHActivityMonitorTab.xib in Resources */ = {isa = PBXBuildFile; fileRef = 029464DB19F588B900E1B1E6 /* MHActivityMonitorTab.xib */; };
 		029464DF19F5899F00E1B1E6 /* MHActivityMonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 029464DE19F5899F00E1B1E6 /* MHActivityMonitorViewController.m */; };
 		029464E119F58C4500E1B1E6 /* ActivityMonitor.icns in Resources */ = {isa = PBXBuildFile; fileRef = 029464E019F58C4400E1B1E6 /* ActivityMonitor.icns */; };
@@ -281,6 +282,8 @@
 		0279C08F189C02F600F8BACB /* MHImportExportFeedback.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHImportExportFeedback.xib; sourceTree = "<group>"; };
 		0279C091189C03E000F8BACB /* MHImportExportFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHImportExportFeedback.h; sourceTree = "<group>"; };
 		0279C092189C03E000F8BACB /* MHImportExportFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHImportExportFeedback.m; sourceTree = "<group>"; };
+		028C6DEE19F874D60014B4C0 /* ALIterativeMigrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALIterativeMigrator.h; sourceTree = "<group>"; };
+		028C6DEF19F874D60014B4C0 /* ALIterativeMigrator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALIterativeMigrator.m; sourceTree = "<group>"; };
 		02940E021982A17A005AF3C1 /* MongoHub_DataModel7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel7.xcdatamodel; sourceTree = "<group>"; };
 		029464DB19F588B900E1B1E6 /* MHActivityMonitorTab.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHActivityMonitorTab.xib; sourceTree = "<group>"; };
 		029464DD19F5899F00E1B1E6 /* MHActivityMonitorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHActivityMonitorViewController.h; sourceTree = "<group>"; };
@@ -550,6 +553,8 @@
 				02CF9CC819AA9E8A00EEF76B /* MHMongoHubMigration9to10.xcmappingmodel */,
 				02F4F02C19AA9F6D00A9B836 /* MHMongoHubMigration9to10.h */,
 				02F4F02D19AA9F6D00A9B836 /* MHMongoHubMigration9to10.m */,
+				028C6DEE19F874D60014B4C0 /* ALIterativeMigrator.h */,
+				028C6DEF19F874D60014B4C0 /* ALIterativeMigrator.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1041,6 +1046,7 @@
 				1D26619111CFD1640092C6B5 /* FieldMapDataObject.m in Sources */,
 				1D26619411CFD2560092C6B5 /* FieldMapTableController.m in Sources */,
 				1DEC7F3B12B7ECAD00FC804E /* MHTunnel.m in Sources */,
+				028C6DF019F874D60014B4C0 /* ALIterativeMigrator.m in Sources */,
 				02D83E0219A4A28F007AB2F2 /* NSDictionary+MongoHub.m in Sources */,
 				0279C093189C03E000F8BACB /* MHImportExportFeedback.m in Sources */,
 				1D64100512C8E1C00030AA4C /* NSScanner+SkipUpToCharset.m in Sources */,
