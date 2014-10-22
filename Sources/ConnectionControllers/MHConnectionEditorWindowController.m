@@ -426,7 +426,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         [self.connectionsArrayController addObject:self.editedConnectionStore];
     }
     [self.delegate connectionWindowControllerDidValidate:self];
-    if (self.window.isSheetf) {
+    if (self.window.isSheet) {
         [NSApp endSheet:self.window];
     } else {
         [self.window close];
