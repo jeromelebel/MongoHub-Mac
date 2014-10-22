@@ -979,7 +979,6 @@
 - (IBAction)updateQueryComposer:(id)sender
 {
     NSUInteger ii;
-    NSString *col = [NSString stringWithFormat:@"%@.%@", self.collection.name, self.collection.name];
     NSString *critical;
     NSMutableString *sets;
     NSMutableString *options = [NSMutableString string];
@@ -1014,7 +1013,7 @@
         [options appendString:@"}"];
     }
     
-    self.updateQueryTextField.stringValue = [NSString stringWithFormat:@"db.%@.update(%@%@%@)", col, critical, sets, options];
+    self.updateQueryTextField.stringValue = [NSString stringWithFormat:@"db.%@.update(%@%@%@)", self.collection.name, critical, sets, options];
 }
 
 @end
