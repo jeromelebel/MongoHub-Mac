@@ -6,9 +6,14 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Version 3.0.4</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.4.zip" sparkle:version="3.0.4" length="3211494" type="application/octet-stream" />
+            <title>Version 3.0.5</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.5.zip" sparkle:version="3.0.5" length="3211494" type="application/octet-stream" />
             <description><![CDATA[
+                <h3>3.0.5</h3>
+                <ul>
+                    <li>Issue to edit 2 connections, one after the other</li
+                    <li>Problem to migrate data store from 2.6.x and 3.0.x</li>
+                </ul>
                 <h3>3.0.4</h3>
                 <ul>
                     <li>Crash in the Monitor Activity <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/155'>issue #155</a></li>

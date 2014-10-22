@@ -19,12 +19,14 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **Current**
 
-- Issue to edit 2 connections, one after the other
-- Problem to migrate data store from 2.6.x and 3.0.x
-
 **Beta**
 
 ## History
+
+**3.0.5 - october 23, 2014**
+
+- Issue to edit 2 connections, one after the other
+- Problem to migrate data store from 2.6.x and 3.0.x
 
 **3.0.4 - october 22, 2014**
 
