@@ -773,8 +773,12 @@
     } else {
         // specific for 10.7
         NSInvocation *invocation;
+        NSMethodSignature *methodSignature;
         
-        invocation = [NSInvocation invocationWithMethodSignature:[NSBundle instanceMethodSignatureForSelector:@selector(loadNibNamed:owner:)]];
+        methodSignature = [NSBundle methodSignatureForSelector:@selector(loadNibNamed:owner:)];
+        NSAssert(methodSignature, @"Cannot get the method signature for %@", NSStringFromSelector(@selector(loadNibNamed:owner:)));
+        invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
+        NSAssert(invocation, @"Cannot get the invocation for signature %@", methodSignature);
         invocation.selector = @selector(loadNibNamed:owner:);
         invocation.target = NSBundle.mainBundle;
         [invocation setArgument:@"MHQueryUpdateOperatorView" atIndex:2];
