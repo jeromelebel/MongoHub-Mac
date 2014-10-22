@@ -11,7 +11,7 @@
             <description><![CDATA[
                 <h3>3.0.5</h3>
                 <ul>
-                    <li>Issue to edit 2 connections, one after the other</li
+                    <li>Issue to edit 2 connections, one after the other</li>
                     <li>Problem to migrate data store from 2.6.x and 3.0.x <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/153'>issue #153</a></li>
                 </ul>
                 <h3>3.0.4</h3>
