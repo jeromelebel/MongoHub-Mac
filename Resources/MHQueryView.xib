@@ -146,8 +146,8 @@
                                             <outlet property="nextKeyView" destination="689" id="yeT-dX-Fhg"/>
                                         </connections>
                                     </scrollView>
-                                    <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="484">
-                                        <rect key="frame" x="568" y="439" width="16" height="16"/>
+                                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="484">
+                                        <rect key="frame" x="568" y="440" width="16" height="16"/>
                                     </progressIndicator>
                                     <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="98" userLabel="Query Result">
                                         <rect key="frame" x="-2" y="7" width="344" height="14"/>
@@ -305,7 +305,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button toolTip="⌘←" verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-3H-hAM" userLabel="Previous Result">
+                                    <button toolTip="⌥⌘←" verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-3H-hAM" userLabel="Previous Result">
                                         <rect key="frame" x="516" y="4" width="30" height="19"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="AY6-AY-f1c"/>
@@ -315,7 +315,7 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="cellTitle"/>
                                             <string key="keyEquivalent"></string>
-                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="findPreviousResultButtonAction:" target="-2" id="bNK-cZ-cgO"/>
@@ -331,7 +331,7 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="cellTitle"/>
                                             <string key="keyEquivalent"></string>
-                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="findNextResultButtonAction:" target="-2" id="T0H-ci-OyZ"/>
@@ -428,9 +428,11 @@ CA
                                     <constraint firstItem="76" firstAttribute="baseline" secondItem="78" secondAttribute="baseline" id="c9X-tn-wVA"/>
                                     <constraint firstAttribute="trailing" secondItem="103" secondAttribute="trailing" id="cma-9b-zUn"/>
                                     <constraint firstItem="76" firstAttribute="baseline" secondItem="103" secondAttribute="baseline" constant="1" id="ead-Ry-5WK"/>
+                                    <constraint firstAttribute="trailing" secondItem="484" secondAttribute="trailing" id="fl4-Nu-on9"/>
                                     <constraint firstItem="77" firstAttribute="leading" secondItem="PZE-gt-pMA" secondAttribute="trailing" constant="8" id="fnM-TN-VCo"/>
                                     <constraint firstItem="98" firstAttribute="leading" secondItem="703" secondAttribute="leading" id="izW-5t-ApQ"/>
                                     <constraint firstItem="94" firstAttribute="top" secondItem="703" secondAttribute="top" id="kJP-yW-KDA"/>
+                                    <constraint firstItem="484" firstAttribute="centerY" secondItem="94" secondAttribute="centerY" id="kvl-oy-T8N"/>
                                     <constraint firstItem="78" firstAttribute="leading" secondItem="76" secondAttribute="trailing" constant="8" id="l3S-tR-HAl"/>
                                     <constraint firstItem="82" firstAttribute="baseline" secondItem="123" secondAttribute="baseline" id="nbV-H1-lwG"/>
                                     <constraint firstItem="81" firstAttribute="leading" secondItem="703" secondAttribute="leading" id="o2Z-v7-PrG"/>
@@ -465,7 +467,7 @@ CA
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="495">
+                                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="495">
                                         <rect key="frame" x="568" y="439" width="16" height="16"/>
                                     </progressIndicator>
                                     <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="201">
@@ -556,7 +558,7 @@ CA
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="487">
+                                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="487">
                                         <rect key="frame" x="568" y="439" width="16" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="9cE-1G-TDU"/>
@@ -711,7 +713,7 @@ CA
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="492">
+                                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="492">
                                         <rect key="frame" x="568" y="439" width="16" height="16"/>
                                     </progressIndicator>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1394">
@@ -863,7 +865,7 @@ DQ
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="498">
+                                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="498">
                                         <rect key="frame" x="568" y="439" width="16" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="2Du-TI-7AA"/>
@@ -925,6 +927,7 @@ CA
                                     <constraint firstItem="247" firstAttribute="top" secondItem="271" secondAttribute="bottom" constant="8" id="HZV-8x-uI9"/>
                                     <constraint firstItem="247" firstAttribute="leading" secondItem="711" secondAttribute="leading" id="KRe-JJ-eck"/>
                                     <constraint firstItem="277" firstAttribute="leading" secondItem="275" secondAttribute="trailing" constant="8" id="P0L-kR-hzx"/>
+                                    <constraint firstAttribute="trailing" secondItem="498" secondAttribute="trailing" id="Ujs-2O-iLC"/>
                                     <constraint firstItem="277" firstAttribute="baseline" secondItem="233" secondAttribute="baseline" id="VKR-Go-Mzh"/>
                                     <constraint firstItem="233" firstAttribute="top" secondItem="498" secondAttribute="bottom" constant="8" id="VTC-Ma-gNR"/>
                                     <constraint firstItem="277" firstAttribute="baseline" secondItem="275" secondAttribute="baseline" id="bAw-7V-Kne"/>
@@ -934,7 +937,6 @@ CA
                                     <constraint firstAttribute="bottom" secondItem="247" secondAttribute="bottom" constant="20" id="kUa-5C-BS4"/>
                                     <constraint firstItem="271" firstAttribute="leading" secondItem="234" secondAttribute="trailing" constant="8" id="mtK-sF-CXg"/>
                                     <constraint firstItem="275" firstAttribute="leading" secondItem="711" secondAttribute="leading" id="ngp-iK-VVV"/>
-                                    <constraint firstItem="498" firstAttribute="leading" secondItem="711" secondAttribute="leading" constant="568" id="tIn-vm-7gb"/>
                                     <constraint firstAttribute="trailing" secondItem="271" secondAttribute="trailing" id="vPP-cA-5pl"/>
                                     <constraint firstItem="234" firstAttribute="leading" secondItem="711" secondAttribute="leading" id="wGB-UL-VHk"/>
                                 </constraints>
@@ -1008,7 +1010,7 @@ CA
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="501">
+                                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="501">
                                         <rect key="frame" x="568" y="439" width="16" height="16"/>
                                     </progressIndicator>
                                     <splitView translatesAutoresizingMaskIntoConstraints="NO" id="1376">
