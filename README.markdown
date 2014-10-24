@@ -19,6 +19,8 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **Current**
 
+- Auto reconnect the ssh tunnel when it is down
+
 **Beta**
 
 ## History

@@ -26,6 +26,7 @@ typedef enum {
 @optional
 - (void)tunnelDidStart:(MHTunnel *)tunnel;
 - (void)tunnelDidConnect:(MHTunnel *)tunnel;
+- (void)tunnelReconnecting:(MHTunnel *)tunnel;
 - (void)tunnelDidStop:(MHTunnel *)tunnel;
 - (void)tunnelDidFailToConnect:(MHTunnel *)tunnel withError:(NSError *)error;
 - (void)tunnelLogMessage:(NSString *)message;

@@ -139,7 +139,7 @@ static BOOL testLocalPortAvailable(unsigned short port)
 {
     if (!_connected) {
         self.connected = YES;
-        if ([_delegate respondsToSelector:@selector(tunnelDidConnect:)]) [_delegate tunnelDidConnect:self];
+        if ([self.delegate respondsToSelector:@selector(tunnelDidConnect:)]) [self.delegate tunnelDidConnect:self];
     }
 }
 
@@ -159,53 +159,62 @@ static BOOL testLocalPortAvailable(unsigned short port)
     return [result autorelease];
 }
 
+- (void)_start
+{
+    NSPipe *errorPipe = [NSPipe pipe];
+    
+    _task = [[NSTask alloc] init];
+    _errorFileHandle = [[errorPipe fileHandleForReading] retain];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHandleDataAvailableNotification:) name:NSFileHandleDataAvailableNotification object:_errorFileHandle];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(taskDidTerminateNotification:) name:NSTaskDidTerminateNotification object:_task];
+    [_errorFileHandle waitForDataInBackgroundAndNotify];
+    [_task setLaunchPath:SSH_PATH];
+    [_task setArguments:[self prepareSSHCommandArgs]];
+    [_task setEnvironment:[self environment]];
+    [_task setStandardError:errorPipe];
+    
+    [self logMessage:[NSString stringWithFormat:@"%@ %@", _task.launchPath, [_task.arguments componentsJoinedByString:@" "]]];
+    
+    [_task launch];
+}
+
 - (void)start
 {
     if (!self.isRunning) {
-        NSPipe *errorPipe = [NSPipe pipe];
-        
         self.tunnelError = MHNoTunnelError;
         self.running = YES;
         
-        _task = [[NSTask alloc] init];
-        _errorFileHandle = [[errorPipe fileHandleForReading] retain];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHandleNotification:) name:NSFileHandleDataAvailableNotification object:_errorFileHandle];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(taskNotification:) name:NSTaskDidTerminateNotification object:_task];
-        [_errorFileHandle waitForDataInBackgroundAndNotify];
-        [_task setLaunchPath:SSH_PATH];
-        [_task setArguments:[self prepareSSHCommandArgs]];
-        [_task setEnvironment:[self environment]];
-        [_task setStandardError:errorPipe];
-        
-        [self logMessage:[NSString stringWithFormat:@"%@ %@", _task.launchPath, [_task.arguments componentsJoinedByString:@" "]]];
-        
-        [_task launch];
-        if ([_delegate respondsToSelector:@selector(tunnelDidStart:)]) [_delegate tunnelDidStart:self];
+        [self _start];
+        if ([self.delegate respondsToSelector:@selector(tunnelDidStart:)]) [self.delegate tunnelDidStart:self];
     }
 }
 
+
+
 - (void)_releaseFileHandleAndTask
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSTaskDidTerminateNotification object:_task];
-    [_task release];
-    _task = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSFileHandleDataAvailableNotification object:_errorFileHandle];
     [_errorFileHandle release];
     _errorFileHandle = nil;
-    if (self.running) {
-        self.running = NO;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSTaskDidTerminateNotification object:_task];
+    [_task terminate];
+    [_task release];
+    _task = nil;
+    if (self.connected) {
         self.connected = NO;
-        if ([_delegate respondsToSelector:@selector(tunnelDidStop:)]) [_delegate tunnelDidStop:self];
+        if ([self.delegate respondsToSelector:@selector(tunnelDidStop:)]) [self.delegate tunnelDidStop:self];
     }
 }
 
 - (void)stop
 {
-    [_task terminate];
-    [self _releaseFileHandleAndTask];
+    if (self.running) {
+        self.running = NO;
+        [self _releaseFileHandleAndTask];
+    }
 }
 
-- (void)fileHandleNotification:(NSNotification *)notification
+- (void)fileHandleDataAvailableNotification:(NSNotification *)notification
 {
     if ([notification.name isEqualToString:NSFileHandleDataAvailableNotification] && notification.object == _errorFileHandle) {
         [self readStatusFromErrorPipe];
@@ -213,10 +222,17 @@ static BOOL testLocalPortAvailable(unsigned short port)
     }
 }
 
-- (void)taskNotification:(NSNotification *)notification
+- (void)taskDidTerminateNotification:(NSNotification *)notification
 {
     [self readStatusFromErrorPipe];
-    [self stop];
+    if (self.running) {
+        [self _releaseFileHandleAndTask];
+        [self _start];
+        if ([self.delegate respondsToSelector:@selector(tunnelReconnecting:)]) [self.delegate tunnelDidStop:self];
+    } else {
+        self.connected = NO;
+        if ([self.delegate respondsToSelector:@selector(tunnelDidStop:)]) [self.delegate tunnelDidStop:self];
+    }
 }
 
 - (void)readStatusFromErrorPipe
@@ -243,8 +259,8 @@ static BOOL testLocalPortAvailable(unsigned short port)
         }
         
         if (self.tunnelError != MHNoTunnelError) {
-            if ([_delegate respondsToSelector:@selector(tunnelDidFailToConnect:withError:)]) {
-                [_delegate tunnelDidFailToConnect:self withError:[NSError errorWithDomain:MHTunnelDomain code:self.tunnelError userInfo:@{ NSLocalizedDescriptionKey: [self.class errorMessageForTunnelError:self.tunnelError] }]];
+            if ([self.delegate respondsToSelector:@selector(tunnelDidFailToConnect:withError:)]) {
+                [self.delegate tunnelDidFailToConnect:self withError:[NSError errorWithDomain:MHTunnelDomain code:self.tunnelError userInfo:@{ NSLocalizedDescriptionKey: [self.class errorMessageForTunnelError:self.tunnelError] }]];
             }
         }
     }
