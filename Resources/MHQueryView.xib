@@ -321,7 +321,7 @@
                                             <action selector="findPreviousResultButtonAction:" target="-2" id="bNK-cZ-cgO"/>
                                         </connections>
                                     </button>
-                                    <button toolTip="⌘→" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jJq-rr-PxX" userLabel="Next Result">
+                                    <button toolTip="⌥⌘→" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jJq-rr-PxX" userLabel="Next Result">
                                         <rect key="frame" x="554" y="4" width="30" height="19"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="18" id="5uc-Qr-XLN"/>
