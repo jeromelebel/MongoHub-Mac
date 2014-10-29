@@ -190,8 +190,7 @@
     
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: mom];
     NSArray* modelNames = @[
-                            @"MongoHub_DataModel1.0",
-                            @"MongoHub_DataModel2.0",
+                            @"MongoHub_DataModel",
                             @"MongoHub_DataModel3.0",
                             @"MongoHub_DataModel4",
                             @"MongoHub_DataModel5",
@@ -210,7 +209,6 @@
                                 orderedModelNames:modelNames
                                             error:&error]) {
         NSLog(@"Error migrating to latest model: %@\n %@", error, [error userInfo]);
-        abort();
     }
     if (![_persistentStoreCoordinator addPersistentStoreWithType:YOUR_STORE_TYPE
                                                    configuration:nil
