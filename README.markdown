@@ -19,13 +19,15 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **Current**
 
-- Autoreconnect the ssh tunnel when it is down
-- Changing the shortcut from ⌘→ and ⌘← to ⌥⌘→ and ⌥⌘← to get next and previous results in the find tab
-- Issue to upgrade from old version (2.3.2) [issue #166](https://github.com/jeromelebel/MongoHub-Mac/issues/166)
-
 **Beta**
 
 ## History
+
+**3.0.6 - october 30, 2014**
+
+- Autoreconnect the ssh tunnel when it is down
+- Changing the shortcut from ⌘→ and ⌘← to ⌥⌘→ and ⌥⌘← to get next and previous results in the find tab [issue #162](https://github.com/jeromelebel/MongoHub-Mac/issues/162)
+- Issue to upgrade from old version (2.3.2) [issue #166](https://github.com/jeromelebel/MongoHub-Mac/issues/166)
 
 **3.0.5 - october 23, 2014**
 

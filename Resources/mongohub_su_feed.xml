@@ -6,9 +6,13 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Version 3.0.5</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.5.zip" sparkle:version="3.0.5" length="3211494" type="application/octet-stream" />
+            <title>Version 3.0.6</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.6.zip" sparkle:version="3.0.6" length="3211494" type="application/octet-stream" />
             <description><![CDATA[
+                <h3>3.0.6</h3>
+                    <li>Autoreconnect the ssh tunnel when it is down</li>
+                    <li>Changing the shortcut from ⌘→ and ⌘← to ⌥⌘→ and ⌥⌘← to get next and previous results in the find tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/162'>issue #162</a></li>
+                    <li>Issue to upgrade from old version (2.3.2) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/166'>issue #166</a></li>
                 <h3>3.0.5</h3>
                 <ul>
                     <li>Issue to edit 2 connections, one after the other</li>
