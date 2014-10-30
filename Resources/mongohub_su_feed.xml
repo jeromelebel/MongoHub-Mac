@@ -7,7 +7,7 @@
         <language>en</language>
         <item>
             <title>Version 3.0.6</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.6.zip" sparkle:version="3.0.6" length="3211494" type="application/octet-stream" />
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.6.zip" sparkle:version="3.0.6" length="5706651" type="application/octet-stream" />
             <description><![CDATA[
                 <h3>3.0.6</h3>
                     <li>Autoreconnect the ssh tunnel when it is down</li>
