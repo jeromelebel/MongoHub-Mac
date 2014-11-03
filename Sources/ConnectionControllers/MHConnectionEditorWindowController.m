@@ -179,7 +179,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
                 baseAlias = defaultValue.alias;
                 alias = [NSString stringWithFormat:@"%@%@", defaultValue.alias, COPY_ALIAS_SUFFIX];
             }
-            while ([self connectionStoreWithAlias:alias] != nil) {
+            while ([self.delegate connectionWindowController:self connectionStoreWithAlias:alias] != nil) {
                 alias = [NSString stringWithFormat:@"%@%@ %lu", baseAlias, COPY_ALIAS_SUFFIX, (unsigned long)index];
                 index++;
             }
@@ -288,13 +288,6 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     }
 }
 
-- (MHConnectionStore *)connectionStoreWithAlias:(NSString *)alias
-{
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"alias=%@", alias];
-    NSArray *items = [self.connectionsArrayController itemsUsingFetchPredicate:predicate];
-    return (items.count == 1)?[items objectAtIndex:0]:nil;
-}
-
 - (IBAction)singleServerReplicaSetChoiceAction:(id)sender
 {
     if ([self.singleReplicaSetTabView.selectedTabViewItem.identifier isEqualTo:SHARDEDCLUSTER_TAB_IDENTIER]
@@ -393,7 +386,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
         [self.adminUserTextField becomeFirstResponder];
         return;
     }
-    MHConnectionStore *sameAliasConnection = [self connectionStoreWithAlias:alias];
+    MHConnectionStore *sameAliasConnection = [self.delegate connectionWindowController:self connectionStoreWithAlias:alias];
     if (sameAliasConnection && sameAliasConnection != self.editedConnectionStore) {
         NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"Name already in use!", @""));
         [self.aliasTextField becomeFirstResponder];

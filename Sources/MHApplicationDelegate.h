@@ -55,6 +55,8 @@ typedef enum {
 @property (nonatomic, assign, readonly) uint32_t defaultSocketTimeout;
 @property (nonatomic, assign, readwrite) uint32_t socketTimeout;
 
+- (MHConnectionStore *)connectionStoreWithAlias:(NSString *)alias;
+
 @end
 
 @interface MHApplicationDelegate (MHConnectionEditorWindowControllerDelegate) <MHConnectionEditorWindowControllerDelegate>

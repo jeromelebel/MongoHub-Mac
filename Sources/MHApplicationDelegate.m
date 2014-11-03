@@ -276,12 +276,17 @@
  
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window
 {
-    return [[self managedObjectContext] undoManager];
+    return self.managedObjectContext.undoManager;
 }
 
--(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication
+- (void)dockOpenConnectionAction:(NSMenuItem *)menuItem
 {
-    return YES;
+    MHConnectionStore *connectionStore;
+    
+    connectionStore = [self connectionStoreWithAlias:menuItem.title];
+    if (connectionStore) {
+        [self openConnection:connectionStore];
+    }
 }
 
 /**
@@ -301,93 +306,6 @@
     if (![[self managedObjectContext] save:&error]) {
         [[NSApplication sharedApplication] presentError:error];
     }
-}
-
-
-/**
-    Implementation of the applicationShouldTerminate: method, used here to
-    handle the saving of changes in the application managed object context
-    before the application terminates.
- */
- 
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
-{
-    if (!_managedObjectContext) return NSTerminateNow;
-
-    if (![_managedObjectContext commitEditing]) {
-        NSLog(@"%@:%@ unable to commit editing to terminate", [self class], NSStringFromSelector(_cmd));
-        return NSTerminateCancel;
-    }
-
-    if (![_managedObjectContext hasChanges]) return NSTerminateNow;
-
-    NSError *error = nil;
-    if (![_managedObjectContext save:&error]) {
-    
-        // This error handling simply presents error information in a panel with an 
-        // "Ok" button, which does not include any attempt at error recovery (meaning, 
-        // attempting to fix the error.)  As a result, this implementation will 
-        // present the information to the user and then follow up with a panel asking 
-        // if the user wishes to "Quit Anyway", without saving the changes.
-
-        // Typically, this process should be altered to include application-specific 
-        // recovery steps.  
-                
-        BOOL result = [sender presentError:error];
-        if (result) return NSTerminateCancel;
-
-        NSString *question = NSLocalizedString(@"Could not save changes while quitting.  Quit anyway?", @"Quit without saves error question message");
-        NSString *info = NSLocalizedString(@"Quitting now will lose any changes you have made since the last successful save", @"Quit without saves error question info");
-        NSString *quitButton = NSLocalizedString(@"Quit anyway", @"Quit anyway button title");
-        NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert setMessageText:question];
-        [alert setInformativeText:info];
-        [alert addButtonWithTitle:quitButton];
-        [alert addButtonWithTitle:cancelButton];
-
-        NSInteger answer = [alert runModal];
-        [alert release];
-        alert = nil;
-        
-        if (answer == NSAlertAlternateReturn) return NSTerminateCancel;
-
-    }
-
-    return NSTerminateNow;
-}
-
-/**
-    Implementation of application:openFiles:, to respond to an open file request from an external record file
- */
-- (void)application:(NSApplication *)theApplication openFiles:(NSArray *)files
-{
-    NSString *aPath = [files lastObject]; // just an example to get at one of the paths
-
-    if (aPath && [aPath hasSuffix:YOUR_EXTERNAL_RECORD_EXTENSION]) {
-        // decode URI from path
-        NSURL *objectURI = [[NSPersistentStoreCoordinator elementsDerivedFromExternalRecordURL:[NSURL fileURLWithPath:aPath]] objectForKey:NSObjectURIKey];
-        if (objectURI) {
-            NSManagedObjectID *moid = [[self persistentStoreCoordinator] managedObjectIDForURIRepresentation:objectURI];
-            if (moid) {
-                    NSManagedObject *mo = [[self managedObjectContext] objectWithID:moid];
-                    NSLog(@"The record for path %@ is %@",moid,mo);
-                    
-                    // your code to select the object in your application's UI
-            }
-            
-        }
-    }
-    
-}
-
-- (void)applicationDidFinishLaunching:(NSNotification *)notification
-{
-    self.bundleVersion.stringValue = [NSString stringWithFormat:@"version: %@", [NSBundle.mainBundle.infoDictionary objectForKey:@"CFBundleShortVersionString"]];
-    
-    self.updater = [[[SUUpdater alloc] init] autorelease];
-    self.updater.delegate = self;
-    [self checkForUpdatesEveryDay:nil];
 }
 
 - (void)checkForUpdatesEveryDay:(id)sender
@@ -534,6 +452,127 @@
 - (uint32_t)socketTimeout
 {
     return (uint32_t)[NSUserDefaults.standardUserDefaults integerForKey:MHSocketTimeoutKey];
+}
+
+- (MHConnectionStore *)connectionStoreWithAlias:(NSString *)alias
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"alias=%@", alias];
+    NSArray *items = [self.connectionsArrayController itemsUsingFetchPredicate:predicate];
+    return (items.count == 1)?[items objectAtIndex:0]:nil;
+}
+
+@end
+
+@implementation MHApplicationDelegate (NSApplicationDelegate)
+
+-(void)applicationWillFinishLaunching:(NSNotification *)aNotification
+{
+    NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
+    [appleEventManager setEventHandler:self
+                           andSelector:@selector(handleGetURLEvent:withReplyEvent:)
+                         forEventClass:kInternetEventClass andEventID:kAEGetURL];
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+    self.bundleVersion.stringValue = [NSString stringWithFormat:@"version: %@", [NSBundle.mainBundle.infoDictionary objectForKey:@"CFBundleShortVersionString"]];
+    
+    self.updater = [[[SUUpdater alloc] init] autorelease];
+    self.updater.delegate = self;
+    [self checkForUpdatesEveryDay:nil];
+}
+
+- (void)application:(NSApplication *)theApplication openFiles:(NSArray *)files
+{
+    NSString *aPath = [files lastObject]; // just an example to get at one of the paths
+    
+    if (aPath && [aPath hasSuffix:YOUR_EXTERNAL_RECORD_EXTENSION]) {
+        // decode URI from path
+        NSURL *objectURI = [[NSPersistentStoreCoordinator elementsDerivedFromExternalRecordURL:[NSURL fileURLWithPath:aPath]] objectForKey:NSObjectURIKey];
+        if (objectURI) {
+            NSManagedObjectID *moid = [[self persistentStoreCoordinator] managedObjectIDForURIRepresentation:objectURI];
+            if (moid) {
+                NSManagedObject *mo = [[self managedObjectContext] objectWithID:moid];
+                NSLog(@"The record for path %@ is %@",moid,mo);
+                
+                // your code to select the object in your application's UI
+            }
+            
+        }
+    }
+    
+}
+
+- (NSMenu *)applicationDockMenu:(NSApplication *)sender
+{
+    NSMenu *menu;
+    NSMenu *subMenu;
+    NSMenuItem *menuItem;
+    
+    menu = [[NSMenu alloc] init];
+    subMenu = [[NSMenu alloc] init];
+    menuItem = [menu addItemWithTitle:@"Connections" action:nil keyEquivalent:@""];
+    
+    [menu setSubmenu:subMenu forItem:menuItem];
+    for (MHConnectionStore *connectionStore in self.connectionsArrayController.arrangedObjects) {
+        menuItem = [subMenu addItemWithTitle:connectionStore.alias action:nil keyEquivalent:@""];
+        menuItem.target = self;
+        menuItem.action = @selector(dockOpenConnectionAction:);
+    }
+    [subMenu release];
+    return [menu autorelease];
+}
+
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication
+{
+    return NO;
+}
+
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
+{
+    if (!_managedObjectContext) return NSTerminateNow;
+    
+    if (![_managedObjectContext commitEditing]) {
+        NSLog(@"%@:%@ unable to commit editing to terminate", [self class], NSStringFromSelector(_cmd));
+        return NSTerminateCancel;
+    }
+    
+    if (![_managedObjectContext hasChanges]) return NSTerminateNow;
+    
+    NSError *error = nil;
+    if (![_managedObjectContext save:&error]) {
+        
+        // This error handling simply presents error information in a panel with an
+        // "Ok" button, which does not include any attempt at error recovery (meaning,
+        // attempting to fix the error.)  As a result, this implementation will
+        // present the information to the user and then follow up with a panel asking
+        // if the user wishes to "Quit Anyway", without saving the changes.
+        
+        // Typically, this process should be altered to include application-specific
+        // recovery steps.
+        
+        BOOL result = [sender presentError:error];
+        if (result) return NSTerminateCancel;
+        
+        NSString *question = NSLocalizedString(@"Could not save changes while quitting.  Quit anyway?", @"Quit without saves error question message");
+        NSString *info = NSLocalizedString(@"Quitting now will lose any changes you have made since the last successful save", @"Quit without saves error question info");
+        NSString *quitButton = NSLocalizedString(@"Quit anyway", @"Quit anyway button title");
+        NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:question];
+        [alert setInformativeText:info];
+        [alert addButtonWithTitle:quitButton];
+        [alert addButtonWithTitle:cancelButton];
+        
+        NSInteger answer = [alert runModal];
+        [alert release];
+        alert = nil;
+        
+        if (answer == NSAlertAlternateReturn) return NSTerminateCancel;
+        
+    }
+    
+    return NSTerminateNow;
 }
 
 @end
@@ -732,14 +771,6 @@
     return result;
 }
 
--(void)applicationWillFinishLaunching:(NSNotification *)aNotification
-{
-    NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
-    [appleEventManager setEventHandler:self
-                           andSelector:@selector(handleGetURLEvent:withReplyEvent:)
-                         forEventClass:kInternetEventClass andEventID:kAEGetURL];
-}
-
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
 {
     MHConnectionStore *connectionStore;
@@ -786,6 +817,11 @@
     } else {
         [self.urlConnectionEditorWindowControllers removeObject:controller];
     }
+}
+
+- (MHConnectionStore *)connectionWindowController:(MHConnectionEditorWindowController *)controller connectionStoreWithAlias:(NSString *)alias
+{
+    return [self connectionStoreWithAlias:alias];
 }
 
 @end
