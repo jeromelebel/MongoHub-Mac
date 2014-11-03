@@ -89,11 +89,6 @@
 - (void)jsonWindowWillClose:(id)sender;
 @end
 
-@interface MHQueryViewController (FindTab)
-- (void)findQueryComposer;
-
-@end
-
 @interface MHQueryViewController (InsertTab)
 - (IBAction)insertQuery:(id)sender;
 

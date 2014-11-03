@@ -84,6 +84,12 @@
 
 @end
 
+@interface MHQueryViewController (FindTab)
+- (IBAction)findQuery:(id)sender;
+- (void)findQueryComposer;
+
+@end
+
 @interface MHQueryViewController (UpdateTab)
 - (IBAction)updateAddOperatorAction:(id)sender;
 - (IBAction)updateQueryComposer:(id)sender;
@@ -344,6 +350,15 @@
         [self removeQueryComposer:nil];
     }
 
+}
+
+-(void)controlTextDidEndEditing:(NSNotification *)notification
+{
+    NSTextField *textField = notification.object;
+    
+    if ((textField == self.findCriteriaComboBox || textField == self.findFieldFilterTextField || textField == self.findSortTextField || textField == self.findSkipTextField || textField == self.findLimitTextField) && [notification.userInfo[@"NSTextMovement"] intValue] == NSReturnTextMovement ) {
+        [self findQuery:nil];
+    }
 }
 
 - (void)showEditWindow:(id)sender
