@@ -482,6 +482,11 @@
     [self checkForUpdatesEveryDay:nil];
 }
 
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+    [self.window makeKeyAndOrderFront:nil];
+}
+
 - (void)application:(NSApplication *)theApplication openFiles:(NSArray *)files
 {
     NSString *aPath = [files lastObject]; // just an example to get at one of the paths

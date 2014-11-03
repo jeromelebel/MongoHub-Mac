@@ -22,6 +22,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 **3.1 Beta**
 
 - Better display of name connections in the main window [issue #72](https://github.com/jeromelebel/MongoHub-Mac/issues/72)
+- Reopen the main window when coming back to the application (if closed) [issue #76](https://github.com/jeromelebel/MongoHub-Mac/issues/76)
 - Add a dock menu (with all the connections)
 
 ## History
