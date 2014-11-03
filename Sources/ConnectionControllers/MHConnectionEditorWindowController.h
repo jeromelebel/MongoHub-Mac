@@ -13,8 +13,11 @@
 @protocol MHConnectionEditorWindowControllerDelegate <NSObject>
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong, readonly) ConnectionsArrayController *connectionsArrayController;
+
 - (void)connectionWindowControllerDidCancel:(MHConnectionEditorWindowController *)controller;
 - (void)connectionWindowControllerDidValidate:(MHConnectionEditorWindowController *)controller;
+- (MHConnectionStore *)connectionWindowController:(MHConnectionEditorWindowController *)controller connectionStoreWithAlias:(NSString *)alias;
+
 @end
 
 @interface MHConnectionEditorWindowController : NSWindowController
