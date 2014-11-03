@@ -9,7 +9,8 @@
 #import "MHConnectionIconView.h"
 
 @interface MHConnectionIconView ()
-@property (nonatomic, readonly, strong) NSTextField *connectionLabel;
+@property (nonatomic, readonly, weak) NSTextField *connectionLabel;
+@property (nonatomic, readonly, weak) NSImageView *connectionIcon;
 
 @end
 
@@ -28,7 +29,7 @@
         
         [[NSColor colorWithCalibratedWhite:0.0 alpha:0.4] set];
         bezierPath = NSBezierPath.bezierPath;
-        radius = self.bounds.size.height / 10.0;
+        radius = rect.size.height / 10.0;
         
         x[0] = NSMinX(rect);
         x[1] = NSMidX(rect);
@@ -58,22 +59,44 @@
     return [self viewWithTag:1];
 }
 
+- (NSImageView *)connectionIcon
+{
+    return [self viewWithTag:2];
+}
+
 - (void)setFrameSize:(NSSize)newSize
 {
+    NSFont *font = nil;
+    NSRect frame;
+    NSRect selfBounds = self.bounds;
+    NSTextField *connectionLabel = self.connectionLabel;
+    NSImageView *connectionIcon = self.connectionIcon;
+    
     [super setFrameSize:newSize];
     if (newSize.width < 90) {
-        self.connectionLabel.font = [NSFont systemFontOfSize:8.0];
+        font = [NSFont systemFontOfSize:8.0];
     } else if (newSize.width < 100) {
-        self.connectionLabel.font = [NSFont systemFontOfSize:9.0];
+        font = [NSFont systemFontOfSize:9.0];
     } else if (newSize.width < 110) {
-        self.connectionLabel.font = [NSFont systemFontOfSize:10.0];
+        font = [NSFont systemFontOfSize:10.0];
     } else if (newSize.width < 130) {
-        self.connectionLabel.font = [NSFont systemFontOfSize:11.0];
+        font = [NSFont systemFontOfSize:11.0];
     } else if (newSize.width < 150) {
-        self.connectionLabel.font = [NSFont systemFontOfSize:12.0];
+        font = [NSFont systemFontOfSize:12.0];
     } else {
-        self.connectionLabel.font = [NSFont systemFontOfSize:13.0];
+        font = [NSFont systemFontOfSize:13.0];
     }
+    connectionLabel.font = font;
+    
+    [connectionLabel sizeToFit];
+    frame = connectionLabel.frame;
+    frame.origin.x = selfBounds.size.height / 10.0;
+    frame.size.width = selfBounds.size.width - frame.origin.x * 2;
+    frame.origin.y = selfBounds.size.height / 10.0;
+    connectionLabel.frame = frame;
+    
+    frame = NSMakeRect(0, frame.origin.y + frame.size.height, selfBounds.size.width, selfBounds.size.height - frame.origin.y - frame.size.height - selfBounds.size.height / 10.0);
+    connectionIcon.frame = frame;
 }
 
 - (void)mouseDown:(NSEvent *)event

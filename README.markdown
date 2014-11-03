@@ -19,7 +19,9 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **Current**
 
-**Beta**
+**3.1 Beta**
+
+- Better display of name connexions in the main window [issue #72](https://github.com/jeromelebel/MongoHub-Mac/issues/72)
 
 ## History
 
