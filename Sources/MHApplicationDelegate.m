@@ -482,6 +482,19 @@
     [self checkForUpdatesEveryDay:nil];
 }
 
+- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
+{
+    BOOL windowVisible = NO;
+    
+    for (NSWindow *window in [NSApp windows]) {
+        windowVisible = windowVisible || window.isVisible;
+    }
+    if (!windowVisible) {
+        [self.window makeKeyAndOrderFront:nil];
+    }
+    return NO;
+}
+
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
     BOOL windowVisible = NO;
