@@ -20,7 +20,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 **Current**
 
 - Better support for DBRef(), the collection should be an absolute collection [issue #148](https://github.com/jeromelebel/MongoHub-Mac/issues/148)
-- Better display of name connexions in the main window [issue #72](https://github.com/jeromelebel/MongoHub-Mac/issues/72)
+- Better display of name connections in the main window [issue #72](https://github.com/jeromelebel/MongoHub-Mac/issues/72)
 
 **3.1 Beta**
 
@@ -175,7 +175,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **2.7 beta 6 - july 21, 2014**
 
-- SSL was activated for all connexions
+- SSL was activated for all connections
 
 **2.7 beta 5 - july 19, 2014**
 
@@ -221,7 +221,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **2.6 beta 5 - december 15, 2013**
 
-- Fixing connexion icon display at launch
+- Fixing connection icon display at launch
 - Json export/import working
 - A better test to make sure no data are corrupted while editing a document
 
@@ -382,7 +382,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 - Support for UTF-8
 - Fix for Mysql import/export
 - Support for symbol type
-- fix for the UI selection in the connexion window
+- fix for the UI selection in the connection window
 
 **2.4.12(86) - nov 22, 2011**
 
