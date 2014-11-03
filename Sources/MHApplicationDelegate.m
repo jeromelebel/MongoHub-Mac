@@ -484,7 +484,14 @@
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
-    [self.window makeKeyAndOrderFront:nil];
+    BOOL windowVisible = NO;
+    
+    for (NSWindow *window in [NSApp windows]) {
+        windowVisible = windowVisible || window.isVisible;
+    }
+    if (!windowVisible) {
+        [self.window makeKeyAndOrderFront:nil];
+    }
 }
 
 - (void)application:(NSApplication *)theApplication openFiles:(NSArray *)files
