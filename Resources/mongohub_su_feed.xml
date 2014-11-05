@@ -6,13 +6,23 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Version 3.0.6</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.6.zip" sparkle:version="3.0.6" length="5706651" type="application/octet-stream" />
+            <title>Version 3.0.7</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.7.zip" sparkle:version="3.0.7" length="5711702" type="application/octet-stream" />
             <description><![CDATA[
+                <h3>3.0.7</h3>
+                <ul>
+                    <li>Better support for DBRef(), the collection should be an absolute collection [issue #148](https://github.com/jeromelebel/MongoHub-Mac/issues/148)</li>
+                    <li>Better display of name connections in the main window [issue #72](https://github.com/jeromelebel/MongoHub-Mac/issues/72)</li>
+                    <li>Reopen the main window when coming back to the application (if closed) [issue #76](https://github.com/jeromelebel/MongoHub-Mac/issues/76)</li>
+                    <li>Add a dock menu (with all the connections)</li>
+                    <li>Can use return key to start a search in the find tab [issue #100](https://github.com/jeromelebel/MongoHub-Mac/issues/100)</li>
+                </ul>
                 <h3>3.0.6</h3>
+                <ul>
                     <li>Autoreconnect the ssh tunnel when it is down</li>
                     <li>Changing the shortcut from ⌘→ and ⌘← to ⌥⌘→ and ⌥⌘← to get next and previous results in the find tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/162'>issue #162</a></li>
                     <li>Issue to upgrade from old version (2.3.2) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/166'>issue #166</a></li>
+                </ul>
                 <h3>3.0.5</h3>
                 <ul>
                     <li>Issue to edit 2 connections, one after the other</li>
