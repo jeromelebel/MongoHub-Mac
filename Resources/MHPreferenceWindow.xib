@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHPreferenceWindowController">
@@ -23,7 +23,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="645" height="322"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="645" height="322"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -73,7 +73,7 @@
                                     </constraints>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="JSON" identifier="2" id="4n5-57-fRY">
+                            <tabViewItem label="Editor" identifier="2" id="4n5-57-fRY">
                                 <view key="view" id="4BQ-As-NHz">
                                     <rect key="frame" x="10" y="33" width="599" height="260"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -212,6 +212,94 @@
                                         <constraint firstAttribute="bottom" secondItem="d3x-nM-4k9" secondAttribute="bottom" constant="17" id="udl-2m-8CW"/>
                                         <constraint firstAttribute="trailing" secondItem="haM-iY-MVj" secondAttribute="trailing" constant="17" id="yLy-A6-vWh"/>
                                         <constraint firstItem="AWu-0j-Wf8" firstAttribute="leading" secondItem="4BQ-As-NHz" secondAttribute="leading" constant="17" id="ybG-2O-2wA"/>
+                                    </constraints>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="JSON" identifier="" id="Y1C-5x-sVP">
+                                <view key="view" id="ARn-c5-5uK">
+                                    <rect key="frame" x="10" y="33" width="599" height="260"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dXI-Yk-5wF">
+                                            <rect key="frame" x="15" y="240" width="121" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Default Sort Order:" id="kVF-85-sdf">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ege-Ia-Mp2">
+                                            <rect key="frame" x="478" y="234" width="107" height="26"/>
+                                            <popUpButtonCell key="cell" type="push" title="Descending" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="82G-Xy-tpQ" id="rEe-qG-X0g">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="x3o-BX-Ilg">
+                                                    <items>
+                                                        <menuItem title="Ascending" id="eUD-Wr-Ruw"/>
+                                                        <menuItem title="Descending" state="on" id="82G-Xy-tpQ"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Y3A-ey-TB0">
+                                            <rect key="frame" x="15" y="209" width="170" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="JSON Key Order in search:" id="Efi-2t-NwW">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lnA-OG-jJw">
+                                            <rect key="frame" x="478" y="203" width="107" height="26"/>
+                                            <popUpButtonCell key="cell" type="push" title="Document" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="aow-Wy-FIQ" id="thN-0t-7CP">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="WPG-Mv-TXi">
+                                                    <items>
+                                                        <menuItem title="Document" state="on" id="aow-Wy-FIQ"/>
+                                                        <menuItem title="Ascending" id="XkE-Fm-JSY"/>
+                                                        <menuItem title="Descending" id="YW7-9p-wS4"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
+                                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dfs-Xa-ijc">
+                                            <rect key="frame" x="478" y="172" width="107" height="26"/>
+                                            <popUpButtonCell key="cell" type="push" title="Document" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="3jn-QL-cdA" id="NmF-0D-gas">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="4ie-3a-QmJ">
+                                                    <items>
+                                                        <menuItem title="Document" state="on" id="3jn-QL-cdA"/>
+                                                        <menuItem title="Ascending" id="2zf-eo-YRa"/>
+                                                        <menuItem title="Descending" id="QRo-Bb-rRt"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eG4-Vl-0md">
+                                            <rect key="frame" x="15" y="178" width="165" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="JSON Key Order in editor:" id="9V4-d0-4F6">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="eG4-Vl-0md" firstAttribute="baseline" secondItem="dfs-Xa-ijc" secondAttribute="baseline" id="DVE-dG-jN3"/>
+                                        <constraint firstAttribute="trailing" secondItem="dfs-Xa-ijc" secondAttribute="trailing" constant="17" id="Est-Bh-D76"/>
+                                        <constraint firstItem="Y3A-ey-TB0" firstAttribute="leading" secondItem="ARn-c5-5uK" secondAttribute="leading" constant="17" id="G2v-PN-CB5"/>
+                                        <constraint firstItem="dXI-Yk-5wF" firstAttribute="leading" secondItem="ARn-c5-5uK" secondAttribute="leading" constant="17" id="Ikd-W0-RxC"/>
+                                        <constraint firstItem="Ege-Ia-Mp2" firstAttribute="baseline" secondItem="dXI-Yk-5wF" secondAttribute="baseline" id="Mv7-nu-AYV"/>
+                                        <constraint firstAttribute="trailing" secondItem="Ege-Ia-Mp2" secondAttribute="trailing" constant="17" id="Rak-AJ-Ip8"/>
+                                        <constraint firstItem="dXI-Yk-5wF" firstAttribute="top" secondItem="ARn-c5-5uK" secondAttribute="top" constant="3" id="TlU-Lh-MD0"/>
+                                        <constraint firstItem="lnA-OG-jJw" firstAttribute="top" secondItem="Ege-Ia-Mp2" secondAttribute="bottom" constant="10" id="VTe-mK-bv1"/>
+                                        <constraint firstItem="eG4-Vl-0md" firstAttribute="leading" secondItem="ARn-c5-5uK" secondAttribute="leading" constant="17" id="hoJ-N8-joY"/>
+                                        <constraint firstItem="lnA-OG-jJw" firstAttribute="baseline" secondItem="Y3A-ey-TB0" secondAttribute="baseline" id="i4n-2o-sn1"/>
+                                        <constraint firstAttribute="trailing" secondItem="lnA-OG-jJw" secondAttribute="trailing" constant="17" id="jlH-N7-Dta"/>
+                                        <constraint firstItem="dfs-Xa-ijc" firstAttribute="top" secondItem="lnA-OG-jJw" secondAttribute="bottom" constant="10" id="nWk-Mg-xzQ"/>
+                                        <constraint firstItem="dfs-Xa-ijc" firstAttribute="baseline" secondItem="eG4-Vl-0md" secondAttribute="baseline" id="vFy-kC-BD4"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>
