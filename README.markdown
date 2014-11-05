@@ -19,12 +19,13 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **Current**
 
-**3.1 Beta**
-
+- Better support for DBRef(), the collection should be an absolute collection [issue #148](https://github.com/jeromelebel/MongoHub-Mac/issues/148)
 - Better display of name connections in the main window [issue #72](https://github.com/jeromelebel/MongoHub-Mac/issues/72)
 - Reopen the main window when coming back to the application (if closed) [issue #76](https://github.com/jeromelebel/MongoHub-Mac/issues/76)
 - Add a dock menu (with all the connections)
 - Can use return key to start a search in the find tab [issue #100](https://github.com/jeromelebel/MongoHub-Mac/issues/100)
+
+**3.1 Beta**
 
 ## History
 
