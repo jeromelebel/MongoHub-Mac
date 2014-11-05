@@ -19,6 +19,8 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **Current**
 
+- Better support for DBRef(), the collection should be an absolute collection [issue #148](https://github.com/jeromelebel/MongoHub-Mac/issues/148)
+
 **Beta**
 
 ## History
