@@ -6,16 +6,20 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Version 3.0.7</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.7.zip" sparkle:version="3.0.7" length="5711702" type="application/octet-stream" />
+            <title>Version 3.0.8</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.8.zip" sparkle:version="3.0.8" length="5742151" type="application/octet-stream" />
             <description><![CDATA[
+                <h3>3.0.8</h3>
+                    <li>Fixing bugs related to DBRef and $ref <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/148'>issue #148</a></li>
+                <ul>
+                </ul>
                 <h3>3.0.7</h3>
                 <ul>
-                    <li>Better support for DBRef(), the collection should be an absolute collection [issue #148](https://github.com/jeromelebel/MongoHub-Mac/issues/148)</li>
-                    <li>Better display of name connections in the main window [issue #72](https://github.com/jeromelebel/MongoHub-Mac/issues/72)</li>
-                    <li>Reopen the main window when coming back to the application (if closed) [issue #76](https://github.com/jeromelebel/MongoHub-Mac/issues/76)</li>
+                    <li>Better support for DBRef(), the collection should be an absolute collection <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/148'>issue #148</a></li>
+                    <li>Better display of name connections in the main window <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/72'>issue #72</a></li>
+                    <li>Reopen the main window when coming back to the application (if closed) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/76'>issue #76</a></li>
                     <li>Add a dock menu (with all the connections)</li>
-                    <li>Can use return key to start a search in the find tab [issue #100](https://github.com/jeromelebel/MongoHub-Mac/issues/100)</li>
+                    <li>Can use return key to start a search in the find tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/100'>issue #100</a></li>
                 </ul>
                 <h3>3.0.6</h3>
                 <ul>

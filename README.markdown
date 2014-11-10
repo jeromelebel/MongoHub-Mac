@@ -23,6 +23,10 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 ## History
 
+**3.0.8 - november 5, 2014**
+
+- Fixing bugs related to DBRef and $ref [issue #148](https://github.com/jeromelebel/MongoHub-Mac/issues/148)
+
 **3.0.7 - november 5, 2014**
 
 - Better support for DBRef(), the collection should be an absolute collection [issue #148](https://github.com/jeromelebel/MongoHub-Mac/issues/148)
