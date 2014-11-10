@@ -10,8 +10,8 @@
             <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.8.zip" sparkle:version="3.0.8" length="5742151" type="application/octet-stream" />
             <description><![CDATA[
                 <h3>3.0.8</h3>
-                    <li>Fixing bugs related to DBRef and $ref <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/148'>issue #148</a></li>
                 <ul>
+                    <li>Fixing bugs related to DBRef and $ref <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/148'>issue #148</a></li>
                 </ul>
                 <h3>3.0.7</h3>
                 <ul>
