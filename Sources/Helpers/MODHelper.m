@@ -7,6 +7,7 @@
 
 #import "MODHelper.h"
 #import <MongoObjCDriver/MongoObjCDriver.h>
+#import <MongoObjCDriver/MODDBPointer.h>
 
 @interface MODHelper()
 + (NSMutableDictionary *)convertForOutlineWithValue:(id)dataValue dataKey:(NSString *)dataKey;
@@ -111,8 +112,8 @@
     } else if ([dataValue isKindOfClass:[MODBinary class]]) {
         type = @"Binary";
         value = [dataValue jsonValueWithPretty:YES strictJSON:NO];
-    } else if ([dataValue isKindOfClass:[MODDBRef class]]) {
-        type = @"Ref";
+    } else if ([dataValue isKindOfClass:[MODDBPointer class]]) {
+        type = @"DBPointer deprecated";
         value = [dataValue jsonValueWithPretty:YES strictJSON:NO];
     } else if ([dataValue isKindOfClass:[NSString class]]) {
         type = @"String";
@@ -123,7 +124,13 @@
     } else if ([dataValue isKindOfClass:[MODSortedMutableDictionary class]]) {
         NSUInteger count = [dataValue count];
       
-        if (count == 0) {
+        if ([dataValue objectForKey:@"$ref"]) {
+            if ([dataValue objectForKey:@"$db"]) {
+                type = [NSString stringWithFormat:@"Ref(%@.%@)", [dataValue objectForKey:@"$db"], [dataValue objectForKey:@"$ref"]];
+            } else {
+                type = [NSString stringWithFormat:@"Ref(%@)", [dataValue objectForKey:@"$ref"]];
+            }
+        } else if (count == 0) {
             type = NSLocalizedString(@"Object, no item", @"about an dictionary");
         } else if (count == 1) {
             type = NSLocalizedString(@"Object, 1 item", @"about an dictionary");
@@ -165,7 +172,7 @@
         value = [dataValue function];
     } else {
         NSLog(@"type %@ value %@", [dataValue class], dataValue);
-        NSAssert(NO, @"unknown type type %@ value %@", [dataValue class], dataValue);
+        NSAssert(NO, @"unknown type %@ value %@", [dataValue class], dataValue);
     }
     if (value) {
         result = [NSMutableDictionary dictionaryWithCapacity:4];
