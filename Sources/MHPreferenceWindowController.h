@@ -30,7 +30,6 @@ typedef enum {
     
     NSPopUpButton                       *_defaultSortOrder;
     NSPopUpButton                       *_jsonKeySortOrderInSearch;
-    NSPopUpButton                       *_jsonKeySortOrderForExport;
 }
 
 + (instancetype)preferenceWindowController;
@@ -41,6 +40,5 @@ typedef enum {
 
 + (MHDefaultSortOrder)defaultSortOrder;
 + (MODJsonKeySortOrder)jsonKeySortOrderInSearch;
-+ (MODJsonKeySortOrder)jsonKeySortOrderForExport;
 
 @end

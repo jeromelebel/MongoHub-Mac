@@ -11,7 +11,6 @@
 
 #define MHDefaultSortOrderPreferenceKey                     @"MHDefaultSortOrderPreferenceKey"
 #define MODJsonKeySortOrderInSearchPreferenceKey            @"MODJsonKeySortOrderInSearchPreferenceKey"
-#define MODJsonKeySortOrderForExportPreferenceKey           @"MODJsonKeySortOrderForExportPreferenceKey"
 
 @interface MHPreferenceWindowController ()
 
@@ -25,7 +24,6 @@
 
 @property (nonatomic, weak, readwrite) IBOutlet NSPopUpButton *defaultSortOrder;
 @property (nonatomic, weak, readwrite) IBOutlet NSPopUpButton *jsonKeySortOrderInSearch;
-@property (nonatomic, weak, readwrite) IBOutlet NSPopUpButton *jsonKeySortOrderForExport;
 
 @property (nonatomic, weak, readwrite) IBOutlet NSTextField *connectTimeoutTextField;
 @property (nonatomic, weak, readwrite) IBOutlet NSTextField *socketTimeoutTextField;
@@ -46,7 +44,6 @@
 
 @synthesize defaultSortOrder = _defaultSortOrder;
 @synthesize jsonKeySortOrderInSearch = _jsonKeySortOrderInSearch;
-@synthesize jsonKeySortOrderForExport = _jsonKeySortOrderForExport;
 
 @synthesize connectTimeoutTextField = _connectTimeoutTextField;
 @synthesize socketTimeoutTextField = _socketTimeoutTextField;
@@ -102,7 +99,6 @@
     }
     [self.defaultSortOrder selectItemAtIndex:[self.class defaultSortOrder]];
     [self.jsonKeySortOrderInSearch selectItemAtIndex:[self.class jsonKeySortOrderInSearch]];
-    [self.jsonKeySortOrderForExport selectItemAtIndex:[self.class jsonKeySortOrderForExport]];
 }
 
 - (IBAction)betaSoftwareAction:(id)sender
@@ -131,12 +127,6 @@
 - (IBAction)changeJsonKeySortOrderInSearchAction:(id)sender
 {
     [[NSUserDefaults standardUserDefaults] setInteger:self.jsonKeySortOrderInSearch.indexOfSelectedItem forKey:MODJsonKeySortOrderInSearchPreferenceKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (IBAction)changeJsonKeySortOrderForExportAction:(id)sender
-{
-    [[NSUserDefaults standardUserDefaults] setInteger:self.jsonKeySortOrderForExport.indexOfSelectedItem forKey:MODJsonKeySortOrderForExportPreferenceKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -287,11 +277,6 @@
 + (MODJsonKeySortOrder)jsonKeySortOrderInSearch
 {
     return (MODJsonKeySortOrder)[[NSUserDefaults standardUserDefaults] integerForKey:MODJsonKeySortOrderInSearchPreferenceKey];
-}
-
-+ (MODJsonKeySortOrder)jsonKeySortOrderForExport
-{
-    return (MODJsonKeySortOrder)[[NSUserDefaults standardUserDefaults] integerForKey:MODJsonKeySortOrderForExportPreferenceKey];
 }
 
 @end

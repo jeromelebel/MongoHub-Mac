@@ -387,9 +387,4 @@
     return MHPreferenceWindowController.jsonKeySortOrderInSearch;
 }
 
-- (MODJsonKeySortOrder)jsonKeySortOrderForExport
-{
-    return MHPreferenceWindowController.jsonKeySortOrderForExport;
-}
-
 @end

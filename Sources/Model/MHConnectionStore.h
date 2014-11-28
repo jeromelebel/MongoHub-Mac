@@ -55,6 +55,5 @@
 
 - (MHDefaultSortOrder)defaultSortOrder;
 - (MODJsonKeySortOrder)jsonKeySortOrderInSearch;
-- (MODJsonKeySortOrder)jsonKeySortOrderForExport;
 
 @end
