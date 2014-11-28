@@ -595,7 +595,6 @@
     MHFileExporter *exporter;
     
     exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.collection exportPath:filePath];
-    exporter.jsonKeySortOrder = self.connectionStore.jsonKeySortOrderForExport;
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterStopNotification:) name:MHImporterExporterStopNotification object:exporter];
     _importExportFeedback = [[MHImportExportFeedback alloc] initWithImporterExporter:exporter];
     _importExportFeedback.label = [NSString stringWithFormat:@"Exporting %@ to %@…", self.selectedCollectionItem.collection.absoluteName, [filePath lastPathComponent]];
