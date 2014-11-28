@@ -15,10 +15,13 @@
     NSMutableArray              *_results;
     BOOL                        _checkingSelection;
 }
-@property (nonatomic, retain, readwrite) NSArray *results;
-@property (nonatomic, assign, readonly) NSArray *selectedDocuments;
+@property (nonatomic, readwrite, retain) NSArray *results;
+@property (nonatomic, readonly, assign) NSArray *selectedDocuments;
+@property (nonatomic, readonly, assign) NSInteger selectedDocumentCount;
 
 - (instancetype)initWithOutlineView:(NSOutlineView *)outlineView;
 - (id)rootForItem:(id)item;
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pasteboard;
 
 @end
