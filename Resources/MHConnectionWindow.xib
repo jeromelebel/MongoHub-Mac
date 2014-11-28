@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHConnectionWindowController">
@@ -21,7 +21,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="163" y="199" width="636" height="506"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="3nd-y1-IIi">
                 <rect key="frame" x="0.0" y="0.0" width="636" height="506"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -83,23 +83,26 @@
                                             <constraint firstAttribute="height" constant="21" id="HZw-LW-UYC"/>
                                             <constraint firstAttribute="width" constant="23" id="Woh-nA-A7P"/>
                                         </constraints>
-                                        <popUpButtonCell key="cell" type="smallSquare" bezelStyle="smallSquare" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" selectedItem="Fpz-Yi-4er" id="sAo-fC-6KY">
+                                        <popUpButtonCell key="cell" type="smallSquare" bezelStyle="smallSquare" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" autoenablesItems="NO" id="sAo-fC-6KY">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="menu"/>
-                                            <menu key="menu" id="Yo7-eX-SoT">
+                                            <menu key="menu" autoenablesItems="NO" id="Yo7-eX-SoT">
                                                 <items>
                                                     <menuItem state="on" image="NSAddTemplate" hidden="YES" id="4Qo-uq-KWt"/>
-                                                    <menuItem title="Add Database…" id="7Nm-mu-AVA">
+                                                    <menuItem title="Add Database…" tag="1" id="7Nm-mu-AVA">
                                                         <connections>
                                                             <action selector="createDatabase:" target="-2" id="yEO-KB-v6D"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Add Collections…" id="Fpz-Yi-4er">
+                                                    <menuItem title="Add Collections…" tag="2" id="Fpz-Yi-4er">
                                                         <connections>
                                                             <action selector="createCollection:" target="-2" id="PuY-e9-pkw"/>
                                                         </connections>
                                                     </menuItem>
                                                 </items>
+                                                <connections>
+                                                    <outlet property="delegate" destination="-2" id="Dm0-aR-Khj"/>
+                                                </connections>
                                             </menu>
                                         </popUpButtonCell>
                                     </popUpButton>
@@ -231,8 +234,8 @@
     </objects>
     <resources>
         <image name="ActivityMonitor" width="512" height="512"/>
-        <image name="NSAddTemplate" width="8" height="8"/>
-        <image name="NSRemoveTemplate" width="8" height="8"/>
+        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="collectionmenu" width="32" height="32"/>
         <image name="dbmenu" width="32" height="32"/>
         <image name="exportbox" width="32" height="32"/>
