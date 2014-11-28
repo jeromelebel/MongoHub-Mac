@@ -17,6 +17,11 @@
     [_tabViewController selectTabItemViewController:self];
 }
 
+- (BOOL)isSelected
+{
+    return self.tabViewController.selectedTabItemViewController == self;
+}
+
 - (void)willRemoveFromTabViewController
 {
     
