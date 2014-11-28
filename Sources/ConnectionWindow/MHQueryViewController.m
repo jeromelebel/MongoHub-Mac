@@ -1056,6 +1056,25 @@
     self.removeQueryTextField.stringValue = [NSString stringWithFormat:@"db.%@.remove(%@)", self.collection.name, criteria];
 }
 
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
+{
+    if (anItem.action == @selector(copy:)) {
+        return (id)self.view.window.firstResponder == self.findResultsOutlineView && self.findResultsViewController.selectedDocumentCount > 0;
+    }
+    return [self respondsToSelector:anItem.action];
+}
+
+- (void)copy:(id)sender
+{
+    if ((id)self.view.window.firstResponder == self.findResultsOutlineView && self.findResultsViewController.selectedDocumentCount > 0) {
+        NSPasteboard *pasteboard;
+        
+        pasteboard = NSPasteboard.generalPasteboard;
+        [pasteboard clearContents];
+        [self.findResultsViewController outlineView:self.findResultsOutlineView writeItems:self.findResultsViewController.selectedDocuments toPasteboard:pasteboard];
+    }
+}
+
 @end
 
 @implementation MHQueryViewController (IndexTab)
