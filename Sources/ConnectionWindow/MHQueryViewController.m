@@ -87,6 +87,7 @@
 @interface MHQueryViewController (FindTab)
 - (IBAction)findQuery:(id)sender;
 - (void)findQueryComposer;
+- (void)defaultSortOrderChangedNotification:(NSNotification *)notification;
 
 @end
 
@@ -95,6 +96,18 @@
 - (IBAction)updateQueryComposer:(id)sender;
 
 @end
+
+static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
+{
+    NSString *result;
+    
+    if (MHPreferenceWindowController.defaultSortOrder == MHDefaultSortOrderAscending) {
+        result = @"{ \"_id\": 1}";
+    } else {
+        result = @"{ \"_id\": -1}";
+    }
+    return result;
+}
 
 @implementation MHQueryViewController
 @synthesize collection = _collection, connectionStore = _connectionStore;
@@ -143,6 +156,7 @@
         self.connectionStore = connectionStore;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(droppedNotification:) name:MODCollection_Dropped_Notification object:self.collection];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(droppedNotification:) name:MODDatabase_Dropped_Notification object:self.collection.database];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultSortOrderChangedNotification:) name:MHDefaultSortOrderPreferenceChangedNotification object:nil];
         [self.collection addObserver:self forKeyPath:@"database" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
         [self.collection addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionNew context:nil];
         self.updateOperatorList = @[
@@ -231,7 +245,7 @@
     
     self.title = self.collection.absoluteName;
     _jsonWindowControllers = [[NSMutableDictionary alloc] init];
-    [self findQueryComposer];
+    [self defaultSortOrderChangedNotification:nil]; // this will call findQueryComposer
     [self updateQueryComposer:nil];
     [self removeQueryComposer:nil];
     
@@ -421,7 +435,7 @@
     
     result = [self formatedJsonWithTextField:self.findSortTextField replace:NO emptyValid:YES];
     if ([result length] == 0) {
-        result = @"{ \"_id\": 1}";
+        result = defaultSortOrder(MHPreferenceWindowController.defaultSortOrder);
     }
     return result;
 }
@@ -603,6 +617,12 @@
     [skip release];
     [limit release];
     self.findQueryTextField.stringValue = query;
+}
+
+- (void)defaultSortOrderChangedNotification:(NSNotification *)notification
+{
+    [self.findSortTextField.cell setPlaceholderString:defaultSortOrder([MHPreferenceWindowController defaultSortOrder])];
+    [self findQueryComposer];
 }
 
 - (IBAction)findNextResultButtonAction:(id)sender

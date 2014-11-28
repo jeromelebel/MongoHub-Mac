@@ -8,7 +8,8 @@
 #import <Cocoa/Cocoa.h>
 #import <MongoObjCDriver/MongoObjCDriver.h>
 
-#define MHPreferenceWindowControllerClosing           @"MHPreferenceWindowControllerClosing"
+#define MHPreferenceWindowControllerClosing                 @"MHPreferenceWindowControllerClosing"
+#define MHDefaultSortOrderPreferenceChangedNotification     @"MHDefaultSortOrderPreferenceChanged"
 
 typedef enum {
     MHDefaultSortOrderAscending,

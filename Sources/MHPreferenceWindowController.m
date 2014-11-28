@@ -122,6 +122,7 @@
 {
     [[NSUserDefaults standardUserDefaults] setInteger:self.defaultSortOrder.indexOfSelectedItem forKey:MHDefaultSortOrderPreferenceKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MHDefaultSortOrderPreferenceChangedNotification object:self];
 }
 
 - (IBAction)changeJsonKeySortOrderInSearchAction:(id)sender
