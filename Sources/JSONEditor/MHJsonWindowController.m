@@ -10,17 +10,23 @@
 #import <MongoObjCDriver/MongoObjCDriver.h>
 
 @interface MHJsonWindowController ()
-@property (nonatomic, readwrite, strong) NSProgressIndicator *progressIndicator;
 @property (nonatomic, readwrite, strong) UKSyntaxColoredTextViewController *syntaxColoringController;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextView *jsonTextView;
+@property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *progressIndicator;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *status;
 
 @end
 
 @implementation MHJsonWindowController
 @synthesize collection = _collection;
-@synthesize jsonDict;
-@synthesize myTextView;
+@synthesize windowControllerId = _windowControllerId;
+@synthesize jsonDocument = _jsonDocument;
+@synthesize bsonData = _bsonData;
+
+@synthesize jsonTextView = _jsonTextView;
 @synthesize progressIndicator = _progressIndicator;
 @synthesize syntaxColoringController = _syntaxColoringController;
+@synthesize status = _status;
 
 - (instancetype)init
 {
@@ -31,10 +37,11 @@
 - (void)dealloc
 {
     self.collection = nil;
-    [jsonDict release];
+    self.windowControllerId = nil;
+    self.jsonDocument = nil;
+    self.bsonData = nil;
     self.syntaxColoringController.delegate = nil;
     self.syntaxColoringController = nil;
-    self.progressIndicator = nil;
     [super dealloc];
 }
 
@@ -43,31 +50,46 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kJsonWindowWillClose object:self];
 }
 
+- (NSString *)jsonDocumentIdString
+{
+    id value;
+    
+    value = [self.jsonDocument objectForKey:@"_id"];
+    if (!value) {
+        value = [self.jsonDocument objectForKey:@"name"];
+    }
+    return nil;
+}
+
 - (void)windowDidLoad
 {
     NSDictionary *info = nil;
-    NSString *title;
+    NSString *jsonString;
+    NSString *jsonDocumentIdString = self.jsonDocumentIdString;
     
     [super windowDidLoad];
-    title = [[NSString alloc] initWithFormat:@"%@ _id:%@", self.collection.absoluteName, [jsonDict objectForKey:@"value"]];
-    [self.window setTitle:title];
-    [title release];
-    [myTextView setString:[jsonDict objectForKey:@"beautified"]];
+    jsonString = [MODClient convertObjectToJson:self.jsonDocument pretty:YES strictJson:NO jsonKeySortOrder:MODJsonKeySortOrderDocument];
+    if (jsonDocumentIdString) {
+        self.window.title = [NSString stringWithFormat:@"%@ _id:%@", self.collection.absoluteName, jsonDocumentIdString];
+    } else {
+        self.window.title = self.collection.absoluteName;
+    }
+    self.jsonTextView.string = jsonString;
     self.syntaxColoringController = [[[UKSyntaxColoredTextViewController alloc] init] autorelease];
     self.syntaxColoringController.delegate = self;
-    self.syntaxColoringController.view = myTextView;
+    self.syntaxColoringController.view = self.jsonTextView;
     
-    if ([jsonDict objectForKey:@"bsondata"]) {
-        if (![MODClient isEqualWithJson:[jsonDict objectForKey:@"beautified"] toBsonData:[jsonDict objectForKey:@"bsondata"] info:&info]) {
+    if (self.bsonData) {
+        if (![MODClient isEqualWithJson:jsonString toBsonData:self.bsonData info:&info]) {
             NSLog(@"%@", info);
-            NSLog(@"%@", [jsonDict objectForKey:@"bsondata"]);
-            NSLog(@"%@", [jsonDict objectForKey:@"beautified"]);
+            NSLog(@"%@", self.bsonData);
+            NSLog(@"%@", jsonString);
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, self, nil, nil, nil, @"There is a problem to generate the json. If you save the current json, those values might modified:\n%@\n\nPlease open an issue at https://github.com/jeromelebel/mongohub-mac/issues", [[info objectForKey:@"differences"] componentsJoinedByString:@"\n"]);
         }
-    } else if (![MODClient isEqualWithJson:[jsonDict objectForKey:@"beautified"] toDocument:[jsonDict objectForKey:@"objectvalue"] info:nil]) {
+    } else if (![MODClient isEqualWithJson:jsonString toDocument:self.jsonDocument info:nil]) {
         NSLog(@"%@", info);
-        NSLog(@"%@", [jsonDict objectForKey:@"beautified"]);
-        NSLog(@"%@", [jsonDict objectForKey:@"objectvalue"]);
+        NSLog(@"%@", jsonString);
+        NSLog(@"%@", self.jsonDocument);
         NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, self, nil, nil, nil, @"There is a problem to generate the json. If you save the current json, those values might modified:\n%@\n\nPlease open an issue at https://github.com/jeromelebel/mongohub-mac/issues", [[info objectForKey:@"differences"] componentsJoinedByString:@"\n"]);
     }
 }
@@ -98,8 +120,8 @@
         statusMsg = [NSString stringWithFormat: statusMsg, startCharInLine +1, lineInDoc +1, startCharInDoc +1];
     }
     
-    [status setStringValue: statusMsg];
-    [status display];
+    [self.status setStringValue: statusMsg];
+    [self.status display];
 }
 
 - (IBAction)save:(id)sender
@@ -107,21 +129,21 @@
     MODSortedMutableDictionary *document;
     NSError *error;
     
-    status.stringValue = @"Saving...";
+    self.status.stringValue = @"Saving...";
     [self.progressIndicator startAnimation: self];
-    document = [MODRagelJsonParser objectsFromJson:myTextView.string withError:&error];
+    document = [MODRagelJsonParser objectsFromJson:self.jsonTextView.string withError:&error];
     if (error) {
         NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, error.localizedDescription);
         [self.progressIndicator stopAnimation: self];
-        status.stringValue = error.localizedDescription;
+        self.status.stringValue = error.localizedDescription;
     } else {
         [self.collection saveWithDocument:document callback:^(MODQuery *mongoQuery) {
             [self.progressIndicator stopAnimation:self];
             if (mongoQuery.error) {
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
-                status.stringValue = mongoQuery.error.localizedDescription;
+                self.status.stringValue = mongoQuery.error.localizedDescription;
             } else {
-                status.stringValue = @"Saved";
+                self.status.stringValue = @"Saved";
                 [NSNotificationCenter.defaultCenter postNotificationName:kJsonWindowSaved object:nil];
             }
         }];

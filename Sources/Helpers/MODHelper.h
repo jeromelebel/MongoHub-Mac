@@ -6,12 +6,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MongoObjCDriver/MongoObjCDriver.h>
 
 @class MODSortedMutableDictionary;
 
 @interface MODHelper : NSObject
 
-+ (NSArray *)convertForOutlineWithObjects:(NSArray *)mongoObjects bsonData:(NSArray *)allData;
-+ (NSArray *)convertForOutlineWithObject:(MODSortedMutableDictionary *)mongoObject;
++ (NSArray *)convertForOutlineWithObjects:(NSArray *)mongoObjects bsonData:(NSArray *)allData jsonKeySortOrder:(MODJsonKeySortOrder)jsonKeySortOrder;
++ (NSArray *)convertForOutlineWithObject:(MODSortedMutableDictionary *)mongoObject jsonKeySortOrder:(MODJsonKeySortOrder)jsonKeySortOrder;
 
 @end

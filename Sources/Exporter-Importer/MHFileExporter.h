@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MongoObjCDriver/MongoObjCDriver.h>
 #import "MHExporterImporter.h"
 
 @class MODCollection;
@@ -16,12 +17,14 @@
     MODCollection               *_collection;
     int64_t                     _ii;
     NSError                     *_error;
+    MODJsonKeySortOrder         _jsonKeySortOrder;
 }
 
 - (instancetype)initWithCollection:(MODCollection *)collection exportPath:(NSString *)exportPath;
 - (void)export;
 
-@property (nonatomic, retain, readonly) NSString *exportPath;
-@property (nonatomic, retain, readonly) MODCollection *collection;
+@property (nonatomic, readonly, retain) NSString *exportPath;
+@property (nonatomic, readonly, retain) MODCollection *collection;
+@property (nonatomic, readwrite, assign) MODJsonKeySortOrder jsonKeySortOrder;
 
 @end

@@ -6,8 +6,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <MongoObjCDriver/MongoObjCDriver.h>
 
 #define MHPreferenceWindowControllerClosing           @"MHPreferenceWindowControllerClosing"
+
+typedef enum {
+    MHDefaultSortOrderAscending,
+    MHDefaultSortOrderDescending,
+} MHDefaultSortOrder;
 
 @interface MHPreferenceWindowController : NSWindowController
 {
@@ -21,8 +27,20 @@
     
     NSTextField                         *_connectTimeoutTextField;
     NSTextField                         *_socketTimeoutTextField;
+    
+    NSPopUpButton                       *_defaultSortOrder;
+    NSPopUpButton                       *_jsonKeySortOrderInSearch;
+    NSPopUpButton                       *_jsonKeySortOrderForExport;
 }
 
 + (instancetype)preferenceWindowController;
+
+@end
+
+@interface MHPreferenceWindowController (Preferences)
+
++ (MHDefaultSortOrder)defaultSortOrder;
++ (MODJsonKeySortOrder)jsonKeySortOrderInSearch;
++ (MODJsonKeySortOrder)jsonKeySortOrderForExport;
 
 @end

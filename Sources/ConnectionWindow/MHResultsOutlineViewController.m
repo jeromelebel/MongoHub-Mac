@@ -7,6 +7,7 @@
 //
 
 #import "MHResultsOutlineViewController.h"
+#import <MongoObjCDriver/MongoObjCDriver.h>
 
 @interface MHResultsOutlineViewController () <NSOutlineViewDataSource, NSOutlineViewDelegate>
 @property (nonatomic, assign, readwrite) IBOutlet NSOutlineView *outlineView;
@@ -109,7 +110,7 @@
     
     string = [NSMutableString string];
     for (NSDictionary *item in items) {
-        [string appendString:[[self rootForItem:item] objectForKey:@"beautified"]];
+        [string appendString:[MODClient convertObjectToJson:[[self rootForItem:item] objectForKey:@"objectvalue"] pretty:YES strictJson:NO jsonKeySortOrder:MODJsonKeySortOrderDocument]];
         [string appendString:@"\n"];
     }
     [pasteboard setString:string forType:NSStringPboardType];

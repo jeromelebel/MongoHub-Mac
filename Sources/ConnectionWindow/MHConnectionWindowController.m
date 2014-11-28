@@ -285,7 +285,7 @@
 - (void)showDatabaseStatusWithDatabaseItem:(MHDatabaseItem *)databaseItem
 {
     if (self.statusViewController == nil) {
-        self.statusViewController = [[[MHStatusViewController alloc] initWithClient:self.client] autorelease];
+        self.statusViewController = [[[MHStatusViewController alloc] initWithClient:self.client connectionStore:self.connectionStore] autorelease];
         [self.tabViewController addTabItemViewController:self.statusViewController];
     }
     [self.statusViewController showDatabaseStatusWithDatabaseItem:databaseItem];
@@ -294,7 +294,7 @@
 - (void)showCollectionStatusWithCollectionItem:(MHCollectionItem *)collectionItem
 {
     if (self.statusViewController == nil) {
-        self.statusViewController = [[[MHStatusViewController alloc] initWithClient:self.client] autorelease];
+        self.statusViewController = [[[MHStatusViewController alloc] initWithClient:self.client connectionStore:self.connectionStore] autorelease];
         [self.tabViewController addTabItemViewController:self.statusViewController];
     }
     [self.statusViewController showCollectionStatusWithCollectionItem:collectionItem];
@@ -303,7 +303,7 @@
 - (IBAction)showServerStatus:(id)sender 
 {
     if (self.statusViewController == nil) {
-        self.statusViewController = [[[MHStatusViewController alloc] initWithClient:self.client] autorelease];
+        self.statusViewController = [[[MHStatusViewController alloc] initWithClient:self.client connectionStore:self.connectionStore] autorelease];
         [self.tabViewController addTabItemViewController:self.statusViewController];
     }
     [self.statusViewController showServerStatus];
@@ -595,6 +595,7 @@
     MHFileExporter *exporter;
     
     exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.collection exportPath:filePath];
+    exporter.jsonKeySortOrder = self.connectionStore.jsonKeySortOrderForExport;
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterStopNotification:) name:MHImporterExporterStopNotification object:exporter];
     _importExportFeedback = [[MHImportExportFeedback alloc] initWithImporterExporter:exporter];
     _importExportFeedback.label = [NSString stringWithFormat:@"Exporting %@ to %@…", self.selectedCollectionItem.collection.absoluteName, [filePath lastPathComponent]];

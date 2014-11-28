@@ -7,8 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "UKSyntaxColoredTextViewController.h"
 #import <MongoObjCDriver/MongoObjCDriver.h>
+#import "UKSyntaxColoredTextViewController.h"
+#import "MHPreferenceWindowController.h"
 
 @class MODClient;
 @class MODCollection;
@@ -22,17 +23,21 @@
 
 @interface MHJsonWindowController : NSWindowController <UKSyntaxColoredTextViewDelegate, MODQueryCallbackTarget>
 {
+    id                                  _windowControllerId;
     MODCollection                       *_collection;
-    NSDictionary                        *jsonDict;
-    IBOutlet NSTextView                 *myTextView;
+    MODSortedMutableDictionary          *_jsonDocument;
+    NSData                              *_bsonData;
+    
+    NSTextView                          *_jsonTextView;
     NSProgressIndicator                 *_progressIndicator;
-    IBOutlet NSTextField                *status;
+    NSTextField                         *_status;
     UKSyntaxColoredTextViewController   *_syntaxColoringController;
 }
 
-@property (nonatomic, retain) NSDictionary *jsonDict;
-@property (nonatomic, retain) NSTextView *myTextView;
-@property (nonatomic, readwrite, retain) MODCollection *collection;
-@property (nonatomic, readonly, strong) IBOutlet NSProgressIndicator *progressIndicator;
+// just a data to store (used by the user of this class
+@property (nonatomic, readwrite, strong) id windowControllerId;
+@property (nonatomic, readwrite, strong) MODSortedMutableDictionary *jsonDocument;
+@property (nonatomic, readwrite, strong) NSData *bsonData;
+@property (nonatomic, readwrite, strong) MODCollection *collection;
 
 @end

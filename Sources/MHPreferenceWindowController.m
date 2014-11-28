@@ -9,6 +9,10 @@
 #import "MHApplicationDelegate.h"
 #import "MHJsonColorManager.h"
 
+#define MHDefaultSortOrderPreferenceKey                     @"MHDefaultSortOrderPreferenceKey"
+#define MODJsonKeySortOrderInSearchPreferenceKey            @"MODJsonKeySortOrderInSearchPreferenceKey"
+#define MODJsonKeySortOrderForExportPreferenceKey           @"MODJsonKeySortOrderForExportPreferenceKey"
+
 @interface MHPreferenceWindowController ()
 
 @property (nonatomic, weak, readwrite) IBOutlet NSButton *betaSoftwareButton;
@@ -18,6 +22,10 @@
 @property (nonatomic, weak, readwrite) IBOutlet NSColorWell *jsonTextColorWell;
 
 @property (nonatomic, strong, readwrite) NSMutableArray *jsonComponents;
+
+@property (nonatomic, weak, readwrite) IBOutlet NSPopUpButton *defaultSortOrder;
+@property (nonatomic, weak, readwrite) IBOutlet NSPopUpButton *jsonKeySortOrderInSearch;
+@property (nonatomic, weak, readwrite) IBOutlet NSPopUpButton *jsonKeySortOrderForExport;
 
 @property (nonatomic, weak, readwrite) IBOutlet NSTextField *connectTimeoutTextField;
 @property (nonatomic, weak, readwrite) IBOutlet NSTextField *socketTimeoutTextField;
@@ -35,6 +43,10 @@
 @synthesize jsonComponents = _jsonComponents;
 @synthesize jsonTextLabelView = _jsonTextLabelView;
 @synthesize jsonTextColorWell = _jsonTextColorWell;
+
+@synthesize defaultSortOrder = _defaultSortOrder;
+@synthesize jsonKeySortOrderInSearch = _jsonKeySortOrderInSearch;
+@synthesize jsonKeySortOrderForExport = _jsonKeySortOrderForExport;
 
 @synthesize connectTimeoutTextField = _connectTimeoutTextField;
 @synthesize socketTimeoutTextField = _socketTimeoutTextField;
@@ -88,6 +100,9 @@
     if (value != 0) {
         self.connectTimeoutTextField.stringValue = [NSString stringWithFormat:@"%u", value];
     }
+    [self.defaultSortOrder selectItemAtIndex:[self.class defaultSortOrder]];
+    [self.jsonKeySortOrderInSearch selectItemAtIndex:[self.class jsonKeySortOrderInSearch]];
+    [self.jsonKeySortOrderForExport selectItemAtIndex:[self.class jsonKeySortOrderForExport]];
 }
 
 - (IBAction)betaSoftwareAction:(id)sender
@@ -105,6 +120,24 @@
     [NSFontManager sharedFontManager].action = @selector(changeJsonFont:);
     [[[NSFontManager sharedFontManager] fontPanel:YES] setPanelFont:MHJsonColorManager.sharedManager.values[@"TextField"][@"Text"][@"Font"] isMultiple:NO];
     [[NSFontManager sharedFontManager] orderFrontFontPanel:nil];
+}
+
+- (IBAction)changeDefaultSortOrderAction:(id)sender
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:self.defaultSortOrder.indexOfSelectedItem forKey:MHDefaultSortOrderPreferenceKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (IBAction)changeJsonKeySortOrderInSearchAction:(id)sender
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:self.jsonKeySortOrderInSearch.indexOfSelectedItem forKey:MODJsonKeySortOrderInSearchPreferenceKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (IBAction)changeJsonKeySortOrderForExportAction:(id)sender
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:self.jsonKeySortOrderForExport.indexOfSelectedItem forKey:MODJsonKeySortOrderForExportPreferenceKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)changeJsonFont:(NSFontManager *)fontManager
@@ -239,6 +272,26 @@
     } else {
         self.jsonTextLabelView.stringValue = @" ";
     }
+}
+
+@end
+
+
+@implementation MHPreferenceWindowController (Preferences)
+
++ (MHDefaultSortOrder)defaultSortOrder
+{
+    return (MHDefaultSortOrder)[[NSUserDefaults standardUserDefaults] integerForKey:MHDefaultSortOrderPreferenceKey];
+}
+
++ (MODJsonKeySortOrder)jsonKeySortOrderInSearch
+{
+    return (MODJsonKeySortOrder)[[NSUserDefaults standardUserDefaults] integerForKey:MODJsonKeySortOrderInSearchPreferenceKey];
+}
+
++ (MODJsonKeySortOrder)jsonKeySortOrderForExport
+{
+    return (MODJsonKeySortOrder)[[NSUserDefaults standardUserDefaults] integerForKey:MODJsonKeySortOrderForExportPreferenceKey];
 }
 
 @end

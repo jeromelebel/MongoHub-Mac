@@ -6,7 +6,6 @@
 //
 
 #import "MHFileExporter.h"
-#import <MongoObjCDriver/MongoObjCDriver.h>
 
 @interface MHFileExporter ()
 @property (nonatomic, readwrite, retain) NSError *error;
@@ -15,7 +14,10 @@
 
 @implementation MHFileExporter
 
-@synthesize collection = _collection, exportPath = _exportPath, error = _error;
+@synthesize collection = _collection;
+@synthesize exportPath = _exportPath;
+@synthesize error = _error;
+@synthesize jsonKeySortOrder = _jsonKeySortOrder;
 
 - (instancetype)initWithCollection:(MODCollection *)collection exportPath:(NSString *)exportPath
 {
@@ -61,7 +63,7 @@
                 NSString *jsonDocument;
                 const char *cString;
                 
-                jsonDocument = [MODClient convertObjectToJson:document pretty:NO strictJson:YES];
+                jsonDocument = [MODClient convertObjectToJson:document pretty:NO strictJson:YES jsonKeySortOrder:self.jsonKeySortOrder];
                 cString = [jsonDocument UTF8String];
                 write(fileDescriptor, cString, strlen(cString));
                 write(fileDescriptor, "\n", 1);

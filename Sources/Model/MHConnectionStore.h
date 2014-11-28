@@ -8,6 +8,7 @@
 
 #import <CoreData/CoreData.h>
 #import <MongoObjCDriver/MongoObjCDriver.h>
+#import "MHPreferenceWindowController.h"
 
 #define DEFAULT_MONGO_IP                            @"127.0.0.1"
 
@@ -47,5 +48,13 @@
 @property (nonatomic, assign) MODReadPreferencesReadMode defaultReadMode;
 
 @property (nonatomic, readonly, assign) NSArray *arrayServers;
+
+@end
+
+@interface MHConnectionStore (Preferences)
+
+- (MHDefaultSortOrder)defaultSortOrder;
+- (MODJsonKeySortOrder)jsonKeySortOrderInSearch;
+- (MODJsonKeySortOrder)jsonKeySortOrderForExport;
 
 @end

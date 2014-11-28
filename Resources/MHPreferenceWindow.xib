@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
@@ -9,7 +9,10 @@
             <connections>
                 <outlet property="betaSoftwareButton" destination="Lvd-gF-Nde" id="Ll4-Fc-vfX"/>
                 <outlet property="connectTimeoutTextField" destination="ITT-FC-hwp" id="gPZ-zw-ySa"/>
+                <outlet property="defaultSortOrder" destination="Ege-Ia-Mp2" id="QR7-wc-cj9"/>
                 <outlet property="jsonColorTableView" destination="HL1-5s-6cY" id="vYQ-zh-p2C"/>
+                <outlet property="jsonKeySortOrderForExport" destination="B4h-nD-8YO" id="2P2-4o-ZMg"/>
+                <outlet property="jsonKeySortOrderInSearch" destination="lnA-OG-jJw" id="LF5-v9-Rq3"/>
                 <outlet property="jsonTextColorWell" destination="fPR-dX-W5K" id="oWz-9d-x14"/>
                 <outlet property="jsonTextLabelView" destination="d3x-nM-4k9" id="9S5-aj-Xsh"/>
                 <outlet property="socketTimeoutTextField" destination="VI2-on-GQT" id="DuJ-O7-jot"/>
@@ -240,10 +243,13 @@
                                                     </items>
                                                 </menu>
                                             </popUpButtonCell>
+                                            <connections>
+                                                <action selector="changeDefaultSortOrderAction:" target="-2" id="SjH-LC-ba2"/>
+                                            </connections>
                                         </popUpButton>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Y3A-ey-TB0">
-                                            <rect key="frame" x="15" y="209" width="170" height="17"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="JSON Key Order in search:" id="Efi-2t-NwW">
+                                            <rect key="frame" x="15" y="209" width="173" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="JSON Key Order In Search:" id="Efi-2t-NwW">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -262,44 +268,50 @@
                                                     </items>
                                                 </menu>
                                             </popUpButtonCell>
+                                            <connections>
+                                                <action selector="changeJsonKeySortOrderInSearchAction:" target="-2" id="UKG-f1-osT"/>
+                                            </connections>
                                         </popUpButton>
-                                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dfs-Xa-ijc">
-                                            <rect key="frame" x="478" y="172" width="107" height="26"/>
-                                            <popUpButtonCell key="cell" type="push" title="Document" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="3jn-QL-cdA" id="NmF-0D-gas">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" id="4ie-3a-QmJ">
-                                                    <items>
-                                                        <menuItem title="Document" state="on" id="3jn-QL-cdA"/>
-                                                        <menuItem title="Ascending" id="2zf-eo-YRa"/>
-                                                        <menuItem title="Descending" id="QRo-Bb-rRt"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                        </popUpButton>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eG4-Vl-0md">
-                                            <rect key="frame" x="15" y="178" width="165" height="17"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="JSON Key Order in editor:" id="9V4-d0-4F6">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yZS-pp-2RP">
+                                            <rect key="frame" x="15" y="178" width="179" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="JSON Key Order For Export:" id="KdW-OD-dcB">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="B4h-nD-8YO">
+                                            <rect key="frame" x="478" y="172" width="107" height="26"/>
+                                            <popUpButtonCell key="cell" type="push" title="Document" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="8cm-pc-kMA" id="a4p-f2-Z4e">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="wMe-dj-q75">
+                                                    <items>
+                                                        <menuItem title="Document" state="on" id="8cm-pc-kMA"/>
+                                                        <menuItem title="Ascending" id="jrK-64-gf0"/>
+                                                        <menuItem title="Descending" id="Mx4-nF-Dh9"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="changeJsonKeySortOrderForExportAction:" target="-2" id="6Nl-W4-VfH"/>
+                                            </connections>
+                                        </popUpButton>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="eG4-Vl-0md" firstAttribute="baseline" secondItem="dfs-Xa-ijc" secondAttribute="baseline" id="DVE-dG-jN3"/>
-                                        <constraint firstAttribute="trailing" secondItem="dfs-Xa-ijc" secondAttribute="trailing" constant="17" id="Est-Bh-D76"/>
+                                        <constraint firstItem="B4h-nD-8YO" firstAttribute="top" secondItem="lnA-OG-jJw" secondAttribute="bottom" constant="10" id="1ra-GN-qrB"/>
+                                        <constraint firstItem="yZS-pp-2RP" firstAttribute="baseline" secondItem="B4h-nD-8YO" secondAttribute="baseline" id="4lu-Il-Sj1"/>
                                         <constraint firstItem="Y3A-ey-TB0" firstAttribute="leading" secondItem="ARn-c5-5uK" secondAttribute="leading" constant="17" id="G2v-PN-CB5"/>
                                         <constraint firstItem="dXI-Yk-5wF" firstAttribute="leading" secondItem="ARn-c5-5uK" secondAttribute="leading" constant="17" id="Ikd-W0-RxC"/>
+                                        <constraint firstItem="yZS-pp-2RP" firstAttribute="leading" secondItem="ARn-c5-5uK" secondAttribute="leading" constant="17" id="Jaa-wi-gqs"/>
                                         <constraint firstItem="Ege-Ia-Mp2" firstAttribute="baseline" secondItem="dXI-Yk-5wF" secondAttribute="baseline" id="Mv7-nu-AYV"/>
                                         <constraint firstAttribute="trailing" secondItem="Ege-Ia-Mp2" secondAttribute="trailing" constant="17" id="Rak-AJ-Ip8"/>
                                         <constraint firstItem="dXI-Yk-5wF" firstAttribute="top" secondItem="ARn-c5-5uK" secondAttribute="top" constant="3" id="TlU-Lh-MD0"/>
                                         <constraint firstItem="lnA-OG-jJw" firstAttribute="top" secondItem="Ege-Ia-Mp2" secondAttribute="bottom" constant="10" id="VTe-mK-bv1"/>
-                                        <constraint firstItem="eG4-Vl-0md" firstAttribute="leading" secondItem="ARn-c5-5uK" secondAttribute="leading" constant="17" id="hoJ-N8-joY"/>
+                                        <constraint firstAttribute="trailing" secondItem="B4h-nD-8YO" secondAttribute="trailing" constant="17" id="goG-cR-Bmc"/>
+                                        <constraint firstItem="B4h-nD-8YO" firstAttribute="baseline" secondItem="yZS-pp-2RP" secondAttribute="baseline" id="hkR-e3-bGg"/>
                                         <constraint firstItem="lnA-OG-jJw" firstAttribute="baseline" secondItem="Y3A-ey-TB0" secondAttribute="baseline" id="i4n-2o-sn1"/>
                                         <constraint firstAttribute="trailing" secondItem="lnA-OG-jJw" secondAttribute="trailing" constant="17" id="jlH-N7-Dta"/>
-                                        <constraint firstItem="dfs-Xa-ijc" firstAttribute="top" secondItem="lnA-OG-jJw" secondAttribute="bottom" constant="10" id="nWk-Mg-xzQ"/>
-                                        <constraint firstItem="dfs-Xa-ijc" firstAttribute="baseline" secondItem="eG4-Vl-0md" secondAttribute="baseline" id="vFy-kC-BD4"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>

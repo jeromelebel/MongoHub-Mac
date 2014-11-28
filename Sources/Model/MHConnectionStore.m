@@ -374,3 +374,22 @@
 }
 
 @end
+
+@implementation MHConnectionStore (Preferences)
+
+- (MHDefaultSortOrder)defaultSortOrder
+{
+    return MHPreferenceWindowController.defaultSortOrder;
+}
+
+- (MODJsonKeySortOrder)jsonKeySortOrderInSearch
+{
+    return MHPreferenceWindowController.jsonKeySortOrderInSearch;
+}
+
+- (MODJsonKeySortOrder)jsonKeySortOrderForExport
+{
+    return MHPreferenceWindowController.jsonKeySortOrderForExport;
+}
+
+@end

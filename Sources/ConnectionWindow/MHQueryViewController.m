@@ -366,20 +366,16 @@
     for (NSDictionary *document in self.findResultsViewController.selectedDocuments) {
         id idValue;
         id jsonWindowControllerKey;
-        
         MHJsonWindowController *jsonWindowController;
         
         idValue = [document objectForKey:@"objectvalueid"];
-        if (idValue) {
-            jsonWindowControllerKey = [MODClient convertObjectToJson:[MODSortedMutableDictionary sortedDictionaryWithObject:idValue forKey:@"_id"] pretty:NO strictJson:NO];
-        } else {
-            jsonWindowControllerKey = document;
-        }
-        jsonWindowController = [_jsonWindowControllers objectForKey:jsonWindowControllerKey];
+        jsonWindowController = [_jsonWindowControllers objectForKey:idValue];
         if (!jsonWindowController) {
             jsonWindowController = [[MHJsonWindowController alloc] init];
             jsonWindowController.collection = self.collection;
-            jsonWindowController.jsonDict = document;
+            jsonWindowController.windowControllerId = idValue;
+            jsonWindowController.jsonDocument = document[@"objectvalue"];
+            jsonWindowController.bsonData = document[@"bsondata"];
             [jsonWindowController showWindow:sender];
             [_jsonWindowControllers setObject:jsonWindowController forKey:jsonWindowControllerKey];
             [jsonWindowController release];
@@ -394,16 +390,10 @@
 - (void)jsonWindowWillClose:(NSNotification *)notification
 {
     MHJsonWindowController *jsonWindowController = notification.object;
-    id idValue;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kJsonWindowSaved object:notification.object];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kJsonWindowWillClose object:notification.object];
-    idValue = [jsonWindowController.jsonDict objectForKey:@"objectvalueid"];
-    if (idValue) {
-        [_jsonWindowControllers removeObjectForKey:[MODClient convertObjectToJson:[MODSortedMutableDictionary sortedDictionaryWithObject:idValue forKey:@"_id"] pretty:NO strictJson:NO]];
-    } else {
-        [_jsonWindowControllers removeObjectForKey:jsonWindowController.jsonDict];
-    }
+    [_jsonWindowControllers removeObjectForKey:jsonWindowController.windowControllerId];
 }
 
 - (IBAction)segmentedControlAction:(id)sender
@@ -534,7 +524,7 @@
                                      withDatabaseName:@""
                                        collectionName:self.collection.name];
                 }
-                self.findResultsViewController.results = [MODHelper convertForOutlineWithObjects:documents bsonData:bsonData];
+                self.findResultsViewController.results = [MODHelper convertForOutlineWithObjects:documents bsonData:bsonData jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
                 [self.collection countWithCriteria:criteria readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
                     self.findTotalResultsTextField.stringValue = [NSString stringWithFormat:@"Total Results: %lld (%0.2fs)", count, [[mongoQuery.userInfo objectForKey:@"timequery"] duration]];
                 }];
@@ -1077,7 +1067,7 @@
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         }
-        self.indexesOutlineViewController.results = [MODHelper convertForOutlineWithObjects:indexes bsonData:nil];
+        self.indexesOutlineViewController.results = [MODHelper convertForOutlineWithObjects:indexes bsonData:nil jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
         [self.indexLoaderIndicator stopAnimation:nil];
     }];
 }

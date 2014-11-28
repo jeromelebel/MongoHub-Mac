@@ -10,12 +10,12 @@
 #import <MongoObjCDriver/MODDBPointer.h>
 
 @interface MODHelper()
-+ (NSMutableDictionary *)convertForOutlineWithValue:(id)dataValue dataKey:(NSString *)dataKey;
++ (NSMutableDictionary *)convertForOutlineWithValue:(id)dataValue dataKey:(NSString *)dataKey jsonKeySortOrder:(MODJsonKeySortOrder)jsonKeySortOrder;
 @end
 
 @implementation MODHelper
 
-+ (NSArray *)convertForOutlineWithObjects:(NSArray *)mongoObjects bsonData:(NSArray *)allData
++ (NSArray *)convertForOutlineWithObjects:(NSArray *)mongoObjects bsonData:(NSArray *)allData jsonKeySortOrder:(MODJsonKeySortOrder)jsonKeySortOrder
 {
     NSMutableArray *result;
     NSUInteger index = 0;
@@ -37,13 +37,13 @@
             idValue = [object objectForKey:idValueName];
         }
         if (idValue) {
-            dict = [self convertForOutlineWithValue:idValue dataKey:idValueName];
+            dict = [self convertForOutlineWithValue:idValue dataKey:idValueName jsonKeySortOrder:jsonKeySortOrder];
         }
         if (dict == nil) {
             dict = [NSMutableDictionary dictionary];
         }
-        [dict setObject:[self convertForOutlineWithObject:object] forKey:@"child"];
-        [dict setObject:[MODClient convertObjectToJson:object pretty:YES strictJson:NO] forKey:@"beautified"];
+        [dict setObject:[self convertForOutlineWithObject:object jsonKeySortOrder:jsonKeySortOrder] forKey:@"child" ];
+        [dict setObject:[MODClient convertObjectToJson:object pretty:YES strictJson:NO jsonKeySortOrder:MODJsonKeySortOrderDocument] forKey:@"beautified"];
         [dict setObject:object forKey:@"objectvalue"];
         if (allData) {
             [dict setObject:[allData objectAtIndex:index] forKey:@"bsondata"];
@@ -54,15 +54,17 @@
     return result;
 }
 
-+ (NSArray *)convertForOutlineWithObject:(MODSortedMutableDictionary *)mongoObject
++ (NSArray *)convertForOutlineWithObject:(MODSortedMutableDictionary *)mongoObject jsonKeySortOrder:(MODJsonKeySortOrder)jsonKeySortOrder
 {
     NSMutableArray *result;
+    NSArray *keys;
     
+    keys = [MODClient sortKeys:mongoObject.sortedKeys withJsonKeySortOrder:jsonKeySortOrder];
     result = [NSMutableArray array];
-    for (NSString *dataKey in mongoObject.sortedKeys) {
+    for (NSString *dataKey in keys) {
         NSMutableDictionary *value;
         
-        value = [self convertForOutlineWithValue:[mongoObject objectForKey:dataKey] dataKey:dataKey];
+        value = [self convertForOutlineWithValue:[mongoObject objectForKey:dataKey] dataKey:dataKey jsonKeySortOrder:jsonKeySortOrder];
         if (value) {
             [result addObject:value];
         }
@@ -70,7 +72,7 @@
     return result;
 }
 
-+ (NSMutableDictionary *)convertForOutlineWithValue:(id)dataValue dataKey:(NSString *)dataKey
++ (NSMutableDictionary *)convertForOutlineWithValue:(id)dataValue dataKey:(NSString *)dataKey jsonKeySortOrder:(MODJsonKeySortOrder)jsonKeySortOrder
 {
     NSArray *child = nil;
     NSString *value = @"";
@@ -137,7 +139,7 @@
         } else {
             type = [NSString stringWithFormat:NSLocalizedString(@"Object, %d items", @"about an dictionary"), count];
         }
-        child = [self convertForOutlineWithObject:dataValue];
+        child = [self convertForOutlineWithObject:dataValue jsonKeySortOrder:jsonKeySortOrder];
     } else if ([dataValue isKindOfClass:[MODSymbol class]]) {
         type = @"Symbol";
         value = [dataValue value];
@@ -158,7 +160,7 @@
             
             arrayDataValue = [dataValue objectAtIndex:ii];
             arrayDataKey = [[NSString alloc] initWithFormat:@"%ld", (long)ii];
-            [(NSMutableArray *)child addObject:[self convertForOutlineWithValue:arrayDataValue dataKey:arrayDataKey]];
+            [(NSMutableArray *)child addObject:[self convertForOutlineWithValue:arrayDataValue dataKey:arrayDataKey jsonKeySortOrder:jsonKeySortOrder]];
             [arrayDataKey release];
         }
     } else if ([dataValue isKindOfClass:[MODUndefined class]]) {
@@ -180,8 +182,6 @@
         [result setObject:dataKey forKey:@"name"];
         [result setObject:type forKey:@"type"];
         [result setObject:dataValue forKey:@"objectvalueid"];
-        //[result setObject:jsonString forKey:@"raw"];
-        //[result setObject:jsonStringb forKey:@"beautified"];
         if (child) {
             [result setValue:child forKey:@"child"];
         }
