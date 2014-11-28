@@ -64,6 +64,15 @@
     [self.delegate logWindowControllerWillClose:self];
 }
 
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
+{
+    if (anItem.action == @selector(copy:)) {
+        return self.window.isKeyWindow && self.logTableView.selectedRow > 0;
+    } else {
+        return [self respondsToSelector:anItem.action];
+    }
+}
+
 - (void)copy:(id)sender
 {
     NSIndexSet *selectedRowIndexes = [self.logTableView selectedRowIndexes];
