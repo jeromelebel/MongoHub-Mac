@@ -24,6 +24,7 @@
     if (self = [self init]) {
         _collection = [collection retain];
         _exportPath = [exportPath retain];
+        self.jsonKeySortOrder = MODJsonKeySortOrderDocument;
     }
     return self;
 }
