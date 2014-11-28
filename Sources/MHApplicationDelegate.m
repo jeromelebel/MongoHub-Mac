@@ -604,7 +604,18 @@
 
 @implementation MHApplicationDelegate (Action)
 
-- (IBAction)copy:(id)sender
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
+{
+    if (anItem.action == @selector(copy:)) {
+        return self.window.isKeyWindow && self.connectionsArrayController.selectedObjects.count == 1;
+    } else if (anItem.action == @selector(paste:)) {
+        return self.window.isKeyWindow && [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] hasPrefix:@"mongodb://"];
+    } else {
+        return [self respondsToSelector:anItem.action];
+    }
+}
+
+- (void)copy:(id)sender
 {
     if (self.connectionsArrayController.selectedObjects.count == 1 && !self.connectionEditorWindowController) {
         [self copyURLConnection:self.connectionsArrayController.selectedObjects[0]];
