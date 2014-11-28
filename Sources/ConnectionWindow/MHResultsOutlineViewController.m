@@ -51,6 +51,11 @@
     return documents;
 }
 
+- (NSInteger)selectedDocumentCount
+{
+    return self.outlineView.selectedRowIndexes.count;
+}
+
 #pragma mark -
 #pragma mark NSOutlineView dataSource methods
 
@@ -114,7 +119,6 @@
         [string appendString:@"\n"];
     }
     [pasteboard setString:string forType:NSStringPboardType];
-    [pasteboard setString:[NSString stringWithFormat:@"%p", self] forType:@"OutlineViewControllerAddress"];
     return YES;
 }
 
