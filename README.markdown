@@ -19,6 +19,8 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **Current**
 
+- Can copy documents in the Find tab
+
 **3.1 Beta**
 
 ## History
