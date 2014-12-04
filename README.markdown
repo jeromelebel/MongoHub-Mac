@@ -20,6 +20,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 **Current**
 
 - Can copy documents in the Find tab
+- Adding support for full screen in a connection window [issue #176](https://github.com/jeromelebel/MongoHub-Mac/issues/176)
 
 **3.1 Beta**
 
