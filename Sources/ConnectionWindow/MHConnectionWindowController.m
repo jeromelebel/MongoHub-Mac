@@ -46,6 +46,9 @@
 @property (nonatomic, readwrite, strong) MHTunnel *sshTunnel;
 @property (nonatomic, readwrite, strong) NSMutableDictionary *sshBindedPortMapping;
 
+@property (nonatomic, readwrite, strong) MHImportExportFeedback *importExportFeedback;
+@property (nonatomic, readwrite, strong) id<MHImporterExporter> importerExporter;
+
 - (void)updateToolbarItems;
 
 - (MHDatabaseItem *)selectedDatabaseItem;
@@ -75,6 +78,9 @@
 @synthesize activityMonitorViewController = _activityMonitorViewController;
 @synthesize tabViewController = _tabViewController;
 
+@synthesize importerExporter = _importerExporter;
+@synthesize importExportFeedback = _importExportFeedback;
+
 - (NSString *)windowNibName
 {
     return @"MHConnectionWindow";
@@ -98,6 +104,7 @@
     self.mysqlExportWindowController = nil;
     self.statusViewController = nil;
     self.client = nil;
+    self.importerExporter = nil;
     [super dealloc];
 }
 
@@ -582,47 +589,45 @@
 
 - (void)importerExporterStopNotification:(NSNotification *)notification
 {
-    [_importExportFeedback close];
-    [_importExportFeedback autorelease];
-    _importExportFeedback = nil;
-    if (_importerExporter.error) {
-        [self.delegate connectionWindowControllerLogMessage:_importerExporter.error.localizedDescription domain:[NSString stringWithFormat:@"%@.%@", self.connectionStore.alias, _importerExporter.identifier] level:@"error"];
-        NSBeginAlertSheet(_importerExporter.name, @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", _importerExporter.error.localizedDescription);
+    [self.importExportFeedback close];
+    self.importExportFeedback = nil;
+    if (self.importerExporter.error) {
+        [self.delegate connectionWindowControllerLogMessage:self.importerExporter.error.localizedDescription domain:[NSString stringWithFormat:@"%@.%@", self.connectionStore.alias, self.importerExporter.identifier] level:@"error"];
+        NSBeginAlertSheet(self.importerExporter.name, @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", self.importerExporter.error.localizedDescription);
     } else {
-        [self.delegate connectionWindowControllerLogMessage:[NSString stringWithFormat:@"%lu documents processed", (unsigned long)_importerExporter.documentProcessedCount] domain:[NSString stringWithFormat:@"%@.importexport", self.connectionStore.alias] level:@"error"];
+        [self.delegate connectionWindowControllerLogMessage:[NSString stringWithFormat:@"%lu documents processed", (unsigned long)self.importerExporter.documentProcessedCount] domain:[NSString stringWithFormat:@"%@.importexport", self.connectionStore.alias] level:@"error"];
     }
-    [NSNotificationCenter.defaultCenter removeObserver:self name:nil object:_importerExporter];
-    [_importerExporter autorelease];
-    _importerExporter = nil;
+    [NSNotificationCenter.defaultCenter removeObserver:self name:nil object:self.importerExporter];
+    self.importerExporter = nil;
 }
 
 - (void)exportSelectedCollectionToFilePath:(NSString *)filePath
 {
     MHFileExporter *exporter;
     
-    exporter = [[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.collection exportPath:filePath];
+    exporter = [[[MHFileExporter alloc] initWithCollection:self.selectedCollectionItem.collection exportPath:filePath] autorelease];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterStopNotification:) name:MHImporterExporterStopNotification object:exporter];
-    _importExportFeedback = [[MHImportExportFeedback alloc] initWithImporterExporter:exporter];
-    _importExportFeedback.label = [NSString stringWithFormat:@"Exporting %@ to %@…", self.selectedCollectionItem.collection.absoluteName, [filePath lastPathComponent]];
-    [_importExportFeedback start];
-    [_importExportFeedback displayForWindow:self.window];
+    self.importExportFeedback = [[[MHImportExportFeedback alloc] initWithImporterExporter:exporter] autorelease];
+    self.importExportFeedback.label = [NSString stringWithFormat:@"Exporting %@ to %@…", self.selectedCollectionItem.collection.absoluteName, [filePath lastPathComponent]];
+    [self.importExportFeedback start];
+    [self.importExportFeedback displayForWindow:self.window];
     [exporter export];
-    _importerExporter = exporter;
+    self.importerExporter = exporter;
 }
 
 - (void)importIntoSelectedCollectionFromFilePath:(NSString *)filePath
 {
     MHFileImporter *importer;
     
-    NSAssert(_importExportFeedback == nil, @"we should have no more feedback controller");
-    importer = [[MHFileImporter alloc] initWithCollection:self.selectedCollectionItem.collection importPath:filePath];
+    NSAssert(self.importExportFeedback == nil, @"we should have no more feedback controller");
+    importer = [[[MHFileImporter alloc] initWithCollection:self.selectedCollectionItem.collection importPath:filePath] autorelease];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterStopNotification:) name:MHImporterExporterStopNotification object:importer];
-    _importExportFeedback = [[MHImportExportFeedback alloc] initWithImporterExporter:importer];
-    _importExportFeedback.label = [NSString stringWithFormat:@"Importing %@ into %@…", [filePath lastPathComponent], self.selectedCollectionItem.collection.absoluteName];
-    [_importExportFeedback start];
-    [_importExportFeedback displayForWindow:self.window];
+    self.importExportFeedback = [[[MHImportExportFeedback alloc] initWithImporterExporter:importer] autorelease];
+    self.importExportFeedback.label = [NSString stringWithFormat:@"Importing %@ into %@…", [filePath lastPathComponent], self.selectedCollectionItem.collection.absoluteName];
+    [self.importExportFeedback start];
+    [self.importExportFeedback displayForWindow:self.window];
     [importer import];
-    _importerExporter = importer;
+    self.importerExporter = importer;
 }
 
 - (IBAction)importFromMySQLAction:(id)sender
