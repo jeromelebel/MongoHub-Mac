@@ -8,7 +8,8 @@
 #import "MHFileExporter.h"
 
 @interface MHFileExporter ()
-@property (nonatomic, readwrite, retain) NSError *error;
+@property (nonatomic, readwrite, strong) NSError *error;
+@property (nonatomic, readwrite, assign) NSUInteger documentProcessedCount;
 
 @end
 
@@ -18,6 +19,7 @@
 @synthesize exportPath = _exportPath;
 @synthesize error = _error;
 @synthesize jsonKeySortOrder = _jsonKeySortOrder;
+@synthesize documentProcessedCount = _documentProcessedCount;
 
 - (instancetype)initWithCollection:(MODCollection *)collection exportPath:(NSString *)exportPath
 {
@@ -57,7 +59,7 @@
             if (step == 0) {
                 step = 1;
             }
-            _ii = 0;
+            self.documentProcessedCount = 0;
             
             cursor = [_collection cursorWithCriteria:nil fields:nil skip:0 limit:0 sort:nil];
             [cursor forEachDocumentWithCallbackDocumentCallback:^(uint64_t index, MODSortedMutableDictionary *document) {
@@ -68,9 +70,9 @@
                 cString = [jsonDocument UTF8String];
                 write(fileDescriptor, cString, strlen(cString));
                 write(fileDescriptor, "\n", 1);
-                _ii++;
-                if (_ii % step) {
-                    [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterProgressNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:(double)_ii / count], MHImporterExporterNotificationProgressKey, nil]];
+                self.documentProcessedCount++;
+                if (self.documentProcessedCount % step) {
+                    [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterProgressNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:(double)self.documentProcessedCount / count], MHImporterExporterNotificationProgressKey, nil]];
                 }
                 return YES;
             } endCallback:^(uint64_t documentCounts, BOOL cursorStopped, MODQuery *mongoQuery) {
@@ -80,6 +82,16 @@
         }];
         
     }
+}
+
+- (NSString *)identifier
+{
+    return @"fileexport";
+}
+
+- (NSString *)name
+{
+    return @"File Export";
 }
 
 @end

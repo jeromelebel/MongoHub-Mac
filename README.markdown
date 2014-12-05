@@ -23,6 +23,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 - Adding support for full screen in a connection window [issue #175](https://github.com/jeromelebel/MongoHub-Mac/issues/175)
 - Adding a preference for the default sort order in the Find tab [issue #129](https://github.com/jeromelebel/MongoHub-Mac/issues/129)
 - Adding a preference to present keys sorted in the Find tab [issue #77](https://github.com/jeromelebel/MongoHub-Mac/issues/77)
+- Display errors while import/export
 
 **3.1 Beta**
 

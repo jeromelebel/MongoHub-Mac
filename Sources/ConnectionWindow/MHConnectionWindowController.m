@@ -582,12 +582,18 @@
 
 - (void)importerExporterStopNotification:(NSNotification *)notification
 {
-    [NSNotificationCenter.defaultCenter removeObserver:self name:nil object:_importerExporter];
-    [_importerExporter autorelease];
-    _importerExporter = nil;
     [_importExportFeedback close];
     [_importExportFeedback autorelease];
     _importExportFeedback = nil;
+    if (_importerExporter.error) {
+        [self.delegate connectionWindowControllerLogMessage:_importerExporter.error.localizedDescription domain:[NSString stringWithFormat:@"%@.%@", self.connectionStore.alias, _importerExporter.identifier] level:@"error"];
+        NSBeginAlertSheet(_importerExporter.name, @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", _importerExporter.error.localizedDescription);
+    } else {
+        [self.delegate connectionWindowControllerLogMessage:[NSString stringWithFormat:@"%lu documents processed", (unsigned long)_importerExporter.documentProcessedCount] domain:[NSString stringWithFormat:@"%@.importexport", self.connectionStore.alias] level:@"error"];
+    }
+    [NSNotificationCenter.defaultCenter removeObserver:self name:nil object:_importerExporter];
+    [_importerExporter autorelease];
+    _importerExporter = nil;
 }
 
 - (void)exportSelectedCollectionToFilePath:(NSString *)filePath

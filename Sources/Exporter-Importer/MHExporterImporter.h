@@ -13,6 +13,9 @@ extern NSString *MHImporterExporterProgressNotification;
 extern NSString *MHImporterExporterNotificationProgressKey;
 
 @protocol MHImporterExporter <NSObject>
-@property (nonatomic, readonly, retain) NSError *error;
+@property (nonatomic, readonly, strong) NSError *error;
+@property (nonatomic, readonly, assign) NSUInteger documentProcessedCount;
+@property (nonatomic, readonly, weak) NSString *name;
+@property (nonatomic, readonly, weak) NSString *identifier;
 
 @end

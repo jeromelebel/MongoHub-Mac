@@ -18,13 +18,14 @@
     int64_t                     _ii;
     NSError                     *_error;
     MODJsonKeySortOrder         _jsonKeySortOrder;
+    NSUInteger                  _documentProcessedCount;
 }
 
 - (instancetype)initWithCollection:(MODCollection *)collection exportPath:(NSString *)exportPath;
 - (void)export;
 
-@property (nonatomic, readonly, retain) NSString *exportPath;
-@property (nonatomic, readonly, retain) MODCollection *collection;
+@property (nonatomic, readonly, strong) NSString *exportPath;
+@property (nonatomic, readonly, strong) MODCollection *collection;
 @property (nonatomic, readwrite, assign) MODJsonKeySortOrder jsonKeySortOrder;
 
 @end
