@@ -595,7 +595,7 @@
         [self.delegate connectionWindowControllerLogMessage:self.importerExporter.error.localizedDescription domain:[NSString stringWithFormat:@"%@.%@", self.connectionStore.alias, self.importerExporter.identifier] level:@"error"];
         NSBeginAlertSheet(self.importerExporter.name, @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", self.importerExporter.error.localizedDescription);
     } else {
-        [self.delegate connectionWindowControllerLogMessage:[NSString stringWithFormat:@"%lu documents processed", (unsigned long)self.importerExporter.documentProcessedCount] domain:[NSString stringWithFormat:@"%@.importexport", self.connectionStore.alias] level:@"error"];
+        [self.delegate connectionWindowControllerLogMessage:[NSString stringWithFormat:@"%lu documents processed", (unsigned long)self.importerExporter.documentProcessedCount] domain:[NSString stringWithFormat:@"%@.importexport", self.connectionStore.alias] level:@"info"];
     }
     [NSNotificationCenter.defaultCenter removeObserver:self name:nil object:self.importerExporter];
     self.importerExporter = nil;
