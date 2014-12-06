@@ -82,7 +82,7 @@ static void addObjectForKeyWithDefault(NSMutableDictionary *dictionary, id value
 
 - (void)fetchServerStatusDelta
 {
-    self.query = [self.client serverStatusWithReadPreferences:nil callback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
+    self.query = [self.client serverStatusWithReadPreferences:nil callback:^(MODSortedDictionary *serverStatus, MODQuery *mongoQuery) {
         NSMutableDictionary *diff = [[NSMutableDictionary alloc] init];
         
         if (_previousServerStatusForDelta) {

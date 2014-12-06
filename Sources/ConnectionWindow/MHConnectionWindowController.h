@@ -19,7 +19,7 @@
 @class MODClient;
 @class MODDatabase;
 @class MODCollection;
-@class MODSortedMutableDictionary;
+@class MODSortedDictionary;
 @class MHTabTitleView;
 @class MHStatusViewController;
 @class MHImportExportFeedback;

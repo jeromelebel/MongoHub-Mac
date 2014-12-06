@@ -21,7 +21,7 @@
     NSUInteger index = 0;
     
     result = [NSMutableArray arrayWithCapacity:[mongoObjects count]];
-    for (MODSortedMutableDictionary *object in mongoObjects) {
+    for (MODSortedDictionary *object in mongoObjects) {
         id idValue = nil;
         NSString *idValueName = nil;
         NSMutableDictionary *dict = nil;
@@ -54,7 +54,7 @@
     return result;
 }
 
-+ (NSArray *)convertForOutlineWithObject:(MODSortedMutableDictionary *)mongoObject jsonKeySortOrder:(MODJsonKeySortOrder)jsonKeySortOrder
++ (NSArray *)convertForOutlineWithObject:(MODSortedDictionary *)mongoObject jsonKeySortOrder:(MODJsonKeySortOrder)jsonKeySortOrder
 {
     NSMutableArray *result;
     NSArray *keys;
@@ -123,7 +123,7 @@
     } else if ([dataValue isKindOfClass:[NSNull class]]) {
         type = @"NULL";
         value = @"NULL";
-    } else if ([dataValue isKindOfClass:[MODSortedMutableDictionary class]]) {
+    } else if ([dataValue isKindOfClass:[MODSortedDictionary class]]) {
         NSUInteger count = [dataValue count];
       
         if ([dataValue objectForKey:@"$ref"]) {

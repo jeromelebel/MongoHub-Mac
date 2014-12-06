@@ -61,7 +61,7 @@
     MODQuery *result;
     
     self.title = @"Server Stats";
-    result = [self.client serverStatusWithReadPreferences:nil callback:^(MODSortedMutableDictionary *serverStatus, MODQuery *mongoQuery) {
+    result = [self.client serverStatusWithReadPreferences:nil callback:^(MODSortedDictionary *serverStatus, MODQuery *mongoQuery) {
         if (self.client == mongoQuery.owner) {
             if (mongoQuery.error) {
                 self.resultsOutlineViewController.results = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[mongoQuery.error localizedDescription], @"value", @"error", @"name", nil]];
@@ -82,7 +82,7 @@
     if (databaseItem) {
         self.title = [NSString stringWithFormat:@"%@ Stats", databaseItem.name];
         
-        result = [databaseItem.database statsWithReadPreferences:nil callback:^(MODSortedMutableDictionary *databaseStats, MODQuery *mongoQuery) {
+        result = [databaseItem.database statsWithReadPreferences:nil callback:^(MODSortedDictionary *databaseStats, MODQuery *mongoQuery) {
             if (databaseStats) {
                 self.resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:databaseStats jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
             } else if (mongoQuery.error) {
@@ -101,7 +101,7 @@
     
     if (collectionItem) {
         self.title = [NSString stringWithFormat:@"%@ Stats", collectionItem.collection.absoluteName];
-        result = [collectionItem.collection statsWithCallback:^(MODSortedMutableDictionary *stats, MODQuery *mongoQuery) {
+        result = [collectionItem.collection statsWithCallback:^(MODSortedDictionary *stats, MODQuery *mongoQuery) {
             if (stats) {
                 self.resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:stats jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
             } else if (mongoQuery.error) {

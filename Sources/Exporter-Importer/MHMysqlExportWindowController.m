@@ -88,7 +88,7 @@
     
     MODCursor *cursor;
     cursor = [mongoCollection cursorWithCriteria:nil fields:nil skip:0 limit:0 sort:nil];
-    [cursor forEachDocumentWithCallbackDocumentCallback:^(uint64_t index, MODSortedMutableDictionary *document) {
+    [cursor forEachDocumentWithCallbackDocumentCallback:^(uint64_t index, MODSortedDictionary *document) {
         [self doExportToTable:tablename data:document fieldTypes:fieldTypes fieldMapping:fieldMapping];
         [progressIndicator setDoubleValue:(double)index/total];
         NSLog(@"%lld %lld", index, total);
@@ -122,7 +122,7 @@
             continue;
         } else if ([mongoValue isKindOfClass:[NSArray class]]) {
             continue;
-        } else if ([mongoValue isKindOfClass:[MODSortedMutableDictionary class]]) {
+        } else if ([mongoValue isKindOfClass:[MODSortedDictionary class]]) {
             continue;
         } else if ([mongoValue isKindOfClass:[NSNumber class]] && strcmp([mongoValue objCType], @encode(BOOL)) == 0)  {
             if ([mongoValue boolValue]) {

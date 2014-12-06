@@ -126,7 +126,7 @@
 
 - (IBAction)save:(id)sender
 {
-    MODSortedMutableDictionary *document;
+    MODSortedDictionary *document;
     NSError *error;
     
     self.status.stringValue = @"Saving...";

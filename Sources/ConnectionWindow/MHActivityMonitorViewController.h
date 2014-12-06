@@ -9,14 +9,14 @@
 #import "MHTabItemViewController.h"
 
 @class MODClient;
-@class MODSortedMutableDictionary;
+@class MODSortedDictionary;
 @class MODQuery;
 
 @interface MHActivityMonitorViewController : MHTabItemViewController
 {
     MODClient                               *_client;
     NSTimer                                 *_timer;
-    MODSortedMutableDictionary              *_previousServerStatusForDelta;
+    MODSortedDictionary                     *_previousServerStatusForDelta;
     NSMutableArray                          *_data;
     MODQuery                                *_query;
     

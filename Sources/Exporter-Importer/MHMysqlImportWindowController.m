@@ -136,10 +136,10 @@
             }
             while ((row = [theResult fetchRowAsDictionary])) {
                 void (^callback)(MODQuery *mongoQuery);
-                MODSortedMutableDictionary *document;
+                MODSortedDictionary *document;
                 
                 ii++;
-                document = [[MODSortedMutableDictionary alloc] initWithDictionary:row];
+                document = [[MODSortedDictionary alloc] initWithDictionary:row];
                 documents = [[NSMutableArray alloc] initWithObjects:document, nil];
                 [document release];
                 if (ii == total) {

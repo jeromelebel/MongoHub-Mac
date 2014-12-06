@@ -312,7 +312,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     [self selectBestTextField];
 }
 
-- (void)_removeQueryWithCriteria:(MODSortedMutableDictionary *)criteria
+- (void)_removeQueryWithCriteria:(MODSortedDictionary *)criteria
 {
     [self.removeQueryLoaderIndicator startAnimation:nil];
     [self.collection countWithCriteria:criteria readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
@@ -334,7 +334,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     }];
 }
 
-- (void)removeAllDocumentsPanelDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(MODSortedMutableDictionary *)criteria
+- (void)removeAllDocumentsPanelDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(MODSortedDictionary *)criteria
 {
     switch (returnCode) {
         case NSAlertAlternateReturn:
@@ -477,9 +477,9 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     NSString *fieldFilterJson;
     NSString *sortJson = self.formatedQuerySort;
     NSString *queryTitle = self.findCriteriaComboBox.stringValue;
-    MODSortedMutableDictionary *criteria = nil;
-    MODSortedMutableDictionary *fieldFilter = nil;
-    MODSortedMutableDictionary *sort = nil;
+    MODSortedDictionary *criteria = nil;
+    MODSortedDictionary *fieldFilter = nil;
+    MODSortedDictionary *sort = nil;
     id fieldWithError = nil;
     NSError *error = nil;
     
@@ -566,8 +566,8 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 - (IBAction)removeRecord:(id)sender
 {
     NSMutableArray *documentIds;
-    MODSortedMutableDictionary *criteria;
-    MODSortedMutableDictionary *inCriteria;
+    MODSortedDictionary *criteria;
+    MODSortedDictionary *inCriteria;
     
     [self.removeQueryLoaderIndicator startAnimation:nil];
     documentIds = [[NSMutableArray alloc] init];
@@ -575,8 +575,8 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         [documentIds addObject:[document objectForKey:@"objectvalueid"]];
     }
     
-    inCriteria = [[MODSortedMutableDictionary alloc] initWithObjectsAndKeys:documentIds, @"$in", nil];
-    criteria = [[MODSortedMutableDictionary alloc] initWithObjectsAndKeys:inCriteria, @"_id", nil];
+    inCriteria = [[MODSortedDictionary alloc] initWithObjectsAndKeys:documentIds, @"$in", nil];
+    criteria = [[MODSortedDictionary alloc] initWithObjectsAndKeys:inCriteria, @"_id", nil];
     [self.collection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
@@ -677,7 +677,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         self.insertResultsTextField.textColor = [NSColor redColor];
         [NSViewHelpers setColor:currentColor fromColor:[NSColor redColor] toTarget:self.insertResultsTextField withSelector:@selector(setTextColor:) delay:1];
     } else {
-        if ([objects isKindOfClass:[MODSortedMutableDictionary class]]) {
+        if ([objects isKindOfClass:[MODSortedDictionary class]]) {
             objects = [NSArray arrayWithObject:objects];
         }
         [self.collection insertWithDocuments:objects writeConcern:nil callback:^(MODQuery *mongoQuery) {
@@ -934,7 +934,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 
 - (IBAction)updateQuery:(id)sender
 {
-    MODSortedMutableDictionary *query = nil;
+    MODSortedDictionary *query = nil;
     MODSortedMutableDictionary *update = [MODSortedMutableDictionary sortedDictionary];
     NSError *error = nil;
     
@@ -955,7 +955,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     for (NSDictionary *views in self.updateOperatorViews) {
         NSTextField *textField = views[@"textfield"];
         NSPopUpButton *popUpButton = views[@"popup"];
-        MODSortedMutableDictionary *value;
+        MODSortedDictionary *value;
         NSString *key = popUpButton.titleOfSelectedItem;
         
         value = [MODRagelJsonParser objectsFromJson:[self formatedJsonWithTextField:textField replace:NO emptyValid:NO] withError:&error];
@@ -1052,7 +1052,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 
 - (IBAction)removeQuery:(id)sender
 {
-    MODSortedMutableDictionary *criteria;
+    MODSortedDictionary *criteria;
     NSError *error;
     
     criteria = [MODRagelJsonParser objectsFromJson:[self formatedJsonWithTextField:self.removeCriteriaTextField replace:NO emptyValid:NO] withError:&error];
@@ -1149,9 +1149,9 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 - (IBAction)mapReduce:(id)sender
 {
     NSString *stringQuery = self.mrCriteriaTextField.stringValue;
-    MODSortedMutableDictionary *query = nil;
+    MODSortedDictionary *query = nil;
     NSString *stringOutput = self.mrOutputTextField.stringValue;
-    MODSortedMutableDictionary *output = nil;
+    MODSortedDictionary *output = nil;
     NSError *error = nil;
     
     if (stringQuery.length > 0) {
@@ -1164,7 +1164,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
     } else {
         [self.mrLoaderIndicator startAnimation:nil];
-        [self.collection mapReduceWithMapFunction:self.mrMapFunctionTextView.string reduceFunction:self.mrReduceFunctionTextView.string query:query sort:nil limit:-1 output:output keepTemp:NO finalizeFunction:nil scope:nil jsmode:NO verbose:NO readPreferences:nil callback:^(MODQuery *mongoQuery, MODSortedMutableDictionary *documents) {
+        [self.collection mapReduceWithMapFunction:self.mrMapFunctionTextView.string reduceFunction:self.mrReduceFunctionTextView.string query:query sort:nil limit:-1 output:output keepTemp:NO finalizeFunction:nil scope:nil jsmode:NO verbose:NO readPreferences:nil callback:^(MODQuery *mongoQuery, MODSortedDictionary *documents) {
             [self.mrLoaderIndicator stopAnimation:nil];
             if (mongoQuery.error) {
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);

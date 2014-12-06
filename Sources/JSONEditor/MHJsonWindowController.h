@@ -25,7 +25,7 @@
 {
     id                                  _windowControllerId;
     MODCollection                       *_collection;
-    MODSortedMutableDictionary          *_jsonDocument;
+    MODSortedDictionary                 *_jsonDocument;
     NSData                              *_bsonData;
     
     NSTextView                          *_jsonTextView;
@@ -36,7 +36,7 @@
 
 // just a data to store (used by the user of this class
 @property (nonatomic, readwrite, strong) id windowControllerId;
-@property (nonatomic, readwrite, strong) MODSortedMutableDictionary *jsonDocument;
+@property (nonatomic, readwrite, strong) MODSortedDictionary *jsonDocument;
 @property (nonatomic, readwrite, strong) NSData *bsonData;
 @property (nonatomic, readwrite, strong) MODCollection *collection;
 
