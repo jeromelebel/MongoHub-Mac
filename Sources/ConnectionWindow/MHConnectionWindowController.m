@@ -192,7 +192,10 @@
         }
         [self.sshTunnel start];
         return;
-    } else {
+    } else if (self.client == nil) {
+        // we are connecting for the first time, let's create a client
+        // otherwise we are just doing a reconnect, we can keep everything that we already have
+        
         NSString *urlString;
         
         urlString = [self.connectionStore stringURLWithSSHMapping:nil];
@@ -723,26 +726,28 @@
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
 {
+    NSInteger result = 0;
+    
     if (!item) {
-        return self.clientItem.databaseItems.count;
+        result = self.clientItem.databaseItems.count;
     } else if ([item isKindOfClass:[MHDatabaseItem class]]) {
-        return [item sortedCollectionNames].count;
-    } else {
-        return 0;
+        result = [item sortedCollectionNames].count;
     }
+    return result;
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item
 {
+    id result = nil;
+    
     if (!item) {
-        return [self.clientItem.databaseItems objectAtIndex:index];
+        result = [self.clientItem.databaseItems objectAtIndex:index];
     } else if ([item isKindOfClass:[MHDatabaseItem class]]) {
         NSString *collectionName = [item sortedCollectionNames][index];
         
-        return [item collectionItems][collectionName];
-    } else {
-        return nil;
+        result = [item collectionItems][collectionName];
     }
+    return result;
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item

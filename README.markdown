@@ -25,6 +25,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 - Adding a preference to present keys sorted in the Find tab [issue #77](https://github.com/jeromelebel/MongoHub-Mac/issues/77)
 - Display errors from import/export
 - Can import more than 200 documents [issue #172](https://github.com/jeromelebel/MongoHub-Mac/issues/172)
+- Fix for a crash when the ssh drops
 
 **3.1 Beta**
 
