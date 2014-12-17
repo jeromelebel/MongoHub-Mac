@@ -1114,7 +1114,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 - (IBAction)createIndexAction:(id)sender
 {
     [self.indexLoaderIndicator startAnimation:nil];
-    [self.collection createIndex:self.indexTextField.stringValue name:nil options:0 callback:^(MODQuery *mongoQuery) {
+    [self.collection createIndex:self.indexTextField.stringValue indexOptions:nil callback:^(MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         } else {

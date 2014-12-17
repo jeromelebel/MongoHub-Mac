@@ -240,6 +240,7 @@ static BOOL testLocalPortAvailable(unsigned short port)
     if (_running && self.tunnelError == MHNoTunnelError) {
         NSString *string = [[[NSString alloc] initWithData:_errorFileHandle.availableData encoding:NSASCIIStringEncoding] autorelease];
         
+        NSLog(@"%@", string);
         [self logMessage:string];
         if ([string rangeOfString:@"Entering interactive session"].location != NSNotFound) {
             [self _connected];
