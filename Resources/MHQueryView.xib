@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHQueryViewController">
@@ -11,7 +11,6 @@
                 <outlet property="_indexDropButton" destination="277" id="27s-6M-0Ja"/>
                 <outlet property="_indexLoaderIndicator" destination="498" id="15J-ti-q9w"/>
                 <outlet property="_indexOutlineView" destination="250" id="Ena-Tv-GhP"/>
-                <outlet property="_indexTextField" destination="271" id="rw0-0e-a9b"/>
                 <outlet property="_insertButton" destination="193" id="ezi-YK-FuE"/>
                 <outlet property="_insertDataTextView" destination="204" id="GT2-ad-33c"/>
                 <outlet property="_insertLoaderIndicator" destination="495" id="WhH-o6-NCg"/>
@@ -776,7 +775,7 @@ DQ
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="247">
-                                        <rect key="frame" x="0.0" y="20" width="584" height="351"/>
+                                        <rect key="frame" x="0.0" y="20" width="584" height="381"/>
                                         <clipView key="contentView" id="96b-cX-8Vf">
                                             <rect key="frame" x="1" y="1" width="582" height="353"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -842,29 +841,6 @@ DQ
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="234">
-                                        <rect key="frame" x="-2" y="381" width="37" height="14"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="33" id="LTi-h8-d2b"/>
-                                            <constraint firstAttribute="height" constant="14" id="WQH-Tn-ANz"/>
-                                        </constraints>
-                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Index:" id="235">
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="271">
-                                        <rect key="frame" x="41" y="379" width="543" height="22"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="22" id="WFq-pw-Eds"/>
-                                        </constraints>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="272">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
                                     <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="498">
                                         <rect key="frame" x="568" y="439" width="16" height="16"/>
                                         <constraints>
@@ -873,12 +849,12 @@ DQ
                                         </constraints>
                                     </progressIndicator>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="233">
-                                        <rect key="frame" x="252" y="407" width="118" height="25"/>
+                                        <rect key="frame" x="252" y="407" width="124" height="25"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="118" id="W3Y-5w-e4I"/>
+                                            <constraint firstAttribute="width" constant="124" id="W3Y-5w-e4I"/>
                                             <constraint firstAttribute="height" constant="22" id="rk6-6s-l8Z"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="roundTextured" title="Create Index" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="left" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="236">
+                                        <buttonCell key="cell" type="roundTextured" title="Create Index…" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="left" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="236">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -922,28 +898,20 @@ CA
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="247" firstAttribute="top" secondItem="275" secondAttribute="bottom" constant="8" id="53S-uS-kk8"/>
                                     <constraint firstAttribute="trailing" secondItem="247" secondAttribute="trailing" id="H6l-Me-cWC"/>
                                     <constraint firstItem="233" firstAttribute="leading" secondItem="277" secondAttribute="trailing" constant="8" id="HSN-A2-tw3"/>
-                                    <constraint firstItem="247" firstAttribute="top" secondItem="271" secondAttribute="bottom" constant="8" id="HZV-8x-uI9"/>
                                     <constraint firstItem="247" firstAttribute="leading" secondItem="711" secondAttribute="leading" id="KRe-JJ-eck"/>
                                     <constraint firstItem="277" firstAttribute="leading" secondItem="275" secondAttribute="trailing" constant="8" id="P0L-kR-hzx"/>
                                     <constraint firstAttribute="trailing" secondItem="498" secondAttribute="trailing" id="Ujs-2O-iLC"/>
                                     <constraint firstItem="277" firstAttribute="baseline" secondItem="233" secondAttribute="baseline" id="VKR-Go-Mzh"/>
                                     <constraint firstItem="233" firstAttribute="top" secondItem="498" secondAttribute="bottom" constant="8" id="VTC-Ma-gNR"/>
                                     <constraint firstItem="277" firstAttribute="baseline" secondItem="275" secondAttribute="baseline" id="bAw-7V-Kne"/>
-                                    <constraint firstItem="271" firstAttribute="top" secondItem="233" secondAttribute="bottom" constant="8" id="d7A-Mb-j5g"/>
-                                    <constraint firstItem="271" firstAttribute="baseline" secondItem="234" secondAttribute="baseline" id="dIZ-qH-mOz"/>
                                     <constraint firstItem="498" firstAttribute="top" secondItem="711" secondAttribute="top" id="jBF-ee-e8y"/>
                                     <constraint firstAttribute="bottom" secondItem="247" secondAttribute="bottom" constant="20" id="kUa-5C-BS4"/>
-                                    <constraint firstItem="271" firstAttribute="leading" secondItem="234" secondAttribute="trailing" constant="8" id="mtK-sF-CXg"/>
                                     <constraint firstItem="275" firstAttribute="leading" secondItem="711" secondAttribute="leading" id="ngp-iK-VVV"/>
-                                    <constraint firstAttribute="trailing" secondItem="271" secondAttribute="trailing" id="vPP-cA-5pl"/>
-                                    <constraint firstItem="234" firstAttribute="leading" secondItem="711" secondAttribute="leading" id="wGB-UL-VHk"/>
                                 </constraints>
                             </view>
-                            <connections>
-                                <outlet property="initialFirstResponder" destination="271" id="1405"/>
-                            </connections>
                         </tabViewItem>
                         <tabViewItem label="Map - Reduce" identifier="5" id="712">
                             <view key="view" id="713">

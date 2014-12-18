@@ -81,6 +81,7 @@
 		02AA29931477F8BD0041865F /* MHFileExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AA29921477F8BD0041865F /* MHFileExporter.m */; };
 		02ABF65F19E09C76009F4766 /* MHDatabaseCollectionOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02ABF65E19E09C76009F4766 /* MHDatabaseCollectionOutlineView.m */; };
 		02B143DC147C720D005AB320 /* MHFileImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B143DB147C720D005AB320 /* MHFileImporter.m */; };
+		02C3452A1A423C85004F0D2C /* MHCreateIndex.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02C345291A423C85004F0D2C /* MHCreateIndex.xib */; };
 		02C4C1C819A231090002FBD8 /* MongoObjCDriver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */; };
 		02C4C1CA19A231600002FBD8 /* MongoObjCDriver.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		02CEE9BE1486DD7A00E488DA /* MHTabTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CEE9BD1486DD7A00E488DA /* MHTabTitleView.m */; };
@@ -312,6 +313,7 @@
 		02B143DA147C720D005AB320 /* MHFileImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHFileImporter.h; sourceTree = "<group>"; };
 		02B143DB147C720D005AB320 /* MHFileImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHFileImporter.m; sourceTree = "<group>"; };
 		02B7CCE4197AA07D0031A57A /* MongoHub_DataModel6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MongoHub_DataModel6.xcdatamodel; sourceTree = "<group>"; };
+		02C345291A423C85004F0D2C /* MHCreateIndex.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHCreateIndex.xib; sourceTree = "<group>"; };
 		02C4C15F19A230BE0002FBD8 /* MongoObjCDriver.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MongoObjCDriver.xcodeproj; sourceTree = "<group>"; };
 		02CEE9BC1486DD7A00E488DA /* MHTabTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabTitleView.h; sourceTree = "<group>"; };
 		02CEE9BD1486DD7A00E488DA /* MHTabTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTabTitleView.m; sourceTree = "<group>"; };
@@ -804,6 +806,7 @@
 				0243B79119EC357700D06BFE /* MHQueryUpdateOperatorView.xib */,
 				1DF96F9311883D5E00C35AB8 /* MHQueryView.xib */,
 				029464DB19F588B900E1B1E6 /* MHActivityMonitorTab.xib */,
+				02C345291A423C85004F0D2C /* MHCreateIndex.xib */,
 				1D601B5511C8F24300C86274 /* MysqlImport.xib */,
 				1D26615111CFC5BE0092C6B5 /* MysqlExport.xib */,
 				1D64100E12C8E6BE0030AA4C /* MHJsonWindow.xib */,
@@ -953,6 +956,7 @@
 				1D1D65561189C5E000582917 /* querymenu.png in Resources */,
 				1D1D65571189C5E000582917 /* servermenu.png in Resources */,
 				1D1D65651189C93400582917 /* supportmenu.png in Resources */,
+				02C3452A1A423C85004F0D2C /* MHCreateIndex.xib in Resources */,
 				1D1D65A31189F05600582917 /* Icon.icns in Resources */,
 				0243B79219EC357700D06BFE /* MHQueryUpdateOperatorView.xib in Resources */,
 				027062BE19DF803600E6C36A /* background-grey_center@2x.png in Resources */,
