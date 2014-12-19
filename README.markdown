@@ -26,6 +26,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 - Display errors from import/export
 - Can import more than 200 documents [issue #172](https://github.com/jeromelebel/MongoHub-Mac/issues/172)
 - Fix for a crash when the ssh drops
+- New UI to create/drop indexes
 
 **3.1 Beta**
 
