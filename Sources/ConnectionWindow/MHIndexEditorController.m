@@ -93,6 +93,10 @@
 {
     self.indexKeys = nil;
     self.editedIndex = nil;
+    // the table be still be around longer than the controller
+    // make sure it will not call the controller after its dealloc
+    self.keyTableView.delegate = nil;
+    self.keyTableView.dataSource = nil;
     [super dealloc];
 }
 
@@ -174,12 +178,14 @@
 
 - (IBAction)cancelAction:(id)sender
 {
+    [self.window makeFirstResponder:nil];
     [NSApp endSheet:self.window returnCode:0];
 }
 
 
 - (IBAction)okAction:(id)sender
 {
+    [self.window makeFirstResponder:nil];
     [NSApp endSheet:self.window returnCode:1];
 }
 
