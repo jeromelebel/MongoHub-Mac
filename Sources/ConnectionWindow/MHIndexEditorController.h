@@ -38,7 +38,7 @@
     
     id<MHIndexEditorControllerDelegate>         _delegate;
 }
-@property (nonatomic, readwrite, strong) id<MHIndexEditorControllerDelegate> delegate;
+@property (nonatomic, readwrite, weak) id<MHIndexEditorControllerDelegate> delegate;
 @property (nonatomic, readonly, assign) MODIndexOpt *indexOptions;
 @property (nonatomic, readonly, assign) MODSortedDictionary *keys;
 
