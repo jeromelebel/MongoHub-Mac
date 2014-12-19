@@ -1129,11 +1129,10 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 
 - (IBAction)createIndexAction:(id)sender
 {
-    MHIndexEditorController *controller;
-    
-    controller = [[MHIndexEditorController alloc] init];
-    [controller modalForWindow:self.view.window];
-    controller.delegate = self;
+    NSAssert(self.indexEditorController == nil, @"should have no index editor");
+    self.indexEditorController = [[[MHIndexEditorController alloc] init] autorelease];
+    [self.indexEditorController modalForWindow:self.view.window];
+    self.indexEditorController.delegate = self;
 }
 
 - (IBAction)dropIndexAction:(id)sender
@@ -1155,7 +1154,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 
 - (void)indexEditorControllerDidCancel:(MHIndexEditorController *)controller
 {
-    
+    self.indexEditorController = nil;
 }
 
 - (void)indexEditorControllerDidValidate:(MHIndexEditorController *)controller
@@ -1164,6 +1163,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     [self.collection createIndexWithKeys:controller.keys indexOptions:controller.indexOptions callback:^(MODQuery *mongoQuery) {
         [self indexQueryAction:nil];
     }];
+    self.indexEditorController = nil;
 }
 
 @end
