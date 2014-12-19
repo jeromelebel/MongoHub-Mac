@@ -1153,17 +1153,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     }
 }
 
-- (IBAction)editIndexAction:(id)sender
-{
-    if (self.indexesOutlineViewController.selectedDocumentCount == 1) {
-        MHIndexEditorController *controller;
-    
-         controller = [[MHIndexEditorController alloc] initWithEditedIndex:[self.indexesOutlineViewController.selectedDocuments[0] objectForKey:@"objectvalue"]];
-        [controller modalForWindow:self.view.window];
-        controller.delegate = self;
-    }
-}
-
 - (void)indexEditorControllerDidCancel:(MHIndexEditorController *)controller
 {
     

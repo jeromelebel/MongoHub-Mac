@@ -828,13 +828,6 @@ DQ
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
                                                     </tableColumns>
-                                                    <connections>
-                                                        <binding destination="-2" name="doubleClickTarget" keyPath="self" id="dBB-SS-H8p">
-                                                            <dictionary key="options">
-                                                                <string key="NSSelectorName">editIndexAction:</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
                                                 </outlineView>
                                             </subviews>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
