@@ -9,6 +9,11 @@
 #import "MHIndexEditorController.h"
 #import <MongoObjCDriver/MongoObjCDriver.h>
 
+#define POPUP_BUTTON_ASCENDING_SORTING          0
+#define POPUP_BUTTON_DESCENDING_SORTING         1
+#define POPUP_BUTTON_HASHED_SORTING             2
+
+
 @interface MHIndexEditorController ()
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *nameTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSButton *backgroundButton;
@@ -71,10 +76,12 @@
         for (NSString *keyName in keys) {
             NSNumber *value;
             
-            if ([[keys objectForKey:keyName] integerValue] == 1) {
-                value = @0;
+            if ([[keys objectForKey:keyName] isEqual:@"hashed"]) {
+                value = @POPUP_BUTTON_HASHED_SORTING;
+            } else if ([[keys objectForKey:keyName] integerValue] == 1) {
+                value = @POPUP_BUTTON_ASCENDING_SORTING;
             } else {
-                value = @1;
+                value = @POPUP_BUTTON_DESCENDING_SORTING;
             }
             [self.indexKeys addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:keyName, @"name", value, @"sorting", nil]];
         }
@@ -110,10 +117,18 @@
     [self updateViews];
 }
 
+- (void)menuNeedsUpdate:(NSMenu*)menu
+{
+    [menu itemAtIndex:0].enabled = YES;
+    [menu itemAtIndex:1].enabled = YES;
+    [menu itemAtIndex:2].enabled = (self.indexKeys.count == 1);
+}
+
 - (void)updateViews
 {
     self.okButton.enabled = self.indexKeys.count > 0;
     self.removeKeyButton.enabled = self.keyTableView.numberOfSelectedRows > 0;
+    self.addKeyButton.enabled = (self.indexKeys.count != 1) || ([[self.indexKeys[0] objectForKey:@"sorting"] integerValue] != 2);
 }
 
 - (void)windowDidLoad
@@ -136,14 +151,14 @@
     [self.indexKeys addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:@"<index>", @"name", @0, @"sorting", nil]];
     [self.keyTableView reloadData];
     [self updateViews];
+    [self.keyTableView editColumn:0 row:self.indexKeys.count - 1 withEvent:nil select:YES];
 }
 
 - (IBAction)removeIndexKey:(id)sender
 {
-    if (self.keyTableView.selectedRow == 1) {
-        [self.indexKeys removeObjectAtIndex:self.keyTableView.selectedRowIndexes.firstIndex];
+    if (self.keyTableView.numberOfSelectedRows == 1) {
+        [self.indexKeys removeObjectAtIndex:self.keyTableView.selectedRow];
         [self.keyTableView reloadData];
-        [self.keyTableView editColumn:0 row:self.indexKeys.count - 1 withEvent:nil select:YES];
         [self updateViews];
     }
 }
@@ -173,7 +188,7 @@
 {
     MODIndexOpt *result;
     
-    result = [[MODIndexOpt alloc] init];
+    result = [[[MODIndexOpt alloc] init] autorelease];
     if (self.nameTextField.stringValue.length > 0) {
         result.name = self.nameTextField.stringValue;
     }
@@ -191,7 +206,21 @@
     
     result = [MODSortedMutableDictionary sortedDictionary];
     for (NSDictionary *key in self.indexKeys) {
-        [result setObject:([key[@"sorting"] integerValue] == 1)?@-1:@1 forKey:key[@"name"]];
+        id value = nil;
+        
+        switch ([key[@"sorting"] integerValue]) {
+            case POPUP_BUTTON_ASCENDING_SORTING:
+                value = @1;
+                break;
+            case POPUP_BUTTON_HASHED_SORTING:
+                value = @"hashed";
+                break;
+            case POPUP_BUTTON_DESCENDING_SORTING:
+                value = @-1;
+                break;
+        }
+        NSAssert(value != nil, @"weird value %@", key[@"sorting"]);
+        [result setObject:value forKey:key[@"name"]];
     }
     return result;
 }
@@ -214,6 +243,7 @@
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     [self.indexKeys[row] setObject:object forKey:tableColumn.identifier];
+    [self updateViews];
 }
 
 @end
