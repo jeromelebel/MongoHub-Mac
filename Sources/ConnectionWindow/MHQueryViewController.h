@@ -12,6 +12,7 @@
 @class MHResultsOutlineViewController;
 @class MODCollection;
 @class MHConnectionStore;
+@class MHIndexEditorController;
 
 @interface MHQueryViewController : MHTabItemViewController
 {
@@ -60,12 +61,12 @@
     IBOutlet NSTextField                        *_removeQueryTextField;
     IBOutlet NSProgressIndicator                *_removeQueryLoaderIndicator;
     
-    IBOutlet NSTextField                        *_indexTextField;
+    NSOutlineView                               *_indexOutlineView;
+    NSProgressIndicator                         *_indexLoaderIndicator;
+    NSButton                                    *_indexDropButton;
+    NSButton                                    *_indexCreateButton;
     MHResultsOutlineViewController              *_indexesOutlineViewController;
-    IBOutlet NSOutlineView                      *_indexOutlineView;
-    IBOutlet NSProgressIndicator                *_indexLoaderIndicator;
-    IBOutlet NSButton                           *_indexDropButton;
-    IBOutlet NSButton                           *_indexCreateButton;
+    MHIndexEditorController                     *_indexEditorController;
     
     IBOutlet NSTextView                         *_mrMapFunctionTextView;
     IBOutlet NSTextView                         *_mrReduceFunctionTextView;
@@ -97,13 +98,6 @@
 @interface MHQueryViewController (RemoveTab)
 - (IBAction)removeQuery:(id)sender;
 - (void)removeQueryComposer:(id)sender;
-
-@end
-
-@interface MHQueryViewController (IndexTab)
-- (IBAction)indexQueryAction:(id)sender;
-- (IBAction)createIndexAction:(id)sender;
-- (IBAction)dropIndexAction:(id)sender;
 
 @end
 

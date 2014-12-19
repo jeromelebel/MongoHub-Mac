@@ -7,10 +7,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHQueryViewController">
             <connections>
-                <outlet property="_indexCreateButton" destination="233" id="1rM-gC-NEQ"/>
-                <outlet property="_indexDropButton" destination="277" id="27s-6M-0Ja"/>
-                <outlet property="_indexLoaderIndicator" destination="498" id="15J-ti-q9w"/>
-                <outlet property="_indexOutlineView" destination="250" id="Ena-Tv-GhP"/>
                 <outlet property="_insertButton" destination="193" id="ezi-YK-FuE"/>
                 <outlet property="_insertDataTextView" destination="204" id="GT2-ad-33c"/>
                 <outlet property="_insertLoaderIndicator" destination="495" id="WhH-o6-NCg"/>
@@ -40,6 +36,10 @@
                 <outlet property="findSkipTextField" destination="76" id="cVC-Er-hQq"/>
                 <outlet property="findSortTextField" destination="123" id="NYq-pw-NXB"/>
                 <outlet property="findTotalResultsTextField" destination="98" id="6C1-vR-8lJ"/>
+                <outlet property="indexCreateButton" destination="233" id="pjR-np-5bX"/>
+                <outlet property="indexDropButton" destination="277" id="1yW-FA-50p"/>
+                <outlet property="indexLoaderIndicator" destination="498" id="dfK-hq-oaO"/>
+                <outlet property="indexOutlineView" destination="250" id="QOK-Yl-Cgw"/>
                 <outlet property="segmentedControl" destination="730" id="nzD-uA-qJd"/>
                 <outlet property="tabView" destination="701" id="2yd-zO-DWV"/>
                 <outlet property="updateButton" destination="148" id="Y6Q-2z-1aR"/>
@@ -774,13 +774,13 @@ DQ
                                 <rect key="frame" x="0.0" y="0.0" width="584" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="247">
+                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="247">
                                         <rect key="frame" x="0.0" y="20" width="584" height="381"/>
                                         <clipView key="contentView" id="96b-cX-8Vf">
                                             <rect key="frame" x="1" y="1" width="582" height="353"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" multipleSelection="NO" autosaveColumns="NO" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="252" id="250">
+                                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="15" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="252" id="250">
                                                     <rect key="frame" x="0.0" y="0.0" width="582" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -790,12 +790,12 @@ DQ
                                                     <tableColumns>
                                                         <tableColumn identifier="name" editable="NO" width="101" minWidth="16" maxWidth="1000" id="252">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
-                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <font key="font" metaFont="smallSystemBold"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                             </tableHeaderCell>
                                                             <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="255">
-                                                                <font key="font" metaFont="systemBold"/>
+                                                                <font key="font" metaFont="smallSystemBold"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
@@ -808,7 +808,7 @@ DQ
                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                             </tableHeaderCell>
                                                             <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="254">
-                                                                <font key="font" metaFont="systemBold"/>
+                                                                <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
@@ -821,13 +821,20 @@ DQ
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
                                                             <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="257">
-                                                                <font key="font" metaFont="systemBold"/>
+                                                                <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
                                                     </tableColumns>
+                                                    <connections>
+                                                        <binding destination="-2" name="doubleClickTarget" keyPath="self" id="dBB-SS-H8p">
+                                                            <dictionary key="options">
+                                                                <string key="NSSelectorName">editIndexAction:</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
                                                 </outlineView>
                                             </subviews>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1236,6 +1243,7 @@ CA
             </constraints>
             <point key="canvasLocation" x="139" y="153.5"/>
         </customView>
+        <userDefaultsController representsSharedInstance="YES" id="WGO-9Z-hTD"/>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>

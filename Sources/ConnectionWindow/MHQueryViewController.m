@@ -17,6 +17,7 @@
 #import "NSTextView+MongoHub.h"
 #import "UKSyntaxColoredTextViewController.h"
 #import "MHTabViewController.h"
+#import "MHIndexEditorController.h"
 
 #define IS_OBJECT_ID(value) ([value length] == 24 && [[value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"1234567890abcdefABCDEF"]] length] == 0)
 
@@ -65,12 +66,12 @@
 @property (nonatomic, readwrite, weak) NSTextField *removeQueryTextField;
 @property (nonatomic, readwrite, weak) NSProgressIndicator *removeQueryLoaderIndicator;
 
-@property (nonatomic, readwrite, weak) NSTextField *indexTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *indexLoaderIndicator;
+@property (nonatomic, readwrite, weak) IBOutlet NSOutlineView *indexOutlineView;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *indexDropButton;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *indexCreateButton;
 @property (nonatomic, readwrite, strong) MHResultsOutlineViewController *indexesOutlineViewController;
-@property (nonatomic, readwrite, weak) NSProgressIndicator *indexLoaderIndicator;
-@property (nonatomic, readwrite, weak) NSOutlineView *indexOutlineView;
-@property (nonatomic, readwrite, weak) NSButton *indexDropButton;
-@property (nonatomic, readwrite, weak) NSButton *indexCreateButton;
+@property (nonatomic, readwrite, strong) MHIndexEditorController * indexEditorController;
 
 @property (nonatomic, readwrite, strong) MHResultsOutlineViewController *mrOutlineViewController;
 @property (nonatomic, readwrite, weak) NSOutlineView *mrOutlineView;
@@ -94,6 +95,13 @@
 @interface MHQueryViewController (UpdateTab)
 - (IBAction)updateAddOperatorAction:(id)sender;
 - (IBAction)updateQueryComposer:(id)sender;
+
+@end
+
+@interface MHQueryViewController (IndexTab) <MHIndexEditorControllerDelegate>
+- (IBAction)indexQueryAction:(id)sender;
+- (IBAction)createIndexAction:(id)sender;
+- (IBAction)dropIndexAction:(id)sender;
 
 @end
 
@@ -128,7 +136,10 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 @synthesize findPreviousResultButton = _findPreviousResultButton;
 @synthesize findExpandPopUpButton = _findExpandPopUpButton;
 
-@synthesize insertDataTextView = _insertDataTextView, insertResultsTextField = _insertResultsTextField, insertLoaderIndicator = _insertLoaderIndicator, insertButton = _insertButton;
+@synthesize insertDataTextView = _insertDataTextView;
+@synthesize insertResultsTextField = _insertResultsTextField;
+@synthesize insertLoaderIndicator = _insertLoaderIndicator;
+@synthesize insertButton = _insertButton;
 @synthesize syntaxColoringController = _syntaxColoringController;
 
 @synthesize updateTabView = _updateTabView;
@@ -144,7 +155,12 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 
 @synthesize removeButton = _removeButton, removeCriteriaTextField = _removeCriteriaTextField, removeResultsTextField = _removeResultsTextField, removeQueryTextField = _removeQueryTextField, removeQueryLoaderIndicator = _removeQueryLoaderIndicator;
 
-@synthesize indexTextField = _indexTextField, indexesOutlineViewController = _indexesOutlineViewController, indexLoaderIndicator = _indexLoaderIndicator, indexOutlineView = _indexOutlineView, indexDropButton = _indexDropButton, indexCreateButton = _indexCreateButton;
+@synthesize indexLoaderIndicator = _indexLoaderIndicator;
+@synthesize indexOutlineView = _indexOutlineView;
+@synthesize indexDropButton = _indexDropButton;
+@synthesize indexCreateButton = _indexCreateButton;
+@synthesize indexesOutlineViewController = _indexesOutlineViewController;
+@synthesize indexEditorController = _indexEditorController;
 
 @synthesize mrOutlineViewController = _mrOutlineViewController, mrOutlineView = _mrOutlineView, mrLoaderIndicator = _mrLoaderIndicator, mrOutputTextField = _mrOutputTextField, mrCriteriaTextField = _mrCriteriaTextField, mrMapFunctionTextView = _mrMapFunctionTextView, mrReduceFunctionTextView = _mrReduceFunctionTextView;
 
@@ -1113,16 +1129,11 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 
 - (IBAction)createIndexAction:(id)sender
 {
-    [self.indexLoaderIndicator startAnimation:nil];
-    [self.collection createIndex:self.indexTextField.stringValue indexOptions:nil callback:^(MODQuery *mongoQuery) {
-        if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-        } else {
-            self.indexTextField.stringValue = @"";
-        }
-        [self.indexLoaderIndicator stopAnimation:nil];
-        [self indexQueryAction:nil];
-    }];
+    MHIndexEditorController *controller;
+    
+    controller = [[MHIndexEditorController alloc] init];
+    [controller modalForWindow:self.view.window];
+    controller.delegate = self;
 }
 
 - (IBAction)dropIndexAction:(id)sender
@@ -1140,6 +1151,30 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
             [self indexQueryAction:nil];
         }];
     }
+}
+
+- (IBAction)editIndexAction:(id)sender
+{
+    if (self.indexesOutlineViewController.selectedDocumentCount == 1) {
+        MHIndexEditorController *controller;
+    
+         controller = [[MHIndexEditorController alloc] initWithEditedIndex:[self.indexesOutlineViewController.selectedDocuments[0] objectForKey:@"objectvalue"]];
+        [controller modalForWindow:self.view.window];
+        controller.delegate = self;
+    }
+}
+
+- (void)indexEditorControllerDidCancel:(MHIndexEditorController *)controller
+{
+    
+}
+
+- (void)indexEditorControllerDidValidate:(MHIndexEditorController *)controller
+{
+    [self.indexLoaderIndicator startAnimation:nil];
+    [self.collection createIndexWithKeys:controller.keys indexOptions:controller.indexOptions callback:^(MODQuery *mongoQuery) {
+        [self indexQueryAction:nil];
+    }];
 }
 
 @end
