@@ -33,24 +33,34 @@
                 <subviews>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="hCk-GL-59e">
                         <rect key="frame" x="119" y="289" width="121" height="18"/>
+                        <string key="toolTip">To force the creation of a unique index, you can specify the dropDups option, which will only index the first occurrence of a value for the key, and delete all subsequent values.</string>
                         <buttonCell key="cell" type="check" title="Drop Duplicates" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gMt-iz-cS1">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="flagButtonAction:" target="-2" id="2AZ-Vn-KaX"/>
+                        </connections>
                     </button>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="esU-ib-Rr1">
+                    <button toolTip="A unique index causes MongoDB to reject all documents that contain a duplicate value for the indexed field." translatesAutoresizingMaskIntoConstraints="NO" id="esU-ib-Rr1">
                         <rect key="frame" x="244" y="289" width="66" height="18"/>
                         <buttonCell key="cell" type="check" title="Unique" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="6d5-n6-gDu">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="flagButtonAction:" target="-2" id="nXf-rO-C9O"/>
+                        </connections>
                     </button>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="7WV-sN-Zbv">
+                    <button toolTip="Background index construction allows read and write operations to continue while building the index." translatesAutoresizingMaskIntoConstraints="NO" id="7WV-sN-Zbv">
                         <rect key="frame" x="18" y="289" width="97" height="18"/>
                         <buttonCell key="cell" type="check" title="Background" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="rHe-60-57B">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="flagButtonAction:" target="-2" id="mmi-h4-8PF"/>
+                        </connections>
                     </button>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PZg-9j-bP6">
                         <rect key="frame" x="68" y="313" width="392" height="22"/>
@@ -171,12 +181,15 @@ Gw
                             <action selector="cancelAction:" target="-2" id="LNT-bo-9AQ"/>
                         </connections>
                     </button>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="JCM-PF-OVN">
+                    <button toolTip="A sparse index does not index documents that do not have the indexed field." translatesAutoresizingMaskIntoConstraints="NO" id="JCM-PF-OVN">
                         <rect key="frame" x="314" y="289" width="66" height="18"/>
                         <buttonCell key="cell" type="check" title="Sparse" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="3jH-rx-QHf">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="flagButtonAction:" target="-2" id="Roa-c6-nMa"/>
+                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fGf-KC-Hnu">
                         <rect key="frame" x="395" y="13" width="71" height="32"/>

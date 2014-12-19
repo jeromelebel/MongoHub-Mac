@@ -124,8 +124,17 @@
     [menu itemAtIndex:2].enabled = (self.indexKeys.count == 1);
 }
 
+- (IBAction)flagButtonAction:(id)sender
+{
+    [self updateViews];
+}
+
 - (void)updateViews
 {
+    self.dropDuplicatesButton.enabled = self.uniqueButton.state == NSOnState;
+    if (self.uniqueButton.state == NSOffState) {
+        self.dropDuplicatesButton.state = NSOffState;
+    }
     self.okButton.enabled = self.indexKeys.count > 0;
     self.removeKeyButton.enabled = self.keyTableView.numberOfSelectedRows > 0;
     self.addKeyButton.enabled = (self.indexKeys.count != 1) || ([[self.indexKeys[0] objectForKey:@"sorting"] integerValue] != 2);
