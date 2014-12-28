@@ -626,7 +626,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     
     NSString *skip = [[NSString alloc] initWithFormat:@".skip(%d)", self.findSkipTextField.intValue];
     NSString *limit = [[NSString alloc] initWithFormat:@".limit(%d)", self.findLimitTextField.intValue];
-    NSString *col = [NSString stringWithFormat:@"%@.%@", self.collection.name, self.collection.name];
+    NSString *col = [NSString stringWithFormat:@"%@", self.collection.name];
     
     NSString *query = [NSString stringWithFormat:@"db.%@.find(%@%@)%@%@%@", col, criteria, fieldFilterJson, sort, skip, limit];
     [sort release];
