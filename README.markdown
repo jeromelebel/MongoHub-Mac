@@ -11,6 +11,24 @@ Or you can compile it yourself using Xcode
 
 Just build it, it should work (but let me know if you have an errors or warnings).
 
+## Contributors (in alphabetic order of contribution)
+
+    [contributions](https://github.com/jeromelebel/MongoHub-Mac/graphs/contributors)
+
+- [Alex Shteinikov](https://github.com/idooo)
+- [Anthony Williams](https://github.com/abitgone)
+- [Chris Faulkner](https://github.com/faulkner)
+- [Lukas Benes](https://github.com/falsecz)
+- [Joseph Price](https://github.com/joprice)
+- [Olivier Hardy](https://github.com/ohardy)
+- [Philipp Krenn](https://github.com/xeraa)
+- [Prof Syd Xu](https://github.com/bububa)
+- [Steve Steiner](https://github.com/ssteinerx)
+- [Tom Bocklisch](https://github.com/tmbo)
+- [魏涛](https://github.com/undancer)
+
+Please [send me a pull request](https://github.com/jeromelebel/MongoHub-Mac/pull/new/master)!
+
 ## Current Status
 
 **To do list**
@@ -27,19 +45,9 @@ Just build it, it should work (but let me know if you have an errors or warnings
 - Can import more than 200 documents [issue #172](https://github.com/jeromelebel/MongoHub-Mac/issues/172)
 - Fix for a crash when the ssh drops [issue #171](https://github.com/jeromelebel/MongoHub-Mac/issues/171)
 - New UI to create/drop indexes [issue #178](https://github.com/jeromelebel/MongoHub-Mac/issues/178)
+- Removed duplicate collection name when generating displayed query in the find tab [pul #184](https://github.com/jeromelebel/MongoHub-Mac/pull/184), thanks to [Steve Steiner](https://github.com/ssteinerx)
 
 **3.1 Beta**
-
-## Contribute
-
-I'd love to include your contributions, friend.
-
-Please [send me a pull request](https://github.com/jeromelebel/MongoHub-Mac/pull/new/master)!
-
-## Contributors (in reverse order of contribution)
-
-### 2014-12-28 [ssteinerX](https://github.com/ssteinerx) 
-    #184 Removed duplicate collection name when generating displayed query string
 
 ## History
 
