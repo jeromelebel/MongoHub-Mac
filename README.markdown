@@ -34,7 +34,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 I'd love to include your contributions, friend.
 
-Then [send me a pull request](https://github.com/jeromelebel/MongoHub-Mac/pull/new/master)!
+Please [send me a pull request](https://github.com/jeromelebel/MongoHub-Mac/pull/new/master)!
 
 ## Contributors (in reverse order of contribution)
 
