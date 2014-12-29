@@ -27,7 +27,7 @@ List of all [contributions](https://github.com/jeromelebel/MongoHub-Mac/graphs/c
 - [Tom Bocklisch](https://github.com/tmbo)
 - [魏涛](https://github.com/undancer)
 
-Please [send me a pull request](https://github.com/jeromelebel/MongoHub-Mac/pull/new/master)!
+Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull/new/master)!
 
 ## Current Status
 
