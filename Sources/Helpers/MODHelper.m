@@ -101,7 +101,9 @@
         }
     } else if ([dataValue isKindOfClass:[NSDate class]]) {
         type = @"Date";
-        value = [dataValue description];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ssZZZ"];
+        value = [formatter stringFromDate:dataValue];
     } else if ([dataValue isKindOfClass:[MODObjectId class]]) {
         type = @"Object id";
         value = [dataValue jsonValueWithPretty:YES strictJSON:NO];
