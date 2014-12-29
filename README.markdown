@@ -38,7 +38,8 @@ Please [send me a pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 ## Contributors (in reverse order of contribution)
 
-[ssteinerX](https://github.com/ssteinerx) #184 Removed duplicate collection name when generating displayed query string
+### 2014-12-28 [ssteinerX](https://github.com/ssteinerx) 
+    ```#184 Removed duplicate collection name when generating displayed query string```
 
 ## History
 
