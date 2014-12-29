@@ -11,9 +11,9 @@ Or you can compile it yourself using Xcode
 
 Just build it, it should work (but let me know if you have an errors or warnings).
 
-## Contributors (in alphabetic order of contribution)
+## Contributors
 
-    [contributions](https://github.com/jeromelebel/MongoHub-Mac/graphs/contributors)
+[contributions](https://github.com/jeromelebel/MongoHub-Mac/graphs/contributors)
 
 - [Alex Shteinikov](https://github.com/idooo)
 - [Anthony Williams](https://github.com/abitgone)
