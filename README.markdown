@@ -30,6 +30,17 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 **3.1 Beta**
 
+## Contribute
+
+I'd love to include your contributions, friend.
+
+Please [send me a pull request](https://github.com/jeromelebel/MongoHub-Mac/pull/new/master)!
+
+## Contributors (in reverse order of contribution)
+
+### 2014-12-28 [ssteinerX](https://github.com/ssteinerx) 
+    #184 Removed duplicate collection name when generating displayed query string
+
 ## History
 
 **3.0.8 - november 5, 2014**
@@ -548,9 +559,3 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 - fixed some UI bugs;
 - add admin auth support.
-
-## Contribute
-
-I'd love to include your contributions, friend.
-
-Then [send me a pull request](https://github.com/jeromelebel/MongoHub-Mac/pull/new/master)!
