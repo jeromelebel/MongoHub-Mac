@@ -13,7 +13,7 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 ## Contributors
 
-[contributions](https://github.com/jeromelebel/MongoHub-Mac/graphs/contributors)
+List of all [contributions](https://github.com/jeromelebel/MongoHub-Mac/graphs/contributors).
 
 - [Alex Shteinikov](https://github.com/idooo)
 - [Anthony Williams](https://github.com/abitgone)
