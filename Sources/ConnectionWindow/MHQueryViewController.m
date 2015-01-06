@@ -582,29 +582,29 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 - (IBAction)removeRecord:(id)sender
 {
     NSMutableArray *documentIds;
-    MODSortedDictionary *criteria;
-    MODSortedDictionary *inCriteria;
     
     [self.removeQueryLoaderIndicator startAnimation:nil];
-    documentIds = [[NSMutableArray alloc] init];
+    documentIds = [NSMutableArray array];
     for (NSDictionary *document in self.findResultsViewController.selectedDocuments) {
         [documentIds addObject:[document objectForKey:@"objectvalueid"]];
     }
     
-    inCriteria = [[MODSortedDictionary alloc] initWithObjectsAndKeys:documentIds, @"$in", nil];
-    criteria = [[MODSortedDictionary alloc] initWithObjectsAndKeys:inCriteria, @"_id", nil];
-    [self.collection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
-        if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-        } else {
-            
-        }
-        [self.removeQueryLoaderIndicator stopAnimation:nil];
-        [self findQuery:nil];
-    }];
-    [criteria release];
-    [documentIds release];
-    [inCriteria release];
+    if (documentIds.count > 0) {
+        MODSortedDictionary *criteria;
+        MODSortedDictionary *inCriteria;
+        
+        inCriteria = [MODSortedDictionary sortedDictionaryWithObjectsAndKeys:documentIds, @"$in", nil];
+        criteria = [MODSortedDictionary sortedDictionaryWithObjectsAndKeys:inCriteria, @"_id", nil];
+        [self.collection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
+            if (mongoQuery.error) {
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+            } else {
+                
+            }
+            [self.removeQueryLoaderIndicator stopAnimation:nil];
+            [self findQuery:nil];
+        }];
+    }
 }
 
 - (void)findQueryComposer
