@@ -91,7 +91,6 @@
     [cursor forEachDocumentWithCallbackDocumentCallback:^(uint64_t index, MODSortedDictionary *document) {
         [self doExportToTable:tablename data:document fieldTypes:fieldTypes fieldMapping:fieldMapping];
         [progressIndicator setDoubleValue:(double)index/total];
-        NSLog(@"%lld %lld", index, total);
         return YES;
     } endCallback:^(uint64_t documentCounts, BOOL cursorStopped, MODQuery *mongoQuery) {
         [progressIndicator stopAnimation: self];
@@ -106,7 +105,7 @@
     
     query = [collection countWithCriteria:nil readPreferences:nil callback:nil];
     [query waitUntilFinished];
-    return [[query.parameters objectForKey:@"count"] longLongValue];
+    return [query.result longLongValue];
 }
 
 - (void)doExportToTable:(NSString *)tableName data:(id)mongoDocument fieldTypes:(NSDictionary *)fieldTypes fieldMapping:(NSArray *)fieldMapping
