@@ -271,6 +271,23 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(findResultOutlineViewNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.findResultsOutlineView];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(indexOutlineViewNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.indexOutlineView];
+    
+    if (NO) {
+        // remove map/reduce
+        self.segmentedControl.segmentCount = 6;
+        [self.tabView removeTabViewItem:[self.tabView tabViewItemAtIndex:6]];
+    } else if (YES) {
+        // remove aggregation
+        [self.segmentedControl setImage:[self.segmentedControl imageForSegment:6] forSegment:5];
+        [self.segmentedControl setImageScaling:[self.segmentedControl imageScalingForSegment:6] forSegment:5];
+        [self.segmentedControl setLabel:[self.segmentedControl labelForSegment:6] forSegment:5];
+        [self.segmentedControl setMenu:[self.segmentedControl menuForSegment:6] forSegment:5];
+        [self.segmentedControl setSelected:[self.segmentedControl isSelectedForSegment:6] forSegment:5];
+        [self.segmentedControl setEnabled:[self.segmentedControl isEnabledForSegment:6] forSegment:5];
+        [self.segmentedControl setWidth:[self.segmentedControl widthForSegment:6] forSegment:5];
+        self.segmentedControl.segmentCount = 6;
+        [self.tabView removeTabViewItem:[self.tabView tabViewItemAtIndex:5]];
+    }
 }
 
 - (NSString *)formatedJsonWithTextField:(NSTextField *)textField replace:(BOOL)replace emptyValid:(BOOL)emptyValid
@@ -428,11 +445,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 
 - (IBAction)segmentedControlAction:(id)sender
 {
-    NSString *identifier;
-    
-    identifier = [[NSString alloc] initWithFormat:@"%ld", (long)self.segmentedControl.selectedSegment];
-    [self.tabView selectTabViewItemWithIdentifier:identifier];
-    [identifier release];
+    [self.tabView selectTabViewItemAtIndex:self.segmentedControl.selectedSegment];
     [self selectBestTextField];
 }
 
