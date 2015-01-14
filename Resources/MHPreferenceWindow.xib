@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHPreferenceWindowController">
             <connections>
                 <outlet property="betaSoftwareButton" destination="Lvd-gF-Nde" id="Ll4-Fc-vfX"/>
+                <outlet property="collectionTabPopUpButton" destination="3M1-0W-QwV" id="wT9-ji-uhA"/>
                 <outlet property="connectTimeoutTextField" destination="ITT-FC-hwp" id="gPZ-zw-ySa"/>
                 <outlet property="defaultSortOrder" destination="Ege-Ia-Mp2" id="QR7-wc-cj9"/>
                 <outlet property="jsonColorTableView" destination="HL1-5s-6cY" id="vYQ-zh-p2C"/>
@@ -351,21 +352,50 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3M1-0W-QwV">
+                                            <rect key="frame" x="472" y="171" width="113" height="26"/>
+                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="nVz-hb-0Ik">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="7mb-PL-47c">
+                                                    <items>
+                                                        <menuItem title="Aggregation" id="gjj-QE-FiG"/>
+                                                        <menuItem title="Map/Reduce" tag="1" id="as6-6m-UUJ"/>
+                                                        <menuItem title="Both" tag="2" id="4at-g7-iJx"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="collectionTabAction:" target="-2" id="MU3-vW-WaZ"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dYO-Y0-W6V">
+                                            <rect key="frame" x="17" y="177" width="103" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Collection Tabs:" id="E8W-ZB-MOD">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="hMf-Pb-ISt" firstAttribute="leading" secondItem="ITT-FC-hwp" secondAttribute="trailing" constant="8" id="6C4-4B-BZ5"/>
                                         <constraint firstItem="sWz-TA-aFa" firstAttribute="top" secondItem="VI2-on-GQT" secondAttribute="bottom" constant="-19" id="6un-2D-RFG"/>
+                                        <constraint firstItem="dYO-Y0-W6V" firstAttribute="leading" secondItem="CrC-ha-OVx" secondAttribute="leading" constant="19" id="84v-sm-ZjO"/>
                                         <constraint firstItem="EiZ-D2-Asg" firstAttribute="leading" secondItem="VI2-on-GQT" secondAttribute="trailing" constant="8" id="Es8-dU-U9q"/>
                                         <constraint firstItem="VI2-on-GQT" firstAttribute="leading" secondItem="sWz-TA-aFa" secondAttribute="trailing" constant="8" id="Ihd-at-muP"/>
                                         <constraint firstAttribute="trailing" secondItem="hMf-Pb-ISt" secondAttribute="trailing" constant="17" id="MFc-bT-Raa"/>
                                         <constraint firstItem="ITT-FC-hwp" firstAttribute="leading" secondItem="GGZ-MV-HkT" secondAttribute="trailing" constant="8" id="Uhk-sg-xjH"/>
+                                        <constraint firstAttribute="trailing" secondItem="3M1-0W-QwV" secondAttribute="trailing" constant="17" id="Uil-a5-ayU"/>
                                         <constraint firstItem="ITT-FC-hwp" firstAttribute="top" secondItem="CrC-ha-OVx" secondAttribute="top" constant="3" id="c1C-wn-NFt"/>
                                         <constraint firstItem="GGZ-MV-HkT" firstAttribute="top" secondItem="ITT-FC-hwp" secondAttribute="bottom" constant="-19" id="d6u-eB-bwc"/>
+                                        <constraint firstItem="3M1-0W-QwV" firstAttribute="top" secondItem="VI2-on-GQT" secondAttribute="bottom" constant="8" id="jV6-ez-J4q"/>
                                         <constraint firstItem="GGZ-MV-HkT" firstAttribute="leading" secondItem="CrC-ha-OVx" secondAttribute="leading" constant="17" id="jxV-6l-RAb"/>
                                         <constraint firstItem="hMf-Pb-ISt" firstAttribute="top" secondItem="ITT-FC-hwp" secondAttribute="bottom" constant="-19" id="k5h-o9-l9C"/>
                                         <constraint firstAttribute="trailing" secondItem="EiZ-D2-Asg" secondAttribute="trailing" constant="17" id="lPg-Gg-LeG"/>
                                         <constraint firstItem="sWz-TA-aFa" firstAttribute="leading" secondItem="CrC-ha-OVx" secondAttribute="leading" constant="17" id="lkW-ud-Y3l"/>
                                         <constraint firstItem="EiZ-D2-Asg" firstAttribute="top" secondItem="VI2-on-GQT" secondAttribute="bottom" constant="-19" id="mJw-C5-Bu9"/>
+                                        <constraint firstItem="3M1-0W-QwV" firstAttribute="baseline" secondItem="dYO-Y0-W6V" secondAttribute="baseline" id="nzA-Hm-9pY"/>
                                         <constraint firstItem="VI2-on-GQT" firstAttribute="top" secondItem="ITT-FC-hwp" secondAttribute="bottom" constant="10" id="w6v-AL-qkZ"/>
                                     </constraints>
                                 </view>

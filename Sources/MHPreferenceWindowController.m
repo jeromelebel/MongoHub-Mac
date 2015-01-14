@@ -22,11 +22,12 @@
 
 @property (nonatomic, strong, readwrite) NSMutableArray *jsonComponents;
 
-@property (nonatomic, weak, readwrite) IBOutlet NSPopUpButton *defaultSortOrder;
-@property (nonatomic, weak, readwrite) IBOutlet NSPopUpButton *jsonKeySortOrderInSearch;
-
 @property (nonatomic, weak, readwrite) IBOutlet NSTextField *connectTimeoutTextField;
 @property (nonatomic, weak, readwrite) IBOutlet NSTextField *socketTimeoutTextField;
+
+@property (nonatomic, weak, readwrite) IBOutlet NSPopUpButton *defaultSortOrder;
+@property (nonatomic, weak, readwrite) IBOutlet NSPopUpButton *jsonKeySortOrderInSearch;
+@property (nonatomic, weak, readwrite) IBOutlet NSPopUpButton *collectionTabPopUpButton;
 
 @end
 
@@ -42,11 +43,12 @@
 @synthesize jsonTextLabelView = _jsonTextLabelView;
 @synthesize jsonTextColorWell = _jsonTextColorWell;
 
-@synthesize defaultSortOrder = _defaultSortOrder;
-@synthesize jsonKeySortOrderInSearch = _jsonKeySortOrderInSearch;
-
 @synthesize connectTimeoutTextField = _connectTimeoutTextField;
 @synthesize socketTimeoutTextField = _socketTimeoutTextField;
+
+@synthesize defaultSortOrder = _defaultSortOrder;
+@synthesize jsonKeySortOrderInSearch = _jsonKeySortOrderInSearch;
+@synthesize collectionTabPopUpButton = _collectionTabPopUpButton;
 
 + (MHPreferenceWindowController *)preferenceWindowController
 {
@@ -57,10 +59,11 @@
 
 - (void)awakeFromNib
 {
-    NSMutableSet *componentNames = [[[NSMutableSet alloc] init] autorelease];
+    NSMutableSet *componentNames = [NSMutableSet set];
     uint32_t value;
+    MHApplicationDelegate *appDelegate = (MHApplicationDelegate *)NSApplication.sharedApplication.delegate;
     
-    if ([(MHApplicationDelegate *)NSApplication.sharedApplication.delegate softwareUpdateChannel] == MHSoftwareUpdateChannelBeta) {
+    if ([appDelegate softwareUpdateChannel] == MHSoftwareUpdateChannelBeta) {
         self.betaSoftwareButton.state = NSOnState;
     } else {
         self.betaSoftwareButton.state = NSOffState;
@@ -99,6 +102,15 @@
     }
     [self.defaultSortOrder selectItemAtIndex:[self.class defaultSortOrder]];
     [self.jsonKeySortOrderInSearch selectItemAtIndex:[self.class jsonKeySortOrderInSearch]];
+    
+    if (appDelegate.hasCollectionAggregationTab && appDelegate.hasCollectionMapReduceTab) {
+        [self.collectionTabPopUpButton selectItemWithTag:2];
+    } else if (appDelegate.hasCollectionMapReduceTab) {
+        [self.collectionTabPopUpButton selectItemWithTag:1];
+    } else {
+        [self.collectionTabPopUpButton selectItemWithTag:0];
+    }
+    
 }
 
 - (IBAction)betaSoftwareAction:(id)sender
@@ -204,6 +216,10 @@
     self.jsonColorTableView.rowHeight = textField.bounds.size.height;
 }
 
+@end
+
+@implementation MHPreferenceWindowController (AdvancedTab)
+
 - (IBAction)timeoutTextFieldChanged:(id)sender
 {
     uint32_t value;
@@ -221,6 +237,30 @@
         if ([(MHApplicationDelegate *)[NSApp delegate] socketTimeout] == 0) {
             self.socketTimeoutTextField.stringValue = @"";
         }
+    }
+}
+
+- (IBAction)collectionTabAction:(id)sender
+{
+    MHApplicationDelegate *appDelegate = (MHApplicationDelegate *)NSApplication.sharedApplication.delegate;
+    
+    switch (self.collectionTabPopUpButton.selectedTag) {
+        case 0:
+            [appDelegate setCollectionAggregationTab:YES];
+            [appDelegate setCollectionMapReduceTab:NO];
+            break;
+        case 1:
+            [appDelegate setCollectionAggregationTab:NO];
+            [appDelegate setCollectionMapReduceTab:YES];
+            break;
+        case 2:
+            [appDelegate setCollectionAggregationTab:YES];
+            [appDelegate setCollectionMapReduceTab:YES];
+            break;
+            
+        default:
+            NSAssert(NO, @"unknown tag %ld", (long)self.collectionTabPopUpButton.selectedTag);
+            break;
     }
 }
 

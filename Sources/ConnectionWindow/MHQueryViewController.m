@@ -18,6 +18,7 @@
 #import "UKSyntaxColoredTextViewController.h"
 #import "MHTabViewController.h"
 #import "MHIndexEditorController.h"
+#import "MHApplicationDelegate.h"
 
 #define IS_OBJECT_ID(value) ([value length] == 24 && [[value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"1234567890abcdefABCDEF"]] length] == 0)
 
@@ -248,6 +249,8 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 
 - (void)awakeFromNib
 {
+    MHApplicationDelegate *appDelegate = (MHApplicationDelegate *)NSApplication.sharedApplication.delegate;
+    
     self.updateOperatorViews = [NSMutableArray array];
     [self updateAddOperatorAction:nil];
     
@@ -272,11 +275,12 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(findResultOutlineViewNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.findResultsOutlineView];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(indexOutlineViewNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.indexOutlineView];
     
-    if (NO) {
+    if (!appDelegate.hasCollectionMapReduceTab) {
         // remove map/reduce
         self.segmentedControl.segmentCount = 6;
         [self.tabView removeTabViewItem:[self.tabView tabViewItemAtIndex:6]];
-    } else if (YES) {
+    }
+    if (!appDelegate.hasCollectionAggregationTab) {
         // remove aggregation
         [self.segmentedControl setImage:[self.segmentedControl imageForSegment:6] forSegment:5];
         [self.segmentedControl setImageScaling:[self.segmentedControl imageScalingForSegment:6] forSegment:5];

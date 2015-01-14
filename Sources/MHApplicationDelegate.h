@@ -67,3 +67,11 @@ typedef enum {
 
 @interface MHApplicationDelegate (MHConnectionWindowControllerDelegate) <MHConnectionWindowControllerDelegate>
 @end
+
+@interface MHApplicationDelegate (Preferences)
+- (BOOL)hasCollectionMapReduceTab;
+- (void)setCollectionMapReduceTab:(BOOL)value;
+- (BOOL)hasCollectionAggregationTab;
+- (void)setCollectionAggregationTab:(BOOL)value;
+
+@end

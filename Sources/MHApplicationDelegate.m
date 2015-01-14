@@ -927,3 +927,55 @@
 }
 
 @end
+
+#define CollectionTabsKey                   @"CollectionTabs"
+#define MapReduceTabKey                     @"MapReduceTab"
+#define AggregationKey                      @"Aggregation"
+
+@implementation MHApplicationDelegate (Preferences)
+
+- (BOOL)hasCollectionMapReduceTab
+{
+    if ([[NSUserDefaults standardUserDefaults] dictionaryForKey:CollectionTabsKey][MapReduceTabKey]) {
+        return [[[NSUserDefaults standardUserDefaults] dictionaryForKey:CollectionTabsKey][MapReduceTabKey] boolValue];
+    } else {
+        return YES;
+    }
+}
+
+- (void)setCollectionMapReduceTab:(BOOL)value
+{
+    NSMutableDictionary *values = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:CollectionTabsKey] mutableCopy];
+    
+    if (!values) {
+        values = [[NSMutableDictionary alloc] init];
+    }
+    values[MapReduceTabKey] = @(value);
+    [[NSUserDefaults standardUserDefaults] setObject:values forKey:CollectionTabsKey];
+    RELEASE(values);
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL)hasCollectionAggregationTab
+{
+    if ([[NSUserDefaults standardUserDefaults] dictionaryForKey:CollectionTabsKey][AggregationKey]) {
+        return [[[NSUserDefaults standardUserDefaults] dictionaryForKey:CollectionTabsKey][AggregationKey] boolValue];
+    } else {
+        return NO;
+    }
+}
+
+- (void)setCollectionAggregationTab:(BOOL)value
+{
+    NSMutableDictionary *values = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:CollectionTabsKey] mutableCopy];
+    
+    if (!values) {
+        values = [[NSMutableDictionary alloc] init];
+    }
+    values[AggregationKey] = @(value);
+    [[NSUserDefaults standardUserDefaults] setObject:values forKey:CollectionTabsKey];
+    RELEASE(values);
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+@end

@@ -26,11 +26,12 @@ typedef enum {
     
     NSMutableArray                      *_jsonComponents;
     
-    NSTextField                         *_connectTimeoutTextField;
-    NSTextField                         *_socketTimeoutTextField;
-    
     NSPopUpButton                       *_defaultSortOrder;
     NSPopUpButton                       *_jsonKeySortOrderInSearch;
+    
+    NSTextField                         *_connectTimeoutTextField;
+    NSTextField                         *_socketTimeoutTextField;
+    NSPopUpButton                       *_collectionTabPopUpButton;
 }
 
 + (instancetype)preferenceWindowController;
