@@ -77,6 +77,7 @@
 @property (nonatomic, readwrite, weak) IBOutlet NSTextView *aggregationPipeline;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextView *aggregationOptions;
 @property (nonatomic, readwrite, weak) IBOutlet NSOutlineView *aggregationResultOutlineView;
+@property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *aggregationLoaderIndicator;
 @property (nonatomic, readwrite, strong) MHResultsOutlineViewController *aggregationResultOutlineViewController;
 
 @property (nonatomic, readwrite, strong) MHResultsOutlineViewController *mrOutlineViewController;
@@ -175,6 +176,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 @synthesize aggregationPipeline = _aggregationPipeline;
 @synthesize aggregationOptions = _aggregationOptions;
 @synthesize aggregationResultOutlineView = _aggregationResultOutlineView;
+@synthesize aggregationLoaderIndicator = _aggregationLoaderIndicator;
 @synthesize aggregationResultOutlineViewController = _aggregationResultOutlineViewController;
 
 @synthesize mrOutlineViewController = _mrOutlineViewController;
@@ -235,6 +237,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     self.connectionStore = nil;
     self.updateOperatorViews = nil;
     self.updateOperatorList = nil;
+    self.aggregationResultOutlineViewController = nil;
     
     [_jsonWindowControllers release];
     
@@ -276,6 +279,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     
     self.findResultsViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.findResultsOutlineView] autorelease];
     self.indexesOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.indexOutlineView] autorelease];
+    self.aggregationResultOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.aggregationResultOutlineView] autorelease];
     self.mrOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.mrOutlineView] autorelease];
     
     self.syntaxColoringController = [[[UKSyntaxColoredTextViewController alloc] init] autorelease];
@@ -1207,6 +1211,24 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         [self indexQueryAction:nil];
     }];
     self.indexEditorController = nil;
+}
+
+@end
+
+@implementation MHQueryViewController (Aggregation)
+
+- (IBAction)aggregationRunAction:(id)sender
+{
+    NSArray *pipeline;
+    MODSortedDictionary *options;
+    
+    [self.aggregationLoaderIndicator startAnimation:nil];
+    [self.collection aggregateWithFlags:MODQueryFlagsNone pipeline:pipeline options:options readPreferences:nil callback:^(MODQuery *mongoQuery, MODCursor *cursor) {
+        [self.aggregationLoaderIndicator stopAnimation:nil];
+        if (mongoQuery.error) {
+            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+        }
+    }];
 }
 
 @end

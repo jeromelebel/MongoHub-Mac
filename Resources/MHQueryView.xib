@@ -24,6 +24,7 @@
                 <outlet property="_removeQueryLoaderIndicator" destination="492" id="5i7-Rj-ZMY"/>
                 <outlet property="_removeQueryTextField" destination="172" id="fUX-9E-Klk"/>
                 <outlet property="_removeResultsTextField" destination="179" id="dyG-8e-2Bg"/>
+                <outlet property="aggregationLoaderIndicator" destination="DXB-IH-E89" id="LVS-bQ-2AG"/>
                 <outlet property="aggregationOptions" destination="1ev-q4-Cf4" id="Tf3-vX-ML2"/>
                 <outlet property="aggregationPipeline" destination="RVx-eI-klY" id="11V-fP-dcT"/>
                 <outlet property="findCriteriaComboBox" destination="1379" id="QCU-C0-5cX"/>
@@ -952,6 +953,9 @@ CA
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="aggregationRunAction:" target="-2" id="w2s-xq-aOq"/>
+                                        </connections>
                                     </button>
                                     <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="DXB-IH-E89">
                                         <rect key="frame" x="568" y="439" width="16" height="16"/>
@@ -1125,7 +1129,7 @@ CA
                                                             <rect key="frame" x="1" y="83" width="563" height="15"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
-                                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="L0l-VX-4YH">
+                                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="L0l-VX-4YH">
                                                             <rect key="frame" x="549" y="17" width="15" height="66"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>

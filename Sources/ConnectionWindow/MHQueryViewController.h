@@ -71,6 +71,7 @@
     NSTextView                                  *_aggregationPipeline;
     NSTextView                                  *_aggregationOptions;
     NSOutlineView                               *_aggregationResultOutlineView;
+    NSProgressIndicator                         *_aggregationLoaderIndicator;
     MHResultsOutlineViewController              *_aggregationResultOutlineViewController;
     
     IBOutlet NSTextView                         *_mrMapFunctionTextView;
