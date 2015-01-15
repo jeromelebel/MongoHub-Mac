@@ -952,7 +952,7 @@
     }
     values[MapReduceTabKey] = @(value);
     [[NSUserDefaults standardUserDefaults] setObject:values forKey:CollectionTabsKey];
-    RELEASE(values);
+    MOD_RELEASE(values);
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -974,7 +974,7 @@
     }
     values[AggregationKey] = @(value);
     [[NSUserDefaults standardUserDefaults] setObject:values forKey:CollectionTabsKey];
-    RELEASE(values);
+    MOD_RELEASE(values);
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
