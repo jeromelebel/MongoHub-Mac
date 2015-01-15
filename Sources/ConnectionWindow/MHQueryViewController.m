@@ -1225,8 +1225,22 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     [self.aggregationLoaderIndicator startAnimation:nil];
     [self.collection aggregateWithFlags:MODQueryFlagsNone pipeline:pipeline options:options readPreferences:nil callback:^(MODQuery *mongoQuery, MODCursor *cursor) {
         [self.aggregationLoaderIndicator stopAnimation:nil];
+        
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+            self.aggregationResultOutlineViewController.results = nil;
+        } else {
+            NSMutableArray *documents = [NSMutableArray array];
+            NSMutableArray *allData = [NSMutableArray array];
+            
+            [cursor forEachDocumentWithCallbackDocumentCallback:^(uint64_t index, MODSortedDictionary *document, NSData *documentData) {
+                [documents addObject:document];
+                [allData addObject:documentData];
+                return YES;
+            }
+                                                    endCallback:^(uint64_t documentCounts, BOOL cursorStopped, MODQuery *mongoQuery) {
+                                                        self.aggregationResultOutlineViewController.results = [MODHelper convertForOutlineWithObjects:documents bsonData:allData jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
+                                                    }];
         }
     }];
 }
