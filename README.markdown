@@ -48,6 +48,7 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Removed duplicate collection name when generating displayed query in the find tab [pul #184](https://github.com/jeromelebel/MongoHub-Mac/pull/184), thanks to [Steve Steiner](https://github.com/ssteinerx)
 - Showing dates in the outline view in local time zone [issue #174](https://github.com/jeromelebel/MongoHub-Mac/issues/174)
 - Fix to export to mysql
+- Can insert multiple documents in the insert tab with [ { document1 }, { document2 }, ... ]
 
 **3.1 Beta**
 

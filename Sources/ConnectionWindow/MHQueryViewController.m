@@ -716,9 +716,15 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 {
     id objects;
     NSError *error;
+    NSString *json;
     
     [self.insertLoaderIndicator startAnimation:nil];
-    objects = [MODRagelJsonParser objectsFromJson:self.insertDataTextView.string withError:&error];
+    if ([[self.insertDataTextView.string stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] characterAtIndex:0] == '[') {
+        json = self.insertDataTextView.string;
+    } else {
+        json = [NSString stringWithFormat:@"[ %@ ]", self.insertDataTextView.string];
+    }
+    objects = [MODRagelJsonParser objectsFromJson:json withError:&error];
     if (error) {
         NSColor *currentColor;
         
