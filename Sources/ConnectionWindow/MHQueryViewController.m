@@ -74,6 +74,11 @@
 @property (nonatomic, readwrite, strong) MHResultsOutlineViewController *indexesOutlineViewController;
 @property (nonatomic, readwrite, strong) MHIndexEditorController * indexEditorController;
 
+@property (nonatomic, readwrite, weak) IBOutlet NSTextView *aggregationPipeline;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextView *aggregationOptions;
+@property (nonatomic, readwrite, weak) IBOutlet NSOutlineView *aggregationResultOutlineView;
+@property (nonatomic, readwrite, strong) MHResultsOutlineViewController *aggregationResultOutlineViewController;
+
 @property (nonatomic, readwrite, strong) MHResultsOutlineViewController *mrOutlineViewController;
 @property (nonatomic, readwrite, weak) NSOutlineView *mrOutlineView;
 @property (nonatomic, readwrite, weak) NSProgressIndicator *mrLoaderIndicator;
@@ -154,7 +159,11 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 @synthesize updateOperatorViews = _updateOperatorViews;
 @synthesize updateOperatorList = _updateOperatorList;
 
-@synthesize removeButton = _removeButton, removeCriteriaTextField = _removeCriteriaTextField, removeResultsTextField = _removeResultsTextField, removeQueryTextField = _removeQueryTextField, removeQueryLoaderIndicator = _removeQueryLoaderIndicator;
+@synthesize removeButton = _removeButton;
+@synthesize removeCriteriaTextField = _removeCriteriaTextField;
+@synthesize removeResultsTextField = _removeResultsTextField;
+@synthesize removeQueryTextField = _removeQueryTextField;
+@synthesize removeQueryLoaderIndicator = _removeQueryLoaderIndicator;
 
 @synthesize indexLoaderIndicator = _indexLoaderIndicator;
 @synthesize indexOutlineView = _indexOutlineView;
@@ -163,7 +172,18 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 @synthesize indexesOutlineViewController = _indexesOutlineViewController;
 @synthesize indexEditorController = _indexEditorController;
 
-@synthesize mrOutlineViewController = _mrOutlineViewController, mrOutlineView = _mrOutlineView, mrLoaderIndicator = _mrLoaderIndicator, mrOutputTextField = _mrOutputTextField, mrCriteriaTextField = _mrCriteriaTextField, mrMapFunctionTextView = _mrMapFunctionTextView, mrReduceFunctionTextView = _mrReduceFunctionTextView;
+@synthesize aggregationPipeline = _aggregationPipeline;
+@synthesize aggregationOptions = _aggregationOptions;
+@synthesize aggregationResultOutlineView = _aggregationResultOutlineView;
+@synthesize aggregationResultOutlineViewController = _aggregationResultOutlineViewController;
+
+@synthesize mrOutlineViewController = _mrOutlineViewController;
+@synthesize mrOutlineView = _mrOutlineView;
+@synthesize mrLoaderIndicator = _mrLoaderIndicator;
+@synthesize mrOutputTextField = _mrOutputTextField;
+@synthesize mrCriteriaTextField = _mrCriteriaTextField;
+@synthesize mrMapFunctionTextView = _mrMapFunctionTextView;
+@synthesize mrReduceFunctionTextView = _mrReduceFunctionTextView;
 
 - (instancetype)initWithCollection:(MODCollection *)collection connectionStore:(MHConnectionStore *)connectionStore
 {

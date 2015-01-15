@@ -68,6 +68,11 @@
     MHResultsOutlineViewController              *_indexesOutlineViewController;
     MHIndexEditorController                     *_indexEditorController;
     
+    NSTextView                                  *_aggregationPipeline;
+    NSTextView                                  *_aggregationOptions;
+    NSOutlineView                               *_aggregationResultOutlineView;
+    MHResultsOutlineViewController              *_aggregationResultOutlineViewController;
+    
     IBOutlet NSTextView                         *_mrMapFunctionTextView;
     IBOutlet NSTextView                         *_mrReduceFunctionTextView;
     IBOutlet NSTextField                        *_mrCriteriaTextField;
