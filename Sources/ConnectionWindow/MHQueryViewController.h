@@ -38,11 +38,11 @@
     NSButton                                    *_findNextResultButton;
     NSButton                                    *_findPreviousResultButton;
     
-    IBOutlet NSButton                           *_insertButton;
-    IBOutlet NSTextView                         *_insertDataTextView;
-    IBOutlet NSTextField                        *_insertResultsTextField;
-    IBOutlet NSProgressIndicator                *_insertLoaderIndicator;
-    UKSyntaxColoredTextViewController           *_syntaxColoringController;
+    NSButton                                    *_insertButton;
+    NSTextView                                  *_insertDataTextView;
+    NSTextField                                 *_insertResultsTextField;
+    NSProgressIndicator                         *_insertLoaderIndicator;
+    UKSyntaxColoredTextViewController           *_insertSyntaxColoringController;
     
     NSView                                      *_updateTabView;
     NSButton                                    *_updateButton;
@@ -55,11 +55,11 @@
     NSMutableArray                              *_updateOperatorViews;
     NSArray                                     *_updateOperatorList;
     
-    IBOutlet NSButton                           *_removeButton;
-    IBOutlet NSTextField                        *_removeCriteriaTextField;
-    IBOutlet NSTextField                        *_removeResultsTextField;
-    IBOutlet NSTextField                        *_removeQueryTextField;
-    IBOutlet NSProgressIndicator                *_removeQueryLoaderIndicator;
+    NSButton                                    *_removeButton;
+    NSTextField                                 *_removeCriteriaTextField;
+    NSTextField                                 *_removeResultsTextField;
+    NSTextField                                 *_removeQueryTextField;
+    NSProgressIndicator                         *_removeQueryLoaderIndicator;
     
     NSOutlineView                               *_indexOutlineView;
     NSProgressIndicator                         *_indexLoaderIndicator;
@@ -73,16 +73,16 @@
     NSOutlineView                               *_aggregationResultOutlineView;
     NSProgressIndicator                         *_aggregationLoaderIndicator;
     MHResultsOutlineViewController              *_aggregationResultOutlineViewController;
+    UKSyntaxColoredTextViewController           *_aggregationPipelineSyntaxColoringController;
+    UKSyntaxColoredTextViewController           *_aggregationOptionsSyntaxColoringController;
     
-    IBOutlet NSTextView                         *_mrMapFunctionTextView;
-    IBOutlet NSTextView                         *_mrReduceFunctionTextView;
-    IBOutlet NSTextField                        *_mrCriteriaTextField;
-    IBOutlet NSTextField                        *_mrOutputTextField;
-    IBOutlet NSProgressIndicator                *_mrLoaderIndicator;
+    NSTextView                                  *_mrMapFunctionTextView;
+    NSTextView                                  *_mrReduceFunctionTextView;
+    NSTextField                                 *_mrCriteriaTextField;
+    NSTextField                                 *_mrOutputTextField;
+    NSProgressIndicator                         *_mrLoaderIndicator;
+    NSOutlineView                               *_mrOutlineView;
     MHResultsOutlineViewController              *_mrOutlineViewController;
-    IBOutlet NSOutlineView                      *_mrOutlineView;
-    
-    IBOutlet id                                 _monTest;
 }
 
 @property (nonatomic, readonly, strong) MODCollection *collection;

@@ -23,6 +23,8 @@
 #define IS_OBJECT_ID(value) ([value length] == 24 && [[value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"1234567890abcdefABCDEF"]] length] == 0)
 
 @interface MHQueryViewController () <NSTextFieldDelegate>
+@property (nonatomic, readwrite, strong) NSMutableDictionary *jsonWindowControllers;
+
 @property (nonatomic, readwrite, weak) IBOutlet NSSegmentedControl *segmentedControl;
 @property (nonatomic, readwrite, weak) IBOutlet NSTabView *tabView;
 
@@ -44,11 +46,11 @@
 @property (nonatomic, readwrite, weak) IBOutlet NSButton *findNextResultButton;
 @property (nonatomic, readwrite, weak) IBOutlet NSButton *findPreviousResultButton;
 
-@property (nonatomic, readwrite, weak) NSButton *insertButton;
-@property (nonatomic, readwrite, weak) NSTextView *insertDataTextView;
-@property (nonatomic, readwrite, weak) NSTextField *insertResultsTextField;
-@property (nonatomic, readwrite, weak) NSProgressIndicator *insertLoaderIndicator;
-@property (nonatomic, readwrite, strong) UKSyntaxColoredTextViewController *syntaxColoringController;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *insertButton;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextView *insertDataTextView;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *insertResultsTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *insertLoaderIndicator;
+@property (nonatomic, readwrite, strong) UKSyntaxColoredTextViewController *insertSyntaxColoringController;
 
 @property (nonatomic, readwrite, weak) IBOutlet NSView *updateTabView;
 @property (nonatomic, readwrite, weak) IBOutlet NSButton *updateButton;
@@ -61,11 +63,11 @@
 @property (nonatomic, readwrite, strong) NSMutableArray *updateOperatorViews;
 @property (nonatomic, readwrite, strong) NSArray *updateOperatorList;
 
-@property (nonatomic, readwrite, weak) NSButton *removeButton;
-@property (nonatomic, readwrite, weak) NSTextField *removeCriteriaTextField;
-@property (nonatomic, readwrite, weak) NSTextField *removeResultsTextField;
-@property (nonatomic, readwrite, weak) NSTextField *removeQueryTextField;
-@property (nonatomic, readwrite, weak) NSProgressIndicator *removeQueryLoaderIndicator;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *removeButton;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *removeCriteriaTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *removeResultsTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *removeQueryTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *removeQueryLoaderIndicator;
 
 @property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *indexLoaderIndicator;
 @property (nonatomic, readwrite, weak) IBOutlet NSOutlineView *indexOutlineView;
@@ -79,14 +81,16 @@
 @property (nonatomic, readwrite, weak) IBOutlet NSOutlineView *aggregationResultOutlineView;
 @property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *aggregationLoaderIndicator;
 @property (nonatomic, readwrite, strong) MHResultsOutlineViewController *aggregationResultOutlineViewController;
+@property (nonatomic, readwrite, strong) UKSyntaxColoredTextViewController *aggregationPipelineSyntaxColoringController;
+@property (nonatomic, readwrite, strong) UKSyntaxColoredTextViewController *aggregationOptionsSyntaxColoringController;
 
 @property (nonatomic, readwrite, strong) MHResultsOutlineViewController *mrOutlineViewController;
-@property (nonatomic, readwrite, weak) NSOutlineView *mrOutlineView;
-@property (nonatomic, readwrite, weak) NSProgressIndicator *mrLoaderIndicator;
-@property (nonatomic, readwrite, weak) NSTextField *mrOutputTextField;
-@property (nonatomic, readwrite, weak) NSTextField *mrCriteriaTextField;
-@property (nonatomic, readwrite, weak) NSTextView *mrMapFunctionTextView;
-@property (nonatomic, readwrite, weak) NSTextView *mrReduceFunctionTextView;
+@property (nonatomic, readwrite, weak) IBOutlet NSOutlineView *mrOutlineView;
+@property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *mrLoaderIndicator;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *mrOutputTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *mrCriteriaTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextView *mrMapFunctionTextView;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextView *mrReduceFunctionTextView;
 
 - (void)selectBestTextField;
 
@@ -125,6 +129,8 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 }
 
 @implementation MHQueryViewController
+@synthesize jsonWindowControllers = _jsonWindowControllers;
+
 @synthesize collection = _collection, connectionStore = _connectionStore;
 @synthesize tabView = _tabView, segmentedControl = _segmentedControl;
 
@@ -147,7 +153,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 @synthesize insertResultsTextField = _insertResultsTextField;
 @synthesize insertLoaderIndicator = _insertLoaderIndicator;
 @synthesize insertButton = _insertButton;
-@synthesize syntaxColoringController = _syntaxColoringController;
+@synthesize insertSyntaxColoringController = _insertSyntaxColoringController;
 
 @synthesize updateTabView = _updateTabView;
 @synthesize updateButton = _updateButton;
@@ -178,6 +184,8 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 @synthesize aggregationResultOutlineView = _aggregationResultOutlineView;
 @synthesize aggregationLoaderIndicator = _aggregationLoaderIndicator;
 @synthesize aggregationResultOutlineViewController = _aggregationResultOutlineViewController;
+@synthesize aggregationPipelineSyntaxColoringController = _aggregationPipelineSyntaxColoringController;
+@synthesize aggregationOptionsSyntaxColoringController = _aggregationOptionsSyntaxColoringController;
 
 @synthesize mrOutlineViewController = _mrOutlineViewController;
 @synthesize mrOutlineView = _mrOutlineView;
@@ -229,7 +237,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     [self.collection removeObserver:self forKeyPath:@"database"];
     [self.collection removeObserver:self forKeyPath:@"name"];
     
-    self.syntaxColoringController = nil;
+    self.insertSyntaxColoringController = nil;
     self.indexesOutlineViewController = nil;
     self.mrOutlineViewController = nil;
     self.findResultsViewController = nil;
@@ -237,9 +245,12 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     self.connectionStore = nil;
     self.updateOperatorViews = nil;
     self.updateOperatorList = nil;
-    self.aggregationResultOutlineViewController = nil;
     
-    [_jsonWindowControllers release];
+    self.aggregationResultOutlineViewController = nil;
+    self.aggregationPipelineSyntaxColoringController = nil;
+    self.aggregationOptionsSyntaxColoringController = nil;
+    
+    self.jsonWindowControllers = nil;
     
     [super dealloc];
 }
@@ -282,15 +293,22 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     self.aggregationResultOutlineViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.aggregationResultOutlineView]);
     self.mrOutlineViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.mrOutlineView]);
     
-    self.syntaxColoringController = MOD_AUTORELEASE([[UKSyntaxColoredTextViewController alloc] init]);
-    self.syntaxColoringController.delegate = self;
-    self.syntaxColoringController.view = self.insertDataTextView;
+    self.insertSyntaxColoringController = MOD_AUTORELEASE([[UKSyntaxColoredTextViewController alloc] init]);
+    self.insertSyntaxColoringController.delegate = self;
+    self.insertSyntaxColoringController.view = self.insertDataTextView;
     
     self.title = self.collection.absoluteName;
-    _jsonWindowControllers = [[NSMutableDictionary alloc] init];
+    self.jsonWindowControllers = [NSMutableDictionary dictionary];
     [self defaultSortOrderChangedNotification:nil]; // this will call findQueryComposer
     [self updateQueryComposer:nil];
     [self removeQueryComposer:nil];
+    
+    self.aggregationPipelineSyntaxColoringController = MOD_AUTORELEASE([[UKSyntaxColoredTextViewController alloc] init]);
+    self.aggregationPipelineSyntaxColoringController.delegate = self;
+    self.aggregationPipelineSyntaxColoringController.view = self.aggregationPipeline;
+    self.aggregationOptionsSyntaxColoringController = MOD_AUTORELEASE([[UKSyntaxColoredTextViewController alloc] init]);
+    self.aggregationOptionsSyntaxColoringController.delegate = self;
+    self.aggregationOptionsSyntaxColoringController.view = self.aggregationOptions;
     
     [self.insertDataTextView mh_jsonSetup];
     [self.mrReduceFunctionTextView mh_jsonSetup];
@@ -444,7 +462,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         MHJsonWindowController *jsonWindowController;
         
         idValue = [document objectForKey:@"objectvalueid"];
-        jsonWindowController = [_jsonWindowControllers objectForKey:idValue];
+        jsonWindowController = self.jsonWindowControllers[idValue];
         if (!jsonWindowController) {
             jsonWindowController = [[MHJsonWindowController alloc] init];
             jsonWindowController.collection = self.collection;
@@ -452,7 +470,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
             jsonWindowController.jsonDocument = document[@"objectvalue"];
             jsonWindowController.bsonData = document[@"bsondata"];
             [jsonWindowController showWindow:sender];
-            [_jsonWindowControllers setObject:jsonWindowController forKey:jsonWindowControllerKey];
+            self.jsonWindowControllers[jsonWindowControllerKey] = jsonWindowController;
             [jsonWindowController release];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(findQuery:) name:kJsonWindowSaved object:jsonWindowController];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jsonWindowWillClose:) name:kJsonWindowWillClose object:jsonWindowController];
@@ -468,7 +486,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kJsonWindowSaved object:notification.object];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kJsonWindowWillClose object:notification.object];
-    [_jsonWindowControllers removeObjectForKey:jsonWindowController.windowControllerId];
+    [self.jsonWindowControllers removeObjectForKey:jsonWindowController.windowControllerId];
 }
 
 - (IBAction)segmentedControlAction:(id)sender
@@ -1219,10 +1237,14 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 
 - (IBAction)aggregationRunAction:(id)sender
 {
-    NSArray *pipeline;
-    MODSortedDictionary *options;
+    NSArray *pipeline = nil;
+    MODSortedDictionary *options = nil;
+    NSError *error = nil;
     
     [self.aggregationLoaderIndicator startAnimation:nil];
+    
+    pipeline = [MODRagelJsonParser objectsFromJson:self.aggregationPipeline.string withError:&error];
+    options = [MODRagelJsonParser objectsFromJson:self.aggregationOptions.string withError:&error];
     [self.collection aggregateWithFlags:MODQueryFlagsNone pipeline:pipeline options:options readPreferences:nil callback:^(MODQuery *mongoQuery, MODCursor *cursor) {
         [self.aggregationLoaderIndicator stopAnimation:nil];
         

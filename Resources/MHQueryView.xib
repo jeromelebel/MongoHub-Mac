@@ -7,26 +7,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHQueryViewController">
             <connections>
-                <outlet property="_aggregationResultOutlineView" destination="yvV-p4-3yF" id="uQY-j1-kq8"/>
-                <outlet property="_insertButton" destination="193" id="ezi-YK-FuE"/>
-                <outlet property="_insertDataTextView" destination="204" id="GT2-ad-33c"/>
-                <outlet property="_insertLoaderIndicator" destination="495" id="WhH-o6-NCg"/>
-                <outlet property="_insertResultsTextField" destination="191" id="5jQ-kh-645"/>
-                <outlet property="_monTest" destination="zZC-YL-h8X" id="Ywq-y1-pJm"/>
-                <outlet property="_mrCriteriaTextField" destination="321" id="G5W-nf-c6m"/>
-                <outlet property="_mrLoaderIndicator" destination="501" id="w2k-be-olb"/>
-                <outlet property="_mrMapFunctionTextView" destination="303" id="pUH-WT-yzA"/>
-                <outlet property="_mrOutlineView" destination="338" id="lDC-VE-U3w"/>
-                <outlet property="_mrOutputTextField" destination="333" id="7Xt-d8-dDE"/>
-                <outlet property="_mrReduceFunctionTextView" destination="318" id="Jij-Xf-8cz"/>
-                <outlet property="_removeButton" destination="160" id="3rM-lI-94n"/>
-                <outlet property="_removeCriteriaTextField" destination="164" id="fEv-Ws-g6o"/>
-                <outlet property="_removeQueryLoaderIndicator" destination="492" id="5i7-Rj-ZMY"/>
-                <outlet property="_removeQueryTextField" destination="172" id="fUX-9E-Klk"/>
-                <outlet property="_removeResultsTextField" destination="179" id="dyG-8e-2Bg"/>
                 <outlet property="aggregationLoaderIndicator" destination="DXB-IH-E89" id="LVS-bQ-2AG"/>
                 <outlet property="aggregationOptions" destination="1ev-q4-Cf4" id="Tf3-vX-ML2"/>
                 <outlet property="aggregationPipeline" destination="RVx-eI-klY" id="11V-fP-dcT"/>
+                <outlet property="aggregationResultOutlineView" destination="yvV-p4-3yF" id="R8X-aE-dFe"/>
                 <outlet property="findCriteriaComboBox" destination="1379" id="QCU-C0-5cX"/>
                 <outlet property="findExpandPopUpButton" destination="cSj-cm-ZZb" id="hRX-Pe-aMM"/>
                 <outlet property="findFieldFilterTextField" destination="PZE-gt-pMA" id="Fw6-Bz-pba"/>
@@ -44,6 +28,21 @@
                 <outlet property="indexDropButton" destination="277" id="1yW-FA-50p"/>
                 <outlet property="indexLoaderIndicator" destination="498" id="dfK-hq-oaO"/>
                 <outlet property="indexOutlineView" destination="250" id="QOK-Yl-Cgw"/>
+                <outlet property="insertButton" destination="193" id="myV-bT-zRN"/>
+                <outlet property="insertDataTextView" destination="204" id="QTj-oO-wTE"/>
+                <outlet property="insertLoaderIndicator" destination="495" id="6ee-Eg-ut1"/>
+                <outlet property="insertResultsTextField" destination="191" id="69z-Yc-22Z"/>
+                <outlet property="mrCriteriaTextField" destination="321" id="VXW-0f-bBo"/>
+                <outlet property="mrLoaderIndicator" destination="501" id="NK7-1y-Jta"/>
+                <outlet property="mrMapFunctionTextView" destination="303" id="iJs-FP-oIo"/>
+                <outlet property="mrOutlineView" destination="338" id="uc1-sb-i0m"/>
+                <outlet property="mrOutputTextField" destination="333" id="63x-2P-A2h"/>
+                <outlet property="mrReduceFunctionTextView" destination="318" id="PfH-CH-wPB"/>
+                <outlet property="removeButton" destination="160" id="LhL-IC-0qI"/>
+                <outlet property="removeCriteriaTextField" destination="164" id="Gju-VF-1Hc"/>
+                <outlet property="removeQueryLoaderIndicator" destination="492" id="geu-qd-bQd"/>
+                <outlet property="removeQueryTextField" destination="172" id="LjT-kJ-2Bf"/>
+                <outlet property="removeResultsTextField" destination="179" id="p5J-8B-cuz"/>
                 <outlet property="segmentedControl" destination="730" id="nzD-uA-qJd"/>
                 <outlet property="tabView" destination="701" id="2yd-zO-DWV"/>
                 <outlet property="updateButton" destination="148" id="Y6Q-2z-1aR"/>
