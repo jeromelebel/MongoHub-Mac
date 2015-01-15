@@ -277,12 +277,12 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     self.updateOperatorViews = [NSMutableArray array];
     [self updateAddOperatorAction:nil];
     
-    self.findResultsViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.findResultsOutlineView] autorelease];
-    self.indexesOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.indexOutlineView] autorelease];
-    self.aggregationResultOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.aggregationResultOutlineView] autorelease];
-    self.mrOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.mrOutlineView] autorelease];
+    self.findResultsViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.findResultsOutlineView]);
+    self.indexesOutlineViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.indexOutlineView]);
+    self.aggregationResultOutlineViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.aggregationResultOutlineView]);
+    self.mrOutlineViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.mrOutlineView]);
     
-    self.syntaxColoringController = [[[UKSyntaxColoredTextViewController alloc] init] autorelease];
+    self.syntaxColoringController = MOD_AUTORELEASE([[UKSyntaxColoredTextViewController alloc] init]);
     self.syntaxColoringController.delegate = self;
     self.syntaxColoringController.view = self.insertDataTextView;
     
