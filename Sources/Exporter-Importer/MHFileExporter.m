@@ -62,7 +62,7 @@
             self.documentProcessedCount = 0;
             
             cursor = [_collection cursorWithCriteria:nil fields:nil skip:0 limit:0 sort:nil];
-            [cursor forEachDocumentWithCallbackDocumentCallback:^(uint64_t index, MODSortedDictionary *document) {
+            [cursor forEachDocumentWithCallbackDocumentCallback:^(uint64_t index, MODSortedDictionary *document, NSData *documentData) {
                 NSString *jsonDocument;
                 const char *cString;
                 
