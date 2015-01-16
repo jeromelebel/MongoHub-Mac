@@ -874,24 +874,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     NSUInteger previousViewIndex;
     NSViewController *viewController = [[[NSViewController alloc] init] autorelease];
 
-    if ([[NSBundle mainBundle] respondsToSelector:@selector(loadNibNamed:owner:topLevelObjects:)]) {
-        [NSBundle.mainBundle loadNibNamed:@"MHQueryUpdateOperatorView" owner:viewController topLevelObjects:nil];
-    } else {
-        // specific for 10.7
-        NSInvocation *invocation;
-        NSMethodSignature *methodSignature;
-        NSString *string = @"MHQueryUpdateOperatorView";
-        
-        methodSignature = [NSBundle methodSignatureForSelector:@selector(loadNibNamed:owner:)];
-        NSAssert(methodSignature, @"Cannot get the method signature for %@", NSStringFromSelector(@selector(loadNibNamed:owner:)));
-        invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
-        NSAssert(invocation, @"Cannot get the invocation for signature %@", methodSignature);
-        invocation.selector = @selector(loadNibNamed:owner:);
-        invocation.target = NSBundle.class;
-        [invocation setArgument:&string atIndex:2];
-        [invocation setArgument:&viewController atIndex:3];
-        [invocation invoke];
-    }
+    [NSBundle.mainBundle loadNibNamed:@"MHQueryUpdateOperatorView" owner:viewController topLevelObjects:nil];
     mainView = viewController.view;
     NSAssert(mainView != nil, @"Should have found one top level object");
     line[@"main"] = mainView;
