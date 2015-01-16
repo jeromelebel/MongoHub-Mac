@@ -13,7 +13,7 @@
 {
     self = [self init];
     if (self) {
-        [NSBundle loadNibNamed:@"MHImportExportFeedback" owner:self];
+        [NSBundle.mainBundle loadNibNamed:@"MHImportExportFeedback" owner:self topLevelObjects:nil];
         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(importerExporterNotification:) name:MHImporterExporterProgressNotification object:importerExporter];
     }
     return self;

@@ -49,6 +49,7 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Showing dates in the outline view in local time zone [issue #174](https://github.com/jeromelebel/MongoHub-Mac/issues/174)
 - Fix to export to mysql
 - Can insert multiple documents in the insert tab with [ { document1 }, { document2 }, ... ]
+- Dropping support for 10.7
 
 **3.1 Beta**
 
