@@ -1,6 +1,6 @@
 ## System Requirements
 
-Mac OS X (10.8.x, 10.9.x, 10.10.x), intel(64bit/32bit) based.
+Mac OS X (10.8.x, 10.9.x, 10.10.x), intel 64bit based.
 
 ## Download
 
@@ -50,6 +50,7 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Fix to export to mysql
 - Can insert multiple documents in the insert tab with [ { document1 }, { document2 }, ... ]
 - Dropping support for 10.7
+- Dropping support for 32bits
 
 **3.1 Beta**
 
