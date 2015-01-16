@@ -70,7 +70,11 @@
 
 - (void)rightMouseDown:(NSEvent *)event
 {
-    [self openContextualMenuWithEvent:event];
+    if (self.window.attachedSheet) {
+        [super rightMouseDown:event];
+    } else {
+        [self openContextualMenuWithEvent:event];
+    }
 }
 
 - (void)newItemAction:(id)sender

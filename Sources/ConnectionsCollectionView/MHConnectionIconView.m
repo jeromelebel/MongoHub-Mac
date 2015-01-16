@@ -48,12 +48,6 @@
     }
 }
 
-- (void)rightMouseDown:(NSEvent *)event
-{
-    self.delegate.selected = YES;
-    [self.delegate connectionIconViewOpenContextualMenu:self withEvent:event];
-}
-
 - (NSTextField *)connectionLabel
 {
     return [self viewWithTag:1];
@@ -108,6 +102,16 @@
         [self.delegate connectionIconViewDoubleClick:self];
     } else {
         [super mouseDown:event];
+    }
+}
+
+- (void)rightMouseDown:(NSEvent *)event
+{
+    if (self.window.attachedSheet) {
+        [super rightMouseDown:event];
+    } else {
+        self.delegate.selected = YES;
+        [self.delegate connectionIconViewOpenContextualMenu:self withEvent:event];
     }
 }
 

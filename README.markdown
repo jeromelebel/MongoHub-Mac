@@ -51,6 +51,7 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Can insert multiple documents in the insert tab with [ { document1 }, { document2 }, ... ]
 - Dropping support for 10.7
 - Dropping support for 32bits
+- Don't open a contextual menu if a sheet is opened [issue #183](https://github.com/jeromelebel/MongoHub-Mac/issues/183)
 
 **3.1 Beta**
 
