@@ -951,6 +951,8 @@ CA
                                         <buttonCell key="cell" type="roundTextured" title="Run" bezelStyle="texturedRounded" image="runmenu" imagePosition="left" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3Zl-cG-Wvj">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent">r</string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="aggregationRunAction:" target="-2" id="w2s-xq-aOq"/>
@@ -1080,7 +1082,7 @@ CA
                                                                     <tableViewGridLines key="gridStyleMask" vertical="YES"/>
                                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                     <tableColumns>
-                                                                        <tableColumn editable="NO" width="139.15625" minWidth="16" maxWidth="1000" id="5Zj-YL-hof">
+                                                                        <tableColumn identifier="name" editable="NO" width="139.15625" minWidth="16" maxWidth="1000" id="5Zj-YL-hof">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                                                 <font key="font" metaFont="smallSystemBold"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1093,7 +1095,7 @@ CA
                                                                             </textFieldCell>
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         </tableColumn>
-                                                                        <tableColumn editable="NO" width="354" minWidth="40" maxWidth="1000" id="suS-AU-Zo4">
+                                                                        <tableColumn identifier="value" editable="NO" width="354" minWidth="40" maxWidth="1000" id="suS-AU-Zo4">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Value">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1106,7 +1108,7 @@ CA
                                                                             </textFieldCell>
                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         </tableColumn>
-                                                                        <tableColumn editable="NO" width="80" minWidth="80" maxWidth="80" id="7gK-Su-n31">
+                                                                        <tableColumn identifier="type" editable="NO" width="80" minWidth="80" maxWidth="80" id="7gK-Su-n31">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Type">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
