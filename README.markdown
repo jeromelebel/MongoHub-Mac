@@ -1,6 +1,6 @@
 ## System Requirements
 
-Mac OS X (10.8.x, 10.9.x, 10.x), intel(64bit/32bit) based.
+Mac OS X (10.8.x, 10.9.x, 10.10.x), intel(64bit/32bit) based.
 
 ## Download
 
