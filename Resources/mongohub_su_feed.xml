@@ -103,21 +103,21 @@
             <description><![CDATA[
                 <h3>3.1 beta 1</h3>
                 <ul>
-                <li>Can copy documents in the Find tab</li>
-                <li>Adding support for full screen in a connection window <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/175'>issue #175</a></li>
-                <li>Adding a preference for the default sort order in the Find tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/129'>issue #129</a></li>
-                <li>Adding a preference to present keys sorted in the Find tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/77'>issue #77</a></li>
-                <li>Display errors from import/export</li>
-                <li>Can import more than 200 documents <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/172'>issue #172</a></li>
-                <li>Fix for a crash when the ssh drops <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/171'>issue #171</a></li>
-                <li>New UI to create/drop indexes <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/178'>issue #178</a></li>
-                <li>Removed duplicate collection name when generating displayed query in the find tab [pul #184](https://github.com/jeromelebel/MongoHub-Mac/pull/184</a>, thanks to <a href='https://github.com/ssteinerx'>Steve Steiner</a></li>
-                <li>Showing dates in the outline view in local time zone <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/174'>issue #174</a></li>
-                <li>Fix to export to mysql</li>
-                <li>Can insert multiple documents in the insert tab with [ { document1 }, { document2 }, ... ]</li>
-                <li>Dropping support for 10.7</li>
-                <li>Dropping support for 32bits</li>
-                <li>Don't open a contextual menu if a sheet is opened <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/183'>issue #183</a></li>
+                    <li>Can copy documents in the Find tab</li>
+                    <li>Adding support for full screen in a connection window <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/175'>issue #175</a></li>
+                    <li>Adding a preference for the default sort order in the Find tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/129'>issue #129</a></li>
+                    <li>Adding a preference to present keys sorted in the Find tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/77'>issue #77</a></li>
+                    <li>Display errors from import/export</li>
+                    <li>Can import more than 200 documents <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/172'>issue #172</a></li>
+                    <li>Fix for a crash when the ssh drops <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/171'>issue #171</a></li>
+                    <li>New UI to create/drop indexes <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/178'>issue #178</a></li>
+                    <li>Removed duplicate collection name when generating displayed query in the find tab [pul #184](https://github.com/jeromelebel/MongoHub-Mac/pull/184</a>, thanks to <a href='https://github.com/ssteinerx'>Steve Steiner</a></li>
+                    <li>Showing dates in the outline view in local time zone <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/174'>issue #174</a></li>
+                    <li>Fix to export to mysql</li>
+                    <li>Can insert multiple documents in the insert tab with [ { document1 }, { document2 }, ... ]</li>
+                    <li>Dropping support for 10.7</li>
+                    <li>Dropping support for 32bits</li>
+                    <li>Don't open a contextual menu if a sheet is opened <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/183'>issue #183</a></li>
                 </ul>
             ]]>
             </description>
