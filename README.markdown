@@ -15,17 +15,17 @@ Just build it, it should work (but let me know if you have an errors or warnings
 
 List of all [contributions](https://github.com/jeromelebel/MongoHub-Mac/graphs/contributors).
 
-- [Alex Shteinikov](https://github.com/idooo)
-- [Anthony Williams](https://github.com/abitgone)
-- [Chris Faulkner](https://github.com/faulkner)
-- [Lukas Benes](https://github.com/falsecz)
-- [Joseph Price](https://github.com/joprice)
-- [Olivier Hardy](https://github.com/ohardy)
-- [Philipp Krenn](https://github.com/xeraa)
-- [Prof Syd Xu](https://github.com/bububa)
-- [Steve Steiner](https://github.com/ssteinerx)
-- [Tom Bocklisch](https://github.com/tmbo)
-- [魏涛](https://github.com/undancer)
+- [Alex Shteinikov](https://github.com/idooo)  [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=idooo)
+- [Anthony Williams](https://github.com/abitgone) [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=abitgone)
+- [Chris Faulkner](https://github.com/faulkner) [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=faulkner)
+- [Lukas Benes](https://github.com/falsecz) [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=falsecz)
+- [Joseph Price](https://github.com/joprice) [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=joprice)
+- [Olivier Hardy](https://github.com/ohardy) [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=ohardy)
+- [Philipp Krenn](https://github.com/xeraa) [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=xeraa)
+- [Prof Syd Xu](https://github.com/bububa) [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=bububa)
+- [Steve Steiner](https://github.com/ssteinerx) [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=ssteinerx)
+- [Tom Bocklisch](https://github.com/tmbo) [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=tmbo)
+- [魏涛](https://github.com/undancer) [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=undancer)
 
 Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull/new/master)!
 
