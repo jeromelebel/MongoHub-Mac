@@ -118,6 +118,7 @@
                     <li>Dropping support for 10.7</li>
                     <li>Dropping support for 32bits</li>
                     <li>Don't open a contextual menu if a sheet is opened <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/183'>issue #183</a></li>
+                    <li>Crash fixed to parse wrong regexp in a json <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/191'>issue #191</a></li>
                 </ul>
             ]]>
             </description>
