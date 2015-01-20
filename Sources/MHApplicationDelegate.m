@@ -478,6 +478,7 @@
     self.bundleVersion.stringValue = [NSString stringWithFormat:@"version: %@", [NSBundle.mainBundle.infoDictionary objectForKey:@"CFBundleShortVersionString"]];
     
     self.updater = [[[SUUpdater alloc] init] autorelease];
+    self.updater.sendsSystemProfile = YES;
     self.updater.delegate = self;
     [self checkForUpdatesEveryDay:nil];
 }
