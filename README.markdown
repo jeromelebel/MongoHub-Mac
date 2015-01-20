@@ -37,7 +37,28 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 **Current**
 
+- Can copy documents in the Find tab
+- Adding support for full screen in a connection window [issue #175](https://github.com/jeromelebel/MongoHub-Mac/issues/175)
+- Adding a preference for the default sort order in the Find tab [issue #129](https://github.com/jeromelebel/MongoHub-Mac/issues/129)
+- Adding a preference to present keys sorted in the Find tab [issue #77](https://github.com/jeromelebel/MongoHub-Mac/issues/77)
+- Display errors from import/export
+- Can import more than 200 documents [issue #172](https://github.com/jeromelebel/MongoHub-Mac/issues/172)
+- Fix for a crash when the ssh drops [issue #171](https://github.com/jeromelebel/MongoHub-Mac/issues/171)
+- New UI to create/drop indexes [issue #178](https://github.com/jeromelebel/MongoHub-Mac/issues/178)
+- Removed duplicate collection name when generating displayed query in the find tab [pul #184](https://github.com/jeromelebel/MongoHub-Mac/pull/184), thanks to [Steve Steiner](https://github.com/ssteinerx)
+- Showing dates in the outline view in local time zone [issue #174](https://github.com/jeromelebel/MongoHub-Mac/issues/174)
+- Fix to export to mysql
+- Can insert multiple documents in the insert tab with [ { document1 }, { document2 }, ... ]
+- Dropping support for 10.7
+- Dropping support for 32bits
+- Don't open a contextual menu if a sheet is opened [issue #183](https://github.com/jeromelebel/MongoHub-Mac/issues/183)
+- Crash fixed to parse wrong regexp in a json [issue #191](https://github.com/jeromelebel/MongoHub-Mac/issues/191)
+
 **3.1 Beta**
+
+## History
+
+**3.1 beta 1 - january 19, 2015**
 
 - Can copy documents in the Find tab
 - Adding support for full screen in a connection window [issue #175](https://github.com/jeromelebel/MongoHub-Mac/issues/175)
@@ -54,9 +75,7 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Dropping support for 10.7
 - Dropping support for 32bits
 - Don't open a contextual menu if a sheet is opened [issue #183](https://github.com/jeromelebel/MongoHub-Mac/issues/183)
-- Fix to parse wrong regexp in a json [issue #191](https://github.com/jeromelebel/MongoHub-Mac/issues/191)
-
-## History
+- Crash fixed to parse wrong regexp in a json [issue #191](https://github.com/jeromelebel/MongoHub-Mac/issues/191)
 
 **3.0.8 - november 5, 2014**
 
