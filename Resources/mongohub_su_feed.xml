@@ -98,11 +98,13 @@
         <language>en</language>
         <item>
             <beta>1</beta>
-            <title>Version 3.1 beta 1</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.1b1.zip" sparkle:version="3.1b1" type="application/octet-stream" />
+            <title>Version 3.1 beta 2</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.1b2.zip" sparkle:version="3.1b2" type="application/octet-stream" />
             <description><![CDATA[
                 <h3>3.1 beta 1</h3>
                 <ul>
+                    <li>Better parsing errors in the aggregation tab</li>
+                    <li>Avoiding some crashes in the aggregation tab</li>
                     <li>Can copy documents in the Find tab</li>
                     <li>Adding support for full screen in a connection window <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/175'>issue #175</a></li>
                     <li>Adding a preference for the default sort order in the Find tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/129'>issue #129</a></li>

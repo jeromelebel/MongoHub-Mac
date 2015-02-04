@@ -58,6 +58,11 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 ## History
 
+**3.1 beta 2 - february 4, 2015**
+
+- Better parsing errors in the aggregation tab
+- Avoiding some crashes in the aggregation tab
+
 **3.1 beta 1 - january 19, 2015**
 
 - Can copy documents in the Find tab
