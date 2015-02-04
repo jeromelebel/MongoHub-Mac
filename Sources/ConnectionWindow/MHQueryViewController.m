@@ -1227,6 +1227,10 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     [self.aggregationLoaderIndicator startAnimation:nil];
     
     pipeline = [MODRagelJsonParser objectsFromJson:self.aggregationPipeline.string withError:&error];
+    if ([pipeline isKindOfClass:[MODSortedDictionary class]]) {
+        // just make it easier for the user if he omits []
+        pipeline = @[ pipeline ];
+    }
     options = [MODRagelJsonParser objectsFromJson:self.aggregationOptions.string withError:&error];
     [self.collection aggregateWithFlags:MODQueryFlagsNone pipeline:pipeline options:options readPreferences:nil callback:^(MODQuery *mongoQuery, MODCursor *cursor) {
         [self.aggregationLoaderIndicator stopAnimation:nil];
