@@ -1224,14 +1224,21 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     MODSortedDictionary *options = nil;
     NSError *error = nil;
     
-    [self.aggregationLoaderIndicator startAnimation:nil];
-    
     pipeline = [MODRagelJsonParser objectsFromJson:self.aggregationPipeline.string withError:&error];
+    if (error) {
+        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, @"%@", @"%@", error.localizedDescription);
+        return;
+    }
     if ([pipeline isKindOfClass:[MODSortedDictionary class]]) {
         // just make it easier for the user if he omits []
         pipeline = @[ pipeline ];
     }
     options = [MODRagelJsonParser objectsFromJson:self.aggregationOptions.string withError:&error];
+    if (error) {
+        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, @"%@", @"%@", error.localizedDescription);
+        return;
+    }
+    [self.aggregationLoaderIndicator startAnimation:nil];
     [self.collection aggregateWithFlags:MODQueryFlagsNone pipeline:pipeline options:options readPreferences:nil callback:^(MODQuery *mongoQuery, MODCursor *cursor) {
         [self.aggregationLoaderIndicator stopAnimation:nil];
         
