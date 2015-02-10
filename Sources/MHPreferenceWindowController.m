@@ -35,11 +35,24 @@
 @end
 
 @implementation MHPreferenceWindowController
+{
+    NSButton                            *_betaSoftwareButton;
+    NSColorWell                         *_textBackgroundColorWell;
+    NSTableView                         *_jsonColorTableView;
+    NSTextField                         *_jsonTextLabelView;
+    NSColorWell                         *_jsonTextColorWell;
+    
+    NSPopUpButton                       *_defaultSortOrder;
+    NSPopUpButton                       *_jsonKeySortOrderInSearch;
+    
+    NSTextField                         *_connectTimeoutTextField;
+    NSTextField                         *_socketTimeoutTextField;
+    NSPopUpButton                       *_collectionTabPopUpButton;
+}
 
 @synthesize betaSoftwareButton = _betaSoftwareButton;
 @synthesize textBackgroundColorWell = _textBackgroundColorWell;
 @synthesize jsonColorTableView = _jsonColorTableView;
-@synthesize jsonComponents = _jsonComponents;
 @synthesize jsonTextLabelView = _jsonTextLabelView;
 @synthesize jsonTextColorWell = _jsonTextColorWell;
 

@@ -47,18 +47,11 @@
 @end
 
 @implementation MHApplicationDelegate
-
-@synthesize updater = _updater;
-@synthesize window = _window;
-@synthesize connectionCollectionView = _connectionCollectionView;
-@synthesize connectionsArrayController = _connectionsArrayController;
-@synthesize bundleVersion = _bundleVersion;
-@synthesize preferenceWindowController = _preferenceWindowController;
-@synthesize connectionEditorWindowController = _connectionEditorWindowController;
-@synthesize urlConnectionEditorWindowControllers = _urlConnectionEditorWindowControllers;
-@synthesize connectionWindowControllers = _connectionWindowControllers;
-@synthesize supportPanel = _supportPanel;
-@synthesize logWindowController = _logWindowController;
+{
+    NSPersistentStoreCoordinator            *_persistentStoreCoordinator;
+    NSManagedObjectModel                    *_managedObjectModel;
+    NSManagedObjectContext                  *_managedObjectContext;
+}
 
 - (void)awakeFromNib
 {
@@ -147,7 +140,7 @@
     if necessary.)
  */
 
-- (NSPersistentStoreCoordinator *) persistentStoreCoordinator
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
     if (_persistentStoreCoordinator) return _persistentStoreCoordinator;
 

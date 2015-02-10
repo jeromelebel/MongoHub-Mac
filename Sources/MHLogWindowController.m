@@ -16,10 +16,6 @@
 
 @implementation MHLogWindowController
 
-@synthesize delegate = _delegate;
-@synthesize logs = _logs;
-@synthesize logTableView = _logTableView;
-
 + (instancetype)logWindowController
 {
     return [[[MHLogWindowController alloc] initWithWindowNibName:@"MHLogWindow"] autorelease];

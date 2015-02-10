@@ -24,25 +24,6 @@ typedef enum {
 } MHSoftwareUpdateChannel;
 
 @interface MHApplicationDelegate : NSObject <NSApplicationDelegate, NSCollectionViewDelegate>
-{
-    NSWindow                                *_window;
-    
-    NSPersistentStoreCoordinator            *_persistentStoreCoordinator;
-    NSManagedObjectModel                    *_managedObjectModel;
-    NSManagedObjectContext                  *_managedObjectContext;
-    MHConnectionEditorWindowController      *_connectionEditorWindowController;
-    NSMutableArray                          *_urlConnectionEditorWindowControllers;
-    NSMutableArray                          *_connectionWindowControllers;
-    MHPreferenceWindowController            *_preferenceWindowController;
-    MHLogWindowController                   *_logWindowController;
-    
-    MHConnectionCollectionView              *_connectionCollectionView;
-    ConnectionsArrayController              *_connectionsArrayController;
-    NSTextField                             *_bundleVersion;
-    NSPanel                                 *_supportPanel;
-    
-    SUUpdater                               *_updater;
-}
 
 @property (nonatomic, strong, readonly) NSWindow *window;
 
