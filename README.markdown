@@ -56,6 +56,8 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 **3.1 Beta**
 
+- Documents are copied inside an array (using the pasteboard) [issue #195](https://github.com/jeromelebel/MongoHub-Mac/issues/195)
+
 ## History
 
 **3.1 beta 2 - february 4, 2015**

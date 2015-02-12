@@ -111,13 +111,18 @@
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pasteboard
 {
-    NSMutableString *string;
+    NSMutableString *string = [NSMutableString stringWithString:@"[\n"];
+    BOOL firstDocument = YES;
     
-    string = [NSMutableString string];
     for (NSDictionary *item in items) {
+        if (firstDocument) {
+            firstDocument = NO;
+        } else {
+            [string appendString:@",\n"];
+        }
         [string appendString:[MODClient convertObjectToJson:[[self rootForItem:item] objectForKey:@"objectvalue"] pretty:YES strictJson:NO jsonKeySortOrder:MODJsonKeySortOrderDocument]];
-        [string appendString:@"\n"];
     }
+    [string appendString:@"\n]\n"];
     [pasteboard setString:string forType:NSStringPboardType];
     return YES;
 }
