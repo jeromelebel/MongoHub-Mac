@@ -201,15 +201,19 @@
         urlString = [self.connectionStore stringURLWithSSHMapping:nil];
         [self.delegate connectionWindowControllerLogMessage:urlString domain:[NSString stringWithFormat:@"%@.url", self.connectionStore.alias] level:@"debug"];
         self.client = [MODClient clientWihtURLString:urlString];
-        self.client.sshMapping = self.sshBindedPortMapping;
-        if (self.connectionStore.useSSL) {
-            self.client.sslOptions = [[[MODSSLOptions alloc] initWithPemFileName:nil pemPassword:nil caFileName:nil caDirectory:nil crlFileName:nil weakCertificate:self.connectionStore.weakCertificate.boolValue] autorelease];
+        if (self.client == nil) {
+            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"Invalid URL %@", urlString);
+        } else {
+            self.client.sshMapping = self.sshBindedPortMapping;
+            if (self.connectionStore.useSSL) {
+                self.client.sslOptions = [[[MODSSLOptions alloc] initWithPemFileName:nil pemPassword:nil caFileName:nil caDirectory:nil crlFileName:nil weakCertificate:self.connectionStore.weakCertificate.boolValue] autorelease];
+            }
+            self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
+            [self.loaderIndicator stopAnimation:nil];
+            
+            self.clientItem = [[[MHClientItem alloc] initWithClient:self.client] autorelease];
+            [self showServerStatus:nil];
         }
-        self.client.readPreferences = [MODReadPreferences readPreferencesWithReadMode:self.connectionStore.defaultReadMode];
-        [self.loaderIndicator stopAnimation:nil];
-        
-        self.clientItem = [[[MHClientItem alloc] initWithClient:self.client] autorelease];
-        [self showServerStatus:nil];
     }
 }
 

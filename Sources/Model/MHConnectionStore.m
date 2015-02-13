@@ -16,7 +16,6 @@
 #define QUERY_HISTORY_KEY @"query_history"
 #define SORTED_TITLE_KEY @"sorted_titles"
 #define QUERY_KEY @"queries"
-#define MONGODB_SCHEME              @"mongodb://"
 
 @implementation MHConnectionStore
 

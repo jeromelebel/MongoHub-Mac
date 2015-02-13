@@ -11,6 +11,7 @@
 #import "MHPreferenceWindowController.h"
 
 #define DEFAULT_MONGO_IP                            @"127.0.0.1"
+#define MONGODB_SCHEME                              @"mongodb://"
 
 @interface MHConnectionStore : NSManagedObject
 {

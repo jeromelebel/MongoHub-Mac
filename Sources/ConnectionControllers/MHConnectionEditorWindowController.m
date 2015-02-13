@@ -415,6 +415,16 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     self.editedConnectionStore.sshPassword = self.sshPasswordTextField.stringValue;
     self.editedConnectionStore.sshKeyFileName = self.sshKeyfileTextField.stringValue;
     self.editedConnectionStore.defaultReadMode = preferenceReadModeFromTag(self.defaultReadModePopUpButton.selectedTag);
+    
+    NSString *urlString;
+    MODClient *client;
+    urlString = [self.editedConnectionStore stringURLWithSSHMapping:nil];
+    client = [MODClient clientWihtURLString:urlString];
+    if (client == nil) {
+        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"Invalid URL %@", urlString);
+        return;
+    }
+    
     if (self.newConnection) {
         [self.connectionsArrayController addObject:self.editedConnectionStore];
     }
@@ -499,6 +509,14 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
             self.adminPasswordTextField.stringValue = password;
         } else {
             self.adminPasswordTextField.stringValue = @"";
+        }
+    } else if (control == self.replicaSetServersTextField) {
+        if ([self.replicaSetServersTextField.stringValue hasPrefix:MONGODB_SCHEME]) {
+            self.replicaSetServersTextField.stringValue = [self.replicaSetServersTextField.stringValue substringFromIndex:MONGODB_SCHEME.length];
+        }
+    } else if (control == self.shardedClusterServersTextField) {
+        if ([self.shardedClusterServersTextField.stringValue hasPrefix:MONGODB_SCHEME]) {
+            self.shardedClusterServersTextField.stringValue = [self.shardedClusterServersTextField.stringValue substringFromIndex:MONGODB_SCHEME.length];
         }
     }
     return YES;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHConnectionEditorWindowController">
@@ -466,6 +466,7 @@ Gw
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
+                                                <outlet property="delegate" destination="-2" id="wSx-cc-8J6"/>
                                                 <outlet property="nextKeyView" destination="rqH-1A-H0s" id="6Jf-a8-19w"/>
                                             </connections>
                                         </textField>
@@ -516,6 +517,7 @@ Gw
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
+                                                <outlet property="delegate" destination="-2" id="Q3a-H5-SLp"/>
                                                 <outlet property="nextKeyView" destination="79" id="Lnq-j1-4Qg"/>
                                             </connections>
                                         </textField>
@@ -524,6 +526,7 @@ Gw
                             </tabViewItem>
                         </tabViewItems>
                         <connections>
+                            <outlet property="delegate" destination="-2" id="iD1-tK-Suq"/>
                             <outlet property="nextKeyView" destination="e3c-6q-I5k" id="hB5-z5-RfQ"/>
                         </connections>
                     </tabView>

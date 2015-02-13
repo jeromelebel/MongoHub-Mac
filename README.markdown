@@ -53,10 +53,13 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Dropping support for 32bits
 - Don't open a contextual menu if a sheet is opened [issue #183](https://github.com/jeromelebel/MongoHub-Mac/issues/183)
 - Crash fixed to parse wrong regexp in a json [issue #191](https://github.com/jeromelebel/MongoHub-Mac/issues/191)
+- Documents are copied inside an array (using the pasteboard) [issue #195](https://github.com/jeromelebel/MongoHub-Mac/issues/195)
+- Fix for a crash when the server is not valid [issue #196](https://github.com/jeromelebel/MongoHub-Mac/issues/196)
 
 **3.1 Beta**
 
 - Documents are copied inside an array (using the pasteboard) [issue #195](https://github.com/jeromelebel/MongoHub-Mac/issues/195)
+- Fix for a crash when the server is not valid [issue #196](https://github.com/jeromelebel/MongoHub-Mac/issues/196)
 
 ## History
 
