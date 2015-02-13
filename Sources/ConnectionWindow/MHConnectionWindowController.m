@@ -397,18 +397,25 @@
     if (collection) {
         MHEditNameWindowController *editNameWindowController;
         
+        NSAssert(collection != nil, @"collection should not be nil 1");
+        NSAssert(collection.absoluteName, @"collection name should not be nil 1");
         editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:[NSString stringWithFormat:@"Rename %@:", collection.absoluteName] editedValue:collection.name] autorelease];
         editNameWindowController.callback = ^(MHEditNameWindowController *controller) {
             [collection renameWithNewDatabase:nil newCollectionName:editNameWindowController.editedValue dropTargetBeforeRenaming:NO callback:^(MODQuery *mongoQuery) {
                 if (collection.absoluteName != oldCollectionName) {
                     MHTabItemViewController *tabItemController;
                     
+                    NSAssert(collection != nil, @"collection should not be nil 2");
+                    NSAssert(collection.absoluteName, @"collection name should not be nil 2");
                     tabItemController = self.tabItemControllers[oldCollectionName];
-                    [tabItemController retain];
-                    [self.tabItemControllers removeObjectForKey:oldCollectionName];
-                    self.tabItemControllers[collection.absoluteName] = tabItemController;
-                    tabItemController.title = collection.absoluteName;
-                    [tabItemController release];
+                    if (tabItemController != nil) {
+                        // the tab is opened, let's update the <self.tabItemControllers> with the new name
+                        [tabItemController retain];
+                        [self.tabItemControllers removeObjectForKey:oldCollectionName];
+                        self.tabItemControllers[collection.absoluteName] = tabItemController;
+                        tabItemController.title = collection.absoluteName;
+                        [tabItemController release];
+                    }
                 }
                 if (mongoQuery.error) {
                     NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
