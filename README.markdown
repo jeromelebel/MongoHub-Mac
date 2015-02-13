@@ -55,6 +55,7 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Crash fixed to parse wrong regexp in a json [issue #191](https://github.com/jeromelebel/MongoHub-Mac/issues/191)
 - Documents are copied inside an array (using the pasteboard) [issue #195](https://github.com/jeromelebel/MongoHub-Mac/issues/195)
 - Fix for a crash when the server is not valid [issue #196](https://github.com/jeromelebel/MongoHub-Mac/issues/196)
+- Fix for a crash when changingn the collection name [issue #193](https://github.com/jeromelebel/MongoHub-Mac/issues/193)
 
 **3.1 Beta**
 
