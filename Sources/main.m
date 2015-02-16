@@ -11,9 +11,6 @@
 #if MAC_OS_X_VERSION_MIN_REQUIRED != MAC_OS_X_VERSION_10_8
 #error You need to set <OS X Deployment Target> to <10.8>
 #endif
-#if MAC_OS_X_VERSION_MAX_ALLOWED != MAC_OS_X_VERSION_10_10
-#error You need to set <Base SDK> to <10.10>
-#endif
 
 int main(int argc, char *argv[])
 {
