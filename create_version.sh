@@ -12,7 +12,7 @@ cd Libraries/MongoObjCDriver
 ./scripts/create_version.sh "MongoHub-$VERSION"
 cd ../..
 
-git submodule status | awk '{ print $1 }' | sed 's/^.//' > Libraries/MongoObjCDriver.sha1
+git submodule status | sed 's/^.//' | awk '{ print $1 }' > Libraries/MongoObjCDriver.sha1
 git commit -m "software update $VERSION" .
 git push
 git tag -a "$VERSION" -m "software update $VERSION"
