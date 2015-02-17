@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -x
+set -xeu
 
 submodule_owner="$1"
 submodule_name="$2"
@@ -8,7 +8,7 @@ submodule_branch="$3"
 submodule_path="$4"
 
 pwd
-origin_url=`git config --get remote.origin.url`
+origin_url=`git config --get remote.origin.url` || true
 if [ "${origin_url:0:8}" = "https://" ] ; then
     protocol="http"
     tmp=`dirname "${origin_url}"`
@@ -25,11 +25,12 @@ elif [ "${origin_url}" != "" ] ; then
     github_url="${github_url}:"
 else
     protocol="file"
+    github_url=""
 fi
-sha1=`cat $submodule_path`
+sha1=`cat "${submodule_path}.sha1"`
 
-echo $url
 echo $github_url
+echo $sha1
 
 if [ "${protocol}" = "ssh" ] ; then
     git submodule update --init
