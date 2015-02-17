@@ -26,6 +26,7 @@ elif [ "${origin_url}" != "" ] ; then
 else
     protocol="file"
 fi
+sha1=`cat $submodule_path`
 
 echo $url
 echo $github_url
@@ -44,12 +45,15 @@ elif [ "${protocol}" = "http" ] ; then
             git branch "${submodule_branch}" "origin/${submodule_branch}"
             git checkout "${submodule_branch}"
         fi
+        git checkout "${sha1}"
     fi
 else
     cd "${submodule_path}"
     pwd
     if [ ! -f "${submodule_name}.zip" ] ; then
         curl -o "${submodule_name}.zip" -L "https://github.com/${submodule_owner}/${submodule_name}/archive/${submodule_branch}.zip"
+        curl -o "${submodule_name}.zip" -L "https://codeload.github.com/jeromelebel/${submodule_name}/zip/${sha1}"
+
         unzip "${submodule_name}.zip"
         rm "${submodule_name}.zip"
         submodule_unzip_dir=`ls`
