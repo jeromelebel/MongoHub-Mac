@@ -98,9 +98,16 @@
         <language>en</language>
         <item>
             <beta>1</beta>
-            <title>Version 3.1 beta 2</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.1b2.zip" sparkle:version="3.1b2" type="application/octet-stream" />
+            <title>Version 3.1 beta 3</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.1b3.zip" sparkle:version="3.1b3" type="application/octet-stream" />
             <description><![CDATA[
+                <h3>3.1 beta 3</h3>
+                <ul>
+                <li>Documents are copied inside an array (using the pasteboard) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/195'>issue #195</a></li>
+                <li>Fix for a crash when the server is not valid <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/196'>issue #196</a></li>
+                <li>Fix for a crash when changingn the collection name <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/193'>issue #193</a></li>
+                <li>Fix for a crash when editing a document <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/198'>issue #198</a></li>
+                </ul>
                 <h3>3.1 beta 2</h3>
                 <ul>
                     <li>Better parsing errors in the aggregation tab</li>
