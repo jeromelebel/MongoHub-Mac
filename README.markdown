@@ -56,12 +56,14 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Documents are copied inside an array (using the pasteboard) [issue #195](https://github.com/jeromelebel/MongoHub-Mac/issues/195)
 - Fix for a crash when the server is not valid [issue #196](https://github.com/jeromelebel/MongoHub-Mac/issues/196)
 - Fix for a crash when changingn the collection name [issue #193](https://github.com/jeromelebel/MongoHub-Mac/issues/193)
+- Fix for a crash when editing a document [issue #198](https://github.com/jeromelebel/MongoHub-Mac/issues/198)
 
 **3.1 Beta**
 
 - Documents are copied inside an array (using the pasteboard) [issue #195](https://github.com/jeromelebel/MongoHub-Mac/issues/195)
 - Fix for a crash when the server is not valid [issue #196](https://github.com/jeromelebel/MongoHub-Mac/issues/196)
 - Fix for a crash when changingn the collection name [issue #193](https://github.com/jeromelebel/MongoHub-Mac/issues/193)
+- Fix for a crash when editing a document [issue #198](https://github.com/jeromelebel/MongoHub-Mac/issues/198)
 
 ## History
 
