@@ -462,6 +462,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         
         idValue = [document objectForKey:@"objectvalueid"];
         jsonWindowController = self.jsonWindowControllers[idValue];
+        NSAssert(idValue != nil, @"No idValue for %@", document);
         if (!jsonWindowController) {
             jsonWindowController = [[MHJsonWindowController alloc] init];
             jsonWindowController.collection = self.collection;
