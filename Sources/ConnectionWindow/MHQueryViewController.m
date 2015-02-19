@@ -458,7 +458,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 {
     for (NSDictionary *document in self.findResultsViewController.selectedDocuments) {
         id idValue;
-        id jsonWindowControllerKey;
         MHJsonWindowController *jsonWindowController;
         
         idValue = [document objectForKey:@"objectvalueid"];
@@ -470,7 +469,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
             jsonWindowController.jsonDocument = document[@"objectvalue"];
             jsonWindowController.bsonData = document[@"bsondata"];
             [jsonWindowController showWindow:sender];
-            self.jsonWindowControllers[jsonWindowControllerKey] = jsonWindowController;
+            self.jsonWindowControllers[idValue] = jsonWindowController;
             [jsonWindowController release];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(findQuery:) name:kJsonWindowSaved object:jsonWindowController];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jsonWindowWillClose:) name:kJsonWindowWillClose object:jsonWindowController];
