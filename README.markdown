@@ -60,6 +60,8 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 **3.1 Beta**
 
+- Crash fix for [issue #200](https://github.com/jeromelebel/MongoHub-Mac/issues/200)
+
 ## History
 
 **3.1 beta 3 - february 419, 2015**
