@@ -118,9 +118,9 @@
     
     self.tabItemControllers = [NSMutableDictionary dictionary];
     
-    [[_splitView.subviews objectAtIndex:1] addSubview:tabView];
+    [[self.splitView.subviews objectAtIndex:1] addSubview:tabView];
     tabView.frame = tabView.superview.bounds;
-    [_databaseCollectionOutlineView setDoubleAction:@selector(outlineViewDoubleClickAction:)];
+    [self.databaseCollectionOutlineView setDoubleAction:@selector(outlineViewDoubleClickAction:)];
     [self updateToolbarItems];
     
     self.window.title = [NSString stringWithFormat:@"%@, Connecting…", self.connectionStore.alias];
@@ -131,7 +131,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ((object == self.tabViewController && [keyPath isEqualToString:@"selectedTabIndex"])
-        || (object == self.window && [keyPath isEqualToString:@"firstResponder"] && self.window.firstResponder != _databaseCollectionOutlineView && self.window.firstResponder != self.window)) {
+        || (object == self.window && [keyPath isEqualToString:@"firstResponder"] && self.window.firstResponder != self.databaseCollectionOutlineView && self.window.firstResponder != self.window)) {
 // update the outline view selection if the tab changed, or if the first responder changed
 // don't do it if the first responder is the outline view or the windw, other we will lose the new user selection
         id selectedTab = self.tabViewController.selectedTabItemViewController;
@@ -144,13 +144,13 @@
             databaseOutlineViewItem = [self.clientItem databaseItemWithName:[(MHQueryViewController *)selectedTab collection].database.name];
             collectionOutlineViewItem = [databaseOutlineViewItem collectionItemWithName:[(MHQueryViewController *)selectedTab collection].name];
             if (collectionOutlineViewItem) {
-                [_databaseCollectionOutlineView expandItem:databaseOutlineViewItem];
-                indexes = [[NSIndexSet alloc] initWithIndex:[_databaseCollectionOutlineView rowForItem:collectionOutlineViewItem]];
+                [self.databaseCollectionOutlineView expandItem:databaseOutlineViewItem];
+                indexes = [[NSIndexSet alloc] initWithIndex:[self.databaseCollectionOutlineView rowForItem:collectionOutlineViewItem]];
             } else if (databaseOutlineViewItem) {
-                indexes = [[NSIndexSet alloc] initWithIndex:[_databaseCollectionOutlineView rowForItem:databaseOutlineViewItem]];
+                indexes = [[NSIndexSet alloc] initWithIndex:[self.databaseCollectionOutlineView rowForItem:databaseOutlineViewItem]];
             }
             if (indexes) {
-                [_databaseCollectionOutlineView selectRowIndexes:indexes byExtendingSelection:NO];
+                [self.databaseCollectionOutlineView selectRowIndexes:indexes byExtendingSelection:NO];
                 [indexes release];
             }
         } else if ([selectedTab isKindOfClass:[MHStatusViewController class]]) {
@@ -225,7 +225,7 @@
 {
     [super windowDidLoad];
     [self connectToServer];
-    [_databaseCollectionOutlineView setDoubleAction:@selector(sidebarDoubleAction:)];
+    [self.databaseCollectionOutlineView setDoubleAction:@selector(sidebarDoubleAction:)];
 }
 
 - (void)sidebarDoubleAction:(id)sender
@@ -253,11 +253,11 @@
         self.window.title = self.connectionStore.alias;
         if (list != nil) {
             if ([self.clientItem updateChildrenWithList:list]) {
-                [_databaseCollectionOutlineView reloadData];
+                [self.databaseCollectionOutlineView reloadData];
             }
         } else if (self.connectionStore.defaultDatabase.length > 0) {
             if ([self.clientItem updateChildrenWithList:[NSArray arrayWithObject:self.connectionStore.defaultDatabase]]) {
-                [_databaseCollectionOutlineView reloadData];
+                [self.databaseCollectionOutlineView reloadData];
             }
         } else if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
@@ -290,7 +290,7 @@
         databaseItem = [self.clientItem databaseItemWithName:mongoDatabase.name];
         if (collectionList && databaseItem) {
             if ([databaseItem updateChildrenWithList:collectionList]) {
-                [_databaseCollectionOutlineView reloadData];
+                [self.databaseCollectionOutlineView reloadData];
             }
         } else if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
@@ -479,10 +479,10 @@
 - (IBAction)query:(id)sender
 {
     if (!self.selectedCollectionItem) {
-        if (![_databaseCollectionOutlineView isItemExpanded:[_databaseCollectionOutlineView itemAtRow:[_databaseCollectionOutlineView selectedRow]]]) {
-            [_databaseCollectionOutlineView expandItem:[_databaseCollectionOutlineView itemAtRow:[_databaseCollectionOutlineView selectedRow]] expandChildren:NO];
+        if (![self.databaseCollectionOutlineView isItemExpanded:[self.databaseCollectionOutlineView itemAtRow:[self.databaseCollectionOutlineView selectedRow]]]) {
+            [self.databaseCollectionOutlineView expandItem:[self.databaseCollectionOutlineView itemAtRow:[self.databaseCollectionOutlineView selectedRow]] expandChildren:NO];
         } else {
-            [_databaseCollectionOutlineView collapseItem:[_databaseCollectionOutlineView itemAtRow:[_databaseCollectionOutlineView selectedRow]]];
+            [self.databaseCollectionOutlineView collapseItem:[self.databaseCollectionOutlineView itemAtRow:[self.databaseCollectionOutlineView selectedRow]]];
         }
     } else {
         MHQueryViewController *queryWindowController;
@@ -527,11 +527,11 @@
     MHDatabaseItem *result = nil;
     NSInteger index;
     
-    index = [_databaseCollectionOutlineView selectedRow];
+    index = [self.databaseCollectionOutlineView selectedRow];
     if (index != -1) {
         id item;
         
-        item = [_databaseCollectionOutlineView itemAtRow:index];
+        item = [self.databaseCollectionOutlineView itemAtRow:index];
         if ([item isKindOfClass:[MHDatabaseItem class]]) {
             result = item;
         } else if ([item isKindOfClass:[MHCollectionItem class]]) {
@@ -546,11 +546,11 @@
     MHCollectionItem *result = nil;
     NSInteger index;
     
-    index = [_databaseCollectionOutlineView selectedRow];
+    index = [self.databaseCollectionOutlineView selectedRow];
     if (index != -1) {
         id item;
         
-        item = [_databaseCollectionOutlineView itemAtRow:index];
+        item = [self.databaseCollectionOutlineView itemAtRow:index];
         if ([item isKindOfClass:[MHCollectionItem class]]) {
             result = item;
         }
@@ -565,7 +565,7 @@
 
 - (void)updateToolbarItems
 {
-    for (NSToolbarItem *item in [_toolbar items]) {
+    for (NSToolbarItem *item in [self.toolbar items]) {
         switch ([item tag]) {
             case DATABASE_STATUS_TOOLBAR_ITEM_TAG:
                 item.enabled = self.selectedDatabaseItem != nil;
@@ -653,14 +653,14 @@
         NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, NULL, NULL, nil, @"Please specify a database!");
         return;
     }
-    if (!_mysqlImportWindowController) {
-        _mysqlImportWindowController = [[MHMysqlImportWindowController alloc] init];
+    if (!self.mysqlImportWindowController) {
+        self.mysqlImportWindowController = [[MHMysqlImportWindowController alloc] init];
     }
-    _mysqlImportWindowController.database = self.selectedDatabaseItem.database;
+    self.mysqlImportWindowController.database = self.selectedDatabaseItem.database;
     if (self.selectedCollectionItem) {
-        [_mysqlExportWindowController.collectionTextField setStringValue:[self.selectedCollectionItem.collection name]];
+        [self.mysqlExportWindowController.collectionTextField setStringValue:[self.selectedCollectionItem.collection name]];
     }
-    [_mysqlImportWindowController showWindow:self];
+    [self.mysqlImportWindowController showWindow:self];
 }
 
 - (IBAction)exportToMySQLAction:(id)sender
@@ -669,15 +669,15 @@
         NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, NULL, NULL, nil, @"Please specify a collection!");
         return;
     }
-    if (!_mysqlExportWindowController) {
-        _mysqlExportWindowController = [[MHMysqlExportWindowController alloc] init];
+    if (!self.mysqlExportWindowController) {
+        self.mysqlExportWindowController = [[MHMysqlExportWindowController alloc] init];
     }
-    _mysqlExportWindowController.mongoDatabase = self.selectedDatabaseItem.database;
-    _mysqlExportWindowController.dbname = self.selectedDatabaseItem.database.name;
+    self.mysqlExportWindowController.mongoDatabase = self.selectedDatabaseItem.database;
+    self.mysqlExportWindowController.dbname = self.selectedDatabaseItem.database.name;
     if (self.selectedCollectionItem) {
-        [_mysqlExportWindowController.collectionTextField setStringValue:[self.selectedCollectionItem.collection name]];
+        [self.mysqlExportWindowController.collectionTextField setStringValue:[self.selectedCollectionItem.collection name]];
     }
-    [_mysqlExportWindowController showWindow:self];
+    [self.mysqlExportWindowController showWindow:self];
 }
 
 - (IBAction)importFromFileAction:(id)sender
@@ -716,9 +716,9 @@
     NSInteger index;
     
     result = [[[NSMenu alloc] init] autorelease];
-    index = _databaseCollectionOutlineView.selectedRow;
-    item = [_databaseCollectionOutlineView itemAtRow:index];
-    if (_databaseCollectionOutlineView.selectedRowIndexes.count == 0) {
+    index = self.databaseCollectionOutlineView.selectedRow;
+    item = [self.databaseCollectionOutlineView itemAtRow:index];
+    if (self.databaseCollectionOutlineView.selectedRowIndexes.count == 0) {
         [result addItemWithTitle:@"New Database…" action:@selector(createDatabase:) keyEquivalent:@""].target = self;
     } else if ([item isKindOfClass:[MHDatabaseItem class]]) {
         [result addItemWithTitle:[NSString stringWithFormat:@"%@ Stats", [item name]] action:@selector(showDatabaseStatus:) keyEquivalent:@""].target = self;
