@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHJsonWindowController">
             <connections>
+                <outlet property="cancelButton" destination="16" id="jrl-nO-jcD"/>
                 <outlet property="jsonTextView" destination="9" id="epT-Ma-gWq"/>
                 <outlet property="progressIndicator" destination="20" id="nrs-vY-yfo"/>
+                <outlet property="saveButton" destination="12" id="uIf-3i-H4r"/>
                 <outlet property="status" destination="23" id="gRH-OO-4of"/>
                 <outlet property="window" destination="1" id="3"/>
             </connections>
@@ -19,14 +21,13 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="159" width="490" height="351"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="490" height="351"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="6">
+                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6">
                         <rect key="frame" x="0.0" y="-1" width="490" height="319"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="YO3-Gs-fys">
                             <rect key="frame" x="0.0" y="0.0" width="490" height="319"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -56,53 +57,62 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <view id="11">
-                        <rect key="frame" x="0.0" y="318" width="490" height="33"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <subviews>
-                            <button verticalHuggingPriority="750" id="12">
-                                <rect key="frame" x="14" y="-2" width="82" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="13">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                    <string key="keyEquivalent">s</string>
-                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="save:" target="-2" id="26"/>
-                                </connections>
-                            </button>
-                            <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="20">
-                                <rect key="frame" x="454" y="8" width="16" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                            </progressIndicator>
-                            <textField hidden="YES" verticalHuggingPriority="750" id="23">
-                                <rect key="frame" x="157" y="8" width="292" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Label" id="24">
-                                    <font key="font" metaFont="cellTitle"/>
-                                    <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button verticalHuggingPriority="750" id="16">
-                                <rect key="frame" x="96" y="-2" width="82" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="17">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                    <string key="keyEquivalent" base64-UTF8="YES">
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="12">
+                        <rect key="frame" x="14" y="316" width="82" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="knC-lg-kou"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="13">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent">s</string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="save:" target="-2" id="26"/>
+                        </connections>
+                    </button>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="23">
+                        <rect key="frame" x="178" y="326" width="270" height="16"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Label" id="24">
+                            <font key="font" metaFont="cellTitle"/>
+                            <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.046106732490000003" green="0.97520041469999996" blue="0.00059472511379999996" alpha="1" colorSpace="calibratedRGB"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="16">
+                        <rect key="frame" x="96" y="316" width="82" height="32"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="17">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
 Gw
 </string>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="performClose:" target="1" id="22"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                    </view>
+                        </buttonCell>
+                        <connections>
+                            <action selector="performClose:" target="1" id="22"/>
+                        </connections>
+                    </button>
+                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="20">
+                        <rect key="frame" x="454" y="325" width="16" height="16"/>
+                    </progressIndicator>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="20" secondAttribute="trailing" constant="20" id="9N4-nL-ylW"/>
+                    <constraint firstItem="12" firstAttribute="baseline" secondItem="16" secondAttribute="baseline" id="AQ9-xJ-KwP"/>
+                    <constraint firstItem="23" firstAttribute="leading" secondItem="16" secondAttribute="trailing" constant="8" id="C8j-5g-P9E"/>
+                    <constraint firstItem="12" firstAttribute="width" secondItem="16" secondAttribute="width" id="F1J-N2-fkT"/>
+                    <constraint firstItem="12" firstAttribute="baseline" secondItem="23" secondAttribute="baseline" id="Joc-90-bbZ"/>
+                    <constraint firstAttribute="trailing" secondItem="6" secondAttribute="trailing" id="NDb-vz-Mop"/>
+                    <constraint firstItem="12" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20" id="NIM-ke-ozd"/>
+                    <constraint firstItem="12" firstAttribute="centerY" secondItem="20" secondAttribute="centerY" id="SBn-q3-a1c"/>
+                    <constraint firstItem="6" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="Vay-Fy-0AZ"/>
+                    <constraint firstAttribute="bottom" secondItem="6" secondAttribute="bottom" constant="-1" id="gBf-y0-NSu"/>
+                    <constraint firstItem="12" firstAttribute="top" secondItem="2" secondAttribute="top" constant="7" id="puw-66-1F2"/>
+                    <constraint firstItem="20" firstAttribute="leading" secondItem="23" secondAttribute="trailing" constant="8" id="tIB-7g-zpG"/>
+                    <constraint firstItem="16" firstAttribute="leading" secondItem="12" secondAttribute="trailing" constant="12" id="wl6-zh-SlY"/>
+                    <constraint firstItem="6" firstAttribute="top" secondItem="12" secondAttribute="bottom" constant="5" id="wtz-Q6-9uq"/>
+                </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="43"/>

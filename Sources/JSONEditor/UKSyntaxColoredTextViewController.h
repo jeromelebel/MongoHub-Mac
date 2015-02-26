@@ -71,8 +71,12 @@
 	NSRange								affectedCharRange;
 	NSString*							replacementString;
 	id<UKSyntaxColoredTextViewDelegate>	_delegate;
+    BOOL                                _unsaved;
+    NSString                            *_originalString;
 }
 @property (nonatomic, readwrite, assign) id<UKSyntaxColoredTextViewDelegate> delegate;
+@property (nonatomic, readwrite, assign) BOOL unsaved;
+@property (nonatomic, readwrite, copy) NSString *originalString;
 
 -(IBAction)	recolorCompleteFile: (id)sender;
 -(IBAction)	toggleAutoSyntaxColoring: (id)sender;

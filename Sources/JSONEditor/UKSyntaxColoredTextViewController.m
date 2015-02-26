@@ -44,6 +44,7 @@
 @implementation UKSyntaxColoredTextViewController
 
 @synthesize delegate = _delegate;
+@synthesize unsaved = _unsaved;
 
 - (instancetype)init
 {
@@ -56,7 +57,7 @@
 }
 
 
--(void)	dealloc
+- (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 	
@@ -126,9 +127,23 @@
     [super setView: theView];
 	
     TEXTVIEW.delegate = self;
+    self.originalString = TEXTVIEW.string;
 	[self setUpSyntaxColoring];	// +++ If someone calls this twice, we should only call part of this twice!
 }
 
+- (void)setOriginalString:(NSString *)originalString
+{
+    if (![originalString isEqualToString:_originalString]) {
+        [_originalString release];
+        _originalString = [originalString copy];
+        self.unsaved = ![self.originalString isEqualToString:TEXTVIEW.string];
+    }
+}
+
+- (NSString *)originalString
+{
+    return _originalString;
+}
 
 /* -----------------------------------------------------------------------------
  processEditing:
@@ -242,9 +257,9 @@
 
 -(void)	didChangeText	// This actually does what we want to do in textView:shouldChangeTextInRange:
 {
+    self.unsaved = ![self.originalString isEqualToString:TEXTVIEW.string];
 	if( maintainIndentation && replacementString && ([replacementString isEqualToString:@"\n"]
-                                                     || [replacementString isEqualToString:@"\r"]) )
-	{
+                                                     || [replacementString isEqualToString:@"\r"]) ) {
 		NSMutableAttributedString*  textStore = [TEXTVIEW textStorage];
 		BOOL						hadSpaces = NO;
 		NSUInteger                  lastSpace = affectedCharRange.location,

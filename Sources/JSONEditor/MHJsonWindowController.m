@@ -11,9 +11,11 @@
 
 @interface MHJsonWindowController ()
 @property (nonatomic, readwrite, strong) UKSyntaxColoredTextViewController *syntaxColoringController;
-@property (nonatomic, readwrite, weak) IBOutlet NSTextView *jsonTextView;
-@property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *progressIndicator;
-@property (nonatomic, readwrite, weak) IBOutlet NSTextField *status;
+@property (nonatomic, readwrite, assign) IBOutlet NSTextView *jsonTextView;
+@property (nonatomic, readwrite, assign) IBOutlet NSProgressIndicator *progressIndicator;
+@property (nonatomic, readwrite, assign) IBOutlet NSTextField *status;
+@property (nonatomic, readwrite, assign) IBOutlet NSButton *saveButton;
+@property (nonatomic, readwrite, assign) IBOutlet NSButton *cancelButton;
 
 @end
 
@@ -30,6 +32,7 @@
 
 - (void)dealloc
 {
+    [self.syntaxColoringController removeObserver:self forKeyPath:@"unsaved"];
     self.collection = nil;
     self.windowControllerId = nil;
     self.jsonDocument = nil;
@@ -48,6 +51,51 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kJsonWindowWillClose object:self];
 }
+
+- (BOOL)windowShouldClose:(id)sender
+{
+    if (!self.window.documentEdited) {
+        return YES;
+    } else {
+        NSBeginAlertSheet(@"Unsaved Document", @"Save", @"Don't Save", @"Cancel", self.window, self, @selector(sheetDidEnd:returnCode:contextInfo:), @selector(sheetDidDismiss:returnCode:contextInfo:), nil, @"Do you want to save the current document?");
+        return NO;
+    }
+}
+
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
+{
+}
+
+- (void)sheetDidDismiss:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
+{
+    switch (returnCode) {
+        case 0:
+            [self.window close];
+            break;
+            
+        case -1:
+            break;
+        
+        case 1:
+            self.jsonTextView.editable = NO;
+            self.saveButton.enabled = NO;
+            self.cancelButton.enabled = NO;
+            [self.progressIndicator startAnimation:self];
+            [self saveWithCallback:^(NSError *error) {
+                self.jsonTextView.editable = YES;
+                self.saveButton.enabled = YES;
+                self.cancelButton.enabled = YES;
+                if (error == nil) {
+                    [self.window close];
+                }
+            }];
+            break;
+        
+        default:
+            break;
+    }
+}
+
 
 - (NSString *)jsonDocumentIdString
 {
@@ -77,6 +125,7 @@
     self.syntaxColoringController = [[[UKSyntaxColoredTextViewController alloc] init] autorelease];
     self.syntaxColoringController.delegate = self;
     self.syntaxColoringController.view = self.jsonTextView;
+    [self.syntaxColoringController addObserver:self forKeyPath:@"unsaved" options:NSKeyValueObservingOptionNew context:nil];
     
     if (self.bsonData) {
         if (![MODClient isEqualWithJson:jsonString toBsonData:self.bsonData info:&info]) {
@@ -93,21 +142,21 @@
     }
 }
 
-- (void)textViewControllerWillStartSyntaxRecoloring: (UKSyntaxColoredTextViewController*)sender
+- (void)textViewControllerWillStartSyntaxRecoloring:(UKSyntaxColoredTextViewController *)sender
 {
     [self.progressIndicator startAnimation:self];
 }
 
 
-- (void)textViewControllerDidFinishSyntaxRecoloring: (UKSyntaxColoredTextViewController*)sender
+- (void)textViewControllerDidFinishSyntaxRecoloring:(UKSyntaxColoredTextViewController *)sender
 {
     [self.progressIndicator stopAnimation: self];
 }
 
-- (void)selectionInTextViewController: (UKSyntaxColoredTextViewController*)sender                        // Update any selection status display.
-              changedToStartCharacter: (NSUInteger)startCharInLine endCharacter: (NSUInteger)endCharInLine
-                               inLine: (NSUInteger)lineInDoc startCharacterInDocument: (NSUInteger)startCharInDoc
-               endCharacterInDocument: (NSUInteger)endCharInDoc;
+- (void)selectionInTextViewController:(UKSyntaxColoredTextViewController *)sender                        // Update any selection status display.
+              changedToStartCharacter:(NSUInteger)startCharInLine endCharacter:(NSUInteger)endCharInLine
+                               inLine:(NSUInteger)lineInDoc startCharacterInDocument:(NSUInteger)startCharInDoc
+               endCharacterInDocument:(NSUInteger)endCharInDoc;
 {
     NSString *statusMsg = nil;
     
@@ -118,12 +167,17 @@
         statusMsg = NSLocalizedString(@"character %lu of line %lu (%lu in document).",@"insertion mark description in syntax colored text documents.");
         statusMsg = [NSString stringWithFormat: statusMsg, startCharInLine +1, lineInDoc +1, startCharInDoc +1];
     }
-    
-    [self.status setStringValue: statusMsg];
+    statusMsg = @"";
+    [self.status setStringValue:statusMsg];
     [self.status display];
 }
 
 - (IBAction)save:(id)sender
+{
+    [self saveWithCallback:nil];
+}
+
+- (void)saveWithCallback:(void (^)(NSError *error))callback
 {
     MODSortedDictionary *document;
     NSError *error;
@@ -132,19 +186,24 @@
     [self.progressIndicator startAnimation: self];
     document = [MODRagelJsonParser objectsFromJson:self.jsonTextView.string withError:&error];
     if (error) {
-        NSRunAlertPanel(@"Error", @"%@", @"OK", nil, nil, error.localizedDescription);
+        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", error.localizedDescription);
         [self.progressIndicator stopAnimation: self];
-        self.status.stringValue = error.localizedDescription;
+        self.status.stringValue = [error.localizedDescription stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        if (callback) callback(error);
     } else {
+        callback = [callback copy];
         [self.collection saveWithDocument:document callback:^(MODQuery *mongoQuery) {
             [self.progressIndicator stopAnimation:self];
             if (mongoQuery.error) {
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
                 self.status.stringValue = mongoQuery.error.localizedDescription;
             } else {
+                self.syntaxColoringController.originalString = self.jsonTextView.string;
                 self.status.stringValue = @"Saved";
                 [NSNotificationCenter.defaultCenter postNotificationName:kJsonWindowSaved object:nil];
             }
+            if (callback) callback(mongoQuery.error);
+            [callback release];
         }];
     }
 }
@@ -152,6 +211,13 @@
 - (void)mongoQueryDidFinish:(MODQuery *)mongoQuery
 {
     
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"unsaved"]) {
+        [self.window setDocumentEdited:self.syntaxColoringController.unsaved];
+    }
 }
 
 @end

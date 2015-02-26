@@ -62,6 +62,7 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 - Crash fix for [issue #200](https://github.com/jeromelebel/MongoHub-Mac/issues/200)
 - Fix to create a new database with mongodb 3.0 [issue #203](https://github.com/jeromelebel/MongoHub-Mac/issues/203)
+- Better json editor feedback, when saving a documetn [issue #201](https://github.com/jeromelebel/MongoHub-Mac/issues/201)
 
 ## History
 
