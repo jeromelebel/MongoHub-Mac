@@ -66,7 +66,7 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 ## History
 
-**3.1 beta 3 - february 419, 2015**
+**3.1 beta 3 - february 19, 2015**
 
 - Documents are copied inside an array (using the pasteboard) [issue #195](https://github.com/jeromelebel/MongoHub-Mac/issues/195)
 - Fix for a crash when the server is not valid [issue #196](https://github.com/jeromelebel/MongoHub-Mac/issues/196)
