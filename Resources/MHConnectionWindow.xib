@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
@@ -7,11 +7,11 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHConnectionWindowController">
             <connections>
-                <outlet property="_databaseCollectionOutlineView" destination="PxI-If-Mr2" id="eF6-mf-di9"/>
-                <outlet property="_splitView" destination="hZo-C7-Uow" id="MCz-8X-JYG"/>
-                <outlet property="_toolbar" destination="YbN-bC-uid" id="6eb-X6-mCg"/>
                 <outlet property="createCollectionOrDatabaseMenu" destination="Yo7-eX-SoT" id="k2p-yU-ZHX"/>
+                <outlet property="databaseCollectionOutlineView" destination="PxI-If-Mr2" id="tKq-wA-OQR"/>
+                <outlet property="splitView" destination="hZo-C7-Uow" id="2sH-8y-2p9"/>
                 <outlet property="tabViewController" destination="Ibi-sf-ckG" id="1io-7m-zCI"/>
+                <outlet property="toolbar" destination="YbN-bC-uid" id="tvQ-E7-7f8"/>
                 <outlet property="window" destination="UQW-h8-mqI" id="Wfu-dy-lou"/>
             </connections>
         </customObject>

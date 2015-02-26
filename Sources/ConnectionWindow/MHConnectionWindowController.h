@@ -38,29 +38,29 @@
 {
     id<MHConnectionWindowControllerDelegate>_delegate;
     NSMutableDictionary                     *_tabItemControllers;
-    IBOutlet NSMenu                         *createCollectionOrDatabaseMenu;
+    NSMenu                                  *_createCollectionOrDatabaseMenu;
     
     MHStatusViewController                  *_statusViewController;
     MHActivityMonitorViewController         *_activityMonitorViewController;
     MHTabViewController                     *_tabViewController;
-    IBOutlet NSSplitView                    *_splitView;
+    NSSplitView                             *_splitView;
     
     MHClientItem                            *_clientItem;
     MHConnectionStore                       *_connectionStore;
     MODClient                               *_client;
     NSTimer                                 *_serverMonitorTimer;
-    IBOutlet NSOutlineView                  *_databaseCollectionOutlineView;
-    IBOutlet NSProgressIndicator            *_loaderIndicator;
-    IBOutlet NSToolbar                      *_toolbar;
+    NSOutlineView                           *_databaseCollectionOutlineView;
+    NSProgressIndicator                     *_loaderIndicator;
+    NSToolbar                               *_toolbar;
     MHTunnel                                *_sshTunnel;
     NSMutableDictionary                     *_sshBindedPortMapping;
     MHMysqlImportWindowController           *_mysqlImportWindowController;
     MHMysqlExportWindowController           *_mysqlExportWindowController;
-    IBOutlet NSTextField                    *bundleVersion;
+    NSTextField                             *_bundleVersion;
     
-    IBOutlet NSView                         *_mainTabView;
-    IBOutlet MHTabTitleView                 *_tabTitleView;
-        
+    NSView                                  *_mainTabView;
+    MHTabTitleView                          *_tabTitleView;
+    
     MHImportExportFeedback                  *_importExportFeedback;
     id<MHImporterExporter>                  _importerExporter;
 }
@@ -68,7 +68,6 @@
 @property (nonatomic, readwrite, assign) id<MHConnectionWindowControllerDelegate> delegate;
 @property (nonatomic, readwrite, strong) MHConnectionStore *connectionStore;
 @property (nonatomic, readwrite, strong) MODClient *client;
-@property (nonatomic, readwrite, strong) NSProgressIndicator *loaderIndicator;
 @property (nonatomic, readwrite, strong) NSTextField *bundleVersion;
 @property (nonatomic, readwrite, strong) MHMysqlImportWindowController *mysqlImportWindowController;
 @property (nonatomic, readwrite, strong) MHMysqlExportWindowController *mysqlExportWindowController;

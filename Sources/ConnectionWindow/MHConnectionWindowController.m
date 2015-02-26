@@ -49,6 +49,12 @@
 @property (nonatomic, readwrite, strong) MHImportExportFeedback *importExportFeedback;
 @property (nonatomic, readwrite, strong) id<MHImporterExporter> importerExporter;
 
+@property (nonatomic, readwrite, weak) IBOutlet NSMenu *createCollectionOrDatabaseMenu;
+@property (nonatomic, readwrite, weak) IBOutlet NSSplitView *splitView;
+@property (nonatomic, readwrite, weak) IBOutlet NSOutlineView *databaseCollectionOutlineView;
+@property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *loaderIndicator;
+@property (nonatomic, readwrite, weak) IBOutlet NSToolbar *toolbar;
+
 - (void)updateToolbarItems;
 
 - (MHDatabaseItem *)selectedDatabaseItem;
@@ -68,7 +74,6 @@
 @synthesize client = _client;
 @synthesize sshTunnel = _sshTunnel;
 @synthesize sshBindedPortMapping = _sshBindedPortMapping;
-@synthesize bundleVersion;
 @synthesize mysqlImportWindowController = _mysqlImportWindowController;
 @synthesize mysqlExportWindowController = _mysqlExportWindowController;
 @synthesize loaderIndicator = _loaderIndicator;
@@ -99,7 +104,6 @@
     self.sshTunnel = nil;
     self.sshBindedPortMapping = nil;
     self.loaderIndicator = nil;
-    self.bundleVersion = nil;
     self.mysqlImportWindowController = nil;
     self.mysqlExportWindowController = nil;
     self.statusViewController = nil;
@@ -220,7 +224,6 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    bundleVersion.stringValue = [NSString stringWithFormat:@"version: %@", NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"]];
     [self connectToServer];
     [_databaseCollectionOutlineView setDoubleAction:@selector(sidebarDoubleAction:)];
 }
@@ -352,7 +355,7 @@
 
 - (void)menuWillOpen:(NSMenu *)menu
 {
-    if (menu == createCollectionOrDatabaseMenu) {
+    if (menu == self.createCollectionOrDatabaseMenu) {
         [menu itemWithTag:2].enabled = self.selectedDatabaseItem != nil;
     }
 }
@@ -363,7 +366,7 @@
     
     editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:@"New Database Name:" editedValue:nil] autorelease];
     editNameWindowController.callback = ^(MHEditNameWindowController *controller) {
-        [[self.client databaseForName:editNameWindowController.editedValue] statsWithReadPreferences:nil callback:nil];
+        [[self.client databaseForName:editNameWindowController.editedValue] createCollectionWithName:@"system.indexes" callback:nil];
         [self getDatabaseList];
     };
     [editNameWindowController modalForWindow:self.window];
