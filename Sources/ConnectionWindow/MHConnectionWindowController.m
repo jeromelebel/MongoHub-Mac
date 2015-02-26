@@ -366,7 +366,7 @@
     
     editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:@"New Database Name:" editedValue:nil] autorelease];
     editNameWindowController.callback = ^(MHEditNameWindowController *controller) {
-        [[self.client databaseForName:editNameWindowController.editedValue] createCollectionWithName:@"system.indexes" callback:nil];
+        [self.clientItem addExtraDatabaseName:editNameWindowController.editedValue];
         [self getDatabaseList];
     };
     [editNameWindowController modalForWindow:self.window];
@@ -374,8 +374,11 @@
 
 - (IBAction)createCollection:(id)sender
 {
-    MODDatabase *database = self.selectedDatabaseItem.database;
+    MHDatabaseItem *databaseItem = self.selectedDatabaseItem;
+    MODDatabase *database = databaseItem.database;
     
+    NSParameterAssert(databaseItem != nil);
+    NSParameterAssert(database != nil);
     if (database) {
         MHEditNameWindowController *editNameWindowController;
         
@@ -385,6 +388,7 @@
                 if (mongoQuery.error) {
                     NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
                 }
+                [self.databaseCollectionOutlineView expandItem:databaseItem];
                 [self getCollectionListForDatabaseName:database.name];
             }];
         };
@@ -463,17 +467,24 @@
 
 - (void)dropDatabase
 {
-    MODDatabase *database = self.selectedDatabaseItem.database;
+    MHDatabaseItem *databaseItem = self.selectedDatabaseItem;
+    MODDatabase *database = databaseItem.database;
     
-    NSParameterAssert(database);
-    [self.loaderIndicator startAnimation:nil];
-    [database dropWithCallback:^(MODQuery *mongoQuery) {
-        [self.loaderIndicator stopAnimation:nil];
+    NSParameterAssert(databaseItem != nil);
+    NSParameterAssert(database != nil);
+    if (databaseItem.temporary) {
+        [self.clientItem removeExtraDatabaseName:database.name];
         [self getDatabaseList];
-        if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
-        }
-    }];
+    } else {
+        [self.loaderIndicator startAnimation:nil];
+        [database dropWithCallback:^(MODQuery *mongoQuery) {
+            [self.loaderIndicator stopAnimation:nil];
+            [self getDatabaseList];
+            if (mongoQuery.error) {
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
+            }
+        }];
+    }
 }
 
 - (IBAction)query:(id)sender

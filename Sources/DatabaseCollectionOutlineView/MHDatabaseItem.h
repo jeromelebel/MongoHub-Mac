@@ -24,6 +24,8 @@
 @property (nonatomic, readonly, strong) MODDatabase *database;
 @property (nonatomic, readonly, strong) NSArray *sortedCollectionNames;
 @property (nonatomic, readonly, strong) NSDictionary *collectionItems;
+// mongodb doesn't really create a database, so this will be YES until mongodb knows about it
+@property (nonatomic, readwrite, assign) BOOL temporary;
 
 - (instancetype)initWithClientItem:(MHClientItem *)serverItem database:(MODDatabase *)database;
 - (BOOL)updateChildrenWithList:(NSArray *)list;

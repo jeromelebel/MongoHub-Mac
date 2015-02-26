@@ -17,14 +17,17 @@
 {
     MODClient                       *_client;
     NSMutableArray                  *_databaseItems;
+    // database created but empty (so not yet in the server)
+    NSMutableArray                  *_extraDatabaseNames;
 }
 
-@property (nonatomic, readonly, retain) MODClient *client;
-@property (nonatomic, readonly, retain) NSArray *databaseItems;
+@property (nonatomic, readonly, strong) MODClient *client;
+@property (nonatomic, readonly, strong) NSArray *databaseItems;
 
 - (instancetype)initWithClient:(MODClient *)client;
 - (MHDatabaseItem *)databaseItemWithName:(NSString *)databaseName;
 - (BOOL)updateChildrenWithList:(NSArray *)list;
-- (void)removeDatabaseItemWithName:(NSString *)databaseName;
+- (void)addExtraDatabaseName:(NSString *)databaseName;
+- (void)removeExtraDatabaseName:(NSString *)databaseName;
 
 @end

@@ -11,8 +11,9 @@
 
 @interface MHClientItem ()
 
-@property (nonatomic, readwrite, retain) MODClient *client;
-@property (nonatomic, readwrite, retain) NSMutableArray *databaseItems;
+@property (nonatomic, readwrite, strong) MODClient *client;
+@property (nonatomic, readwrite, strong) NSMutableArray *databaseItems;
+@property (nonatomic, readwrite, strong) NSMutableArray *extraDatabaseNames;
 
 @end
 
@@ -26,6 +27,7 @@
     if (self = [self init]) {
         self.client = client;
         self.databaseItems = [NSMutableArray array];
+        self.extraDatabaseNames = [NSMutableArray array];
     }
     return self;
 }
@@ -34,6 +36,7 @@
 {
     self.client = nil;
     self.databaseItems = nil;
+    self.extraDatabaseNames = nil;
     [super dealloc];
 }
 
@@ -50,7 +53,7 @@
     return result;
 }
 
-- (void)removeDatabaseItemWithName:(NSString *)databaseName
+- (void)_removeDatabaseItemWithName:(NSString *)databaseName
 {
     NSInteger ii = 0;
     
@@ -61,6 +64,7 @@
         }
         ii++;
     }
+    [self.extraDatabaseNames removeObject:databaseName];
 }
 
 static NSInteger databaseItemSortFunction(id element1, id element2, void *context)
@@ -68,32 +72,64 @@ static NSInteger databaseItemSortFunction(id element1, id element2, void *contex
     return [[element1 name] compare:[element2 name] options:0];
 }
 
+- (MHDatabaseItem *)_addNewDatabaseWithName:(NSString *)databaseName
+{
+    MHDatabaseItem *databaseItem;
+    
+    databaseItem = [[MHDatabaseItem alloc] initWithClientItem:self database:[self.client databaseForName:databaseName]];
+    [(NSMutableArray *)self.databaseItems addObject:databaseItem];
+    [databaseItem release];
+    return databaseItem;
+}
+
 - (BOOL)updateChildrenWithList:(NSArray *)list
 {
     NSArray *oldDatabases;
-    BOOL result = NO;
+    BOOL databaseListUpdated = NO;
     
     oldDatabases = [self.databaseItems copy];
     for (NSString *databaseName in list) {
         MHDatabaseItem *databaseItem;
         
         databaseItem = [self databaseItemWithName:databaseName];
-        if (!databaseItem) {
-            databaseItem = [[MHDatabaseItem alloc] initWithClientItem:self database:[self.client databaseForName:databaseName]];
-            [(NSMutableArray *)self.databaseItems addObject:databaseItem];
-            [databaseItem release];
-            result = YES;
+        if (databaseItem != nil) {
+            databaseItem.temporary = NO;
+        } else {
+            [self _addNewDatabaseWithName:databaseName];
+            databaseListUpdated = YES;
+        }
+        [self.extraDatabaseNames removeObject:databaseName];
+    }
+    for (NSString *databaseName in self.extraDatabaseNames) {
+        if ([self databaseItemWithName:databaseName] == nil) {
+            MHDatabaseItem *databaseItem;
+            
+            databaseItem = [self _addNewDatabaseWithName:databaseName];
+            databaseItem.temporary = YES;
+            databaseListUpdated = YES;
         }
     }
     for (MHDatabaseItem *databaseItem in oldDatabases) {
-        if ([list indexOfObject:databaseItem.name] == NSNotFound) {
-            [self removeDatabaseItemWithName:databaseItem.name];
-            result = YES;
+        if ([list indexOfObject:databaseItem.name] == NSNotFound && [self.extraDatabaseNames indexOfObject:databaseItem.name] == NSNotFound) {
+            [self _removeDatabaseItemWithName:databaseItem.name];
+            databaseListUpdated = YES;
         }
     }
     [(NSMutableArray *)self.databaseItems sortUsingFunction:databaseItemSortFunction context:NULL];
     [oldDatabases release];
-    return result;
+    return databaseListUpdated;
+}
+
+- (void)addExtraDatabaseName:(NSString *)databaseName
+{
+    if (![self.extraDatabaseNames containsObject:databaseName]) {
+        [self.extraDatabaseNames addObject:databaseName];
+    }
+}
+
+- (void)removeExtraDatabaseName:(NSString *)databaseName
+{
+    [self.extraDatabaseNames removeObject:databaseName];
 }
 
 @end
