@@ -57,6 +57,9 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Fix for a crash when the server is not valid [issue #196](https://github.com/jeromelebel/MongoHub-Mac/issues/196)
 - Fix for a crash when changingn the collection name [issue #193](https://github.com/jeromelebel/MongoHub-Mac/issues/193)
 - Fix for a crash when editing a document [issue #198](https://github.com/jeromelebel/MongoHub-Mac/issues/198)
+- Crash fix for [issue #200](https://github.com/jeromelebel/MongoHub-Mac/issues/200)
+- Fix to create a new database with mongodb 3.0 [issue #203](https://github.com/jeromelebel/MongoHub-Mac/issues/203)
+- Better json editor feedback, when saving a documetn [issue #201](https://github.com/jeromelebel/MongoHub-Mac/issues/201)
 
 **3.1 Beta**
 
