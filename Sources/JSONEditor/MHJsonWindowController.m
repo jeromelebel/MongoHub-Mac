@@ -28,12 +28,6 @@
 @synthesize syntaxColoringController = _syntaxColoringController;
 @synthesize status = _status;
 
-- (instancetype)init
-{
-    self = [super initWithWindowNibName:@"MHJsonWindow"];
-    return self;
-}
-
 - (void)dealloc
 {
     self.collection = nil;
@@ -43,6 +37,11 @@
     self.syntaxColoringController.delegate = nil;
     self.syntaxColoringController = nil;
     [super dealloc];
+}
+
+- (NSString *)windowNibName
+{
+    return @"MHJsonWindow";
 }
 
 - (void)windowWillClose:(NSNotification *)notification
