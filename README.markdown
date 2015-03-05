@@ -59,7 +59,7 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Fix for a crash when editing a document [issue #198](https://github.com/jeromelebel/MongoHub-Mac/issues/198)
 - Crash fix for [issue #200](https://github.com/jeromelebel/MongoHub-Mac/issues/200)
 - Fix to create a new database with mongodb 3.0 [issue #203](https://github.com/jeromelebel/MongoHub-Mac/issues/203)
-- Better json editor feedback, when saving a documetn [issue #201](https://github.com/jeromelebel/MongoHub-Mac/issues/201)
+- Better json editor feedback, when saving a document [issue #201](https://github.com/jeromelebel/MongoHub-Mac/issues/201)
 - Copying documents are now in a json array (using the pasteboard) [issue #195](https://github.com/jeromelebel/MongoHub-Mac/issues/195)
 - Support for Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NaN [issue #206](https://github.com/jeromelebel/MongoHub-Mac/issues/206)
 - Parse correctly keys in a document (accept only numbers)
@@ -68,7 +68,7 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 - Crash fix for [issue #200](https://github.com/jeromelebel/MongoHub-Mac/issues/200)
 - Fix to create a new database with mongodb 3.0 [issue #203](https://github.com/jeromelebel/MongoHub-Mac/issues/203)
-- Better json editor feedback, when saving a documetn [issue #201](https://github.com/jeromelebel/MongoHub-Mac/issues/201)
+- Better json editor feedback, when saving a document [issue #201](https://github.com/jeromelebel/MongoHub-Mac/issues/201)
 - Support for Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NaN [issue #206](https://github.com/jeromelebel/MongoHub-Mac/issues/206)
 - Parse correctly keys in a document (accept only numbers)
 
