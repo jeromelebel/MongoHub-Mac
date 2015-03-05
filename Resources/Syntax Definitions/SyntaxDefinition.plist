@@ -4,6 +4,23 @@
 <dict>
 	<key>Components</key>
 	<dict>
+		<key>Timestamp</key>
+		<dict>
+			<key>Color</key>
+			<array>
+				<integer>1</integer>
+				<real>0.5647058823529412</real>
+				<integer>0</integer>
+			</array>
+			<key>End</key>
+			<string>)</string>
+			<key>Name</key>
+			<string>Timestamp</string>
+			<key>Start</key>
+			<string>Timestamp(</string>
+			<key>Type</key>
+			<string>String</string>
+		</dict>
 		<key>SingleQuoteStringsValue</key>
 		<dict>
 			<key>Color</key>
@@ -99,6 +116,26 @@
 			<string>{ } [ ] , :</string>
 			<key>Type</key>
 			<string>Keywords</string>
+		</dict>
+		<key>NumberKeyWords</key>
+		<dict>
+			<key>Name</key>
+			<string>Number</string>
+			<key>Type</key>
+			<string>Keywords</string>
+			<key>Keywords</key>
+			<array>
+				<string>NumberLong</string>
+				<string>Number.POSITIVE_INFINITY</string>
+				<string>Number.NEGATIVE_INFINITY</string>
+				<string>Number.NaN</string>
+			</array>
+			<key>Color</key>
+			<array>
+				<integer>1</integer>
+				<real>0.5647058823529412</real>
+				<integer>0</integer>
+			</array>
 		</dict>
 		<key>IdKey</key>
 		<dict>
