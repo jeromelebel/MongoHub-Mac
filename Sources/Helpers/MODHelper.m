@@ -82,7 +82,15 @@
     if ([dataValue isKindOfClass:[NSNumber class]]) {
         if (strcmp([dataValue objCType], @encode(double)) == 0 || strcmp([dataValue objCType], @encode(float)) == 0) {
             type = @"Double";
-            value = [dataValue description];
+            if ([dataValue doubleValue] == INFINITY) {
+                value = @"Number.POSITIVE_INFINITY";
+            } else if ([dataValue doubleValue] == -INFINITY) {
+                value = @"Number.NEGATIVE_INFINITY";
+            } else if (isnan([dataValue doubleValue])) {
+                value = @"Number.NaN";
+            } else {
+                value = [dataValue description];
+            }
         } else if (strcmp([dataValue objCType], @encode(int)) == 0) {
             type = @"Integer";
             value = [dataValue description];
