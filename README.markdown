@@ -62,7 +62,7 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Better json editor feedback, when saving a document [issue #201](https://github.com/jeromelebel/MongoHub-Mac/issues/201)
 - Copying documents are now in a json array (using the pasteboard) [issue #195](https://github.com/jeromelebel/MongoHub-Mac/issues/195)
 - Support for Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NaN [issue #206](https://github.com/jeromelebel/MongoHub-Mac/issues/206)
-- Parse correctly keys in a document (accept only numbers)
+- Parse correctly keys in a document (now, accepts numbers without quotes)
 
 **3.1 Beta**
 
@@ -74,7 +74,7 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Fix to create a new database with mongodb 3.0 [issue #203](https://github.com/jeromelebel/MongoHub-Mac/issues/203)
 - Better json editor feedback, when saving a document [issue #201](https://github.com/jeromelebel/MongoHub-Mac/issues/201)
 - Support for Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NaN [issue #206](https://github.com/jeromelebel/MongoHub-Mac/issues/206)
-- Parse correctly keys in a document (accept only numbers)
+- Parse correctly keys in a document (now, accepts numbers without quotes)
 - Fix for SCRAM authentification in Mongo 3.0 [issue #200](https://github.com/jeromelebel/MongoHub-Mac/issues/200)
 
 **3.1 beta 3 - february 19, 2015**

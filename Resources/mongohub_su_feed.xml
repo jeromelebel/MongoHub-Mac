@@ -107,7 +107,7 @@
                     <li>Fix to create a new database with mongodb 3.0 <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/203'>issue #203</a></li>
                     <li>Better json editor feedback, when saving a document <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/201'>issue #201</a></li>
                     <li>Support for Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NaN <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/206'>issue #206</a></li>
-                    <li>Parse correctly keys in a document (accept only numbers)</li>
+                    <li>Parse correctly keys in a document (now, accepts numbers without quotes)</li>
                     <li>Fix for SCRAM authentification in Mongo 3.0 <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/200'>issue #200</a></li>
                 </ul>
                 <h3>3.1 beta 3</h3>
