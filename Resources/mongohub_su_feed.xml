@@ -98,15 +98,24 @@
         <language>en</language>
         <item>
             <beta>1</beta>
-            <title>Version 3.1 beta 3</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.1b3.zip" sparkle:version="3.1b3" type="application/octet-stream" />
+            <title>Version 3.1 beta 4</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.1b4.zip" sparkle:version="3.1b4" type="application/octet-stream" />
             <description><![CDATA[
+                <h3>3.1 beta 4</h3>
+                <ul>
+                    <li>Crash fix for <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/200'>issue #200</a></li>
+                    <li>Fix to create a new database with mongodb 3.0 <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/203'>issue #203</a></li>
+                    <li>Better json editor feedback, when saving a document <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/201'>issue #201</a></li>
+                    <li>Support for Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NaN <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/206'>issue #206</a></li>
+                    <li>Parse correctly keys in a document (accept only numbers)</li>
+                    <li>Fix for SCRAM authentification in Mongo 3.0 <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/200'>issue #200</a></li>
+                </ul>
                 <h3>3.1 beta 3</h3>
                 <ul>
-                <li>Documents are copied inside an array (using the pasteboard) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/195'>issue #195</a></li>
-                <li>Fix for a crash when the server is not valid <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/196'>issue #196</a></li>
-                <li>Fix for a crash when changingn the collection name <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/193'>issue #193</a></li>
-                <li>Fix for a crash when editing a document <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/198'>issue #198</a></li>
+                    <li>Documents are copied inside an array (using the pasteboard) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/195'>issue #195</a></li>
+                    <li>Fix for a crash when the server is not valid <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/196'>issue #196</a></li>
+                    <li>Fix for a crash when changingn the collection name <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/193'>issue #193</a></li>
+                    <li>Fix for a crash when editing a document <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/198'>issue #198</a></li>
                 </ul>
                 <h3>3.1 beta 2</h3>
                 <ul>

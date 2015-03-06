@@ -71,6 +71,7 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Better json editor feedback, when saving a document [issue #201](https://github.com/jeromelebel/MongoHub-Mac/issues/201)
 - Support for Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NaN [issue #206](https://github.com/jeromelebel/MongoHub-Mac/issues/206)
 - Parse correctly keys in a document (accept only numbers)
+- Fix for SCRAM authentification in Mongo 3.0 [issue #200](https://github.com/jeromelebel/MongoHub-Mac/issues/200)
 
 ## History
 
