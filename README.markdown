@@ -66,14 +66,16 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 **3.1 Beta**
 
+## History
+
+**3.1 beta 4 - march 6, 2015**
+
 - Crash fix for [issue #200](https://github.com/jeromelebel/MongoHub-Mac/issues/200)
 - Fix to create a new database with mongodb 3.0 [issue #203](https://github.com/jeromelebel/MongoHub-Mac/issues/203)
 - Better json editor feedback, when saving a document [issue #201](https://github.com/jeromelebel/MongoHub-Mac/issues/201)
 - Support for Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NaN [issue #206](https://github.com/jeromelebel/MongoHub-Mac/issues/206)
 - Parse correctly keys in a document (accept only numbers)
 - Fix for SCRAM authentification in Mongo 3.0 [issue #200](https://github.com/jeromelebel/MongoHub-Mac/issues/200)
-
-## History
 
 **3.1 beta 3 - february 19, 2015**
 
