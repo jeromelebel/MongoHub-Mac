@@ -528,6 +528,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     if (expandValue == 0) {
         [self.findResultsOutlineView collapseItem:nil collapseChildren:YES];
     } else if (expandValue == 100) {
+        [self.findResultsOutlineView collapseItem:nil collapseChildren:NO];
         [self.findResultsOutlineView expandItem:nil expandChildren:YES];
     } else if (expandValue > 0) {
         NSInteger index = 0;
