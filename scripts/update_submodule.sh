@@ -41,18 +41,13 @@ elif [ "${protocol}" = "http" ] ; then
     else
         rmdir "${submodule_path}"
         git clone "${github_url}/${submodule_owner}/${submodule_name}" "${submodule_path}"
-        if [ "${submodule_branch}" != "master" ] ; then
-            cd "${submodule_path}"
-            git branch "${submodule_branch}" "origin/${submodule_branch}"
-            git checkout "${submodule_branch}"
-        fi
+        cd "${submodule_path}"
         git checkout "${sha1}"
     fi
 else
     cd "${submodule_path}"
     pwd
     if [ ! -f "${submodule_name}.zip" ] ; then
-        curl -o "${submodule_name}.zip" -L "https://github.com/${submodule_owner}/${submodule_name}/archive/${submodule_branch}.zip"
         curl -o "${submodule_name}.zip" -L "https://codeload.github.com/jeromelebel/${submodule_name}/zip/${sha1}"
 
         unzip "${submodule_name}.zip"
