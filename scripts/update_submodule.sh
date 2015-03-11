@@ -37,13 +37,14 @@ if [ "${protocol}" = "ssh" ] ; then
 elif [ "${protocol}" = "http" ] ; then
     if [ -d "${submodule_path}/.git" ] ; then
         cd "${submodule_path}"
-        git pull
+        git fetch
     else
         rmdir "${submodule_path}"
         git clone "${github_url}/${submodule_owner}/${submodule_name}" "${submodule_path}"
         cd "${submodule_path}"
         git checkout "${sha1}"
     fi
+    git checkout "${sha1}"
 else
     cd "${submodule_path}"
     pwd
