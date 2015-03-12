@@ -15,8 +15,8 @@
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="73G-i1-FQq">
             <rect key="frame" x="0.0" y="0.0" width="587" height="19"/>
             <subviews>
-                <popUpButton verticalHuggingPriority="750" misplaced="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="7E6-av-Yuh">
-                    <rect key="frame" x="-3" y="-3" width="102" height="22"/>
+                <popUpButton verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="7E6-av-Yuh">
+                    <rect key="frame" x="-3" y="-3" width="103" height="22"/>
                     <popUpButtonCell key="cell" type="push" title="Current Date" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="hyI-sy-TIE" id="j14-vc-hd6">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
@@ -42,8 +42,8 @@
                         <outlet property="nextKeyView" destination="uKc-74-bsi" id="cR6-Ly-9ma"/>
                     </connections>
                 </popUpButton>
-                <button verticalHuggingPriority="750" misplaced="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="8j4-Vy-YSn">
-                    <rect key="frame" x="543" y="-1" width="18" height="19"/>
+                <button verticalHuggingPriority="750" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="8j4-Vy-YSn">
+                    <rect key="frame" x="537" y="-1" width="21" height="19"/>
                     <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSAddTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DyM-kN-0Bp">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="cellTitle"/>
@@ -52,15 +52,15 @@
                         <outlet property="nextKeyView" destination="2SU-Z4-cHC" id="RV2-DO-S9E"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" misplaced="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="2SU-Z4-cHC">
-                    <rect key="frame" x="569" y="-1" width="18" height="19"/>
+                <button verticalHuggingPriority="750" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="2SU-Z4-cHC">
+                    <rect key="frame" x="566" y="-1" width="21" height="19"/>
                     <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tHM-ec-mD7">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
                 </button>
-                <textField verticalHuggingPriority="750" misplaced="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="uKc-74-bsi">
-                    <rect key="frame" x="104" y="0.0" width="431" height="19"/>
+                <textField verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="uKc-74-bsi">
+                    <rect key="frame" x="105" y="0.0" width="424" height="19"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="{ }" drawsBackground="YES" id="3hG-Oe-8Iw">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
