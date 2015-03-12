@@ -87,6 +87,8 @@
 		02C4C1CA19A231600002FBD8 /* MongoObjCDriver.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		02CEE9BE1486DD7A00E488DA /* MHTabTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CEE9BD1486DD7A00E488DA /* MHTabTitleView.m */; };
 		02CF9CC919AA9E8A00EEF76B /* MHMongoHubMigration9to10.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 02CF9CC819AA9E8A00EEF76B /* MHMongoHubMigration9to10.xcmappingmodel */; };
+		02D3D9A11AAA4DD000FE5566 /* MHDocumentOutlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D3D9A01AAA4DD000FE5566 /* MHDocumentOutlineViewController.m */; };
+		02D3D9A81AAA512B00FE5566 /* MHDocumentOutlineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D3D9A71AAA512B00FE5566 /* MHDocumentOutlineView.xib */; };
 		02D83E0219A4A28F007AB2F2 /* NSDictionary+MongoHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D83E0119A4A28F007AB2F2 /* NSDictionary+MongoHub.m */; };
 		02E0FE36151DE2420094C1CD /* background-grey_center.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE29151DE2420094C1CD /* background-grey_center.png */; };
 		02E0FE37151DE2420094C1CD /* background-grey_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E0FE2A151DE2420094C1CD /* background-grey_left.png */; };
@@ -321,6 +323,9 @@
 		02CEE9BC1486DD7A00E488DA /* MHTabTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabTitleView.h; sourceTree = "<group>"; };
 		02CEE9BD1486DD7A00E488DA /* MHTabTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTabTitleView.m; sourceTree = "<group>"; };
 		02CF9CC819AA9E8A00EEF76B /* MHMongoHubMigration9to10.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MHMongoHubMigration9to10.xcmappingmodel; sourceTree = "<group>"; };
+		02D3D99F1AAA4DD000FE5566 /* MHDocumentOutlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDocumentOutlineViewController.h; sourceTree = "<group>"; };
+		02D3D9A01AAA4DD000FE5566 /* MHDocumentOutlineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHDocumentOutlineViewController.m; sourceTree = "<group>"; };
+		02D3D9A71AAA512B00FE5566 /* MHDocumentOutlineView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHDocumentOutlineView.xib; sourceTree = "<group>"; };
 		02D83DFF19A4A1A9007AB2F2 /* NSDictionary+MongoHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MongoHub.h"; sourceTree = "<group>"; };
 		02D83E0119A4A28F007AB2F2 /* NSDictionary+MongoHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+MongoHub.m"; sourceTree = "<group>"; };
 		02E0FE29151DE2420094C1CD /* background-grey_center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-grey_center.png"; sourceTree = "<group>"; };
@@ -504,6 +509,8 @@
 				029464DE19F5899F00E1B1E6 /* MHActivityMonitorViewController.m */,
 				02C345301A436A18004F0D2C /* MHIndexEditorController.h */,
 				02C345311A436A18004F0D2C /* MHIndexEditorController.m */,
+				02D3D99F1AAA4DD000FE5566 /* MHDocumentOutlineViewController.h */,
+				02D3D9A01AAA4DD000FE5566 /* MHDocumentOutlineViewController.m */,
 			);
 			path = ConnectionWindow;
 			sourceTree = "<group>";
@@ -817,6 +824,7 @@
 				1D64100E12C8E6BE0030AA4C /* MHJsonWindow.xib */,
 				0279C08F189C02F600F8BACB /* MHImportExportFeedback.xib */,
 				0259EAFD19AF5CF000181E08 /* MHLogWindow.xib */,
+				02D3D9A71AAA512B00FE5566 /* MHDocumentOutlineView.xib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -941,6 +949,7 @@
 				1D93C3B211836510003216F7 /* editmenu.png in Resources */,
 				1D93C42C1183744D003216F7 /* collectionicon.png in Resources */,
 				1D93C42D1183744D003216F7 /* dbicon.png in Resources */,
+				02D3D9A81AAA512B00FE5566 /* MHDocumentOutlineView.xib in Resources */,
 				0279C090189C02F600F8BACB /* MHImportExportFeedback.xib in Resources */,
 				1DF96E3D11881EB400C35AB8 /* MHEditNameWindow.xib in Resources */,
 				1DF96F9411883D5E00C35AB8 /* MHQueryView.xib in Resources */,
@@ -1045,6 +1054,7 @@
 				029CAA731946028800FD44B4 /* NSTextView+MongoHub.m in Sources */,
 				021315AE198ABF41006378C5 /* MHMongoHubMigration7to8.xcmappingmodel in Sources */,
 				1D93C24F11833599003216F7 /* ConnectionsArrayController.m in Sources */,
+				02D3D9A11AAA4DD000FE5566 /* MHDocumentOutlineViewController.m in Sources */,
 				1D93C45411837668003216F7 /* SidebarBadgeCell.m in Sources */,
 				1D93CB5C1184C243003216F7 /* MHResultsOutlineViewController.m in Sources */,
 				1DF96E3B11881AED00C35AB8 /* MHEditNameWindowController.m in Sources */,

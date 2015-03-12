@@ -13,6 +13,7 @@
 @class MODCollection;
 @class MHConnectionStore;
 @class MHIndexEditorController;
+@class MHDocumentOutlineViewController;
 
 @interface MHQueryViewController : MHTabItemViewController
 {
@@ -70,9 +71,9 @@
     
     NSTextView                                  *_aggregationPipeline;
     NSTextView                                  *_aggregationOptions;
-    NSOutlineView                               *_aggregationResultOutlineView;
     NSProgressIndicator                         *_aggregationLoaderIndicator;
-    MHResultsOutlineViewController              *_aggregationResultOutlineViewController;
+    NSView                                      *_aggregationResultView;
+    MHDocumentOutlineViewController             *_aggregationDocumentOutlineViewController;
     UKSyntaxColoredTextViewController           *_aggregationPipelineSyntaxColoringController;
     UKSyntaxColoredTextViewController           *_aggregationOptionsSyntaxColoringController;
     

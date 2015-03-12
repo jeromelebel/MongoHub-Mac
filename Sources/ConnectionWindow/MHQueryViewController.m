@@ -7,7 +7,9 @@
 //
 
 #import "MHQueryViewController.h"
+
 #import "MHResultsOutlineViewController.h"
+#import "MHDocumentOutlineViewController.h"
 #import "NSString+MongoHub.h"
 #import "MHJsonWindowController.h"
 #import <MongoObjCDriver/MongoObjCDriver.h>
@@ -78,9 +80,9 @@
 
 @property (nonatomic, readwrite, weak) IBOutlet NSTextView *aggregationPipeline;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextView *aggregationOptions;
-@property (nonatomic, readwrite, weak) IBOutlet NSOutlineView *aggregationResultOutlineView;
 @property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *aggregationLoaderIndicator;
-@property (nonatomic, readwrite, strong) MHResultsOutlineViewController *aggregationResultOutlineViewController;
+@property (nonatomic, readwrite, weak) IBOutlet NSView *aggregationResultView;
+@property (nonatomic, readwrite, strong) IBOutlet MHDocumentOutlineViewController *aggregationDocumentOutlineViewController;
 @property (nonatomic, readwrite, strong) UKSyntaxColoredTextViewController *aggregationPipelineSyntaxColoringController;
 @property (nonatomic, readwrite, strong) UKSyntaxColoredTextViewController *aggregationOptionsSyntaxColoringController;
 
@@ -181,9 +183,9 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 
 @synthesize aggregationPipeline = _aggregationPipeline;
 @synthesize aggregationOptions = _aggregationOptions;
-@synthesize aggregationResultOutlineView = _aggregationResultOutlineView;
 @synthesize aggregationLoaderIndicator = _aggregationLoaderIndicator;
-@synthesize aggregationResultOutlineViewController = _aggregationResultOutlineViewController;
+@synthesize aggregationResultView = _aggregationResultView;
+@synthesize aggregationDocumentOutlineViewController = _aggregationDocumentOutlineViewController;
 @synthesize aggregationPipelineSyntaxColoringController = _aggregationPipelineSyntaxColoringController;
 @synthesize aggregationOptionsSyntaxColoringController = _aggregationOptionsSyntaxColoringController;
 
@@ -246,7 +248,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     self.updateOperatorViews = nil;
     self.updateOperatorList = nil;
     
-    self.aggregationResultOutlineViewController = nil;
+    self.aggregationDocumentOutlineViewController = nil;
     self.aggregationPipelineSyntaxColoringController = nil;
     self.aggregationOptionsSyntaxColoringController = nil;
     
@@ -290,7 +292,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     
     self.findResultsViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.findResultsOutlineView]);
     self.indexesOutlineViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.indexOutlineView]);
-    self.aggregationResultOutlineViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.aggregationResultOutlineView]);
     self.mrOutlineViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.mrOutlineView]);
     
     self.insertSyntaxColoringController = MOD_AUTORELEASE([[UKSyntaxColoredTextViewController alloc] init]);
@@ -309,6 +310,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     self.aggregationOptionsSyntaxColoringController = MOD_AUTORELEASE([[UKSyntaxColoredTextViewController alloc] init]);
     self.aggregationOptionsSyntaxColoringController.delegate = self;
     self.aggregationOptionsSyntaxColoringController.view = self.aggregationOptions;
+    [MHDocumentOutlineViewController addDocumentOutlineViewController:self.aggregationDocumentOutlineViewController intoView:self.aggregationResultView];
     
     [self.insertDataTextView mh_jsonSetup];
     [self.mrReduceFunctionTextView mh_jsonSetup];
@@ -863,8 +865,20 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
                                                                    attribute:NSLayoutAttributeBottom
                                                                   multiplier:1.0
                                                                     constant:8.0]];
-    [self.updateTabView addConstraint:[NSLayoutConstraint constraintWithItem:mainView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.updateTabView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0]];
-    [self.updateTabView addConstraint:[NSLayoutConstraint constraintWithItem:mainView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.updateTabView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0]];
+    [self.updateTabView addConstraint:[NSLayoutConstraint constraintWithItem:mainView
+                                                                   attribute:NSLayoutAttributeLeading
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.updateTabView
+                                                                   attribute:NSLayoutAttributeLeading
+                                                                  multiplier:1.0
+                                                                    constant:0.0]];
+    [self.updateTabView addConstraint:[NSLayoutConstraint constraintWithItem:mainView
+                                                                   attribute:NSLayoutAttributeTrailing
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.updateTabView
+                                                                   attribute:NSLayoutAttributeTrailing
+                                                                  multiplier:1.0
+                                                                    constant:0.0]];
 }
 
 - (IBAction)updateAddOperatorAction:(id)sender
@@ -1249,7 +1263,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-            self.aggregationResultOutlineViewController.results = nil;
+            [self.aggregationDocumentOutlineViewController displayDocuments:nil];
         } else {
             NSMutableArray *documents = [NSMutableArray array];
             NSMutableArray *allData = [NSMutableArray array];
@@ -1260,7 +1274,8 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
                                                         return YES;
                                                     }
                                                     endCallback:^(uint64_t documentCounts, BOOL cursorStopped, MODQuery *mongoQuery) {
-                                                        self.aggregationResultOutlineViewController.results = [MODHelper convertForOutlineWithObjects:documents bsonData:allData jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
+                                                        NSArray *displayedDocuments = [MODHelper convertForOutlineWithObjects:documents bsonData:allData jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
+                                                        [self.aggregationDocumentOutlineViewController displayDocuments:displayedDocuments];
                                                     }];
         }
     }];
