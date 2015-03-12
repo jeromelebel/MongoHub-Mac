@@ -910,7 +910,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         item.target = self;
         item.action = @selector(updateOperatorPopButtonAction:);
     }
-    mainView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.updateTabView addSubview:mainView];
     
     if (sender) {
