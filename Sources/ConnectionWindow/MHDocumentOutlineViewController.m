@@ -18,6 +18,8 @@
 @property (nonatomic, readwrite, weak) IBOutlet NSButton *backButton;
 @property (nonatomic, readwrite, weak) IBOutlet NSButton *nextButton;
 
+@property (nonatomic, readwrite, assign) BOOL removeButtonHidden;
+@property (nonatomic, readwrite, assign) BOOL nextBackButtonsHidden;
 @property (nonatomic, readwrite, copy) NSArray *documents;
 
 @end
@@ -34,6 +36,8 @@
 @synthesize backButton = _backButton;
 @synthesize nextButton = _nextButton;
 
+@synthesize removeButtonHidden = _removeButtonHidden;
+@synthesize nextBackButtonsHidden = _nextBackButtonsHidden;
 @synthesize documents = _documents;
 @synthesize delegate = _delegate;
 
@@ -76,9 +80,16 @@
     return @"MHDocumentOutlineView";
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do view setup here.
+}
+
+- (void)awakeFromNib
+{
+    self.removeButton.hidden = self.removeButtonHidden;
+    self.backButton.hidden = self.nextBackButtonsHidden;
+    self.nextButton.hidden = self.nextBackButtonsHidden;
 }
 
 - (void)displayDocuments:(NSArray *)newDocuments

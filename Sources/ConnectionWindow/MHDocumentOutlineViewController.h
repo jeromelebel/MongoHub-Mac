@@ -25,6 +25,9 @@
     NSButton                                *_backButton;
     NSButton                                *_nextButton;
     
+    BOOL                                    _removeButtonHidden;
+    BOOL                                    _nextBackButtonsHidden;
+    
     id<MHDocumentOutlineViewDelegate>       _delegate;
     NSArray                                 *_documents;
 }

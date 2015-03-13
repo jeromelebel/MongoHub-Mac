@@ -1392,7 +1392,12 @@ CA
             <point key="canvasLocation" x="139" y="153.5"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="WGO-9Z-hTD"/>
-        <customObject id="zUO-vW-6Ii" userLabel="AggregateDocumentOutlineViewController" customClass="MHDocumentOutlineViewController"/>
+        <customObject id="zUO-vW-6Ii" userLabel="AggregateDocumentOutlineViewController" customClass="MHDocumentOutlineViewController">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="removeButtonHidden" value="YES"/>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="nextBackButtonsHidden" value="YES"/>
+            </userDefinedRuntimeAttributes>
+        </customObject>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>
