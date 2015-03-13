@@ -63,8 +63,11 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Copying documents are now in a json array (using the pasteboard) [issue #195](https://github.com/jeromelebel/MongoHub-Mac/issues/195)
 - Support for Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NaN [issue #206](https://github.com/jeromelebel/MongoHub-Mac/issues/206)
 - Parse correctly keys in a document (now, accepts numbers without quotes)
+- Mongo C Driver 1.1.2
 
 **3.1 Beta**
+
+- Mongo C Driver 1.1.2
 
 ## History
 
