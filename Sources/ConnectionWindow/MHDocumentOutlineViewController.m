@@ -8,6 +8,7 @@
 
 #import "MHDocumentOutlineViewController.h"
 #import <MongoObjCDriver/MongoObjCDriver.h>
+#import "NSViewHelpers.h"
 
 @interface MHDocumentOutlineViewController ()
 
@@ -92,10 +93,43 @@
     self.nextButton.hidden = self.nextBackButtonsHidden;
 }
 
-- (void)displayDocuments:(NSArray *)newDocuments
+- (void)displayDocuments:(NSArray *)newDocuments withLabel:(NSString *)label
 {
+    self.feedbackLabel.stringValue = label;
+    [NSViewHelpers setColor:self.feedbackLabel.textColor
+                  fromColor:[NSColor greenColor]
+                   toTarget:self.feedbackLabel
+               withSelector:@selector(setTextColor:)
+                      delay:1];
     self.documents = newDocuments;
     [self.outlineView reloadData];
+    [self _expandDocuments];
+}
+
+- (void)_expandDocuments
+{
+    NSInteger expandValue;
+    
+    expandValue = self.expandPopUpButton.selectedTag;
+    if (expandValue == 0) {
+        [self.outlineView collapseItem:nil collapseChildren:YES];
+    } else if (expandValue == 100) {
+        [self.outlineView collapseItem:nil collapseChildren:NO];
+        [self.outlineView expandItem:nil expandChildren:YES];
+    } else if (expandValue > 0) {
+        NSInteger index = 0;
+        id item;;
+        NSOutlineView *outlineView = self.outlineView;
+        
+        while ((item = [outlineView itemAtRow:index])) {
+            if ([outlineView levelForItem:item] < expandValue) {
+                [outlineView expandItem:item];
+            } else {
+                [outlineView collapseItem:item];
+            }
+            index++;
+        }
+    }
 }
 
 @end
@@ -151,7 +185,7 @@
 
 - (IBAction)expandPopUpButtonAction:(id)sender
 {
-    
+    [self _expandDocuments];
 }
 
 @end

@@ -37,6 +37,6 @@
 
 + (void)addDocumentOutlineViewController:(MHDocumentOutlineViewController *)controller intoView:(NSView *)view;
 
-- (void)displayDocuments:(NSArray *)documents;
+- (void)displayDocuments:(NSArray *)documents withLabel:(NSString *)label;
 
 @end

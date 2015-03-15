@@ -1262,7 +1262,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-            [self.aggregationDocumentOutlineViewController displayDocuments:nil];
+            [self.aggregationDocumentOutlineViewController displayDocuments:nil withLabel:nil];
         } else {
             NSMutableArray *documents = [NSMutableArray array];
             NSMutableArray *allData = [NSMutableArray array];
@@ -1273,8 +1273,9 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
                                                         return YES;
                                                     }
                                                     endCallback:^(uint64_t documentCounts, BOOL cursorStopped, MODQuery *mongoQuery) {
+                                                        NSString *label = [NSString stringWithFormat:@"%lld documents", documentCounts];
                                                         NSArray *displayedDocuments = [MODHelper convertForOutlineWithObjects:documents bsonData:allData jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
-                                                        [self.aggregationDocumentOutlineViewController displayDocuments:displayedDocuments];
+                                                        [self.aggregationDocumentOutlineViewController displayDocuments:displayedDocuments withLabel:label];
                                                     }];
         }
     }];
