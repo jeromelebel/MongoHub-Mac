@@ -34,19 +34,15 @@
 @property (nonatomic, readwrite, strong) MHConnectionStore *connectionStore;
 
 @property (nonatomic, readwrite, strong) MHResultsOutlineViewController *findResultsViewController;
-@property (nonatomic, readwrite, weak) IBOutlet NSOutlineView *findResultsOutlineView;
-@property (nonatomic, readwrite, weak) IBOutlet NSButton *findRemoveButton;
 @property (nonatomic, readwrite, weak) IBOutlet NSComboBox *findCriteriaComboBox;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *findFieldFilterTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *findSkipTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *findLimitTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *findSortTextField;
-@property (nonatomic, readwrite, weak) IBOutlet NSTextField *findTotalResultsTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *findQueryTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *findQueryLoaderIndicator;
-@property (nonatomic, readwrite, weak) IBOutlet NSPopUpButton *findExpandPopUpButton;
-@property (nonatomic, readwrite, weak) IBOutlet NSButton *findNextResultButton;
-@property (nonatomic, readwrite, weak) IBOutlet NSButton *findPreviousResultButton;
+@property (nonatomic, readwrite, strong) IBOutlet MHDocumentOutlineViewController *findDocumentOutlineViewController;
+@property (nonatomic, readwrite, assign) IBOutlet NSView *findResultView;
 
 @property (nonatomic, readwrite, weak) IBOutlet NSButton *insertButton;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextView *insertDataTextView;
@@ -137,19 +133,15 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 @synthesize tabView = _tabView, segmentedControl = _segmentedControl;
 
 @synthesize findResultsViewController = _findResultsViewController;
-@synthesize findResultsOutlineView = _findResultsOutlineView;
-@synthesize findRemoveButton = _findRemoveButton;
 @synthesize findCriteriaComboBox = _findCriteriaComboBox;
 @synthesize findFieldFilterTextField = _findFieldFilterTextField;
 @synthesize findSkipTextField = _findSkipTextField;
 @synthesize findLimitTextField = _findLimitTextField;
 @synthesize findSortTextField = _findSortTextField;
-@synthesize findTotalResultsTextField = _findTotalResultsTextField;
 @synthesize findQueryTextField = _findQueryTextField;
 @synthesize findQueryLoaderIndicator = _findQueryLoaderIndicator;
-@synthesize findNextResultButton = _findNextResultButton;
-@synthesize findPreviousResultButton = _findPreviousResultButton;
-@synthesize findExpandPopUpButton = _findExpandPopUpButton;
+@synthesize findDocumentOutlineViewController = _findDocumentOutlineViewController;
+@synthesize findResultView = _findResultView;
 
 @synthesize insertDataTextView = _insertDataTextView;
 @synthesize insertResultsTextField = _insertResultsTextField;
@@ -241,6 +233,8 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     
     self.insertSyntaxColoringController = nil;
     self.indexesOutlineViewController = nil;
+    self.findDocumentOutlineViewController = nil;
+    
     self.mrOutlineViewController = nil;
     self.findResultsViewController = nil;
     self.collection = nil;
@@ -290,9 +284,9 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     self.updateOperatorViews = [NSMutableArray array];
     [self updateAddOperatorAction:nil];
     
-    self.findResultsViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.findResultsOutlineView]);
     self.indexesOutlineViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.indexOutlineView]);
     self.mrOutlineViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.mrOutlineView]);
+    [MHDocumentOutlineViewController addDocumentOutlineViewController:self.findDocumentOutlineViewController intoView:self.findResultView];
     
     self.insertSyntaxColoringController = MOD_AUTORELEASE([[UKSyntaxColoredTextViewController alloc] init]);
     self.insertSyntaxColoringController.delegate = self;
@@ -316,7 +310,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     [self.mrReduceFunctionTextView mh_jsonSetup];
     [self.mrMapFunctionTextView mh_jsonSetup];
     
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(findResultOutlineViewNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.findResultsOutlineView];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(indexOutlineViewNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.indexOutlineView];
     
     if (!appDelegate.hasCollectionMapReduceTab) {
@@ -517,37 +510,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     return result;
 }
 
-- (void)findResultOutlineViewNotification:(NSNotification *)notification
-{
-    self.findRemoveButton.enabled = self.findResultsOutlineView.selectedRowIndexes.count != 0;
-}
-
-- (void)_findExpandResult
-{
-    NSInteger expandValue;
-    
-    expandValue = self.findExpandPopUpButton.selectedTag;
-    if (expandValue == 0) {
-        [self.findResultsOutlineView collapseItem:nil collapseChildren:YES];
-    } else if (expandValue == 100) {
-        [self.findResultsOutlineView collapseItem:nil collapseChildren:NO];
-        [self.findResultsOutlineView expandItem:nil expandChildren:YES];
-    } else if (expandValue > 0) {
-        NSInteger index = 0;
-        id item;;
-        NSOutlineView *outlineView = self.findResultsOutlineView;
-        
-        while ((item = [outlineView itemAtRow:index])) {
-            if ([outlineView levelForItem:item] < expandValue) {
-                [outlineView expandItem:item];
-            } else {
-                [outlineView collapseItem:item];
-            }
-            index++;
-        }
-    }
-}
-
 - (IBAction)findQuery:(id)sender
 {
     int limit = self.findLimitTextField.intValue;
@@ -580,14 +542,10 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         fieldWithError = self.findFieldFilterTextField;
     }
     if (error) {
-        NSColor *currentColor;
+        NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", error.localizedDescription];
         
-        self.findTotalResultsTextField.stringValue = [NSString stringWithFormat:@"Error: %@", error.localizedDescription];
-        self.findQueryTextField.stringValue = [NSString stringWithFormat:@"Error: %@", error.localizedDescription];
-        [NSViewHelpers cancelColorForTarget:self.findTotalResultsTextField selector:@selector(setTextColor:)];
-        currentColor = self.findTotalResultsTextField.textColor;
-        self.findTotalResultsTextField.textColor = NSColor.redColor;
-        [NSViewHelpers setColor:currentColor fromColor:NSColor.redColor toTarget:self.findTotalResultsTextField withSelector:@selector(setTextColor:) delay:1];
+        [self.findDocumentOutlineViewController displayErrorLabel:errorMessage];
+        self.findQueryTextField.stringValue = errorMessage;
         [self.findQueryLoaderIndicator stopAnimation:nil];
         [fieldWithError becomeFirstResponder];
     } else {
@@ -597,14 +555,13 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
                                     limit:limit
                                      sort:sort
                                  callback:^(NSArray *documents, NSArray *bsonData, MODQuery *mongoQuery) {
-            NSColor *currentColor;
-            NSColor *flashColor;
-            
             if (mongoQuery.error) {
-                flashColor = [NSColor redColor];
-                self.findTotalResultsTextField.stringValue = [NSString stringWithFormat:@"Error: %@", [mongoQuery.error localizedDescription]];
-                self.findQueryTextField.stringValue = [NSString stringWithFormat:@"Error: %@", [mongoQuery.error localizedDescription]];
+                NSString *errorMessage = [NSString stringWithFormat:@"Error: %@", [mongoQuery.error localizedDescription]];
+                [self.findDocumentOutlineViewController displayErrorLabel:errorMessage];
+                self.findQueryTextField.stringValue = errorMessage;
             } else {
+                NSArray *convertedDocuments = nil;
+                
                 if ([queryTitle length] > 0) {
                     [self.connectionStore addNewQuery:@{
                                                         @"title": queryTitle,
@@ -616,29 +573,15 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
                                      withDatabaseName:@""
                                        collectionName:self.collection.name];
                 }
-                self.findResultsViewController.results = [MODHelper convertForOutlineWithObjects:documents bsonData:bsonData jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
+                convertedDocuments = [MODHelper convertForOutlineWithObjects:documents bsonData:bsonData jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
+                [self.findDocumentOutlineViewController displayDocuments:convertedDocuments withLabel:nil];
                 [self.collection countWithCriteria:criteria readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
-                    self.findTotalResultsTextField.stringValue = [NSString stringWithFormat:@"Total Results: %lld (%0.2fs)", count, [[mongoQuery.userInfo objectForKey:@"timequery"] duration]];
+                    [self.findDocumentOutlineViewController displayLabel:[NSString stringWithFormat:@"Total Results: %lld (%0.2fs)", count, [[mongoQuery.userInfo objectForKey:@"timequery"] duration]]];
                 }];
-                flashColor = [NSColor greenColor];
             }
-            [NSViewHelpers cancelColorForTarget:self.findTotalResultsTextField selector:@selector(setTextColor:)];
-            currentColor = self.findTotalResultsTextField.textColor;
-            self.findTotalResultsTextField.textColor = flashColor;
-            [NSViewHelpers setColor:currentColor
-                          fromColor:flashColor
-                           toTarget:self.findTotalResultsTextField
-                       withSelector:@selector(setTextColor:)
-                              delay:1];
-            [self _findExpandResult];
             [self.findQueryLoaderIndicator stopAnimation:nil];
         }];
     }
-}
-
-- (IBAction)findExpandPopUpButtonAction:(id)sender
-{
-    [self _findExpandResult];
 }
 
 - (IBAction)removeRecord:(id)sender
@@ -1027,7 +970,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
                    withSelector:@selector(setTextColor:)
                           delay:1];
         [self.updateCriteriaTextField becomeFirstResponder];
-        self.findTotalResultsTextField.stringValue = @"";
         return;
     }
     for (NSDictionary *views in self.updateOperatorViews) {
@@ -1046,7 +988,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
                        withSelector:@selector(setTextColor:)
                               delay:1];
             [textField becomeFirstResponder];
-            self.findTotalResultsTextField.stringValue = @"";
             return;
         }
         key = [self _updateStringOperatorWithPopUpButton:popUpButton];
@@ -1152,25 +1093,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     NSString *criteria = [self formatedJsonWithTextField:self.removeCriteriaTextField replace:NO emptyValid:NO];
     
     self.removeQueryTextField.stringValue = [NSString stringWithFormat:@"db.%@.remove(%@)", self.collection.name, criteria];
-}
-
-- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
-{
-    if (anItem.action == @selector(copy:)) {
-        return (id)self.view.window.firstResponder == self.findResultsOutlineView && self.findResultsViewController.selectedDocumentCount > 0;
-    }
-    return [self respondsToSelector:anItem.action];
-}
-
-- (void)copy:(id)sender
-{
-    if ((id)self.view.window.firstResponder == self.findResultsOutlineView && self.findResultsViewController.selectedDocumentCount > 0) {
-        NSPasteboard *pasteboard;
-        
-        pasteboard = NSPasteboard.generalPasteboard;
-        [pasteboard clearContents];
-        [self.findResultsViewController outlineView:self.findResultsOutlineView writeItems:self.findResultsViewController.selectedDocuments toPasteboard:pasteboard];
-    }
 }
 
 @end

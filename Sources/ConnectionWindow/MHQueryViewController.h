@@ -25,7 +25,6 @@
     NSSegmentedControl                          *_segmentedControl;
     
     MHResultsOutlineViewController              *_findResultsViewController;
-    NSOutlineView                               *_findResultsOutlineView;
     NSComboBox                                  *_findCriteriaComboBox;
     NSTextField                                 *_findFieldFilterTextField;
     NSTextField                                 *_findSkipTextField;
@@ -34,10 +33,8 @@
     NSTextField                                 *_findTotalResultsTextField;
     NSTextField                                 *_findQueryTextField;
     NSProgressIndicator                         *_findQueryLoaderIndicator;
-    NSButton                                    *_findRemoveButton;
-    NSPopUpButton                               *_findExpandPopUpButton;
-    NSButton                                    *_findNextResultButton;
-    NSButton                                    *_findPreviousResultButton;
+    MHDocumentOutlineViewController             *_findDocumentOutlineViewController;
+    NSView                                      *_findResultView;
     
     NSButton                                    *_insertButton;
     NSTextView                                  *_insertDataTextView;

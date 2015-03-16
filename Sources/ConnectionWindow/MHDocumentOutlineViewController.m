@@ -91,19 +91,49 @@
     self.removeButton.hidden = self.removeButtonHidden;
     self.backButton.hidden = self.nextBackButtonsHidden;
     self.nextButton.hidden = self.nextBackButtonsHidden;
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(outlineViewSelectionDidChangeNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.outlineView];
 }
 
 - (void)displayDocuments:(NSArray *)newDocuments withLabel:(NSString *)label
 {
+    if (!label) {
+        self.feedbackLabel.stringValue = @"";
+    } else {
+        [NSViewHelpers cancelColorForTarget:self.feedbackLabel selector:@selector(setTextColor:)];
+        self.feedbackLabel.stringValue = label;
+        [NSViewHelpers setColor:self.feedbackLabel.textColor
+                      fromColor:[NSColor greenColor]
+                       toTarget:self.feedbackLabel
+                   withSelector:@selector(setTextColor:)
+                          delay:1];
+    }
+    self.documents = newDocuments;
+    [self.outlineView reloadData];
+    [self _expandDocuments];
+}
+
+- (void)displayErrorLabel:(NSString *)label
+{
+    [NSViewHelpers cancelColorForTarget:self.feedbackLabel selector:@selector(setTextColor:)];
+    self.feedbackLabel.stringValue = label;
+    [NSViewHelpers setColor:self.feedbackLabel.textColor
+                  fromColor:[NSColor redColor]
+                   toTarget:self.feedbackLabel
+               withSelector:@selector(setTextColor:)
+                      delay:1];
+    self.documents = nil;
+    [self.outlineView reloadData];
+}
+
+- (void)displayLabel:(NSString *)label
+{
+    [NSViewHelpers cancelColorForTarget:self.feedbackLabel selector:@selector(setTextColor:)];
     self.feedbackLabel.stringValue = label;
     [NSViewHelpers setColor:self.feedbackLabel.textColor
                   fromColor:[NSColor greenColor]
                    toTarget:self.feedbackLabel
                withSelector:@selector(setTextColor:)
                       delay:1];
-    self.documents = newDocuments;
-    [self.outlineView reloadData];
-    [self _expandDocuments];
 }
 
 - (void)_expandDocuments
@@ -130,6 +160,89 @@
             index++;
         }
     }
+}
+
+- (void)outlineViewSelectionDidChangeNotification:(NSNotification *)notification
+{
+    self.removeButton.enabled = self.outlineView.selectedRowIndexes.count != 0;
+}
+
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
+{
+    if (anItem.action == @selector(copy:)) {
+        return (id)self.view.window.firstResponder == self.outlineView && self.selectedDocumentCount > 0;
+    }
+    return [self respondsToSelector:anItem.action];
+}
+
+- (void)copy:(id)sender
+{
+    if ((id)self.view.window.firstResponder == self.outlineView && self.selectedDocumentCount > 0) {
+        NSPasteboard *pasteboard;
+        
+        pasteboard = NSPasteboard.generalPasteboard;
+        [pasteboard clearContents];
+        [self outlineView:self.outlineView writeItems:self.selectedDocuments toPasteboard:pasteboard];
+    }
+}
+
+- (NSArray *)selectedDocuments
+{
+    NSMutableArray *documents;
+    
+    documents = [NSMutableArray array];
+    [self.outlineView.selectedRowIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        id currentItem = [self.outlineView itemAtRow:idx];
+        
+        [documents addObject:[self rootForItem:currentItem]];
+    }];
+    return documents;
+}
+
+- (NSInteger)selectedDocumentCount
+{
+    return self.outlineView.selectedRowIndexes.count;
+}
+
+- (id)rootForItem:(id)item
+{
+    id parentItem = [self.outlineView parentForItem:item];
+    
+    if (parentItem) {
+        return [self rootForItem:parentItem];
+    } else {
+        return item;
+    }
+    
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pasteboard
+{
+    NSMutableString *string = [NSMutableString stringWithString:@"[\n"];
+    BOOL firstDocument = YES;
+    
+    for (NSDictionary *item in items) {
+        if (firstDocument) {
+            firstDocument = NO;
+        } else {
+            [string appendString:@",\n"];
+        }
+        [string appendString:[MODClient convertObjectToJson:[[self rootForItem:item] objectForKey:@"objectvalue"] pretty:YES strictJson:NO jsonKeySortOrder:MODJsonKeySortOrderDocument]];
+    }
+    [string appendString:@"\n]\n"];
+    [pasteboard setString:string forType:NSStringPboardType];
+    return YES;
+}
+
+- (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id < NSDraggingInfo >)info proposedItem:(id)item proposedChildIndex:(NSInteger)index
+{
+    // Add code here to validate the drop
+    return NSDragOperationNone;
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id < NSDraggingInfo >)info item:(id)item childIndex:(NSInteger)index
+{
+    return NO;
 }
 
 @end

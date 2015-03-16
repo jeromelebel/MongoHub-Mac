@@ -38,5 +38,9 @@
 + (void)addDocumentOutlineViewController:(MHDocumentOutlineViewController *)controller intoView:(NSView *)view;
 
 - (void)displayDocuments:(NSArray *)documents withLabel:(NSString *)label;
+- (void)displayErrorLabel:(NSString *)label;
+- (void)displayLabel:(NSString *)label;
+- (NSArray *)selectedDocuments;
+- (NSInteger)selectedDocumentCount;
 
 @end
