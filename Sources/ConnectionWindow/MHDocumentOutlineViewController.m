@@ -99,13 +99,7 @@
     if (!label) {
         self.feedbackLabel.stringValue = @"";
     } else {
-        [NSViewHelpers cancelColorForTarget:self.feedbackLabel selector:@selector(setTextColor:)];
-        self.feedbackLabel.stringValue = label;
-        [NSViewHelpers setColor:self.feedbackLabel.textColor
-                      fromColor:[NSColor greenColor]
-                       toTarget:self.feedbackLabel
-                   withSelector:@selector(setTextColor:)
-                          delay:1];
+        [self displayLabel:label];
     }
     self.documents = newDocuments;
     [self.outlineView reloadData];
@@ -134,6 +128,11 @@
                    toTarget:self.feedbackLabel
                withSelector:@selector(setTextColor:)
                       delay:1];
+}
+
+- (void)setBackButtonEnabled:(BOOL)enabled
+{
+    self.backButton.enabled = enabled;
 }
 
 - (void)_expandDocuments
@@ -234,13 +233,12 @@
     return YES;
 }
 
-- (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id < NSDraggingInfo >)info proposedItem:(id)item proposedChildIndex:(NSInteger)index
+- (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(NSInteger)index
 {
-    // Add code here to validate the drop
     return NSDragOperationNone;
 }
 
-- (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id < NSDraggingInfo >)info item:(id)item childIndex:(NSInteger)index
+- (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index
 {
     return NO;
 }
@@ -293,7 +291,7 @@
 
 - (IBAction)removeButtonAction:(id)sender
 {
-    [self.delegate documentOutlineViewController:self shouldDeleteDocument:nil];
+    [self.delegate documentOutlineViewController:self shouldDeleteDocuments:nil];
 }
 
 - (IBAction)expandPopUpButtonAction:(id)sender
