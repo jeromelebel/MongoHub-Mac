@@ -1351,8 +1351,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
             self.findSkipTextField.stringValue = [NSString stringWithFormat:@"%ld", (long)skipValue];
             [self findQuery:nil];
         }
-    } else if (controller == self.aggregationDocumentOutlineViewController) {
-        
     }
 }
 
@@ -1367,8 +1365,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         skipValue += limitValue;
         self.findSkipTextField.stringValue = [NSString stringWithFormat:@"%ld", (long)skipValue];
         [self findQuery:nil];
-    } else if (controller == self.aggregationDocumentOutlineViewController) {
-        
     }
 }
 
