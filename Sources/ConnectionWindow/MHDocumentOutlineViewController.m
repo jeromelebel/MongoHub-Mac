@@ -91,7 +91,7 @@
     self.backButton.enabled = NO;
     if (self.removeButtonHidden) {
         [self.removeButton removeFromSuperview];
-        self.removeButton = nil;
+        self.removeButton = nil; // not on ARC yet
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.expandPopUpButton
                                                               attribute:NSLayoutAttributeLeading
                                                               relatedBy:NSLayoutRelationEqual
@@ -102,9 +102,9 @@
     }
     if (self.nextBackButtonsHidden) {
         [self.backButton removeFromSuperview];
-        self.backButton = nil;
+        self.backButton = nil; // not on ARC yet
         [self.nextButton removeFromSuperview];
-        self.nextButton = nil;
+        self.nextButton = nil; // not on ARC yet
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.expandPopUpButton
                                                               attribute:NSLayoutAttributeTrailing
                                                               relatedBy:NSLayoutRelationEqual
