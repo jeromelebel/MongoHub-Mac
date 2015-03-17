@@ -1217,8 +1217,15 @@ CA
                 <userDefinedRuntimeAttribute type="boolean" keyPath="removeButtonHidden" value="YES"/>
                 <userDefinedRuntimeAttribute type="boolean" keyPath="nextBackButtonsHidden" value="YES"/>
             </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="delegate" destination="-2" id="Hrb-40-JmH"/>
+            </connections>
         </customObject>
-        <customObject id="nio-bf-Fks" userLabel="FindDocumentOutlineViewController" customClass="MHDocumentOutlineViewController"/>
+        <customObject id="nio-bf-Fks" userLabel="FindDocumentOutlineViewController" customClass="MHDocumentOutlineViewController">
+            <connections>
+                <outlet property="delegate" destination="-2" id="tob-Ak-mZ0"/>
+            </connections>
+        </customObject>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>

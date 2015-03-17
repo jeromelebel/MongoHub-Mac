@@ -8,6 +8,7 @@
 
 #import "MHTabItemViewController.h"
 #import "UKSyntaxColoredTextViewController.h"
+#import "MHDocumentOutlineViewController.h"
 
 @class MHResultsOutlineViewController;
 @class MODCollection;
@@ -111,4 +112,8 @@
 @end
 
 @interface MHQueryViewController (UKSyntaxColoredTextViewDelegate) <UKSyntaxColoredTextViewDelegate>
+@end
+
+@interface MHQueryViewController (MHDocumentOutlineViewDelegate) <MHDocumentOutlineViewDelegate>
+
 @end

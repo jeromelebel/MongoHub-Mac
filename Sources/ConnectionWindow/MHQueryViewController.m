@@ -575,6 +575,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
                 }
                 convertedDocuments = [MODHelper convertForOutlineWithObjects:documents bsonData:bsonData jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
                 [self.findDocumentOutlineViewController displayDocuments:convertedDocuments withLabel:nil];
+                [self.findDocumentOutlineViewController setBackButtonEnabled:self.findSkipTextField.stringValue.integerValue != 0];
                 [self.collection countWithCriteria:criteria readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
                     [self.findDocumentOutlineViewController displayLabel:[NSString stringWithFormat:@"Total Results: %lld (%0.2fs)", count, [[mongoQuery.userInfo objectForKey:@"timequery"] duration]]];
                 }];
@@ -644,36 +645,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 {
     [self.findSortTextField.cell setPlaceholderString:defaultSortOrder([MHPreferenceWindowController defaultSortOrder])];
     [self findQueryComposer];
-}
-
-- (IBAction)findNextResultButtonAction:(id)sender
-{
-    NSInteger skipValue;
-    NSInteger limitValue;
-    
-    skipValue = self.findSkipTextField.stringValue.integerValue;
-    limitValue = self.findLimitTextField.stringValue.integerValue;
-    skipValue += limitValue;
-    self.findSkipTextField.stringValue = [NSString stringWithFormat:@"%ld", (long)skipValue];
-    [self findQuery:nil];
-}
-
-- (IBAction)findPreviousResultButtonAction:(id)sender
-{
-    NSInteger skipValue;
-    
-    skipValue = self.findSkipTextField.stringValue.integerValue;
-    if (skipValue > 0) {
-        NSInteger limitValue;
-        
-        limitValue = self.findLimitTextField.stringValue.integerValue;
-        skipValue -= limitValue;
-        if (skipValue < 0) {
-            skipValue = 0;
-        }
-        self.findSkipTextField.stringValue = [NSString stringWithFormat:@"%ld", (long)skipValue];
-        [self findQuery:nil];
-    }
 }
 
 @end
@@ -1353,5 +1324,52 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 @end
 
 @implementation MHQueryViewController (UKSyntaxColoredTextViewDelegate)
+
+@end
+
+@implementation MHQueryViewController (MHDocumentOutlineViewDelegate)
+
+- (BOOL)documentOutlineViewController:(MHDocumentOutlineViewController *)controller shouldDeleteDocuments:(NSArray *)documents
+{
+    return YES;
+}
+
+- (void)documentOutlineViewControllerBackButton:(MHDocumentOutlineViewController *)controller
+{
+    if (controller == self.findDocumentOutlineViewController) {
+        NSInteger skipValue;
+        
+        skipValue = self.findSkipTextField.stringValue.integerValue;
+        if (skipValue > 0) {
+            NSInteger limitValue;
+            
+            limitValue = self.findLimitTextField.stringValue.integerValue;
+            skipValue -= limitValue;
+            if (skipValue < 0) {
+                skipValue = 0;
+            }
+            self.findSkipTextField.stringValue = [NSString stringWithFormat:@"%ld", (long)skipValue];
+            [self findQuery:nil];
+        }
+    } else if (controller == self.aggregationDocumentOutlineViewController) {
+        
+    }
+}
+
+- (void)documentOutlineViewControllerNextButton:(MHDocumentOutlineViewController *)controller
+{
+    if (controller == self.findDocumentOutlineViewController) {
+        NSInteger skipValue;
+        NSInteger limitValue;
+        
+        skipValue = self.findSkipTextField.stringValue.integerValue;
+        limitValue = self.findLimitTextField.stringValue.integerValue;
+        skipValue += limitValue;
+        self.findSkipTextField.stringValue = [NSString stringWithFormat:@"%ld", (long)skipValue];
+        [self findQuery:nil];
+    } else if (controller == self.aggregationDocumentOutlineViewController) {
+        
+    }
+}
 
 @end

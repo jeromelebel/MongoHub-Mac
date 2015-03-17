@@ -88,6 +88,7 @@
 
 - (void)awakeFromNib
 {
+    self.backButton.enabled = NO;
     self.removeButton.hidden = self.removeButtonHidden;
     self.backButton.hidden = self.nextBackButtonsHidden;
     self.nextButton.hidden = self.nextBackButtonsHidden;
@@ -281,12 +282,12 @@
 
 - (IBAction)nextButtonAction:(id)sender
 {
-    
+    [self.delegate documentOutlineViewControllerNextButton:self];
 }
 
 - (IBAction)backButtonAction:(id)sender
 {
-    
+    [self.delegate documentOutlineViewControllerBackButton:self];
 }
 
 - (IBAction)removeButtonAction:(id)sender

@@ -14,6 +14,8 @@
 
 @protocol MHDocumentOutlineViewDelegate <NSObject>
 - (BOOL)documentOutlineViewController:(MHDocumentOutlineViewController *)controller shouldDeleteDocuments:(NSArray *)documents;
+- (void)documentOutlineViewControllerBackButton:(MHDocumentOutlineViewController *)controller;
+- (void)documentOutlineViewControllerNextButton:(MHDocumentOutlineViewController *)controller;
 @end
 
 @interface MHDocumentOutlineViewController : NSViewController
@@ -32,7 +34,7 @@
     NSArray                                 *_documents;
 }
 
-@property (nonatomic, readwrite, weak) id<MHDocumentOutlineViewDelegate> delegate;
+@property (nonatomic, readwrite, weak) IBOutlet id<MHDocumentOutlineViewDelegate> delegate;
 @property (nonatomic, readonly, copy) NSArray *documents;
 
 + (void)addDocumentOutlineViewController:(MHDocumentOutlineViewController *)controller intoView:(NSView *)view;
