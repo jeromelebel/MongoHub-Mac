@@ -89,9 +89,28 @@
 - (void)awakeFromNib
 {
     self.backButton.enabled = NO;
-    self.removeButton.hidden = self.removeButtonHidden;
-    self.backButton.hidden = self.nextBackButtonsHidden;
-    self.nextButton.hidden = self.nextBackButtonsHidden;
+    if (self.removeButtonHidden) {
+        [self.removeButton removeFromSuperview];
+        self.removeButton.hidden = self.removeButtonHidden;
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.expandPopUpButton
+                                                              attribute:NSLayoutAttributeLeading
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.feedbackLabel
+                                                              attribute:NSLayoutAttributeTrailing
+                                                             multiplier:1.0
+                                                               constant:8.0]];
+    }
+    if (self.nextBackButtonsHidden) {
+        self.backButton.hidden = self.nextBackButtonsHidden;
+        self.nextButton.hidden = self.nextBackButtonsHidden;
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.expandPopUpButton
+                                                              attribute:NSLayoutAttributeTrailing
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.view
+                                                              attribute:NSLayoutAttributeTrailing
+                                                             multiplier:1.0
+                                                               constant:0.0]];
+    }
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(outlineViewSelectionDidChangeNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.outlineView];
 }
 
