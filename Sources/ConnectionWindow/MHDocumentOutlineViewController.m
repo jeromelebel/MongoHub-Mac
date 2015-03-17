@@ -76,6 +76,12 @@
                                                       constant:0]];
 }
 
+- (void)dealloc
+{
+    [NSNotificationCenter.defaultCenter removeObserver:self name:nil object:nil];
+    [super dealloc];
+}
+
 - (NSString *)nibName
 {
     return @"MHDocumentOutlineView";
