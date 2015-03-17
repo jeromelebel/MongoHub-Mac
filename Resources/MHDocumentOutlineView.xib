@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
@@ -28,7 +28,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" autosaveName="data-result-outlineview" rowHeight="15" indentationPerLevel="8" autoresizesOutlineColumn="YES" outlineTableColumn="ceR-AX-zyT" id="ZSa-sv-edD">
-                                <rect key="frame" x="0.0" y="0.0" width="587" height="17"/>
+                                <rect key="frame" x="0.0" y="0.0" width="535" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -199,11 +199,11 @@ CA
                 <constraint firstItem="t4d-Um-yL7" firstAttribute="baseline" secondItem="Vdi-5n-P4c" secondAttribute="baseline" id="XNd-Gm-U9k"/>
                 <constraint firstItem="AK1-hl-eVw" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="aR0-sg-2CX"/>
                 <constraint firstItem="Gaz-7z-bMb" firstAttribute="leading" secondItem="oES-qA-1If" secondAttribute="trailing" constant="8" id="blR-Ay-ECA"/>
-                <constraint firstItem="Gjg-ZJ-bhV" firstAttribute="baseline" secondItem="t4d-Um-yL7" secondAttribute="baseline" id="fRz-L6-CR2"/>
                 <constraint firstAttribute="trailing" secondItem="Gaz-7z-bMb" secondAttribute="trailing" id="k54-ii-T0n"/>
                 <constraint firstItem="Vdi-5n-P4c" firstAttribute="leading" secondItem="t4d-Um-yL7" secondAttribute="trailing" constant="8" id="ljr-tN-a1b"/>
                 <constraint firstItem="Gaz-7z-bMb" firstAttribute="top" secondItem="AK1-hl-eVw" secondAttribute="bottom" constant="5" id="ohD-gc-xkZ"/>
                 <constraint firstItem="AK1-hl-eVw" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="pnh-0G-2dd"/>
+                <constraint firstItem="Gjg-ZJ-bhV" firstAttribute="baseline" secondItem="Vdi-5n-P4c" secondAttribute="baseline" id="r4W-eU-vV9"/>
                 <constraint firstItem="Gaz-7z-bMb" firstAttribute="centerY" secondItem="oES-qA-1If" secondAttribute="centerY" id="y63-0R-BJh"/>
             </constraints>
             <point key="canvasLocation" x="350.5" y="398"/>
