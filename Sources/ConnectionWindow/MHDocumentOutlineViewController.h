@@ -16,6 +16,7 @@
 - (void)documentOutlineViewController:(MHDocumentOutlineViewController *)controller shouldDeleteDocumentIds:(NSArray *)documentIds;
 - (void)documentOutlineViewControllerBackButton:(MHDocumentOutlineViewController *)controller;
 - (void)documentOutlineViewControllerNextButton:(MHDocumentOutlineViewController *)controller;
+- (void)documentOutlineViewController:(MHDocumentOutlineViewController *)controller doubleClickOnDocuments:(NSArray *)documents;
 @end
 
 @interface MHDocumentOutlineViewController : NSViewController

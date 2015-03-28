@@ -1355,4 +1355,32 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     }
 }
 
+- (void)documentOutlineViewController:(MHDocumentOutlineViewController *)controller doubleClickOnDocuments:(NSArray *)documents
+{
+    if (controller == self.findDocumentOutlineViewController) {
+        for (NSDictionary *document in documents) {
+            id idValue;
+            MHJsonWindowController *jsonWindowController;
+            
+            idValue = [document objectForKey:@"objectvalueid"];
+            jsonWindowController = self.jsonWindowControllers[idValue];
+            NSAssert(idValue != nil, @"No idValue for %@", document);
+            if (!jsonWindowController) {
+                jsonWindowController = [[MHJsonWindowController alloc] init];
+                jsonWindowController.collection = self.collection;
+                jsonWindowController.windowControllerId = idValue;
+                jsonWindowController.jsonDocument = document[@"objectvalue"];
+                jsonWindowController.bsonData = document[@"bsondata"];
+                [jsonWindowController showWindow:nil];
+                self.jsonWindowControllers[idValue] = jsonWindowController;
+                [jsonWindowController release];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(findQuery:) name:kJsonWindowSaved object:jsonWindowController];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jsonWindowWillClose:) name:kJsonWindowWillClose object:jsonWindowController];
+            } else {
+                [jsonWindowController showWindow:self];
+            }
+        }
+    }
+}
+
 @end

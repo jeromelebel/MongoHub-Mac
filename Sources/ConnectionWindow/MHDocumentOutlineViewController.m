@@ -98,6 +98,7 @@
 
 - (void)awakeFromNib
 {
+    [self.outlineView setDoubleAction:@selector(doubleClickAction:)];
     self.backButton.enabled = NO;
     if (self.footerViewHidden) {
         [self.removeButton removeFromSuperview];
@@ -326,6 +327,11 @@
 - (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index
 {
     return NO;
+}
+
+- (IBAction)doubleClickAction:(id)sender
+{
+    [self.delegate documentOutlineViewController:self doubleClickOnDocuments:self.documents];
 }
 
 @end
