@@ -867,9 +867,10 @@ CA
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="319">
-                                        <rect key="frame" x="-2" y="357" width="42" height="14"/>
+                                        <rect key="frame" x="1" y="357" width="42" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="8zl-OI-ZVR"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="38" id="JxF-e3-761"/>
                                             <constraint firstAttribute="width" constant="38" id="hAU-A8-CZJ"/>
                                         </constraints>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Query:" id="320">
@@ -879,7 +880,7 @@ CA
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="321">
-                                        <rect key="frame" x="46" y="355" width="538" height="19"/>
+                                        <rect key="frame" x="49" y="355" width="535" height="19"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="19" id="HiU-pb-0KF"/>
                                         </constraints>
@@ -893,6 +894,7 @@ CA
                                         <rect key="frame" x="-2" y="384" width="45" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="AxP-bp-K3t"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="41" id="E4W-F2-YBx"/>
                                             <constraint firstAttribute="width" constant="41" id="dob-sX-8ux"/>
                                         </constraints>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Output:" id="332">
@@ -926,9 +928,9 @@ CA
                                                         <rect key="frame" x="0.0" y="0.0" width="294" height="184"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <scrollView focusRingType="none" misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="298">
-                                                                <rect key="frame" x="0.0" y="-0.5" width="294" height="155.5"/>
-                                                                <clipView key="contentView" misplaced="YES" id="KIr-aX-sOp">
+                                                            <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="298">
+                                                                <rect key="frame" x="0.0" y="0.0" width="293.5" height="156"/>
+                                                                <clipView key="contentView" id="KIr-aX-sOp">
                                                                     <rect key="frame" x="1" y="1" width="215" height="171"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
@@ -936,10 +938,10 @@ CA
                                                                             <rect key="frame" x="0.0" y="0.0" width="215" height="171"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                            <size key="minSize" width="292" height="153.5"/>
+                                                                            <size key="minSize" width="291.5" height="154"/>
                                                                             <size key="maxSize" width="549" height="10000000"/>
                                                                             <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                                            <size key="minSize" width="292" height="153.5"/>
+                                                                            <size key="minSize" width="291.5" height="154"/>
                                                                             <size key="maxSize" width="549" height="10000000"/>
                                                                         </textView>
                                                                     </subviews>
@@ -955,7 +957,7 @@ CA
                                                                 </scroller>
                                                             </scrollView>
                                                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="300">
-                                                                <rect key="frame" x="6" y="163.5" width="30" height="14"/>
+                                                                <rect key="frame" x="6" y="164" width="30" height="14"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="14" id="nTi-L6-zRM"/>
                                                                     <constraint firstAttribute="width" constant="26" id="uUW-HT-JMm"/>
@@ -981,7 +983,7 @@ CA
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="311">
-                                                                <rect key="frame" x="6" y="162.5" width="51" height="14"/>
+                                                                <rect key="frame" x="6" y="163" width="51" height="14"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="14" id="Ffg-r3-20V"/>
                                                                     <constraint firstAttribute="width" constant="47" id="SPx-gl-yCo"/>
@@ -993,7 +995,7 @@ CA
                                                                 </textFieldCell>
                                                             </textField>
                                                             <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="315">
-                                                                <rect key="frame" x="0.0" y="-0.5" width="281" height="154"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="281.5" height="154"/>
                                                                 <clipView key="contentView" id="fCH-Ph-F7s">
                                                                     <rect key="frame" x="1" y="1" width="217" height="172"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1002,10 +1004,10 @@ CA
                                                                             <rect key="frame" x="0.0" y="0.0" width="217" height="172"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                            <size key="minSize" width="279" height="152"/>
+                                                                            <size key="minSize" width="279.5" height="152"/>
                                                                             <size key="maxSize" width="463" height="10000000"/>
                                                                             <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                                            <size key="minSize" width="279" height="152"/>
+                                                                            <size key="minSize" width="279.5" height="152"/>
                                                                             <size key="maxSize" width="463" height="10000000"/>
                                                                         </textView>
                                                                     </subviews>
@@ -1048,11 +1050,10 @@ CA
                                     </splitView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="331" firstAttribute="top" secondItem="333" secondAttribute="bottom" constant="-16" id="3EP-3K-9sG"/>
                                     <constraint firstAttribute="trailing" secondItem="321" secondAttribute="trailing" id="96z-7t-qMx"/>
                                     <constraint firstItem="331" firstAttribute="leading" secondItem="713" secondAttribute="leading" id="Ar4-47-Odc"/>
                                     <constraint firstAttribute="trailing" secondItem="1376" secondAttribute="trailing" id="EUX-5v-7ax"/>
-                                    <constraint firstItem="321" firstAttribute="baseline" secondItem="319" secondAttribute="baseline" id="Ngq-Nd-rQy"/>
-                                    <constraint firstItem="319" firstAttribute="leading" secondItem="713" secondAttribute="leading" id="QYE-TR-alW"/>
                                     <constraint firstItem="299" firstAttribute="top" secondItem="501" secondAttribute="bottom" constant="8" id="VTl-Sb-Gcx"/>
                                     <constraint firstAttribute="trailing" secondItem="299" secondAttribute="trailing" id="WHG-3j-Un7"/>
                                     <constraint firstItem="333" firstAttribute="top" secondItem="299" secondAttribute="bottom" constant="8" id="cBt-bE-d6b"/>
@@ -1062,9 +1063,10 @@ CA
                                     <constraint firstItem="321" firstAttribute="top" secondItem="333" secondAttribute="bottom" constant="8" id="hWX-X9-rcL"/>
                                     <constraint firstAttribute="bottom" secondItem="1376" secondAttribute="bottom" id="iOI-oy-MMN"/>
                                     <constraint firstItem="1376" firstAttribute="leading" secondItem="713" secondAttribute="leading" id="jf2-1G-Scy"/>
-                                    <constraint firstItem="333" firstAttribute="baseline" secondItem="331" secondAttribute="baseline" id="nS0-DF-5pl"/>
+                                    <constraint firstItem="331" firstAttribute="trailing" secondItem="319" secondAttribute="trailing" id="ksC-AJ-xHS"/>
                                     <constraint firstAttribute="trailing" secondItem="501" secondAttribute="trailing" id="oaC-FX-VUM"/>
                                     <constraint firstItem="1376" firstAttribute="top" secondItem="321" secondAttribute="bottom" constant="8" id="qSD-GD-yAC"/>
+                                    <constraint firstItem="319" firstAttribute="top" secondItem="321" secondAttribute="bottom" constant="-16" id="rfj-Yn-ZCU"/>
                                     <constraint firstAttribute="trailing" secondItem="333" secondAttribute="trailing" id="urU-kf-fAf"/>
                                 </constraints>
                             </view>
