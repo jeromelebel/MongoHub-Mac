@@ -21,9 +21,6 @@
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="boolean" keyPath="footerViewHidden" value="YES"/>
             </userDefinedRuntimeAttributes>
-            <connections>
-                <outlet property="delegate" destination="-2" id="WaO-LN-51e"/>
-            </connections>
         </customObject>
     </objects>
 </document>
