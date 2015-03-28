@@ -25,7 +25,6 @@
     NSTabView                                   *_tabView;
     NSSegmentedControl                          *_segmentedControl;
     
-    MHResultsOutlineViewController              *_findResultsViewController;
     NSComboBox                                  *_findCriteriaComboBox;
     NSTextField                                 *_findFieldFilterTextField;
     NSTextField                                 *_findSkipTextField;

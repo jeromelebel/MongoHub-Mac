@@ -33,7 +33,6 @@
 @property (nonatomic, readwrite, strong) MODCollection *collection;
 @property (nonatomic, readwrite, strong) MHConnectionStore *connectionStore;
 
-@property (nonatomic, readwrite, strong) MHResultsOutlineViewController *findResultsViewController;
 @property (nonatomic, readwrite, weak) IBOutlet NSComboBox *findCriteriaComboBox;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *findFieldFilterTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *findSkipTextField;
@@ -132,7 +131,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 @synthesize collection = _collection, connectionStore = _connectionStore;
 @synthesize tabView = _tabView, segmentedControl = _segmentedControl;
 
-@synthesize findResultsViewController = _findResultsViewController;
 @synthesize findCriteriaComboBox = _findCriteriaComboBox;
 @synthesize findFieldFilterTextField = _findFieldFilterTextField;
 @synthesize findSkipTextField = _findSkipTextField;
@@ -236,7 +234,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     self.findDocumentOutlineViewController = nil;
     
     self.mrOutlineViewController = nil;
-    self.findResultsViewController = nil;
     self.collection = nil;
     self.connectionStore = nil;
     self.updateOperatorViews = nil;
@@ -1148,45 +1145,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
             }
         }];
-    }
-}
-
-@end
-
-@implementation MHQueryViewController (MODCollectionDelegate)
-
-- (void)mongoCollection:(MODCollection *)collection queryResultFetched:(NSArray *)result withMongoQuery:(MODQuery *)mongoQuery errorMessage:(NSString *)errorMessage
-{
-    [self.findQueryLoaderIndicator stopAnimation:nil];
-    if (collection == self.collection) {
-        if (errorMessage) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", errorMessage);
-        } else {
-            self.findResultsViewController.results = result;
-        }
-    }
-}
-
-- (void)mongoCollection:(MODCollection *)collection queryCountWithValue:(long long)value withMongoQuery:(MODQuery *)mongoQuery errorMessage:(NSString *)errorMessage
-{
-    if (collection == self.collection) {
-        if ([mongoQuery.userInfo objectForKey:@"title"]) {
-            if ([mongoQuery.userInfo objectForKey:@"timequery"]) {
-                [[mongoQuery.userInfo objectForKey:@"textfield"] setStringValue:[NSString stringWithFormat:[mongoQuery.userInfo objectForKey:@"title"], value, [[mongoQuery.userInfo objectForKey:@"timequery"] duration]]];
-            } else {
-                [[mongoQuery.userInfo objectForKey:@"textfield"] setStringValue:[NSString stringWithFormat:[mongoQuery.userInfo objectForKey:@"title"], value]];
-            }
-        }
-    }
-}
-
-- (void)mongoCollection:(MODCollection *)collection updateDonwWithMongoQuery:(MODQuery *)mongoQuery errorMessage:(NSString *)errorMessage
-{
-    if (collection == self.collection) {
-        [self.findQueryLoaderIndicator stopAnimation:nil];
-        if (errorMessage) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", errorMessage);
-        }
     }
 }
 
