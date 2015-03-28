@@ -100,6 +100,7 @@
 - (void)loadView
 {
     [super loadView];
+    [self.outlineView setTarget:self];
     [self.outlineView setDoubleAction:@selector(doubleClickAction:)];
     self.backButton.enabled = NO;
     if (self.footerViewHidden) {
