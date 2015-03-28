@@ -97,9 +97,9 @@
     return @"MHDocumentOutlineView";
 }
 
-- (void)viewDidLoad
+- (void)loadView
 {
-    [super viewDidLoad];
+    [super loadView];
     [self.outlineView setDoubleAction:@selector(doubleClickAction:)];
     self.backButton.enabled = NO;
     if (self.footerViewHidden) {
