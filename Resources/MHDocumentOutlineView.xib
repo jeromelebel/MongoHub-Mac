@@ -12,6 +12,7 @@
                 <outlet property="feedbackLabel" destination="Gjg-ZJ-bhV" id="HqA-cO-FRe"/>
                 <outlet property="nextButton" destination="Gaz-7z-bMb" id="gfo-9l-DXL"/>
                 <outlet property="outlineView" destination="ZSa-sv-edD" id="hzz-Br-yJi"/>
+                <outlet property="outlineViewScrollView" destination="AK1-hl-eVw" id="9l4-vY-WWj"/>
                 <outlet property="removeButton" destination="t4d-Um-yL7" id="Dyg-OP-8XJ"/>
                 <outlet property="view" destination="c22-O7-iKe" id="FwS-ep-7ay"/>
             </connections>

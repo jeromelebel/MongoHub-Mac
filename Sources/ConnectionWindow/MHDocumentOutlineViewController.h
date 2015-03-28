@@ -20,6 +20,7 @@
 
 @interface MHDocumentOutlineViewController : NSViewController
 {
+    NSScrollView                            *_outlineViewScrollView;
     NSOutlineView                           *_outlineView;
     NSTextField                             *_feedbackLabel;
     NSButton                                *_expandPopUpButton;
@@ -27,6 +28,7 @@
     NSButton                                *_backButton;
     NSButton                                *_nextButton;
     
+    BOOL                                    _footerViewHidden;
     BOOL                                    _removeButtonHidden;
     BOOL                                    _nextBackButtonsHidden;
     

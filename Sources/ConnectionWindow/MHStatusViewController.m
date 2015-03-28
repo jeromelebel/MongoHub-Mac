@@ -9,24 +9,22 @@
 #import "MHDatabaseItem.h"
 #import "MHCollectionItem.h"
 #import <MongoObjCDriver/MongoObjCDriver.h>
-#import "MHResultsOutlineViewController.h"
 #import "MODHelper.h"
 #import "MHConnectionStore.h"
+#import "MHDocumentOutlineViewController.h"
 
 @interface MHStatusViewController ()
 @property (nonatomic, readwrite, strong) MODClient *client;
-@property (nonatomic, readwrite, strong) MHResultsOutlineViewController *resultsOutlineViewController;
 @property (nonatomic, readwrite, strong) MHConnectionStore *connectionStore;
-@property (nonatomic, readwrite, assign) IBOutlet NSOutlineView *outlineView;
+@property (nonatomic, readwrite, assign) IBOutlet MHDocumentOutlineViewController *documentOutlineViewController;
 
 @end
 
 @implementation MHStatusViewController
 
 @synthesize client = _client;
-@synthesize resultsOutlineViewController = _resultsOutlineViewController;
 @synthesize connectionStore = _connectionStore;
-@synthesize outlineView = _outlineView;
+@synthesize documentOutlineViewController = _documentOutlineViewController;
 
 - (instancetype)initWithClient:(MODClient *)client connectionStore:(MHConnectionStore *)connectionStore
 {
@@ -41,7 +39,6 @@
 - (void)dealloc
 {
     self.client = nil;
-    self.resultsOutlineViewController = nil;
     self.connectionStore = nil;
     [super dealloc];
 }
@@ -53,7 +50,7 @@
 
 - (void)awakeFromNib
 {
-    self.resultsOutlineViewController = [[[MHResultsOutlineViewController alloc] initWithOutlineView:self.outlineView] autorelease];
+    [MHDocumentOutlineViewController addDocumentOutlineViewController:self.documentOutlineViewController intoView:self.view];
 }
 
 - (MODQuery *)showServerStatus
@@ -63,13 +60,16 @@
     self.title = @"Server Stats";
     result = [self.client serverStatusWithReadPreferences:nil callback:^(MODSortedDictionary *serverStatus, MODQuery *mongoQuery) {
         if (self.client == mongoQuery.owner) {
+            NSArray *documents = nil;
+            
             if (mongoQuery.error) {
-                self.resultsOutlineViewController.results = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[mongoQuery.error localizedDescription], @"value", @"error", @"name", nil]];
+                documents = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[mongoQuery.error localizedDescription], @"value", @"error", @"name", nil]];
             } else if (serverStatus) {
-                self.resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:serverStatus jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
+                documents = [MODHelper convertForOutlineWithObject:serverStatus jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
             } else {
-                self.resultsOutlineViewController.results = [NSArray array];
+                documents = [NSArray array];
             }
+            [self.documentOutlineViewController displayDocuments:documents withLabel:nil];
         }
     }];
     return result;
@@ -83,13 +83,16 @@
         self.title = [NSString stringWithFormat:@"%@ Stats", databaseItem.name];
         
         result = [databaseItem.database statsWithReadPreferences:nil callback:^(MODSortedDictionary *databaseStats, MODQuery *mongoQuery) {
+            NSArray *documents = nil;
+            
             if (databaseStats) {
-                self.resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:databaseStats jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
+                documents = [MODHelper convertForOutlineWithObject:databaseStats jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
             } else if (mongoQuery.error) {
-                self.resultsOutlineViewController.results = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[mongoQuery.error localizedDescription], @"value", @"error", @"name", nil]];
+                documents = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[mongoQuery.error localizedDescription], @"value", @"error", @"name", nil]];
             } else {
-                self.resultsOutlineViewController.results = [NSArray array];
+                documents = [NSArray array];
             }
+            [self.documentOutlineViewController displayDocuments:documents withLabel:nil];
         }];
     }
     return result;
@@ -102,13 +105,16 @@
     if (collectionItem) {
         self.title = [NSString stringWithFormat:@"%@ Stats", collectionItem.collection.absoluteName];
         result = [collectionItem.collection statsWithCallback:^(MODSortedDictionary *stats, MODQuery *mongoQuery) {
+            NSArray *documents = nil;
+            
             if (stats) {
-                self.resultsOutlineViewController.results = [MODHelper convertForOutlineWithObject:stats jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
+                documents = [MODHelper convertForOutlineWithObject:stats jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
             } else if (mongoQuery.error) {
-                self.resultsOutlineViewController.results = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[mongoQuery.error localizedDescription], @"value", @"error", @"name", nil]];
+                documents = [NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[mongoQuery.error localizedDescription], @"value", @"error", @"name", nil]];
             } else {
-                self.resultsOutlineViewController.results = [NSArray array];
+                documents = [NSArray array];
             }
+            [self.documentOutlineViewController displayDocuments:documents withLabel:nil];
         }];
     }
     return result;

@@ -7,14 +7,18 @@
 
 #import "MHTabItemViewController.h"
 
-@class MHResultsOutlineViewController, MODClient, MHDatabaseItem, MHCollectionItem, MODQuery, MHConnectionStore;
+@class MHDocumentOutlineViewController;
+@class MODClient;
+@class MHDatabaseItem;
+@class MHCollectionItem;
+@class MODQuery;
+@class MHConnectionStore;
 
 @interface MHStatusViewController : MHTabItemViewController
 {
-    MHResultsOutlineViewController              *_resultsOutlineViewController;
     MODClient                                   *_client;
     MHConnectionStore                           *_connectionStore;
-    NSOutlineView                               *_outlineView;
+    MHDocumentOutlineViewController             *_documentOutlineViewController;
 }
 
 @property (nonatomic, readonly, strong) MODClient *client;
