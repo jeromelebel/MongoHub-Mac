@@ -13,7 +13,7 @@
 @class MODSortedDictionary;
 
 @protocol MHDocumentOutlineViewDelegate <NSObject>
-- (BOOL)documentOutlineViewController:(MHDocumentOutlineViewController *)controller shouldDeleteDocuments:(NSArray *)documents;
+- (void)documentOutlineViewController:(MHDocumentOutlineViewController *)controller shouldDeleteDocumentIds:(NSArray *)documentIds;
 - (void)documentOutlineViewControllerBackButton:(MHDocumentOutlineViewController *)controller;
 - (void)documentOutlineViewControllerNextButton:(MHDocumentOutlineViewController *)controller;
 @end
@@ -45,5 +45,6 @@
 - (NSArray *)selectedDocuments;
 - (NSInteger)selectedDocumentCount;
 - (void)setBackButtonEnabled:(BOOL)enabled;
+- (void)removeDocumentsWithIds:(NSArray *)documentIds;
 
 @end

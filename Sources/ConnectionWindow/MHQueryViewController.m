@@ -585,34 +585,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     }
 }
 
-- (IBAction)removeRecord:(id)sender
-{
-    NSMutableArray *documentIds;
-    
-    [self.removeQueryLoaderIndicator startAnimation:nil];
-    documentIds = [NSMutableArray array];
-    for (NSDictionary *document in self.findResultsViewController.selectedDocuments) {
-        [documentIds addObject:[document objectForKey:@"objectvalueid"]];
-    }
-    
-    if (documentIds.count > 0) {
-        MODSortedDictionary *criteria;
-        MODSortedDictionary *inCriteria;
-        
-        inCriteria = [MODSortedDictionary sortedDictionaryWithObjectsAndKeys:documentIds, @"$in", nil];
-        criteria = [MODSortedDictionary sortedDictionaryWithObjectsAndKeys:inCriteria, @"_id", nil];
-        [self.collection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
-            if (mongoQuery.error) {
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
-            } else {
-                
-            }
-            [self.removeQueryLoaderIndicator stopAnimation:nil];
-            [self findQuery:nil];
-        }];
-    }
-}
-
 - (void)findQueryComposer
 {
     NSString *criteria = [self formatedJsonWithTextField:self.findCriteriaComboBox replace:NO emptyValid:YES];
@@ -1329,9 +1301,24 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 
 @implementation MHQueryViewController (MHDocumentOutlineViewDelegate)
 
-- (BOOL)documentOutlineViewController:(MHDocumentOutlineViewController *)controller shouldDeleteDocuments:(NSArray *)documents
+- (void)documentOutlineViewController:(MHDocumentOutlineViewController *)controller shouldDeleteDocumentIds:(NSArray *)documentIds
 {
-    return YES;
+    [self.removeQueryLoaderIndicator startAnimation:nil];
+    if (documentIds.count > 0) {
+        MODSortedDictionary *criteria;
+        MODSortedDictionary *inCriteria;
+        
+        inCriteria = [MODSortedDictionary sortedDictionaryWithObjectsAndKeys:documentIds, @"$in", nil];
+        criteria = [MODSortedDictionary sortedDictionaryWithObjectsAndKeys:inCriteria, @"_id", nil];
+        [self.collection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
+            if (mongoQuery.error) {
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+            } else {
+                [controller removeDocumentsWithIds:documentIds];
+            }
+            [self.removeQueryLoaderIndicator stopAnimation:nil];
+        }];
+    }
 }
 
 - (void)documentOutlineViewControllerBackButton:(MHDocumentOutlineViewController *)controller

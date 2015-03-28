@@ -122,6 +122,26 @@
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(outlineViewSelectionDidChangeNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.outlineView];
 }
 
+- (void)removeDocumentsWithIds:(NSArray *)documentIds
+{
+    NSMutableArray *newDocumentList = [NSMutableArray array];
+    
+    for (NSDictionary *document in self.documents) {
+        if (![documentIds containsObject:document[@"objectvalueid"]]) {
+            [newDocumentList addObject:document];
+        }
+    }
+    if (self.documents.count != newDocumentList.count) {
+        self.documents = newDocumentList;
+        [self.outlineView reloadData];
+        if (documentIds.count == 1) {
+            [self displayLabel:@"1 document removed"];
+        } else {
+            [self displayLabel:[NSString stringWithFormat:@"%ld documents removed", documentIds.count]];
+        }
+    }
+}
+
 - (void)displayDocuments:(NSArray *)newDocuments withLabel:(NSString *)label
 {
     if (!label) {
@@ -226,6 +246,19 @@
     return documents;
 }
 
+- (NSArray *)selectedDocumentIds
+{
+    NSMutableArray *documentIds;
+    
+    documentIds = [NSMutableArray array];
+    [self.outlineView.selectedRowIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        id currentItem = [self.outlineView itemAtRow:idx];
+        
+        [documentIds addObject:[[self rootForItem:currentItem] objectForKey:@"objectvalueid"]];
+    }];
+    return documentIds;
+}
+
 - (NSInteger)selectedDocumentCount
 {
     return self.outlineView.selectedRowIndexes.count;
@@ -319,7 +352,9 @@
 
 - (IBAction)removeButtonAction:(id)sender
 {
-    [self.delegate documentOutlineViewController:self shouldDeleteDocuments:nil];
+    NSArray *selectedDocumentIds = [self selectedDocumentIds];
+    
+    [self.delegate documentOutlineViewController:self shouldDeleteDocumentIds:selectedDocumentIds];
 }
 
 - (IBAction)expandPopUpButtonAction:(id)sender
