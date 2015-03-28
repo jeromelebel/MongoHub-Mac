@@ -1136,7 +1136,19 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
     } else {
         [self.mrLoaderIndicator startAnimation:nil];
-        [self.collection mapReduceWithMapFunction:self.mrMapFunctionTextView.string reduceFunction:self.mrReduceFunctionTextView.string query:query sort:nil limit:-1 output:output keepTemp:NO finalizeFunction:nil scope:nil jsmode:NO verbose:NO readPreferences:nil callback:^(MODQuery *mongoQuery, MODSortedDictionary *documents) {
+        [self.collection mapReduceWithMapFunction:self.mrMapFunctionTextView.string
+                                   reduceFunction:self.mrReduceFunctionTextView.string
+                                            query:query
+                                             sort:nil
+                                            limit:-1
+                                           output:output
+                                         keepTemp:NO
+                                 finalizeFunction:nil
+                                            scope:nil
+                                           jsmode:NO
+                                          verbose:NO
+                                  readPreferences:nil
+                                         callback:^(MODQuery *mongoQuery, MODSortedDictionary *documents) {
             if (mongoQuery.error) {
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
             } else {
