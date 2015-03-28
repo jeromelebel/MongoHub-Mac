@@ -14,7 +14,6 @@
 @class BWSheetController;
 @class MHMysqlImportWindowController;
 @class MHMysqlExportWindowController;
-@class MHResultsOutlineViewController;
 @class MHConnectionStore;
 @class MODClient;
 @class MODDatabase;
