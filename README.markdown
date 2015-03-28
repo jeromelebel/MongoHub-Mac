@@ -25,6 +25,7 @@ List of all [contributions](https://github.com/jeromelebel/MongoHub-Mac/graphs/c
 - [Prof Syd Xu](https://github.com/bububa), list of [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=bububa)
 - [Steve Steiner](https://github.com/ssteinerx), list of [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=ssteinerx)
 - [Tom Bocklisch](https://github.com/tmbo), list of [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=tmbo)
+- [Travis Choma](https://github.com/travischoma), list of [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=travischoma)
 - [魏涛](https://github.com/undancer), list of [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=undancer)
 
 Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull/new/master)!
@@ -64,10 +65,12 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Support for Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NaN [issue #206](https://github.com/jeromelebel/MongoHub-Mac/issues/206)
 - Parse correctly keys in a document (now, accepts numbers without quotes)
 - Mongo C Driver 1.1.2
+- Fix to make MongoHub usable again for services like Compose.io/MongoHQ, thanks to [Travis Choma](https://github.com/travischoma)
 
 **3.1 Beta**
 
 - Mongo C Driver 1.1.2
+- Fix to make MongoHub usable again for services like Compose.io/MongoHQ, thanks to [Travis Choma](https://github.com/travischoma)
 
 ## History
 
