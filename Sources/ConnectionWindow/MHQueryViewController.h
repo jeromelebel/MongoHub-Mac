@@ -91,7 +91,6 @@
 
 - (IBAction)segmentedControlAction:(id)sender;
 
-- (void)showEditWindow:(id)sender;
 - (void)jsonWindowWillClose:(id)sender;
 @end
 
