@@ -933,7 +933,7 @@
     if ([[NSUserDefaults standardUserDefaults] dictionaryForKey:CollectionTabsKey][MapReduceTabKey]) {
         return [[[NSUserDefaults standardUserDefaults] dictionaryForKey:CollectionTabsKey][MapReduceTabKey] boolValue];
     } else {
-        return YES;
+        return NO;
     }
 }
 
@@ -955,7 +955,7 @@
     if ([[NSUserDefaults standardUserDefaults] dictionaryForKey:CollectionTabsKey][AggregationKey]) {
         return [[[NSUserDefaults standardUserDefaults] dictionaryForKey:CollectionTabsKey][AggregationKey] boolValue];
     } else {
-        return NO;
+        return YES;
     }
 }
 
