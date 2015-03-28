@@ -98,53 +98,56 @@
 
 - (void)awakeFromNib
 {
-    [self.outlineView setDoubleAction:@selector(doubleClickAction:)];
-    self.backButton.enabled = NO;
-    if (self.footerViewHidden) {
-        [self.removeButton removeFromSuperview];
-        self.removeButton = nil; // not on ARC yet
-        [self.backButton removeFromSuperview];
-        self.backButton = nil; // not on ARC yet
-        [self.nextButton removeFromSuperview];
-        self.nextButton = nil; // not on ARC yet
-        [self.feedbackLabel removeFromSuperview];
-        self.feedbackLabel = nil; // not on ARC yet
-        [self.expandPopUpButton removeFromSuperview];
-        self.expandPopUpButton = nil;
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.view
-                                                              attribute:NSLayoutAttributeBottom
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:self.outlineViewScrollView
-                                                              attribute:NSLayoutAttributeBottom
-                                                             multiplier:1.0
-                                                               constant:0.0]];
-    } else {
-        if (self.removeButtonHidden) {
+    if (self.view != nil) {
+        // this is to make sure the nib has been loaded
+        [self.outlineView setDoubleAction:@selector(doubleClickAction:)];
+        self.backButton.enabled = NO;
+        if (self.footerViewHidden) {
             [self.removeButton removeFromSuperview];
             self.removeButton = nil; // not on ARC yet
-            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.expandPopUpButton
-                                                                  attribute:NSLayoutAttributeLeading
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:self.feedbackLabel
-                                                                  attribute:NSLayoutAttributeTrailing
-                                                                 multiplier:1.0
-                                                                   constant:8.0]];
-        }
-        if (self.nextBackButtonsHidden) {
             [self.backButton removeFromSuperview];
             self.backButton = nil; // not on ARC yet
             [self.nextButton removeFromSuperview];
             self.nextButton = nil; // not on ARC yet
-            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.expandPopUpButton
-                                                                  attribute:NSLayoutAttributeTrailing
+            [self.feedbackLabel removeFromSuperview];
+            self.feedbackLabel = nil; // not on ARC yet
+            [self.expandPopUpButton removeFromSuperview];
+            self.expandPopUpButton = nil;
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.view
+                                                                  attribute:NSLayoutAttributeBottom
                                                                   relatedBy:NSLayoutRelationEqual
-                                                                     toItem:self.view
-                                                                  attribute:NSLayoutAttributeTrailing
+                                                                     toItem:self.outlineViewScrollView
+                                                                  attribute:NSLayoutAttributeBottom
                                                                  multiplier:1.0
                                                                    constant:0.0]];
+        } else {
+            if (self.removeButtonHidden) {
+                [self.removeButton removeFromSuperview];
+                self.removeButton = nil; // not on ARC yet
+                [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.expandPopUpButton
+                                                                      attribute:NSLayoutAttributeLeading
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self.feedbackLabel
+                                                                      attribute:NSLayoutAttributeTrailing
+                                                                     multiplier:1.0
+                                                                       constant:8.0]];
+            }
+            if (self.nextBackButtonsHidden) {
+                [self.backButton removeFromSuperview];
+                self.backButton = nil; // not on ARC yet
+                [self.nextButton removeFromSuperview];
+                self.nextButton = nil; // not on ARC yet
+                [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.expandPopUpButton
+                                                                      attribute:NSLayoutAttributeTrailing
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self.view
+                                                                      attribute:NSLayoutAttributeTrailing
+                                                                     multiplier:1.0
+                                                                       constant:0.0]];
+            }
         }
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(outlineViewSelectionDidChangeNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.outlineView];
     }
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(outlineViewSelectionDidChangeNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.outlineView];
 }
 
 - (void)removeDocumentsWithIds:(NSArray *)documentIds
@@ -237,6 +240,9 @@
 - (void)outlineViewSelectionDidChangeNotification:(NSNotification *)notification
 {
     self.removeButton.enabled = self.outlineView.selectedRowIndexes.count != 0;
+    if ([self.delegate respondsToSelector:@selector(documentOutlineViewControllerSelectionDidChange:)]) {
+        [self.delegate documentOutlineViewControllerSelectionDidChange:self];
+    }
 }
 
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem

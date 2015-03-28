@@ -17,6 +17,9 @@
 - (void)documentOutlineViewControllerBackButton:(MHDocumentOutlineViewController *)controller;
 - (void)documentOutlineViewControllerNextButton:(MHDocumentOutlineViewController *)controller;
 - (void)documentOutlineViewController:(MHDocumentOutlineViewController *)controller doubleClickOnDocuments:(NSArray *)documents;
+
+@optional
+- (void)documentOutlineViewControllerSelectionDidChange:(MHDocumentOutlineViewController *)controller;
 @end
 
 @interface MHDocumentOutlineViewController : NSViewController

@@ -63,7 +63,8 @@
     NSProgressIndicator                         *_indexLoaderIndicator;
     NSButton                                    *_indexDropButton;
     NSButton                                    *_indexCreateButton;
-    MHResultsOutlineViewController              *_indexesOutlineViewController;
+    NSView                                      *_indexResultView;
+    MHDocumentOutlineViewController             *_indexDocumentOutlineViewController;
     MHIndexEditorController                     *_indexEditorController;
     
     NSTextView                                  *_aggregationPipeline;

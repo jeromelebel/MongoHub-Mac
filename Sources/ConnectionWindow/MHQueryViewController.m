@@ -67,10 +67,10 @@
 @property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *removeQueryLoaderIndicator;
 
 @property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *indexLoaderIndicator;
-@property (nonatomic, readwrite, weak) IBOutlet NSOutlineView *indexOutlineView;
 @property (nonatomic, readwrite, weak) IBOutlet NSButton *indexDropButton;
 @property (nonatomic, readwrite, weak) IBOutlet NSButton *indexCreateButton;
-@property (nonatomic, readwrite, strong) MHResultsOutlineViewController *indexesOutlineViewController;
+@property (nonatomic, readwrite, weak) IBOutlet NSView *indexResultView;
+@property (nonatomic, readwrite, strong) IBOutlet MHDocumentOutlineViewController *indexDocumentOutlineViewController;
 @property (nonatomic, readwrite, strong) MHIndexEditorController * indexEditorController;
 
 @property (nonatomic, readwrite, weak) IBOutlet NSTextView *aggregationPipeline;
@@ -165,10 +165,10 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 @synthesize removeQueryLoaderIndicator = _removeQueryLoaderIndicator;
 
 @synthesize indexLoaderIndicator = _indexLoaderIndicator;
-@synthesize indexOutlineView = _indexOutlineView;
 @synthesize indexDropButton = _indexDropButton;
 @synthesize indexCreateButton = _indexCreateButton;
-@synthesize indexesOutlineViewController = _indexesOutlineViewController;
+@synthesize indexResultView = _indexResultView;
+@synthesize indexDocumentOutlineViewController = _indexDocumentOutlineViewController;
 @synthesize indexEditorController = _indexEditorController;
 
 @synthesize aggregationPipeline = _aggregationPipeline;
@@ -230,8 +230,9 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     [self.collection removeObserver:self forKeyPath:@"name"];
     
     self.insertSyntaxColoringController = nil;
-    self.indexesOutlineViewController = nil;
     self.findDocumentOutlineViewController = nil;
+    self.indexDocumentOutlineViewController = nil;
+    self.indexEditorController = nil;
     
     self.mrOutlineViewController = nil;
     self.collection = nil;
@@ -281,13 +282,14 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     self.updateOperatorViews = [NSMutableArray array];
     [self updateAddOperatorAction:nil];
     
-    self.indexesOutlineViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.indexOutlineView]);
     self.mrOutlineViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.mrOutlineView]);
     [MHDocumentOutlineViewController addDocumentOutlineViewController:self.findDocumentOutlineViewController intoView:self.findResultView];
     
     self.insertSyntaxColoringController = MOD_AUTORELEASE([[UKSyntaxColoredTextViewController alloc] init]);
     self.insertSyntaxColoringController.delegate = self;
     self.insertSyntaxColoringController.view = self.insertDataTextView;
+    
+    [MHDocumentOutlineViewController addDocumentOutlineViewController:self.indexDocumentOutlineViewController intoView:self.indexResultView];
     
     self.title = self.collection.absoluteName;
     self.jsonWindowControllers = [NSMutableDictionary dictionary];
@@ -306,8 +308,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     [self.insertDataTextView mh_jsonSetup];
     [self.mrReduceFunctionTextView mh_jsonSetup];
     [self.mrMapFunctionTextView mh_jsonSetup];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(indexOutlineViewNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.indexOutlineView];
     
     if (!appDelegate.hasCollectionMapReduceTab) {
         // remove map/reduce
@@ -416,11 +416,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
             break;
     }
     [criteria release];
-}
-
-- (void)indexOutlineViewNotification:(NSNotification *)notification
-{
-    self.indexDropButton.enabled = self.indexOutlineView.selectedRowIndexes.count != 0;
 }
 
 - (void)controlTextDidChange:(NSNotification *)notification
@@ -1020,7 +1015,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
         }
-        self.indexesOutlineViewController.results = [MODHelper convertForOutlineWithObjects:indexes bsonData:nil jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
+        [self.indexDocumentOutlineViewController displayDocuments:[MODHelper convertForOutlineWithObjects:indexes bsonData:nil jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch] withLabel:nil];
         [self.indexLoaderIndicator stopAnimation:nil];
     }];
 }
@@ -1037,15 +1032,17 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 {
     NSArray *indexes;
     
-    indexes = self.indexesOutlineViewController.selectedDocuments;
+    indexes = self.indexDocumentOutlineViewController.selectedDocuments;
     if (indexes.count == 1) {
         [self.indexLoaderIndicator startAnimation:nil];
         [self.collection dropIndexName:[[[indexes objectAtIndex:0] objectForKey:@"objectvalue"] objectForKey:@"name"] callback:^(MODQuery *mongoQuery) {
             if (mongoQuery.error) {
                 NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+            } else {
+                NSArray *objectIds = @[ [[indexes objectAtIndex:0] objectForKey:@"objectvalueid"] ];
+                [self.indexDocumentOutlineViewController removeDocumentsWithIds:objectIds];
             }
             [self.indexLoaderIndicator stopAnimation:nil];
-            [self indexQueryAction:nil];
         }];
     }
 }
@@ -1312,6 +1309,13 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
                 [jsonWindowController showWindow:self];
             }
         }
+    }
+}
+
+- (void)documentOutlineViewControllerSelectionDidChange:(MHDocumentOutlineViewController *)controller
+{
+    if (controller == self.indexDocumentOutlineViewController) {
+        self.indexDropButton.enabled = self.indexDocumentOutlineViewController.selectedDocumentCount > 0;
     }
 }
 
