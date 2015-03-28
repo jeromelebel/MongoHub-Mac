@@ -38,6 +38,7 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 **Current**
 
+- Fix issue to edit only selected documents in the Find tab
 
 **Beta**
 

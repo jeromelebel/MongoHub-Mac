@@ -337,7 +337,7 @@
 
 - (IBAction)doubleClickAction:(id)sender
 {
-    [self.delegate documentOutlineViewController:self doubleClickOnDocuments:self.documents];
+    [self.delegate documentOutlineViewController:self doubleClickOnDocuments:self.selectedDocuments];
 }
 
 @end
