@@ -1152,6 +1152,7 @@ CA
         <customObject id="XL0-01-pqo" userLabel="Index Document Outline View Controller" customClass="MHDocumentOutlineViewController">
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="boolean" keyPath="footerViewHidden" value="YES"/>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="disallowsMultipleSelection" value="YES"/>
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="delegate" destination="-2" id="nE8-M3-rMs"/>

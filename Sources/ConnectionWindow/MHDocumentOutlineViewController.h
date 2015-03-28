@@ -35,6 +35,7 @@
     BOOL                                    _footerViewHidden;
     BOOL                                    _removeButtonHidden;
     BOOL                                    _nextBackButtonsHidden;
+    BOOL                                    _disallowsMultipleSelection;
     
     id<MHDocumentOutlineViewDelegate>       _delegate;
     NSArray                                 *_documents;

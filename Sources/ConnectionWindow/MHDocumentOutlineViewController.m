@@ -23,6 +23,8 @@
 @property (nonatomic, readwrite, assign) BOOL footerViewHidden;
 @property (nonatomic, readwrite, assign) BOOL removeButtonHidden;
 @property (nonatomic, readwrite, assign) BOOL nextBackButtonsHidden;
+@property (nonatomic, readwrite, assign) BOOL disallowsMultipleSelection;
+
 @property (nonatomic, readwrite, copy) NSArray *documents;
 
 @end
@@ -43,6 +45,7 @@
 @synthesize footerViewHidden = _footerViewHidden;
 @synthesize removeButtonHidden = _removeButtonHidden;
 @synthesize nextBackButtonsHidden = _nextBackButtonsHidden;
+@synthesize disallowsMultipleSelection = _disallowsMultipleSelection;
 @synthesize documents = _documents;
 @synthesize delegate = _delegate;
 
@@ -147,6 +150,7 @@
             }
         }
         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(outlineViewSelectionDidChangeNotification:) name:NSOutlineViewSelectionDidChangeNotification object:self.outlineView];
+        self.outlineView.allowsMultipleSelection = !self.disallowsMultipleSelection;
     }
 }
 
