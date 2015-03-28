@@ -6,86 +6,41 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Version 3.0.8</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.0.8.zip" sparkle:version="3.0.8" length="5742151" type="application/octet-stream" />
+            <title>Version 3.1</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.1.zip" sparkle:version="3.1" length="5742151" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>3.0.8</h3>
+                <h3>3.1</h3>
                 <ul>
-                    <li>Fixing bugs related to DBRef and $ref <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/148'>issue #148</a></li>
-                </ul>
-                <h3>3.0.7</h3>
-                <ul>
-                    <li>Better support for DBRef(), the collection should be an absolute collection <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/148'>issue #148</a></li>
-                    <li>Better display of name connections in the main window <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/72'>issue #72</a></li>
-                    <li>Reopen the main window when coming back to the application (if closed) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/76'>issue #76</a></li>
-                    <li>Add a dock menu (with all the connections)</li>
-                    <li>Can use return key to start a search in the find tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/100'>issue #100</a></li>
-                </ul>
-                <h3>3.0.6</h3>
-                <ul>
-                    <li>Autoreconnect the ssh tunnel when it is down</li>
-                    <li>Changing the shortcut from ⌘→ and ⌘← to ⌥⌘→ and ⌥⌘← to get next and previous results in the find tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/162'>issue #162</a></li>
-                    <li>Issue to upgrade from old version (2.3.2) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/166'>issue #166</a></li>
-                </ul>
-                <h3>3.0.5</h3>
-                <ul>
-                    <li>Issue to edit 2 connections, one after the other</li>
-                    <li>Problem to migrate data store from 2.6.x to 3.0.x <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/153'>issue #153</a></li>
-                </ul>
-                <h3>3.0.4</h3>
-                <ul>
-                    <li>Crash in the Monitor Activity <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/155'>issue #155</a></li>
-                    <li>Adding Next and Previous buttons <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/149'>issue #149</a></li>
-                    <li>Adding auto expand popup button to view results</li>
-                    <li>Crash closing the connection editor window while it is not a sheet</li>
-                    <li>Field filter now uses json (example : { field_to_see: 1, field_to_filter_out: 0 }) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/116'>issue #116</a></li>
-                    <li>Don't show twice the collection name in the query (in the update tab) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/158'>issue #158</a></li>
-                    <li>Avoiding a crash on 10.7 <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/157'>issue #157</a> (I will drop the support of 10.7 soon)</li>
-                </ul>
-                <h3>3.0.2</h3>
-                <ul>
-                    <li>Adding back the activity monitor (in the toolbar) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/152'>issue #152</a></li>
-                    <li>Display correctly errors (if any) while saving a document</li>
-                    <li>Fixing few issues while editing the criteria in the remove tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/151'>issue #151</a></li>
-                    <li>Better support for DBRef</li>
-                    <li>Problem to autosave the toolbar in the connection window</li>
-                    <li>Maybe a fix for ssh problems <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/146'>issue #146</a></li>
-                    <li>Issue with default filename when doing file export</li>
-                </ul>
-                <h3>3.0.1</h3>
-                <ul>
-                    <li>Fixing issue with passwords that contain some specific characters <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/147'>issue #147</a></li>
-                </ul>
-                <h3>3.0</h3>
-                <ul>
-                    <li>SSL Working</li>
-                    <li>Fix for a crash when having problem to parse a json <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/125'>issue #125</a></li>
-                    <li>Support for functions and scope functions <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/120'>issue #120</a></li>
-                    <li>Fix to connect to mongoHQ <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/124'>issue #124</a></li>
-                    <li>Better support for primary and secondary in replica set</li>
-                    <li>Migrate SSH password into the keychain <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/106'>issue #106</a></li>
-                    <li>Migrate database password into the keychain <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/106'>issue #106</a></li>
-                    <li>Fix for adding a database with more than one server connected (the database was created on all servers)</li>
-                    <li>Fix for adding a collection with more than one server connected (the collection was created on all servers)</li>
-                    <li>Adding contextual menu in the main window</li>
-                    <li>Display glitch fixed in the connection window</li>
-                    <li>Adding a log window</li>
-                    <li>Accept connecting to secondary server <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/113'>issue #113</a></li>
-                    <li>Can change font and colors in the json editor and font <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/135'>issue #135</a></li>
-                    <li>cmd-w should close the current tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/119'>issue #119</a></li>
-                    <li>Better support for tunneling with replica set/sharding</li>
-                    <li>Can copy/paste mongodb URI <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/108'>issue #108</a></li>
-                    <li>Adding support for timeout parameter in URL</li>
-                    <li>Update some images to be high resolution <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/54'>issue #54</a></li>
-                    <li>Adding contextual menu in the database/collection list</li>
-                    <li>Can renaming a collection</li>
-                    <li>Closing tabs when dropping a collection/database</li>
-                    <li>Nicer update panel <a ref='https://github.com/jeromelebel/MongoHub-Mac/issues/142'>issue #142</a></li>
-                    <li>Workaround for corrupted bson</li>
-                    <li>Always check for debug updates on a debug version</li>
-                    <li>Fixing memory leaks</li>
-                    <li>A little faster to display a thousand collections in a database</li>
-                    <li>Fix to parse wrong regexp in a json <a ref='https://github.com/jeromelebel/MongoHub-Mac/issues/191'>issue #191</a></li>
+                    <li>Crash fix for <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/200'>issue #200</a></li>
+                    <li>Fix to create a new database with mongodb 3.0 <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/203'>issue #203</a></li>
+                    <li>Better json editor feedback, when saving a document <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/201'>issue #201</a></li>
+                    <li>Support for Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NaN <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/206'>issue #206</a></li>
+                    <li>Parse correctly keys in a document (now, accepts numbers without quotes)</li>
+                    <li>Fix for SCRAM authentification in Mongo 3.0 <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/200'>issue #200</a></li>
+                    <li>Documents are copied inside an array (using the pasteboard) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/195'>issue #195</a></li>
+                    <li>Fix for a crash when the server is not valid <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/196'>issue #196</a></li>
+                    <li>Fix for a crash when changingn the collection name <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/193'>issue #193</a></li>
+                    <li>Fix for a crash when editing a document <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/198'>issue #198</a></li>
+                    <li>Better parsing errors in the aggregation tab</li>
+                    <li>Avoiding some crashes in the aggregation tab</li>
+                    <li>Can copy documents in the Find tab</li>
+                    <li>Adding support for full screen in a connection window <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/175'>issue #175</a></li>
+                    <li>Adding a preference for the default sort order in the Find tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/129'>issue #129</a></li>
+                    <li>Adding a preference to present keys sorted in the Find tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/77'>issue #77</a></li>
+                    <li>Display errors from import/export</li>
+                    <li>Can import more than 200 documents <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/172'>issue #172</a></li>
+                    <li>Fix for a crash when the ssh drops <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/171'>issue #171</a></li>
+                    <li>New UI to create/drop indexes <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/178'>issue #178</a></li>
+                    <li>Removed duplicate collection name when generating displayed query in the find tab [pul #184](https://github.com/jeromelebel/MongoHub-Mac/pull/184</a>, thanks to <a href='https://github.com/ssteinerx'>Steve Steiner</a></li>
+                    <li>Showing dates in the outline view in local time zone <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/174'>issue #174</a></li>
+                    <li>Fix to export to mysql</li>
+                    <li>Can insert multiple documents in the insert tab with [ { document1 }, { document2 }, ... ]</li>
+                    <li>Dropping support for 10.7</li>
+                    <li>Dropping support for 32bits</li>
+                    <li>Don't open a contextual menu if a sheet is opened <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/183'>issue #183</a></li>
+                    <li>Crash fixed to parse wrong regexp in a json <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/191'>issue #191</a></li>
+                    <li>Mongo C Driver 1.1.2</li>
+                    <li>Fix to make MongoHub usable again for services like Compose.io/MongoHQ, thanks to <a href='https://github.com/travischoma'>Travis Choma</a></li>
                 </ul>
             ]]>
             </description>

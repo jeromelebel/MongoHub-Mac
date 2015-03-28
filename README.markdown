@@ -38,6 +38,13 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 **Current**
 
+
+**Beta**
+
+## History
+
+**3.1 - march 28, 2015**
+
 - Can copy documents in the Find tab
 - Adding support for full screen in a connection window [issue #175](https://github.com/jeromelebel/MongoHub-Mac/issues/175)
 - Adding a preference for the default sort order in the Find tab [issue #129](https://github.com/jeromelebel/MongoHub-Mac/issues/129)
@@ -66,13 +73,6 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 - Parse correctly keys in a document (now, accepts numbers without quotes)
 - Mongo C Driver 1.1.2
 - Fix to make MongoHub usable again for services like Compose.io/MongoHQ, thanks to [Travis Choma](https://github.com/travischoma)
-
-**3.1 Beta**
-
-- Mongo C Driver 1.1.2
-- Fix to make MongoHub usable again for services like Compose.io/MongoHQ, thanks to [Travis Choma](https://github.com/travischoma)
-
-## History
 
 **3.1 beta 4 - march 6, 2015**
 
