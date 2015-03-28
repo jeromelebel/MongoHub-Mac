@@ -251,7 +251,7 @@
     result = [self.client databaseNamesWithCallback:^(NSArray *list, MODQuery *mongoQuery) {
         [self.loaderIndicator stopAnimation:nil];
         self.window.title = self.connectionStore.alias;
-        if (list != nil) {
+        if (list != nil && list.count) {
             if ([self.clientItem updateChildrenWithList:list]) {
                 [self.databaseCollectionOutlineView reloadData];
             }
