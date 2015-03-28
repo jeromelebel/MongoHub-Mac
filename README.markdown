@@ -38,6 +38,8 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 **Current**
 
+- Issue with 10.9 to double click on a document, thanks to [Sergey Basmanov](https://github.com/sbasmanov)
+
 **Beta**
 
 ## History
