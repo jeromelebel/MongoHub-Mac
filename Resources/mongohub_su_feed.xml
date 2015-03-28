@@ -6,9 +6,13 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Version 3.1.2</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.1.2.zip" sparkle:version="3.1.2" length="5240487" type="application/octet-stream" />
+            <title>Version 3.1.3</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.1.3.zip" sparkle:version="3.1.3" length="5240451" type="application/octet-stream" />
             <description><![CDATA[
+                <h3>3.1.3</h3>
+                <ul>
+                    <li>Issue with 10.9 to double click on a document, thanks to <a href='https://github.com/sbasmanov'>[Sergey Basmanov]</a></li>
+                </ul>
                 <h3>3.1.2</h3>
                 <ul>
                     <li>Fix issue to edit only selected documents in the Find tab</li>
