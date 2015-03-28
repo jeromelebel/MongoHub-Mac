@@ -8,7 +8,6 @@
 
 #import "MHQueryViewController.h"
 
-#import "MHResultsOutlineViewController.h"
 #import "MHDocumentOutlineViewController.h"
 #import "NSString+MongoHub.h"
 #import "MHJsonWindowController.h"
@@ -81,13 +80,13 @@
 @property (nonatomic, readwrite, strong) UKSyntaxColoredTextViewController *aggregationPipelineSyntaxColoringController;
 @property (nonatomic, readwrite, strong) UKSyntaxColoredTextViewController *aggregationOptionsSyntaxColoringController;
 
-@property (nonatomic, readwrite, strong) MHResultsOutlineViewController *mrOutlineViewController;
-@property (nonatomic, readwrite, weak) IBOutlet NSOutlineView *mrOutlineView;
+@property (nonatomic, readwrite, weak) IBOutlet NSView *mrResultView;
 @property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *mrLoaderIndicator;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *mrOutputTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *mrCriteriaTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextView *mrMapFunctionTextView;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextView *mrReduceFunctionTextView;
+@property (nonatomic, readwrite, strong) IBOutlet MHDocumentOutlineViewController *mrDocumentOutlineViewController;
 
 - (void)selectBestTextField;
 
@@ -179,13 +178,13 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 @synthesize aggregationPipelineSyntaxColoringController = _aggregationPipelineSyntaxColoringController;
 @synthesize aggregationOptionsSyntaxColoringController = _aggregationOptionsSyntaxColoringController;
 
-@synthesize mrOutlineViewController = _mrOutlineViewController;
-@synthesize mrOutlineView = _mrOutlineView;
+@synthesize mrResultView = _mrResultView;
 @synthesize mrLoaderIndicator = _mrLoaderIndicator;
 @synthesize mrOutputTextField = _mrOutputTextField;
 @synthesize mrCriteriaTextField = _mrCriteriaTextField;
 @synthesize mrMapFunctionTextView = _mrMapFunctionTextView;
 @synthesize mrReduceFunctionTextView = _mrReduceFunctionTextView;
+@synthesize mrDocumentOutlineViewController = _mrDocumentOutlineViewController;
 
 - (instancetype)initWithCollection:(MODCollection *)collection connectionStore:(MHConnectionStore *)connectionStore
 {
@@ -234,7 +233,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     self.indexDocumentOutlineViewController = nil;
     self.indexEditorController = nil;
     
-    self.mrOutlineViewController = nil;
+    self.mrDocumentOutlineViewController = nil;
     self.collection = nil;
     self.connectionStore = nil;
     self.updateOperatorViews = nil;
@@ -282,7 +281,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     self.updateOperatorViews = [NSMutableArray array];
     [self updateAddOperatorAction:nil];
     
-    self.mrOutlineViewController = MOD_AUTORELEASE([[MHResultsOutlineViewController alloc] initWithOutlineView:self.mrOutlineView]);
     [MHDocumentOutlineViewController addDocumentOutlineViewController:self.findDocumentOutlineViewController intoView:self.findResultView];
     
     self.insertSyntaxColoringController = MOD_AUTORELEASE([[UKSyntaxColoredTextViewController alloc] init]);
@@ -290,6 +288,8 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     self.insertSyntaxColoringController.view = self.insertDataTextView;
     
     [MHDocumentOutlineViewController addDocumentOutlineViewController:self.indexDocumentOutlineViewController intoView:self.indexResultView];
+    
+    [MHDocumentOutlineViewController addDocumentOutlineViewController:self.mrDocumentOutlineViewController intoView:self.mrResultView];
     
     self.title = self.collection.absoluteName;
     self.jsonWindowControllers = [NSMutableDictionary dictionary];

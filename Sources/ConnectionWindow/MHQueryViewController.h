@@ -10,7 +10,6 @@
 #import "UKSyntaxColoredTextViewController.h"
 #import "MHDocumentOutlineViewController.h"
 
-@class MHResultsOutlineViewController;
 @class MODCollection;
 @class MHConnectionStore;
 @class MHIndexEditorController;
@@ -81,7 +80,8 @@
     NSTextField                                 *_mrOutputTextField;
     NSProgressIndicator                         *_mrLoaderIndicator;
     NSOutlineView                               *_mrOutlineView;
-    MHResultsOutlineViewController              *_mrOutlineViewController;
+    NSView                                      *_mrResultView;
+    MHDocumentOutlineViewController             *_mrDocumentOutlineViewController;
 }
 
 @property (nonatomic, readonly, strong) MODCollection *collection;
