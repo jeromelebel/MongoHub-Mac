@@ -43,6 +43,10 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 ## History
 
+**3.1.1 - march 28, 2015**
+
+- Make aggregation tab be the default
+
 **3.1 - march 28, 2015**
 
 - Can copy documents in the Find tab
