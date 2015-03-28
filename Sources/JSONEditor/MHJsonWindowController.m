@@ -54,7 +54,7 @@
 
 - (BOOL)windowShouldClose:(id)sender
 {
-    if (!self.window.documentEdited) {
+    if (!self.window.isDocumentEdited) {
         return YES;
     } else {
         NSBeginAlertSheet(@"Unsaved Document", @"Save", @"Don't Save", @"Cancel", self.window, self, @selector(sheetDidEnd:returnCode:contextInfo:), @selector(sheetDidDismiss:returnCode:contextInfo:), nil, @"Do you want to save the current document?");
