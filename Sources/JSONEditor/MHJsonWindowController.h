@@ -32,6 +32,8 @@
     NSProgressIndicator                 *_progressIndicator;
     NSTextField                         *_status;
     UKSyntaxColoredTextViewController   *_syntaxColoringController;
+    NSButton                            *_saveButton;
+    NSButton                            *_cancelButton;
 }
 
 // just a data to store (used by the user of this class

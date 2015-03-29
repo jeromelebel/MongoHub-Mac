@@ -17,37 +17,37 @@
 #define SHARDEDCLUSTER_TAB_IDENTIER         @"shardedcluster"
 
 @interface MHConnectionEditorWindowController ()
-@property (nonatomic, readwrite, assign) IBOutlet NSTextField *aliasTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *aliasTextField;
 
-@property (nonatomic, readwrite, assign) IBOutlet NSPopUpButton *singleReplicaSetPopUpButton;
-@property (nonatomic, readwrite, assign) IBOutlet NSTabView *singleReplicaSetTabView;
+@property (nonatomic, readwrite, weak) IBOutlet NSPopUpButton *singleReplicaSetPopUpButton;
+@property (nonatomic, readwrite, weak) IBOutlet NSTabView *singleReplicaSetTabView;
 
-@property (nonatomic, readwrite, assign) IBOutlet NSTextField *hostTextField;
-@property (nonatomic, readwrite, assign) IBOutlet NSTextField *hostportTextField;
-@property (nonatomic, readwrite, assign) IBOutlet NSButton *slaveOkButton;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *hostTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *hostportTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *slaveOkButton;
 
-@property (nonatomic, readwrite, assign) IBOutlet NSTextField *replicaSetServersTextField;
-@property (nonatomic, readwrite, assign) IBOutlet NSTextField *replicaSetNameTextField;
-@property (nonatomic, readwrite, assign) IBOutlet NSPopUpButton *defaultReadModePopUpButton;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *replicaSetServersTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *replicaSetNameTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSPopUpButton *defaultReadModePopUpButton;
 
-@property (nonatomic, readwrite, assign) IBOutlet NSTextField *shardedClusterServersTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *shardedClusterServersTextField;
 
-@property (nonatomic, readwrite, assign) IBOutlet NSTextField *adminUserTextField;
-@property (nonatomic, readwrite, assign) IBOutlet NSSecureTextField *adminPasswordTextField;
-@property (nonatomic, readwrite, assign) IBOutlet NSTextField *defaultDatabaseTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *adminUserTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSSecureTextField *adminPasswordTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *defaultDatabaseTextField;
 
-@property (nonatomic, readwrite, assign) IBOutlet NSButton *useSSLCheckbox;
-@property (nonatomic, readwrite, assign) IBOutlet NSButton *weakCertificateCheckbox;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *useSSLCheckbox;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *weakCertificateCheckbox;
 
-@property (nonatomic, readwrite, assign) IBOutlet NSButton *useSSHCheckBox;
-@property (nonatomic, readwrite, assign) IBOutlet NSTextField *sshHostTextField;
-@property (nonatomic, readwrite, assign) IBOutlet NSTextField *sshPortTextField;
-@property (nonatomic, readwrite, assign) IBOutlet NSTextField *sshUserTextField;
-@property (nonatomic, readwrite, assign) IBOutlet NSSecureTextField *sshPasswordTextField;
-@property (nonatomic, readwrite, assign) IBOutlet NSTextField *sshKeyfileTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *useSSHCheckBox;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *sshHostTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *sshPortTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *sshUserTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSSecureTextField *sshPasswordTextField;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *sshKeyfileTextField;
 
-@property (nonatomic, readwrite, assign) IBOutlet NSButton *selectKeyFileButton;
-@property (nonatomic, readwrite, assign) IBOutlet NSButton *addSaveButton;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *selectKeyFileButton;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *addSaveButton;
 
 @property (nonatomic, readwrite, assign, getter=isNewConnetion) BOOL newConnection;
 
@@ -99,10 +99,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 
 @implementation MHConnectionEditorWindowController
 
-@synthesize editedConnectionStore = _editedConnectionStore;
 @synthesize delegate = _delegate;
-@synthesize newConnection = _newConnection;
-@synthesize connectionStoreDefaultValue = _connectionStoreDefaultValue;
 
 @synthesize aliasTextField = _aliasTextField;
 

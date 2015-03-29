@@ -14,7 +14,7 @@
     MHTabViewController *_tabViewController;
 }
 
-@property (nonatomic, readwrite, assign) MHTabViewController *tabViewController;
+@property (nonatomic, readwrite, weak) MHTabViewController *tabViewController;
 @property (nonatomic, readonly, assign) BOOL isSelected;
 
 - (void)select;

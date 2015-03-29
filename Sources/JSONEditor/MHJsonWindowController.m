@@ -11,11 +11,11 @@
 
 @interface MHJsonWindowController ()
 @property (nonatomic, readwrite, strong) UKSyntaxColoredTextViewController *syntaxColoringController;
-@property (nonatomic, readwrite, assign) IBOutlet NSTextView *jsonTextView;
-@property (nonatomic, readwrite, assign) IBOutlet NSProgressIndicator *progressIndicator;
-@property (nonatomic, readwrite, assign) IBOutlet NSTextField *status;
-@property (nonatomic, readwrite, assign) IBOutlet NSButton *saveButton;
-@property (nonatomic, readwrite, assign) IBOutlet NSButton *cancelButton;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextView *jsonTextView;
+@property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *progressIndicator;
+@property (nonatomic, readwrite, weak) IBOutlet NSTextField *status;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *saveButton;
+@property (nonatomic, readwrite, weak) IBOutlet NSButton *cancelButton;
 
 @end
 
@@ -29,6 +29,8 @@
 @synthesize progressIndicator = _progressIndicator;
 @synthesize syntaxColoringController = _syntaxColoringController;
 @synthesize status = _status;
+@synthesize saveButton = _saveButton;
+@synthesize cancelButton = _cancelButton;
 
 - (void)dealloc
 {

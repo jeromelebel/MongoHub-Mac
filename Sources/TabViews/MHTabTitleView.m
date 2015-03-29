@@ -26,9 +26,20 @@ static void initializeImages(void)
     }
 }
 
-@implementation MHTabTitleView
+@interface MHTabTitleView ()
 
-@synthesize selected = _selected, tabViewController = _tabViewController;
+@property (nonatomic, readwrite, assign) BOOL showCloseButton;
+@property (nonatomic, readwrite, assign) BOOL closeButtonHit;
+@property (nonatomic, readwrite, assign) BOOL titleHit;
+@property (nonatomic, readwrite, assign) NSTrackingRectTag trakingTag;
+
+@property (nonatomic, readwrite, strong) NSMutableAttributedString *attributedTitle;
+@property (nonatomic, readwrite, strong) NSMutableDictionary *titleAttributes;
+@property (nonatomic, readwrite, strong) NSCell *titleCell;
+
+@end
+
+@implementation MHTabTitleView
 
 - (instancetype)initWithFrame:(NSRect)frame
 {
@@ -39,11 +50,11 @@ static void initializeImages(void)
         
         [mutParaStyle setAlignment:NSCenterTextAlignment];
         [mutParaStyle setLineBreakMode:NSLineBreakByTruncatingMiddle];
-        _titleAttributes = [[NSMutableDictionary alloc] initWithObjectsAndKeys:mutParaStyle, NSParagraphStyleAttributeName, nil];
-        [_titleAttributes setObject:[NSColor whiteColor] forKey:NSForegroundColorAttributeName];
-        _attributedTitle = [[NSMutableAttributedString alloc] initWithString:@"Loading…" attributes:_titleAttributes];
-        _titleCell = [[NSCell alloc] init];
-        _titleCell.attributedStringValue = _attributedTitle;
+        self.titleAttributes = [NSMutableDictionary dictionaryWithObjectsAndKeys:mutParaStyle, NSParagraphStyleAttributeName, nil];
+        [self.titleAttributes setObject:[NSColor whiteColor] forKey:NSForegroundColorAttributeName];
+        self.attributedTitle = [[[NSMutableAttributedString alloc] initWithString:@"Loading…" attributes:self.titleAttributes] autorelease];
+        self.titleCell = [[[NSCell alloc] init] autorelease];
+        self.titleCell.attributedStringValue = self.attributedTitle;
 
         [mutParaStyle release];
 }
@@ -53,9 +64,10 @@ static void initializeImages(void)
 
 - (void)dealloc
 {
-    [_titleAttributes release];
-    [_attributedTitle release];
-    [_titleCell release];
+    self.titleAttributes = nil;
+    self.titleCell = nil;
+    self.attributedTitle = nil;
+    self.tabViewController = nil;
     [super dealloc];
 }
 
@@ -83,36 +95,36 @@ static void initializeImages(void)
 
 - (void)viewDidMoveToSuperview
 {
-    _trakingTag = [self addTrackingRect:self.bounds owner:self userData:nil assumeInside:NO];
+    self.trakingTag = [self addTrackingRect:self.bounds owner:self userData:nil assumeInside:NO];
     [super viewDidMoveToSuperview];
 }
 
 - (void)removeFromSuperview
 {
-    [self removeTrackingRect:_trakingTag];
+    [self removeTrackingRect:self.trakingTag];
     [super removeFromSuperview];
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent
 {
-    _showCloseButton = YES;
+    self.showCloseButton = YES;
     [self setNeedsDisplayInRect:[self _closeButtonRect]];
     [self setNeedsDisplayInRect:[self _gripButtonRect]];
 }
 
 - (void)mouseExited:(NSEvent *)theEvent
 {
-    _showCloseButton = NO;
+    self.showCloseButton = NO;
     [self setNeedsDisplayInRect:[self _closeButtonRect]];
     [self setNeedsDisplayInRect:[self _gripButtonRect]];
 }
 
 - (void)setFrame:(NSRect)frameRect
 {
-    [self removeTrackingRect:_trakingTag];
+    [self removeTrackingRect:self.trakingTag];
     [super setFrame:frameRect];
-    _trakingTag = [self addTrackingRect:self.bounds owner:self userData:nil assumeInside:NO];
-    _showCloseButton = [self mouse:[self convertPoint:[self convertPoint:[NSEvent mouseLocation] fromView:nil] fromView:nil] inRect:self.bounds];
+    self.trakingTag = [self addTrackingRect:self.bounds owner:self userData:nil assumeInside:NO];
+    self.showCloseButton = [self mouse:[self convertPoint:[self convertPoint:[NSEvent mouseLocation] fromView:nil] fromView:nil] inRect:self.bounds];
 }
 
 - (void)drawRect:(NSRect)dirtyRect
@@ -122,7 +134,7 @@ static void initializeImages(void)
     NSRect mainRect;
     NSImage *image;
     
-    if (_selected || _titleHit) {
+    if (_selected || self.titleHit) {
         NSArray *images = [_drawingObjects objectForKey:@"selected_tab"];
         
         image = [images objectAtIndex:1];
@@ -145,7 +157,7 @@ static void initializeImages(void)
             image = [_drawingObjects objectForKey:@"selected_tab_arrow"];
             [image drawAtPoint:NSMakePoint(round((self.bounds.size.width / 2.0) + (image.size.width / 2.0)), 0) fromRect:NSMakeRect(0, 0, image.size.width, image.size.height) operation:NSCompositeSourceOver fraction:1.0];
         }
-        [_titleAttributes setObject:[NSColor whiteColor] forKey:NSForegroundColorAttributeName];
+        [self.titleAttributes setObject:[NSColor whiteColor] forKey:NSForegroundColorAttributeName];
     } else {
         image = [_drawingObjects objectForKey:@"unselected-tab-background"];
         [image drawInRect:NSMakeRect(0, self.bounds.size.height - image.size.height, self.bounds.size.width, image.size.height) fromRect:NSMakeRect(0, 0, image.size.width, image.size.height) operation:NSCompositeCopy fraction:1.0];
@@ -154,19 +166,19 @@ static void initializeImages(void)
         [image drawInRect:NSMakeRect(0, self.bounds.size.height - image.size.height, 1, image.size.height) fromRect:NSMakeRect(1, 0, 1, image.size.height) operation:NSCompositeCopy fraction:1.0];
         [image drawInRect:NSMakeRect(self.bounds.size.width - 1, self.bounds.size.height - image.size.height, 1, image.size.height) fromRect:NSMakeRect(0, 0, 1, image.size.height) operation:NSCompositeCopy fraction:1.0];
 
-        [_titleAttributes setObject:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
+        [self.titleAttributes setObject:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
 
     }
-    [_attributedTitle setAttributes:_titleAttributes range:NSMakeRange(0, _attributedTitle.length)];
-    _titleCell.attributedStringValue = _attributedTitle;
+    [self.attributedTitle setAttributes:self.titleAttributes range:NSMakeRange(0, self.attributedTitle.length)];
+    self.titleCell.attributedStringValue = self.attributedTitle;
     
     titleRect.size.height -= 7;
     titleRect.origin.x += CLOSE_BUTTON_MARGIN;
     titleRect.size.width -= CLOSE_BUTTON_MARGIN * 2.0;
-    [_titleCell drawInteriorWithFrame:titleRect inView:self];
+    [self.titleCell drawInteriorWithFrame:titleRect inView:self];
     imageDisplayRect = [self _closeButtonRect];
-    if (_showCloseButton && NSIntersectsRect(dirtyRect, imageDisplayRect)) {
-        if (_closeButtonHit) {
+    if (self.showCloseButton && NSIntersectsRect(dirtyRect, imageDisplayRect)) {
+        if (self.closeButtonHit) {
             image = [_drawingObjects objectForKey:@"overlay_close_button"];
         } else {
             image = [_drawingObjects objectForKey:@"close_button"];
@@ -176,7 +188,7 @@ static void initializeImages(void)
     }
     
     imageDisplayRect = [self _gripButtonRect];
-    if (_showCloseButton && NSIntersectsRect(dirtyRect, imageDisplayRect)) {
+    if (self.showCloseButton && NSIntersectsRect(dirtyRect, imageDisplayRect)) {
         image = [_drawingObjects objectForKey:@"grip_button"];
         [image drawInRect:imageDisplayRect fromRect:NSMakeRect(0, 0, image.size.width, image.size.height) operation:NSCompositeSourceOver fraction:1.0];
     }
@@ -220,9 +232,9 @@ static NSComparisonResult orderFromView(id view1, id view2, void *current)
         titleHit = [self mouse:locationInView inRect:self.bounds];
         closeButtonHit = !startToDrag && [self mouse:locationInView inRect:closeButtonRect];
         
-        if (closeButtonHit != _closeButtonHit || (titleHit || startToDrag) != _titleHit) {
-            _closeButtonHit = closeButtonHit;
-            _titleHit = titleHit || startToDrag;
+        if (closeButtonHit != self.closeButtonHit || (titleHit || startToDrag) != self.titleHit) {
+            self.closeButtonHit = closeButtonHit;
+            self.titleHit = titleHit || startToDrag;
             [self setNeedsDisplay];
         }
         switch ([theEvent type]) {
@@ -235,10 +247,10 @@ static NSComparisonResult orderFromView(id view1, id view2, void *current)
                     newFrame.origin.x += locationInView.x - firstLocationInView.x;
                     locationInSuperview = [self.superview convertPoint:locationInWindow fromView:nil];
                     if (locationInSuperview.x < originalFrame.origin.x && self.tag > 0) {
-                        [_tabViewController moveTabItemFromIndex:self.tag toIndex:self.tag - 1];
+                        [self.tabViewController moveTabItemFromIndex:self.tag toIndex:self.tag - 1];
                         originalFrame = self.frame;
-                    } else if (locationInSuperview.x > originalFrame.origin.x + originalFrame.size.width && self.tag < _tabViewController.tabCount - 1) {
-                        [_tabViewController moveTabItemFromIndex:self.tag toIndex:self.tag + 1];
+                    } else if (locationInSuperview.x > originalFrame.origin.x + originalFrame.size.width && self.tag < self.tabViewController.tabCount - 1) {
+                        [self.tabViewController moveTabItemFromIndex:self.tag toIndex:self.tag + 1];
                         originalFrame = self.frame;
                     }
                     if (newFrame.origin.x < 0) {
@@ -250,11 +262,11 @@ static NSComparisonResult orderFromView(id view1, id view2, void *current)
                 }
                 break;
             case NSLeftMouseUp:
-                _showCloseButton = NO;
+                self.showCloseButton = NO;
                 if (closeButtonHit) {
-                    [_tabViewController removeTabItemViewController:[_tabViewController tabItemViewControlletAtIndex:self.tag]];
+                    [self.tabViewController removeTabItemViewController:[self.tabViewController tabItemViewControlletAtIndex:self.tag]];
                 } else if (titleHit) {
-                    _tabViewController.selectedTabIndex = self.tag;
+                    self.tabViewController.selectedTabIndex = self.tag;
                     [self setNeedsDisplay];
                 } else {
                     [self setNeedsDisplay];
@@ -273,21 +285,21 @@ static NSComparisonResult orderFromView(id view1, id view2, void *current)
         self.alphaValue = 1.0;
     }
     self.frame = originalFrame;
-    _titleHit = NO;
+    self.titleHit = NO;
 }
 
 - (void)setStringValue:(NSString *)aString
 {
     if (aString) {
-        [_attributedTitle.mutableString setString:aString];
-        _titleCell.attributedStringValue = _attributedTitle;
+        [self.attributedTitle.mutableString setString:aString];
+        self.titleCell.attributedStringValue = self.attributedTitle;
         [self setNeedsDisplay];
     }
 }
 
 - (NSString *)stringValue
 {
-    return _titleCell.attributedStringValue.string;
+    return self.titleCell.attributedStringValue.string;
 }
 
 @end

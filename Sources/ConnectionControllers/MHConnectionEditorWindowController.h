@@ -57,17 +57,14 @@
     NSButton                            *_selectKeyFileButton;
     NSButton                            *_addSaveButton;
     
-    MHConnectionStore                   *_editedConnectionStore;
-    MHConnectionStore                   *_connectionStoreDefaultValue;
-    BOOL                                _newConnection;
     id<MHConnectionEditorWindowControllerDelegate> _delegate;
 }
-@property (nonatomic, strong, readwrite) MHConnectionStore *editedConnectionStore;
-@property (nonatomic, strong, readwrite) MHConnectionStore *connectionStoreDefaultValue;
-@property (nonatomic, assign, readwrite) id<MHConnectionEditorWindowControllerDelegate> delegate;
-@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, assign, readonly, getter=isNewConnetion) BOOL newConnection;
+@property (nonatomic, readwrite, strong) MHConnectionStore *editedConnectionStore;
+@property (nonatomic, readwrite, strong) MHConnectionStore *connectionStoreDefaultValue;
+@property (nonatomic, readwrite, weak) id<MHConnectionEditorWindowControllerDelegate> delegate;
+@property (nonatomic, readonly, assign, getter=isNewConnetion) BOOL newConnection;
 
 - (void)modalForWindow:(NSWindow *)window;
+- (NSManagedObjectContext *)managedObjectContext;
 
 @end

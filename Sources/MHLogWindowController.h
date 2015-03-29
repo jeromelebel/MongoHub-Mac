@@ -15,8 +15,12 @@
 @end
 
 @interface MHLogWindowController : NSWindowController
+{
+    NSTableView                         *_logTableView;
+    id<MHLogWindowControllerDelegate>   _delegate;
+}
 
-@property (nonatomic, strong, readwrite) id<MHLogWindowControllerDelegate> delegate;
+@property (nonatomic, readwrite, weak) id<MHLogWindowControllerDelegate> delegate;
 
 + (instancetype)logWindowController;
 

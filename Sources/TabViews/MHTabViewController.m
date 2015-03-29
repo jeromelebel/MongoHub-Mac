@@ -12,18 +12,28 @@
 
 #define TAB_HEIGHT 35.0
 
+@interface MHTabViewController()
+
+@property (nonatomic, readwrite, strong) NSMutableArray *mutableTabControllers;
+@property (nonatomic, readwrite, strong) NSMutableArray *tabTitleViewes;
+@property (nonatomic, readwrite, strong) MHTabTitleContainerView *tabContainerView;
+@property (nonatomic, readwrite, weak) NSView *selectedTabView;
+
+@end
+
 @implementation MHTabViewController
 
-@synthesize tabControllers = _tabControllers, delegate = _delegate;
+@synthesize delegate = _delegate;
+@synthesize selectedTabView = _selectedTabView;
 
 - (void)dealloc
 {
-    for (MHTabItemViewController *controller in _tabControllers) {
+    for (MHTabItemViewController *controller in self.mutableTabControllers) {
         [controller removeObserver:self forKeyPath:@"title"];
     }
-    [_tabControllers release];
-    [_tabTitleViewes release];
-    [_tabContainerView release];
+    self.mutableTabControllers = nil;
+    self.tabTitleViewes = nil;
+    self.tabContainerView = nil;
     [self.view removeObserver:self forKeyPath:@"frame"];
     [super dealloc];
 }
@@ -35,14 +45,14 @@
 
 - (void)awakeFromNib
 {
-    if (_tabControllers == nil) {
+    if (self.mutableTabControllers == nil) {
         _selectedTabIndex = NSNotFound;
-        _tabControllers = [[NSMutableArray alloc] init];
-        _tabTitleViewes = [[NSMutableArray alloc] init];
-        _tabContainerView = [[MHTabTitleContainerView alloc] initWithFrame:NSMakeRect(0, self.view.bounds.size.height - TAB_HEIGHT, self.view.bounds.size.width, TAB_HEIGHT)];
-        [self.view addSubview:_tabContainerView];
+        self.mutableTabControllers = [NSMutableArray array];
+        self.tabTitleViewes = [NSMutableArray array];
+        self.tabContainerView = [[[MHTabTitleContainerView alloc] initWithFrame:NSMakeRect(0, self.view.bounds.size.height - TAB_HEIGHT, self.view.bounds.size.width, TAB_HEIGHT)] autorelease];
+        [self.view addSubview:self.tabContainerView];
         [self.view addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
-        [_tabContainerView setAutoresizingMask:NSViewWidthSizable | NSViewMinYMargin];
+        [self.tabContainerView setAutoresizingMask:NSViewWidthSizable | NSViewMinYMargin];
     }
 }
 
@@ -51,8 +61,8 @@
     NSRect result;
     NSUInteger count;
     
-    count = [_tabControllers count];
-    result = _tabContainerView.bounds;
+    count = [self.mutableTabControllers count];
+    result = self.tabContainerView.bounds;
     result.origin.y += result.size.height - TAB_HEIGHT;
     result.size.height = TAB_HEIGHT;
     result.size.width = round(result.size.width / count);
@@ -62,27 +72,27 @@
 
 - (void)_removeCurrentTabItemViewController
 {
-    [_selectedTabView removeFromSuperview];
-    _selectedTabView = nil;
+    [self.selectedTabView removeFromSuperview];
+    self.selectedTabView = nil;
 }
 
 - (void)_tabItemViewControllerWithIndex:(NSInteger)index
 {
-    if (_selectedTabIndex != NSNotFound && _selectedTabIndex < [_tabTitleViewes count]) {
-        [[_tabTitleViewes objectAtIndex:_selectedTabIndex] setNeedsDisplay:YES];
-        [[_tabTitleViewes objectAtIndex:_selectedTabIndex] setSelected:NO];
+    if (_selectedTabIndex != NSNotFound && _selectedTabIndex < [self.tabTitleViewes count]) {
+        [[self.tabTitleViewes objectAtIndex:_selectedTabIndex] setNeedsDisplay:YES];
+        [[self.tabTitleViewes objectAtIndex:_selectedTabIndex] setSelected:NO];
     }
     _selectedTabIndex = index;
     if (_selectedTabIndex != NSNotFound) {
         NSRect rect;
         
-        [[_tabTitleViewes objectAtIndex:_selectedTabIndex] setNeedsDisplay:YES];
+        [[self.tabTitleViewes objectAtIndex:_selectedTabIndex] setNeedsDisplay:YES];
         rect = self.view.bounds;
-        _selectedTabView = [[_tabControllers objectAtIndex:_selectedTabIndex] view];
-        [self.view addSubview:_selectedTabView];
+        self.selectedTabView = [[self.mutableTabControllers objectAtIndex:_selectedTabIndex] view];
+        [self.view addSubview:self.selectedTabView];
         rect.size.height -= TAB_HEIGHT;
-        _selectedTabView.frame = rect;
-        [[_tabTitleViewes objectAtIndex:_selectedTabIndex] setSelected:YES];
+        self.selectedTabView.frame = rect;
+        [[self.tabTitleViewes objectAtIndex:_selectedTabIndex] setSelected:YES];
     }
 }
 
@@ -90,7 +100,7 @@
 {
     NSUInteger ii = 0;
     
-    for (MHTabTitleView *titleView in _tabTitleViewes) {
+    for (MHTabTitleView *titleView in self.tabTitleViewes) {
         if (animation && exceptView != titleView) {
             [[titleView animator] setFrame:[self _rectForTabTitleAtIndex:ii]];
         } else {
@@ -105,21 +115,21 @@
 - (void)addTabItemViewController:(MHTabItemViewController *)tabItemViewController
 {
     NSParameterAssert(tabItemViewController);
-    if ([_tabControllers indexOfObject:tabItemViewController] == NSNotFound) {
+    if ([self.mutableTabControllers indexOfObject:tabItemViewController] == NSNotFound) {
         MHTabTitleView *titleView;
         
         tabItemViewController.tabViewController = self;
-        [_tabControllers addObject:tabItemViewController];
+        [self.mutableTabControllers addObject:tabItemViewController];
         tabItemViewController.view.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        titleView = [[MHTabTitleView alloc] initWithFrame:_tabContainerView.bounds];
+        titleView = [[MHTabTitleView alloc] initWithFrame:self.tabContainerView.bounds];
         titleView.tabViewController = self;
         titleView.stringValue = tabItemViewController.title;
-        [_tabTitleViewes addObject:titleView];
-        [_tabContainerView addSubview:titleView];
+        [self.tabTitleViewes addObject:titleView];
+        [self.tabContainerView addSubview:titleView];
         [titleView release];
         [tabItemViewController addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
         
-        self.selectedTabIndex = [_tabControllers count] - 1;
+        self.selectedTabIndex = [self.mutableTabControllers count] - 1;
         [self _updateTitleViewesWithAnimation:NO exceptView:nil];
     }
 }
@@ -128,17 +138,17 @@
 {
     NSUInteger index;
     
-    index = [_tabControllers indexOfObject:tabItemViewController];
+    index = [self.mutableTabControllers indexOfObject:tabItemViewController];
     if (index != NSNotFound) {
         [tabItemViewController willRemoveFromTabViewController];
         [tabItemViewController retain];
         [self willChangeValueForKey:@"selectedTabIndex"];
         [self _removeCurrentTabItemViewController];
         [tabItemViewController removeObserver:self forKeyPath:@"title"];
-        [_tabControllers removeObjectAtIndex:index];
-        [[_tabTitleViewes objectAtIndex:index] removeFromSuperview];
-        [_tabTitleViewes removeObjectAtIndex:index];
-        if ([_tabControllers count] == 0) {
+        [self.mutableTabControllers removeObjectAtIndex:index];
+        [[self.tabTitleViewes objectAtIndex:index] removeFromSuperview];
+        [self.tabTitleViewes removeObjectAtIndex:index];
+        if ([self.mutableTabControllers count] == 0) {
             [self _tabItemViewControllerWithIndex:NSNotFound];
         } else if (_selectedTabIndex == 0) {
             [self _tabItemViewControllerWithIndex:0];
@@ -155,7 +165,7 @@
 
 - (NSUInteger)tabCount
 {
-    return [_tabControllers count];
+    return [self.mutableTabControllers count];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -165,10 +175,10 @@
     } else if ([object isKindOfClass:[MHTabItemViewController class]]) {
         NSUInteger index;
         
-        index = [_tabControllers indexOfObject:object];
+        index = [self.mutableTabControllers indexOfObject:object];
         NSAssert(index != NSNotFound, @"unknown tab");
-        [[_tabTitleViewes objectAtIndex:index] setStringValue:[object title]];
-        [[_tabTitleViewes objectAtIndex:index] setNeedsDisplay:YES];
+        [[self.tabTitleViewes objectAtIndex:index] setStringValue:[object title]];
+        [[self.tabTitleViewes objectAtIndex:index] setNeedsDisplay:YES];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -193,7 +203,7 @@
 {
     NSInteger index;
     
-    index = [_tabControllers indexOfObject:tabItemViewController];
+    index = [self.mutableTabControllers indexOfObject:tabItemViewController];
     if (index != NSNotFound) {
         self.selectedTabIndex = index;
     }
@@ -204,25 +214,30 @@
     if (self.selectedTabIndex == NSNotFound) {
         return nil;
     } else {
-        return [_tabControllers objectAtIndex:self.selectedTabIndex];
+        return [self.mutableTabControllers objectAtIndex:self.selectedTabIndex];
     }
 }
 
 - (MHTabItemViewController *)tabItemViewControlletAtIndex:(NSInteger)index
 {
-    return [_tabControllers objectAtIndex:index];
+    return [self.mutableTabControllers objectAtIndex:index];
 }
 
 - (void)moveTabItemFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex
 {
-    [_tabControllers exchangeObjectAtIndex:fromIndex withObjectAtIndex:toIndex];
-    [_tabTitleViewes exchangeObjectAtIndex:fromIndex withObjectAtIndex:toIndex];
+    [self.mutableTabControllers exchangeObjectAtIndex:fromIndex withObjectAtIndex:toIndex];
+    [self.tabTitleViewes exchangeObjectAtIndex:fromIndex withObjectAtIndex:toIndex];
     if (fromIndex == _selectedTabIndex) {
         _selectedTabIndex = toIndex;
     } else if (toIndex == _selectedTabIndex) {
         _selectedTabIndex = fromIndex;
     }
-    [self _updateTitleViewesWithAnimation:YES exceptView:[_tabTitleViewes objectAtIndex:toIndex]];
+    [self _updateTitleViewesWithAnimation:YES exceptView:[self.tabTitleViewes objectAtIndex:toIndex]];
+}
+
+- (NSArray *)tabControllers
+{
+    return self.mutableTabControllers;
 }
 
 @end

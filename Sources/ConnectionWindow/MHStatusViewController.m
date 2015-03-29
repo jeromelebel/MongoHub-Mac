@@ -16,7 +16,7 @@
 @interface MHStatusViewController ()
 @property (nonatomic, readwrite, strong) MODClient *client;
 @property (nonatomic, readwrite, strong) MHConnectionStore *connectionStore;
-@property (nonatomic, readwrite, assign) IBOutlet MHDocumentOutlineViewController *documentOutlineViewController;
+@property (nonatomic, readwrite, weak) IBOutlet MHDocumentOutlineViewController *documentOutlineViewController;
 
 @end
 

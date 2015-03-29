@@ -16,24 +16,23 @@
 
 @interface MHTabViewController : NSViewController
 {
-    NSView *_selectedTabView;
-    MHTabTitleContainerView *_tabContainerView;
-    NSMutableArray *_tabControllers;
-    NSMutableArray *_tabTitleViewes;
-    NSUInteger _selectedTabIndex;
-    IBOutlet id<MHTabViewControllerDelegate> _delegate;
+    NSView                                      *_selectedTabView;
+    NSUInteger                                  _selectedTabIndex;
+    id<MHTabViewControllerDelegate>             _delegate;
 }
 
-@property (nonatomic, assign, readwrite) NSUInteger selectedTabIndex;
-@property (nonatomic, assign, readonly) NSUInteger tabCount;
-@property (nonatomic, assign, readonly) NSArray *tabControllers;
-@property (nonatomic, assign, readonly) MHTabItemViewController *selectedTabItemViewController;
-@property (nonatomic, assign, readwrite) id<MHTabViewControllerDelegate> delegate;
+@property (nonatomic, readwrite, weak) IBOutlet id<MHTabViewControllerDelegate> delegate;
 
 - (void)addTabItemViewController:(MHTabItemViewController *)tabItemViewController;
 - (void)removeTabItemViewController:(MHTabItemViewController *)tabItemViewController;
 - (void)selectTabItemViewController:(MHTabItemViewController *)tabItemViewController;
 - (MHTabItemViewController *)tabItemViewControlletAtIndex:(NSInteger)index;
 - (void)moveTabItemFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex;
+
+- (NSUInteger)tabCount;
+- (MHTabItemViewController *)selectedTabItemViewController;
+- (NSUInteger)selectedTabIndex;
+- (void)setSelectedTabIndex:(NSUInteger)index;
+- (NSArray *)tabControllers;
 
 @end

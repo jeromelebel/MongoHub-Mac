@@ -11,18 +11,10 @@
 
 @interface MHTabTitleView : NSControl
 {
-    MHTabViewController *_tabViewController;
-    NSMutableAttributedString *_attributedTitle;
-    NSMutableDictionary *_titleAttributes;
-    NSCell *_titleCell;
-    NSTrackingRectTag _trakingTag;
-    BOOL _selected;
-    BOOL _showCloseButton;
-    BOOL _closeButtonHit;
-    BOOL _titleHit;
+    MHTabViewController                 *_tabViewController;
 }
 
-@property(nonatomic, assign, readwrite) BOOL selected;
-@property(nonatomic, assign, readwrite) MHTabViewController *tabViewController;
+@property(nonatomic, readwrite, assign) BOOL selected;
+@property(nonatomic, readwrite, weak) MHTabViewController *tabViewController;
 
 @end

@@ -25,16 +25,16 @@ typedef enum {
 
 @interface MHApplicationDelegate : NSObject <NSApplicationDelegate, NSCollectionViewDelegate>
 
-@property (nonatomic, strong, readonly) NSWindow *window;
+@property (nonatomic, readonly, strong) NSWindow *window;
 
-@property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, assign, readwrite) MHSoftwareUpdateChannel softwareUpdateChannel;
-@property (nonatomic, assign, readonly) uint32_t defaultConnectTimeout;
-@property (nonatomic, assign, readwrite) uint32_t connectTimeout;
-@property (nonatomic, assign, readonly) uint32_t defaultSocketTimeout;
-@property (nonatomic, assign, readwrite) uint32_t socketTimeout;
+@property (nonatomic, readonly, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, readonly, strong) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, readonly, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, readwrite, assign) MHSoftwareUpdateChannel softwareUpdateChannel;
+@property (nonatomic, readonly, assign) uint32_t defaultConnectTimeout;
+@property (nonatomic, readwrite, assign) uint32_t connectTimeout;
+@property (nonatomic, readonly, assign) uint32_t defaultSocketTimeout;
+@property (nonatomic, readwrite, assign) uint32_t socketTimeout;
 
 - (MHConnectionStore *)connectionStoreWithAlias:(NSString *)alias;
 

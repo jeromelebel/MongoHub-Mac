@@ -9,12 +9,15 @@
 #import "MHLogWindowController.h"
 
 @interface MHLogWindowController ()
-@property (nonatomic, strong, readwrite) NSMutableArray *logs;
-@property (nonatomic, assign, readwrite) IBOutlet NSTableView *logTableView;
+@property (nonatomic, readwrite, strong) NSMutableArray *logs;
+@property (nonatomic, readwrite, weak) IBOutlet NSTableView *logTableView;
 
 @end
 
 @implementation MHLogWindowController
+
+@synthesize logTableView = _logTableView;
+@synthesize delegate = _delegate;
 
 + (instancetype)logWindowController
 {

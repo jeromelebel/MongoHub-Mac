@@ -25,20 +25,20 @@
 #define MHSocketTimeoutKey                              @"MHSocketTimeoutKey"
 
 @interface MHApplicationDelegate()
-@property (nonatomic, strong, readwrite) MHConnectionEditorWindowController *connectionEditorWindowController;
-@property (nonatomic, strong, readwrite) SUUpdater *updater;
-@property (nonatomic, strong, readwrite) MHPreferenceWindowController *preferenceWindowController;
-@property (nonatomic, strong, readwrite) NSMutableArray *urlConnectionEditorWindowControllers;
-@property (nonatomic, strong, readwrite) NSMutableArray *connectionWindowControllers;
-@property (nonatomic, strong, readwrite) MHLogWindowController *logWindowController;
+@property (nonatomic, readwrite, strong) MHConnectionEditorWindowController *connectionEditorWindowController;
+@property (nonatomic, readwrite, strong) SUUpdater *updater;
+@property (nonatomic, readwrite, strong) MHPreferenceWindowController *preferenceWindowController;
+@property (nonatomic, readwrite, strong) NSMutableArray *urlConnectionEditorWindowControllers;
+@property (nonatomic, readwrite, strong) NSMutableArray *connectionWindowControllers;
+@property (nonatomic, readwrite, strong) MHLogWindowController *logWindowController;
 
-@property (nonatomic, strong, readwrite) IBOutlet NSWindow *window;
-@property (nonatomic, strong, readwrite) IBOutlet MHConnectionCollectionView *connectionCollectionView;
-@property (nonatomic, strong, readwrite) IBOutlet ConnectionsArrayController *connectionsArrayController;
-@property (nonatomic, strong, readwrite) IBOutlet NSTextField *bundleVersion;
-@property (nonatomic, strong, readwrite) IBOutlet NSPanel *supportPanel;
+@property (nonatomic, readwrite, strong) IBOutlet NSWindow *window;
+@property (nonatomic, readwrite, strong) IBOutlet MHConnectionCollectionView *connectionCollectionView;
+@property (nonatomic, readwrite, strong) IBOutlet ConnectionsArrayController *connectionsArrayController;
+@property (nonatomic, readwrite, strong) IBOutlet NSTextField *bundleVersion;
+@property (nonatomic, readwrite, strong) IBOutlet NSPanel *supportPanel;
 
-@property (nonatomic, readonly, assign) NSURL *dataStoreURL;
+- (NSURL *)dataStoreURL;
 
 @end
 

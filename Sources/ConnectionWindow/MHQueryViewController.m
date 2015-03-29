@@ -40,7 +40,7 @@
 @property (nonatomic, readwrite, weak) IBOutlet NSTextField *findQueryTextField;
 @property (nonatomic, readwrite, weak) IBOutlet NSProgressIndicator *findQueryLoaderIndicator;
 @property (nonatomic, readwrite, strong) IBOutlet MHDocumentOutlineViewController *findDocumentOutlineViewController;
-@property (nonatomic, readwrite, assign) IBOutlet NSView *findResultView;
+@property (nonatomic, readwrite, weak) IBOutlet NSView *findResultView;
 
 @property (nonatomic, readwrite, weak) IBOutlet NSButton *insertButton;
 @property (nonatomic, readwrite, weak) IBOutlet NSTextView *insertDataTextView;
