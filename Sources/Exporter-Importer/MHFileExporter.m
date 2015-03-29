@@ -75,7 +75,7 @@
                     [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterProgressNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:(double)self.documentProcessedCount / count], MHImporterExporterNotificationProgressKey, nil]];
                 }
                 return YES;
-            } endCallback:^(uint64_t documentCounts, BOOL cursorStopped, MODQuery *mongoQuery) {
+            } endCallback:^(uint64_t documentCounts, BOOL cursorStopped, MODQuery *forEachQuery) {
                 close(fileDescriptor);
                 [NSNotificationCenter.defaultCenter postNotificationName:MHImporterExporterStopNotification object:self userInfo:nil];
             }];

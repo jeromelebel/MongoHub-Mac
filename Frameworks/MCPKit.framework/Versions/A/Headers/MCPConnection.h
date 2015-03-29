@@ -199,7 +199,6 @@ void pingThreadCleanup(void *pingDetails);
 - (NSString *)getLastErrorMessage;
 - (void)setLastErrorMessage:(NSString *)theErrorMessage;
 - (NSUInteger)getLastErrorID;
-+ (BOOL)isErrorNumberConnectionError:(NSInteger)theErrorNumber;
 - (void)updateErrorStatuses;
 
 // Queries

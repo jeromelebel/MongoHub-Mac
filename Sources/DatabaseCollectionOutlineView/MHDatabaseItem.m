@@ -63,11 +63,6 @@
     return self.collectionItems[name];
 }
 
-static NSInteger collectionItemSortFunction(id element1, id element2, void *context)
-{
-    return [[element1 name] compare:[element2 name] options:0];
-}
-
 - (BOOL)updateChildrenWithList:(NSArray *)list
 {
     BOOL result = NO;

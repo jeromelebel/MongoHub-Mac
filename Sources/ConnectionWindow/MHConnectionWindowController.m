@@ -284,12 +284,12 @@
     mongoDatabase = databaseItem.database;
     [self.loaderIndicator startAnimation:nil];
     result = [mongoDatabase collectionNamesWithCallback:^(NSArray *collectionList, MODQuery *mongoQuery) {
-        MHDatabaseItem *databaseItem;
+        MHDatabaseItem *newDatabaseItem;
         
         [self.loaderIndicator stopAnimation:nil];
-        databaseItem = [self.clientItem databaseItemWithName:mongoDatabase.name];
-        if (collectionList && databaseItem) {
-            if ([databaseItem updateChildrenWithList:collectionList]) {
+        newDatabaseItem = [self.clientItem databaseItemWithName:mongoDatabase.name];
+        if (collectionList && newDatabaseItem) {
+            if ([newDatabaseItem updateChildrenWithList:collectionList]) {
                 [self.databaseCollectionOutlineView reloadData];
             }
         } else if (mongoQuery.error) {

@@ -387,12 +387,12 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 {
     [self.removeQueryLoaderIndicator startAnimation:nil];
     [self.collection countWithCriteria:criteria readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
-        [self.collection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
+        [self.collection removeWithCriteria:criteria callback:^(MODQuery *removeQuery) {
             NSColor *flashColor;
             
-            if (mongoQuery.error) {
+            if (removeQuery.error) {
                 self.removeResultsTextField.stringValue = @"Error!";
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", removeQuery.error.localizedDescription);
                 flashColor = NSColor.redColor;
             } else {
                 self.removeResultsTextField.stringValue = [NSString stringWithFormat:@"Removed Documents: %lld", count];
@@ -542,8 +542,8 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
                 convertedDocuments = [MODHelper convertForOutlineWithObjects:documents bsonData:bsonData jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
                 [self.findDocumentOutlineViewController displayDocuments:convertedDocuments withLabel:nil];
                 [self.findDocumentOutlineViewController setBackButtonEnabled:self.findSkipTextField.stringValue.integerValue != 0];
-                [self.collection countWithCriteria:criteria readPreferences:nil callback:^(int64_t count, MODQuery *mongoQuery) {
-                    [self.findDocumentOutlineViewController displayLabel:[NSString stringWithFormat:@"Total Results: %lld (%0.2fs)", count, [[mongoQuery.userInfo objectForKey:@"timequery"] duration]]];
+                [self.collection countWithCriteria:criteria readPreferences:nil callback:^(int64_t count, MODQuery *countQuery) {
+                    [self.findDocumentOutlineViewController displayLabel:[NSString stringWithFormat:@"Total Results: %lld (%0.2fs)", count, [[countQuery.userInfo objectForKey:@"timequery"] duration]]];
                 }];
             }
             [self.findQueryLoaderIndicator stopAnimation:nil];
@@ -912,12 +912,12 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
                                      upsert:self.updateUpsetCheckBox.state
                                 multiUpdate:self.updateMultiCheckBox.state
                                writeConcern:nil
-                                   callback:^(MODQuery *mongoQuery) {
+                                   callback:^(MODQuery *updateQuery) {
             NSColor *flashColor;
             
-            if (mongoQuery.error) {
+            if (updateQuery.error) {
                 self.updateResultsTextField.stringValue = @"Error!";
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", updateQuery.error.localizedDescription);
                 flashColor = NSColor.redColor;
             } else {
                 self.updateResultsTextField.stringValue = [NSString stringWithFormat:@"Updated Documents: %lld", count];
@@ -1105,7 +1105,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
                                                         [allData addObject:documentData];
                                                         return YES;
                                                     }
-                                                    endCallback:^(uint64_t documentCounts, BOOL cursorStopped, MODQuery *mongoQuery) {
+                                                    endCallback:^(uint64_t documentCounts, BOOL cursorStopped, MODQuery *forEachQuery) {
                                                         NSString *label = [NSString stringWithFormat:@"%lld documents", documentCounts];
                                                         NSArray *displayedDocuments = [MODHelper convertForOutlineWithObjects:documents bsonData:allData jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch];
                                                         [self.aggregationDocumentOutlineViewController displayDocuments:displayedDocuments withLabel:label];
