@@ -6,12 +6,16 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Version 3.1.3</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.1.3.zip" sparkle:version="3.1.3" length="5240451" type="application/octet-stream" />
+            <title>Version 3.1.4</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.1.4.zip" sparkle:version="3.1.4" length="5241545" type="application/octet-stream" />
             <description><![CDATA[
+                <h3>3.1.4</h3>
+                <ul>
+                    <li>Fixing issue to get indexes with Mongodb 3.0 <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/199'>issue #199</a></li>
+                </ul>
                 <h3>3.1.3</h3>
                 <ul>
-                    <li>Issue with 10.9 to double click on a document, thanks to <a href='https://github.com/sbasmanov'>[Sergey Basmanov]</a></li>
+                    <li>Issue with 10.9 to double click on a document, thanks to <a href='https://github.com/sbasmanov'>Sergey Basmanov</a></li>
                 </ul>
                 <h3>3.1.2</h3>
                 <ul>
