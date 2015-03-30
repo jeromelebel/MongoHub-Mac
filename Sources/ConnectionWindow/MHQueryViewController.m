@@ -125,9 +125,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 }
 
 @implementation MHQueryViewController
-@synthesize jsonWindowControllers = _jsonWindowControllers;
 
-@synthesize collection = _collection, connectionStore = _connectionStore;
 @synthesize tabView = _tabView, segmentedControl = _segmentedControl;
 
 @synthesize findCriteriaComboBox = _findCriteriaComboBox;
@@ -137,14 +135,12 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 @synthesize findSortTextField = _findSortTextField;
 @synthesize findQueryTextField = _findQueryTextField;
 @synthesize findQueryLoaderIndicator = _findQueryLoaderIndicator;
-@synthesize findDocumentOutlineViewController = _findDocumentOutlineViewController;
 @synthesize findResultView = _findResultView;
 
 @synthesize insertDataTextView = _insertDataTextView;
 @synthesize insertResultsTextField = _insertResultsTextField;
 @synthesize insertLoaderIndicator = _insertLoaderIndicator;
 @synthesize insertButton = _insertButton;
-@synthesize insertSyntaxColoringController = _insertSyntaxColoringController;
 
 @synthesize updateTabView = _updateTabView;
 @synthesize updateButton = _updateButton;
@@ -154,8 +150,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 @synthesize updateResultsTextField = _updateResultsTextField;
 @synthesize updateQueryTextField = _updateQueryTextField;
 @synthesize updateQueryLoaderIndicator = _updateQueryLoaderIndicator;
-@synthesize updateOperatorViews = _updateOperatorViews;
-@synthesize updateOperatorList = _updateOperatorList;
 
 @synthesize removeButton = _removeButton;
 @synthesize removeCriteriaTextField = _removeCriteriaTextField;
@@ -167,16 +161,11 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 @synthesize indexDropButton = _indexDropButton;
 @synthesize indexCreateButton = _indexCreateButton;
 @synthesize indexResultView = _indexResultView;
-@synthesize indexDocumentOutlineViewController = _indexDocumentOutlineViewController;
-@synthesize indexEditorController = _indexEditorController;
 
 @synthesize aggregationPipeline = _aggregationPipeline;
 @synthesize aggregationOptions = _aggregationOptions;
 @synthesize aggregationLoaderIndicator = _aggregationLoaderIndicator;
 @synthesize aggregationResultView = _aggregationResultView;
-@synthesize aggregationDocumentOutlineViewController = _aggregationDocumentOutlineViewController;
-@synthesize aggregationPipelineSyntaxColoringController = _aggregationPipelineSyntaxColoringController;
-@synthesize aggregationOptionsSyntaxColoringController = _aggregationOptionsSyntaxColoringController;
 
 @synthesize mrResultView = _mrResultView;
 @synthesize mrLoaderIndicator = _mrLoaderIndicator;
@@ -184,7 +173,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 @synthesize mrCriteriaTextField = _mrCriteriaTextField;
 @synthesize mrMapFunctionTextView = _mrMapFunctionTextView;
 @synthesize mrReduceFunctionTextView = _mrReduceFunctionTextView;
-@synthesize mrDocumentOutlineViewController = _mrDocumentOutlineViewController;
 
 - (instancetype)initWithCollection:(MODCollection *)collection connectionStore:(MHConnectionStore *)connectionStore
 {

@@ -17,10 +17,6 @@
 
 @interface MHQueryViewController : MHTabItemViewController
 {
-    MODCollection                               *_collection;
-    MHConnectionStore                           *_connectionStore;
-    NSMutableDictionary                         *_jsonWindowControllers;
-    
     NSTabView                                   *_tabView;
     NSSegmentedControl                          *_segmentedControl;
     
@@ -32,14 +28,12 @@
     NSTextField                                 *_findTotalResultsTextField;
     NSTextField                                 *_findQueryTextField;
     NSProgressIndicator                         *_findQueryLoaderIndicator;
-    MHDocumentOutlineViewController             *_findDocumentOutlineViewController;
     NSView                                      *_findResultView;
     
     NSButton                                    *_insertButton;
     NSTextView                                  *_insertDataTextView;
     NSTextField                                 *_insertResultsTextField;
     NSProgressIndicator                         *_insertLoaderIndicator;
-    UKSyntaxColoredTextViewController           *_insertSyntaxColoringController;
     
     NSView                                      *_updateTabView;
     NSButton                                    *_updateButton;
@@ -49,8 +43,6 @@
     NSTextField                                 *_updateResultsTextField;
     NSTextField                                 *_updateQueryTextField;
     NSProgressIndicator                         *_updateQueryLoaderIndicator;
-    NSMutableArray                              *_updateOperatorViews;
-    NSArray                                     *_updateOperatorList;
     
     NSButton                                    *_removeButton;
     NSTextField                                 *_removeCriteriaTextField;
@@ -63,16 +55,11 @@
     NSButton                                    *_indexDropButton;
     NSButton                                    *_indexCreateButton;
     NSView                                      *_indexResultView;
-    MHDocumentOutlineViewController             *_indexDocumentOutlineViewController;
-    MHIndexEditorController                     *_indexEditorController;
     
     NSTextView                                  *_aggregationPipeline;
     NSTextView                                  *_aggregationOptions;
     NSProgressIndicator                         *_aggregationLoaderIndicator;
     NSView                                      *_aggregationResultView;
-    MHDocumentOutlineViewController             *_aggregationDocumentOutlineViewController;
-    UKSyntaxColoredTextViewController           *_aggregationPipelineSyntaxColoringController;
-    UKSyntaxColoredTextViewController           *_aggregationOptionsSyntaxColoringController;
     
     NSTextView                                  *_mrMapFunctionTextView;
     NSTextView                                  *_mrReduceFunctionTextView;
@@ -81,7 +68,6 @@
     NSProgressIndicator                         *_mrLoaderIndicator;
     NSOutlineView                               *_mrOutlineView;
     NSView                                      *_mrResultView;
-    MHDocumentOutlineViewController             *_mrDocumentOutlineViewController;
 }
 
 @property (nonatomic, readonly, strong) MODCollection *collection;
