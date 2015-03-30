@@ -999,11 +999,12 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 - (IBAction)indexQueryAction:(id)sender
 {
     [self.indexLoaderIndicator startAnimation:nil];
-    [self.collection indexListWithCallback:^(NSArray *indexes, MODQuery *mongoQuery) {
+    [self.collection findIndexesWithCallback:^(NSArray *indexes, MODQuery *mongoQuery) {
         if (mongoQuery.error) {
             NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+        } else {
+            [self.indexDocumentOutlineViewController displayDocuments:[MODHelper convertForOutlineWithObjects:indexes bsonData:nil jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch] withLabel:nil];
         }
-        [self.indexDocumentOutlineViewController displayDocuments:[MODHelper convertForOutlineWithObjects:indexes bsonData:nil jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch] withLabel:nil];
         [self.indexLoaderIndicator stopAnimation:nil];
     }];
 }
