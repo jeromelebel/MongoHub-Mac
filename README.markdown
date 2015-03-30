@@ -42,7 +42,11 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 ## History
 
-**3.1.2 - march 28, 2015**
+**3.1.4 - march 28, 2015**
+
+- Fixing issue to get indexes with Mongodb 3.0 [issue #199](https://github.com/jeromelebel/MongoHub-Mac/issues/199)
+
+**3.1.3 - march 28, 2015**
 
 - Issue with 10.9 to double click on a document, thanks to [Sergey Basmanov](https://github.com/sbasmanov)
 
