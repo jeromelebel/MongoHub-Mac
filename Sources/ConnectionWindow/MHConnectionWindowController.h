@@ -36,41 +36,25 @@
 @interface MHConnectionWindowController : NSWindowController
 {
     id<MHConnectionWindowControllerDelegate>_delegate;
-    NSMutableDictionary                     *_tabItemControllers;
     NSMenu                                  *_createCollectionOrDatabaseMenu;
     
-    MHStatusViewController                  *_statusViewController;
-    MHActivityMonitorViewController         *_activityMonitorViewController;
     MHTabViewController                     *_tabViewController;
     NSSplitView                             *_splitView;
     
-    MHClientItem                            *_clientItem;
-    MHConnectionStore                       *_connectionStore;
-    MODClient                               *_client;
     NSTimer                                 *_serverMonitorTimer;
     NSOutlineView                           *_databaseCollectionOutlineView;
     NSProgressIndicator                     *_loaderIndicator;
     NSToolbar                               *_toolbar;
-    MHTunnel                                *_sshTunnel;
-    NSMutableDictionary                     *_sshBindedPortMapping;
-    MHMysqlImportWindowController           *_mysqlImportWindowController;
-    MHMysqlExportWindowController           *_mysqlExportWindowController;
-    NSTextField                             *_bundleVersion;
     
     NSView                                  *_mainTabView;
     MHTabTitleView                          *_tabTitleView;
-    
-    MHImportExportFeedback                  *_importExportFeedback;
-    id<MHImporterExporter>                  _importerExporter;
 }
 
 @property (nonatomic, readwrite, assign) id<MHConnectionWindowControllerDelegate> delegate;
 @property (nonatomic, readwrite, strong) MHConnectionStore *connectionStore;
 @property (nonatomic, readwrite, strong) MODClient *client;
-@property (nonatomic, readwrite, strong) NSTextField *bundleVersion;
 @property (nonatomic, readwrite, strong) MHMysqlImportWindowController *mysqlImportWindowController;
 @property (nonatomic, readwrite, strong) MHMysqlExportWindowController *mysqlExportWindowController;
-@property (nonatomic, readonly, assign) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic, readonly, weak) IBOutlet MHTabViewController *tabViewController;
 
@@ -82,6 +66,7 @@
 - (IBAction)query:(id)sender;
 - (void)connectToServer;
 - (void)dropWarning:(NSString *)msg;
+- (NSManagedObjectContext *)managedObjectContext;
 
 @end
 

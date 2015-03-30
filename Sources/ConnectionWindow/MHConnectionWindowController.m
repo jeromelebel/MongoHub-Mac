@@ -70,21 +70,8 @@
 @implementation MHConnectionWindowController
 
 @synthesize delegate = _delegate;
-@synthesize connectionStore = _connectionStore;
-@synthesize client = _client;
-@synthesize sshTunnel = _sshTunnel;
-@synthesize sshBindedPortMapping = _sshBindedPortMapping;
-@synthesize mysqlImportWindowController = _mysqlImportWindowController;
-@synthesize mysqlExportWindowController = _mysqlExportWindowController;
 @synthesize loaderIndicator = _loaderIndicator;
-@synthesize clientItem = _clientItem;
-@synthesize tabItemControllers = _tabItemControllers;
-@synthesize statusViewController = _statusViewController;
-@synthesize activityMonitorViewController = _activityMonitorViewController;
 @synthesize tabViewController = _tabViewController;
-
-@synthesize importerExporter = _importerExporter;
-@synthesize importExportFeedback = _importExportFeedback;
 
 - (NSString *)windowNibName
 {
