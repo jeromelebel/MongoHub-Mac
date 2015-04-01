@@ -38,6 +38,8 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 **Current**
 
+- mongo-c-driver 1.1.4
+
 **Beta**
 
 ## History
