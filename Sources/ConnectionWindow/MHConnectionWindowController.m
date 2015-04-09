@@ -351,10 +351,18 @@
 {
     MHEditNameWindowController *editNameWindowController;
     
-    editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:@"New Database Name:" editedValue:nil] autorelease];
+    editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:@"New Database Name:" editedValue:nil placeHolder:@"Database Name"] autorelease];
     editNameWindowController.callback = ^(MHEditNameWindowController *controller) {
         [self.clientItem addExtraDatabaseName:editNameWindowController.editedValue];
         [self getDatabaseList];
+    };
+    editNameWindowController.validateValueCallback = ^(MHEditNameWindowController *controller) {
+        if (controller.editedValue.length != 0) {
+            return YES;
+        } else {
+            NSRunAlertPanel(@"Error", @"Database name can not be empty", @"OK", nil, nil);
+            return NO;
+        }
     };
     [editNameWindowController modalForWindow:self.window];
 }
@@ -369,7 +377,7 @@
     if (database) {
         MHEditNameWindowController *editNameWindowController;
         
-        editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:@"New Collection Name:" editedValue:nil] autorelease];
+        editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:@"New Collection Name:" editedValue:nil placeHolder:@"Collection Name"] autorelease];
         editNameWindowController.callback = ^(MHEditNameWindowController *controller) {
             [database createCollectionWithName:editNameWindowController.editedValue callback:^(MODQuery *mongoQuery) {
                 if (mongoQuery.error) {
@@ -378,6 +386,14 @@
                 [self.databaseCollectionOutlineView expandItem:databaseItem];
                 [self getCollectionListForDatabaseName:database.name];
             }];
+        };
+        editNameWindowController.validateValueCallback = ^(MHEditNameWindowController *controller) {
+            if (controller.editedValue.length != 0) {
+                return YES;
+            } else {
+                NSRunAlertPanel(@"Error", @"Collection name can not be empty", @"OK", nil, nil);
+                return NO;
+            }
         };
         [editNameWindowController modalForWindow:self.window];
     }
@@ -393,7 +409,7 @@
         
         NSAssert(collection != nil, @"collection should not be nil 1");
         NSAssert(collection.absoluteName, @"collection name should not be nil 1");
-        editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:[NSString stringWithFormat:@"Rename %@:", collection.absoluteName] editedValue:collection.name] autorelease];
+        editNameWindowController = [[[MHEditNameWindowController alloc] initWithLabel:[NSString stringWithFormat:@"Rename %@:", collection.absoluteName] editedValue:collection.name placeHolder:collection.name] autorelease];
         editNameWindowController.callback = ^(MHEditNameWindowController *controller) {
             [collection renameWithNewDatabase:nil newCollectionName:editNameWindowController.editedValue dropTargetBeforeRenaming:NO callback:^(MODQuery *mongoQuery) {
                 if (collection.absoluteName != oldCollectionName) {
@@ -416,6 +432,14 @@
                 }
                 [self getCollectionListForDatabaseName:collection.database.name];
             }];
+        };
+        editNameWindowController.validateValueCallback = ^(MHEditNameWindowController *controller) {
+            if (controller.editedValue.length != 0) {
+                return YES;
+            } else {
+                NSRunAlertPanel(@"Error", @"Collection name can not be empty", @"OK", nil, nil);
+                return NO;
+            }
         };
         [editNameWindowController modalForWindow:self.window];
     }

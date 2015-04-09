@@ -24,10 +24,11 @@
     void (^_callback)(MHEditNameWindowController *controller);
 }
 
-@property (nonatomic, readonly, strong) NSString *editedValue;
+@property (nonatomic, readonly, copy) NSString *editedValue;
 @property (nonatomic, readwrite, copy) void (^callback)(MHEditNameWindowController *controller);
+@property (nonatomic, readwrite, copy) BOOL (^validateValueCallback)(MHEditNameWindowController *controller);
 
-- (instancetype)initWithLabel:(NSString *)label editedValue:(NSString *)editedValue;
+- (instancetype)initWithLabel:(NSString *)label editedValue:(NSString *)editedValue placeHolder:(NSString *)placeHolder;
 - (void)modalForWindow:(NSWindow *)window;
 
 @end

@@ -13,8 +13,9 @@
 @property (nonatomic, readwrite, assign) IBOutlet NSTextField *editedValueTextField;
 @property (nonatomic, readwrite, assign) IBOutlet NSTextField *labelTextField;
 
-@property (nonatomic, readwrite, strong) NSString *editedValue;
-@property (nonatomic, readwrite, strong) NSString *label;
+@property (nonatomic, readwrite, copy) NSString *editedValue;
+@property (nonatomic, readwrite, copy) NSString *placeHolder;
+@property (nonatomic, readwrite, copy) NSString *label;
 
 @end
 
@@ -26,12 +27,13 @@
 @synthesize label = _label;
 @synthesize callback = _callback;
 
-- (instancetype)initWithLabel:(NSString *)label editedValue:(NSString *)editedValue
+- (instancetype)initWithLabel:(NSString *)label editedValue:(NSString *)editedValue placeHolder:(NSString *)placeHolder
 {
     self = [self init];
     if (self) {
         self.label = label;
         self.editedValue = editedValue;
+        self.placeHolder = placeHolder;
     }
     return self;
 }
@@ -55,29 +57,28 @@
     if (self.editedValue) {
         self.editedValueTextField.stringValue = self.editedValue;
     }
+    if (self.placeHolder) {
+        self.editedValueTextField.placeholderString = self.placeHolder;
+    }
 }
 
-- (IBAction)cancel:(id)sender
+- (IBAction)cancelAction:(id)sender
 {
     [NSApp endSheet:self.window];
 }
 
-- (IBAction)add:(id)sender
+- (IBAction)validateAction:(id)sender
 {
-    NSString *value;
+    self.editedValue = [self.editedValueTextField.stringValue stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
     
-    value = [self.editedValueTextField.stringValue stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-    if (value.length == 0) {
-        NSRunAlertPanel(@"Error", @"Collection name can not be empty", @"OK", nil, nil);
-    } else {
+    if (self.validateValueCallback == nil || self.validateValueCallback(self)) {
         [self retain];
+        [NSApp endSheet:self.window];
         // the delegate will release this instance after the call,
         // so we need to make sure we keep ourself around to close the window
-        self.editedValue = value;
         if (self.callback) {
             self.callback(self);
         }
-        [NSApp endSheet:self.window];
         [self autorelease];
     }
 }

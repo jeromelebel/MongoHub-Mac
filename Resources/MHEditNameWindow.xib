@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7531"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHEditNameWindowController">
@@ -55,7 +55,7 @@ DQ
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="add:" target="-2" id="16"/>
+                            <action selector="validateAction:" target="-2" id="Nnd-D9-wbl"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" id="9">
@@ -69,7 +69,7 @@ Gw
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="cancel:" target="-2" id="15"/>
+                            <action selector="cancelAction:" target="-2" id="NBY-gQ-Oky"/>
                             <outlet property="nextKeyView" destination="7" id="18"/>
                         </connections>
                     </button>
