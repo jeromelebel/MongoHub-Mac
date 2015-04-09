@@ -7,6 +7,9 @@
 //
 
 #import "MHApplicationDelegate.h"
+
+#import <Sparkle/Sparkle.h>
+
 #import "MHConnectionWindowController.h"
 #import "ConnectionsArrayController.h"
 #import "MHConnectionEditorWindowController.h"
@@ -14,8 +17,8 @@
 #import "MHPreferenceWindowController.h"
 #import "MHConnectionViewItem.h"
 #import "MHLogWindowController.h"
-#import <Sparkle/Sparkle.h>
 #import "ALIterativeMigrator.h"
+#import "MHEditNameWindowController.h"
 
 #define YOUR_EXTERNAL_RECORD_EXTENSION @"mgo"
 #define YOUR_STORE_TYPE NSXMLStoreType
@@ -655,6 +658,51 @@
         self.connectionEditorWindowController = [[[MHConnectionEditorWindowController alloc] init] autorelease];
         self.connectionEditorWindowController.delegate = self;
         [self.connectionEditorWindowController modalForWindow:self.window];
+    }
+}
+
+- (IBAction)addNewConnectionWithURLAction:(id)sender
+{
+    if (!self.connectionEditorWindowController) {
+        MHEditNameWindowController *editNameWindowController = nil;
+        
+        editNameWindowController = [[MHEditNameWindowController alloc] initWithLabel:@"New Connection With URL:" editedValue:nil placeHolder:@"MongoDB URL"];
+        editNameWindowController.callback = ^(MHEditNameWindowController *controller) {
+            MHConnectionStore *connectionStore;
+            NSEntityDescription *entity;
+            NSString *errorMessage = nil;
+            NSString *stringURL = controller.editedValue;
+            
+            entity = [NSEntityDescription entityForName:@"Connection" inManagedObjectContext:self.managedObjectContext];
+            connectionStore = [[[MHConnectionStore alloc] initWithEntity:entity insertIntoManagedObjectContext:nil] autorelease];
+            if (![connectionStore setValuesFromStringURL:stringURL errorMessage:&errorMessage]) {
+                [[NSAlert alertWithMessageText:errorMessage defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", stringURL] runModal];
+                return;
+            }
+            
+            self.connectionEditorWindowController = [[[MHConnectionEditorWindowController alloc] init] autorelease];
+            self.connectionEditorWindowController.delegate = self;
+            self.connectionEditorWindowController.connectionStoreDefaultValue = connectionStore;
+            self.connectionEditorWindowController.window.title = stringURL;
+            [self.connectionEditorWindowController modalForWindow:self.window];
+            [controller release];
+        };
+        editNameWindowController.validateValueCallback = ^(MHEditNameWindowController *controller) {
+            MHConnectionStore *connectionStore;
+            NSString *stringURL = controller.editedValue;
+            NSString *errorMessage = nil;
+            NSEntityDescription *entity;
+            
+            entity = [NSEntityDescription entityForName:@"Connection" inManagedObjectContext:self.managedObjectContext];
+            connectionStore = [[[MHConnectionStore alloc] initWithEntity:entity insertIntoManagedObjectContext:nil] autorelease];
+            if ([connectionStore setValuesFromStringURL:stringURL errorMessage:&errorMessage]) {
+                return YES;
+            } else {
+                [[NSAlert alertWithMessageText:errorMessage defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", stringURL] runModal];
+                return NO;
+            }
+        };
+        [editNameWindowController modalForWindow:self.window];
     }
 }
 

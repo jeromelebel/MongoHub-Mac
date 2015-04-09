@@ -39,6 +39,7 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 **Current**
 
 - mongo-c-driver 1.1.4
+- Adding a menu "Add Connection With URL…" [issue #108](https://github.com/jeromelebel/MongoHub-Mac/issues/108)
 
 **Beta**
 
