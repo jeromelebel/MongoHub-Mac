@@ -28,15 +28,12 @@
 #define MHSocketTimeoutKey                              @"MHSocketTimeoutKey"
 
 @interface MHApplicationDelegate()
-@property (nonatomic, readwrite, strong) MHConnectionEditorWindowController *connectionEditorWindowController;
 @property (nonatomic, readwrite, strong) SUUpdater *updater;
 @property (nonatomic, readwrite, strong) MHPreferenceWindowController *preferenceWindowController;
 @property (nonatomic, readwrite, strong) NSMutableArray *urlConnectionEditorWindowControllers;
 @property (nonatomic, readwrite, strong) NSMutableArray *connectionWindowControllers;
 @property (nonatomic, readwrite, strong) MHLogWindowController *logWindowController;
 
-@property (nonatomic, readwrite, strong) IBOutlet NSWindow *window;
-@property (nonatomic, readwrite, strong) IBOutlet MHConnectionCollectionView *connectionCollectionView;
 @property (nonatomic, readwrite, strong) IBOutlet ConnectionsArrayController *connectionsArrayController;
 @property (nonatomic, readwrite, strong) IBOutlet NSTextField *bundleVersion;
 @property (nonatomic, readwrite, strong) IBOutlet NSPanel *supportPanel;
@@ -71,13 +68,11 @@
 - (void)dealloc
 {
     self.connectionWindowControllers = nil;
-    self.window = nil;
     [_managedObjectContext release];
     [_persistentStoreCoordinator release];
     [_managedObjectModel release];
     
     self.urlConnectionEditorWindowControllers = nil;
-    self.connectionCollectionView = nil;
     self.preferenceWindowController = nil;
     self.updater = nil;
     self.connectionsArrayController = nil;
@@ -285,25 +280,6 @@
     }
 }
 
-/**
-    Performs the save action for the application, which is to send the save:
-    message to the application's managed object context.  Any encountered errors
-    are presented to the user.
- */
- 
-- (void)saveConnections
-{
-    NSError *error = nil;
-    
-    if (![[self managedObjectContext] commitEditing]) {
-        NSLog(@"%@:%@ unable to commit editing before saving", [self class], NSStringFromSelector(_cmd));
-    }
-
-    if (![[self managedObjectContext] save:&error]) {
-        [[NSApplication sharedApplication] presentError:error];
-    }
-}
-
 - (void)checkForUpdatesEveryDay:(id)sender
 {
     [self.updater checkForUpdatesInBackground];
@@ -318,63 +294,6 @@
         }
     }
     return nil;
-}
-
-- (void)openConnection:(MHConnectionStore *)connection
-{
-    MHConnectionWindowController *connectionWindowController;
-    
-    connectionWindowController = [self connectionWindowControllerForConnectionStore:connection];
-    if (connectionWindowController) {
-        [connectionWindowController showWindow:nil];
-    } else {
-        connectionWindowController = [[MHConnectionWindowController alloc] init];
-        connectionWindowController.delegate = self;
-        connectionWindowController.connectionStore = connection;
-        [connectionWindowController showWindow:self];
-        [self.connectionWindowControllers addObject:connectionWindowController];
-        [connectionWindowController release];
-    }
-}
-
-- (void)editConnection:(MHConnectionStore *)connection
-{
-    self.connectionEditorWindowController = [[[MHConnectionEditorWindowController alloc] init] autorelease];
-    self.connectionEditorWindowController.delegate = self;
-    self.connectionEditorWindowController.editedConnectionStore = connection;
-    [self.connectionEditorWindowController modalForWindow:self.window];
-}
-
-- (void)duplicateConnection:(MHConnectionStore *)connection
-{
-    if (!self.connectionEditorWindowController) {
-        self.connectionEditorWindowController = [[[MHConnectionEditorWindowController alloc] init] autorelease];
-        self.connectionEditorWindowController.delegate = self;
-        self.connectionEditorWindowController.connectionStoreDefaultValue = connection;
-        [self.connectionEditorWindowController modalForWindow:self.window];
-    }
-}
-
-- (void)deleteConnection:(MHConnectionStore *)connection
-{
-    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-    [alert addButtonWithTitle:@"Cancel"];
-    [alert addButtonWithTitle:@"Delete"];
-    [alert setMessageText:[NSString stringWithFormat:@"Delete \"%@\"?", connection.alias]];
-    [alert setInformativeText:@"Deleted connections cannot be restored."];
-    [alert setAlertStyle:NSWarningAlertStyle];
-    
-    [alert beginSheetModalForWindow:self.window modalDelegate:self didEndSelector:@selector(deleteConnectionAlertDidEnd:returnCode:contextInfo:) contextInfo:connection];
-}
-
-- (void)copyURLConnection:(MHConnectionStore *)connection
-{
-    NSPasteboard *pasteboard = NSPasteboard.generalPasteboard;
-    NSString *stringURL = [connection stringURLWithSSHMapping:nil];
-    
-    [pasteboard declareTypes:@[ NSStringPboardType, NSURLPboardType ] owner:nil];
-    [pasteboard setString:stringURL forType:NSStringPboardType];
-    [pasteboard setString:stringURL forType:NSURLPboardType];
 }
 
 - (void)closingWindowPreferenceController:(NSNotification *)notification
@@ -448,13 +367,6 @@
 - (uint32_t)socketTimeout
 {
     return (uint32_t)[NSUserDefaults.standardUserDefaults integerForKey:MHSocketTimeoutKey];
-}
-
-- (MHConnectionStore *)connectionStoreWithAlias:(NSString *)alias
-{
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"alias=%@", alias];
-    NSArray *items = [self.connectionsArrayController itemsUsingFetchPredicate:predicate];
-    return (items.count == 1)?[items objectAtIndex:0]:nil;
 }
 
 @end
@@ -601,154 +513,9 @@
 
 @implementation MHApplicationDelegate (Action)
 
-- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
-{
-    if (anItem.action == @selector(copy:)) {
-        return self.window.isKeyWindow && self.connectionsArrayController.selectedObjects.count == 1;
-    } else if (anItem.action == @selector(paste:)) {
-        return self.window.isKeyWindow && [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] hasPrefix:@"mongodb://"];
-    } else {
-        return [self respondsToSelector:anItem.action];
-    }
-}
-
-- (void)copy:(id)sender
-{
-    if (self.connectionsArrayController.selectedObjects.count == 1 && !self.connectionEditorWindowController) {
-        [self copyURLConnection:self.connectionsArrayController.selectedObjects[0]];
-    }
-}
-
-- (IBAction)paste:(id)sender
-{
-    NSString *stringURL;
-    
-    stringURL = [[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString];
-    if (![stringURL hasPrefix:@"mongodb://"]) {
-        [[NSAlert alertWithMessageText:@"No URL found" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
-    } else {
-        NSEntityDescription *entity;
-        MHConnectionStore *connectionStore;
-        NSString *errorMessage;
-        MHConnectionEditorWindowController *controller;
-        
-        entity = [NSEntityDescription entityForName:@"Connection" inManagedObjectContext:self.managedObjectContext];
-        connectionStore = [[[MHConnectionStore alloc] initWithEntity:entity insertIntoManagedObjectContext:nil] autorelease];
-        if (![connectionStore setValuesFromStringURL:stringURL errorMessage:&errorMessage]) {
-            [[NSAlert alertWithMessageText:errorMessage defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", stringURL] runModal];
-            return;
-        }
-        controller = [[[MHConnectionEditorWindowController alloc] init] autorelease];
-        controller.delegate = self;
-        controller.connectionStoreDefaultValue = connectionStore;
-        controller.window.title = stringURL;
-        [controller showWindow:nil];
-        [self.urlConnectionEditorWindowControllers addObject:controller];
-    }
-}
-
 - (IBAction)checkForUpdatesAction:(id)sender
 {
     [self.updater checkForUpdates:sender];
-}
-
-- (IBAction)addNewConnectionAction:(id)sender
-{
-    if (!self.connectionEditorWindowController) {
-        self.connectionEditorWindowController = [[[MHConnectionEditorWindowController alloc] init] autorelease];
-        self.connectionEditorWindowController.delegate = self;
-        [self.connectionEditorWindowController modalForWindow:self.window];
-    }
-}
-
-- (IBAction)addNewConnectionWithURLAction:(id)sender
-{
-    if (!self.connectionEditorWindowController) {
-        MHEditNameWindowController *editNameWindowController = nil;
-        
-        editNameWindowController = [[MHEditNameWindowController alloc] initWithLabel:@"New Connection With URL:" editedValue:nil placeHolder:@"MongoDB URL"];
-        editNameWindowController.callback = ^(MHEditNameWindowController *controller) {
-            MHConnectionStore *connectionStore;
-            NSEntityDescription *entity;
-            NSString *errorMessage = nil;
-            NSString *stringURL = controller.editedValue;
-            
-            entity = [NSEntityDescription entityForName:@"Connection" inManagedObjectContext:self.managedObjectContext];
-            connectionStore = [[[MHConnectionStore alloc] initWithEntity:entity insertIntoManagedObjectContext:nil] autorelease];
-            if (![connectionStore setValuesFromStringURL:stringURL errorMessage:&errorMessage]) {
-                [[NSAlert alertWithMessageText:errorMessage defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", stringURL] runModal];
-                return;
-            }
-            
-            self.connectionEditorWindowController = [[[MHConnectionEditorWindowController alloc] init] autorelease];
-            self.connectionEditorWindowController.delegate = self;
-            self.connectionEditorWindowController.connectionStoreDefaultValue = connectionStore;
-            self.connectionEditorWindowController.window.title = stringURL;
-            [self.connectionEditorWindowController modalForWindow:self.window];
-            [controller release];
-        };
-        editNameWindowController.validateValueCallback = ^(MHEditNameWindowController *controller) {
-            MHConnectionStore *connectionStore;
-            NSString *stringURL = controller.editedValue;
-            NSString *errorMessage = nil;
-            NSEntityDescription *entity;
-            
-            entity = [NSEntityDescription entityForName:@"Connection" inManagedObjectContext:self.managedObjectContext];
-            connectionStore = [[[MHConnectionStore alloc] initWithEntity:entity insertIntoManagedObjectContext:nil] autorelease];
-            if ([connectionStore setValuesFromStringURL:stringURL errorMessage:&errorMessage]) {
-                return YES;
-            } else {
-                [[NSAlert alertWithMessageText:errorMessage defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", stringURL] runModal];
-                return NO;
-            }
-        };
-        [editNameWindowController modalForWindow:self.window];
-    }
-}
-
-- (IBAction)editConnectionAction:(id)sender
-{
-    if (self.connectionsArrayController.selectedObjects.count == 1 && !self.connectionEditorWindowController) {
-        [self editConnection:[self.connectionsArrayController.selectedObjects objectAtIndex:0]];
-    }
-}
-
-- (IBAction)duplicateConnectionAction:(id)sender
-{
-    if (self.connectionsArrayController.selectedObjects.count == 1 && !self.connectionEditorWindowController) {
-        [self duplicateConnection:[self.connectionsArrayController.selectedObjects objectAtIndex:0]];
-    }
-}
-
-- (IBAction)deleteConnectionAction:(id)sender
-{
-    if (self.connectionsArrayController.selectedObjects.count == 1) {
-        [self deleteConnection:[self.connectionsArrayController.selectedObjects objectAtIndex:0]];
-    }
-}
-
-- (void)deleteConnectionAlertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-    if (returnCode == NSAlertSecondButtonReturn) {
-        [self.connectionsArrayController removeObject:contextInfo];
-        [self saveConnections];
-        [self.connectionsArrayController setSelectedObjects:@[]];
-    }
-}
-
-- (IBAction)resizeConnectionItemView:(id)sender
-{
-    CGFloat value = [sender floatValue]/100.0f*360.0f;
-    
-    self.connectionCollectionView.itemSize = NSMakeSize(value, value * 0.8);
-}
-
-- (IBAction)openConnectionAction:(id)sender
-{
-    if (!self.connectionsArrayController.selectedObjects) {
-        return;
-    }
-    [self openConnection:[self.connectionsArrayController.selectedObjects objectAtIndex:0]];
 }
 
 - (IBAction)openSupportPanel:(id)sender
@@ -795,6 +562,54 @@
         }];
     }
     [self.logWindowController showWindow:self];
+}
+
+@end
+
+@implementation MHApplicationDelegate (ConnexionManager)
+
+- (void)saveConnections
+{
+    NSError *error = nil;
+    
+    if (![[self managedObjectContext] commitEditing]) {
+        NSLog(@"%@:%@ unable to commit editing before saving", [self class], NSStringFromSelector(_cmd));
+    }
+    
+    if (![[self managedObjectContext] save:&error]) {
+        [[NSApplication sharedApplication] presentError:error];
+    }
+}
+
+- (MHConnectionStore *)connectionStoreWithAlias:(NSString *)alias
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"alias=%@", alias];
+    NSArray *items = [self.connectionsArrayController itemsUsingFetchPredicate:predicate];
+    return (items.count == 1)?[items objectAtIndex:0]:nil;
+}
+
+- (void)openConnection:(MHConnectionStore *)connection
+{
+    MHConnectionWindowController *connectionWindowController;
+    
+    connectionWindowController = [self connectionWindowControllerForConnectionStore:connection];
+    if (connectionWindowController) {
+        [connectionWindowController showWindow:nil];
+    } else {
+        connectionWindowController = [[MHConnectionWindowController alloc] init];
+        connectionWindowController.delegate = self;
+        connectionWindowController.connectionStore = connection;
+        [connectionWindowController showWindow:self];
+        [self.connectionWindowControllers addObject:connectionWindowController];
+        [connectionWindowController release];
+    }
+}
+
+- (void)deleteConnection:(MHConnectionStore *)connection
+{
+    [self.connectionsArrayController removeObject:connection];
+    [self saveConnections];
+    [self.connectionsArrayController setSelectedObjects:@[]];
 }
 
 @end
@@ -879,61 +694,18 @@
 
 - (void)connectionWindowControllerDidCancel:(MHConnectionEditorWindowController *)controller
 {
-    if (self.connectionEditorWindowController == controller) {
-        self.connectionEditorWindowController = nil;
-    } else {
-        [self.urlConnectionEditorWindowControllers removeObject:controller];
-    }
+    [self.urlConnectionEditorWindowControllers removeObject:controller];
 }
 
 - (void)connectionWindowControllerDidValidate:(MHConnectionEditorWindowController *)controller
 {
     [self saveConnections];
-    self.connectionCollectionView.needsDisplay = YES;
-    if (self.connectionEditorWindowController == controller) {
-        self.connectionEditorWindowController = nil;
-    } else {
-        [self.urlConnectionEditorWindowControllers removeObject:controller];
-    }
+    [self.urlConnectionEditorWindowControllers removeObject:controller];
 }
 
 - (MHConnectionStore *)connectionWindowController:(MHConnectionEditorWindowController *)controller connectionStoreWithAlias:(NSString *)alias
 {
     return [self connectionStoreWithAlias:alias];
-}
-
-@end
-
-@implementation MHApplicationDelegate (MHConnectionViewItemDelegate)
-
-- (void)connectionViewItemDelegateNewItem:(MHConnectionCollectionView *)connectionCollectionView
-{
-    [self addNewConnectionAction:nil];
-}
-
-- (void)connectionViewItemDelegate:(MHConnectionCollectionView *)connectionCollectionView openItem:(MHConnectionViewItem *)connectionViewItem
-{
-    [self openConnection:connectionViewItem.representedObject];
-}
-
-- (void)connectionViewItemDelegate:(MHConnectionCollectionView *)connectionCollectionView editItem:(MHConnectionViewItem *)connectionViewItem
-{
-    [self editConnection:connectionViewItem.representedObject];
-}
-
-- (void)connectionViewItemDelegate:(MHConnectionCollectionView *)connectionCollectionView duplicateItem:(MHConnectionViewItem *)connectionViewItem
-{
-    [self duplicateConnection:connectionViewItem.representedObject];
-}
-
-- (void)connectionViewItemDelegate:(MHConnectionCollectionView *)connectionCollectionView copyURLItem:(MHConnectionViewItem *)connectionViewItem
-{
-    [self copyURLConnection:connectionViewItem.representedObject];
-}
-
-- (void)connectionViewItemDelegate:(MHConnectionCollectionView *)connectionCollectionView deleteItem:(MHConnectionViewItem *)connectionViewItem
-{
-    [self deleteConnection:connectionViewItem.representedObject];
 }
 
 @end

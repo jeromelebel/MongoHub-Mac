@@ -36,7 +36,7 @@
                                     <connections>
                                         <binding destination="542" name="content" keyPath="arrangedObjects" id="551"/>
                                         <binding destination="542" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="551" id="584"/>
-                                        <outlet property="delegate" destination="205" id="567"/>
+                                        <outlet property="delegate" destination="vwN-S0-uXs" id="Hsk-uk-Nev"/>
                                         <outlet property="itemPrototype" destination="531" id="533"/>
                                     </connections>
                                 </collectionView>
@@ -59,7 +59,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="addNewConnectionAction:" target="205" id="rec-Fp-CsM"/>
+                            <action selector="addNewConnectionAction:" target="vwN-S0-uXs" id="je5-Af-NOr"/>
                         </connections>
                     </button>
                     <button toolTip="Remove Connection" verticalHuggingPriority="750" id="556">
@@ -70,7 +70,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="deleteConnectionAction:" target="205" id="EjC-DN-UBc"/>
+                            <action selector="deleteConnectionAction:" target="vwN-S0-uXs" id="qbN-FN-HeG"/>
                             <binding destination="542" name="enabled" keyPath="selectedObjects.@count" id="580"/>
                         </connections>
                     </button>
@@ -82,7 +82,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="editConnectionAction:" target="205" id="2Wd-3i-fD7"/>
+                            <action selector="editConnectionAction:" target="vwN-S0-uXs" id="t4n-9b-DCM"/>
                             <binding destination="542" name="enabled" keyPath="selectedObjects.@count" id="574"/>
                         </connections>
                     </button>
@@ -94,7 +94,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="openConnectionAction:" target="205" id="XrF-Q3-dej"/>
+                            <action selector="openConnectionAction:" target="vwN-S0-uXs" id="qd0-fr-2xU"/>
                             <binding destination="542" name="enabled" keyPath="selectedObjects.@count" id="577"/>
                         </connections>
                     </button>
@@ -103,13 +103,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="20" maxValue="100" doubleValue="45" tickMarkPosition="above" sliderType="linear" id="709"/>
                         <connections>
-                            <action selector="resizeConnectionItemView:" target="205" id="732"/>
+                            <action selector="resizeConnectionItemView:" target="vwN-S0-uXs" id="C0i-oU-xx5"/>
                         </connections>
                     </slider>
                 </subviews>
             </view>
             <connections>
-                <outlet property="delegate" destination="205" id="207"/>
+                <outlet property="delegate" destination="vwN-S0-uXs" id="FWd-eV-UOR"/>
             </connections>
         </window>
         <menu title="MainMenu" systemMenu="main" id="29" userLabel="MainMenu">
@@ -176,25 +176,23 @@
                         <items>
                             <menuItem title="Add Connection" keyEquivalent="n" id="75">
                                 <connections>
-                                    <action selector="addNewConnectionAction:" target="205" id="QK5-vJ-zaq"/>
+                                    <action selector="addNewConnectionAction:" target="-1" id="kh2-kc-UBe"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Add Connection With URL…" keyEquivalent="n" id="QYM-3J-vxb">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
-                                    <action selector="addNewConnectionWithURLAction:" target="205" id="yBW-Gc-AW6"/>
+                                    <action selector="addNewConnectionWithURLAction:" target="-1" id="Bfb-sb-iL6"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Edit Connection" keyEquivalent="e" id="588">
                                 <connections>
-                                    <action selector="editConnectionAction:" target="205" id="NMl-ec-gBh"/>
-                                    <binding destination="542" name="enabled" keyPath="selectedObjects.@count" id="616"/>
+                                    <action selector="editConnectionAction:" target="-1" id="N0I-le-6xM"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Duplicate Connection" keyEquivalent="d" id="7zg-uW-JzR">
                                 <connections>
-                                    <action selector="duplicateConnectionAction:" target="205" id="l65-GE-tzL"/>
-                                    <binding destination="542" name="enabled" keyPath="selectedObjects.@count" id="7kl-d9-zUa"/>
+                                    <action selector="duplicateConnectionAction:" target="-1" id="Stm-aV-kj3"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Delete Connection" id="587">
@@ -202,8 +200,7 @@
 CA
 </string>
                                 <connections>
-                                    <action selector="deleteConnectionAction:" target="205" id="ziw-pY-4JS"/>
-                                    <binding destination="542" name="enabled" keyPath="selectedObjects.@count" id="613"/>
+                                    <action selector="deleteConnectionAction:" target="-1" id="etE-IE-d4C"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="594"/>
@@ -212,8 +209,7 @@ CA
 DQ
 </string>
                                 <connections>
-                                    <action selector="openConnectionAction:" target="205" id="FgA-ve-Ai7"/>
-                                    <binding destination="542" name="enabled" keyPath="selectedObjects.@count" id="619"/>
+                                    <action selector="openConnectionAction:" target="-1" id="q9e-Cl-D8u"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -491,10 +487,8 @@ DQ
         <customObject id="205" userLabel="MHApplicationDelegate" customClass="MHApplicationDelegate">
             <connections>
                 <outlet property="bundleVersion" destination="603" id="620"/>
-                <outlet property="connectionCollectionView" destination="530" id="ICL-ok-eGF"/>
-                <outlet property="connectionsArrayController" destination="542" id="565"/>
+                <outlet property="connectionsArrayController" destination="542" id="RHb-xs-OfE"/>
                 <outlet property="supportPanel" destination="599" id="713"/>
-                <outlet property="window" destination="21" id="1Lh-2b-LRr"/>
             </connections>
         </customObject>
         <collectionViewItem id="531" customClass="MHConnectionViewItem">
@@ -589,6 +583,12 @@ https://github.com/jeromelebel/MongoHub-Mac
                 </subviews>
             </view>
         </window>
+        <customObject id="vwN-S0-uXs" customClass="MHConnectionListWindowController">
+            <connections>
+                <outlet property="connectionCollectionView" destination="530" id="nTj-ST-XM6"/>
+                <outlet property="window" destination="21" id="G3d-Ac-mlx"/>
+            </connections>
+        </customObject>
     </objects>
     <resources>
         <image name="NSAddOnTexture" width="11" height="11"/>
