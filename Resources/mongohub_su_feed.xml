@@ -78,7 +78,7 @@
                     <li>Adding a menu "Add Connection With URL…" <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/108'>issue #108</a></li>
                     <li>Making sure all menu items are disabled when they should not be used</li>
                     <li>Issue to get the document count in the aggregation result</li>
-                    <li>Can copy documents with OS X 10.8 and 10.9 thanks to <a href='https://github.com/sbasmanov'>[Sergey Basmanov]</a></li>
+                    <li>Can copy documents with OS X 10.8 and 10.9 thanks to <a href='https://github.com/sbasmanov'>Sergey Basmanov</a></li>
                 </ul>
             ]]>
             </description>
