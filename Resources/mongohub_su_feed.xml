@@ -69,48 +69,16 @@
         <language>en</language>
         <item>
             <beta>1</beta>
-            <title>Version 3.1 beta 4</title>
-            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.1b4.zip" sparkle:version="3.1b4" type="application/octet-stream" />
+            <title>Version 3.1.5 beta 1</title>
+            <enclosure url="https://mongohub.s3.amazonaws.com/MongoHub-3.1.5b1.zip" sparkle:version="3.1.5b1" type="application/octet-stream" />
             <description><![CDATA[
-                <h3>3.1 beta 4</h3>
+                <h3>3.1.5 beta 1</h3>
                 <ul>
-                    <li>Crash fix for <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/200'>issue #200</a></li>
-                    <li>Fix to create a new database with mongodb 3.0 <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/203'>issue #203</a></li>
-                    <li>Better json editor feedback, when saving a document <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/201'>issue #201</a></li>
-                    <li>Support for Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NaN <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/206'>issue #206</a></li>
-                    <li>Parse correctly keys in a document (now, accepts numbers without quotes)</li>
-                    <li>Fix for SCRAM authentification in Mongo 3.0 <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/200'>issue #200</a></li>
-                </ul>
-                <h3>3.1 beta 3</h3>
-                <ul>
-                    <li>Documents are copied inside an array (using the pasteboard) <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/195'>issue #195</a></li>
-                    <li>Fix for a crash when the server is not valid <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/196'>issue #196</a></li>
-                    <li>Fix for a crash when changingn the collection name <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/193'>issue #193</a></li>
-                    <li>Fix for a crash when editing a document <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/198'>issue #198</a></li>
-                </ul>
-                <h3>3.1 beta 2</h3>
-                <ul>
-                    <li>Better parsing errors in the aggregation tab</li>
-                    <li>Avoiding some crashes in the aggregation tab</li>
-                </ul>
-                <h3>3.1 beta 1</h3>
-                <ul>
-                    <li>Can copy documents in the Find tab</li>
-                    <li>Adding support for full screen in a connection window <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/175'>issue #175</a></li>
-                    <li>Adding a preference for the default sort order in the Find tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/129'>issue #129</a></li>
-                    <li>Adding a preference to present keys sorted in the Find tab <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/77'>issue #77</a></li>
-                    <li>Display errors from import/export</li>
-                    <li>Can import more than 200 documents <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/172'>issue #172</a></li>
-                    <li>Fix for a crash when the ssh drops <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/171'>issue #171</a></li>
-                    <li>New UI to create/drop indexes <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/178'>issue #178</a></li>
-                    <li>Removed duplicate collection name when generating displayed query in the find tab [pul #184](https://github.com/jeromelebel/MongoHub-Mac/pull/184</a>, thanks to <a href='https://github.com/ssteinerx'>Steve Steiner</a></li>
-                    <li>Showing dates in the outline view in local time zone <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/174'>issue #174</a></li>
-                    <li>Fix to export to mysql</li>
-                    <li>Can insert multiple documents in the insert tab with [ { document1 }, { document2 }, ... ]</li>
-                    <li>Dropping support for 10.7</li>
-                    <li>Dropping support for 32bits</li>
-                    <li>Don't open a contextual menu if a sheet is opened <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/183'>issue #183</a></li>
-                    <li>Crash fixed to parse wrong regexp in a json <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/191'>issue #191</a></li>
+                    <li>mongo-c-driver 1.1.4</li>
+                    <li>Adding a menu "Add Connection With URL…" <a href='https://github.com/jeromelebel/MongoHub-Mac/issues/108'>issue #108</a></li>
+                    <li>Making sure all menu items are disabled when they should not be used</li>
+                    <li>Issue to get the document count in the aggregation result</li>
+                    <li>Can copy documents with OS X 10.8 and 10.9 thanks to <a href='https://github.com/sbasmanov'>[Sergey Basmanov]</a></li>
                 </ul>
             ]]>
             </description>

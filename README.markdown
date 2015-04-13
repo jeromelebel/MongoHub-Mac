@@ -48,6 +48,14 @@ Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull
 
 ## History
 
+**3.1.5b1 - april 13, 2015**
+
+- mongo-c-driver 1.1.4
+- Adding a menu "Add Connection With URL…" [issue #108](https://github.com/jeromelebel/MongoHub-Mac/issues/108)
+- Making sure all menu items are disabled when they should not be used
+- Issue to get the document count in the aggregation result
+- Can copy documents with OS X 10.8 and 10.9 thanks to [Sergey Basmanov](https://github.com/sbasmanov)
+
 **3.1.4 - march 28, 2015**
 
 - Fixing issue to get indexes with Mongodb 3.0 [issue #199](https://github.com/jeromelebel/MongoHub-Mac/issues/199)
