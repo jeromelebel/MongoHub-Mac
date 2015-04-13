@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7531"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MHQueryViewController">
@@ -86,7 +86,7 @@
                     <rect key="frame" x="20" y="0.0" width="584" height="455"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
-                        <tabViewItem label="Find" identifier="0" id="702">
+                        <tabViewItem label="Find" identifier="find" id="702">
                             <view key="view" id="703">
                                 <rect key="frame" x="0.0" y="0.0" width="584" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -300,7 +300,7 @@
                                 <outlet property="initialFirstResponder" destination="1379" id="1401"/>
                             </connections>
                         </tabViewItem>
-                        <tabViewItem label="Insert" identifier="1" id="704">
+                        <tabViewItem label="Insert" identifier="insert" id="704">
                             <view key="view" id="705">
                                 <rect key="frame" x="0.0" y="0.0" width="584" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -377,7 +377,7 @@
                                 <outlet property="initialFirstResponder" destination="204" id="1402"/>
                             </connections>
                         </tabViewItem>
-                        <tabViewItem label="Update" identifier="2" id="706">
+                        <tabViewItem label="Update" identifier="update" id="706">
                             <view key="view" id="707">
                                 <rect key="frame" x="0.0" y="0.0" width="584" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -510,7 +510,7 @@
                                 <outlet property="initialFirstResponder" destination="144" id="1403"/>
                             </connections>
                         </tabViewItem>
-                        <tabViewItem label="Remove" identifier="3" id="708">
+                        <tabViewItem label="Remove" identifier="remove" id="708">
                             <view key="view" id="709">
                                 <rect key="frame" x="0.0" y="0.0" width="584" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -616,7 +616,7 @@ DQ
                                 <outlet property="initialFirstResponder" destination="164" id="1404"/>
                             </connections>
                         </tabViewItem>
-                        <tabViewItem label="Index" identifier="4" id="710">
+                        <tabViewItem label="Index" identifier="index" id="710">
                             <view key="view" id="711">
                                 <rect key="frame" x="0.0" y="0.0" width="584" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -696,7 +696,7 @@ CA
                                 </constraints>
                             </view>
                         </tabViewItem>
-                        <tabViewItem label="Aggregation" identifier="5" id="taS-ul-hSB" userLabel="Aggregation">
+                        <tabViewItem label="Aggregation" identifier="aggregation" id="taS-ul-hSB" userLabel="Aggregation">
                             <view key="view" id="RRv-wX-NPe">
                                 <rect key="frame" x="0.0" y="0.0" width="584" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -847,7 +847,7 @@ CA
                                 </constraints>
                             </view>
                         </tabViewItem>
-                        <tabViewItem label="Map - Reduce" identifier="6" id="712">
+                        <tabViewItem label="Map - Reduce" identifier="mapreduce" id="712">
                             <view key="view" id="713">
                                 <rect key="frame" x="0.0" y="0.0" width="584" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
