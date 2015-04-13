@@ -246,15 +246,31 @@
     }
 }
 
+- (BOOL)canCopyDocuments
+{
+    return (id)self.view.window.firstResponder == self.outlineView && self.selectedDocumentCount > 0;
+}
+
+// Code to add when 10.9 will not be supported anymore
+// BEGIN-COPY-PASTE-OUTLINEVIEW
+// 3 parts
+/*
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
 {
     if (anItem.action == @selector(copy:)) {
-        return (id)self.view.window.firstResponder == self.outlineView && self.selectedDocumentCount > 0;
+        return [self canCopyDocuments];
     }
     return [self respondsToSelector:anItem.action];
 }
 
 - (void)copy:(id)sender
+{
+    [self copyDocuments];
+}
+*/
+// END
+
+- (void)copyDocuments
 {
     if ((id)self.view.window.firstResponder == self.outlineView && self.selectedDocumentCount > 0) {
         NSPasteboard *pasteboard;

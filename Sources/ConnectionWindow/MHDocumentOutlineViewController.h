@@ -53,5 +53,7 @@
 - (NSInteger)selectedDocumentCount;
 - (void)setBackButtonEnabled:(BOOL)enabled;
 - (void)removeDocumentsWithIds:(NSArray *)documentIds;
+- (BOOL)canCopyDocuments;
+- (void)copyDocuments;
 
 @end
