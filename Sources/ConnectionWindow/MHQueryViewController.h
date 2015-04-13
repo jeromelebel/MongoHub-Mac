@@ -78,6 +78,9 @@
 - (IBAction)segmentedControlAction:(id)sender;
 
 - (void)jsonWindowWillClose:(id)sender;
+- (BOOL)canPerformCopy;
+- (void)performCopy;
+
 @end
 
 @interface MHQueryViewController (InsertTab)

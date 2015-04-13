@@ -215,6 +215,23 @@
     [self.databaseCollectionOutlineView setDoubleAction:@selector(sidebarDoubleAction:)];
 }
 
+// REMOVE when 10.9 is not supported anymore
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
+{
+    return [self.tabViewController.selectedTabItemViewController respondsToSelector:@selector(canPerformCopy)]
+        && [(id)self.tabViewController.selectedTabItemViewController canPerformCopy];
+}
+
+// REMOVE when 10.9 is not supported anymore
+- (void)copy:(id)sender
+{
+    if ([self.tabViewController.selectedTabItemViewController respondsToSelector:@selector(canPerformCopy)]
+        && [(id)self.tabViewController.selectedTabItemViewController canPerformCopy]
+        && [self.tabViewController.selectedTabItemViewController respondsToSelector:@selector(performCopy)]) {
+        [(id)self.tabViewController.selectedTabItemViewController performCopy];
+    }
+}
+
 - (void)sidebarDoubleAction:(id)sender
 {
     [self query:sender];

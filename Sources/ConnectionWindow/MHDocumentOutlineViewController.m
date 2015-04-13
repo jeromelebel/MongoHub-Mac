@@ -251,10 +251,17 @@
     return (id)self.view.window.firstResponder == self.outlineView && self.selectedDocumentCount > 0;
 }
 
-// Code to add when 10.9 will not be supported anymore
-// BEGIN-COPY-PASTE-OUTLINEVIEW
-// 3 parts
-/*
+- (void)copyDocuments
+{
+    if ((id)self.view.window.firstResponder == self.outlineView && self.selectedDocumentCount > 0) {
+        NSPasteboard *pasteboard;
+        
+        pasteboard = NSPasteboard.generalPasteboard;
+        [pasteboard clearContents];
+        [self outlineView:self.outlineView writeItems:self.selectedDocuments toPasteboard:pasteboard];
+    }
+}
+
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
 {
     if (anItem.action == @selector(copy:)) {
@@ -265,19 +272,8 @@
 
 - (void)copy:(id)sender
 {
-    [self copyDocuments];
-}
-*/
-// END
-
-- (void)copyDocuments
-{
-    if ((id)self.view.window.firstResponder == self.outlineView && self.selectedDocumentCount > 0) {
-        NSPasteboard *pasteboard;
-        
-        pasteboard = NSPasteboard.generalPasteboard;
-        [pasteboard clearContents];
-        [self outlineView:self.outlineView writeItems:self.selectedDocuments toPasteboard:pasteboard];
+    if ([self canCopyDocuments]) {
+        [self copyDocuments];
     }
 }
 

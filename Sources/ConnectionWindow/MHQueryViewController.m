@@ -449,29 +449,22 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     [self.findQueryTextField.window makeFirstResponder:self.tabView.selectedTabViewItem.initialFirstResponder ];
 }
 
-- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
+// REMOVE when 10.9 is not supported anymore
+- (BOOL)canPerformCopy
 {
-// Code to remove when 10.9 will not be supported anymore
-// BEGIN-COPY-PASTE-OUTLINEVIEW
-// 3 parts
-    if (anItem.action == @selector(copy:)) {
-        if ([[self.tabView selectedTabViewItem].identifier isEqualToString:@"find"]) {
-            return self.findDocumentOutlineViewController.canCopyDocuments;
-        } else if ([[self.tabView selectedTabViewItem].identifier isEqualToString:@"aggregation"]) {
-            return self.aggregationDocumentOutlineViewController.canCopyDocuments;
-        } else if ([[self.tabView selectedTabViewItem].identifier isEqualToString:@"mapreduce"]) {
-            return self.mrDocumentOutlineViewController.canCopyDocuments;
-        }
+    if ([[self.tabView selectedTabViewItem].identifier isEqualToString:@"find"]) {
+        return self.findDocumentOutlineViewController.canCopyDocuments;
+    } else if ([[self.tabView selectedTabViewItem].identifier isEqualToString:@"aggregation"]) {
+        return self.aggregationDocumentOutlineViewController.canCopyDocuments;
+    } else if ([[self.tabView selectedTabViewItem].identifier isEqualToString:@"mapreduce"]) {
+        return self.mrDocumentOutlineViewController.canCopyDocuments;
     }
-// END
-    return [self respondsToSelector:anItem.action];
+    return NO;
 }
 
-- (void)copy:(id)sender
+// REMOVE when 10.9 is not supported anymore
+- (void)performCopy
 {
-// Code to remove when 10.9 will not be supported anymore
-// BEGIN-COPY-PASTE-OUTLINEVIEW
-// 3 parts
     if ([[self.tabView selectedTabViewItem].identifier isEqualToString:@"find"] && self.findDocumentOutlineViewController.canCopyDocuments) {
         [self.findDocumentOutlineViewController copyDocuments];
     } else if ([[self.tabView selectedTabViewItem].identifier isEqualToString:@"aggregation"] && self.aggregationDocumentOutlineViewController.canCopyDocuments) {
@@ -479,7 +472,6 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     } else if ([[self.tabView selectedTabViewItem].identifier isEqualToString:@"mapreduce"] && self.mrDocumentOutlineViewController.canCopyDocuments) {
         [self.mrDocumentOutlineViewController copyDocuments];
     }
-// END
 }
 
 @end

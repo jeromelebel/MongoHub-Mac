@@ -120,4 +120,16 @@
     return result;
 }
 
+// REMOVE when 10.9 is not supported anymore
+- (BOOL)canPerformCopy
+{
+    return self.documentOutlineViewController.canCopyDocuments;
+}
+
+// REMOVE when 10.9 is not supported anymore
+- (void)performCopy
+{
+    [self.documentOutlineViewController copyDocuments];
+}
+
 @end
