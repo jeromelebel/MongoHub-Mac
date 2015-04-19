@@ -25,7 +25,7 @@ List of all [contributions](https://github.com/jeromelebel/MongoHub-Mac/graphs/c
 - [Prof Syd Xu](https://github.com/bububa), list of [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=bububa)
 - [Steve Steiner](https://github.com/ssteinerx), list of [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=ssteinerx)
 - [Tom Bocklisch](https://github.com/tmbo), list of [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=tmbo)
-- [Travis Choma](https://github.com/travischoma), list of [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=travischoma)
+- [Travis Choma](https://github.com/travischoma), list of [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=travis@emphatic.co)
 - [魏涛](https://github.com/undancer), list of [commits](https://github.com/jeromelebel/MongoHub-Mac/commits?author=undancer)
 
 Please send me a [pull request](https://github.com/jeromelebel/MongoHub-Mac/pull/new/master)!
