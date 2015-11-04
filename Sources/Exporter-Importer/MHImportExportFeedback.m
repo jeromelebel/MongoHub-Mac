@@ -27,7 +27,10 @@
 
 - (void)displayForWindow:(NSWindow *)window
 {
-    [NSApp beginSheet:_window modalForWindow:window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [_window beginSheet:window
+      completionHandler:^(NSModalResponse returnCode) {
+          [_window orderOut:self];
+      }];
 }
 
 - (void)start

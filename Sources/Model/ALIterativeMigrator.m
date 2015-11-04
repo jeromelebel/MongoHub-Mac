@@ -248,6 +248,7 @@
     NSDictionary* sourceMetadata =
     [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:storeType
                                                                URL:url
+                                                           options:nil
                                                              error:error];
     if (nil == sourceMetadata && NULL != error)
     {

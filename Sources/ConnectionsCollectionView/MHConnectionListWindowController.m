@@ -63,7 +63,11 @@
     [alert setInformativeText:@"Deleted connections cannot be restored."];
     [alert setAlertStyle:NSWarningAlertStyle];
     
-    [alert beginSheetModalForWindow:self.window modalDelegate:self didEndSelector:@selector(deleteConnectionAlertDidEnd:returnCode:contextInfo:) contextInfo:connection];
+    [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == NSAlertSecondButtonReturn) {
+            [self deleteConnection:connection];
+       }
+    }];
 }
 
 @end
@@ -102,7 +106,14 @@
     
     stringURL = [[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString];
     if (![stringURL hasPrefix:@"mongodb://"]) {
-        [[NSAlert alertWithMessageText:@"No URL found" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"No URL found"];
+        [alert setInformativeText:@""];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert runModal];
+        
     } else {
         NSEntityDescription *entity;
         MHConnectionStore *connectionStore;
@@ -111,7 +122,14 @@
         entity = [NSEntityDescription entityForName:@"Connection" inManagedObjectContext:self.managedObjectContext];
         connectionStore = [[[MHConnectionStore alloc] initWithEntity:entity insertIntoManagedObjectContext:nil] autorelease];
         if (![connectionStore setValuesFromStringURL:stringURL errorMessage:&errorMessage]) {
-            [[NSAlert alertWithMessageText:errorMessage defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", stringURL] runModal];
+       
+            NSAlert* alert = [NSAlert init];
+            [alert setMessageText:@"No URL found"];
+            [alert setInformativeText:[NSString stringWithFormat:@"%@", stringURL]];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert addButtonWithTitle:@"Ok"];
+            [alert runModal];
+            
             return;
         }
         self.connectionEditorWindowController = [[[MHConnectionEditorWindowController alloc] init] autorelease];
@@ -145,7 +163,13 @@
             entity = [NSEntityDescription entityForName:@"Connection" inManagedObjectContext:self.managedObjectContext];
             connectionStore = [[[MHConnectionStore alloc] initWithEntity:entity insertIntoManagedObjectContext:nil] autorelease];
             if (![connectionStore setValuesFromStringURL:stringURL errorMessage:&errorMessage]) {
-                [[NSAlert alertWithMessageText:errorMessage defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", stringURL] runModal];
+               
+                NSAlert* alert = [NSAlert init];
+                [alert setMessageText:errorMessage];
+                [alert setInformativeText:[NSString stringWithFormat:@"%@", stringURL]];
+                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert addButtonWithTitle:@"Ok"];
+                [alert runModal];
                 return;
             }
             
@@ -167,7 +191,14 @@
             if ([connectionStore setValuesFromStringURL:stringURL errorMessage:&errorMessage]) {
                 return YES;
             } else {
-                [[NSAlert alertWithMessageText:errorMessage defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", stringURL] runModal];
+                
+                NSAlert* alert = [NSAlert init];
+                [alert setMessageText:errorMessage];
+                [alert setInformativeText:[NSString stringWithFormat:@"%@", stringURL]];
+                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert addButtonWithTitle:@"Ok"];
+                [alert runModal];
+                
                 return NO;
             }
         };

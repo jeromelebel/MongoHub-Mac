@@ -59,7 +59,18 @@
     if (!self.window.isDocumentEdited) {
         return YES;
     } else {
-        NSBeginAlertSheet(@"Unsaved Document", @"Save", @"Don't Save", @"Cancel", self.window, self, @selector(sheetDidEnd:returnCode:contextInfo:), @selector(sheetDidDismiss:returnCode:contextInfo:), nil, @"Do you want to save the current document?");
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Unsaved Document"];
+        [alert setInformativeText:@"Do you want to save the current document?"];
+        [alert setAlertStyle:NSInformationalAlertStyle];
+        [alert addButtonWithTitle:@"Save"];
+        [alert addButtonWithTitle:@"Don't Save"];
+        [alert addButtonWithTitle:@"Cancel"];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                [self.window orderOut:self];
+        }];
+        
         return NO;
     }
 }
@@ -134,13 +145,31 @@
             NSLog(@"%@", info);
             NSLog(@"%@", self.bsonData);
             NSLog(@"%@", jsonString);
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, self, nil, nil, nil, @"There is a problem to generate the json. If you save the current json, those values might modified:\n%@\n\nPlease open an issue at https://github.com/jeromelebel/mongohub-mac/issues", [[info objectForKey:@"differences"] componentsJoinedByString:@"\n"]);
+            
+            NSAlert* alert = [NSAlert init];
+            [alert setMessageText:@"Error"];
+            [alert setInformativeText:[NSString stringWithFormat:@"There is a problem to generate the json. If you save the current json, those values might modified:\n%@\n\nPlease open an issue at https://github.com/jeromelebel/mongohub-mac/issues", [[info objectForKey:@"differences"] componentsJoinedByString:@"\n"]]];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert addButtonWithTitle:@"Ok"];
+            [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
+            
         }
     } else if (![MODClient isEqualWithJson:jsonString toDocument:self.jsonDocument info:nil]) {
         NSLog(@"%@", info);
         NSLog(@"%@", jsonString);
         NSLog(@"%@", self.jsonDocument);
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, self, nil, nil, nil, @"There is a problem to generate the json. If you save the current json, those values might modified:\n%@\n\nPlease open an issue at https://github.com/jeromelebel/mongohub-mac/issues", [[info objectForKey:@"differences"] componentsJoinedByString:@"\n"]);
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Error"];
+        [alert setInformativeText:[NSString stringWithFormat:@"There is a problem to generate the json. If you save the current json, those values might modified:\n%@\n\nPlease open an issue at https://github.com/jeromelebel/mongohub-mac/issues", [[info objectForKey:@"differences"] componentsJoinedByString:@"\n"]]];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        
     }
 }
 
@@ -188,7 +217,16 @@
     [self.progressIndicator startAnimation: self];
     document = [MODRagelJsonParser objectsFromJson:self.jsonTextView.string withError:&error];
     if (error) {
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", error.localizedDescription);
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Error"];
+        [alert setInformativeText:[NSString stringWithFormat:@"%@", error.localizedDescription]];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+
+        }];
+        
         [self.progressIndicator stopAnimation: self];
         self.status.stringValue = [error.localizedDescription stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
         if (callback) callback(error);
@@ -197,7 +235,16 @@
         [self.collection saveWithDocument:document callback:^(MODQuery *mongoQuery) {
             [self.progressIndicator stopAnimation:self];
             if (mongoQuery.error) {
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
+                
+                NSAlert* alert = [NSAlert init];
+                [alert setMessageText:@"Error"];
+                [alert setInformativeText:[NSString stringWithFormat:@"%@", error.localizedDescription]];
+                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert addButtonWithTitle:@"Ok"];
+                [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                    
+                }];
+                
                 self.status.stringValue = mongoQuery.error.localizedDescription;
             } else {
                 self.syntaxColoringController.originalString = self.jsonTextView.string;

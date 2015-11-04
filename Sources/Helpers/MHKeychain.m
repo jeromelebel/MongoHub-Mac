@@ -17,7 +17,7 @@
     
     [query setObject:itemClass forKey:(id)kSecClass];
     if (service) {
-        [query setObject:service forKey:kSecAttrService];
+        [query setObject:service forKey:@"kSecAttrService"];
     }
     if (description) {
         [query setObject:description forKey:(id)kSecAttrDescription];
@@ -106,7 +106,7 @@
     NSString *stringToReturn;
     
     query = [self queryForClass:kSecClassInternetPassword label:nil protocol:protocol host:host port:port account:account service:nil description:nil password:nil];
-    [query setObject:(id)kCFBooleanTrue forKey:kSecReturnData];
+    [query setObject:(id)kCFBooleanTrue forKey:@"kSecReturnData"];
 	[query setObject:(id)kSecMatchLimitOne forKey:(id)kSecMatchLimit];
     
 	status = SecItemCopyMatching((CFDictionaryRef)query, &result);
@@ -195,7 +195,7 @@
     OSErr status;
     
     query = [self queryForClass:kSecClassGenericPassword label:label protocol:nil host:nil port:0 account:account service:service description:description password:nil];
-    [query setObject:(id)kCFBooleanTrue forKey:kSecReturnData];
+    [query setObject:(id)kCFBooleanTrue forKey:@"kSecReturnData"];
 	[query setObject:(id)kSecMatchLimitOne forKey:(id)kSecMatchLimit];
     
 	status = SecItemCopyMatching((CFDictionaryRef)query, &result);

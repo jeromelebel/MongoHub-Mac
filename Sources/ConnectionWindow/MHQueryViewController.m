@@ -380,7 +380,16 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
             
             if (removeQuery.error) {
                 self.removeResultsTextField.stringValue = @"Error!";
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", removeQuery.error.localizedDescription);
+               
+                NSAlert* alert = [NSAlert init];
+                [alert setMessageText:@"Error"];
+                [alert setInformativeText:[NSString stringWithFormat:@"%@", removeQuery.error.localizedDescription]];
+                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert addButtonWithTitle:@"Ok"];
+                [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+                    
+                }];
+                
                 flashColor = NSColor.redColor;
             } else {
                 self.removeResultsTextField.stringValue = [NSString stringWithFormat:@"Removed Documents: %lld", count];
@@ -396,7 +405,7 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
 - (void)removeAllDocumentsPanelDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(MODSortedDictionary *)criteria
 {
     switch (returnCode) {
-        case NSAlertAlternateReturn:
+        case NSAlertSecondButtonReturn:
             [self _removeQueryWithCriteria:criteria];
             break;
             
@@ -619,7 +628,16 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         NSColor *currentColor;
         
         [self.insertLoaderIndicator stopAnimation:nil];
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Error"];
+        [alert setInformativeText:[NSString stringWithFormat:@"%@", error.localizedDescription]];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        
         self.insertResultsTextField.stringValue = @"Parsing error";
         [NSViewHelpers cancelColorForTarget:self.insertResultsTextField selector:@selector(setTextColor:)];
         currentColor = self.insertResultsTextField.textColor;
@@ -637,7 +655,16 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
             if (mongoQuery.error) {
                 flashColor = [NSColor redColor];
                 [self.insertResultsTextField setStringValue:@"Error!"];
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+                
+                NSAlert* alert = [NSAlert init];
+                [alert setMessageText:@"Error"];
+                [alert setInformativeText:[NSString stringWithFormat:@"%@", mongoQuery.error.localizedDescription]];
+                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert addButtonWithTitle:@"Ok"];
+                [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+                    
+                }];
+                
             } else {
                 flashColor = [NSColor greenColor];
                 [self.insertResultsTextField setStringValue:@"Completed!"];
@@ -884,7 +911,16 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     [self.updateQueryLoaderIndicator startAnimation:nil];
     query = [MODRagelJsonParser objectsFromJson:[self formatedJsonWithTextField:self.updateCriteriaTextField replace:NO emptyValid:NO] withError:&error];
     if (error) {
-        NSBeginAlertSheet(@"Error In Query", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
+       
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Error In Query"];
+        [alert setInformativeText:[NSString stringWithFormat:@"%@", error.localizedDescription]];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        
         [NSViewHelpers cancelColorForTarget:self.updateResultsTextField selector:@selector(setTextColor:)];
         [NSViewHelpers setColor:self.updateResultsTextField.textColor
                       fromColor:NSColor.redColor
@@ -902,7 +938,16 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         
         value = [MODRagelJsonParser objectsFromJson:[self formatedJsonWithTextField:textField replace:NO emptyValid:NO] withError:&error];
         if (error) {
-            NSBeginAlertSheet([NSString stringWithFormat:@"Error In %@", key], @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
+            
+            NSAlert* alert = [NSAlert init];
+            [alert setMessageText:[NSString stringWithFormat:@"Error In %@", key]];
+            [alert setInformativeText:[NSString stringWithFormat:@"%@", error.localizedDescription]];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert addButtonWithTitle:@"Ok"];
+            [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
+            
             [NSViewHelpers cancelColorForTarget:self.updateResultsTextField selector:@selector(setTextColor:)];
             [NSViewHelpers setColor:self.updateResultsTextField.textColor
                           fromColor:NSColor.redColor
@@ -930,7 +975,16 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
             
             if (updateQuery.error) {
                 self.updateResultsTextField.stringValue = @"Error!";
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", updateQuery.error.localizedDescription);
+                
+                NSAlert* alert = [NSAlert init];
+                [alert setMessageText:@"Error"];
+                [alert setInformativeText:[NSString stringWithFormat:@"%@", updateQuery.error.localizedDescription]];
+                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert addButtonWithTitle:@"Ok"];
+                [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+                    
+                }];
+                
                 flashColor = NSColor.redColor;
             } else {
                 self.updateResultsTextField.stringValue = [NSString stringWithFormat:@"Updated Documents: %lld", count];
@@ -998,13 +1052,39 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     
     criteria = [MODRagelJsonParser objectsFromJson:[self formatedJsonWithTextField:self.removeCriteriaTextField replace:NO emptyValid:NO] withError:&error];
     if (error) {
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, @"%@", @"%@", error.localizedDescription);
-    } else if ([criteria count] == 0 && ((self.view.window.currentEvent.modifierFlags & NSCommandKeyMask) != NSCommandKeyMask)) {
-        NSAlert *alert;
         
-        alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Are you sure you want to remove all documents in %@", self.collection.absoluteName] defaultButton:@"Cancel" alternateButton:@"Remove All" otherButton:nil informativeTextWithFormat:@"This action cannot be undone"];
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Error"];
+        [alert setInformativeText:[NSString stringWithFormat:@"%@", error.localizedDescription]];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        
+    } else if ([criteria count] == 0 && ((self.view.window.currentEvent.modifierFlags & NSCommandKeyMask) != NSCommandKeyMask)) {
+  
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:[NSString stringWithFormat:@"Are you sure you want to remove all documents in %@", self.collection.absoluteName]];
+        [alert setInformativeText:@"This action cannot be undone"];
+        [alert addButtonWithTitle:@"Cancel"];
+        [alert addButtonWithTitle:@"Remove All"];
+     
         [alert setAlertStyle:NSCriticalAlertStyle];
-        [alert beginSheetModalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(removeAllDocumentsPanelDidEnd:returnCode:contextInfo:) contextInfo:[criteria retain]];
+        
+        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+            switch (returnCode) {
+                case NSAlertSecondButtonReturn:
+                    [self _removeQueryWithCriteria:criteria];
+                    break;
+                    
+                default:
+                    break;
+            }
+            [criteria release];
+        }];
+        
+        
     } else {
         [self _removeQueryWithCriteria:criteria];
     }
@@ -1026,7 +1106,15 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     [self.indexLoaderIndicator startAnimation:nil];
     [self.collection findIndexesWithCallback:^(NSArray *indexes, MODQuery *mongoQuery) {
         if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+            
+            NSAlert* alert = [NSAlert init];
+            [alert setMessageText:@"Error"];
+            [alert setInformativeText:[NSString stringWithFormat:@"%@", mongoQuery.error.localizedDescription]];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert addButtonWithTitle:@"Ok"];
+            [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
         } else {
             [self.indexDocumentOutlineViewController displayDocuments:[MODHelper convertForOutlineWithObjects:indexes bsonData:nil jsonKeySortOrder:self.connectionStore.jsonKeySortOrderInSearch] withLabel:nil];
         }
@@ -1051,7 +1139,16 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         [self.indexLoaderIndicator startAnimation:nil];
         [self.collection dropIndexName:[[[indexes objectAtIndex:0] objectForKey:@"objectvalue"] objectForKey:@"name"] callback:^(MODQuery *mongoQuery) {
             if (mongoQuery.error) {
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+                
+                NSAlert* alert = [NSAlert init];
+                [alert setMessageText:@"Error"];
+                [alert setInformativeText:[NSString stringWithFormat:@"%@", mongoQuery.error.localizedDescription]];
+                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert addButtonWithTitle:@"Ok"];
+                [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+                    
+                }];
+                
             } else {
                 NSArray *objectIds = @[ [[indexes objectAtIndex:0] objectForKey:@"objectvalueid"] ];
                 [self.indexDocumentOutlineViewController removeDocumentsWithIds:objectIds];
@@ -1088,7 +1185,16 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     if ([self.aggregationPipeline.string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0) {
         pipeline = [MODRagelJsonParser objectsFromJson:self.aggregationPipeline.string withError:&error];
         if (error) {
-            NSBeginAlertSheet(@"Error in Pipeline", @"OK", nil, nil, self.view.window, nil, nil, nil, @"%@", @"%@", error.localizedDescription);
+            
+            NSAlert* alert = [NSAlert init];
+            [alert setMessageText:@"Error in Pipeline"];
+            [alert setInformativeText:[NSString stringWithFormat:@"%@", error.localizedDescription]];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert addButtonWithTitle:@"Ok"];
+            [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
+            
             return;
         }
         if ([pipeline isKindOfClass:[MODSortedDictionary class]]) {
@@ -1099,7 +1205,16 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
     if ([self.aggregationOptions.string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0) {
         options = [MODRagelJsonParser objectsFromJson:self.aggregationOptions.string withError:&error];
         if (error) {
-            NSBeginAlertSheet(@"Error in Options", @"OK", nil, nil, self.view.window, nil, nil, nil, @"%@", @"%@", error.localizedDescription);
+            
+            NSAlert* alert = [NSAlert init];
+            [alert setMessageText:@"Error in Options"];
+            [alert setInformativeText:[NSString stringWithFormat:@"%@", error.localizedDescription]];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert addButtonWithTitle:@"Ok"];
+            [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
+            
             return;
         }
     }
@@ -1108,7 +1223,16 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         [self.aggregationLoaderIndicator stopAnimation:nil];
         
         if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+            
+            NSAlert* alert = [NSAlert init];
+            [alert setMessageText:@"Error"];
+            [alert setInformativeText:[NSString stringWithFormat:@"%@", mongoQuery.error.localizedDescription]];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert addButtonWithTitle:@"Ok"];
+            [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
+            
             [self.aggregationDocumentOutlineViewController displayDocuments:nil withLabel:nil];
         } else {
             NSMutableArray *documents = [NSMutableArray array];
@@ -1147,7 +1271,16 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         output = [MODRagelJsonParser objectsFromJson:stringOutput withError:&error];
     }
     if (error) {
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", error.localizedDescription);
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Error"];
+        [alert setInformativeText:[NSString stringWithFormat:@"%@", error.localizedDescription]];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        
     } else {
         [self.mrLoaderIndicator startAnimation:nil];
         [self.collection mapReduceWithMapFunction:self.mrMapFunctionTextView.string
@@ -1164,7 +1297,16 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
                                   readPreferences:nil
                                          callback:^(MODQuery *mongoQuery, MODSortedDictionary *documents) {
             if (mongoQuery.error) {
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+                
+                NSAlert* alert = [NSAlert init];
+                [alert setMessageText:@"Error"];
+                [alert setInformativeText:[NSString stringWithFormat:@"%@", mongoQuery.error.localizedDescription]];
+                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert addButtonWithTitle:@"Ok"];
+                [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+                    
+                }];
+                
             } else {
                 NSArray *convertedDocuments;
                 
@@ -1272,7 +1414,15 @@ static NSString *defaultSortOrder(MHDefaultSortOrder defaultSortOrder)
         criteria = [MODSortedDictionary sortedDictionaryWithObjectsAndKeys:inCriteria, @"_id", nil];
         [self.collection removeWithCriteria:criteria callback:^(MODQuery *mongoQuery) {
             if (mongoQuery.error) {
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.view.window, nil, nil, nil, NULL, @"%@", mongoQuery.error.localizedDescription);
+                NSAlert* alert = [NSAlert init];
+                [alert setMessageText:@"Error"];
+                [alert setInformativeText:[NSString stringWithFormat:@"%@", mongoQuery.error.localizedDescription]];
+                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert addButtonWithTitle:@"Ok"];
+                [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+                    
+                }];
+                
             } else {
                 [controller removeDocumentsWithIds:documentIds];
             }

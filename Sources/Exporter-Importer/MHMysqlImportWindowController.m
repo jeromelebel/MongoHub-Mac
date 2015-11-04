@@ -75,11 +75,20 @@
     NSString *collection = [collectionTextField stringValue];
     int chunkSize = [chunkSizeTextField intValue];
     if ([collection length] == 0) {
-        NSRunAlertPanel(@"Error", @"Collection name can not be empty!", @"OK", nil, nil);
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Collection name can not be empty!"];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert runModal];
         return;
     }
     if (chunkSize == 0) {
-        NSRunAlertPanel(@"Error", @"Chunk Size can not be 0!", @"OK", nil, nil);
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Chunk Size can not be 0!"];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert runModal];
+        
         return;
     }
     [self doImportFromTable:[tablesPopUpButton titleOfSelectedItem] toCollection:collection withChundSize:chunkSize];
@@ -115,7 +124,12 @@
     
     copyCollection = [[copyServer databaseForName:self.database.name] collectionForName:collectionName];
     if (!copyServer) {
-        NSRunAlertPanel(@"Error", @"Can not create a second connection to the mongo server.", @"OK", nil, nil);
+       
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Can not create a second connection to the mongo server."];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert runModal];
         return;
     }
     dispatch_queue_t myQueue = dispatch_queue_create("com.mongohub.mysql", 0);
@@ -190,7 +204,11 @@
     NSLog(@"Connect: %d", self.mysqlConnection.isConnected);
     if (!self.mysqlConnection.isConnected)
     {
-        NSRunAlertPanel(@"Error", @"Could not connect to the mysql server!", @"OK", nil, nil);
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Could not connect to the mysql server!"];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert runModal];
     }
     [self.mysqlConnection queryString:@"SET NAMES utf8"];
     [self.mysqlConnection queryString:@"SET CHARACTER SET utf8"];

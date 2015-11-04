@@ -229,9 +229,14 @@
     if (!coordinator) {
         NSError *error = nil;
         NSAlert *alert;
-        
-        alert = [NSAlert alertWithMessageText:@"Failed to load the store database" defaultButton:@"Reset" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@"By clicking on reset you will loose the connection information"];
-        alert.alertStyle = NSCriticalAlertStyle;
+   
+        alert = [NSAlert init];
+        [alert setMessageText:@"Failed to load the store database"];
+        [alert setInformativeText:@"By clicking on reset you will loose the connection information"];
+        [alert setAlertStyle:NSCriticalAlertStyle];
+        [alert addButtonWithTitle:@"Reset"];
+        [alert addButtonWithTitle:@"Cancel"];
+     
         switch ([alert runModal]) {
             case 0:
                 return nil;
@@ -254,7 +259,7 @@
                 break;
         };
     }
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
+    _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:(NSManagedObjectContextConcurrencyType)NSManagedObjectContextBinding];
     [_managedObjectContext setPersistentStoreCoordinator:coordinator];
 
     return _managedObjectContext;
@@ -502,7 +507,7 @@
         [alert release];
         alert = nil;
         
-        if (answer == NSAlertAlternateReturn) return NSTerminateCancel;
+        if (answer == NSAlertFirstButtonReturn) return NSTerminateCancel;
         
     }
     
@@ -520,12 +525,9 @@
 
 - (IBAction)openSupportPanel:(id)sender
 {
-    [NSApp beginSheet:self.supportPanel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(supportPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
-}
-
-- (void)supportPanelDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-    [sheet close];
+    [self.window beginSheet:self.supportPanel  completionHandler:^(NSModalResponse returnCode) {
+        [self.supportPanel close];
+    }];
 }
 
 - (IBAction)closeSupportPanel:(id)sender
@@ -676,7 +678,14 @@
     stringURL = [event paramDescriptorForKeyword:keyDirectObject].stringValue;
     connectionStore = [[[MHConnectionStore alloc] initWithEntity:entity insertIntoManagedObjectContext:nil] autorelease];
     if (![connectionStore setValuesFromStringURL:stringURL errorMessage:&errorMessage]) {
-        [[NSAlert alertWithMessageText:errorMessage defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", stringURL] runModal];
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:errorMessage];
+        [alert setInformativeText:@"%@"];
+        [alert setAlertStyle:NSCriticalAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert runModal];
+        
         return;
     }
 

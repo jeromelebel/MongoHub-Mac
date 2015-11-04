@@ -156,7 +156,9 @@
 
 - (void)modalForWindow:(NSWindow *)window
 {
-    [NSApp beginSheet:self.window modalForWindow:window modalDelegate:self didEndSelector:@selector(didEndSheet:returnCode:contextInfo:) contextInfo:nil];
+    [self.window beginSheet:window completionHandler:^(NSModalResponse returnCode) {
+        [self.window orderOut:self];
+    }];
 }
 
 - (IBAction)addIndexKey:(id)sender
