@@ -32,6 +32,7 @@
 #import "UKSyntaxColoredTextViewController.h"
 #import "NSScanner+SkipUpToCharset.h"
 #import "MHJsonColorManager.h"
+@import AppKit;
 
 
 // -----------------------------------------------------------------------------
@@ -39,7 +40,6 @@
 // -----------------------------------------------------------------------------
 
 #define	TEXTVIEW		((NSTextView*)[self view])
-
 
 @implementation UKSyntaxColoredTextViewController
 
@@ -308,8 +308,9 @@
 		{
 			spacesRange.location = prevLineBreak;
 			spacesRange.length = lastSpace -prevLineBreak +1;
-			if( spacesRange.length > 0 )
-				[TEXTVIEW insertText: [tsString substringWithRange:spacesRange]];
+            if( spacesRange.length > 0 ){
+                [self insertText: [tsString substringWithRange:spacesRange]];
+            }
 		}
 	}
 }

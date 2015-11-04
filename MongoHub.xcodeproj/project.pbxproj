@@ -85,7 +85,7 @@
 		02C3452A1A423C85004F0D2C /* MHIndexEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02C345291A423C85004F0D2C /* MHIndexEditor.xib */; };
 		02C345321A436A18004F0D2C /* MHIndexEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C345311A436A18004F0D2C /* MHIndexEditorController.m */; };
 		02C4C1C819A231090002FBD8 /* MongoObjCDriver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */; };
-		02C4C1CA19A231600002FBD8 /* MongoObjCDriver.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		02C4C1CA19A231600002FBD8 /* MongoObjCDriver.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02C4C1C519A230BE0002FBD8 /* MongoObjCDriver.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		02CEE9BE1486DD7A00E488DA /* MHTabTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CEE9BD1486DD7A00E488DA /* MHTabTitleView.m */; };
 		02CF9CC919AA9E8A00EEF76B /* MHMongoHubMigration9to10.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 02CF9CC819AA9E8A00EEF76B /* MHMongoHubMigration9to10.xcmappingmodel */; };
 		02D3D9A11AAA4DD000FE5566 /* MHDocumentOutlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D3D9A01AAA4DD000FE5566 /* MHDocumentOutlineViewController.m */; };
@@ -112,9 +112,9 @@
 		02F4F02E19AA9F6D00A9B836 /* MHMongoHubMigration9to10.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F4F02D19AA9F6D00A9B836 /* MHMongoHubMigration9to10.m */; };
 		02FCD3CF13BB9EA400316A9F /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FCD3CE13BB9EA400316A9F /* Sparkle.framework */; };
 		02FCD3D813BBA4A300316A9F /* MCPKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FCD3D713BBA4A300316A9F /* MCPKit.framework */; };
-		02FCD3D913BCC7D200316A9F /* RegexKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 026B2DE413BB6FB8009BEA7B /* RegexKit.framework */; };
-		02FCD3DA13BCC81700316A9F /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02FCD3CE13BB9EA400316A9F /* Sparkle.framework */; };
-		02FCD3DB13BCC83200316A9F /* MCPKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02FCD3D713BBA4A300316A9F /* MCPKit.framework */; };
+		02FCD3D913BCC7D200316A9F /* RegexKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 026B2DE413BB6FB8009BEA7B /* RegexKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		02FCD3DA13BCC81700316A9F /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02FCD3CE13BB9EA400316A9F /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		02FCD3DB13BCC83200316A9F /* MCPKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02FCD3D713BBA4A300316A9F /* MCPKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1D1D65541189C5E000582917 /* collectionmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D1D65501189C5E000582917 /* collectionmenu.png */; };
 		1D1D65551189C5E000582917 /* dbmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D1D65511189C5E000582917 /* dbmenu.png */; };
 		1D1D65561189C5E000582917 /* querymenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D1D65521189C5E000582917 /* querymenu.png */; };
@@ -870,7 +870,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
@@ -1155,6 +1155,7 @@
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = "Resources/MongoHub-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fotonauts.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MongoHub;
 			};
 			name = Debug;
@@ -1167,6 +1168,7 @@
 					"\"$(SRCROOT)\"/Frameworks",
 				);
 				INFOPLIST_FILE = "Resources/MongoHub-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fotonauts.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MongoHub;
 			};
 			name = Release;
@@ -1174,6 +1176,7 @@
 		26FC0A890875C7B200E6366F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -1182,6 +1185,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -1190,7 +1194,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -1198,6 +1203,7 @@
 		26FC0A8A0875C7B200E6366F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -1215,7 +1221,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				SDKROOT = macosx;
 			};
 			name = Release;

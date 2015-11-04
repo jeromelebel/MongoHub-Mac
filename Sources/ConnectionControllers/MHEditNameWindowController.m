@@ -85,7 +85,9 @@
 
 - (void)modalForWindow:(NSWindow *)window
 {
-    [NSApp beginSheet:self.window modalForWindow:window modalDelegate:self didEndSelector:@selector(didEndSheet:returnCode:contextInfo:) contextInfo:nil];
+    [self.window beginSheet:self.window  completionHandler:^(NSModalResponse returnCode) {
+        [self.window close];
+    }];
 }
 
 - (void)didEndSheet:(NSWindow *)window returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo

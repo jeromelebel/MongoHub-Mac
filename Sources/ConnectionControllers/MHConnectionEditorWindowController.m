@@ -257,7 +257,10 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 
 - (void)modalForWindow:(NSWindow *)window
 {
-    [NSApp beginSheet:self.window modalForWindow:window modalDelegate:self didEndSelector:@selector(didEndSheet:returnCode:contextInfo:) contextInfo:nil];
+    [self.window beginSheet:self.window completionHandler:^(NSModalResponse returnCode) {
+            [self.window orderOut:self];
+    }];
+    
 }
 
 - (void)didEndSheet:(NSWindow *)window returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
@@ -349,43 +352,108 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     sshPort = self.sshPortTextField.stringValue.integerValue;
     
     if (hostPort < 0 || hostPort > 65535) {
-        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"Host port should be between 1 and 65535 (or empty)", @""));
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:NSLocalizedString(@"Error", @"Error")];
+        [alert setInformativeText:NSLocalizedString(@"Host port should be between 1 and 65535 (or empty)", @"")];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:NSLocalizedString(@"OK", @"OK")];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        
         [self.hostportTextField becomeFirstResponder];
         return;
     }
     if (alias.length == 0) {
-        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"Name should not be less than 1 charaters", @""));
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:NSLocalizedString(@"Error", @"Error")];
+        [alert setInformativeText:NSLocalizedString(@"Name should not be less than 1 charaters", @"")];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:NSLocalizedString(@"OK", @"OK")];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
         [self.aliasTextField becomeFirstResponder];
         return;
     }
     if (useSSH && sshHost.length == 0) {
-        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"Tunneling requires SSH Host!", @""));
+       
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:NSLocalizedString(@"Error", @"Error")];
+        [alert setInformativeText:NSLocalizedString(@"Tunneling requires SSH Host!", @"")];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:NSLocalizedString(@"OK", @"OK")];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
         [self.sshHostTextField becomeFirstResponder];
         return;
     }
     if (useSSH && (sshPort < 0 || sshPort > 65535)) {
-        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"ssh port should be between 1 and 65535 (or empty)", @""));
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:NSLocalizedString(@"Error", @"Error")];
+        [alert setInformativeText:NSLocalizedString(@"ssh port should be between 1 and 65535 (or empty)", @"")];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:NSLocalizedString(@"OK", @"OK")];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
         [self.sshPortTextField becomeFirstResponder];
         return;
     }
     if (useReplicaSet && [replicaServers componentsSeparatedByString:@","].count <= 1) {
-        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"You need to set more than one server", @""));
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:NSLocalizedString(@"Error", @"Error")];
+        [alert setInformativeText:NSLocalizedString(@"You need to set more than one server", @"")];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:NSLocalizedString(@"OK", @"OK")];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
         [self.replicaSetServersTextField becomeFirstResponder];
         return;
     }
     if (useReplicaSet && replicaName.length == 0) {
-        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"You need to set a replica set name", @""));
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:NSLocalizedString(@"Error", @"Error")];
+        [alert setInformativeText:NSLocalizedString(@"You need to set a replica set name", @"")];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:NSLocalizedString(@"OK", @"OK")];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
         [self.replicaSetNameTextField becomeFirstResponder];
         return;
     }
     if (self.adminPasswordTextField.stringValue.length > 0 && self.adminUserTextField.stringValue == 0) {
-        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"You need set a user name if you enter a password", @""));
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:NSLocalizedString(@"Error", @"Error")];
+        [alert setInformativeText:NSLocalizedString(@"You need set a user name if you enter a password", @"")];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:NSLocalizedString(@"OK", @"OK")];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
         [self.adminUserTextField becomeFirstResponder];
         return;
     }
     MHConnectionStore *sameAliasConnection = [self.delegate connectionWindowController:self connectionStoreWithAlias:alias];
     if (sameAliasConnection && sameAliasConnection != self.editedConnectionStore) {
-        NSBeginAlertSheet(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"OK", @"OK"), nil, nil, self.window, nil, nil, nil, nil, NSLocalizedString(@"Name already in use!", @""));
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:NSLocalizedString(@"Error", @"Error")];
+        [alert setInformativeText:NSLocalizedString(@"Name already in use!", @"")];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:NSLocalizedString(@"OK", @"OK")];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
         [self.aliasTextField becomeFirstResponder];
         return;
     }
@@ -418,7 +486,16 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
     urlString = [self.editedConnectionStore stringURLWithSSHMapping:nil];
     client = [MODClient clientWihtURLString:urlString];
     if (client == nil) {
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"Invalid URL %@", urlString);
+       
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:NSLocalizedString(@"Error", @"Error")];
+        [alert setInformativeText:[NSString stringWithFormat:@"Invalid URL %@", urlString]];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:NSLocalizedString(@"OK", @"OK")];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        
         return;
     }
     
@@ -447,7 +524,7 @@ static MODReadPreferencesReadMode preferenceReadModeFromTag(NSInteger tag)
 {
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     
-    if (openPanel.runModal == NSOKButton) {
+    if (openPanel.runModal == NSModalResponseOK) {
         self.sshKeyfileTextField.stringValue = openPanel.URL.path;
     }
 }

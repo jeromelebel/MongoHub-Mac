@@ -71,7 +71,13 @@
     [progressIndicator setDoubleValue:0];
     NSString *collection = [collectionTextField stringValue];
     if ([collection length] == 0) {
-        NSRunAlertPanel(@"Error", @"Collection name can not be empty!", @"OK", nil, nil);
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Collection name can not be empty!"];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert runModal];
+        
         return;
     }
     mongoCollection = [[copyServer databaseForName:mongoDatabase.name] collectionForName:collection];
@@ -190,7 +196,11 @@
     NSLog(@"Connect: %d", [db isConnected]);
     if (![db isConnected])
     {
-        NSRunAlertPanel(@"Error", @"Could not connect to the mysql server!", @"OK", nil, nil);
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Could not connect to the mysql server!"];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert runModal];
     }
     [db queryString:@"SET NAMES utf8"];
     [db queryString:@"SET CHARACTER SET utf8"];

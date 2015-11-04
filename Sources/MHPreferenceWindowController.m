@@ -137,7 +137,7 @@
 
 - (IBAction)openFontPanelForJsonAction:(id)sender
 {
-    [NSFontManager sharedFontManager].delegate = self;
+    //[NSFontManager sharedFontManager].delegate = self;
     [NSFontManager sharedFontManager].action = @selector(changeJsonFont:);
     [[[NSFontManager sharedFontManager] fontPanel:YES] setPanelFont:MHJsonColorManager.sharedManager.values[@"TextField"][@"Text"][@"Font"] isMultiple:NO];
     [[NSFontManager sharedFontManager] orderFrontFontPanel:nil];
@@ -239,7 +239,13 @@
     
     value = (uint32_t)[sender stringValue].integerValue;
     if (value < 500 && value != 0) {
-        NSBeginAlertSheet(@"Invalid Value", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"The timeout should be greater than 500");
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Invalid Value"];
+        [alert setInformativeText:@"The timeout should be greater than 500"];
+        [alert setAlertStyle:NSCriticalAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert runModal];
+        
     } else if (sender == self.connectTimeoutTextField) {
         [(MHApplicationDelegate *)[NSApp delegate] setConnectTimeout:value];
         if ([(MHApplicationDelegate *)[NSApp delegate] connectTimeout] == 0) {

@@ -193,7 +193,15 @@
         [self.delegate connectionWindowControllerLogMessage:urlString domain:[NSString stringWithFormat:@"%@.url", self.connectionStore.alias] level:@"debug"];
         self.client = [MODClient clientWihtURLString:urlString];
         if (self.client == nil) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"Invalid URL %@", urlString);
+           
+            NSAlert* alert = [NSAlert init];
+            [alert setMessageText:@"Error"];
+            [alert setInformativeText:[NSString stringWithFormat:@"Invalid URL %@", urlString]];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert addButtonWithTitle:@"Ok"];
+            [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
         } else {
             self.client.sshMapping = self.sshBindedPortMapping;
             if (self.connectionStore.useSSL) {
@@ -264,7 +272,15 @@
                 [self.databaseCollectionOutlineView reloadData];
             }
         } else if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
+           
+            NSAlert* alert = [NSAlert init];
+            [alert setMessageText:@"Error"];
+            [alert setInformativeText:[NSString stringWithFormat:@"%@", mongoQuery.error.localizedDescription]];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert addButtonWithTitle:@"Ok"];
+            [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
         }
     }];
     return result;
@@ -297,7 +313,15 @@
                 [self.databaseCollectionOutlineView reloadData];
             }
         } else if (mongoQuery.error) {
-            NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
+            
+            NSAlert* alert = [NSAlert init];
+            [alert setMessageText:@"Error"];
+            [alert setInformativeText:[NSString stringWithFormat:@"%@", mongoQuery.error.localizedDescription]];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert addButtonWithTitle:@"Ok"];
+            [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
         }
     }];
     return result;
@@ -377,7 +401,15 @@
         if (controller.editedValue.length != 0) {
             return YES;
         } else {
-            NSRunAlertPanel(@"Error", @"Database name can not be empty", @"OK", nil, nil);
+            
+            NSAlert* alert = [NSAlert init];
+            [alert setMessageText:@"Error"];
+            [alert setInformativeText:@"Database name can not be empty"];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert addButtonWithTitle:@"Ok"];
+            [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
             return NO;
         }
     };
@@ -398,7 +430,15 @@
         editNameWindowController.callback = ^(MHEditNameWindowController *controller) {
             [database createCollectionWithName:editNameWindowController.editedValue callback:^(MODQuery *mongoQuery) {
                 if (mongoQuery.error) {
-                    NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
+                    
+                    NSAlert* alert = [NSAlert init];
+                    [alert setMessageText:@"Error"];
+                    [alert setInformativeText:[NSString stringWithFormat:@"%@", mongoQuery.error.localizedDescription]];
+                    [alert setAlertStyle:NSWarningAlertStyle];
+                    [alert addButtonWithTitle:@"Ok"];
+                    [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                        
+                    }];
                 }
                 [self.databaseCollectionOutlineView expandItem:databaseItem];
                 [self getCollectionListForDatabaseName:database.name];
@@ -408,7 +448,16 @@
             if (controller.editedValue.length != 0) {
                 return YES;
             } else {
-                NSRunAlertPanel(@"Error", @"Collection name can not be empty", @"OK", nil, nil);
+                
+                NSAlert* alert = [NSAlert init];
+                [alert setMessageText:@"Error"];
+                [alert setInformativeText:@"Collection name can not be empty"];
+                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert addButtonWithTitle:@"Ok"];
+                [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                    
+                }];
+                
                 return NO;
             }
         };
@@ -445,7 +494,15 @@
                     }
                 }
                 if (mongoQuery.error) {
-                    NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
+                    
+                    NSAlert* alert = [NSAlert init];
+                    [alert setMessageText:@"Error"];
+                    [alert setInformativeText:[NSString stringWithFormat:@"%@", mongoQuery.error.localizedDescription]];
+                    [alert setAlertStyle:NSWarningAlertStyle];
+                    [alert addButtonWithTitle:@"Ok"];
+                    [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                        
+                    }];
                 }
                 [self getCollectionListForDatabaseName:collection.database.name];
             }];
@@ -454,7 +511,16 @@
             if (controller.editedValue.length != 0) {
                 return YES;
             } else {
-                NSRunAlertPanel(@"Error", @"Collection name can not be empty", @"OK", nil, nil);
+                
+                NSAlert* alert = [NSAlert init];
+                [alert setMessageText:@"Error"];
+                [alert setInformativeText:@"Collection name can not be empty"];
+                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert addButtonWithTitle:@"Ok"];
+                [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                    
+                }];
+                
                 return NO;
             }
         };
@@ -480,7 +546,16 @@
         [collection dropWithCallback:^(MODQuery *mongoQuery) {
             [self.loaderIndicator stopAnimation:nil];
             if (mongoQuery.error) {
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
+                
+                NSAlert* alert = [NSAlert init];
+                [alert setMessageText:@"Error"];
+                [alert setInformativeText:[NSString stringWithFormat:@"%@", mongoQuery.error.localizedDescription]];
+                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert addButtonWithTitle:@"Ok"];
+                [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                    
+                }];
+                
             } else {
                 MHTabItemViewController *tabItemViewController = self.tabItemControllers[collection.absoluteName];
                 
@@ -509,7 +584,15 @@
             [self.loaderIndicator stopAnimation:nil];
             [self getDatabaseList];
             if (mongoQuery.error) {
-                NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", mongoQuery.error.localizedDescription);
+                
+                NSAlert* alert = [NSAlert init];
+                [alert setMessageText:@"Error"];
+                [alert setInformativeText:[NSString stringWithFormat:@"%@", mongoQuery.error.localizedDescription]];
+                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert addButtonWithTitle:@"Ok"];
+                [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                    
+                }];
             }
         }];
     }
@@ -556,9 +639,16 @@
     [alert setMessageText:[NSString stringWithFormat:@"Drop \"%@\"?", msg]];
     [alert setInformativeText:[NSString stringWithFormat:@"Dropping \"%@\" cannot be restored.", msg]];
     [alert setAlertStyle:NSWarningAlertStyle];
-    [alert beginSheetModalForWindow:[self window] modalDelegate:self
-                     didEndSelector:@selector(dropWarningDidEnd:returnCode:contextInfo:)
-                        contextInfo:nil];
+    [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == NSAlertSecondButtonReturn)
+        {
+            if (self.selectedCollectionItem) {
+                [self dropCollection:self.selectedCollectionItem.collection];
+            }else {
+                [self dropDatabase];
+            }
+        }
+    }];
 }
 
 - (MHDatabaseItem *)selectedDatabaseItem
@@ -649,7 +739,16 @@
     self.importExportFeedback = nil;
     if (self.importerExporter.error) {
         [self.delegate connectionWindowControllerLogMessage:self.importerExporter.error.localizedDescription domain:[NSString stringWithFormat:@"%@.%@", self.connectionStore.alias, self.importerExporter.identifier] level:@"error"];
-        NSBeginAlertSheet(self.importerExporter.name, @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", self.importerExporter.error.localizedDescription);
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:self.importerExporter.name];
+        [alert setInformativeText:[NSString stringWithFormat:@"%@", self.importerExporter.error.localizedDescription]];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        
     } else {
         [self.delegate connectionWindowControllerLogMessage:[NSString stringWithFormat:@"%lu documents processed", (unsigned long)self.importerExporter.documentProcessedCount] domain:[NSString stringWithFormat:@"%@.importexport", self.connectionStore.alias] level:@"info"];
     }
@@ -689,7 +788,15 @@
 - (IBAction)importFromMySQLAction:(id)sender
 {
     if (self.selectedDatabaseItem == nil) {
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, NULL, NULL, nil, @"Please specify a database!");
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Error"];
+        [alert setInformativeText:@"Please specify a database!"];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
         return;
     }
     if (!self.mysqlImportWindowController) {
@@ -705,7 +812,15 @@
 - (IBAction)exportToMySQLAction:(id)sender
 {
     if (self.selectedCollectionItem == nil) {
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, NULL, NULL, nil, @"Please specify a collection!");
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Error"];
+        [alert setInformativeText:@"Please specify a collection!"];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
         return;
     }
     if (!self.mysqlExportWindowController) {
@@ -724,7 +839,7 @@
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     
     [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
-        if (result == NSOKButton) {
+        if (result == NSModalResponseOK) {
             // wait until the panel is closed to open the import feedback window
             [self performSelectorOnMainThread:@selector(importIntoSelectedCollectionFromFilePath:) withObject:[[openPanel URL] path] waitUntilDone:NO];
         }
@@ -737,7 +852,7 @@
     
     savePanel.nameFieldStringValue = [NSString stringWithFormat:@"%@-%@", self.selectedDatabaseItem.database.name, self.selectedCollectionItem.collection.name];
     [savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
-        if (result == NSOKButton) {
+        if (result == NSModalResponseOK) {
             // wait until the panel is closed to open the import feedback window
             [self performSelectorOnMainThread:@selector(exportSelectedCollectionToFilePath:) withObject:savePanel.URL.path waitUntilDone:NO];
         }
@@ -886,7 +1001,15 @@
         // after being connected, we don't really care about errors
         [self.loaderIndicator stopAnimation:nil];
         self.statusViewController.title = [NSString stringWithFormat:@"Error: %@", error.localizedDescription];
-        NSBeginAlertSheet(@"Error", @"OK", nil, nil, self.window, nil, nil, nil, nil, @"%@", error.localizedDescription);
+        
+        NSAlert* alert = [NSAlert init];
+        [alert setMessageText:@"Error"];
+        [alert setInformativeText:[NSString stringWithFormat:@"%@", error.localizedDescription]];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"Ok"];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
     }
 }
 
